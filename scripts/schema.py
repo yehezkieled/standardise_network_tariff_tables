@@ -45,7 +45,9 @@ def charge_type_from_label(label: str, unit: str = "") -> str:
         return "export"
     if any(k in l for k in ("fixed", "standing", "access charge", "service charge", "supply charge", "connection unit", "general service", "common service", "daily charge", "network access", "system access")) or ("/day" in u and not re.search(r"k(w|va)", u)):
         return "fixed"
-    if "capacity" in l or ("kva" in u and "demand" not in l and "capacity" in l):
+    if "real capacity" in l and re.search(r"/kw(?!h)", u):
+        return "demand"
+    if "capacity" in l:
         return "capacity"
     if "demand" in l or re.search(r"/k(w|va)(?!h)", u):
         return "demand"
@@ -56,20 +58,26 @@ def charge_type_from_label(label: str, unit: str = "") -> str:
 
 def time_band_from_label(label: str) -> str:
     l = (label or "").lower()
+    if "critical" in l and "minimum" in l: return "critical_minimum"
+    if "dynamic" in l and "minimum" in l: return "dynamic_minimum"
+    if "dynamic" in l and "maximum" in l: return "dynamic_maximum"
     if "super off" in l: return "super_offpeak"
     if "off-peak" in l or "off peak" in l or "offpeak" in l: return "offpeak"
     if "shoulder" in l: return "shoulder"
-    if "solar soak" in l or "solar sponge" in l or "sun saver" in l or "daytime" in l: return "solar_soak"
+    if "solar soak" in l or "solar sponge" in l or "saver" in l or "daytime" in l: return "solar_soak"
     if "critical" in l: return "critical_peak"
     if "block 1" in l or "1st block" in l or "first block" in l: return "block1"
     if "block 2" in l or "2nd block" in l or "second block" in l: return "block2"
-    if "peak" in l: return "peak"
+    if "peak" in l or "real capacity" in l: return "peak"
+    if "non-tou" in l: return "anytime"
     if "anytime" in l or "any time" in l or "all " in l or "unit rate" in l or l.strip() in ("energy", "usage", "energy charge"): return "anytime"
     return ""
 
 
 def season_from_label(label: str) -> str:
     l = (label or "").lower()
+    if "dec-mar" in l: return "summer"
+    if "apr-nov" in l: return "non_summer"
     if "high season" in l or "highsn" in l or "on-season" in l or "on season" in l or re.search(r"\bhs\b", l): return "high"
     if "low season" in l or "lowsn" in l or "off-season" in l or "off season" in l or re.search(r"\bls\b", l): return "low"
     if "non-summer" in l or "non summer" in l: return "non_summer"

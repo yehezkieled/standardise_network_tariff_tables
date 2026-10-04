@@ -229,6 +229,12 @@ def compatible(a, d):
         return False
     if a["charge_type"] != d["charge_type"]:
         return False
+    if a["charge_type"] == "export":
+        reward_words = ("reward", "rebate", "credit", "feed in", "feed-in")
+        if any(word in a["component"].lower() for word in reward_words) != any(
+            word in d["component"].lower() for word in reward_words
+        ):
+            return False
     for field in ("time_band", "season"):
         av = a.get(field) or (season_from_label(a["component"] + " " + a["unit"]) if field == "season" else "")
         dv = d.get(field) or (season_from_label(d["component"] + " " + d["unit"]) if field == "season" else "")
@@ -428,7 +434,11 @@ def reconcile():
                         if a.get("season") or sa: s += 0.3
                         return s
                     best = max(cands, key=lscore)
-                    if lscore(best) >= 0.55:
+                    unique = len(cands) == 1 and sum(
+                        compatible(other, best) for other in rem_a
+                        if all(other is not pair[0] for pair in matched)
+                    ) == 1
+                    if unique or lscore(best) >= 0.55:
                         matched.append((a, best)); drows_avail.remove(best)
                 for a, d in matched:
                     av, dv = a["value_std_f"], d["value_std_f"]

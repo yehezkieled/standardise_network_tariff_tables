@@ -55,9 +55,12 @@ def nz(v):
 
 def row(dnsp, fy, code, name, cls, comp, unit, val, basis, src, url, note="", side="AER"):
     vs, us = to_std(val, unit, comp)
+    ct = charge_type_from_label(comp, unit)
+    if dnsp == "Ausgrid" and str(code).strip().rstrip("*") == "EA029" and ct == "energy":
+        ct = "export"
     return {
         "side": side, "distributor": dnsp, "fin_year": fy, "tariff_code": str(code).strip(), "tariff_name": (name or "").strip() if isinstance(name, str) else str(name or ""),
-        "customer_class": cls or "", "component": comp.strip(), "charge_type": charge_type_from_label(comp, unit),
+        "customer_class": cls or "", "component": comp.strip(), "charge_type": ct,
         "time_band": time_band_from_label(comp), "season": season_from_label(comp), "unit": unit, "value": val,
         "value_std": vs, "unit_std": us, "gst": "excl", "basis": basis, "source_file": src, "source_url": url, "note": note,
     }

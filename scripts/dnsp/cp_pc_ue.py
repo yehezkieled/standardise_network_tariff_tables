@@ -109,24 +109,9 @@ def norm_label(s: str) -> str:
     return s
 
 
-def band_overrides(label: str) -> tuple[str, str]:
-    """(time_band, season) with distributor-specific vocabulary applied before the generic helpers."""
-    l = label.lower()
-    tb = schema.time_band_from_label(label)
-    season = schema.season_from_label(label)
-    if "saver" in l:
-        tb = "solar_soak"  # CP/PAL/UE 'Saver' window is 10am-3pm / 11am-4pm daytime
-    if "jul-jun" in l or "rolling" in l:
-        season = ""  # 12-month / annual measurement
-    if "dec-mar" in l:
-        season = "summer"  # documents: "summer period covers December to March"
-    if "apr-nov" in l:
-        season = "non_summer"  # documents: "non-summer is April to November"
-    return tb, season
-
-
 def make_row(*, dist, fin_year, code, name, component, unit, value, gst, basis, source_file, url, note) -> dict:
-    tb, season = band_overrides(component)
+    tb = schema.time_band_from_label(component)
+    season = schema.season_from_label(component)
     vstd, ustd = units.to_std(value, unit, component)
     return {
         "side": side_for(source_file),

@@ -299,22 +299,6 @@ def ausgrid_2324_component(raw_header, unit):
     raise ValueError(f"unmapped unit {unit!r} ({raw_header!r})")
 
 
-TIME_BAND_OVERRIDES = {
-    "critical minimum": "critical_minimum",
-    "dynamic (minimum)": "dynamic_minimum",
-    "dynamic (maximum)": "dynamic_maximum",
-    "non-tou": "anytime",
-}
-
-
-def time_band_for(component):
-    l = component.lower()
-    for k, v in TIME_BAND_OVERRIDES.items():
-        if k in l:
-            return v
-    return schema.time_band_from_label(component)
-
-
 # ----------------------------------------------------------------------------------------------------------------------
 # Ausgrid Network Price List (DNSP, 2024-25 .. 2026-27)
 # ----------------------------------------------------------------------------------------------------------------------
@@ -389,7 +373,7 @@ def parse_ausgrid_price_list(dist, fy, side, path, url):
                         if raw.endswith("*") and footnotes.get("*"):
                             note += "; footnote: " + footnotes["*"]
                         rows.append(make_row(dist, fy, side, path, url, code, name, r["class"], comp, col["unit"], raw.replace("\n", "").replace(",", "").rstrip("*").strip(),
-                                             "NUoS", gst, note, time_band=time_band_for(comp)))
+                                             "NUoS", gst, note))
     # validate GST-inclusive pages against exclusive rows (incl = excl * 1.1, 4dp)
     checked = 0
     for r in rows:
@@ -451,7 +435,7 @@ def parse_ausgrid_proposal_2324(dist, fy, side, path, url):
                                 warn(f"{path} p{pno} {r['code']} {comp}: unparsed cell {raw!r}")
                             continue
                         rows.append(make_row(dist, fy, side, path, url, r["code"], name, r["class"], comp, col["unit"], raw.replace("\n", "").replace(",", "").rstrip("*").strip(),
-                                             basis, gst, "; ".join(notes), time_band=time_band_for(comp)))
+                                             basis, gst, "; ".join(notes)))
     if found != {"NUoS", "DUoS", "TUoS", "JSA"}:
         warn(f"{path}: expected 4 tables, found {found}")
     # consistency check: NUOS = DUOS + TUOS + JSA

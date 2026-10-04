@@ -3,16 +3,18 @@ import csv
 import sys
 import tempfile
 import unittest
+from collections import Counter
 from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import openpyxl
 import reconcile
+import parse_aer
 from published import cell_value
 from schema import COLUMNS
 from units import to_std
-from dnsp import essential_evoenergy
+from dnsp import essential_evoenergy, ausgrid_endeavour, cp_pc_ue
 import fetch_sources
 
 
@@ -41,6 +43,85 @@ class ReconciliationRegression(unittest.TestCase):
             with patch.object(reconcile, 'ROOT', str(root)):
                 detail, grid, _ = reconcile.reconcile()
             return detail, next(g for g in grid if g['components_compared']) if any(g['components_compared'] for g in grid) else None
+
+    def test_unique_compatible_labels_match(self):
+        a = row('AER', '52.1300', band='', unit='c/day', charge='fixed', code='N70', distributor='Endeavour Energy')
+        d = row('DNSP', '55.5325', band='', unit='c/day', charge='fixed', code='N70', distributor='Endeavour Energy')
+        a['component'], d['component'] = 'Fixed', 'Daily Access Charge'
+        for aer, dnsp in [(a, d), (dict(a, value='55.5325', value_std=55.5325),
+                                  dict(d, value='52.1300', value_std=52.1300))]:
+            detail, grid = self.compare([aer, dnsp])
+            self.assertEqual(len(detail), 1)
+            self.assertEqual(detail[0]['status'], 'value_differs')
+            self.assertEqual(grid['unexplained'], 1)
+            self.assertEqual(grid['components_compared'], 1)
+
+    def test_swapped_export_directions_remain_discrepancies(self):
+        a = parse_aer.row('Ausgrid', '2025-26', 'EA029', '', '', 'Energy (charge)', 'c/kWh',
+                          '1.2029', 'NUoS', 'aer.xlsx', '')
+        b = parse_aer.row('Ausgrid', '2025-26', 'EA029', '', '', 'Energy (reward)', 'c/kWh',
+                          '-2.3951', 'NUoS', 'aer.xlsx', '')
+        d = ausgrid_endeavour.make_row('Ausgrid', '2025-26', 'DNSP', 'dnsp.pdf', '', 'EA029', '', '',
+                                      'Opt in export charge', 'c/kWh', '-2.3951', 'NUoS', 'excl', '')
+        e = ausgrid_endeavour.make_row('Ausgrid', '2025-26', 'DNSP', 'dnsp.pdf', '', 'EA029', '', '',
+                                      'Opt in export reward', 'c/kWh', '1.2029', 'NUoS', 'excl', '')
+        detail, grid = self.compare([a, b, d, e])
+        self.assertEqual(grid['unexplained'], 2)
+        self.assertEqual({r['status'] for r in detail}, {'value_differs'})
+        self.assertTrue(all(('reward' in r['component']) == ('reward' in r['dnsp_component']) for r in detail))
+
+    def test_ambiguous_labels_are_not_guessed(self):
+        a = row('AER', '1.000', band='', unit='c/day', charge='fixed')
+        b = dict(a, component='def', value='2.000', value_std=2)
+        a['component'] = 'abc'
+        d = row('DNSP', '3.000', band='', unit='c/day', charge='fixed')
+        d['component'] = 'xyz'
+        detail, grid = self.compare([a, b, d])
+        self.assertIsNone(grid)
+        self.assertEqual(Counter(r['status'] for r in detail), {'aer_only_component': 2, 'dnsp_only_component': 1})
+
+    def test_established_component_identities_match(self):
+        cases = [
+            ('Ausgrid', 'EA335', 'Critical minimum energy', 'Network Energy Prices - Critical minimum energy', 'c/kWh', '38.0000'),
+            ('Ausgrid', 'EA335', 'Critical peak energy', 'Network Energy Prices - Critical peak energy', 'c/kWh', '-86.0000'),
+            ('Ausgrid', 'EA974', 'Dynamic minimum energy', 'Network Energy Prices - Dynamic (minimum)', 'c/kWh', '1.0000'),
+            ('Ausgrid', 'EA974', 'Dynamic maximum energy', 'Network Energy Prices - Dynamic (maximum)', 'c/kWh', '2.0000'),
+            ('Ausgrid', 'EA029', 'Energy (charge)', 'Network Energy Prices - Opt in export charge', 'c/kWh', '1.2029'),
+            ('Ausgrid', 'EA029', 'Energy (reward)', 'Network Energy Prices - Opt in export reward', 'c/kWh', '-2.3951'),
+            ('Ausgrid', 'EA302', 'Real Capacity', 'Network Demand Prices - Peak', 'c/kW/day', '40.7528'),
+            ('CitiPower', 'SUMMER', 'Peak capacity Dec-Mar', 'Capacity charge - Peak summer', 'c/kVA/month', '1.0000'),
+            ('Powercor', 'NONSUMMER', 'Peak capacity Apr-Nov', 'Capacity charge - Peak non-summer', 'c/kVA/month', '1.0000'),
+            ('CitiPower', 'CRSTOU', 'Saver energy', 'Usage Charges - Saver', 'c/kWh', '1.0000'),
+            ('CitiPower', 'CRCER', 'Saver Export Sep - May', 'Usage Charges - Saver Export Sep-May', 'c/kWh', '-1.0000'),
+            ('Powercor', 'PRSTOU', 'Saver energy', 'Usage Charges - Saver', 'c/kWh', '1.0000'),
+            ('United Energy', 'URSTOU', 'Saver energy', 'Usage Charges - Saver', 'c/kWh', '1.0000'),
+        ]
+        for dist, code, alabel, dlabel, unit, value in cases:
+            for year in ('2024-25', '2025-26', '2026-27'):
+                with self.subTest(dist=dist, code=code, label=alabel, year=year):
+                    a = parse_aer.row(dist, year, code, '', '', alabel, unit, value, 'NUoS', 'aer.xlsx', '')
+                    if dist == 'Ausgrid':
+                        d = ausgrid_endeavour.make_row(dist, year, 'DNSP', 'dnsp.pdf', '', code, '', '', dlabel, unit, value, 'NUoS', 'excl', '')
+                    else:
+                        d = cp_pc_ue.make_row(dist=dist, fin_year=year, code=code, name='', component=dlabel,
+                                             unit=unit, value=value, gst='excl', basis='NUoS',
+                                             source_file='sources/dnsp/fixture.xlsx', url='', note='')
+                    detail, grid = self.compare([a, d])
+                    self.assertEqual(len(detail), 1)
+                    self.assertEqual(detail[0]['status'], 'equal')
+                    self.assertEqual(grid['components_compared'], 1)
+
+    def test_normalized_bands_still_reject_conflicts(self):
+        for alabel, dlabel in [('Critical minimum energy', 'Critical peak energy'),
+                               ('Dynamic minimum energy', 'Dynamic maximum energy'),
+                               ('Saver energy', 'Peak energy')]:
+            for value in ['1.0000', '2.0000']:
+                a = parse_aer.row('Ausgrid', '2025-26', 'EA974', '', '', alabel, 'c/kWh', '1.0000', 'NUoS', 'aer.xlsx', '')
+                d = ausgrid_endeavour.make_row('Ausgrid', '2025-26', 'DNSP', 'dnsp.pdf', '', 'EA974', '', '', dlabel,
+                                              'c/kWh', value, 'NUoS', 'excl', '')
+                detail, grid = self.compare([a, d])
+                self.assertIsNone(grid)
+                self.assertEqual({r['status'] for r in detail}, {'aer_only_component', 'dnsp_only_component'})
 
     def test_publication_precision_and_ordinary_rounding(self):
         detail, grid = self.compare([row('AER', '0.500'), row('DNSP', '0.540')])

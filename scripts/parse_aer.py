@@ -13,6 +13,7 @@ import openpyxl
 sys.path.insert(0, os.path.dirname(__file__))
 from schema import COLUMNS, charge_type_from_label, time_band_from_label, season_from_label
 from units import to_std
+from published import cell_value
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -98,7 +99,7 @@ def parse_consolidated(fy, path, url):
                 if isinstance(v, (int, float)) and v != 0:
                     any_val = True
                     note = f"aer_id={aer_id}" if aer_id else ""
-                    out.append(row(dnsp, fy, code, name, "", lab, unit, v, "NUoS", path, url, note))
+                    out.append(row(dnsp, fy, code, name, "", lab, unit, cell_value(ws.cell(rr, c)), "NUoS", path, url, note))
             if not any_val and nz(code):
                 out.append(row(dnsp, fy, code, name, "", "(no non-zero components)", "", 0, "NUoS", path, url, "zero-priced row" + (f"; aer_id={aer_id}" if aer_id else "")))
     return out
@@ -143,7 +144,7 @@ def parse_stakeholder_2024_25(dnsp, fname, url):
                 v = ws.cell(rr, c).value
                 if isinstance(v, (int, float)) and v != 0:
                     any_val = True
-                    out.append(row(dnsp, "2024-25", code, name, cls, lab, unit, v, basis, path, url, note))
+                    out.append(row(dnsp, "2024-25", code, name, cls, lab, unit, cell_value(ws.cell(rr, c)), basis, path, url, note))
             if not any_val and basis == "NUoS":
                 out.append(row(dnsp, "2024-25", code, name, cls, "(no non-zero components)", "", 0, basis, path, url, ("zero-priced row; " + note).strip("; ")))
     return out

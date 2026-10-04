@@ -19,6 +19,7 @@ sys.path.insert(0, "scripts")
 import schema  # noqa: E402
 import units  # noqa: E402
 
+from published import cell_value
 import openpyxl  # noqa: E402
 import pdfplumber  # noqa: E402
 
@@ -48,12 +49,6 @@ def num_text(s):
     if not NUM_RE.match(s):
         return None
     return s.replace(",", "")
-
-
-def fmt_float(v):
-    """Excel float -> compact string without binary noise (round to 10 dp)."""
-    s = f"{round(float(v), 10):.10f}".rstrip("0").rstrip(".")
-    return s if s not in ("", "-0") else "0"
 
 
 def squash(s):
@@ -139,7 +134,7 @@ def parse_xlsx(path, fin_year, side, url):
     wb = openpyxl.load_workbook(path, data_only=True, read_only=True)
     sheet = f"Network tariffs {fin_year}"
     ws = wb[sheet]
-    grid = [[c for c in row] for row in ws.iter_rows(min_row=1, max_row=ws.max_row, max_col=30, values_only=True)]
+    grid = [[cell_value(c) if isinstance(c.value, (int, float)) else c.value for c in row] for row in ws.iter_rows(min_row=1, max_row=ws.max_row, max_col=30)]
     title = next((squash(str(c)) for row in grid[:3] for c in row if c and "prices for" in str(c).lower()), "")
     em = Emitter(fin_year, side, path, url, "excl",
                  f"sheet '{sheet}' ({title}); GST not stated in workbook, assumed excl")
@@ -195,7 +190,8 @@ def parse_xlsx(path, fin_year, side, url):
                 if v is None or str(v).strip() == "":
                     continue
                 try:
-                    val = fmt_float(v)
+                    val = str(v)
+                    float(val)
                 except ValueError:
                     continue
                 n = list(notes)
@@ -208,10 +204,11 @@ def parse_xlsx(path, fin_year, side, url):
     loc = f"Locational TUoS {fin_year}"
     if loc in wb.sheetnames:
         pairs = []
-        for row in wb[loc].iter_rows(min_row=1, max_col=6, values_only=True):
-            vals = [c for c in row if c is not None and str(c).strip()]
+        for row in wb[loc].iter_rows(min_row=1, max_col=6):
+            cells = [c for c in row if c.value is not None and str(c.value).strip()]
+            vals = [c.value for c in cells]
             if len(vals) >= 3 and re.match(r"^T[A-Z]{2}\d$", str(vals[1]).strip()) and isinstance(vals[2], (int, float)):
-                pairs.append((squash(str(vals[0])), str(vals[1]).strip(), fmt_float(vals[2])))
+                pairs.append((squash(str(vals[0])), str(vals[1]).strip(), cell_value(cells[2])))
         add_locational(em, pairs, f"sheet '{loc}' (applies to TAS15, footnote (2) 'Additional locational TUOS demand charges apply')")
     return em.rows
 

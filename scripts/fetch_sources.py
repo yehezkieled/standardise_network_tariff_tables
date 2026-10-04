@@ -7,7 +7,6 @@ other document is re-downloaded from its recorded URL by this script and verifie
 
   .venv/bin/python scripts/fetch_sources.py            # download whatever is missing, verify, summarise
   .venv/bin/python scripts/fetch_sources.py --check    # only report what is missing or differs; download nothing
-  .venv/bin/python scripts/fetch_sources.py --hash     # (maintenance) fill the sha256 column from the local files
 
 A file whose checksum differs from the inventory is kept but reported: the publisher replaced the document in
 place, which is exactly the situation the inventory exists to make visible.
@@ -52,22 +51,11 @@ def download(url, dest, attempts=3):
 
 
 def main(argv):
+    if any(arg != "--check" for arg in argv):
+        raise SystemExit("usage: fetch_sources.py [--check]")
     with open(INV, newline="") as f:
         reader = csv.DictReader(f)
         rows = list(reader)
-        fields = reader.fieldnames
-    if "--hash" in argv:
-        if "sha256" not in fields:
-            fields = fields + ["sha256"]
-        for r in rows:
-            p = r.get("local_path")
-            r["sha256"] = sha256(os.path.join(ROOT, p)) if p and os.path.exists(os.path.join(ROOT, p)) else ""
-        with open(INV, "w", newline="") as f:
-            w = csv.DictWriter(f, fieldnames=fields)
-            w.writeheader()
-            w.writerows(rows)
-        print("sha256 recorded for", sum(1 for r in rows if r["sha256"]), "files")
-        return 0
     check = "--check" in argv
     missing, fetched, failed, differs, ok = [], [], [], [], 0
     for r in rows:

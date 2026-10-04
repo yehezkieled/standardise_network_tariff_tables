@@ -71,7 +71,7 @@ def to_std(value, unit: str, label: str = ""):
     if quantity == "kWh":
         return v, "c/kWh"
     if quantity == "kVAh":
-        return v, "c/kVAh"  # apparent-energy export charges (Evoenergy); compared in the energy family
+        return v, "c/kVAh"
     if quantity == "MWh":
         return v / 1000.0, "c/kWh"
     if quantity in ("kW", "kVA"):

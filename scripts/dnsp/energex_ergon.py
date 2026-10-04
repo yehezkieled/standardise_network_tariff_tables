@@ -33,6 +33,7 @@ import warnings
 sys.path.insert(0, "scripts")
 import openpyxl  # noqa: E402
 
+from published import cell_value
 import schema  # noqa: E402
 import units  # noqa: E402
 
@@ -166,7 +167,8 @@ def tid(r) -> tuple:
 
 def parse_sheet(ws) -> Sheet:
     out = Sheet()
-    rows = [list(r) for r in ws.iter_rows(values_only=True)]
+    cell_rows = list(ws.iter_rows())
+    rows = [[c.value for c in r] for r in cell_rows]
 
     # Title rows: GST statement, year, class subtitle
     titles = [clean(v) for r in rows[:4] for v in r if isinstance(v, str) and v.strip()]
@@ -278,7 +280,7 @@ def parse_sheet(ws) -> Sheet:
             elif basis is not None:
                 out.records.append({
                     "basis": basis, "code": code, "name": cur_name, "zone": cur_zone, "cls": cls,
-                    "comp": comp, "unit": unit_of.get(i, ""), "value": num, "row": ri,
+                    "comp": comp, "unit": unit_of.get(i, ""), "value": num, "published": cell_value(cell_rows[ri - 1][i]), "row": ri,
                 })
     return out
 
@@ -329,7 +331,7 @@ def rows_for_sheet(sheet: Sheet, sheet_name, distributor, fin_year, side, source
         label = label_for[comp_key(r["comp"])]
         unit = r["unit"]
         cls_unit = unit_for.get(ck(r)) or unit
-        value_std, unit_std = units.to_std(r["value"], unit, label)
+        value_std, unit_std = units.to_std(r["published"], unit, label)
         notes = [f"sheet '{sheet_name}' {r['basis']} block row {r['row']}"]
         if r["zone"]:
             notes.append(f"zone: {r['zone']}")
@@ -359,8 +361,8 @@ def rows_for_sheet(sheet: Sheet, sheet_name, distributor, fin_year, side, source
             "time_band": time_band(label),
             "season": schema.season_from_label(label),
             "unit": unit,
-            "value": fmt(r["value"]),
-            "value_std": "" if value_std is None else fmt(value_std),
+            "value": r["published"],
+            "value_std": "" if value_std is None else str(value_std),
             "unit_std": unit_std,
             "gst": gst,
             "basis": r["basis"],

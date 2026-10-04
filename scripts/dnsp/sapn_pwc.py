@@ -220,7 +220,8 @@ def money_values(words):
         if cur and cur[1]:
             txt = cur[1].replace(",", "")
             try:
-                v = float(txt) * cur[0]
+                float(txt)
+                v = ("-" if cur[0] < 0 else "") + txt
             except ValueError:
                 v = None
             vals.append((v, cur[2], cur[3]))
@@ -275,7 +276,7 @@ def make_row(distributor, fin_year, side, code, name, cls, component, unit, valu
         "season": season if season is not None else schema.season_from_label(component),
         "unit": unit,
         "value": repr(float(value)) if isinstance(value, float) else str(value),
-        "value_std": "" if vstd is None else repr(round(vstd, 10)),
+        "value_std": "" if vstd is None else repr(vstd),
         "unit_std": ustd,
         "gst": gst,
         "basis": basis,
@@ -874,7 +875,7 @@ def parse_pwc_7col(path, fin_year, side, url, extra):
                 for (label, unit, _), tok in zip(PWC7_COLS, vals):
                     if tok == "-":
                         continue
-                    v = float(tok.replace(",", ""))
+                    v = tok.replace(",", "")
                     unit_pub = unit if units_printed else unit
                     note = [f"'{title}' p{pno}", extra.get("doc_note", ""), PWC_BASIS_NOTE, extra.get("gst_note", "")]
                     if not units_printed and label != "SAC":
@@ -922,7 +923,7 @@ def parse_pwc_indicative(path, fin_year, side, url, extra):
             m = PWC_COMP_RE.match(t)
             if m and cur is not None and year_idx is not None:
                 nums = m.group("nums").split()
-                comp = {"label": m.group("label").strip(), "unit": m.group("unit"), "value": float(nums[year_idx]), "page": pno}
+                comp = {"label": m.group("label").strip(), "unit": m.group("unit"), "value": nums[year_idx], "page": pno}
                 cur["comps"].append(comp)
                 rows.append((cur, comp))
                 last = ("comp", comp)

@@ -32,6 +32,7 @@ import openpyxl
 import pdfplumber
 
 sys.path.insert(0, "scripts")
+from published import cell_value
 import schema  # noqa: E402
 import units  # noqa: E402
 
@@ -97,11 +98,6 @@ def side_for(path: str) -> str:
     return "DNSP" if path.startswith("sources/dnsp/") else "AER_HOSTED"
 
 
-def fmt_num(v: float) -> str:
-    s = f"{v:.6f}".rstrip("0").rstrip(".")
-    return s if s not in ("", "-0") else "0"
-
-
 def norm_unit(u: str) -> str:
     """'$/kW/ month' (line-wrapped cell) -> '$/kW/month'."""
     return re.sub(r"\s*/\s*", "/", norm_label(u))
@@ -144,8 +140,8 @@ def make_row(*, dist, fin_year, code, name, component, unit, value, gst, basis, 
         "time_band": tb,
         "season": season,
         "unit": unit,
-        "value": fmt_num(value),
-        "value_std": fmt_num(vstd) if vstd is not None else "",
+        "value": str(value),
+        "value_std": str(vstd) if vstd is not None else "",
         "unit_std": ustd,
         "gst": gst,
         "basis": basis,
@@ -191,7 +187,7 @@ def parse_summary_xlsx(path: str, dist: str, fin_year: str, url: str, version_no
     rows_out: list[dict] = []
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
     for ws in wb.worksheets:
-        rows = [list(r) for r in ws.iter_rows(values_only=True)]
+        rows = [[cell_value(c) if c.data_type == "n" else c.value for c in r] for r in ws.iter_rows()]
         title = " ".join(str(c) for c in rows[0] if c) if rows else ""
         sheet_fy = fin_year_in(ws.title) or fin_year_in(title)
         if re.search(r"_IND_|INDICATIVE", ws.title.upper()) or "indicative" in title.lower():
@@ -277,13 +273,12 @@ def parse_summary_sheet(sheet, rows, dist, fin_year, path, url, version_note, lo
                 s = v.strip().replace(",", "")
                 if not NUM_RE.match(s):
                     continue
-                v = float(s.strip("()")) * (-1 if s.startswith("(") else 1)
-            v = float(v)
-            if v == 0:
+                v = ("-" if s.startswith("(") else "") + s.strip("()")
+            if float(v) == 0:
                 continue  # 0 in these matrices means 'component not applicable'
             note = "; ".join(x for x in base_note + [c["note"]] if x)
             out.append(make_row(dist=dist, fin_year=fin_year, code=code, name=name, component=c["component"],
-                                unit=c["unit"], value=round(v, 6), gst=gst, basis=basis, source_file=path,
+                                unit=c["unit"], value=v, gst=gst, basis=basis, source_file=path,
                                 url=url, note=note))
             emitted += 1
         if emitted:
@@ -540,9 +535,7 @@ def parse_pdf_table(lines, title_idx: int, vlines=()):
                 continue
             if not NUM_RE.match(s):
                 raise ValueError(f"unparseable cell {s!r} for code {line_text(code)!r}")
-            v = float(s.strip("()"))
-            if s.startswith("("):
-                v = -v
+            v = ("-" if s.startswith("(") else "") + s.strip("()")
             values[c] = v
         ex = []
         for w in extras:
@@ -587,7 +580,7 @@ def parse_pricing_pdf(path: str, dist: str, fin_year: str, url: str, version_not
                         note_parts.append(extras)
                     note_parts.append("GST not stated for this table; assumed excl (document marks its other price tables GST exclusive)")
                     for ci, v in d["values"].items():
-                        if v == 0:
+                        if float(v) == 0:
                             continue
                         c = cols[ci]
                         out.append(make_row(dist=dist, fin_year=fin_year, code=d["code"], name=d["name"], component=c["component"],

@@ -1,7 +1,7 @@
 """Assemble the final report: notes/report_head.md with placeholders filled from notes/report_sections/*.md,
-the generated tables (out/report_tables.md) and the final grid print. Writes out/report.md (the Lavish page
-out/report.html is rendered from it by scripts/build_board.py)."""
-import os, sys, json, subprocess
+the generated tables (out/report_tables.md) and the final grid print. Writes out/report.md and the Lavish-compatible out/report.html page."""
+import os, json
+import markdown
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 head = open(os.path.join(ROOT, "notes/report_head.md")).read()
 summary = json.load(open(os.path.join(ROOT, "out/recon_summary.json")))
@@ -22,10 +22,12 @@ for key in ("SUMMARY", "EXPLAINED", "GENUINE", "FORMAT", "UNSURE", "RECS"):
     if key == "SUMMARY":
         txt = txt.format(**nums)
     head = head.replace("__" + key + "__", txt)
-grid = subprocess.run([sys.executable, os.path.join(ROOT, "scripts/reconcile.py")], capture_output=True, text=True).stdout
-head = head.replace("__GRIDPRINT__", grid.strip())
+head = head.replace("__GRIDPRINT__", "See the generated per-distributor tables in section 8.")
 tables = open(os.path.join(ROOT, "out/report_tables.md")).read()
 report = head + "\n\n## 8. Detail per distributor and year, and source inventory\n\n" + tables
 out = os.path.join(ROOT, "out/report.md")
 open(out, "w").write(report)
 print("wrote", out, len(report), "chars")
+
+page = '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AER tariff reconciliation</title><style>body{font:16px system-ui;line-height:1.6;margin:2rem auto;padding:0 1rem;max-width:90rem;color:#172033}table{display:block;overflow:auto;border-collapse:collapse;max-width:100%}td,th{padding:.5rem;border:1px solid #d8dee8;text-align:left}pre{white-space:pre-wrap}a,code{overflow-wrap:anywhere}h1,h2,h3{line-height:1.2}</style><body>' + markdown.markdown(report, extensions=["tables", "fenced_code"]) + '</body></html>'
+open(os.path.join(ROOT, "out/report.html"), "w").write(page)

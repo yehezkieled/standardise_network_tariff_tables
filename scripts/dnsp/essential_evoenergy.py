@@ -25,6 +25,7 @@ import openpyxl
 import pdfplumber
 
 sys.path.insert(0, "scripts")
+from published import cell_value
 import schema  # noqa: E402
 import units  # noqa: E402
 
@@ -138,7 +139,7 @@ def season(label):
 def make_row(distributor, fin_year, side, path, url, code, name, cls, component, unit, value,
              gst, basis, note):
     unit_pub = clean(unit)
-    value = round(float(value), 6)  # spreadsheet cells hold formula floats such as 16.183999999999997 (displayed 16.184)
+    value = re.sub(r"^-\s+(?=\d)", "-", str(value).replace(",", "").strip())
     if re.search(r"kvah", unit_pub, re.I):
         v_std, u_std = (float(value) * (100.0 if unit_pub.strip().startswith("$") else 1.0)), "c/kVAh"
     elif re.search(r"kka", unit_pub, re.I):  # Evoenergy 2023-24 typo 'c/KkA/day' (tariff 124)
@@ -158,8 +159,8 @@ def make_row(distributor, fin_year, side, path, url, code, name, cls, component,
         "time_band": time_band(component),
         "season": season(component),
         "unit": unit_pub,
-        "value": f"{value:g}" if abs(value) < 1e15 else repr(value),
-        "value_std": "" if v_std is None else repr(round(v_std, 6)),
+        "value": value,
+        "value_std": "" if v_std is None else repr(v_std),
         "unit_std": u_std,
         "gst": gst,
         "basis": basis,
@@ -265,7 +266,8 @@ def parse_essential_xlsx(path, fin_year, side, url):
         table_note = ""
         code_col = desc_col = same_rate_col = tp_col = app_col = None
         footnotes = {}
-        for raw in ws.iter_rows(values_only=True):
+        for cell_row in ws.iter_rows():
+            raw = [c.value for c in cell_row]
             cells = {j: v for j, v in enumerate(raw, 1) if v is not None and str(v).strip() != ""}
             if not cells:
                 continue
@@ -369,7 +371,7 @@ def parse_essential_xlsx(path, fin_year, side, url):
                     comp_note.append("period not stated in unit as published (PDF price list shows $/kW/M)")
                 for code, cnote in emit_codes:
                     rows_out.append(make_row("Essential Energy", fin_year, side, path, url, code, name, section,
-                                             label, unit, val, gst, basis,
+                                             label, unit, cell_value(cell_row[c - 1]), gst, basis,
                                              "; ".join(n for n in notes + comp_note + ([cnote] if cnote else []) if n)))
     return rows_out
 
@@ -552,7 +554,7 @@ def parse_essential_pdf(path, fin_year, side, url):
                     if "*" in label and "*" in foot:
                         cnote.append(foot["*"])
                     rows_out.append(make_row("Essential Energy", fin_year, side, path, url, code, name, cls,
-                                             label.replace("*", "").strip(), unit, val, gst, "NUoS",
+                                             label.replace("*", "").strip(), unit, str(raw).replace("^", "").replace("*", "").replace(",", "").strip(), gst, "NUoS",
                                              "; ".join(notes + cnote)))
     return rows_out
 
@@ -693,7 +695,7 @@ def parse_evo_statement(path, fin_year, side, url):
                 basis, note = "NUoS", "LFiT included: NUOS price column as published = DUOS + TUOS + JS + metering capital + metering non-capital (LFiT rebate applied via the JS price; metering (ACS) included where published; the excl-metering NUOS is in the 'NUOS 2023/24 column' rows from Table 2-7)"
             else:
                 continue  # metering capital / non-capital columns (alternative control) not emitted
-            rows_out.append(make_row("Evoenergy", fin_year, side, path, url, r["code"], name, cls, r["label"], r["unit"], v,
+            rows_out.append(make_row("Evoenergy", fin_year, side, path, url, r["code"], name, cls, r["label"], r["unit"], val,
                                      "excl", basis, "; ".join([note] + notes_common)))
     base27 = "Table 2.7 2022/23 and 2023/24 NUOS tariffs, excluding metering (nominal)"
     for r in recs27:
@@ -703,7 +705,7 @@ def parse_evo_statement(path, fin_year, side, url):
             v = to_num(val)
             if v is None:
                 continue
-            rows_out.append(make_row("Evoenergy", fin_year, side, path, url, r["code"], r["name"], r["section"] or "", r["label"], r["unit"], v,
+            rows_out.append(make_row("Evoenergy", fin_year, side, path, url, r["code"], r["name"], r["section"] or "", r["label"], r["unit"], val,
                                      "excl", "NUoS", "; ".join(["LFiT included: NUOS 2023/24 column (excludes metering; LFiT rebate applied via the JS price)", base27, f"page {r['page']}"])))
     return rows_out
 
@@ -718,11 +720,7 @@ def parse_evo_proposal(path, fin_year, side, url, reference_rows):
     Statement of Tariff Classes (same code, same ordinal component) and Table 4.3 (pages 46-50) is
     used as a second cross-check of the NUOS column."""
     rows_out = []
-    try:
-        from rapidocr_onnxruntime import RapidOCR
-    except ImportError:
-        print("WARN: rapidocr_onnxruntime not installed; proposal Table 4.2 (image-only) not parsed", file=sys.stderr)
-        return rows_out
+    from rapidocr_onnxruntime import RapidOCR
     from difflib import SequenceMatcher
     from itertools import combinations
     ocr = RapidOCR()
@@ -907,7 +905,9 @@ def parse_evo_proposal(path, fin_year, side, url, reference_rows):
                              ("JSA", "JS prices", "JS prices column (jurisdictional schemes excluding LFiT)"),
                              ("NUoS", "NUOS prices", "NUOS prices column = DUOS + TUOS + JS; excludes metering")):
             rows_out.append(make_row("Evoenergy", fin_year, side, path, url, r["code"], r["name"], r["section"] or "", label, r["unit"],
-                                     r["nums"][key], "excl", b, "; ".join(notes + [note])))
+                                     f'{r["nums"][key]:.3f}', "excl", b, "; ".join(notes + [note])))
+    if not rows_out:
+        raise RuntimeError("Evoenergy proposal OCR produced no validated price rows")
     return rows_out
 
 
@@ -970,7 +970,7 @@ def parse_evo_pdf(path, fin_year, side, url, lfit_note):
                     for w in nums:
                         col = min(("rate", "meter", "total"), key=lambda k: abs(hdr[k] - w["x1"]))
                         if col == "rate":
-                            rate = float(w["text"])
+                            rate = w["text"]
                     if rate is None:
                         continue
                     notes = [lfit_note + (f" (uniform adder of {adder} c/kWh applied to c/kWh consumption charges per document)" if adder else ""),
@@ -1042,7 +1042,8 @@ def parse_evo_xlsx(path, fin_year, side, url, lfit_note):
     closed = False
     tariff_note = ""
     hdr = None
-    for raw in ws.iter_rows(values_only=True):
+    for cell_row in ws.iter_rows():
+        raw = [c.value for c in cell_row]
         cells = {j: v for j, v in enumerate(raw, 1) if v is not None and str(v).strip() != ""}
         if not cells:
             continue
@@ -1094,7 +1095,7 @@ def parse_evo_xlsx(path, fin_year, side, url, lfit_note):
             notes.append(tariff_note)
         if app:
             notes.append("applicability: " + app.replace("\n", " "))
-        rows_out.append(make_row("Evoenergy", fin_year, side, path, url, code, name, section, comp, unit, rate, gst, "NUoS", "; ".join(notes)))
+        rows_out.append(make_row("Evoenergy", fin_year, side, path, url, code, name, section, comp, unit, cell_value(cell_row[rate_col - 1]), gst, "NUoS", "; ".join(notes)))
     names_per_code = {}
     for r in rows_out:
         names_per_code.setdefault(r["tariff_code"], set()).add(r["tariff_name"])
@@ -1114,6 +1115,8 @@ def main():
         if not url:
             print(f"WARN: no inventory url for {path}", file=sys.stderr)
         if not os.path.exists(path):
+            if kind == "evo_proposal":
+                raise FileNotFoundError(path)
             print(f"WARN: missing file {path}", file=sys.stderr)
             continue
         if kind == "ess_xlsx":

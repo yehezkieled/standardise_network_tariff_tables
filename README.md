@@ -21,7 +21,7 @@ and financial years 2023-24 to 2026-27.
 
 `out/` (not committed) then also holds `discrepancies.xlsx` (full comparison, summary grid, format timeline and
 source inventory as sheets), `recon_detail.csv` (every compared pair), `match_grid.csv`, `format_timeline.csv`,
-`recon_summary.json`, `aer_long.csv` (AER side, normalised) and `dnsp/*.csv` (distributor side, normalised).
+`recon_summary.json`, `aer_long.csv` (AER side, normalised) and `dnsp/*.csv` (distributor side, normalised), plus `report.html` for visual review.
 
 ## Source documents
 

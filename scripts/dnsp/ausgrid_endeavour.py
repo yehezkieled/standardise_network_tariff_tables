@@ -9,6 +9,7 @@ Files parsed (see sources/inventory.csv for URLs):
 
 Run from the repo root:  .venv/bin/python scripts/dnsp/ausgrid_endeavour.py [--debug]
 """
+from decimal import Decimal
 import csv
 import os
 import re
@@ -63,7 +64,7 @@ def num(s):
     t = str(s).strip().replace("\n", "").replace(",", "").rstrip("*").strip()
     if not t or not re.match(r"^-?\d+(\.\d+)?$", t):
         return None
-    return float(t)
+    return Decimal(t)
 
 
 def norm_unit(u):
@@ -387,7 +388,7 @@ def parse_ausgrid_price_list(dist, fy, side, path, url):
                             note += "; TUOS demand component of the NUOS storage tariff"
                         if raw.endswith("*") and footnotes.get("*"):
                             note += "; footnote: " + footnotes["*"]
-                        rows.append(make_row(dist, fy, side, path, url, code, name, r["class"], comp, col["unit"], v,
+                        rows.append(make_row(dist, fy, side, path, url, code, name, r["class"], comp, col["unit"], raw.replace("\n", "").replace(",", "").rstrip("*").strip(),
                                              "NUoS", gst, note, time_band=time_band_for(comp)))
     # validate GST-inclusive pages against exclusive rows (incl = excl * 1.1, 4dp)
     checked = 0
@@ -396,7 +397,7 @@ def parse_ausgrid_price_list(dist, fy, side, path, url):
         if key in incl:
             checked += 1
             ex = float(r["value"])
-            if abs(incl[key] - round(ex * 1.1, 4)) > 0.00051:
+            if abs(float(incl[key]) - round(ex * 1.1, 4)) > 0.00051:
                 warn(f"{path}: GST check {key}: excl {ex} *1.1 != incl {incl[key]}")
     if DEBUG:
         print(f"  {path}: {len(rows)} rows, {checked} incl-GST cross-checks")
@@ -449,7 +450,7 @@ def parse_ausgrid_proposal_2324(dist, fy, side, path, url):
                             if raw:
                                 warn(f"{path} p{pno} {r['code']} {comp}: unparsed cell {raw!r}")
                             continue
-                        rows.append(make_row(dist, fy, side, path, url, r["code"], name, r["class"], comp, col["unit"], v,
+                        rows.append(make_row(dist, fy, side, path, url, r["code"], name, r["class"], comp, col["unit"], raw.replace("\n", "").replace(",", "").rstrip("*").strip(),
                                              basis, gst, "; ".join(notes), time_band=time_band_for(comp)))
     if found != {"NUoS", "DUoS", "TUoS", "JSA"}:
         warn(f"{path}: expected 4 tables, found {found}")
@@ -617,7 +618,7 @@ def parse_endeavour_price_list(dist, fy, side, path, url):
                                  + "\"; no metering/network split published")
                     rows.append(make_row(dist, fy, side, path, url, code, name, "", lab, u, v, "NUoS", gst, note))
     for key, v in incl.items():
-        if key in excl_vals and abs(v - round(excl_vals[key] * 1.1, 4)) > 0.00051:
+        if key in excl_vals and abs(v - round(excl_vals[key] * Decimal("1.1"), 4)) > 0.00051:
             warn(f"{path}: GST check {key}: excl {excl_vals[key]} *1.1 != incl {v}")
     for code, acc, en in table2:
         k1 = (code, "Daily Access Charge")

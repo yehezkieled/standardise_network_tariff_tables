@@ -81,8 +81,7 @@ def fmt_num(v):
         s = v.replace(",", "").replace("$", "").strip()
         float(s)  # validate
         return s
-    s = ("%.10f" % float(v)).rstrip("0").rstrip(".")
-    return s if s not in ("", "-0") else "0"
+    return str(v)
 
 
 def basis_from_title(text):
@@ -654,7 +653,7 @@ def parse_ausnet_xlsx(path, fin_year, inv):
                     extra = f"cell stores unrounded {v!r}, displayed as {shown:.{dec}f}"
                 clean_label = label.rstrip("^*").strip()
                 lab_note = f"header published as '{label}'" if clean_label != label else ""
-                comps.append((clean_label, unit, shown, "; ".join(x for x in (lab_note, extra) if x)))
+                comps.append((clean_label, unit, f"{shown:.{dec}f}" if dec is not None else str(shown), "; ".join(x for x in (lab_note, extra) if x)))
             if text_cells:
                 gaps.append(f"sheet '{ws.title}' {code}: non-numeric price cells {text_cells}")
                 note_bits.append("non-numeric cells: " + ", ".join(text_cells) + (" (site-specific)" if any("site" in t.lower() for t in text_cells) else ""))

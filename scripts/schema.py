@@ -49,7 +49,7 @@ def charge_type_from_label(label: str, unit: str = "") -> str:
         return "capacity"
     if "demand" in l or re.search(r"/k(w|va)(?!h)", u):
         return "demand"
-    if "kwh" in u or any(k in l for k in ("energy", "usage", "volume", "unit rate", "consumption", "block", "anytime", "peak", "shoulder")):
+    if "kwh" in u or "kvah" in u or any(k in l for k in ("energy", "usage", "volume", "unit rate", "consumption", "block", "anytime", "peak", "shoulder")):
         return "energy"
     return "other"
 

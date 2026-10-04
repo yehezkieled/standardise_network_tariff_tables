@@ -22,6 +22,8 @@ from collections import defaultdict, Counter
 from difflib import SequenceMatcher
 sys.path.insert(0, os.path.dirname(__file__))
 from schema import COLUMNS, season_from_label
+from units import to_std
+from decimal import Decimal
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 YEARS = ["2023-24", "2024-25", "2025-26", "2026-27"]
@@ -35,20 +37,12 @@ def fnum(x):
     except (TypeError, ValueError):
         return None
 
-def clean_num(s):
-    """strip binary float noise from parser output ("3.0220000000000002" -> "3.022") so published precision is kept."""
-    v = fnum(s)
-    if v is None:
-        return s
-    t = f"{round(v, 10):.10f}".rstrip("0").rstrip(".")
-    return t if t not in ("", "-0") else "0"
-
 def code_key(c):
     c = (c or "").strip().upper()
     c = re.sub(r"\s+", "", c)
     return c
 
-def code_alts(c, note=""):
+def code_alts(c, note="", distributor=""):
     """alternative keys for a published code: split on '/' or ',' (AER joint codes "A100/F100", "010, 011*"), drop trailing '*', drop '-SA' suffix,
     add/strip Ergon transmission-region suffix (T1..T4; AER 2024-25 keeps it in 'other identifier')."""
     base = code_key(c)
@@ -58,6 +52,8 @@ def code_alts(c, note=""):
         alts.add(part)
         alts.add(part.rstrip("*"))
         alts.add(re.sub(r"-SA$", "", part))
+        if distributor != "Ergon Energy":
+            continue
         alts.add(re.sub(r"T[1-4]$", "", part))
         m = re.search(r"/\s*T([1-4])\b", note or "") or re.search(r"\u2016(?:.*\u2016)?T([1-4])$", code_key(c))
         if m and not re.search(r"T[1-4]$", part):
@@ -70,7 +66,8 @@ def digits(s):
 
 def unit_family(u):
     u = u or ""
-    if u.startswith("c/kWh") or u.startswith("c/kVAh"): return "energy"
+    if u.startswith("c/kWh"): return "energy"
+    if u.startswith("c/kVAh"): return "apparent_energy"
     if u.startswith("c/day"): return "fixed"
     if u.startswith("c/kW/"): return "demand_kW"
     if u.startswith("c/kVA/"): return "demand_kVA"
@@ -82,10 +79,12 @@ def unit_period(u):
     return m.group(1) if m else ""
 
 def decimals_of(s):
-    s = str(s or "").strip()
-    if "e" in s.lower():
-        return 6
-    return len(s.split(".")[1]) if "." in s else 0
+    return max(0, -Decimal(str(s)).as_tuple().exponent)
+
+
+def rounding_tolerance(row):
+    factor, _ = to_std(1, row["unit"], row["component"])
+    return 0.5 * 10 ** (-decimals_of(row["value"])) * abs(factor) + 1e-9
 
 def sim(a, b):
     return SequenceMatcher(None, (a or "").lower(), (b or "").lower()).ratio()
@@ -98,7 +97,6 @@ def load_rows():
         with open(p) as f:
             rows += list(csv.DictReader(f))
     for r in rows:
-        r["value"] = clean_num(r.get("value"))
         r["value_f"] = fnum(r.get("value"))
         r["value_std_f"] = fnum(r.get("value_std"))
     return rows
@@ -152,6 +150,8 @@ def keyed(rows):
         by[code_key(r["tariff_code"])].append(r)
     out = {}
     def region(r):
+        if r["distributor"] != "Ergon Energy":
+            return ""
         m = re.search(r"/\s*(T[1-4])\b", r.get("note", "") or "")
         return m.group(1) if m else ""
     for k, rs in by.items():
@@ -207,35 +207,39 @@ def classify_diff(a, d, aer_val, dnsp_val, ctx):
         return "equal", ""
     # rounding: DNSP value published with N decimals in its own unit; convert tolerance to std units
     dec = decimals_of(d.get("value"))
-    factor = abs(d["value_std_f"] / d["value_f"]) if d["value_f"] not in (None, 0) else 1.0
-    tol = 0.5 * 10 ** (-dec) * factor + 1e-9
+    tol = rounding_tolerance(d)
     if abs(diff) <= tol:
         return "rounding", f"within half-unit of DNSP's {dec}dp publication"
     # AER value may itself be rounded coarser than the DNSP's
     deca = decimals_of(a.get("value"))
-    factora = abs(a["value_std_f"] / a["value_f"]) if a["value_f"] not in (None, 0) else 1.0
-    if abs(diff) <= 0.5 * 10 ** (-deca) * factora + 1e-9:
+    if abs(diff) <= rounding_tolerance(a):
         return "rounding", f"within half-unit of AER's {deca}dp publication"
+    hypotheses = []
     if metering_in_fixed(d) and unit_family(d["unit_std"]) == "fixed":
-        return "metering_in_fixed", "distributor's NUoS fixed charge embeds the legacy metering charge (stated in its document); AER file lists metering separately"
+        hypotheses.append("[UNSURE] embedded metering may contribute; component adjustment not substantiated")
     if lfit_included(d):
-        return "jurisdictional_scheme", "distributor schedule includes the ACT LFiT scheme amount; AER file excludes it"
-    if aer_val != 0:
-        ratio = dnsp_val / aer_val
-        for target, name in ((1.1, "gst (DNSP incl GST)"), (1 / 1.1, "gst (AER incl GST)")):
-            if abs(ratio / target - 1) < 0.002:
-                return "gst", name
-        for target, name in ((100, "DNSP in cents treated as $ or vice versa"), (0.01, "scale x0.01")):
-            if abs(ratio / target - 1) < 0.002:
-                return "unit_scale", name
-        for target, name in ((365, "per-year vs per-day"), (1 / 365, "per-day vs per-year"), (12, "per-year vs per-month"),
-                             (1 / 12, "per-month vs per-year"), (365 / 12, "per-month vs per-day"), (12 / 365, "per-day vs per-month"),
-                             (1000, "MWh vs kWh"), (0.001, "kWh vs MWh")):
-            if abs(ratio / target - 1) < 0.002:
-                return "unit_period", name
-    if ctx.get("basis_dnsp") and ctx["basis_dnsp"] != "NUoS":
-        return "basis", f"DNSP side published {ctx['basis_dnsp']}, AER side NUoS"
-    return "unexplained", ""
+        hypotheses.append("[UNSURE] LFiT may contribute; component adjustment not substantiated")
+    if ctx.get("basis_dnsp") != ctx.get("basis_aer"):
+        hypotheses.append("[UNSURE] differing price bases; component adjustment not substantiated")
+    return "unexplained", "; ".join(hypotheses)
+
+
+def compatible(a, d):
+    if unit_family(a["unit_std"]) != unit_family(d["unit_std"]):
+        return False
+    if a["charge_type"] != d["charge_type"]:
+        return False
+    for field in ("time_band", "season"):
+        av = a.get(field) or (season_from_label(a["component"] + " " + a["unit"]) if field == "season" else "")
+        dv = d.get(field) or (season_from_label(d["component"] + " " + d["unit"]) if field == "season" else "")
+        if av != dv:
+            return False
+    pa, pd = unit_period(a["unit_std"]), unit_period(d["unit_std"])
+    hard = lambda p: bool(p) and "?" not in p
+    if hard(pa) and hard(pd) and pa != pd:
+        return False
+    return True
+
 
 def reconcile():
     rows = load_rows()
@@ -304,7 +308,7 @@ def reconcile():
             # pass 1: exact key; pass 2: unique alias; pass 3: name (same digits, sim>=0.9)
             d_alias = defaultdict(set)
             for k in D:
-                for alt in code_alts(k, D[k][0].get("note", "")):
+                for alt in code_alts(k, D[k][0].get("note", ""), dnsp):
                     d_alias[alt].add(k)
             used_d = set()
             pairs = []
@@ -314,7 +318,7 @@ def reconcile():
                 if ak in D and ak not in used_d:
                     target = ak
                 else:
-                    for alt in code_alts(ak, A[ak][0].get("note", "")):
+                    for alt in code_alts(ak, A[ak][0].get("note", ""), dnsp):
                         cands = [t for t in d_alias.get(alt, ()) if t not in used_d]
                         if len(cands) == 1:
                             target = cands[0]; break
@@ -345,11 +349,11 @@ def reconcile():
             joint = {}
             for ak, dk, _ in list(pairs):
                 if re.search(r"[/,]", A[ak][0]["tariff_code"] or ""):
-                    for alt in code_alts(ak, A[ak][0].get("note", "")):
+                    for alt in code_alts(ak, A[ak][0].get("note", ""), dnsp):
                         joint.setdefault(alt, ak)
             for dk in D:
                 if dk in used_d: continue
-                hit = next((joint[alt] for alt in code_alts(dk, D[dk][0].get("note", "")) if alt in joint), None)
+                hit = next((joint[alt] for alt in code_alts(dk, D[dk][0].get("note", ""), dnsp) if alt in joint), None)
                 if hit:
                     used_d.add(dk); g["codes_joint_variant"] += 1
                     pairs.append((hit, dk, f"AER lists codes jointly ({A[hit][0]['tariff_code']}); distributor publishes {D[dk][0]['tariff_code']} separately - compared against the joint AER row"))
@@ -371,14 +375,14 @@ def reconcile():
                                    abs_diff="", pct_diff="", aer_basis=aer_basis, dnsp_basis=d_basis, aer_source=r0["source_file"], aer_url=r0["source_url"],
                                    dnsp_source="; ".join(d_src), dnsp_url="", aer_side=aer_kind, dnsp_side=d_kind, detail=det,
                                    dnsp_tariff_name="", dnsp_component="", note=r0.get("note", "")))
-            matched_base = {re.sub(r"T[1-4]$", "", code_alts(k).pop() if False else k.split("\u2016")[0]) for k in used_d}
+            matched_base = {re.sub(r"T[1-4]$", "", k.split("\u2016")[0]) if dnsp == "Ergon Energy" else k.split("\u2016")[0] for k in used_d}
             for dk in D:
                 if dk not in used_d:
                     r0 = D[dk][0]
                     expl, det = "", "tariff code present in distributor publication but not in AER-side file"
-                    base = re.sub(r"T[1-4]$", "", dk.split("\u2016")[0])
+                    base = re.sub(r"T[1-4]$", "", dk.split("\u2016")[0]) if dnsp == "Ergon Energy" else dk.split("\u2016")[0]
                     msite = re.match(r"^([A-Z]{2,6})(\d{3})$", dk.split("\u2016")[0])
-                    if base in matched_base and re.search(r"T[1-4]$", dk):
+                    if dnsp == "Ergon Energy" and base in matched_base and re.search(r"T[1-4]$", dk):
                         expl, det = "region_variant", "transmission-region variant (T1-T4 suffix) of a tariff the AER-side file lists once"
                     elif (msite and msite.group(1) in matched_base) or re.search(r"site[- ]specific", (r0.get("tariff_name") or "") + " " + (r0.get("note") or ""), re.I):
                         expl, det = "site_specific_variant", "site-specific (locational) variant of a standard tariff; the AER-side file lists only the standard code"
@@ -401,19 +405,12 @@ def reconcile():
                 arows = [r for r in arows if not r["component"].startswith("(no non-zero")]
                 drows_avail = list(drows)
                 matched = []
-                # pass 1: exact/near value match within same unit family
                 for a in arows:
-                    fam = unit_family(a["unit_std"])
                     best = None; bd = None
                     for d in drows_avail:
-                        if unit_family(d["unit_std"]) != fam: continue
-                        pa, pd_ = unit_period(a["unit_std"]), unit_period(d["unit_std"])
-                        hard = lambda p: bool(p) and "?" not in p and p != "season"  # "season" is a qualifier, not a billing period
-                        if fam.startswith("demand") and hard(pa) and hard(pd_) and pa != pd_:
-                            continue  # unit-stated billing periods disagree
+                        if not compatible(a, d): continue
                         dd = abs(d["value_std_f"] - a["value_std_f"])
-                        dec = decimals_of(d.get("value")); factor = abs(d["value_std_f"] / d["value_f"]) if d["value_f"] else 1.0
-                        tol = 0.5 * 10 ** (-dec) * factor + 1e-9
+                        tol = rounding_tolerance(d)
                         if dd <= tol and (bd is None or dd < bd):
                             best, bd = d, dd
                     if best is not None:
@@ -421,23 +418,17 @@ def reconcile():
                 # pass 2: label match among remaining
                 rem_a = [a for a in arows if all(a is not m[0] for m in matched)]
                 for a in rem_a:
-                    fam = unit_family(a["unit_std"])
-                    cands = [d for d in drows_avail if unit_family(d["unit_std"]) == fam or (fam.startswith("demand") and unit_family(d["unit_std"]).startswith("demand"))]
+                    cands = [d for d in drows_avail if compatible(a, d)]
                     if not cands:
                         continue
                     sa = season_from_label(a["component"] + " " + a["unit"])
                     def lscore(d):
-                        s = sim(a["component"], d["component"])
-                        sd = season_from_label(d["component"] + " " + d["unit"])
-                        if a["time_band"] and a["time_band"] == d["time_band"]: s += 0.5
-                        if sa and sa == sd: s += 0.3
-                        if a["charge_type"] == d["charge_type"]: s += 0.2
-                        if a["time_band"] and d["time_band"] and a["time_band"] != d["time_band"]: s -= 0.6
-                        if sa and sd and sa != sd: s -= 0.4
+                        s = sim(a["component"], d["component"]) + 0.2
+                        if a["time_band"]: s += 0.5
+                        if a.get("season") or sa: s += 0.3
                         return s
                     best = max(cands, key=lscore)
-                    same_fam_rem_a = [x for x in rem_a if unit_family(x["unit_std"]) == fam and all(x is not m[0] for m in matched)]
-                    if lscore(best) >= 0.55 or (len(cands) == 1 and len(same_fam_rem_a) == 1):
+                    if lscore(best) >= 0.55:
                         matched.append((a, best)); drows_avail.remove(best)
                 for a, d in matched:
                     av, dv = a["value_std_f"], d["value_std_f"]
@@ -456,15 +447,15 @@ def reconcile():
                     pct = (dv - av) / av * 100 if av else ""
                     if pct != "" and status == "value_differs": maxpct = max(maxpct, abs(pct))
                     detail.append(dict(distributor=dnsp, fin_year=fy, status=status, explanation=cls, tariff_code=a["tariff_code"], tariff_name=a["tariff_name"], component=a["component"],
-                                       aer_value=a["value"], aer_unit=a["unit"], dnsp_value=d["value"], dnsp_unit=d["unit"], aer_value_std=round(av, 6), dnsp_value_std=round(dv, 6), unit_std=a["unit_std"] if a["unit_std"] == d["unit_std"] else f'{a["unit_std"]} vs {d["unit_std"]}',
-                                       abs_diff=round(dv - av, 6), pct_diff=(round(pct, 4) if pct != "" else ""), aer_basis=a["basis"], dnsp_basis=d["basis"], aer_source=a["source_file"], aer_url=a["source_url"],
+                                       aer_value=a["value"], aer_unit=a["unit"], dnsp_value=d["value"], dnsp_unit=d["unit"], aer_value_std=av, dnsp_value_std=dv, unit_std=a["unit_std"] if a["unit_std"] == d["unit_std"] else f'{a["unit_std"]} vs {d["unit_std"]}',
+                                       abs_diff=dv - av, pct_diff=pct, aer_basis=a["basis"], dnsp_basis=d["basis"], aer_source=a["source_file"], aer_url=a["source_url"],
                                        dnsp_source=d["source_file"], dnsp_url=d["source_url"], aer_side=aer_kind, dnsp_side=d_kind, detail="; ".join(x for x in (mapnote, det) if x),
                                        dnsp_tariff_name=d["tariff_name"], dnsp_component=d["component"], note="; ".join(x for x in (a.get("note", ""), d.get("note", "")) if x)))
                 for a in arows:
                     if all(a is not m[0] for m in matched):
                         g["components_aer_only"] += 1
                         detail.append(dict(distributor=dnsp, fin_year=fy, status="aer_only_component", explanation="", tariff_code=a["tariff_code"], tariff_name=a["tariff_name"], component=a["component"],
-                                           aer_value=a["value"], aer_unit=a["unit"], dnsp_value="", dnsp_unit="", aer_value_std=round(a["value_std_f"], 6), dnsp_value_std="", unit_std=a["unit_std"], abs_diff="", pct_diff="",
+                                           aer_value=a["value"], aer_unit=a["unit"], dnsp_value="", dnsp_unit="", aer_value_std=a["value_std_f"], dnsp_value_std="", unit_std=a["unit_std"], abs_diff="", pct_diff="",
                                            aer_basis=a["basis"], dnsp_basis=d_basis, aer_source=a["source_file"], aer_url=a["source_url"], dnsp_source="; ".join(d_src), dnsp_url="", aer_side=aer_kind, dnsp_side=d_kind,
                                            detail=mapnote or "component priced in AER-side file with no counterpart in distributor publication", dnsp_tariff_name=D[dk][0]["tariff_name"], dnsp_component="", note=a.get("note", "")))
                 aer_placeholder = not arows
@@ -473,7 +464,7 @@ def reconcile():
                         continue
                     g["components_dnsp_only"] += 1
                     detail.append(dict(distributor=dnsp, fin_year=fy, status="dnsp_only_component", explanation=("aer_zero_placeholder" if aer_placeholder else ""), tariff_code=d["tariff_code"], tariff_name=A[ak][0]["tariff_name"], component=d["component"],
-                                       aer_value="", aer_unit="", dnsp_value=d["value"], dnsp_unit=d["unit"], aer_value_std="", dnsp_value_std=round(d["value_std_f"], 6), unit_std=d["unit_std"], abs_diff="", pct_diff="",
+                                       aer_value="", aer_unit="", dnsp_value=d["value"], dnsp_unit=d["unit"], aer_value_std="", dnsp_value_std=d["value_std_f"], unit_std=d["unit_std"], abs_diff="", pct_diff="",
                                        aer_basis=aer_basis, dnsp_basis=d["basis"], aer_source="; ".join(aer_src), aer_url="", dnsp_source=d["source_file"], dnsp_url=d["source_url"], aer_side=aer_kind, dnsp_side=d_kind,
                                        detail=mapnote or "component priced in distributor publication with no counterpart in AER-side file", dnsp_tariff_name=d["tariff_name"], dnsp_component=d["component"], note=d.get("note", "")))
             comp = g["components_compared"]
@@ -486,37 +477,6 @@ def reconcile():
             if d_dropped: notes.append(f"DNSP-side alt source not used: {d_dropped}")
             g["note"] = "; ".join(notes)
             grid.append(g)
-    # uniform-adder detection per dnsp/year (e.g. jurisdictional scheme added to every energy rate)
-    by = defaultdict(list)
-    for r in detail:
-        if r["status"] == "value_differs" and r["explanation"] == "unexplained":
-            by[(r["distributor"], r["fin_year"], unit_family(str(r["unit_std"]).split(" vs ")[0]))].append(r)
-    for k, rs in by.items():
-        def tol(r):
-            dec = decimals_of(r["dnsp_value"]); v = fnum(r["dnsp_value"]); vs = fnum(r["dnsp_value_std"])
-            factor = abs(vs / v) if v and vs is not None else 1.0
-            return 0.5 * 10 ** (-dec) * factor + 1e-9
-        items = sorted(rs, key=lambda r: float(r["abs_diff"]))
-        clusters = []
-        for r in items:
-            dv = float(r["abs_diff"])
-            if clusters and abs(dv - clusters[-1][0][1]) <= 2 * max(tol(r), tol(clusters[-1][0][0])):
-                clusters[-1].append((r, dv))
-            else:
-                clusters.append([(r, dv)])
-        best = max(clusters, key=len)
-        n = len(best); val = sum(x[1] for x in best) / n
-        if n >= 3 and n / len(rs) >= 0.5 and abs(val) > 1e-9:
-            for r, _ in best:
-                r["explanation"] = "uniform_adder"
-                r["detail"] = (r["detail"] + "; " if r["detail"] else "") + f"same {val:+.4f} {r['unit_std']} offset on {n} {k[2]} components of this distributor/year (constant adder: e.g. jurisdictional scheme, metering charge or mid-year re-pricing)"
-    # recount explainable/unexplained after adder detection
-    for g in grid:
-        rs = [r for r in detail if r["distributor"] == g["distributor"] and r["fin_year"] == g["fin_year"] and r["status"] == "value_differs"]
-        g["unexplained"] = sum(1 for r in rs if r["explanation"] == "unexplained")
-        g["explainable"] = sum(1 for r in rs if r["explanation"] != "unexplained")
-        if g["components_compared"]:
-            g["reconciled_rate"] = round((g["components_compared"] - g["unexplained"]) / g["components_compared"] * 100, 1)
     return detail, grid, timeline
 
 def write_outputs(detail, grid, timeline):

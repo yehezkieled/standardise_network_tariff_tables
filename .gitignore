@@ -1,0 +1,35 @@
+# Python environment and generated outputs
+/.venv/
+__pycache__/
+*.pyc
+/out/
+
+# agent/editor local state
+/.claude/
+/.lavish/
+/notes/scratch/
+
+# Downloaded source documents are re-fetched by scripts/fetch_sources.py from the URLs in sources/inventory.csv.
+# Only the inventory and the Wayback Machine copies (documents the publisher's site blocks or no longer serves) are committed.
+/sources/**
+!/sources/**/
+!/sources/inventory.csv
+!/sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+!/sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+!/sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+!/sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+!/sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+!/sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+!/sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+!/sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+!/sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
+!/sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
+!/sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
+!/sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
+!/sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+!/sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+!/sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+!/sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+!/sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+!/sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+!/sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf

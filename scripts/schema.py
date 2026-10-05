@@ -13,8 +13,8 @@ COLUMNS = [
     "customer_class",  # tariff class / customer class as published, else ""
     "component",       # charge component label as published (e.g. "Peak energy charge")
     "charge_type",     # fixed | energy | demand | capacity | export | other
-    "time_band",       # peak | shoulder | offpeak | anytime | solar_soak | block1 | block2 | ... | "" (best effort from component label)
-    "season",          # high | low | summer | winter | "" (best effort)
+    "time_band",       # best-effort component identity; see time_band_from_label
+    "season",          # best-effort season qualifier; see season_from_label
     "unit",            # unit as published, e.g. "cents/kWh", "$/kVA/month"
     "value",           # float as published (string repr ok)
     "value_std",       # float converted to standard units: cents, and per-day for fixed/daily charges; see units.py

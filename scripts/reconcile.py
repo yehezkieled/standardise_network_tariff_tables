@@ -11,9 +11,9 @@ Outputs: out/recon_detail.csv      every compared pair / unmatched item with sta
 Comparison basis
   * AER side is the AER-authored file (2024-25, 2025-26, 2026-27). For 2023-24 the AER published no
     price file, so the AER side is the DNSP-submitted document hosted on aer.gov.au (side=AER_HOSTED).
-  * DNSP side is the distributor's own publication (side=DNSP). Where none could be obtained the
+  * DNSP side is the distributor's own publication (side=DNSP). From 2024-25, where none could be obtained the
     AER-hosted copy of the distributor's document is used instead and the pair is flagged
-    (dnsp_source_kind = AER_HOSTED).
+    (dnsp_side = AER_HOSTED).
   * Values are compared in standard units (cents; fixed charges per day; demand per published period),
     basis NUoS unless only another basis is published (flagged).
 """

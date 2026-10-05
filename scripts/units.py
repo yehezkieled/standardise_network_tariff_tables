@@ -4,8 +4,8 @@ Standard units: cents for money; per-day for fixed/daily charges; demand charges
 their published period (day/month/year/season; AER seasonal suffixes like highsn/lowsn/Summer name
 the season of a per-day price, not a period) but converted to cents, because converting
 $/kVA/month to c/kVA/day changes the economic quantity (billing period). The reconciler compares
-in `unit_std` space and falls back to period conversion only when the two sides disagree on
-period (flagged as a 'unit_period' explanation).
+in `unit_std` space; conflicting explicit billing periods cannot match. Periods inferred
+only from labels are marked soft with `?` and do not establish the billing period.
 """
 import re
 
@@ -15,7 +15,9 @@ DAYS_PER_MONTH = 365.0 / 12.0
 
 def parse_unit(u: str):
     """Return (money, quantity, period) from a unit string.
-    money: 'c' | '$' ; quantity: 'kWh','kW','kVA','k?' (unit names both kW and kVA),'day','customer','lamp','site' or '' ; period: 'day','month','year','season','' .
+    money: 'c' | '$'; quantity: 'kWh', 'kVAh', 'MWh', 'kW', 'kVA', 'k?'
+    (unit names both kW and kVA), 'lamp' or ''; period: 'day', 'month',
+    'year', 'season' or ''.
     """
     s = (u or "").strip().lower()
     s = s.replace("¢", "c").replace("cents", "c").replace("cent", "c").replace("aud", "$")

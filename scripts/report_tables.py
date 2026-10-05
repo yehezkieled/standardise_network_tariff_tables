@@ -1,7 +1,7 @@
 """Generate the data-driven markdown sections of the report from out/*.csv and sources/inventory.csv.
 
 Writes out/report_tables.md with: headline grid, per distributor x year findings, explanation glossary counts,
-source inventory with URLs. The narrative report (data/aer-recon/report.md) embeds these sections.
+source inventory with URLs. scripts/write_report.py embeds these sections in the report.
 """
 import csv, os, re, json
 from collections import Counter, defaultdict

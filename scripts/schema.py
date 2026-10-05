@@ -68,7 +68,9 @@ def time_band_from_label(label: str) -> str:
     if "solar soak" in l or "solar sponge" in l or "saver" in l or "daytime" in l or re.search(r"\bss\b", l): return "solar_soak"
     if "critical" in l: return "critical_peak"
     m = re.search(r"\b(?:block|blk)\s*(\d+)\b", l)
-    if m: return f"block{m.group(1)}"
+    if m:
+        prefix = "peak_" if re.search(r"\b(?:peak|pk)\b", l) else ""
+        return f"{prefix}block{m.group(1)}"
     if "1st block" in l or "first block" in l: return "block1"
     if "2nd block" in l or "second block" in l: return "block2"
     if "peak" in l or "real capacity" in l or "app. capacity" in l or re.search(r"\bpk\b", l): return "peak"
@@ -83,8 +85,8 @@ def season_from_label(label: str) -> str:
     if "apr-nov" in l: return "non_summer"
     if "high season" in l or "highsn" in l or "on-season" in l or "on season" in l or re.search(r"\bhs\b|\bon[- ]demand\b|\bon[- ]peak season\b", l): return "high"
     if "low season" in l or "lowsn" in l or "off-season" in l or "off season" in l or re.search(r"\bls\b|\boff[- ]demand\b", l): return "low"
-    if "non-summer" in l or "non summer" in l or re.search(r"\bnon[- ]summ?\.", l): return "non_summer"
-    if "summer" in l or re.search(r"\bsumm?\.", l): return "summer"
+    if "non-summer" in l or "non summer" in l or re.search(r"\bnon[- ](?:smmr\b|smr\b|summ?\.)", l): return "non_summer"
+    if "summer" in l or re.search(r"\bsmmr\b|\bsmr\b|\bsumm?\.", l): return "summer"
     if "winter" in l: return "winter"
     return ""
 

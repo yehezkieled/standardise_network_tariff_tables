@@ -17,7 +17,7 @@ import parse_aer
 from published import cell_value
 from schema import COLUMNS
 from units import to_std
-from dnsp import essential_evoenergy, ausgrid_endeavour, cp_pc_ue, tasnetworks, sapn_pwc
+from dnsp import essential_evoenergy, ausgrid_endeavour, cp_pc_ue, tasnetworks, sapn_pwc, energex_ergon
 import fetch_sources
 
 
@@ -40,6 +40,43 @@ def row(side, value, band='peak', unit='c/kWh', charge='energy', season='', code
 
 
 class ReconciliationRegression(unittest.TestCase):
+    def test_ergon_threshold_peak_blocks(self):
+        for code in ['EBFRMT1', 'EBFRMT2', 'EBFRMT3', 'EBIRRT1', 'EBIRRT2', 'EBIRRT3']:
+            sheet = energex_ergon.Sheet()
+            aer = []
+            blocks = [(1, 'Volume Peak Charge', '0.4758', '0.47584')]
+            if code.startswith('EBFRMT'):
+                blocks.append((2, 'Volume Peak Charge (over 10,000)', '0.3789', '0.37886'))
+            for block, label, av, dv in blocks:
+                sheet.records.append(dict(basis='NUoS', code=code, name=code, zone='', cls='',
+                                          comp=label, unit='$/kWh', value=float(dv), published=dv, row=block))
+                aer.append(parse_aer.row('Ergon Energy', '2024-25', code, '', '', f'Pk Block {block}',
+                                         '$/kWh', av, 'NUoS', 'aer.xlsx', ''))
+            dnsp = energex_ergon.rows_for_sheet(sheet, 'Business', 'Ergon Energy', '2024-25',
+                                               'DNSP', 'fixture.xlsx', '')
+            dnsp = [{key: r[key] for key in COLUMNS} for r in dnsp]
+            self.assertEqual([r['time_band'] for r in aer], [r['time_band'] for r in dnsp])
+            detail, grid = self.compare(aer + dnsp)
+            self.assertEqual(grid['components_compared'], len(blocks))
+            self.assertTrue(all(r['status'] == 'equal_after_rounding' for r in detail))
+            if len(blocks) == 2:
+                detail, grid = self.compare([aer[0], dnsp[1]])
+                self.assertIsNone(grid)
+
+    def test_sapn_summer_abbreviations(self):
+        for code in ['BD', 'HBD', 'SBD']:
+            for abbreviation in ['Smmr', 'Smr', 'Sum.']:
+                a = parse_aer.row('SA Power Networks', '2024-25', code, '', '', f'Mth Dmnd {abbreviation}',
+                                  '$/kVA', '0.3962', 'NUoS', 'aer.xlsx', '')
+                d = sapn_pwc.make_row('SA Power Networks', '2024-25', 'DNSP', code, '', '',
+                                     f'MONTHLY kVA DEMAND - Actual Monthly Demand - {code} Summer 5',
+                                     '$/kVA/day', '0.3962', 'excl', 'NUoS', 'fixture.pdf', '', [])
+                self.assertEqual((a['season'], d['season']), ('summer', 'summer'))
+                for pair in ([a, d], [dict(a, season=''), dict(d, season='')]):
+                    detail, grid = self.compare(pair)
+                    self.assertEqual(grid['components_compared'], 1)
+                    self.assertEqual(detail[0]['status'], 'equal')
+
     def compare(self, rows):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder).resolve()

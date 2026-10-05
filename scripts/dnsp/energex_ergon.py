@@ -319,6 +319,12 @@ def rows_for_sheet(sheet: Sheet, sheet_name, distributor, fin_year, side, source
         label = label_for[comp_key(r["comp"])]
         unit = r["unit"]
         cls_unit = unit_for.get(ck(r)) or unit
+        band = schema.time_band_from_label(label)
+        if distributor == "Ergon Energy" and re.fullmatch(r"EB(?:FRMT|IRRT)[123]", r["code"]):
+            if label.lower() == "volume peak charge":
+                band = "peak_block1"
+            elif re.fullmatch(r"volume peak charge \(over 10,?000\)", label.lower()):
+                band = "peak_block2"
         value_std, unit_std = units.to_std(r["published"], unit, label)
         notes = [f"sheet '{sheet_name}' {r['basis']} block row {r['row']}"]
         if r["zone"]:
@@ -346,7 +352,7 @@ def rows_for_sheet(sheet: Sheet, sheet_name, distributor, fin_year, side, source
             "customer_class": cls_for.get(tid(r)) or r["cls"] or sheet.subtitle,
             "component": label,
             "charge_type": charge_type(label, cls_unit),
-            "time_band": schema.time_band_from_label(label),
+            "time_band": band,
             "season": schema.season_from_label(label),
             "unit": unit,
             "value": r["published"],

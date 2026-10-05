@@ -37,16 +37,19 @@ DEMAND_MEASURE_2023_24 = {"TAS87": "kW", "TAS97": "kW", "TAS88": "kW", "TAS98": 
 
 
 def tariff_unit(code, group, options):
-    """(unit, note) for a header cell: demand columns take the per-tariff measure from Table 36, else stay unresolved."""
+    """(unit, note) for a header cell: Table 36 fixes a tariff's demand measure; a header listing both kW and kVA
+    leaves other tariffs unresolved; a single-unit header keeps its published unit."""
     unit = options[0] if options else ""
     if not re.search(r"/k(?:VA|W)/", unit, re.I):
         return unit, ""
     measure = DEMAND_MEASURE_2023_24.get(code)
-    if measure is None:
+    if measure is not None:
+        return (re.sub(r"/k(?:VA|W)/", f"/{measure}/", unit, flags=re.I),
+                f"header '{group}'; {measure} for {code} per 2023-24 price guide Table 36")
+    if {m.upper() for o in options for m in re.findall(r"/(k(?:VA|W))/", o, re.I)} == {"KVA", "KW"}:
         return (re.sub(r"/k(?:VA|W)/", "/kVA or kW/", unit, flags=re.I),
-                f"[UNSURE] header '{group}' does not establish kW or kVA for {code}; demand quantity unverified")
-    return (re.sub(r"/k(?:VA|W)/", f"/{measure}/", unit, flags=re.I),
-            f"header '{group}'; {measure} for {code} per 2023-24 price guide Table 36")
+                f"[UNSURE] header '{group}' lists both kVA and kW and no table fixes the measure for {code}; demand quantity unverified")
+    return unit, f"unit as published in header '{group}'"
 
 
 # ----------------------------------------------------------------------------- helpers
@@ -408,7 +411,7 @@ def parse_pdf_2023_24_schedule(path, fin_year, side, url):
                         if code == "TASUMSSL":
                             unit, un = "c/lamp watt/day", "unit per footnote 'Public lighting is charged on the basis of c/lamp watt/day'"
                         else:
-                            unit, un = tariff_unit(code, "c/kVA, kW, lamp watt/day", ["c/kVA/day"])
+                            unit, un = tariff_unit(code, "c/kVA, kW, lamp watt/day", ["c/kVA/day", "c/kW/day"])
                         em.add(code, name, cls, f"{c['group']} - {c['sub']}", unit, num_text(nums[0]["text"]), basis,
                                note="; ".join(notes + [un]))
                     else:  # Capacity/connection charges: 'a / b' = demand charge / connection charge

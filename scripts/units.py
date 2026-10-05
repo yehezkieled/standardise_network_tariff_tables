@@ -33,7 +33,9 @@ def parse_unit(u: str):
         period = "month"
     elif re.search(r"/year|/yr|/annum|p\.?a\.?|perannum|annual|/a\b", s):
         period = "year"
-    elif re.search(r"season|highsn|lowsn|/sn|summer|winter|smmr|/sum", s):
+    elif re.search(r"highsn|lowsn|/sn\b|summer|winter|smmr|/sum|/hs\b|/ls\b", s):
+        period = "day"
+    elif "season" in s:
         period = "season"
     if quantity == "" and period == "" and re.search(r"customer|connection|site|nmi", s):
         period = "year" if re.search(r"p\.?a|annum|year", s) else ""
@@ -64,8 +66,6 @@ def to_std(value, unit: str, label: str = ""):
             period = "month"
         elif "daily" in ll or "/day" in ll or "per day" in ll:
             period = "day"
-        elif "season" in ll or "highsn" in ll or "lowsn" in ll or "summer" in ll or "winter" in ll:
-            period = "season"
         inferred = bool(period)
     if money == "$":
         v *= 100.0

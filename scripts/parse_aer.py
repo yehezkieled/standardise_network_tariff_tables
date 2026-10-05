@@ -61,7 +61,7 @@ def row(dnsp, fy, code, name, cls, comp, unit, val, basis, src, url, note="", si
     return {
         "side": side, "distributor": dnsp, "fin_year": fy, "tariff_code": str(code).strip(), "tariff_name": (name or "").strip() if isinstance(name, str) else str(name or ""),
         "customer_class": cls or "", "component": comp.strip(), "charge_type": ct,
-        "time_band": time_band_from_label(comp), "season": season_from_label(comp), "unit": unit, "value": val,
+        "time_band": time_band_from_label(comp), "season": season_from_label(comp) or season_from_label(unit), "unit": unit, "value": val,
         "value_std": vs, "unit_std": us, "gst": "excl", "basis": basis, "source_file": src, "source_url": url, "note": note,
     }
 

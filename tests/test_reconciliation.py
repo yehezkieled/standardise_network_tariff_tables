@@ -1,5 +1,6 @@
 import builtins
 import csv
+import re
 import sys
 import tempfile
 import unittest
@@ -81,14 +82,32 @@ class ReconciliationRegression(unittest.TestCase):
                 self.assertTrue(demand, (year, code))
                 self.assertTrue(all('/'+measure+'/' in r['unit'] for r in demand), (year, code))
 
-    def test_tasnetworks_unestablished_measures_stay_unknown(self):
-        for year, side, path, parser in tasnetworks.FILES:
+    def test_tasnetworks_unestablished_measures_follow_header(self):
+        for year, side, path, parser in tasnetworks.FILES[2:]:
             rows = parser(path, year, side, '')
-            demand = [r for r in rows if r['tariff_code'] not in tasnetworks.DEMAND_MEASURE_2023_24
-                      and r['tariff_code'] != 'TASUMSSL' and '/k' in r['unit'] and 'Wh' not in r['unit']]
+            demand = [r for r in rows if re.fullmatch(r'TAS(?:84T[1-4]|14T[12])', r['tariff_code'])
+                      and '/k' in r['unit'] and 'Wh' not in r['unit']]
+            self.assertTrue(demand, year)
             for r in demand:
-                self.assertTrue(r['unit_std'].startswith('c/k?/'), (year, r['tariff_code'], r['unit_std']))
-                self.assertIn('[UNSURE]', r['note'])
+                if year == '2024-25':
+                    self.assertTrue(r['unit_std'].startswith('c/kVA/'), (year, r['tariff_code'], r['unit_std']))
+                    self.assertNotIn('[UNSURE]', r['note'])
+                else:
+                    self.assertTrue(r['unit_std'].startswith('c/k?/'), (year, r['tariff_code'], r['unit_std']))
+                    self.assertIn('[UNSURE]', r['note'])
+
+    def test_seasonal_unit_suffix_is_daily_price_in_that_season(self):
+        for alabel, unit, dlabel, season in [('HS dem kVA', 'cents/kVA/highsn', 'Import - Demand Charges - High Season Demand', 'high'),
+                                             ('Demand kVA low', 'cents/kVA/lowsn', 'Low Season Demand', 'low'),
+                                             ('SDIC', 'cents/kVA/Summer', 'Summer Demand Incentive Charge', 'summer')]:
+            with self.subTest(unit=unit):
+                a = parse_aer.row('Endeavour Energy', '2025-26', 'TEST', '', '', alabel, unit, '42.7800', 'NUoS', 'aer.xlsx', '')
+                self.assertEqual((a['unit_std'], a['season']), ('c/kVA/day', season))
+                d = ausgrid_endeavour.make_row('Endeavour Energy', '2025-26', 'DNSP', 'dnsp.pdf', '', 'TEST', '', '',
+                                             dlabel, 'c/kVA/day', '42.7800', 'NUoS', 'excl', '')
+                detail, grid = self.compare([a, d])
+                self.assertEqual(grid['components_compared'], 1)
+                self.assertEqual(detail[0]['status'], 'equal')
 
     def test_unknown_demand_quantity_compares_as_unit_unverified(self):
         a = row('AER', '32.9750', band='peak', unit='c/kVA/day', charge='demand')

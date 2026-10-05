@@ -135,18 +135,6 @@ def charge_type(label: str, unit: str) -> str:
     return schema.charge_type_from_label(label, unit)
 
 
-def time_band(label: str) -> str:
-    tb = schema.time_band_from_label(label)
-    if tb:
-        return tb
-    m = re.search(r"block\s*(\d)", label.lower())
-    if m:
-        return f"block{m.group(1)}"
-    if comp_key(label) == "volumecharge":  # flat anytime energy rate
-        return "anytime"
-    return ""
-
-
 class Sheet:
     """Raw extraction for one sheet, before zero-filtering."""
 
@@ -358,7 +346,7 @@ def rows_for_sheet(sheet: Sheet, sheet_name, distributor, fin_year, side, source
             "customer_class": cls_for.get(tid(r)) or r["cls"] or sheet.subtitle,
             "component": label,
             "charge_type": charge_type(label, cls_unit),
-            "time_band": time_band(label),
+            "time_band": schema.time_band_from_label(label),
             "season": schema.season_from_label(label),
             "unit": unit,
             "value": r["published"],

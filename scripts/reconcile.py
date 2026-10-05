@@ -21,7 +21,7 @@ import csv, glob, json, os, re, sys, math
 from collections import defaultdict, Counter
 from difflib import SequenceMatcher
 sys.path.insert(0, os.path.dirname(__file__))
-from schema import COLUMNS, season_from_label
+from schema import COLUMNS, season_from_label, export_direction
 from units import to_std
 from decimal import Decimal
 
@@ -230,14 +230,13 @@ def compatible(a, d):
     if a["charge_type"] != d["charge_type"]:
         return False
     if a["charge_type"] == "export":
-        reward_words = ("reward", "rebate", "credit", "feed in", "feed-in")
-        if any(word in a["component"].lower() for word in reward_words) != any(
-            word in d["component"].lower() for word in reward_words
-        ):
+        if export_direction(a["component"], a["value"]) != export_direction(d["component"], d["value"]):
             return False
     for field in ("time_band", "season"):
         av = a.get(field) or (season_from_label(a["component"] + " " + a["unit"]) if field == "season" else "")
         dv = d.get(field) or (season_from_label(d["component"] + " " + d["unit"]) if field == "season" else "")
+        if field == "time_band":
+            av, dv = av or "anytime", dv or "anytime"
         if av != dv:
             return False
     pa, pd = unit_period(a["unit_std"]), unit_period(d["unit_std"])

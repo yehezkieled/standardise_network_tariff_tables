@@ -32,9 +32,23 @@ NUM_RE = re.compile(r"^-?\d{1,3}(,\d{3})*(\.\d+)?$|^-?\d+(\.\d+)?$")
 BASIS_WORDS = {"network": "NUoS", "distribution": "DUoS", "transmission": "TUoS"}
 
 # Measure of demand per tariff, from the 2023-24 price guide Table 36 ("Measure of demand (kVA or kW)").
-# Used only where a document's demand header lists several units (e.g. "c/kVA, kW, lamp watt/day").
 DEMAND_MEASURE_2023_24 = {"TAS87": "kW", "TAS97": "kW", "TAS88": "kW", "TAS98": "kW",
                           "TAS82": "kVA", "TAS89": "kVA", "TASSDM": "kVA", "TAS15": "kVA"}
+
+
+def tariff_unit(code, options):
+    if not options:
+        return ""
+    if not any(re.search(r"/k(?:VA|W)/", unit, re.I) for unit in options):
+        return options[0]
+    measure = DEMAND_MEASURE_2023_24.get(code)
+    if measure is None and re.fullmatch(r"TAS(?:84T[1-4]|14T[12])", code):
+        measure = "kVA"
+    if measure is None:
+        if len(options) == 1:
+            return options[0]
+        raise ValueError(f"No published demand measure for {code}: {options}")
+    return re.sub(r"/k(?:VA|W)/", f"/{measure}/", options[0], flags=re.I)
 
 
 # ----------------------------------------------------------------------------- helpers
@@ -157,8 +171,7 @@ def parse_xlsx(path, fin_year, side, url):
                 group = squash(str(row[ci]))
             if ci >= 4 and sub[ci] is not None and str(sub[ci]).strip() and group:
                 units_in_hdr = re.findall(r"\(([^)]*)\)", group)
-                cols[ci] = dict(sub=squash(str(sub[ci])), group=group, unit=units_in_hdr[0] if units_in_hdr else "",
-                                multi=len(units_in_hdr) > 1)
+                cols[ci] = dict(sub=squash(str(sub[ci])), group=group, units=units_in_hdr)
         code_col = next(ci for ci in range(len(row)) if row[ci] and str(row[ci]).strip().lower() == "tariff code")
         name_col = next(ci for ci in range(len(row)) if row[ci] and "prices for" in str(row[ci]).lower())
         class_col = next(ci for ci in range(len(row)) if row[ci] and str(row[ci]).strip().lower() == "tariff class")
@@ -195,10 +208,10 @@ def parse_xlsx(path, fin_year, side, url):
                 except ValueError:
                     continue
                 n = list(notes)
-                if c["multi"]:
-                    n.append(f"header unit published as '{c['group']}' (first unit used); measure of demand is kW for "
-                             f"TAS87/TAS88/TAS98 and kVA for TAS82/TAS89/TASSDM/TAS15 per 2023-24 price guide Table 36")
-                em.add(code, name, cls, c["sub"], c["unit"], val, basis, note="; ".join(n))
+                unit = tariff_unit(code, c["units"])
+                if len(c["units"]) > 1:
+                    n.append(f"header '{c['group']}'; {unit} selected for {code} per price guide Table 36")
+                em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(n))
         r = rr
     # locational TUoS sheet
     loc = f"Locational TUoS {fin_year}"
@@ -242,7 +255,7 @@ def parse_pdf_2024_25(path, fin_year, side, url):
                     group = squash(grp_row[ci])
                 if ci > code_ci and sub_row[ci] and sub_row[ci].strip():
                     u = re.findall(r"\(([^)]*)\)", group)
-                    cols[ci] = dict(sub=squash(sub_row[ci]), group=group, unit=u[0] if u else "")
+                    cols[ci] = dict(sub=squash(sub_row[ci]), group=group, units=u)
             foot = paren_footnotes(text)
 
             def col_of(w):
@@ -269,7 +282,9 @@ def parse_pdf_2024_25(path, fin_year, side, url):
                     val = num_text(" ".join(by_col.get(ci, [])))
                     if val is None:
                         continue
-                    em.add(code, name, cls, c["sub"], c["unit"], val, basis, note="; ".join(notes))
+                    unit = tariff_unit(code, c["units"])
+                    n = notes + ([f"{code} demand measure {unit} per price guide Table 36"] if unit not in c["units"] else [])
+                    em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(n))
     return em.rows
 
 

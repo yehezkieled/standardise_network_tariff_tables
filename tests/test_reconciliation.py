@@ -14,7 +14,7 @@ import parse_aer
 from published import cell_value
 from schema import COLUMNS
 from units import to_std
-from dnsp import essential_evoenergy, ausgrid_endeavour, cp_pc_ue
+from dnsp import essential_evoenergy, ausgrid_endeavour, cp_pc_ue, tasnetworks
 import fetch_sources
 
 
@@ -43,6 +43,35 @@ class ReconciliationRegression(unittest.TestCase):
             with patch.object(reconcile, 'ROOT', str(root)):
                 detail, grid, _ = reconcile.reconcile()
             return detail, next(g for g in grid if g['components_compared']) if any(g['components_compared'] for g in grid) else None
+
+    def test_remaining_identity_aliases(self):
+        cases = [('Block 3', 'Block3', 'c/kWh'), ('Volume', 'Volume Charge', 'c/kWh'),
+                 ('Net energy consumption', 'Net Energy', 'c/kWh'),
+                 ('App. Capacity', 'Peak capacity', 'c/kVA/day'),
+                 ('Ann Dmnd Pk', 'Peak demand', 'c/kW/day'),
+                 ('Opk energy', 'Off-peak energy', 'c/kWh'),
+                 ('Peak Sum. demand', 'Peak summer demand', 'c/kW/day'),
+                 ('Peak Non-Sum. demand', 'Peak non-summer demand', 'c/kW/day'),
+                 ('Ann Dmnd', 'Anytime demand', 'c/kW/day'),
+                 ('DER export', 'Export - Rebate', 'c/kWh')]
+        for alabel, dlabel, unit in cases:
+            with self.subTest(label=alabel):
+                value = '-4.8793' if 'export' in alabel else '1.0000'
+                a = parse_aer.row('Ausgrid', '2025-26', 'TEST', '', '', alabel, unit, value, 'NUoS', 'aer.xlsx', '')
+                d = ausgrid_endeavour.make_row('Ausgrid', '2025-26', 'DNSP', 'dnsp.pdf', '', 'TEST', '', '',
+                                             dlabel, unit, value, 'NUoS', 'excl', '')
+                for pair in ([a, d], [dict(d, side='AER'), dict(a, side='DNSP')]):
+                    detail, grid = self.compare(pair)
+                    self.assertEqual(grid['components_compared'], 1)
+                    self.assertEqual(detail[0]['status'], 'equal')
+
+    def test_tasnetworks_tariff_measures(self):
+        for year, side, path, parser in tasnetworks.FILES[2:]:
+            rows = parser(path, year, side, '')
+            for code, measure in tasnetworks.DEMAND_MEASURE_2023_24.items():
+                demand = [r for r in rows if r['tariff_code'] == code and '/k' in r['unit'] and 'Wh' not in r['unit']]
+                self.assertTrue(demand, (year, code))
+                self.assertTrue(all('/'+measure+'/' in r['unit'] for r in demand), (year, code))
 
     def test_unique_compatible_labels_match(self):
         a = row('AER', '52.1300', band='', unit='c/day', charge='fixed', code='N70', distributor='Endeavour Energy')

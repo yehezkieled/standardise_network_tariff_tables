@@ -47,19 +47,16 @@ def code_alts(c, note="", distributor=""):
     add/strip Ergon transmission-region suffix (T1..T4; AER 2024-25 keeps it in 'other identifier')."""
     base = code_key(c)
     base = base.split("\u2016")[0]  # drop name disambiguator
-    alts = {base}
+    alts = [base]
     for part in re.split(r"[/,]", base):
-        alts.add(part)
-        alts.add(part.rstrip("*"))
-        alts.add(re.sub(r"-SA$", "", part))
+        alts += [part, part.rstrip("*"), re.sub(r"-SA$", "", part)]
         if distributor != "Ergon Energy":
             continue
-        alts.add(re.sub(r"T[1-4]$", "", part))
+        alts.append(re.sub(r"T[1-4]$", "", part))
         m = re.search(r"/\s*T([1-4])\b", note or "") or re.search(r"\u2016(?:.*\u2016)?T([1-4])$", code_key(c))
         if m and not re.search(r"T[1-4]$", part):
-            alts.add(part + "T" + m.group(1))
-    alts.discard("")
-    return alts
+            alts.append(part + "T" + m.group(1))
+    return [a for a in dict.fromkeys(alts) if a]
 
 def digits(s):
     return re.findall(r"\d+", s or "")

@@ -1,6 +1,8 @@
 import builtins
 import csv
+import os
 import re
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -15,7 +17,7 @@ import parse_aer
 from published import cell_value
 from schema import COLUMNS
 from units import to_std
-from dnsp import essential_evoenergy, ausgrid_endeavour, cp_pc_ue, tasnetworks
+from dnsp import essential_evoenergy, ausgrid_endeavour, cp_pc_ue, tasnetworks, sapn_pwc
 import fetch_sources
 
 
@@ -251,6 +253,42 @@ class ReconciliationRegression(unittest.TestCase):
         self.assertEqual(grid['unexplained'], 3)
         self.assertEqual(grid['explainable'], 0)
         self.assertEqual({r['explanation'] for r in detail}, {'unexplained'})
+
+    def test_power_and_water_season_abbreviations_compare(self):
+        for alabel, dlabel, value in [('On Demand', 'On Season Demand Charge', '15.0000'),
+                                      ('Off Demand', 'Off Season Demand Charge', '2.2000')]:
+            with self.subTest(label=alabel):
+                a = parse_aer.row('Power and Water Corporation', '2024-25', 'Tariff 5', 'LV Majors', '', alabel, '$/kVA',
+                                  value, 'NUoS', 'aer.xlsx', '')
+                d = sapn_pwc.make_row('Power and Water Corporation', '2024-25', 'DNSP', 'Tariff 5', 'LV Majors', '',
+                                      dlabel, '$/kVA', value, 'excl', 'NUoS', 'dnsp.pdf', '', '')
+                self.assertEqual(a['season'], d['season'])
+                detail, grid = self.compare([a, d])
+                self.assertEqual(grid['components_compared'], 1)
+                self.assertEqual(detail[0]['status'], 'equal')
+
+    def test_joint_code_matching_is_independent_of_hash_seed(self):
+        rows = [row('AER', '5.000', code='010, 011*'), row('DNSP', '5.000', code='010'), row('DNSP', '5.000', code='011'),
+                row('AER', '6.000', code='015, 016*'), row('DNSP', '6.000', code='015'), row('DNSP', '6.000', code='016')]
+        outputs = []
+        for seed in ('1', '2', '3'):
+            with tempfile.TemporaryDirectory(dir='notes/scratch') as folder:
+                root = Path(folder).resolve()
+                (root / 'out/dnsp').mkdir(parents=True)
+                (root / 'sources').mkdir()
+                (root / 'sources/inventory.csv').write_text('local_path\n')
+                for filename, side in [('out/aer_long.csv', 'AER'), ('out/dnsp/test.csv', 'DNSP')]:
+                    with (root / filename).open('w', newline='') as stream:
+                        writer = csv.DictWriter(stream, fieldnames=COLUMNS)
+                        writer.writeheader()
+                        writer.writerows(r for r in rows if r['side'] == side)
+                code = ('import reconcile; reconcile.ROOT = %r; '
+                        'reconcile.write_outputs(*reconcile.reconcile())' % str(root))
+                subprocess.run([sys.executable, '-c', code], check=True, capture_output=True,
+                               cwd=str(Path(__file__).resolve().parents[1] / 'scripts'),
+                               env=dict(os.environ, PYTHONHASHSEED=seed))
+                outputs.append((root / 'out/recon_detail.csv').read_bytes())
+        self.assertEqual(len(set(outputs)), 1)
 
     def test_region_aliases_are_ergon_only(self):
         self.assertNotIn('HV', reconcile.code_alts('HVT1', distributor='Powercor'))

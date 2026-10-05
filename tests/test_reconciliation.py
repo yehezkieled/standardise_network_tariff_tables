@@ -21,6 +21,14 @@ from dnsp import essential_evoenergy, ausgrid_endeavour, cp_pc_ue, tasnetworks, 
 import fetch_sources
 
 
+# The TasNetworks checks parse the published documents themselves. Those files are not committed (./run.sh fetches
+# them from the URLs in sources/inventory.csv), so the checks run only in a checkout that has them.
+TASNETWORKS_DOCUMENTS = [path for _, _, path, _ in tasnetworks.FILES[2:]]
+needs_tasnetworks_documents = unittest.skipUnless(
+    all(os.path.exists(path) for path in TASNETWORKS_DOCUMENTS),
+    'TasNetworks source documents are not in the checkout; run ./run.sh to fetch them')
+
+
 def row(side, value, band='peak', unit='c/kWh', charge='energy', season='', code='TEST', note='', distributor='Evoenergy'):
     result = dict.fromkeys(COLUMNS, '')
     std, std_unit = to_std(value, unit)
@@ -33,7 +41,7 @@ def row(side, value, band='peak', unit='c/kWh', charge='energy', season='', code
 
 class ReconciliationRegression(unittest.TestCase):
     def compare(self, rows):
-        with tempfile.TemporaryDirectory(dir='notes/scratch') as folder:
+        with tempfile.TemporaryDirectory() as folder:
             root = Path(folder).resolve()
             (root / 'out/dnsp').mkdir(parents=True)
             (root / 'sources').mkdir()
@@ -78,6 +86,7 @@ class ReconciliationRegression(unittest.TestCase):
                     self.assertEqual(grid['components_compared'], 1)
                     self.assertEqual(detail[0]['status'], 'equal')
 
+    @needs_tasnetworks_documents
     def test_tasnetworks_tariff_measures(self):
         for year, side, path, parser in tasnetworks.FILES[2:]:
             rows = parser(path, year, side, '')
@@ -86,6 +95,7 @@ class ReconciliationRegression(unittest.TestCase):
                 self.assertTrue(demand, (year, code))
                 self.assertTrue(all('/'+measure+'/' in r['unit'] for r in demand), (year, code))
 
+    @needs_tasnetworks_documents
     def test_tasnetworks_unestablished_measures_follow_header(self):
         for year, side, path, parser in tasnetworks.FILES[2:]:
             rows = parser(path, year, side, '')
@@ -272,7 +282,7 @@ class ReconciliationRegression(unittest.TestCase):
                 row('AER', '6.000', code='015, 016*'), row('DNSP', '6.000', code='015'), row('DNSP', '6.000', code='016')]
         outputs = []
         for seed in ('1', '2', '3'):
-            with tempfile.TemporaryDirectory(dir='notes/scratch') as folder:
+            with tempfile.TemporaryDirectory() as folder:
                 root = Path(folder).resolve()
                 (root / 'out/dnsp').mkdir(parents=True)
                 (root / 'sources').mkdir()

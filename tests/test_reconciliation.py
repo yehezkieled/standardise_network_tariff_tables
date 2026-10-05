@@ -40,6 +40,40 @@ def row(side, value, band='peak', unit='c/kWh', charge='energy', season='', code
 
 
 class ReconciliationRegression(unittest.TestCase):
+    def test_ergon_minimum_and_remaining_capacity(self):
+        for code in ['EBPMPT1', 'EBPMPT2', 'EBPMPT3']:
+            sheet = energex_ergon.Sheet()
+            aer = []
+            for index, (alabel, dlabel, value, band) in enumerate([
+                    ('Min. Cap.', 'Minimum Capacity Charge', '3.8160', 'capacity_minimum'),
+                    ('Rem. Cap.', 'Remaining Capacity Charge', '11.5210', 'capacity_remaining')]):
+                sheet.records.append(dict(basis='NUoS', code=code, name=code, zone='', cls='',
+                                          comp=dlabel, unit='$/kW', value=float(value), published=value, row=index + 1))
+                a = parse_aer.row('Ergon Energy', '2024-25', code, '', '', alabel,
+                                  '$/kW', value, 'NUoS', 'aer.xlsx', '')
+                self.assertEqual((a['charge_type'], a['time_band']), ('capacity', band))
+                aer.append(a)
+            dnsp = energex_ergon.rows_for_sheet(sheet, 'Business', 'Ergon Energy', '2024-25',
+                                               'DNSP', 'fixture.xlsx', '')
+            dnsp = [{key: r[key] for key in COLUMNS} for r in dnsp]
+            self.assertTrue(all(r['charge_type'] == 'capacity' for r in dnsp))
+            for pair in [aer + dnsp, [dict(r, side='DNSP' if r['side'] == 'AER' else 'AER')
+                                     for r in aer + dnsp]]:
+                detail, grid = self.compare(pair)
+                self.assertEqual(grid['components_compared'], 2)
+                self.assertTrue(all(r['status'] == 'equal' for r in detail))
+            swapped = [dict(dnsp[0], value=dnsp[1]['value'], value_std=dnsp[1]['value_std']),
+                       dict(dnsp[1], value=dnsp[0]['value'], value_std=dnsp[0]['value_std'])]
+            detail, grid = self.compare(aer + swapped)
+            self.assertEqual(grid['components_compared'], 2)
+            self.assertEqual([r['status'] for r in detail], ['value_differs', 'value_differs'])
+            for a, d in [(aer[0], dnsp[1]), (aer[1], dnsp[0])]:
+                detail, grid = self.compare([a, dict(d, value=a['value'], value_std=a['value_std'])])
+                self.assertIsNone(grid)
+        a = parse_aer.row('Ergon Energy', '2024-25', 'EC22BTOU', '', '', 'Non-Sum. Cap.',
+                          '$/kVA', '1.0000', 'NUoS', 'aer.xlsx', '')
+        self.assertEqual(a['charge_type'], 'capacity')
+
     def test_ergon_threshold_peak_blocks(self):
         for code in ['EBFRMT1', 'EBFRMT2', 'EBFRMT3', 'EBIRRT1', 'EBIRRT2', 'EBIRRT3']:
             sheet = energex_ergon.Sheet()

@@ -47,7 +47,7 @@ def charge_type_from_label(label: str, unit: str = "") -> str:
         return "fixed"
     if "real capacity" in l and re.search(r"/kw(?!h)", u):
         return "demand"
-    if "capacity" in l:
+    if "capacity" in l or re.search(r"\bcap\.", l):
         return "capacity"
     if "demand" in l or re.search(r"/k(w|va)(?!h)", u):
         return "demand"
@@ -61,6 +61,8 @@ def time_band_from_label(label: str) -> str:
     if "critical" in l and "minimum" in l: return "critical_minimum"
     if "dynamic" in l and "minimum" in l: return "dynamic_minimum"
     if "dynamic" in l and "maximum" in l: return "dynamic_maximum"
+    if re.search(r"\b(?:minimum|min\.)\s+(?:capacity\b|cap\.)", l): return "capacity_minimum"
+    if re.search(r"\b(?:remaining|rem\.)\s+(?:capacity\b|cap\.)", l): return "capacity_remaining"
     if "super off" in l: return "super_offpeak"
     if "off-peak" in l or "off peak" in l or "offpeak" in l or re.search(r"\bopk\b", l): return "offpeak"
     if "peak shoulder" in l: return "peak"

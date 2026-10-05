@@ -1,4 +1,4 @@
-Only identical prices and differences within published rounding precision count as reconciled. Component matching requires compatible charge type, export charge/reward direction, time band, season and physical quantity; kWh and kVAh, and kW and kVA, remain distinct.
+Only identical prices and differences within published rounding precision count as reconciled. Component matching requires compatible charge type, export charge/reward direction, time band, season and physical quantity; kWh and kVAh, and kW and kVA, remain distinct except where the distributor document does not establish the demand quantity (flagged unit unverified).
 
 [UNSURE] Embedded metering and ACT LFiT may contribute to some differences. A document mentioning either does not establish the adjustment for a particular component. These hypotheses remain `unexplained` in the CSV and are excluded from documented-explanation totals. Uniform offsets are not promoted to explanations.
 

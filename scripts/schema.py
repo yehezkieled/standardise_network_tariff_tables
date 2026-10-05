@@ -18,7 +18,7 @@ COLUMNS = [
     "unit",            # unit as published, e.g. "cents/kWh", "$/kVA/month"
     "value",           # float as published (string repr ok)
     "value_std",       # float converted to standard units: cents, and per-day for fixed/daily charges; see units.py
-    "unit_std",        # standard unit label after conversion: c/day, c/kWh, c/kW/day, c/kVA/day, c/kW/month, c/kVA/month, c/kW/year, c/kVA/year, c/kW/season ...
+    "unit_std",        # standard unit label after conversion: c/day, c/kWh, c/kW/day, c/kVA/day, c/kW/month, c/kVA/month, c/kW/year, c/kVA/year, c/kW/season, c/k?/day (kW or kVA not established) ...
     "gst",             # excl | incl
     "basis",           # NUoS | DUoS | TUoS | JSA | DPPC | unknown   (NUoS = total network price incl transmission + jurisdictional scheme)
     "source_file",     # repo-relative path of the file parsed

@@ -1,7 +1,8 @@
 """Unit normalisation.
 
 Standard units: cents for money; per-day for fixed/daily charges; demand charges are kept in
-their published period (day/month/year/season) but converted to cents, because converting
+their published period (day/month/year/season; AER seasonal suffixes like highsn/lowsn/Summer name
+the season of a per-day price, not a period) but converted to cents, because converting
 $/kVA/month to c/kVA/day changes the economic quantity (billing period). The reconciler compares
 in `unit_std` space and falls back to period conversion only when the two sides disagree on
 period (flagged as a 'unit_period' explanation).

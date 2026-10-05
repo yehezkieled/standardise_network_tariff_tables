@@ -13,7 +13,7 @@ Conventions: all comparisons are of the **total network price (NUoS)**, GST excl
 ## 1. Summary
 
 - **The "AER report" is not one thing.** There is no AER-authored price file for 2023-24; 2024-25 has 14 per-distributor stakeholder workbooks with a distribution / transmission / jurisdictional split; 2025-26 and 2026-27 have one consolidated workbook with total prices only. Section 2 gives exact URLs, versions and dates.
-- **Rate comparison.** Of 6529 price components compared across 50 distributor-year cells, 5308 are identical and 842 agree within published rounding precision; 379 differ, including 379 unexplained differences. [UNSURE] Metering and ACT LFiT are possible causes where the documents mention them; their component adjustments have not been substantiated and are excluded from documented-explanation totals.
+- **Rate comparison.** Of 6533 price components compared across 50 distributor-year cells, 5311 are identical and 843 agree within published rounding precision; 379 differ, including 379 unexplained differences. [UNSURE] Metering and ACT LFiT are possible causes where the documents mention them; their component adjustments have not been substantiated and are excluded from documented-explanation totals.
 - **Content differs.** The AER files list 107 tariff codes the distributors do not publish (mostly zero-priced placeholders for new trial tariffs and withdrawn tariffs still carried by the AER) and omit 287 codes the distributors price (site-specific SA Power Networks variants, Jemena and AusNet large-business tariffs, trial and obsolete codes). The 2024-25 AER file for SA Power Networks has code typos (ZSN/ZSS and STN/STR swapped on five site-specific codes, a blank code "-") and all-zero rows for SAPN's new Electrify/Flexible tariffs. The AER files omit SA Power Networks' Diversify rebate, AusNet's premium feed-in credit, Energex Band 5 and Ergon Excess Demand components.
 - **Format changed on both sides every year** (section 5.3): AER layout, labels and units changed in 2024-25, 2025-26 and 2026-27; nearly every distributor changed document type or table structure at least once in the period.
 - **Coverage gaps**: 6 cells could not be compared because the distributor's own document was not retrievable or has no price table (section 3); 3 further cells use the AER-hosted copy of the distributor's document as the distributor side and are flagged.
@@ -142,7 +142,7 @@ Reconciled = components equal, equal after rounding, or whose difference has a d
 | AusNet Services | 100.0% (100.0%) n=266 | 100.0% (100.0%) n=235 AER-hosted | 100.0% (100.0%) n=205 | 100.0% (100.0%) n=167 |
 | Evoenergy | 43.6% (43.6%) n=94 | 46.8% (46.8%) n=124 | 46.8% (46.8%) n=124 | 100.0% (100.0%) n=124 |
 | TasNetworks | 100.0% (100.0%) n=53 | 100.0% (100.0%) n=69 | 100.0% (100.0%) n=69 | 100.0% (100.0%) n=69 |
-| Power and Water Corporation | 100.0% (100.0%) n=17 | 100.0% (100.0%) n=18 | 100.0% (100.0%) n=22 | 100.0% (100.0%) n=22 AER-hosted |
+| Power and Water Corporation | 100.0% (100.0%) n=17 | 100.0% (100.0%) n=22 | 100.0% (100.0%) n=22 | 100.0% (100.0%) n=22 AER-hosted |
 
 ## Per distributor and year
 
@@ -442,10 +442,8 @@ Reconciled = components equal, equal after rounding, or whose difference has a d
 **2023-24** - AER side: AER_HOSTED (unknown); distributor side: DNSP (unknown). Codes: AER 7, distributor 7, matched 7 (by name 0, joint-code variants 0). Components compared 17: equal 16, after rounding 1, explained 0, unexplained 0; AER-only components 0, distributor-only components 0.
   Distributor format: One-page 'Tariffs by charging parameter' PDF (Wayback) with a GST-exclusive and a GST-inclusive table; units $/NMI/day, $/kWh, $/kVA (monthly demand). The document never states NUoS vs DUoS (basis recorded as unknown). AER-hosted pricing proposal Table B.1 gives the same values in a 5-year indicative schedule.
 
-**2024-25** - AER side: AER (NUoS); distributor side: DNSP (unknown). Codes: AER 8, distributor 8, matched 8 (by name 0, joint-code variants 0). Components compared 18: equal 15, after rounding 3, explained 0, unexplained 0; AER-only components 4, distributor-only components 4.
+**2024-25** - AER side: AER (NUoS); distributor side: DNSP (unknown). Codes: AER 8, distributor 8, matched 8 (by name 0, joint-code variants 0). Components compared 22: equal 18, after rounding 4, explained 0, unexplained 0; AER-only components 0, distributor-only components 0.
   Distributor format: One-page SCS tariff PDF (Wayback), GST-exclusive only; TOU energy columns print no unit (assumed $/kWh [UNSURE]). Comparison results are in the generated detail.
-  AER-only components: Tariff 5 On Demand 15.0000 $/kVA; Tariff 5 Off Demand 2.2000 $/kVA; Tariff 6 On Demand 6.5000 $/kVA; Tariff 6 Off Demand 1.8292 $/kVA
-  Distributor-only components: Tariff 5 On Season Demand Charge 15.000000 $/kVA; Tariff 5 Off Season Demand Charge 2.200000 $/kVA; Tariff 6 On Season Demand Charge 6.500000 $/kVA; Tariff 6 Off Season Demand Charge 1.829185 $/kVA
 
 **2025-26** - AER side: AER (NUoS); distributor side: DNSP (unknown). Codes: AER 8, distributor 8, matched 8 (by name 0, joint-code variants 0). Components compared 22: equal 0, after rounding 22, explained 0, unexplained 0; AER-only components 0, distributor-only components 0.
   Distributor format: 7-column SCS tariff table (FINAL 21 May 2025, Wayback) with no units printed (taken from the pricing proposal Table 9 [UNSURE]). AER consolidated report carries unrounded values (e.g. 0.0255972821) where PWC publishes 6 dp.

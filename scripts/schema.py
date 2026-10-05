@@ -81,8 +81,8 @@ def season_from_label(label: str) -> str:
     l = (label or "").lower()
     if "dec-mar" in l: return "summer"
     if "apr-nov" in l: return "non_summer"
-    if "high season" in l or "highsn" in l or "on-season" in l or "on season" in l or re.search(r"\bhs\b", l): return "high"
-    if "low season" in l or "lowsn" in l or "off-season" in l or "off season" in l or re.search(r"\bls\b", l): return "low"
+    if "high season" in l or "highsn" in l or "on-season" in l or "on season" in l or re.search(r"\bhs\b|\bon[- ]demand\b|\bon[- ]peak season\b", l): return "high"
+    if "low season" in l or "lowsn" in l or "off-season" in l or "off season" in l or re.search(r"\bls\b|\boff[- ]demand\b", l): return "low"
     if "non-summer" in l or "non summer" in l or re.search(r"\bnon[- ]summ?\.", l): return "non_summer"
     if "summer" in l or re.search(r"\bsumm?\.", l): return "summer"
     if "winter" in l: return "winter"

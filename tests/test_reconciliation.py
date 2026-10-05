@@ -56,6 +56,8 @@ class ReconciliationRegression(unittest.TestCase):
                  ('Ann Dmnd', 'Anytime demand', 'c/kW/day'),
                  ('DER export', 'Export - Rebate', 'c/kWh', '-4.8793'),
                  ('Non-Summ.', 'Volume Non Summer Charge', 'c/kWh'),
+                 ('On Demand', 'On Season Demand Charge', '$/kVA/month', '15.0000'),
+                 ('Off Demand', 'Off Season Demand Charge', '$/kVA/month', '2.2000'),
                  ('HS Peak exp', 'Export - Energy Charges - High Season Peak', 'c/kWh', '-11.0357'),
                  ('LS Peak exp', 'Export - Energy Charges - Low Season Peak', 'c/kWh', '-3.2695'),
                  ('SS Pk blk 2 exp', 'Export - Energy Charges - Solar Soak Period Block 2', 'c/kWh', '1.7500'),

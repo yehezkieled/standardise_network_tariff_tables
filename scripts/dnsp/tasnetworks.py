@@ -36,19 +36,17 @@ DEMAND_MEASURE_2023_24 = {"TAS87": "kW", "TAS97": "kW", "TAS88": "kW", "TAS98": 
                           "TAS82": "kVA", "TAS89": "kVA", "TASSDM": "kVA", "TAS15": "kVA"}
 
 
-def tariff_unit(code, options):
-    if not options:
-        return ""
-    if not any(re.search(r"/k(?:VA|W)/", unit, re.I) for unit in options):
-        return options[0]
+def tariff_unit(code, group, options):
+    """(unit, note) for a header cell: demand columns take the per-tariff measure from Table 36, else stay unresolved."""
+    unit = options[0] if options else ""
+    if not re.search(r"/k(?:VA|W)/", unit, re.I):
+        return unit, ""
     measure = DEMAND_MEASURE_2023_24.get(code)
-    if measure is None and re.fullmatch(r"TAS(?:84T[1-4]|14T[12])", code):
-        measure = "kVA"
     if measure is None:
-        if len(options) == 1:
-            return options[0]
-        raise ValueError(f"No published demand measure for {code}: {options}")
-    return re.sub(r"/k(?:VA|W)/", f"/{measure}/", options[0], flags=re.I)
+        return (re.sub(r"/k(?:VA|W)/", "/kVA or kW/", unit, flags=re.I),
+                f"[UNSURE] header '{group}' does not establish kW or kVA for {code}; demand quantity unverified")
+    return (re.sub(r"/k(?:VA|W)/", f"/{measure}/", unit, flags=re.I),
+            f"header '{group}'; {measure} for {code} per 2023-24 price guide Table 36")
 
 
 # ----------------------------------------------------------------------------- helpers
@@ -207,11 +205,8 @@ def parse_xlsx(path, fin_year, side, url):
                     float(val)
                 except ValueError:
                     continue
-                n = list(notes)
-                unit = tariff_unit(code, c["units"])
-                if len(c["units"]) > 1:
-                    n.append(f"header '{c['group']}'; {unit} selected for {code} per price guide Table 36")
-                em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(n))
+                unit, unote = tariff_unit(code, c["group"], c["units"])
+                em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(notes + [unote] if unote else notes))
         r = rr
     # locational TUoS sheet
     loc = f"Locational TUoS {fin_year}"
@@ -282,9 +277,8 @@ def parse_pdf_2024_25(path, fin_year, side, url):
                     val = num_text(" ".join(by_col.get(ci, [])))
                     if val is None:
                         continue
-                    unit = tariff_unit(code, c["units"])
-                    n = notes + ([f"{code} demand measure {unit} per price guide Table 36"] if unit not in c["units"] else [])
-                    em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(n))
+                    unit, unote = tariff_unit(code, c["group"], c["units"])
+                    em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(notes + [unote] if unote else notes))
     return em.rows
 
 
@@ -414,11 +408,7 @@ def parse_pdf_2023_24_schedule(path, fin_year, side, url):
                         if code == "TASUMSSL":
                             unit, un = "c/lamp watt/day", "unit per footnote 'Public lighting is charged on the basis of c/lamp watt/day'"
                         else:
-                            meas = DEMAND_MEASURE_2023_24.get(code, "kVA")
-                            unit = f"c/{meas}/day"
-                            un = (f"header unit published as 'c/kVA, kW, lamp watt/day'; {meas} per 2023-24 price guide Table 36"
-                                  if code in DEMAND_MEASURE_2023_24 else
-                                  "header unit published as 'c/kVA, kW, lamp watt/day'; kVA assumed [UNSURE]")
+                            unit, un = tariff_unit(code, "c/kVA, kW, lamp watt/day", ["c/kVA/day"])
                         em.add(code, name, cls, f"{c['group']} - {c['sub']}", unit, num_text(nums[0]["text"]), basis,
                                note="; ".join(notes + [un]))
                     else:  # Capacity/connection charges: 'a / b' = demand charge / connection charge

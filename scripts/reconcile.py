@@ -71,11 +71,12 @@ def unit_family(u):
     if u.startswith("c/day"): return "fixed"
     if u.startswith("c/kW/"): return "demand_kW"
     if u.startswith("c/kVA/"): return "demand_kVA"
+    if u.startswith("c/k?/"): return "demand_unknown"
     if u.startswith("c/lamp"): return "lamp"
     return u or "none"
 
 def unit_period(u):
-    m = re.match(r"c/k(?:W|VA)/(.+)$", u or "")
+    m = re.match(r"c/k(?:W|VA|\?)/(.+)$", u or "")
     return m.group(1) if m else ""
 
 def decimals_of(s):
@@ -224,8 +225,13 @@ def classify_diff(a, d, aer_val, dnsp_val, ctx):
     return "unexplained", "; ".join(hypotheses)
 
 
+def unit_unverified(a, d):
+    return "demand_unknown" in (unit_family(a["unit_std"]), unit_family(d["unit_std"]))
+
+
 def compatible(a, d):
-    if unit_family(a["unit_std"]) != unit_family(d["unit_std"]):
+    families = {unit_family(a["unit_std"]), unit_family(d["unit_std"])}
+    if len(families) > 1 and not (unit_unverified(a, d) and families <= {"demand_unknown", "demand_kW", "demand_kVA"}):
         return False
     if a["charge_type"] != d["charge_type"]:
         return False
@@ -235,8 +241,8 @@ def compatible(a, d):
     for field in ("time_band", "season"):
         av = a.get(field) or (season_from_label(a["component"] + " " + a["unit"]) if field == "season" else "")
         dv = d.get(field) or (season_from_label(d["component"] + " " + d["unit"]) if field == "season" else "")
-        if field == "time_band":
-            av, dv = av or "anytime", dv or "anytime"
+        if field == "time_band" and not (av and dv):
+            continue
         if av != dv:
             return False
     pa, pd = unit_period(a["unit_std"]), unit_period(d["unit_std"])
@@ -442,6 +448,8 @@ def reconcile():
                 for a, d in matched:
                     av, dv = a["value_std_f"], d["value_std_f"]
                     cls, det = classify_diff(a, d, av, dv, ctx)
+                    if unit_unverified(a, d):
+                        det = "; ".join(x for x in (det, f"[UNSURE] unit unverified: demand quantity (kW or kVA) not established ({a['unit']} vs {d['unit']})") if x)
                     if cls == "equal" or abs(dv - av) < 1e-12:
                         status, cls = "equal", "equal"
                     elif cls == "rounding":

@@ -14,17 +14,18 @@ DAYS_PER_MONTH = 365.0 / 12.0
 
 def parse_unit(u: str):
     """Return (money, quantity, period) from a unit string.
-    money: 'c' | '$' ; quantity: 'kWh','kW','kVA','day','customer','lamp','site' or '' ; period: 'day','month','year','season','' .
+    money: 'c' | '$' ; quantity: 'kWh','kW','kVA','k?' (unit names both kW and kVA),'day','customer','lamp','site' or '' ; period: 'day','month','year','season','' .
     """
     s = (u or "").strip().lower()
     s = s.replace("¢", "c").replace("cents", "c").replace("cent", "c").replace("aud", "$")
     s = re.sub(r"\s+", "", s)
     money = "$" if s.startswith("$") else "c"
-    quantity = ""
+    quantity = "k?" if re.search(r"kva(?!h)", s) and re.search(r"kw(?!h)", s) else ""
     for q, pat in (("kwh", r"kwh"), ("kvah", r"kvah"), ("kva", r"kva"), ("kw", r"kw(?!h)"), ("lamp", r"lamp|lmp"), ("mwh", r"mwh")):
+        if quantity:
+            break
         if re.search(pat, s):
             quantity = {"kwh": "kWh", "kvah": "kVAh", "kva": "kVA", "kw": "kW", "lamp": "lamp", "mwh": "MWh"}[q]
-            break
     period = ""
     if re.search(r"/day|perday|/d\b|daily|pd\b", s):
         period = "day"
@@ -74,7 +75,7 @@ def to_std(value, unit: str, label: str = ""):
         return v, "c/kVAh"
     if quantity == "MWh":
         return v / 1000.0, "c/kWh"
-    if quantity in ("kW", "kVA"):
+    if quantity in ("kW", "kVA", "k?"):
         # period taken from the label (not the unit) is marked soft with "?" : e.g. "Annual demand" may name the
         # measurement window while the charge is billed per day (SA Power Networks $/kVA/day)
         p = (period + "?") if (period and inferred) else (period or "?")

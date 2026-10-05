@@ -589,11 +589,15 @@ def sapn_parse_page(lines, hdr, basis, ctx, state):
                 name_words.append(w)
         if not codes:
             continue
-        code = codes.get("SA") or next(iter(codes.values()))
-        if not CODE_RE.match(code):
+        published_codes = {}
+        for role, published_code in codes.items():
+            if CODE_RE.fullmatch(published_code):
+                published_codes.setdefault(published_code, role)
+        if not published_codes:
             if DEBUG:
                 print("   skip non-code row:", ln.text[:80])
             continue
+        code = next(iter(published_codes))
         state["after_rows"] = True
         state["first_on_page"] = False
         if len(stack) == 1:
@@ -601,12 +605,6 @@ def sapn_parse_page(lines, hdr, basis, ctx, state):
         name = " ".join(w.text for w in name_words)
         cls = " - ".join(stack)
         residential = bool(stack) and stack[0].lower().startswith("residential")
-        variant_notes = []
-        if codes.get("CBD") and codes["CBD"] != code:
-            variant_notes.append(f"CBD code: {codes['CBD']}")
-        if codes.get("EXPORT") and codes["EXPORT"] != code:
-            variant_notes.append(f">30 kW export code: {codes['EXPORT']}")
-        site = "site-specific" if ("Site Specific" in cls or re.search(r"\d{3}$", code)) else ""
         for v, x0, x1 in money_values(value_words):
             if v is None:
                 continue
@@ -629,11 +627,21 @@ def sapn_parse_page(lines, hdr, basis, ctx, state):
             lab_l = comp.lower()
             if "non-tou" in lab_l or "single rate" in lab_l.split(" - ")[-1]:
                 tb = "anytime"
-            rows.append(make_row(
-                SAPN, ctx["fin_year"], ctx["side"], code, name, cls, comp, hdr.units[k], v,
-                "excl", basis, ctx["file"], ctx["url"],
-                [ctx["table_note"], ctx.get("doc_note", ""), site] + variant_notes + extra + [ctx["gst_note"]],
-                charge_type=ct, time_band=tb))
+            for published_code, role in published_codes.items():
+                if role == "EXPORT" and hdr.groups[k].upper().startswith("EXPORT"):
+                    continue
+                variant_notes = []
+                if published_code != code:
+                    if role == "CBD":
+                        variant_notes.append(f"site-specific CBD variant of {code}; shared schedule-row prices")
+                    elif role == "EXPORT":
+                        variant_notes.append(f">30 kW export variant of {code}; export tariffs do not apply; shared schedule-row prices")
+                site = "site-specific" if ("Site Specific" in cls or re.search(r"\d{3}$", published_code)) else ""
+                rows.append(make_row(
+                    SAPN, ctx["fin_year"], ctx["side"], published_code, name, cls, comp, hdr.units[k], v,
+                    "excl", basis, ctx["file"], ctx["url"],
+                    [ctx["table_note"], ctx.get("doc_note", ""), site] + variant_notes + extra + [ctx["gst_note"]],
+                    charge_type=ct, time_band=tb))
     return rows
 
 

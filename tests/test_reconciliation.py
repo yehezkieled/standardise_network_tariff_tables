@@ -8,6 +8,7 @@ import tempfile
 import unittest
 from collections import Counter
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
@@ -40,6 +41,49 @@ def row(side, value, band='peak', unit='c/kWh', charge='energy', season='', code
 
 
 class ReconciliationRegression(unittest.TestCase):
+    def test_sapn_published_variant_codes(self):
+        def word(text, centre):
+            return SimpleNamespace(text=text, x0=centre - 2, x1=centre + 2, xc=centre)
+
+        header = SimpleNamespace(body_start=0, left_edge=150, code_cols=[(10, 'SA'), (40, 'CBD'), (70, 'EXPORT')],
+                                 centres=[200, 250, 300, 350, 400], pitch=50,
+                                 groups=['SUPPLY', 'ENERGY BASED USAGE', 'EXPORT', 'EXPORT', 'METERING'],
+                                 units=['$/day', '$/kWh', '$/kWh', '$/kWh', '$/day'], elig=[''] * 5,
+                                 component=lambda k, residential: ['Supply Rate', 'Peak energy', 'Export Charge',
+                                                                  'Export Credit', 'Meter Charge'][k])
+        for side in ['DNSP', 'AER_HOSTED']:
+            for basis in ['NUoS', 'DUoS', 'TUoS', 'JSO']:
+                ctx = dict(fin_year='2025-26', side=side, file='fixture.pdf', url='', page=1,
+                           table_note='schedule', gst_note='excl')
+                for parent, cbd, export in [('LBAD', 'LBADCBD', '-'), ('RSR', 'RSR', 'RSRNE'),
+                                            ('TEST', 'TESTCBD', 'TESTNE')]:
+                    words = [word(parent, 10), word(cbd, 40), word(export, 70), word('Business', 100)]
+                    words += [word(value, centre) for value, centre in zip(
+                        ['$1.00', '$0.20', '$0.01', '-$0.10', '$0.05'], header.centres)]
+                    line = SimpleNamespace(words=words, bold=False, text=' '.join(w.text for w in words))
+                    rows = sapn_pwc.sapn_parse_page([line], header, basis, ctx, {'stack': ['Small Business']})
+                    codes = {parent, cbd, export} - {'-'}
+                    self.assertEqual({r['tariff_code'] for r in rows}, codes)
+                    for code in codes:
+                        components = {r['component']: r['value'] for r in rows if r['tariff_code'] == code}
+                        expected = {'Supply Rate': '1.00', 'Peak energy': '0.20'}
+                        if code != export:
+                            expected.update({'Export Charge': '0.01', 'Export Credit': '-0.10'})
+                        self.assertEqual(components, expected)
+                        self.assertEqual(sum(r['tariff_code'] == code for r in rows), len(expected))
+                    if side == 'DNSP' and basis == 'NUoS':
+                        aer = [dict(r, side='AER') for r in rows if r['tariff_code'] == parent]
+                        detail, grid = self.compare(aer + rows)
+                        self.assertEqual(grid['components_compared'], 4)
+                        variants = [r for r in detail if r['status'] == 'dnsp_only_code']
+                        self.assertEqual({r['tariff_code'] for r in variants}, codes - {parent})
+                        if cbd != parent:
+                            self.assertEqual(next(r for r in variants if r['tariff_code'] == cbd)['explanation'],
+                                             'site_specific_variant')
+                        detail, grid = self.compare([dict(r, side='AER') for r in rows] + rows)
+                        self.assertEqual(grid['components_compared'], len(rows))
+                        self.assertTrue(all(r['status'] == 'equal' for r in detail))
+
     def test_ergon_minimum_and_remaining_capacity(self):
         for code in ['EBPMPT1', 'EBPMPT2', 'EBPMPT3']:
             sheet = energex_ergon.Sheet()

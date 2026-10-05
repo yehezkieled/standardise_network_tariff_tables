@@ -345,7 +345,7 @@ def reconcile():
                     dname = D[dk][0]["tariff_name"]
                     sc = sim(re.sub(r"\(.*?\)|\*", "", aname), re.sub(r"\(.*?\)|\*", "", dname))
                     # digit sequences in names and in codes must agree (site-specific codes share a name and differ by number)
-                    if sc >= 0.9 and digits(aname) == digits(dname) and (not digits(ak) or not digits(dk) or digits(ak) == digits(dk)):
+                    if sc >= 0.9 and digits(aname) == digits(dname) and digits(A[ak][0]["tariff_code"]) == digits(D[dk][0]["tariff_code"]):
                         cand_pairs.append((sc, ak, dk))
             for sc, ak, dk in sorted(cand_pairs, reverse=True):
                 if ak in unmatched_a and dk not in used_d:

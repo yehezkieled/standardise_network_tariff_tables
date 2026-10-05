@@ -41,6 +41,33 @@ def row(side, value, band='peak', unit='c/kWh', charge='energy', season='', code
 
 
 class ReconciliationRegression(unittest.TestCase):
+    def test_tariff_name_matching_preserves_numeric_identity(self):
+        for acode, dcode in [('LBAD627', 'LBADCBD'), ('LBADCBD', 'LBAD627'),
+                             ('LBAD627', 'OTHER628')]:
+            for placeholder in [False, True]:
+                a = row('AER', '0' if placeholder else '1', code=acode, distributor='SA Power Networks')
+                d = row('DNSP', '1', code=dcode, distributor='SA Power Networks')
+                a['tariff_name'] = d['tariff_name'] = 'Large LV Business Annual Demand'
+                if placeholder:
+                    a['component'] = '(no non-zero prices)'
+                detail, grid = self.compare([a, d])
+                self.assertIsNone(grid)
+                self.assertEqual({r['status'] for r in detail}, {'aer_only_code', 'dnsp_only_code'})
+                self.assertEqual({r['tariff_code'] for r in detail}, {acode, dcode})
+                if placeholder:
+                    self.assertEqual(next(r for r in detail if r['status'] == 'aer_only_code')['explanation'],
+                                     'aer_zero_placeholder')
+        for acode, dcode in [('LBAD627', 'OTHER627'), ('LBAD', 'OTHER')]:
+            for codes in [(acode, dcode), (dcode, acode)]:
+                a = row('AER', '1', code=codes[0], distributor='SA Power Networks')
+                d = row('DNSP', '1', code=codes[1], distributor='SA Power Networks')
+                a['tariff_name'] = d['tariff_name'] = 'Large LV Business Annual Demand'
+                detail, grid = self.compare([a, d])
+                self.assertEqual(grid['components_compared'], 1)
+                self.assertEqual(grid['codes_mapped_by_name'], 1)
+                self.assertEqual(detail[0]['status'], 'equal')
+                self.assertIn('matched by tariff name', detail[0]['detail'])
+
     def test_sapn_published_variant_codes(self):
         def word(text, centre):
             return SimpleNamespace(text=text, x0=centre - 2, x1=centre + 2, xc=centre)

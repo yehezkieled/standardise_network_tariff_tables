@@ -1181,25 +1181,41 @@ class Builder:
                 self.instance("demand_period_unstated", did=d["distributor_id"], fy=d["fin_year"], doc=doc,
                               quantity=cnt["period"], unit="charges", detail="demand/capacity unit does not state the "
                               "billing period: period = unstated, or taken from the component label (period_inferred = 1)")
-        # charges with TOU bands but no TOU definition for that tariff-year
-        tou = {(t["tariff_id"], self.t.get("tou_schedule", t["tou_schedule_id"])["fin_year"])
-               for t in self.t.all("tariff_tou")}
-        seen = set()
+        tou = defaultdict(set)
+        windows = defaultdict(set)
+        for w in self.t.all("tou_window"):
+            windows[w["tou_schedule_id"]].add(w["period"].replace("_", ""))
+        for t in self.t.all("tariff_tou"):
+            schedule = self.t.get("tou_schedule", t["tou_schedule_id"])
+            kinds = {t["applies_to"]}
+            if "all" in kinds:
+                kinds = {"energy", "demand", "export"}
+            if "controlled_load" in kinds:
+                kinds = {"energy"}
+            for kind in kinds:
+                tou[(t["tariff_id"], schedule["fin_year"], kind)].update(windows[t["tou_schedule_id"]])
+        gaps = defaultdict(set)
+        gap_listing = {}
         for l in listings:
             d = self.doc_by_id[l["document_id"]]
             if d["author"] == "AER":
                 continue
             k = (l["tariff_id"], d["fin_year"])
-            if k in seen or k in tou:
-                continue
-            bands = {c["time_band"] for c in self.charges_of(l["listing_id"])} & {
-                "peak", "offpeak", "shoulder", "solar_soak", "critical_peak", "super_offpeak"}
-            if bands:
-                seen.add(k)
-                self.instance("tou_definition_missing", did=self.t.get("tariff", l["tariff_id"])["distributor_id"],
-                              fy=d["fin_year"], tariff=l["tariff_id"], listing=l["listing_id"], doc=l["document_id"],
-                              detail=f"time-of-use components ({', '.join(sorted(bands))}) with no structured window "
-                                     f"currently extracted for this tariff-year; check source before use")
+            for c in self.charges_of(l["listing_id"]):
+                band = (c["time_band"] or "").replace("_", "")
+                if band not in {"peak", "offpeak", "shoulder", "solarsoak", "criticalpeak", "superoffpeak"}:
+                    continue
+                kind = "demand" if c["charge_type"] == "capacity" else c["charge_type"]
+                covered = tou[(k[0], k[1], kind)]
+                if band not in covered and not (kind == "demand" and "demandwindow" in covered):
+                    gaps[k].add(f"{kind}:{c['time_band']}")
+                    gap_listing.setdefault(k, l)
+        for k, missing in sorted(gaps.items()):
+            l = gap_listing[k]
+            self.instance("tou_definition_missing", did=self.t.get("tariff", k[0])["distributor_id"],
+                          fy=k[1], tariff=k[0], listing=l["listing_id"], doc=l["document_id"],
+                          detail=f"time-of-use components ({', '.join(sorted(missing))}) with no structured window "
+                                 "covering that charge kind and band in this tariff-year; check source before use")
         for w in self.t.all("tou_window"):
             if w["months"] is None:
                 s = self.t.get("tou_schedule", w["tou_schedule_id"])
@@ -1212,6 +1228,25 @@ class Builder:
                               doc=s["document_id"], detail=f"{s['tou_schedule_id']} ({s['locator']}): {s['quote']!r}; "
                               f"the times are kept as stated, and the document does not say which times apply while "
                               f"daylight saving is off")
+        boundaries = defaultdict(list)
+        for r in self.t.all("eligibility_rule"):
+            if r["rule_type"] in curated.BOUNDARY_RULES:
+                boundaries[(r["document_id"], r["fin_year"], r["rule_type"].rsplit("_", 1)[0],
+                            r["value_unit"], r["value_num"])].append(r)
+        for group in boundaries.values():
+            for r in group:
+                if r["operator"] not in ("ge_unstated", "le_unstated"):
+                    continue
+                overlaps = sorted({other["rule_id"] for other in group
+                                   if other["tariff_id"] != r["tariff_id"]
+                                   and other["rule_type"] != r["rule_type"]
+                                   and other["operator"] not in ("gt", "lt")})
+                self.instance("boundary_inclusivity_unstated", did=r["tariff_id"].split(":")[0],
+                              fy=r["fin_year"], tariff=r["tariff_id"], doc=r["document_id"],
+                              quantity=r["value_num"], unit=r["value_unit"],
+                              detail=f"{r['rule_id']}: {r['rule_type']} {r['operator']} {r['value_num']} "
+                                     f"{r['value_unit']}; endpoint inclusion is unstated; potential shared-boundary "
+                                     f"overlaps: {', '.join(overlaps) or 'none'}")
         # CitiPower CMG assignment rules
         for r in self.t.all("eligibility_rule"):
             if r["tariff_id"] in ("citipower:CMG", "citipower:CMGO21"):

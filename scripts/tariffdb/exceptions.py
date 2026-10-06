@@ -129,10 +129,18 @@ EXCEPTIONS = [
       "charge.period = unstated, or the label's period with period_inferred = 1; value_std is then not comparable "
       "across periods without the demand rule.",
       "test_demand_period_unstated"),
-    e("tou_definition_missing", "TOU charges without window definitions",
-      "Tariffs price peak/off-peak/shoulder energy or demand without a structured window extracted for that tariff-year. "
+    e("boundary_inclusivity_unstated", "Numeric boundary inclusion not stated",
+      "The source gives a lower or upper threshold without saying whether its endpoint is included.",
+      "eligibility_rule.operator = ge_unstated/le_unstated retains the threshold without asserting inclusion. "
+      "One instance per rule lists potential shared-boundary overlaps with other tariffs in the same document/year; "
+      "these are unresolved candidates, not an assignment decision.",
+      "test_boundary_inclusivity_unstated"),
+    e("tou_definition_missing", "TOU charges without matching window definitions",
+      "Tariffs price TOU bands without a structured window covering that charge kind and band in that year. "
       "This records a coverage gap, not proof that the underlying documents lack a definition.",
-      "The charge rows exist with time_band; tariff_tou has no row for that tariff-year. Instances list each gap.",
+      "The charge rows exist with time_band; linked tariff_tou schedules do not cover every required kind/band. "
+      "Demand includes capacity; controlled_load links cover energy; all links cover every kind. "
+      "Instances list missing kind/band pairs once per tariff-year.",
       "test_tou_definition_missing"),
     e("season_months_not_stated", "Season named without its months",
       "A window applies in a named season (e.g. Evoenergy 'winter months', 'non-winter months') but the document never "

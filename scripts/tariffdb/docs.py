@@ -243,7 +243,7 @@ def markdown(data):
                    f"{md_cell(e['representation'])} | `{e['test'].rsplit('::', 1)[1]}` |")
     out += ["", "## Coverage by distributor and year", "",
             "| Distributor | Year | Documents | AER charges | Distributor charges | TOU schedules | Demand rules | "
-            "Eligibility rules | Tariffs with TOU prices but no windows |", "|---|---|---|---|---|---|---|---|---|"]
+            "Eligibility rules | Tariffs with TOU prices missing matching windows |", "|---|---|---|---|---|---|---|---|---|"]
     cov = data.coverage()
     for d in data.t["distributor"]:
         for fy in spec.FIN_YEARS:
@@ -476,7 +476,7 @@ def html_page(data):
           '<h3 class="text-xl font-semibold">Known gaps</h3>',
           '<ul class="list-disc pl-6 text-sm opacity-80"><li>What the held sources cannot supply. Each is recorded as '
           'exception rows, never filled by guessing.</li><li>TOU gaps above = tariffs with peak/off-peak prices but no '
-          'window in that year (<code>tou_definition_missing</code>).</li></ul>',
+          'window for the charge kind and band in that year (<code>tou_definition_missing</code>).</li></ul>',
           '<div class="overflow-x-auto rounded-box border border-base-content/10"><table class="table table-sm '
           'table-zebra"><thead><tr><th>Where</th><th>Missing</th><th>Why</th></tr></thead><tbody>']
     h += [f'<tr><td class="font-medium">{esc(a)}</td><td>{esc(b)}</td><td>{esc(c)}</td></tr>' for a, b, c in KNOWN_GAPS]

@@ -46,7 +46,7 @@ RULE_TYPES = [
     "customer_type", "voltage_level", "consumption_min", "consumption_max", "demand_min", "demand_max",
     "meter_type", "assignment", "availability", "requires_technology", "opt_out_to", "minimum_demand_charge", "other",
 ]
-OPERATORS = ["eq", "lt", "le", "gt", "ge"]
+OPERATORS = ["eq", "lt", "le", "gt", "ge", "ge_unstated", "le_unstated"]
 # value_text vocabulary for the categorical rule types (rule types not listed take free text)
 RULE_VALUES = {
     "customer_type": ["residential", "small_business", "medium_business", "large_business", "business",
@@ -519,7 +519,7 @@ TABLES = [
             col("effective_from", "date", "first day"),
             col("effective_to", "date", "last day (inclusive)"),
             col("rule_type", "text", "what the rule constrains", enum=RULE_TYPES),
-            col("operator", "text", "comparison for numeric rules", null=True, enum=OPERATORS),
+            col("operator", "text", "comparison for numeric rules; ge_unstated/le_unstated retain lower/upper bounds without asserting inclusion of the endpoint", null=True, enum=OPERATORS),
             col("value_num", "numeric", "threshold", null=True),
             col("value_unit", "text", "unit of the threshold (MWh/yr, kVA, kW, kV ...)", null=True),
             col("value_text", "text", "categorical value (residential, LV, interval, default, opt_in, ...)", null=True),

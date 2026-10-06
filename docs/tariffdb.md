@@ -129,7 +129,8 @@ erDiagram
 | `parser_note_page_offset` | Parser note names the wrong page | 47 | charge.page / charge.locator hold the verified page; the note is kept verbatim and the offset recorded here. | `test_parser_note_page_offset` |
 | `gst_inclusive_prices` | GST-inclusive prices | 1 | charge.gst = incl on those rows; the GST basis is part of the charge key. | `test_gst_inclusive_prices` |
 | `demand_period_unstated` | Demand unit without a billing period | 31 | charge.period = unstated, or the label's period with period_inferred = 1; value_std is then not comparable across periods without the demand rule. | `test_demand_period_unstated` |
-| `tou_definition_missing` | TOU charges without window definitions | 705 | The charge rows exist with time_band; tariff_tou has no row for that tariff-year. Instances list each gap. | `test_tou_definition_missing` |
+| `boundary_inclusivity_unstated` | Numeric boundary inclusion not stated | 188 | eligibility_rule.operator = ge_unstated/le_unstated retains the threshold without asserting inclusion. One instance per rule lists potential shared-boundary overlaps with other tariffs in the same document/year; these are unresolved candidates, not an assignment decision. | `test_boundary_inclusivity_unstated` |
+| `tou_definition_missing` | TOU charges without matching window definitions | 778 | The charge rows exist with time_band; linked tariff_tou schedules do not cover every required kind/band. Demand includes capacity; controlled_load links cover energy; all links cover every kind. Instances list missing kind/band pairs once per tariff-year. | `test_tou_definition_missing` |
 | `season_months_not_stated` | Season named without its months | 59 | tou_window.months is NULL and season holds the name as published; tou_window_month has no rows for the window. One instance per window. | `test_season_months_not_stated` |
 | `time_stated_in_daylight_time` | Window stated in daylight-saving time | 8 | tou_schedule.time_basis = daylight_time with the times exactly as stated; nothing is converted to standard time. One instance per schedule. | `test_time_stated_in_daylight_time` |
 | `price_status_unverified` | Regulatory status of an AER-hosted document not stated | 28 | source_document.price_status = unverified (no status is asserted without evidence); its listings carry no proposed_price flag. One instance per document. | `test_price_status_unverified` |
@@ -138,9 +139,9 @@ erDiagram
 
 ## Coverage by distributor and year
 
-| Distributor | Year | Documents | AER charges | Distributor charges | TOU schedules | Demand rules | Eligibility rules | Tariffs with TOU prices but no windows |
+| Distributor | Year | Documents | AER charges | Distributor charges | TOU schedules | Demand rules | Eligibility rules | Tariffs with TOU prices missing matching windows |
 |---|---|---|---|---|---|---|---|---|
-| Ausgrid | 2023-24 | 2 | 0 | 480 | 2 | 5 | 95 | 5 |
+| Ausgrid | 2023-24 | 2 | 0 | 480 | 2 | 5 | 95 | 22 |
 | Ausgrid | 2024-25 | 2 | 256 | 99 | 1 | 7 | 139 | 24 |
 | Ausgrid | 2025-26 | 1 | 171 | 98 | 0 | 7 | 121 | 25 |
 | Ausgrid | 2026-27 | 1 | 85 | 112 | 0 | 8 | 140 | 27 |
@@ -148,10 +149,10 @@ erDiagram
 | AusNet Services | 2024-25 | 3 | 767 | 886 | 16 | 5 | 703 | 11 |
 | AusNet Services | 2025-26 | 1 | 420 | 705 | 14 | 3 | 152 | 0 |
 | AusNet Services | 2026-27 | 1 | 172 | 598 | 15 | 3 | 122 | 0 |
-| CitiPower | 2023-24 | 2 | 0 | 389 | 18 | 9 | 152 | 0 |
-| CitiPower | 2024-25 | 3 | 141 | 263 | 14 | 9 | 146 | 2 |
+| CitiPower | 2023-24 | 2 | 0 | 389 | 18 | 9 | 152 | 2 |
+| CitiPower | 2024-25 | 3 | 141 | 263 | 14 | 9 | 146 | 4 |
 | CitiPower | 2025-26 | 1 | 94 | 0 | 7 | 8 | 79 | 0 |
-| CitiPower | 2026-27 | 2 | 49 | 189 | 10 | 9 | 108 | 6 |
+| CitiPower | 2026-27 | 2 | 49 | 189 | 10 | 9 | 108 | 9 |
 | Endeavour Energy | 2023-24 | 2 | 0 | 372 | 3 | 2 | 95 | 0 |
 | Endeavour Energy | 2024-25 | 2 | 250 | 167 | 3 | 3 | 183 | 0 |
 | Endeavour Energy | 2025-26 | 1 | 162 | 91 | 3 | 2 | 104 | 0 |
@@ -168,34 +169,34 @@ erDiagram
 | Essential Energy | 2024-25 | 3 | 415 | 367 | 14 | 6 | 162 | 0 |
 | Essential Energy | 2025-26 | 1 | 230 | 110 | 7 | 6 | 67 | 0 |
 | Essential Energy | 2026-27 | 1 | 115 | 110 | 7 | 6 | 67 | 0 |
-| Evoenergy | 2023-24 | 2 | 0 | 1038 | 10 | 11 | 123 | 4 |
-| Evoenergy | 2024-25 | 2 | 424 | 138 | 42 | 34 | 75 | 0 |
-| Evoenergy | 2025-26 | 1 | 260 | 138 | 42 | 34 | 75 | 0 |
-| Evoenergy | 2026-27 | 2 | 130 | 300 | 94 | 80 | 156 | 0 |
-| Jemena | 2023-24 | 2 | 0 | 1680 | 22 | 22 | 542 | 0 |
-| Jemena | 2024-25 | 3 | 406 | 420 | 22 | 22 | 588 | 0 |
-| Jemena | 2025-26 | 1 | 190 | 177 | 11 | 11 | 205 | 0 |
-| Jemena | 2026-27 | 1 | 58 | 102 | 11 | 9 | 108 | 0 |
+| Evoenergy | 2023-24 | 2 | 0 | 1038 | 10 | 11 | 123 | 6 |
+| Evoenergy | 2024-25 | 2 | 424 | 138 | 42 | 34 | 75 | 6 |
+| Evoenergy | 2025-26 | 1 | 260 | 138 | 42 | 34 | 75 | 6 |
+| Evoenergy | 2026-27 | 2 | 130 | 300 | 94 | 80 | 156 | 7 |
+| Jemena | 2023-24 | 2 | 0 | 1680 | 22 | 22 | 542 | 1 |
+| Jemena | 2024-25 | 3 | 406 | 420 | 22 | 22 | 588 | 1 |
+| Jemena | 2025-26 | 1 | 190 | 177 | 11 | 11 | 205 | 1 |
+| Jemena | 2026-27 | 1 | 58 | 102 | 11 | 9 | 108 | 2 |
 | Powercor | 2023-24 | 2 | 0 | 189 | 0 | 4 | 24 | 14 |
-| Powercor | 2024-25 | 3 | 141 | 267 | 15 | 9 | 163 | 2 |
-| Powercor | 2025-26 | 2 | 94 | 204 | 15 | 9 | 168 | 2 |
-| Powercor | 2026-27 | 2 | 49 | 189 | 19 | 8 | 105 | 1 |
+| Powercor | 2024-25 | 3 | 141 | 267 | 15 | 9 | 163 | 4 |
+| Powercor | 2025-26 | 2 | 94 | 204 | 15 | 9 | 168 | 4 |
+| Powercor | 2026-27 | 2 | 49 | 189 | 19 | 8 | 105 | 4 |
 | Power and Water Corporation | 2023-24 | 2 | 0 | 51 | 4 | 4 | 37 | 0 |
 | Power and Water Corporation | 2024-25 | 3 | 44 | 50 | 6 | 4 | 82 | 0 |
 | Power and Water Corporation | 2025-26 | 2 | 44 | 44 | 6 | 4 | 56 | 0 |
 | Power and Water Corporation | 2026-27 | 2 | 22 | 22 | 3 | 2 | 36 | 0 |
-| SA Power Networks | 2023-24 | 2 | 0 | 2224 | 14 | 25 | 435 | 51 |
-| SA Power Networks | 2024-25 | 4 | 875 | 2356 | 14 | 25 | 506 | 57 |
-| SA Power Networks | 2025-26 | 2 | 121 | 2272 | 28 | 62 | 500 | 52 |
+| SA Power Networks | 2023-24 | 2 | 0 | 2224 | 14 | 25 | 435 | 52 |
+| SA Power Networks | 2024-25 | 4 | 875 | 2356 | 14 | 25 | 506 | 58 |
+| SA Power Networks | 2025-26 | 2 | 121 | 2272 | 28 | 62 | 500 | 61 |
 | SA Power Networks | 2026-27 | 1 | 121 | 973 | 0 | 5 | 204 | 73 |
 | TasNetworks | 2023-24 | 2 | 0 | 346 | 5 | 13 | 144 | 0 |
 | TasNetworks | 2024-25 | 2 | 198 | 233 | 0 | 0 | 111 | 16 |
 | TasNetworks | 2025-26 | 1 | 152 | 233 | 0 | 0 | 52 | 16 |
 | TasNetworks | 2026-27 | 1 | 76 | 233 | 0 | 0 | 52 | 16 |
-| United Energy | 2023-24 | 2 | 0 | 250 | 15 | 11 | 113 | 1 |
-| United Energy | 2024-25 | 3 | 92 | 128 | 3 | 2 | 33 | 10 |
+| United Energy | 2023-24 | 2 | 0 | 250 | 15 | 11 | 113 | 2 |
+| United Energy | 2024-25 | 3 | 92 | 128 | 3 | 2 | 33 | 11 |
 | United Energy | 2025-26 | 2 | 66 | 0 | 10 | 7 | 65 | 0 |
-| United Energy | 2026-27 | 2 | 49 | 180 | 17 | 10 | 145 | 1 |
+| United Energy | 2026-27 | 2 | 49 | 180 | 17 | 10 | 145 | 4 |
 
 ## Known gaps
 
@@ -585,7 +586,7 @@ Requirements and assignment rules: customer type, voltage, consumption/demand th
 | `effective_from` | date |  |  |  | first day |
 | `effective_to` | date |  |  |  | last day (inclusive) |
 | `rule_type` | text |  |  | customer_type, voltage_level, consumption_min, consumption_max, demand_min, demand_max, meter_type, assignment, availability, requires_technology, opt_out_to, minimum_demand_charge, other | what the rule constrains |
-| `operator` | text |  | yes | eq, lt, le, gt, ge | comparison for numeric rules |
+| `operator` | text |  | yes | eq, lt, le, gt, ge, ge_unstated, le_unstated | comparison for numeric rules; ge_unstated/le_unstated retain lower/upper bounds without asserting inclusion of the endpoint |
 | `value_num` | numeric |  | yes |  | threshold |
 | `value_unit` | text |  | yes |  | unit of the threshold (MWh/yr, kVA, kW, kV ...) |
 | `value_text` | text |  | yes |  | categorical value (residential, LV, interval, default, opt_in, ...) |
@@ -725,7 +726,7 @@ How billed demand is measured: kW or kVA, interval, aggregation, window, months,
 
 ### Exceptions
 
-#### `exception_type` (27 rows)
+#### `exception_type` (28 rows)
 
 Catalogue of irregularities the data must represent, and how it represents each (from scripts/tariffdb/exceptions.py). Derived: recomputed from the source-fact tables on every build, not append-only.
 
@@ -739,7 +740,7 @@ Catalogue of irregularities the data must represent, and how it represents each 
 | `representation` | text |  |  |  | tables/columns that represent it |
 | `test` | text |  |  |  | test that exercises it (tests/test_tariffdb.py) |
 
-#### `exception_instance` (3061 rows)
+#### `exception_instance` (3322 rows)
 
 Each occurrence of a catalogued exception, detected on every build. Derived: recomputed from the source-fact tables on every build, not append-only.
 

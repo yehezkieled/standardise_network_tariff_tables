@@ -356,7 +356,7 @@ CREATE TABLE eligibility_rule (
   effective_from DATE NOT NULL,
   effective_to DATE NOT NULL,
   rule_type TEXT NOT NULL CHECK (rule_type IN ('customer_type', 'voltage_level', 'consumption_min', 'consumption_max', 'demand_min', 'demand_max', 'meter_type', 'assignment', 'availability', 'requires_technology', 'opt_out_to', 'minimum_demand_charge', 'other')),
-  operator TEXT CHECK (operator IN ('eq', 'lt', 'le', 'gt', 'ge')),
+  operator TEXT CHECK (operator IN ('eq', 'lt', 'le', 'gt', 'ge', 'ge_unstated', 'le_unstated')),
   value_num NUMERIC,
   value_unit TEXT,
   value_text TEXT,

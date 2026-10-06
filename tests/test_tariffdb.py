@@ -909,12 +909,75 @@ class TestExceptions(unittest.TestCase):
             if w["months"]:
                 self.assertEqual(months[w["window_id"]], set(w["months"].split(",")), w["window_id"])
 
+    def test_boundary_inclusivity_unstated(self):
+        import curated
+        uncertain = {r["rule_id"]: r for r in rows("eligibility_rule")
+                     if r["operator"] in ("ge_unstated", "le_unstated")}
+        ins = instances("boundary_inclusivity_unstated")
+        self.assertTrue(uncertain)
+        self.assertEqual(Counter(i["detail"].split(": ", 1)[0] for i in ins),
+                         Counter({rid: 1 for rid in uncertain}))
+        for r in rows("eligibility_rule"):
+            if r["rule_type"] in curated.BOUNDARY_RULES and r["operator"] not in ("ge_unstated", "le_unstated"):
+                self.assertIn(r["operator"], curated.boundary_operators(r["quote"], r["value_num"], r["value_unit"]),
+                              r["rule_id"])
+        nasn19 = [r for r in rows("eligibility_rule") if r["tariff_id"] == "ausnet:NASN19"
+                  and r["rule_type"] == "consumption_min" and "Business > 40 MWh" in r["quote"]]
+        self.assertTrue(nasn19)
+        self.assertTrue(all(r["operator"] == "gt" for r in nasn19))
+        self.assertTrue(any(i["tariff_id"] == "ausgrid:EA302" and "ausgrid:EA305|" in i["detail"] for i in ins))
+        base = {"codes": ["EA302"], "doc": "sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf",
+                "fin_year": "2024-25", "locator": "pdf:p1", "value_num": 160, "value_unit": "MWh/yr"}
+        for rule_type in curated.BOUNDARY_RULES:
+            unit = "kVA" if rule_type.startswith("demand") else "MWh/yr"
+            text_unit = unit.split("/")[0]
+            unknown = "ge_unstated" if rule_type.endswith("_min") else "le_unstated"
+            for quote in (f"between 60 and 160 {text_unit}", f"60-160 {text_unit}",
+                          f"> 40 {text_unit}, 60-160 {text_unit}"):
+                for op in ("ge", "le", "gt", "lt"):
+                    r = dict(base, rule_type=rule_type, value_unit=unit, quote=quote, operator=op)
+                    self.assertTrue(curated.validate({"distributor": "ausgrid", "eligibility": [r]}, check_quotes=False))
+                r["operator"] = unknown
+                self.assertEqual(curated.validate({"distributor": "ausgrid", "eligibility": [r]}, check_quotes=False), [])
+            for op, wording in (("ge", "at least"), ("gt", "more than"), ("le", "up to"), ("lt", "less than")):
+                if (op in ("ge", "gt")) != rule_type.endswith("_min"):
+                    continue
+                r = dict(base, rule_type=rule_type, value_unit=unit, quote=f"{wording} 160 {text_unit}", operator=op)
+                self.assertEqual(curated.validate({"distributor": "ausgrid", "eligibility": [r]}, check_quotes=False), [])
+
     def test_tou_definition_missing(self):
         sched = by("tou_schedule", "tou_schedule_id")
-        linked = {(t["tariff_id"], sched[t["tou_schedule_id"]]["fin_year"]) for t in rows("tariff_tou")}
+        periods = defaultdict(set)
+        for w in rows("tou_window"):
+            periods[w["tou_schedule_id"]].add(w["period"].replace("_", ""))
+        linked = defaultdict(set)
+        for t in rows("tariff_tou"):
+            kinds = {t["applies_to"]}
+            if "all" in kinds:
+                kinds = {"energy", "demand", "export"}
+            if "controlled_load" in kinds:
+                kinds = {"energy"}
+            for kind in kinds:
+                linked[(t["tariff_id"], sched[t["tou_schedule_id"]]["fin_year"], kind)].update(periods[t["tou_schedule_id"]])
+        listing = by("tariff_listing", "listing_id")
+        documents = by("source_document", "document_id")
+        missing = set()
+        for c in rows("charge"):
+            l = listing[c["listing_id"]]
+            d = documents[l["document_id"]]
+            band = c["time_band"].replace("_", "")
+            if d["author"] == "AER" or band not in {"peak", "offpeak", "shoulder", "solarsoak", "criticalpeak", "superoffpeak"}:
+                continue
+            kind = "demand" if c["charge_type"] == "capacity" else c["charge_type"]
+            covered = linked[(l["tariff_id"], d["fin_year"], kind)]
+            if band not in covered and not (kind == "demand" and "demandwindow" in covered):
+                missing.add((l["tariff_id"], d["fin_year"]))
         ins = instances("tou_definition_missing")
-        for i in ins:
-            self.assertNotIn((i["tariff_id"], i["fin_year"]), linked)
+        self.assertEqual(missing, {(i["tariff_id"], i["fin_year"]) for i in ins})
+        self.assertEqual(len(ins), len(missing))
+        self.assertIn(("ausgrid:EA111", "2023-24"), missing)
+        for code in ("027", "028"):
+            self.assertIn((f"evoenergy:{code}", "2023-24"), missing)
         self.assertIn("energex", {i["distributor_id"] for i in ins})
 
     def test_medium_business_demand_assignment(self):

@@ -356,7 +356,7 @@ CREATE TABLE eligibility_rule (
   effective_from TEXT NOT NULL CHECK (effective_from IS NULL OR (length(effective_from) = 10 AND effective_from GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]')),
   effective_to TEXT NOT NULL CHECK (effective_to IS NULL OR (length(effective_to) = 10 AND effective_to GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]')),
   rule_type TEXT NOT NULL CHECK (rule_type IN ('customer_type', 'voltage_level', 'consumption_min', 'consumption_max', 'demand_min', 'demand_max', 'meter_type', 'assignment', 'availability', 'requires_technology', 'opt_out_to', 'minimum_demand_charge', 'other')),
-  operator TEXT CHECK (operator IN ('eq', 'lt', 'le', 'gt', 'ge')),
+  operator TEXT CHECK (operator IN ('eq', 'lt', 'le', 'gt', 'ge', 'ge_unstated', 'le_unstated')),
   value_num NUMERIC CHECK (typeof(value_num) IN ('integer', 'real', 'null')),
   value_unit TEXT,
   value_text TEXT,

@@ -51,6 +51,7 @@ import glob
 import os
 import re
 import sys
+from decimal import Decimal
 
 import yaml
 
@@ -66,6 +67,41 @@ DAYS = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
 # concrete days each day type covers, for the 24-hour coverage test (public holidays are checked as their own day)
 DAY_TYPE_DAYS = {"weekday": DAYS[:5], "business_day": DAYS[:5], "weekend": DAYS[5:], "non_business_day": DAYS[5:],
                  "all_days": DAYS}
+
+
+BOUNDARY_RULES = {"consumption_min", "consumption_max", "demand_min", "demand_max"}
+
+
+def boundary_operators(quote, value, unit):
+    quote = str(quote).lower().translate(str.maketrans({"\uf0b3": "≥", "\uf0a3": "≤", "\uf020": " "}))
+    number = Decimal(str(value).replace(",", ""))
+    unit = (unit or "").split("/")[0].lower()
+    operators = set()
+    phrases = {"ge": r">=|≥|\bat least\b|\bno less than\b|\bminimum(?:[^0-9<>≥≤]{0,60})",
+               "gt": r">(?![=])|(?<!no )more(?:[^0-9<>≥≤]{0,80})than|\bgreater than\b|\bover\b|\babove\b|\bexceeds\b|\bin excess of\b",
+               "le": r"<=|≤|no more than|up to(?: and including)?|does not exceed|do not exceed",
+               "lt": r"<(?![=])|(?<!no )less(?:[^0-9<>≥≤]{0,80})than"}
+    scales = {"mwh": 1, "gwh": 1000, "kwh": Decimal("0.001"), "kva": 1, "mva": 1000, "kw": 1, "mw": 1000}
+    def matches(raw, published_unit):
+        published_unit = re.sub(r"\s", "", published_unit).lower()
+        if unit == published_unit:
+            return Decimal(raw.replace(",", "")) == number
+        groups = ({"mwh", "gwh", "kwh"}, {"kva", "mva"}, {"kw", "mw"})
+        if any(unit in g and published_unit in g for g in groups):
+            return Decimal(raw.replace(",", "")) * scales[published_unit] == number * scales[unit]
+        return False
+    quantity = r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*((?:[kmg]\s*)?(?:w\s*h|v\s*a|w|v))"
+    for op, phrase in phrases.items():
+        for m in re.finditer(r"(?:" + phrase + r")[^0-9<>≥≤]{0,40}" + quantity, quote):
+            if matches(m[1], m[2]):
+                operators.add(op)
+        for m in re.finditer(r"(?:" + phrase + r")\s*" + quantity + r"\s+or\s+" + quantity, quote):
+            if matches(m[3], m[4]):
+                operators.add(op)
+    for m in re.finditer(quantity + r"(?:\s*/?\s*(?:per year|per annum|pa|p\.a\.))?\s+or (more|less)", quote):
+        if matches(m[1], m[2]):
+            operators.add("ge" if m[3] == "more" else "le")
+    return operators
 
 
 def minutes(t):
@@ -242,6 +278,18 @@ def validate(data, check_quotes=True):
             errors.append(f"{where}: needs value_num, value_text or target_code")
         if r.get("value_num") is not None and not r.get("operator"):
             errors.append(f"{where}: value_num needs an operator")
+        if r.get("rule_type") in BOUNDARY_RULES and r.get("value_num") is not None:
+            op = r.get("operator")
+            unknown = "ge_unstated" if r["rule_type"].endswith("_min") else "le_unstated"
+            if op in ("ge_unstated", "le_unstated"):
+                if op != unknown:
+                    errors.append(f"{where}: unknown boundary operator has the wrong direction")
+            elif op not in ({"ge", "gt"} if r["rule_type"].endswith("_min") else {"le", "lt"}):
+                errors.append(f"{where}: numeric boundary operator has the wrong direction")
+            elif op not in boundary_operators(r.get("quote", ""), r["value_num"], r.get("value_unit")):
+                errors.append(f"{where}: operator {op!r} is not supported by the quoted boundary")
+        elif r.get("operator") in ("ge_unstated", "le_unstated"):
+            errors.append(f"{where}: unstated boundary operator needs a numeric boundary rule")
         if check_quotes:
             _quote(errors, where, r, r.get("doc"))
     for i, r in enumerate(data.get("relations") or []):

@@ -21,6 +21,8 @@ not edit by hand. Query one tariff with `scripts/tariffdb/rates.py rate`, or one
   - powerwater: Power and Water resubmitted 'including updated prices' after AER v1; all 22 approved 2025-26 components differ from v1 (up to 34%)
 - **One source only:** a component only one side prints is kept and flagged (`only_in`). An AER-only rate stays
   provisional.
+- **No point-in-time (as-of) lookup:** most distributor publication dates are not held; `known_from` is often only
+  the date a document was retrieved, so an answer as of an earlier date would be wrong.
 
 ## Totals
 

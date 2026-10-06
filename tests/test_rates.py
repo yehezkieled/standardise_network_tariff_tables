@@ -307,11 +307,6 @@ class TestCommittedTables(unittest.TestCase):
         with redirect_stdout(out):
             rates.main(["rate", "--distributor", "jemena", "--tariff", "A100", "--date", "2025-08-01"])
         self.assertIn("| final |", out.getvalue())
-        out = io.StringIO()
-        with redirect_stdout(out):
-            rates.main(["rate", "--distributor", "jemena", "--tariff", "A100", "--date", "2025-08-01",
-                        "--as-of", "2025-05-01"])
-        self.assertIn("awaiting_approval", out.getvalue())
         comp = next(r["component_id"] for r in self.history if r["role"] == "withheld")
         out = io.StringIO()
         with redirect_stdout(out):

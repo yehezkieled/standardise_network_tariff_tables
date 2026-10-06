@@ -77,7 +77,7 @@ DECISIONS = [
      "against the distributor's rate (rounding, metering and LFiT adjustments) and replaced by it when the "
      "distributor publishes. Jemena and Power and Water wait for approved AER prices (rates.WAIT_FOR_APPROVED). "
      "Every rate stays in an append-only history with what superseded it",
-     "rate_history, effective_rate; scripts/tariffdb/rates.py (rate --as-of, history, changes, report); "
+     "rate_history, effective_rate; scripts/tariffdb/rates.py (rate, history, changes, report); "
      "docs/effective_rates.md",
      "tests/test_rates.py"),
     ("Every value has a financial year AND explicit effective_from / effective_to dates",

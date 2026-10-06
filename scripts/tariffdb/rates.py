@@ -13,10 +13,8 @@ Wait rule (WAIT_FOR_APPROVED): for Jemena and Power and Water the AER's not-yet-
 used as provisional rates; their components wait for an approved AER version or the distributor's list.
 
 effective_rate holds the current answer per component; rate_history keeps every rate with what replaced it.
-The as-of view (`rate --as-of`) re-runs the same resolution with only the documents known by that date
-(rate_history.known_from).
 
-  .venv/bin/python scripts/tariffdb/rates.py rate --distributor jemena --tariff PRTOU [--date D] [--as-of D]
+  .venv/bin/python scripts/tariffdb/rates.py rate --distributor jemena --tariff PRTOU [--date D]
   .venv/bin/python scripts/tariffdb/rates.py history COMPONENT_ID
   .venv/bin/python scripts/tariffdb/rates.py changes [--distributor ID] [--year FY] [--detail]
   .venv/bin/python scripts/tariffdb/rates.py report               rewrite docs/effective_rates.md
@@ -424,24 +422,6 @@ class Db:
             return f"AER {d['version_label']}"
         return doc_id
 
-    def answers(self, as_of=None):
-        """Effective rows (the effective_rate table, or the same resolution as of a date)."""
-        if as_of is None:
-            return self.effective
-        out = []
-        for comp, a in sorted(resolve(self.history, as_of).items()):
-            row = a["current"] or a["latest"]
-            start, end = bs.FIN_YEAR_DATES[row["fin_year"]]
-            out.append({"component_id": comp, "distributor_id": row["distributor_id"], "fin_year": row["fin_year"],
-                        "tariff_id": row["tariff_id"], "effective_from": start, "effective_to": end,
-                        "unit_std": row["unit_std"], "status": a["status"],
-                        "value_std": a["current"]["value_std"] if a["current"] else "",
-                        "document_id": row["document_id"],
-                        "version_label": self.docs[row["document_id"]]["version_label"],
-                        "source_side": row["source_side"], "price_status": row["price_status"],
-                        "validation_status": a["validation"], "only_in": a["only_in"] or ""})
-        return out
-
 
 def md_table(header, rows):
     esc = lambda x: str("" if x is None else x).replace("|", "\\|").replace("\n", " ")  # noqa: E731
@@ -576,6 +556,8 @@ not edit by hand. Query one tariff with `scripts/tariffdb/rates.py rate`, or one
 {wait}
 - **One source only:** a component only one side prints is kept and flagged (`only_in`). An AER-only rate stays
   provisional.
+- **No point-in-time (as-of) lookup:** most distributor publication dates are not held; `known_from` is often only
+  the date a document was retrieved, so an answer as of an earlier date would be wrong.
 
 ## Totals
 
@@ -602,7 +584,7 @@ Final rates that differ from the AER-side rate they replaced by more than roundi
 
 def cmd_rate(db, a):
     tid = a.tariff if ":" in (a.tariff or "") else f"{a.distributor}:{(a.tariff or '').upper()}" if a.tariff else None
-    rows = [r for r in db.answers(a.as_of) if r["distributor_id"] == a.distributor
+    rows = [r for r in db.effective if r["distributor_id"] == a.distributor
             and (tid is None or r["tariff_id"] == tid)
             and (a.date is None or r["effective_from"] <= a.date <= r["effective_to"])]
     if not rows:
@@ -643,7 +625,6 @@ def main(argv=None):
     p.add_argument("--distributor", required=True, help="distributor_id, e.g. jemena")
     p.add_argument("--tariff", help="tariff code (or tariff_id)")
     p.add_argument("--date", help="only rates in effect on this date (YYYY-MM-DD)")
-    p.add_argument("--as-of", help="answer with only the documents known by this date (YYYY-MM-DD)")
     p = sub.add_parser("history", help="every rate of one component, in order")
     p.add_argument("component")
     p = sub.add_parser("changes", help="what changed when the distributor rates arrived")
@@ -652,9 +633,8 @@ def main(argv=None):
     p.add_argument("--detail", action="store_true", help="also list changed rates and one-source components")
     sub.add_parser("report", help=f"rewrite {os.path.relpath(REPORT_PATH, ROOT)}")
     a = ap.parse_args(argv)
-    for d in (getattr(a, "date", None), getattr(a, "as_of", None)):
-        if d:
-            date.fromisoformat(d)
+    if getattr(a, "date", None):
+        date.fromisoformat(a.date)
     db = Db()
     if a.cmd == "report":
         with open(REPORT_PATH, "w", encoding="utf-8") as f:

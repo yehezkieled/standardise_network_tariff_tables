@@ -237,13 +237,14 @@ In the reconciliation (`discrepancies.csv`, REPORT.md) 371 compared components d
 | Evoenergy 2024-25 to 2026-27 | the months of 'winter' and similar seasons | the schedules name the season but never list its months (season_months_not_stated) |
 | AusNet, all years | the standard-time hours of windows stated in 'ADST' | the documents state daylight-saving times only; stored as stated (time_stated_in_daylight_time) |
 | All distributors 2023-24 (AER-hosted copies) | whether the hosted prices are proposed, approved or final | aer.gov.au hosts the distributor's document without stating its status (price_status_unverified) |
-| AER consolidated report 2025-26 v2 (published 10 Apr 2025) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
-| AER consolidated report 2025-26 v3 (published 14 May 2025) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
-| AER consolidated report 2025-26 v4 (published 16 May 2025) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
-| AER consolidated report 2026-27 v1 (published 2 Apr 2026) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
-| AER consolidated report 2026-27 v2 (published 24 Apr 2026) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
-| AER consolidated report 2026-27 v3 (published 8 May 2026) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
-| AER consolidated report 2026-27 v4 (published 20 May 2026) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated stakeholder report 2025-26 v2 (published 2025-04-10) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated stakeholder report 2025-26 v3 (published 2025-05-14) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated stakeholder report 2025-26 v4 (published 2025-05-16) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated stakeholder report 2026-27 v1 (published 2026-04-02) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated stakeholder report 2026-27 v2 (published 2026-04-24) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated stakeholder report 2026-27 v3 (published 2026-05-08) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated stakeholder report 2026-27 v4 (published 2026-05-20) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER stakeholder report SA Power Networks 2024-25, original release replaced on 17 Jul 2024 (login-gated) (published 2024-05-03) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
 
 ## Tables
 

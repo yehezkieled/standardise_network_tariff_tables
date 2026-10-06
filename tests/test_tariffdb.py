@@ -236,6 +236,16 @@ class TestHistory(unittest.TestCase):
             l = listings[c["listing_id"]]
             self.assertEqual((c["effective_from"], c["effective_to"]), (l["effective_from"], l["effective_to"]))
 
+    def test_every_held_aer_version_is_committed(self):
+        """The AER takes superseded versions private, so every AER-authored file that was retrieved is committed."""
+        docs = rows("source_document")
+        consolidated = [d for d in docs if d["series_id"] == f"aer-all-{d['fin_year']}-consolidated"]
+        self.assertEqual(Counter(d["fin_year"] for d in consolidated), Counter({"2025-26": 5, "2026-27": 5}))
+        for d in docs:
+            if d["author"] == "AER" and d["retrieval_status"] == "retrieved":
+                self.assertEqual(d["committed_in_repo"], "1", d["document_id"])
+                self.assertTrue((ROOT / d["local_path"]).exists(), d["local_path"])
+
     def test_no_duplicate_effective_ranges(self):
         """Within one document version a component has one value per (basis, GST, metering, LFiT) for a date range;
         every exception is a catalogued 'component_repeated_in_document' instance."""

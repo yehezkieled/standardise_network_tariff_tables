@@ -466,17 +466,18 @@ The AER reissued each consolidated report five times; the landing page only ever
 | 2025-26 v5 | 26 May 2025 | approved | `sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx` | 1235 | 860 | 230 | 145 | 0 | 33 |
 | 2026-27 v5 | 14 Aug 2026 | approved | `sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx` | 1254 | 940 | 235 | 79 | 0 | 9 |
 
-Versions not held (the AER takes superseded files private and the Wayback Machine holds no copy), so not reconciled:
+AER versions not held (the AER takes superseded files private and the Wayback Machine holds no copy), so not reconciled:
 
-| Financial year | Version | Published | Prices |
+| Financial year | Document | Published | Prices |
 |---|---|---|---|
-| 2025-26 | v2 | 10 Apr 2025 | proposed |
-| 2025-26 | v3 | 14 May 2025 | mixed |
-| 2025-26 | v4 | 16 May 2025 | mixed |
-| 2026-27 | v1 | 2 Apr 2026 | proposed |
-| 2026-27 | v2 | 24 Apr 2026 | approved |
-| 2026-27 | v3 | 8 May 2026 | mixed |
-| 2026-27 | v4 | 20 May 2026 | approved |
+| 2025-26 | AER consolidated stakeholder report 2025-26 v2 | 2025-04-10 | proposed |
+| 2025-26 | AER consolidated stakeholder report 2025-26 v3 | 2025-05-14 | mixed |
+| 2025-26 | AER consolidated stakeholder report 2025-26 v4 | 2025-05-16 | mixed |
+| 2026-27 | AER consolidated stakeholder report 2026-27 v1 | 2026-04-02 | proposed |
+| 2026-27 | AER consolidated stakeholder report 2026-27 v2 | 2026-04-24 | approved |
+| 2026-27 | AER consolidated stakeholder report 2026-27 v3 | 2026-05-08 | mixed |
+| 2026-27 | AER consolidated stakeholder report 2026-27 v4 | 2026-05-20 | approved |
+| 2024-25 | AER stakeholder report SA Power Networks 2024-25, original release replaced on 17 Jul 2024 (login-gated) | 2024-05-03 | approved |
 
 Proposed (v1) against approved prices: the 2025-26 v1 file carries proposed prices for ACT, NSW, NT, TAS and VIC only, and prints no tariff codes ('#REF!'), so each v1 row takes its code from the latest version through the AER tariff ID both print. Per distributor:
 

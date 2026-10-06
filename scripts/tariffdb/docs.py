@@ -159,9 +159,7 @@ KNOWN_GAPS = [
      "the documents state daylight-saving times only; stored as stated (time_stated_in_daylight_time)"),
     ("All distributors 2023-24 (AER-hosted copies)", "whether the hosted prices are proposed, approved or final",
      "aer.gov.au hosts the distributor's document without stating its status (price_status_unverified)"),
-] + [(f"AER consolidated report {fy} v{seq} (published {bs.version_date_text(fy, seq)})", "the file",
-      "the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable)")
-     for fy, versions in bs.AER_VERSIONS.items() for seq, *_ in versions if (fy, seq) not in bs.AER_CONSOLIDATED_FILES]
+]
 
 
 def read(table):
@@ -288,6 +286,9 @@ def markdown(data):
                        f"{c['tou_schedules']} | {c['demand_rules']} | {c['eligibility_rules']} | {c['tou_gaps']} |")
     out += ["", "## Known gaps", "", "| Where | Missing | Why |", "|---|---|---|"]
     out += [f"| {md_cell(a)} | {md_cell(b)} | {md_cell(c)} |" for a, b, c in KNOWN_GAPS]
+    out += [f"| {md_cell(f'{doc} (published {date})')} | the file | the AER takes superseded files private and the "
+            f"Wayback Machine holds no copy (document_not_retrievable) |"
+            for _, doc, date, _ in bs.unheld_aer_documents(data.t["source_document"])]
     out += ["", "## Tables", ""]
     for group, names in GROUPS:
         out += [f"### {group}", ""]

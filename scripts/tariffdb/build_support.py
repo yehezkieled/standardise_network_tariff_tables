@@ -107,6 +107,12 @@ def version_coverage_status(fy, seq):
     return {did: status for state, status in cov.items() for did in BY_STATE[state]}
 
 
+def unheld_aer_documents(source_documents):
+    """(fin_year, document, publication_date, price_status) of every AER-authored version that is not held."""
+    return [(d["fin_year"], d["title"].split(" - superseded")[0], d["publication_date"], d["price_status"])
+            for d in source_documents if d["author"] == "AER" and d["retrieval_status"] == "not_retrievable"]
+
+
 DOC_TYPE_RULES = [
     (r"consolidated stakeholder report", "aer_consolidated_stakeholder_report"),
     (r"per-DNSP stakeholder report", "aer_stakeholder_report"),

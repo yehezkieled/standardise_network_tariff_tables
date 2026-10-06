@@ -139,7 +139,10 @@ EXCEPTIONS = [
       "Tariffs price TOU bands without a structured window covering that charge kind and band in that year. "
       "This records a coverage gap, not proof that the underlying documents lack a definition.",
       "The charge rows exist with time_band; linked tariff_tou schedules do not cover every required kind/band. "
-      "Demand includes capacity; controlled_load links cover energy; all links cover every kind. "
+      "A link covers a charge when its applies_to matches the charge kind (demand includes capacity; all links cover "
+      "every kind; controlled_load links cover energy) and one of its window periods is the charge band. A "
+      "demand_window period covers every demand/capacity band, export_charge_window and export_reward_window every "
+      "export band, and controlled_load_supply on a controlled_load link every energy band. "
       "Instances list missing kind/band pairs once per tariff-year.",
       "test_tou_definition_missing"),
     e("season_months_not_stated", "Season named without its months",

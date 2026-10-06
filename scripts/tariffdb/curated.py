@@ -77,10 +77,10 @@ def boundary_operators(quote, value, unit):
     number = Decimal(str(value).replace(",", ""))
     unit = (unit or "").split("/")[0].lower()
     operators = set()
-    phrases = {"ge": r">=|≥|\bat least\b|\bno less than\b|\bminimum(?:[^0-9<>≥≤]{0,60})",
-               "gt": r">(?![=])|(?<!no )more(?:[^0-9<>≥≤]{0,80})than|\bgreater than\b|\bover\b|\babove\b|\bexceeds\b|\bin excess of\b",
+    phrases = {"ge": r">=|≥|\bat least\b|\bno less than\b|\bminimum\b",
+               "gt": r">(?![=])|(?<!no )\bmore\b|\bgreater\b|\bover\b|\babove\b|\bexceeds\b|\bin excess of\b",
                "le": r"<=|≤|no more than|up to(?: and including)?|does not exceed|do not exceed",
-               "lt": r"<(?![=])|(?<!no )less(?:[^0-9<>≥≤]{0,80})than"}
+               "lt": r"<(?![=])|(?<!no )\bless\b"}
     scales = {"mwh": 1, "gwh": 1000, "kwh": Decimal("0.001"), "kva": 1, "mva": 1000, "kw": 1, "mw": 1000}
     def matches(raw, published_unit):
         published_unit = re.sub(r"\s", "", published_unit).lower()
@@ -90,12 +90,14 @@ def boundary_operators(quote, value, unit):
         if any(unit in g and published_unit in g for g in groups):
             return Decimal(raw.replace(",", "")) * scales[published_unit] == number * scales[unit]
         return False
-    quantity = r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*((?:[kmg]\s*)?(?:w\s*h|v\s*a|w|v))"
+    digits, unit_text = r"[0-9][0-9,]*(?:\.[0-9]+)?", r"(?:[kmg]\s*)?(?:w\s*h|v\s*a|w|v)"
+    quantity = rf"({digits})\s*({unit_text})"
+    gap = rf"(?:(?!{digits}\s*{unit_text})[^<>≥≤])*?"
     for op, phrase in phrases.items():
-        for m in re.finditer(r"(?:" + phrase + r")[^0-9<>≥≤]{0,40}" + quantity, quote):
+        for m in re.finditer(r"(?:" + phrase + r")" + gap + quantity, quote):
             if matches(m[1], m[2]):
                 operators.add(op)
-        for m in re.finditer(r"(?:" + phrase + r")\s*" + quantity + r"\s+or\s+" + quantity, quote):
+        for m in re.finditer(r"(?:" + phrase + r")" + gap + quantity + r"\s+or\s+" + quantity, quote):
             if matches(m[3], m[4]):
                 operators.add(op)
     for m in re.finditer(quantity + r"(?:\s*/?\s*(?:per year|per annum|pa|p\.a\.))?\s+or (more|less)", quote):

@@ -1185,15 +1185,18 @@ class Builder:
         windows = defaultdict(set)
         for w in self.t.all("tou_window"):
             windows[w["tou_schedule_id"]].add(w["period"].replace("_", ""))
+        # window periods that cover every band of a charge kind
+        any_band = {"demand": {"demandwindow"}, "export": {"exportchargewindow", "exportrewardwindow"},
+                    "controlled_load": {"controlledloadsupply"}}
         for t in self.t.all("tariff_tou"):
             schedule = self.t.get("tou_schedule", t["tou_schedule_id"])
-            kinds = {t["applies_to"]}
-            if "all" in kinds:
-                kinds = {"energy", "demand", "export"}
-            if "controlled_load" in kinds:
-                kinds = {"energy"}
+            periods = windows[t["tou_schedule_id"]]
+            kinds = {"energy", "demand", "export"} if t["applies_to"] == "all" else {t["applies_to"]}
             for kind in kinds:
-                tou[(t["tariff_id"], schedule["fin_year"], kind)].update(windows[t["tou_schedule_id"]])
+                covered = tou[(t["tariff_id"], schedule["fin_year"], "energy" if kind == "controlled_load" else kind)]
+                covered.update(periods)
+                if periods & any_band.get(kind, set()):
+                    covered.add("*")
         gaps = defaultdict(set)
         gap_listing = {}
         for l in listings:
@@ -1207,7 +1210,7 @@ class Builder:
                     continue
                 kind = "demand" if c["charge_type"] == "capacity" else c["charge_type"]
                 covered = tou[(k[0], k[1], kind)]
-                if band not in covered and not (kind == "demand" and "demandwindow" in covered):
+                if band not in covered and "*" not in covered:
                     gaps[k].add(f"{kind}:{c['time_band']}")
                     gap_listing.setdefault(k, l)
         for k, missing in sorted(gaps.items()):

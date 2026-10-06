@@ -13,13 +13,16 @@ nums = {
     "na_cells": sum(1 for g in grid_rows if int(g["components_compared"] or 0) == 0),
     "equal": sc.get("equal", 0), "rounding": sc.get("equal_after_rounding", 0), "value_differs": sc.get("value_differs", 0),
     "unexplained": sum(int(g["unexplained"] or 0) for g in grid_rows),
+    "explained": sum(int(g["explainable"] or 0) for g in grid_rows),
+    "metering": summary["explanation_counts"].get("metering_adder", 0),
+    "lfit": summary["explanation_counts"].get("lfit_adder", 0),
     "aer_only_codes": sc.get("aer_only_code", 0), "dnsp_only_codes": sc.get("dnsp_only_code", 0),
     "hosted_cells": sum(1 for g in grid_rows if g["dnsp_side"] == "AER_HOSTED" and int(g["components_compared"] or 0) > 0),
 }
 for key in ("SUMMARY", "EXPLAINED", "GENUINE", "FORMAT", "UNSURE", "RECS"):
     p = os.path.join(ROOT, "notes/report_sections", key.lower() + ".md")
     txt = open(p).read().strip() if os.path.exists(p) else "(not written)"
-    if key == "SUMMARY":
+    if key in ("SUMMARY", "EXPLAINED"):
         txt = txt.format(**nums)
     head = head.replace("__" + key + "__", txt)
 head = head.replace("__GRIDPRINT__", "See the generated per-distributor tables in section 8.")

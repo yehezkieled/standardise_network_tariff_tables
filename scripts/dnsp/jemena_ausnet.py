@@ -31,6 +31,7 @@ from collections import OrderedDict
 sys.path.insert(0, "scripts")
 import schema  # noqa: E402
 import units  # noqa: E402
+from published import display  # noqa: E402
 from tariffdb import locators  # noqa: E402
 
 import openpyxl  # noqa: E402
@@ -649,13 +650,13 @@ def parse_ausnet_xlsx(path, fin_year, inv):
                     text_cells.append(f"{label}='{v}'")
                     continue
                 dec = fmt_decimals(ws.cell(r, cidx).number_format)
-                shown = round(v, dec) if dec is not None else v
+                shown = display(v, dec) if dec is not None else str(v)
                 extra = ""
-                if dec is not None and abs(shown - v) > 1e-9:
-                    extra = f"cell stores unrounded {v!r}, displayed as {shown:.{dec}f}"
+                if dec is not None and abs(float(shown) - v) > 1e-9:
+                    extra = f"cell stores unrounded {v!r}, displayed as {shown}"
                 clean_label = label.rstrip("^*").strip()
                 lab_note = f"header published as '{label}'" if clean_label != label else ""
-                comps.append((clean_label, unit, f"{shown:.{dec}f}" if dec is not None else str(shown), "; ".join(x for x in (lab_note, extra) if x),
+                comps.append((clean_label, unit, shown, "; ".join(x for x in (lab_note, extra) if x),
                               locators.xlsx(ws, ws.cell(r, cidx))))
             if text_cells:
                 gaps.append(f"sheet '{ws.title}' {code}: non-numeric price cells {text_cells}")

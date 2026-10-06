@@ -160,10 +160,35 @@ TABLES = [
             col("sha256", "text", "SHA-256 of the file used", null=True),
             col("retrieved_on", "date", "date the file was retrieved (or the Wayback capture date)", null=True),
             col("retrieved_on_basis", "text", "wayback_capture | inventory_commit", null=True),
-            col("committed_in_repo", "boolean", "1 when the file itself is committed (Wayback copies)"),
+            col("committed_in_repo", "boolean", "1 when the file itself is committed: Wayback copies, and every "
+                "AER-authored file because the AER takes superseded versions private (derived from that rule)",
+                derived=True),
         ],
         "unique": [["series_id", "version_seq"], ["local_path"]],
         "checks": ["retrieval_status <> 'retrieved' OR (local_path IS NOT NULL AND sha256 IS NOT NULL)"],
+    },
+    {
+        "name": "document_url_check",
+        "description": "Each check of the publisher's own URL for one document version: which URL, how it is known, "
+                       "when it was requested and what the server answered.",
+        "why": ["The AER replaces the file behind its landing page with every version and takes the superseded file "
+                "private (HTTP 307 to its login page; an unknown name answers 404), so the versioned URL is the only "
+                "durable name of a version and proves the version exists even when its file cannot be retrieved.",
+                "Checks are dated rows, never updated: a later check that finds a version gone adds a row."],
+        "columns": [
+            col("check_id", "text", "<document_id>/<checked_on>/<url_sha256 first 8 hex>", pk=True),
+            col("document_id", "text", "version the URL belongs to", fk="source_document.document_id"),
+            col("url", "text", "publisher URL of that version's file"),
+            col("url_basis", "text", "how the URL is known: inventory (the URL the held file came from), "
+                "archived_landing_page (file link on a Wayback capture of the landing page), probed_file_name (a "
+                "file name tried against the server)", enum=["inventory", "archived_landing_page", "probed_file_name"]),
+            col("url_evidence", "text", "where the URL was found (Wayback capture of the landing page) or why it is "
+                "attributed to this version", null=True),
+            col("checked_on", "date", "date of the request"),
+            col("http_status", "integer", "status answered without following redirects"),
+            col("outcome", "text", "served (200), login_gated (307 to /user/login: the file exists but is private), "
+                "not_found (404)", enum=["served", "login_gated", "not_found"]),
+        ],
     },
     {
         "name": "document_coverage",

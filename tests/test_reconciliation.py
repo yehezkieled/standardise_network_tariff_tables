@@ -15,7 +15,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import openpyxl
 import reconcile
 import parse_aer
-from published import cell_value
+import adjustments
+from published import cell_value, display
 from schema import COLUMNS
 from units import to_std
 from dnsp import essential_evoenergy, ausgrid_endeavour, cp_pc_ue, tasnetworks, sapn_pwc, energex_ergon
@@ -461,6 +462,117 @@ class ReconciliationRegression(unittest.TestCase):
         cell.number_format = '0.00E+00'
         self.assertEqual(cell_value(cell), '5.00E-01')
         self.assertEqual(reconcile.decimals_of(cell_value(cell)), 3)
+
+    def test_half_way_cells_display_like_excel(self):
+        # The SAPN +0.01 c/kWh gap: the AER cell holds 0.02215 in a 0.0000 format, which Excel shows as 0.0222 (its
+        # 15-digit decimal rounded half away from zero) and SAPN publishes as 0.0222. Formatting the binary float
+        # (0.022149999...) gave 0.0221.
+        self.assertEqual(f'{0.02215:.4f}', '0.0221')
+        self.assertEqual(display(0.02215, 4), '0.0222')
+        self.assertEqual(display(-0.02215, 4), '-0.0222')
+        self.assertEqual(display(4.33965, 4), '4.3397')
+        self.assertEqual(display(44.895, 2), '44.90')
+        self.assertEqual(display(0.02214999, 4), '0.0221')
+        self.assertEqual(display(2.5, 0), '3')
+        cell = openpyxl.Workbook().active['A1']
+        cell.value, cell.number_format = 0.02215, '0.0000'
+        self.assertEqual(cell_value(cell), '0.0222')
+        cell.value, cell.number_format = 0.000125, '0.00E+00'
+        self.assertEqual(cell_value(cell), '1.25E-04')
+        cell.value, cell.number_format = 9.995, '0.00E+00'
+        self.assertEqual(cell_value(cell), '1.00E+01')
+
+    def test_sapn_half_way_cell_reconciles_equal(self):
+        path = Path(reconcile.ROOT) / 'sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx'
+        cell = openpyxl.load_workbook(path, read_only=True, data_only=True)['Tariff schedule']['I1045']
+        self.assertEqual(cell.value, 0.02215)
+        shown = cell_value(cell)
+        self.assertEqual(shown, '0.0222')
+        detail, grid = self.compare([row('AER', shown, unit='$/kWh', code='STR', distributor='SA Power Networks'),
+                                     row('DNSP', '0.0222', unit='$/kWh', code='STR', distributor='SA Power Networks')])
+        self.assertEqual(detail[0]['status'], 'equal')
+
+    def lfit_rows(self, fin_year, diff, charge='energy', unit='c/kWh', source=None):
+        rows = [row('AER', '10.000', charge=charge, unit=unit), row('DNSP', f'{10 + diff:.3f}', charge=charge, unit=unit)]
+        for r in rows:
+            r['fin_year'] = fin_year
+        rows[1]['source_file'] = source or adjustments.LFIT_ADDERS[fin_year][1]
+        return rows
+
+    def test_evoenergy_lfit_adder(self):
+        for fin_year, (amount, _, _, _) in adjustments.LFIT_ADDERS.items():
+            with self.subTest(fin_year=fin_year):
+                detail, grid = self.compare(self.lfit_rows(fin_year, float(amount)))
+                self.assertEqual(detail[0]['explanation'], 'lfit_adder')
+                self.assertIn(f'ACT LFiT {amount} c/kWh', detail[0]['detail'])
+                self.assertEqual((grid['explainable'], grid['unexplained']), (1, 0))
+        unexplained = [
+            self.lfit_rows('2025-26', 1.600),                               # not the stated amount
+            self.lfit_rows('2025-26', 1.593, source='other_schedule.pdf'),  # document that does not state it
+            self.lfit_rows('2025-26', 1.593, charge='fixed', unit='c/day'),  # fixed charges are unchanged
+            self.lfit_rows('2024-25', 1.593),                               # another year's amount
+        ]
+        for rows in unexplained:
+            with self.subTest(rows=rows[1]):
+                detail, _ = self.compare(rows)
+                self.assertEqual(detail[0]['explanation'], 'unexplained')
+
+    def metering_rows(self, distributor, fin_year, code, aer, dnsp, aer_unit='c/day', dnsp_unit='c/day',
+                      aer_file='sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx', dnsp_file='DNSP.pdf',
+                      locator=''):
+        rows = [row('AER', aer, band='', unit=aer_unit, charge='fixed', code=code, distributor=distributor),
+                row('DNSP', dnsp, band='', unit=dnsp_unit, charge='fixed', code=code, distributor=distributor)]
+        for r, path in zip(rows, (aer_file, dnsp_file)):
+            r.update(fin_year=fin_year, source_file=path)
+        rows[1]['locator'] = locator
+        return rows
+
+    def test_metering_adder_from_the_aer_metering_sheet(self):
+        # Endeavour 2025-26: AER Metering!L114 = 12.65455 $/yr per tariff -> 3.467 c/day; N50 7.2500 -> 10.7170
+        detail, grid = self.compare(self.metering_rows('Endeavour Energy', '2025-26', 'N50', '7.2500', '10.7170'))
+        self.assertEqual(detail[0]['explanation'], 'metering_adder')
+        self.assertIn('Metering!L114', detail[0]['detail'])
+        self.assertEqual(grid['explainable'], 1)
+        for code, dnsp in [('N19', '10.7170'),   # outside the verified scope (no metering in its daily charge)
+                           ('N50', '10.8170')]:  # in scope, but the difference is not the metering price
+            with self.subTest(code=code, dnsp=dnsp):
+                detail, _ = self.compare(self.metering_rows('Endeavour Energy', '2025-26', code, '7.2500', dnsp))
+                self.assertEqual(detail[0]['explanation'], 'unexplained')
+        # Essential: LV tariffs only; controlled load BLNC1AU carries no metering even at the exact amount
+        amount = adjustments.aer_metering_price(
+            'sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx', 'Essential Energy', '2025-26')[0]
+        dnsp = f'{50 + amount * 100 / 365:.4f}'
+        for code, expected in [('BLNN2AU', 'metering_adder'), ('BLNC1AU', 'unexplained'), ('BHNN1AU', 'unexplained')]:
+            with self.subTest(code=code):
+                detail, _ = self.compare(self.metering_rows('Essential Energy', '2025-26', code, '50.0000', dnsp))
+                self.assertEqual(detail[0]['explanation'], expected)
+        # no metering adder for a distributor or year the review did not verify
+        for distributor, fin_year in [('Ausgrid', '2025-26'), ('Energex', '2024-25')]:
+            with self.subTest(distributor=distributor, fin_year=fin_year):
+                detail, _ = self.compare(self.metering_rows(distributor, fin_year, 'N50', '7.2500', '10.7170'))
+                self.assertEqual(detail[0]['explanation'], 'unexplained')
+
+    def test_metering_adder_from_the_distributor_metering_block(self):
+        # Energex 2025-26 tariff 3900: NUoS fixed 0.444 $/day (SACS Residential!D9) = AER 0.3230 + Metering 0.121
+        energex = 'sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx'
+        self.assertEqual(adjustments.distributor_block_price(energex, 'xlsx:SACS Residential!D9')[2],
+                         'xlsx:SACS Residential!D53')
+        rows = dict(aer_unit='$/day', dnsp_unit='$/day', dnsp_file=energex)
+        detail, _ = self.compare(self.metering_rows('Energex', '2025-26', '3900', '0.3230', '0.444',
+                                                    locator='xlsx:SACS Residential!D9', **rows))
+        self.assertEqual(detail[0]['explanation'], 'metering_adder')
+        self.assertIn('SACS Residential!D53', detail[0]['detail'])
+        # a DUoS cell has no Metering block of its own, so the same difference stays unexplained
+        detail, _ = self.compare(self.metering_rows('Energex', '2025-26', '3900', '0.3230', '0.444',
+                                                    locator='xlsx:SACS Residential!D20', **rows))
+        self.assertEqual(detail[0]['explanation'], 'unexplained')
+
+    def test_every_held_aer_version_reconciles(self):
+        versions = reconcile.held_versions()
+        self.assertEqual(sorted(versions), ['aer-consolidated-2025-26-v1', 'aer-consolidated-2025-26-v5',
+                                            'aer-consolidated-2026-27-v5'])
+        with self.assertRaises(SystemExit):
+            reconcile.main(['--aer-version', 'aer-consolidated-2025-26-v3'])  # not held: login-gated at the AER
 
     def test_missing_ocr_fails_explicitly(self):
         original = builtins.__import__

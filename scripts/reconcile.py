@@ -17,13 +17,15 @@ Comparison basis
   * Values are compared in standard units (cents; fixed charges per day; demand per published period),
     basis NUoS unless only another basis is published (flagged).
 """
-import csv, glob, json, os, re, sys, math
+import argparse, csv, glob, json, os, re, sys, math
 from collections import defaultdict, Counter
 from difflib import SequenceMatcher
 sys.path.insert(0, os.path.dirname(__file__))
 from schema import COLUMNS, season_from_label, export_direction
 from units import to_std
 from decimal import Decimal
+import adjustments
+from tariffdb import build_support
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 YEARS = ["2023-24", "2024-25", "2025-26", "2026-27"]
@@ -212,11 +214,18 @@ def classify_diff(a, d, aer_val, dnsp_val, ctx):
     deca = decimals_of(a.get("value"))
     if abs(diff) <= rounding_tolerance(a):
         return "rounding", f"within half-unit of AER's {deca}dp publication"
+    # documented adjustments (scripts/adjustments.py): explained only when the source proves the amount and scope
+    hit = adjustments.explain(a, d, rounding_tolerance(a) + rounding_tolerance(d))
+    if hit:
+        return hit
     hypotheses = []
     if metering_in_fixed(d) and unit_family(d["unit_std"]) == "fixed":
-        hypotheses.append("[UNSURE] embedded metering may contribute; component adjustment not substantiated")
+        hypotheses.append("[UNSURE] embedded metering may contribute; outside the verified metering scope or not "
+                          "reproduced by the documented metering price")
     if lfit_included(d):
-        hypotheses.append("[UNSURE] LFiT may contribute; component adjustment not substantiated")
+        hypotheses.append("[UNSURE] LFiT may contribute; no uniform LFiT amount stated for this document reproduces "
+                          "the difference" + (" (Evoenergy 2023-24: rebate of 2.27 c/kWh on average, allocated per "
+                                              "component at Evoenergy's discretion)" if d["fin_year"] == "2023-24" else ""))
     if ctx.get("basis_dnsp") != ctx.get("basis_aer"):
         hypotheses.append("[UNSURE] differing price bases; component adjustment not substantiated")
     return "unexplained", "; ".join(hypotheses)
@@ -249,8 +258,9 @@ def compatible(a, d):
     return True
 
 
-def reconcile():
-    rows = load_rows()
+def reconcile(rows=None, years=YEARS, dnsps=DNSPS):
+    if rows is None:
+        rows = load_rows()
     inv = {}
     with open(os.path.join(ROOT, "sources/inventory.csv")) as f:
         for r in csv.DictReader(f):
@@ -258,8 +268,8 @@ def reconcile():
     detail = []
     grid = []
     timeline = []
-    for dnsp in DNSPS:
-        for fy in YEARS:
+    for dnsp in dnsps:
+        for fy in years:
             # AER side
             if fy == "2023-24":
                 aer_rows, aer_basis, aer_src = pick_side(rows, dnsp, fy, "AER_HOSTED")
@@ -493,8 +503,9 @@ def reconcile():
             grid.append(g)
     return detail, grid, timeline
 
-def write_outputs(detail, grid, timeline):
-    out = os.path.join(ROOT, "out")
+def write_outputs(detail, grid, timeline, out=None):
+    out = out or os.path.join(ROOT, "out")
+    os.makedirs(out, exist_ok=True)
     dcols = ["distributor", "fin_year", "status", "explanation", "tariff_code", "tariff_name", "component", "aer_value", "aer_unit", "dnsp_value", "dnsp_unit", "aer_value_std", "dnsp_value_std", "unit_std",
              "abs_diff", "pct_diff", "aer_basis", "dnsp_basis", "aer_side", "dnsp_side", "aer_source", "aer_url", "dnsp_source", "dnsp_url", "dnsp_tariff_name", "dnsp_component", "detail", "note"]
     order = {"value_differs": 0, "aer_only_code": 1, "dnsp_only_code": 2, "aer_only_component": 3, "dnsp_only_component": 4, "equal_after_rounding": 5, "equal": 6}
@@ -541,9 +552,77 @@ def write_outputs(detail, grid, timeline):
         json.dump(summary, f, indent=1, default=str)
     return disc
 
-def main():
-    detail, grid, timeline = reconcile()
-    disc = write_outputs(detail, grid, timeline)
+# ---------------------------------------------------------------------------------------------- AER versions
+# The AER republishes its consolidated report several times a year (v1..v5). The reconciliation above compares the
+# latest held version; every held version can be reconciled the same way (`--aer-version`), and the default run writes
+# out/version_grid.csv with one row per (held version, distributor it carries).
+
+def held_versions():
+    """{document_id: (fin_year, version_seq, local_path)} for every held AER consolidated version."""
+    return {f"aer-consolidated-{fy}-v{seq}": (fy, seq, path)
+            for (fy, seq), path in sorted(build_support.AER_CONSOLIDATED_FILES.items())}
+
+
+def version_rows(rows, document_id):
+    """`rows` with the AER side of the version's year replaced by that version's rows. A version without tariff codes
+    (2025-26 v1 prints '#REF!') takes each row's code from the latest version through the AER tariff ID both print."""
+    fy, seq, path = held_versions()[document_id]
+    if seq == max(s for f, s, _ in held_versions().values() if f == fy):
+        return rows
+    with open(os.path.join(ROOT, "out/aer_versions_long.csv")) as f:
+        ver = [r for r in csv.DictReader(f) if r["source_file"] == path]
+    if not ver:
+        raise SystemExit(f"{document_id}: no rows in out/aer_versions_long.csv (run scripts/parse_aer.py)")
+    aer_id = lambda r: (re.search(r"aer_id=(\S+)", r.get("note") or "") or [None, None])[1]
+    latest = defaultdict(set)
+    for r in rows:
+        if r["side"] == "AER" and r["fin_year"] == fy and aer_id(r) and r["tariff_code"]:
+            latest[(r["distributor"], aer_id(r))].add(r["tariff_code"])
+    for r in ver:
+        r["value_f"], r["value_std_f"] = fnum(r.get("value")), fnum(r.get("value_std"))
+        codes = latest.get((r["distributor"], aer_id(r)), set())
+        if not r["tariff_code"] and len(codes) == 1:
+            r["tariff_code"] = next(iter(codes))
+            r["note"] = "; ".join(x for x in (r["note"], "tariff code taken from the latest version via the AER tariff ID") if x)
+    return [r for r in rows if not (r["side"] == "AER" and r["fin_year"] == fy)] + ver
+
+
+def reconcile_version(rows, document_id):
+    fy, seq, _ = held_versions()[document_id]
+    status = build_support.version_coverage_status(fy, seq)
+    carried = [d for d in DNSPS if build_support.ID_BY_NAME[d] in status]
+    detail, grid, timeline = reconcile(version_rows(rows, document_id), [fy], carried)
+    for g in grid:
+        g.update(document_id=document_id, version=f"v{seq}", price_status=status[build_support.ID_BY_NAME[g["distributor"]]])
+    return detail, grid, timeline
+
+
+def write_version_grid(rows):
+    out = []
+    for doc in held_versions():
+        out += reconcile_version(rows, doc)[1]
+    cols = ["document_id", "version", "fin_year", "distributor", "price_status"] + \
+        [c for c in out[0] if c not in ("document_id", "version", "fin_year", "distributor", "price_status")]
+    with open(os.path.join(ROOT, "out", "version_grid.csv"), "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=cols); w.writeheader(); w.writerows(out)
+    return out
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="Reconcile the AER side against the distributor side (see module docstring).")
+    ap.add_argument("--aer-version", metavar="DOCUMENT_ID", choices=sorted(held_versions()),
+                    help="reconcile one held AER consolidated version (e.g. aer-consolidated-2025-26-v1) instead of the "
+                         "latest; outputs go to out/versions/DOCUMENT_ID/")
+    args = ap.parse_args(argv)
+    rows = load_rows()
+    if args.aer_version:
+        detail, grid, timeline = reconcile_version(rows, args.aer_version)
+        disc = write_outputs(detail, grid, timeline, os.path.join(ROOT, "out", "versions", args.aer_version))
+    else:
+        detail, grid, timeline = reconcile(rows)
+        disc = write_outputs(detail, grid, timeline)
+        versions = write_version_grid(rows)
+        print(f"version grid: {len(versions)} (version, distributor) rows -> out/version_grid.csv")
     print(f"{'distributor':28s} {'FY':8s} {'A':>5s} {'D':>5s} {'aerC':>5s} {'dC':>5s} {'match':>6s} {'eq':>4s} {'rnd':>4s} {'expl':>4s} {'unex':>4s} {'A-only':>6s} {'D-only':>6s} {'joint':>5s} {'cmpA':>5s} {'cmpD':>5s} rate")
     for g in grid:
         print(f"{g['distributor']:28s} {g['fin_year']:8s} {g['aer_side'][:5]:>5s} {g['dnsp_side'][:5]:>5s} {g['aer_codes']:5d} {g['dnsp_codes']:5d} {g['codes_matched']:6d} {g['equal']:4d} {g['rounding']:4d} {g['explainable']:4d} {g['unexplained']:4d} {g['codes_aer_only']:6d} {g['codes_dnsp_only']:6d} {g['codes_joint_variant']:5d} {g['components_aer_only']:5d} {g['components_dnsp_only']:5d} {g['match_rate']} {g['note'][:40]}")

@@ -30,8 +30,12 @@ source inventory as sheets), `recon_detail.csv` (every compared pair), `match_gr
 ## Source documents
 
 `sources/inventory.csv` lists every document the reconciliation reads: distributor, year, role, local path, the
-exact URL it was retrieved from, an access note and the SHA-256 of the file that was used. Two kinds of rows:
+exact URL it was retrieved from, an access note and the SHA-256 of the file that was used. Three kinds of rows:
 
+- **AER-authored files** (`sources/aer/`, side `AER`): committed, because the AER replaces the file behind its
+  landing page with each new version (v1..v5 a year) and takes the superseded file private. Every version, held or
+  not, is a `source_document` row in the tariff database with its versioned URL and the AER server's dated answer
+  (`document_url_check`); `scripts/reconcile.py --aer-version <document_id>` reconciles any held version.
 - **Wayback Machine copies** (URL on `web.archive.org`): documents whose publisher blocks automated access
   (energex.com.au, ergon.com.au, powerwater.com.au) or no longer serves the file. These are committed under
   `sources/` because they cannot be re-fetched reliably.
@@ -48,7 +52,11 @@ report treats those distributor-years as "no distributor-side data".
 - `scripts/dnsp/*.py` - one parser per distributor group, all emitting the `scripts/schema.py` columns
   (contract in `scripts/dnsp/CONTRACT.md`).
 - `scripts/units.py` - unit normalisation (cents; fixed charges per day; demand per published period).
-- `scripts/reconcile.py` - code and component matching, difference classification, grid and discrepancy outputs.
+- `scripts/reconcile.py` - code and component matching, difference classification, grid and discrepancy outputs
+  (`--aer-version` for a superseded AER version; the default run also writes `out/version_grid.csv`).
+- `scripts/adjustments.py` - the documented AER-to-distributor adjustments (metering, Evoenergy LFiT): scope,
+  amounts and evidence, shared by the reconciliation and the tariff database.
+- `scripts/published.py` - reads spreadsheet numbers exactly as Excel displays them.
 - `scripts/report_tables.py` and `scripts/write_report.py` - report tables and report assembly from
   `notes/report_head.md` and `notes/report_sections/*.md`.
 - `notes/format_notes.json` - per distributor-year notes on document format changes.

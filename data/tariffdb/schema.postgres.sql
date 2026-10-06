@@ -62,6 +62,19 @@ CREATE TABLE source_document (
   CHECK (retrieval_status <> 'retrieved' OR (local_path IS NOT NULL AND sha256 IS NOT NULL))
 );
 
+CREATE TABLE document_url_check (
+  check_id TEXT NOT NULL,
+  document_id TEXT NOT NULL,
+  url TEXT NOT NULL,
+  url_basis TEXT NOT NULL CHECK (url_basis IN ('inventory', 'archived_landing_page', 'probed_file_name')),
+  url_evidence TEXT,
+  checked_on DATE NOT NULL,
+  http_status INTEGER NOT NULL,
+  outcome TEXT NOT NULL CHECK (outcome IN ('served', 'login_gated', 'not_found')),
+  PRIMARY KEY (check_id),
+  FOREIGN KEY (document_id) REFERENCES source_document (document_id)
+);
+
 CREATE TABLE document_coverage (
   document_id TEXT NOT NULL,
   distributor_id TEXT NOT NULL,

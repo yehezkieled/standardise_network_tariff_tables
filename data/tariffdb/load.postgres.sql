@@ -7,6 +7,7 @@ BEGIN;
 \copy distributor (distributor_id, name, aer_label, state, iana_timezone, observes_dst) FROM 'tables/distributor.csv' WITH (FORMAT csv, HEADER true)
 \copy document_series (series_id, author, distributor_id, fin_year, title) FROM 'tables/document_series.csv' WITH (FORMAT csv, HEADER true)
 \copy source_document (document_id, series_id, version_label, version_seq, author, distributor_id, fin_year, document_type, price_status, recon_side, title, publication_date, publication_date_basis, retrieval_status, local_path, source_url, access_note, sha256, retrieved_on, retrieved_on_basis, committed_in_repo) FROM 'tables/source_document.csv' WITH (FORMAT csv, HEADER true)
+\copy document_url_check (check_id, document_id, url, url_basis, url_evidence, checked_on, http_status, outcome) FROM 'tables/document_url_check.csv' WITH (FORMAT csv, HEADER true)
 \copy document_coverage (document_id, distributor_id, price_status, evidence_document_id, locator, quote) FROM 'tables/document_coverage.csv' WITH (FORMAT csv, HEADER true)
 \copy document_ingestion (document_id, charge_count, listing_count, eligibility_count, tou_schedule_count, metering_count, status) FROM 'tables/document_ingestion.csv' WITH (FORMAT csv, HEADER true)
 \copy tariff (tariff_id, distributor_id, tariff_code, identity_basis) FROM 'tables/tariff.csv' WITH (FORMAT csv, HEADER true)

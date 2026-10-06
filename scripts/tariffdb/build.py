@@ -36,6 +36,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SCRIPTS = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 sys.path.insert(0, SCRIPTS)
+import adjustments  # noqa: E402
 import build_support as bs  # noqa: E402
 import curated  # noqa: E402
 import locators  # noqa: E402
@@ -50,16 +51,12 @@ PARSER_OUTPUTS = ["out/aer_long.csv", "out/aer_versions_long.csv"]  # + out/dnsp
 DNSP_SIDES = ("DNSP", "AER_HOSTED")
 PLACEHOLDER = "(no non-zero components)"
 
-# Distributor-years whose distributor daily charge = AER daily charge + metering (finding proven in the aer-rules
-# review; the price_adjustment_tariff rows below are computed, not listed, and the tests re-derive every one).
-METERING_ADDERS = [("endeavour", "2024-25"), ("endeavour", "2025-26"), ("endeavour", "2026-27"),
-                   ("essential", "2024-25"), ("essential", "2025-26"), ("essential", "2026-27"),
-                   ("energex", "2025-26"), ("energex", "2026-27"), ("ergon", "2025-26"), ("ergon", "2026-27")]
-ESSENTIAL_METERING_NOTE = ("Please note this metering cost is included in the relevant LV tariffs daily charge, however the "
-                           "published AER standard control services pricing model lists the metering charge separately on "
-                           "the Tariff Schedule tab.")
-ESSENTIAL_NOTE_DOCS = {"2025-26": "sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf",
-                       "2026-27": "sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf"}
+# Distributor-years whose distributor daily charge = AER daily charge + metering, and the Evoenergy LFiT adders: the
+# documented adjustments of scripts/adjustments.py (shared with the reconciliation). The price_adjustment_tariff rows
+# below are computed, not listed, and the tests re-derive every one.
+METERING_ADDERS = [(bs.ID_BY_NAME[name], fy) for name, (years, *_rest) in adjustments.METERING.items() for fy in years]
+ESSENTIAL_METERING_NOTE = adjustments.ESSENTIAL_METERING_NOTE
+ESSENTIAL_NOTE_DOCS = adjustments.ESSENTIAL_NOTE_DOCS
 # Evoenergy: what each document says about the ACT Large-scale Feed-in Tariff (LFiT); (path, locator, quote, status)
 EVO_LFIT_DOCS = {
     "sources/aer/2023-24_price_lists/Evoenergy_2023-24_Electricity_network_pricing_proposal_5May2023.pdf": (
@@ -71,21 +68,7 @@ EVO_LFIT_DOCS = {
         "sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf", "pdf:p4",
         "The prices presented in this document include the LFiT rebate and are therefore different from the 2023/24 "
         "network charges approved by the AER.", "rebate"),
-    "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf": (
-        "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf", "pdf:p3",
-        "The 2024-25 LFiT amount has been applied as an adjustment to the AER's approved charges for 2024-25, and is "
-        "equivalent to an additional 0.258 cents per kilowatt-hour (kWh). This adjustment has been applied uniformly to "
-        "the consumption charges (c/kWh) in Evoenergy's tariffs.", "included"),
-    "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx": (
-        "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx", "xlsx:Network tariffs!B6",
-        "The 2025-26 LFiT cost has been applied as an adjustment to the AER's approved charges for 2025-26, equivalent to "
-        "an additional 1.593 cents per kilowatt-hour (kWh). The LFiT cost has been applied uniformly to the consumption "
-        "charges (c/kWh) in Evoenergy's tariffs.", "included"),
-    "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx": (
-        "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx", "xlsx:Network tariffs!B6",
-        "The 2026-27 LFiT cost has been applied as an adjustment to the AER's approved charges for 2026-27, equivalent to "
-        "an additional 3.035 cents per kilowatt-hour (kWh). The LFiT cost has been applied uniformly to the consumption "
-        "charges (c/kWh) in Evoenergy's tariffs.", "included"),
+    **{doc: (doc, loc, quote, "included") for _amount, doc, loc, quote in adjustments.LFIT_ADDERS.values()},
     "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx": (
         "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx",
         "xlsx:Network tariffs!B6",
@@ -93,11 +76,7 @@ EVO_LFIT_DOCS = {
         "include costs for the ACT Government's Large-scale Feed-in Tariff (LFiT) Scheme.", "excluded"),
 }
 AER_LFIT_QUOTE = "Do not include Evoenergy's application of costs related to the ACT large-scale feed-in tariff scheme."
-LFIT_ADDERS = [  # (fin_year, amount c/kWh, distributor document)
-    ("2024-25", "0.258", "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf"),
-    ("2025-26", "1.593", "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx"),
-    ("2026-27", "3.035", "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx"),
-]
+LFIT_ADDERS = [(fy, amount, doc) for fy, (amount, doc, _loc, _quote) in sorted(adjustments.LFIT_ADDERS.items())]
 LFIT_REBATE_QUOTE = ("The LFiT rebate has been applied as a negative adjustment to the AER's approved charges for 2023/24 "
                      "and is equivalent to a reduction of 2.27 cents per kilowatt-hour (kWh) excluding Goods and "
                      "Services Tax (GST), on average, across Evoenergy's tariffs.")
@@ -258,6 +237,8 @@ class Builder:
             self.t.add("source_document", {k: v for k, v in d.items() if k in cols})
         for c in bs.version_coverage(self.docs):
             self.t.add("document_coverage", c)
+        for c in bs.url_checks():
+            self.t.add("document_url_check", c)
 
     # ------------------------------------------------------------------ tariffs and listings
     def tariffs_and_listings(self):
@@ -465,16 +446,14 @@ class Builder:
                                                             loc["cell"])
                     raw = repr(raw_v) if isinstance(raw_v, float) else str(raw_v)
                     if str(excel) != r["value"]:
-                        # the parsers format the binary float; Excel rounds half-up from 15 significant digits
-                        value = str(excel)
-                        vs, us = to_std(value, input_unit, r["component"])
-                        if us != r["unit_std"]:
-                            raise SystemExit(f"{cid}: unit changed on re-display")
-                        value_std = num_text(vs)
-                        self.instance("tool_rounding_artefact", did=did, fy=d["fin_year"],
+                        raise SystemExit(f"{cid}: parser value {r['value']!r} is not the cell as Excel displays it "
+                                         f"({excel!r}); format spreadsheet numbers with scripts/published.py")
+                    naive = locators.binary_float_display(raw_v, str(excel))
+                    if naive is not None and naive != str(excel):
+                        self.instance("display_rounds_half_way", did=did, fy=d["fin_year"],
                                       tariff=listing["tariff_id"], listing=lid, charge=cid, doc=d["document_id"],
-                                      detail=f"cell {raw} shows {excel} in Excel; the parser's binary-float formatting "
-                                             f"gave {r['value']}")
+                                      detail=f"cell {raw} shows {excel} in Excel; formatting the binary float gives "
+                                             f"{naive}")
                 self.t.add("charge", {
                     "charge_id": cid, "listing_id": lid, "price_basis": r["basis"], "component_label": r["component"],
                     "charge_type": r["charge_type"], "time_band": r["time_band"] or None, "season": r["season"] or None,
@@ -717,6 +696,8 @@ class Builder:
                 for tid, a, dch in self.tariff_pairs(ad, dd, "fixed", "c/day"):
                     if len(a) != 1 or len({c["value_std"] for c in dch}) != 1:
                         continue
+                    if not adjustments.metering_scope(self.dist[did]["name"], fy, tid.split(":", 1)[1]):
+                        continue  # outside the verified metering scope
                     exp = float(block[tid]["value_c_per_day"]) if tid in block else amount
                     delta = float(dch[0]["value_std"]) - float(a[0]["value_std"])
                     if abs(delta - exp) <= self.half_unit(a[0]) + self.half_unit(dch[0]) + 1e-9:
@@ -745,8 +726,9 @@ class Builder:
             self.t.add("price_adjustment", {
                 "adjustment_id": adj, "kind": "metering_adder", "distributor_id": did, "fin_year": fy,
                 "amount": num_text(amount), "amount_unit": "c/day",
-                "formula": f"distributor fixed c/day = AER fixed c/day + 100 x {src['value_published']} $/yr / 365 "
-                           + ("(per-tariff value from the distributor's Metering block)" if block else ""),
+                "formula": f"distributor fixed c/day = AER fixed c/day + 100 x {num_text(M)} $/yr / 365"
+                           + ("; per tariff, 100 x the $/day of the distributor's Metering block for that tariff "
+                              "(price_adjustment_tariff.expected_delta_std)" if block else ""),
                 "aer_document_id": ad["document_id"], "distributor_document_id": dd["document_id"],
                 "evidence_document_id": ev_doc, "locator": ev_loc, "quote": ev_quote,
             })
@@ -1385,7 +1367,17 @@ def check_append_only(ref):
     return bad
 
 
-def append_only_violations(table, old_text, new_text):
+# In-place changes to committed source-fact rows that correct a transcription error of this repository's tooling (the
+# document did not change, so a new document version would be wrong). Each one is listed with the exact old and new
+# value: the append-only check accepts that change and nothing else. (table, primary key, column) -> (old, new, why)
+TRANSCRIPTION_FIXES = {
+    ("metering_price", ("aer-consolidated-2026-27-v5/xlsx:Metering!L147",), "value_published"): (
+        "44.89", "44.90", "the cell holds 44.895, which Excel displays as 44.90; scripts/published.py formatted the "
+        "binary float (44.894999...) until it rounded like Excel (exception display_rounds_half_way)"),
+}
+
+
+def append_only_violations(table, old_text, new_text, fixes=TRANSCRIPTION_FIXES):
     pk = [c["name"] for c in table["columns"] if c["primary_key"]]
     derived = {c["name"] for c in table["columns"] if c.get("derived")}
     oh, orows = read_table_text(old_text)
@@ -1404,7 +1396,8 @@ def append_only_violations(table, old_text, new_text):
         if n is None:
             out.append(f"{table['name']} {k}: removed")
             continue
-        diff = [f"{c}: {v!r} -> {n.get(c)!r}" for c, v in o.items() if c not in derived and n.get(c, "") != v]
+        diff = [f"{c}: {v!r} -> {n.get(c)!r}" for c, v in o.items() if c not in derived and n.get(c, "") != v
+                and fixes.get((table["name"], k, c), (None, None))[:2] != (v, n.get(c, ""))]
         if diff:
             out.append(f"{table['name']} {k}: changed " + ", ".join(diff))
     return out

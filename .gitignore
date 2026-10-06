@@ -10,11 +10,13 @@ __pycache__/
 /notes/scratch/
 
 # Downloaded source documents are re-fetched by scripts/fetch_sources.py from the URLs in sources/inventory.csv.
-# Only the inventory and the Wayback Machine copies (documents the publisher's site blocks or no longer serves) are committed.
+# Committed: the inventory, every AER-authored file (the AER takes each superseded version private, so the archive here
+# is the only lasting copy) and the Wayback Machine copies (documents the publisher's site blocks or no longer serves).
 /sources/**
 !/sources/**/
 !/sources/inventory.csv
-!/sources/aer/AER_Consolidated_stakeholder_report_2025-26_v1_wayback.xlsx
+!/sources/aer/AER_Consolidated_stakeholder_report_*.xlsx
+!/sources/aer/2024-25_stakeholder_reports/*.xlsx
 !/sources/aer/landing/*.html
 !/sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
 !/sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf

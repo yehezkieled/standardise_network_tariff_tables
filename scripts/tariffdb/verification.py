@@ -330,7 +330,25 @@ def resolve_b_finding(db, r):
         unknown = [c for c in db.charge if c["includes_metering"] == "unknown"]
         no = [c for c in db.charge if c["includes_metering"] == "no" and db.doc[c["_doc"]]["author"] == "distributor"
               and c["charge_type"] == "fixed"]
-        return ok(f"{len(no)} distributor fixed charges now 'no' (equal to the AER value); {len(unknown)} stay unknown")
+        # the claim: a distributor daily charge equal to the AER's metering-excluded one excludes metering too (a
+        # daily charge, c/day: the per-lamp-watt public lighting charges are fixed but carry no metering)
+        def key(c):
+            return c["_tid"], db.doc[c["_doc"]]["fin_year"], c["price_basis"], c["gst"]
+
+        def daily(c, author):
+            return c["charge_type"] == "fixed" and c["unit_std"] == "c/day" and db.doc[c["_doc"]]["author"] == author
+
+        aer = defaultdict(set)
+        for c in db.charge:
+            if daily(c, "AER") and c["includes_metering"] == "no":
+                aer[key(c)].add(float(c["value_std"]))
+        left = [c for c in unknown if daily(c, "distributor")
+                and any(abs(float(c["value_std"]) - v) < 1e-9 for v in aer[key(c)])]
+        return need(not left and len(no) > 763,
+                    f"{len(no)} distributor fixed charges now 'no' (equal to the AER value); "
+                    f"{len(unknown)} stay unknown",
+                    f"{len(left)} distributor fixed charges equal to the AER's metering-excluded price stay 'unknown' "
+                    f"(e.g. {left[0]['charge_id'] if left else '-'}); {len(no)} are 'no'")
     if f == "L15":
         with open(os.path.join(ROOT, "docs", "tariffdb.md"), encoding="utf-8") as fh:
             docs = fh.read()

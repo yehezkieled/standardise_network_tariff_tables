@@ -226,12 +226,27 @@ def _(ctx, t, c, o, n):
         and o["unit_published"] == "c/KkA/day" and (o[c], n[c]) == ("1", "0")
 
 
+def same(o, n, *cols):
+    return all(o[c] == n[c] for c in cols)
+
+
+def interprets_note(n):
+    return f"Source parser interprets {n['unit_published'] or ''!r} as {n['unit_interpreted']!r}; see parser note " \
+           f"and original unit."
+
+
+PWC_ASSUMED_UNITS = ("$/kWh", "$/kVA/month", "$/kVA", "$/NMI/day")  # sapn_pwc.pwc_default_unit and its period note
+
+
 @rule("verifier-a: Power and Water unprinted units", "these columns print no unit: unit_published is NULL and the "
       "unit used is the parser's reading (period inferred; a source_ambiguous instance quotes the header)")
 def _(ctx, t, c, o, n):
-    return t == "charge" and did_of(ctx, t, o) == "powerwater" and n["unit_published"] == "" and (
-        c == "unit_published" or (c == "period_inferred" and (o[c], n[c]) == ("0", "1"))
-        or (c == "unit_interpreted" and o[c] == o["unit_published"]) or (c == "normalisation_note" and not o[c]))
+    if t != "charge" or n is None or did_of(ctx, t, o) != "powerwater" or n["unit_published"] != "" \
+            or not same(o, n, "unit_interpreted", "unit_std", "value_std"):
+        return False
+    return (c == "unit_published" and o[c] in PWC_ASSUMED_UNITS) \
+        or (c == "period_inferred" and (o[c], n[c]) == ("0", "1")) \
+        or (c == "normalisation_note" and not o[c] and n[c] == interprets_note(n))
 
 
 @rule("verifier-b: L4", "'Mth Dmnd Shld' is the monthly shoulder demand ('BD Shoulder' in SAPN's documents)")
@@ -240,15 +255,22 @@ def _(ctx, t, c, o, n):
         and (o[c], n[c]) == ("", "shoulder")
 
 
+M4_NOTE = ("billing period per SA Power Networks' own price lists ('$/kVA/day'); 'Ann'/'Mth' in the AER label is the "
+           "demand measurement window")
+
+
 @rule("verifier-b: M4", "SAPN prices demand per day ('$/kVA/day' in its own price lists); 'Ann'/'Mth' in the AER "
       "label is the demand measurement window, not the billing period (period inferred)")
 def _(ctx, t, c, o, n):
-    return t == "charge" and did_of(ctx, t, o) == "sapn" and doc_of(ctx, t, o).startswith("aer-") and (
-        (c in ("unit_std", "unit_interpreted") and n[c].endswith("/day?"))
-        or (c == "period" and n[c] == "day")
-        or (c == "period_inferred" and n[c] == "1")
-        or (c == "normalisation_note" and "interprets" in n[c])
-        or (c == "note" and n[c].endswith("'Ann'/'Mth' in the AER label is the demand measurement window")))
+    if t != "charge" or n is None or did_of(ctx, t, o) != "sapn" or not doc_of(ctx, t, o).startswith("aer-") \
+            or not same(o, n, "unit_published", "value_published", "value_std"):
+        return False
+    return (c == "unit_std" and n[c] == re.sub(r"/(year|month)\?$", "/day?", o[c]) != o[c]) \
+        or (c == "unit_interpreted" and n[c] == re.sub(r"^\$(?:dollars)?/(kVA|kW)$", r"$/\1/day?", o[c]) != o[c]) \
+        or (c == "period" and (o[c], n[c]) in (("year", "day"), ("month", "day"))) \
+        or (c == "period_inferred" and (o[c], n[c]) == ("0", "1")) \
+        or (c == "normalisation_note" and not o[c] and n[c] == interprets_note(n)) \
+        or (c == "note" and n[c] == "; ".join(x for x in (o[c], M4_NOTE) if x))
 
 
 @rule("verifier-b: L5", "the AER unit prints a season ('cents/kVA/Summer', '.../highsn'), not a period: the period "
@@ -259,12 +281,22 @@ def _(ctx, t, c, o, n):
         (c == "unit_std" and n[c] == o[c] + "?") or (c == "period_inferred" and (o[c], n[c]) == ("0", "1")))
 
 
+# (as stored before, as the TasNetworks header prints it)
+L6_UNITS = {("c/kVA or kW/day", "(c/kVA/day) (c/kW/day)"), ("c/kW/day", "c/kVA/day"),
+            ("c/kW/day", "c/kVA, kW, lamp watt/day"), ("c/kVA/day", "c/kVA, kW, lamp watt/day")}
+
+
 @rule("verifier-b: L6", "the TasNetworks header prints the unit stored in unit_published; the reading used for "
       "conversion is unit_interpreted, with a note")
 def _(ctx, t, c, o, n):
-    return t == "charge" and did_of(ctx, t, o) == "tasnetworks" and (
-        c in ("unit_published", "unit_interpreted", "normalisation_note")
-        or (c == "note" and n[c].startswith(o[c]) and "unit printed as" in n[c][len(o[c]):]))
+    # only the printed unit and its notes change: the unit and value used for conversion stay as they were
+    if t != "charge" or n is None or did_of(ctx, t, o) != "tasnetworks" or not same(o, n, "unit_std", "value_std"):
+        return False
+    return (c == "unit_published" and (o[c], n[c]) in L6_UNITS) \
+        or (c == "unit_interpreted" and o[c] == o["unit_published"] and n[c] == n["unit_published"]
+            and (o[c], n[c]) in L6_UNITS) \
+        or (c == "normalisation_note" and not o[c] and n[c] == interprets_note(n)) \
+        or (c == "note" and n[c].startswith(o[c]) and "unit printed as" in n[c][len(o[c]):])
 
 
 @rule("verifier-a: demand-rule season vocabulary", "tariff_demand_rule.season uses the charge season vocabulary "

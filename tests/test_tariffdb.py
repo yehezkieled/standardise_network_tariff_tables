@@ -1212,6 +1212,31 @@ class TestVerification(unittest.TestCase):
             self.assertIsNone(fixes.explain(ctx, "charge", column, old, dict(old, **{column: value})), column)
         self.assertIsNone(fixes.explain(ctx, "charge", None, old, None))
 
+    def test_fixes_refuse_a_regression_inside_a_finding(self):
+        """A finding's rule explains only its own correction: e.g. TasNetworks' printed unit (L6) may change from the
+        old reading to the header text, never to another unit, and the converted value must not move."""
+        import fixes
+        ctx = SimpleNamespace(tariff_of_charge=lambda r: "tasnetworks:TAS94", listing={
+            "x": {"document_id": "tasnetworks-network-tariff-pricing-schedule-scs-2024-25", "tariff_id": "tasnetworks:TAS94"}})
+        old = {"listing_id": "x", "unit_published": "c/kVA/day", "unit_interpreted": "c/kVA/day",
+               "unit_std": "c/kVA/day", "value_std": "1.5", "normalisation_note": "", "note": ""}
+        self.assertEqual(fixes.explain(ctx, "charge", "unit_published", old,
+                                       dict(old, unit_published="c/kVA, kW, lamp watt/day"))[0], "verifier-b: L6")
+        self.assertIsNone(fixes.explain(ctx, "charge", "unit_published", old, dict(old, unit_published="c/kW/day")))
+        self.assertIsNone(fixes.explain(ctx, "charge", "unit_published", old,
+                                        dict(old, unit_published="c/kVA, kW, lamp watt/day", value_std="2")))
+
+    def test_endeavour_table_2_is_a_repeated_printing(self):
+        """Endeavour's Table 2 (unmetered options) reprints the Table 1a/1b prices: marked, so the reconciliation
+        compares them once (no false dnsp_only_component rows)."""
+        import schema
+        cs = [c for c in rows("charge") if "Table 2 p" in (c["note"] or "") and tariff_of_charge(c).startswith("endeavour:")]
+        self.assertEqual(len(cs), 48)
+        self.assertTrue(all(schema.REPEATED_PRINTING in c["note"] for c in cs))
+        with open(ROOT / "discrepancies.csv", newline="", encoding="utf-8") as f:
+            self.assertFalse([r for r in csv.DictReader(f) if r["distributor"] == "Endeavour Energy"
+                              and r["component"] == "Energy Charge - Flat"])
+
     # ---- verifier B ------------------------------------------------------------------------------------------------
     def test_h1_ausnet_nasn2s_nasn2p_are_priced(self):
         # AusNet prints NASN2P until 2024-25; the 2025-26 and 2026-27 schedules list NASN21 and NASN2S

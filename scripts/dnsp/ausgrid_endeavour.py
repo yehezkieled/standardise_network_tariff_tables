@@ -630,12 +630,13 @@ def parse_endeavour_price_list(dist, fy, side, path, url):
                 if not t2:
                     warn(f"{path} p{pno}: Table 2 (unmetered) not extractable")
                 for code, name, vals, locator in t2:
-                    table2.append((code, vals[0], vals[2]))
+                    t2_rows = []
                     for (lab, u, g), v in zip(TABLE_2_COLUMNS, vals):
-                        rows.append(make_row(dist, fy, side, path, url, code, name, "", lab, u, v, "NUoS", g,
-                                             f"{vnote}; Table 2 p{pno} (Unmetered Pricing Options - NUOS); "
-                                             f"{'GST exclusive' if g == 'excl' else 'GST inclusive'}; repeats the "
-                                             f"Table 1a prices", locator))
+                        t2_rows.append(make_row(dist, fy, side, path, url, code, name, "", lab, u, v, "NUoS", g,
+                                                f"{vnote}; Table 2 p{pno} (Unmetered Pricing Options - NUOS); "
+                                                f"{'GST exclusive' if g == 'excl' else 'GST inclusive'}", locator))
+                    rows += t2_rows
+                    table2.append((code, vals, t2_rows))
                 continue
             if tables:
                 ti = max(range(len(tables)), key=lambda i: len(tables[i]))
@@ -736,11 +737,19 @@ def parse_endeavour_price_list(dist, fy, side, path, url):
     for key, v in incl.items():
         if key in excl_vals and abs(v - round(excl_vals[key] * Decimal("1.1"), 4)) > 0.00051:
             warn(f"{path}: GST check {key}: excl {excl_vals[key]} *1.1 != incl {v}")
-    for code, acc, en in table2:
-        k1 = (code, "Daily Access Charge")
-        k2 = (code, "Import - Energy Charges - Block 1")
-        if excl_vals.get(k1) != acc or excl_vals.get(k2) != en:
-            warn(f"{path}: Table 2 {code} ({acc}, {en}) differs from Table 1a ({excl_vals.get(k1)}, {excl_vals.get(k2)})")
+    # Table 2 reprints the Table 1a (GST exclusive) and Table 1b (GST inclusive) access and block-1 energy prices: a
+    # reprint that matches is marked as a repeated printing, so the reconciliation compares the price once
+    for code, vals, t2_rows in table2:
+        for g, printed, first in (("excl", excl_vals, (vals[0], vals[2])), ("incl", incl, (vals[1], vals[3]))):
+            table1 = "Table 1a" if g == "excl" else "Table 1b"
+            orig = tuple(printed.get((code, lab))
+                         for lab in ("Daily Access Charge", "Import - Energy Charges - Block 1"))
+            if orig != first:
+                warn(f"{path}: Table 2 {code} {g} {first} differs from {table1} {orig}")
+                continue
+            for r in t2_rows:
+                if r["gst"] == g:
+                    r["note"] += f"; {schema.REPEATED_PRINTING} of the {table1} prices (identical)"
     if DEBUG:
         print(f"  {path}: {len(rows)} rows, {len(incl)} incl-GST cross-checks, {len(table2)} Table 2 cross-checks")
     return rows

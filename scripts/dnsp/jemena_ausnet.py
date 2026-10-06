@@ -31,6 +31,7 @@ from collections import OrderedDict
 sys.path.insert(0, "scripts")
 import schema  # noqa: E402
 import units  # noqa: E402
+from tariffdb import locators  # noqa: E402
 
 import openpyxl  # noqa: E402
 import pdfplumber  # noqa: E402
@@ -93,7 +94,7 @@ def basis_from_title(text):
 
 
 def make_row(*, distributor, fin_year, code, name, customer_class, component, unit, value, gst, basis,
-             source_file, source_url, note, charge_type=None, time_band=None, season=None):
+             source_file, source_url, note, locator, charge_type=None, time_band=None, season=None):
     label = component
     ct = charge_type or schema.charge_type_from_label(label, unit)
     tb = schema.time_band_from_label(label) if time_band is None else time_band
@@ -107,7 +108,7 @@ def make_row(*, distributor, fin_year, code, name, customer_class, component, un
         ("unit", unit.strip()), ("value", vstr),
         ("value_std", "" if vstd is None else fmt_num(vstd)), ("unit_std", ustd),
         ("gst", gst), ("basis", basis), ("source_file", source_file), ("source_url", source_url),
-        ("note", note.strip("; ").strip()),
+        ("note", note.strip("; ").strip()), ("locator", locator),
     ])
 
 
@@ -210,11 +211,11 @@ def parse_jemena_pdf(path, fin_year):
                 paired = ("published as paired code '" + " / ".join(tariff["codes"]) + "' with one price set; "
                           "footnote a: a tariff code starting with 'F' indicates the tariff attracts the "
                           "Premium Feed-In-Tariff rebate")
-            for label, unit, value, cnote in tariff["comps"]:
+            for label, unit, value, cnote, comp_page in tariff["comps"]:
                 note = "; ".join(x for x in (f"p{tariff['page']}", tariff["min_demand"], paired, cnote, tariff["gst_note"]) if x)
                 rows.append(dict(code=code, name=tariff["name"], customer_class=tariff["class"],
                                  component=label, unit=unit, value=value, gst=tariff["gst"], basis=tariff["basis"],
-                                 note=note, fin_year=fin_year))
+                                 note=note, fin_year=fin_year, locator=locators.pdf(comp_page)))
             if not tariff["comps"]:
                 gaps.append(f"p{tariff['page']} {code}: no priced components found")
         state["tariff"] = None
@@ -293,7 +294,7 @@ def parse_jemena_pdf(path, fin_year):
                     if value_tok is None:
                         gaps.append(f"p{pno} {'/'.join(tariff['codes'])}: component '{label}' unit='{unit}' has no value")
                         continue
-                    tariff["comps"].append((label, unit, value_tok["text"], cnote))
+                    tariff["comps"].append((label, unit, value_tok["text"], cnote, pno))
                     continue
                 if txt.startswith("Minimum Chargeable"):
                     tariff["header_open"] = False
@@ -322,7 +323,7 @@ def emit_jemena(inv):
             out.append(make_row(distributor="Jemena", fin_year=fin_year, code=r["code"], name=r["name"],
                                 customer_class=r["customer_class"], component=r["component"], unit=r["unit"],
                                 value=r["value"], gst=r["gst"], basis=r["basis"], source_file=path,
-                                source_url=inv[path], note=r["note"]))
+                                source_url=inv[path], note=r["note"], locator=r["locator"]))
             n += 1
         codes = sorted({r["code"] for r in rows})
         report.append(f"Jemena {fin_year} {path}: rows={n} codes={len(codes)} bases={sorted({r['basis'] for r in rows})} gaps={gaps}")
@@ -512,7 +513,8 @@ def parse_ausnet_schedule_pdf(path, fin_year, inv):
         for label, unit, val in rec["vals"]:
             rows.append(make_row(distributor="AusNet Services", fin_year=fin_year, code=rec["code"], name=rec["desc"],
                                  customer_class=rec["class"], component=label, unit=unit, value=val, gst="excl",
-                                 basis=basis, source_file=path, source_url=inv[path], note="; ".join(x for x in note_bits if x)))
+                                 basis=basis, source_file=path, source_url=inv[path], note="; ".join(x for x in note_bits if x),
+                                 locator=locators.pdf(pno)))
     return rows, gaps, seen_pages
 
 
@@ -563,7 +565,7 @@ def parse_ausnet_trial_tables(path, fin_year, inv):
                                                  name=f"{name} (tariff trial)", customer_class="Tariff trial",
                                                  component=label, unit=cols[i]["unit"], value=w["text"], gst="excl",
                                                  basis="unknown", source_file=path, source_url=inv[path], note=note,
-                                                 charge_type=ct))
+                                                 locator=locators.pdf(pno), charge_type=ct))
                     found.append((pno, code_w["text"], len(numeric)))
     return rows, gaps, found
 
@@ -653,17 +655,18 @@ def parse_ausnet_xlsx(path, fin_year, inv):
                     extra = f"cell stores unrounded {v!r}, displayed as {shown:.{dec}f}"
                 clean_label = label.rstrip("^*").strip()
                 lab_note = f"header published as '{label}'" if clean_label != label else ""
-                comps.append((clean_label, unit, f"{shown:.{dec}f}" if dec is not None else str(shown), "; ".join(x for x in (lab_note, extra) if x)))
+                comps.append((clean_label, unit, f"{shown:.{dec}f}" if dec is not None else str(shown), "; ".join(x for x in (lab_note, extra) if x),
+                              locators.xlsx(ws, ws.cell(r, cidx))))
             if text_cells:
                 gaps.append(f"sheet '{ws.title}' {code}: non-numeric price cells {text_cells}")
                 note_bits.append("non-numeric cells: " + ", ".join(text_cells) + (" (site-specific)" if any("site" in t.lower() for t in text_cells) else ""))
             if not comps:
                 gaps.append(f"sheet '{ws.title}' {code}: no numeric values")
-            for label, unit, val, cnote in comps:
+            for label, unit, val, cnote, loc in comps:
                 rows.append(make_row(distributor="AusNet Services", fin_year=fin_year, code=code, name=desc,
                                      customer_class=current_class, component=label, unit=unit, value=val, gst="excl",
                                      basis=basis, source_file=path, source_url=inv[path],
-                                     note="; ".join(x for x in note_bits + [cnote] if x)))
+                                     note="; ".join(x for x in note_bits + [cnote] if x), locator=loc))
         sheets_done.append((ws.title, basis, n_codes, gst_stated))
     return rows, gaps, sheets_done
 

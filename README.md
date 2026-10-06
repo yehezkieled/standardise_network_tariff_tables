@@ -11,6 +11,10 @@ and financial years 2023-24 to 2026-27.
   per-distributor-and-year detail section with the full source inventory.
 - `discrepancies.csv` - every discrepancy (value differs, AER-only and distributor-only tariff codes and
   components) with its explanation class and the source URL on both sides.
+- `data/tariffdb/` - the tariff database: every AER and distributor tariff 2023-24 to 2026-27 (rates, requirements,
+  TOU windows, demand rules, blocks) as one CSV per relational table, with SQLite/PostgreSQL DDL, a JSON table spec
+  and provenance (document version, cell or page, verbatim quote) on every row. Schema, design reasons and the
+  exceptions catalogue: `docs/tariffdb.md`.
 
 ## Reproduce
 
@@ -48,3 +52,7 @@ report treats those distributor-years as "no distributor-side data".
 - `scripts/report_tables.py` and `scripts/write_report.py` - report tables and report assembly from
   `notes/report_head.md` and `notes/report_sections/*.md`.
 - `notes/format_notes.json` - per distributor-year notes on document format changes.
+- `scripts/tariffdb/` - the tariff database: `spec.py` (schema, single source of truth), `build.py` (builds
+  `data/tariffdb/` from the parser outputs and `data/tariffdb/curated/*.yaml`), `curated.py` (validates the curated
+  TOU/demand/eligibility facts against their sources), `load.py` (SQLite import check, `--out` to save a database),
+  `docs.py` (writes `docs/tariffdb.md`). Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py`.

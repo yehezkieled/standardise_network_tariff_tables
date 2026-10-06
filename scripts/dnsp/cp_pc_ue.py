@@ -35,6 +35,7 @@ sys.path.insert(0, "scripts")
 from published import cell_value
 import schema  # noqa: E402
 import units  # noqa: E402
+from tariffdb import locators  # noqa: E402
 
 ROOT = Path(".")
 OUT = ROOT / "out" / "dnsp" / "cp_pc_ue.csv"
@@ -109,7 +110,7 @@ def norm_label(s: str) -> str:
     return s
 
 
-def make_row(*, dist, fin_year, code, name, component, unit, value, gst, basis, source_file, url, note) -> dict:
+def make_row(*, dist, fin_year, code, name, component, unit, value, gst, basis, source_file, url, note, locator) -> dict:
     tb = schema.time_band_from_label(component)
     season = schema.season_from_label(component)
     vstd, ustd = units.to_std(value, unit, component)
@@ -133,6 +134,7 @@ def make_row(*, dist, fin_year, code, name, component, unit, value, gst, basis, 
         "source_file": source_file,
         "source_url": url,
         "note": note,
+        "locator": locator,
     }
 
 
@@ -172,7 +174,8 @@ def parse_summary_xlsx(path: str, dist: str, fin_year: str, url: str, version_no
     rows_out: list[dict] = []
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
     for ws in wb.worksheets:
-        rows = [[cell_value(c) if c.data_type == "n" else c.value for c in r] for r in ws.iter_rows()]
+        cell_rows = [tuple(r) for r in ws.iter_rows()]
+        rows = [[cell_value(c) if c.data_type == "n" else c.value for c in r] for r in cell_rows]
         title = " ".join(str(c) for c in rows[0] if c) if rows else ""
         sheet_fy = fin_year_in(ws.title) or fin_year_in(title)
         if re.search(r"_IND_|INDICATIVE", ws.title.upper()) or "indicative" in title.lower():
@@ -181,12 +184,12 @@ def parse_summary_xlsx(path: str, dist: str, fin_year: str, url: str, version_no
         if sheet_fy != fin_year:
             log.append(f"  skip sheet {ws.title!r} (year {sheet_fy} != {fin_year})")
             continue
-        parsed = parse_summary_sheet(ws.title, rows, dist, fin_year, path, url, version_note, log)
+        parsed = parse_summary_sheet(ws.title, rows, cell_rows, dist, fin_year, path, url, version_note, log)
         rows_out.extend(parsed)
     return rows_out
 
 
-def parse_summary_sheet(sheet, rows, dist, fin_year, path, url, version_note, log) -> list[dict]:
+def parse_summary_sheet(sheet, rows, cell_rows, dist, fin_year, path, url, version_note, log) -> list[dict]:
     head_text = " ".join(str(c) for r in rows[:3] for c in r if c)
     gst = "excl" if "EXCLUSIVE OF GST" in head_text.upper() else "unknown"
     gst_note = "" if gst == "excl" else "GST treatment not stated; assumed excl"
@@ -230,7 +233,8 @@ def parse_summary_sheet(sheet, rows, dist, fin_year, path, url, version_note, lo
     year_note = f"header row labelled {sheet_basis_text!r} (sheet/title say {fin_year})" if hdr_fy and hdr_fy != fin_year else ""
     out = []
     n_codes = 0
-    for r in rows[u + 1:]:
+    for ri in range(u + 1, len(rows)):
+        r = rows[ri]
         code = r[code_col]
         if code in (None, ""):
             if r[name_col] and str(r[name_col]).strip().lower().startswith("notes"):
@@ -264,7 +268,7 @@ def parse_summary_sheet(sheet, rows, dist, fin_year, path, url, version_note, lo
             note = "; ".join(x for x in base_note + [c["note"]] if x)
             out.append(make_row(dist=dist, fin_year=fin_year, code=code, name=name, component=c["component"],
                                 unit=c["unit"], value=v, gst=gst, basis=basis, source_file=path,
-                                url=url, note=note))
+                                url=url, note=note, locator=locators.xlsx(sheet, cell_rows[ri][c["j"]])))
             emitted += 1
         if emitted:
             n_codes += 1
@@ -570,7 +574,8 @@ def parse_pricing_pdf(path: str, dist: str, fin_year: str, url: str, version_not
                         c = cols[ci]
                         out.append(make_row(dist=dist, fin_year=fin_year, code=d["code"], name=d["name"], component=c["component"],
                                             unit=c["unit"], value=v, gst="excl", basis=basis, source_file=path, url=url,
-                                            note="; ".join(note_parts + ([c["note"]] if c.get("note") else []))))
+                                            note="; ".join(note_parts + ([c["note"]] if c.get("note") else [])),
+                                            locator=locators.pdf(pno)))
                         n_rows += 1
                 log.append(f"  p{pno}: {t!r} -> basis {basis}, {len(cols)} price columns "
                            f"[{', '.join(c['component'] + ' ' + c['unit'] for c in cols)}], {len(data)} tariff rows, {n_rows} rows")

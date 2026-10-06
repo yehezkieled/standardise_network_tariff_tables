@@ -1,0 +1,3258 @@
+{
+  "generated_from": "scripts/tariffdb/spec.py",
+  "tables": [
+    {
+      "name": "financial_year",
+      "description": "Australian financial years covered (1 July to 30 June).",
+      "why": [
+        "Every price, rule and window is tied to a year AND to explicit dates, so mid-year changes fit without breaking the yearly grain."
+      ],
+      "file": "tables/financial_year.csv",
+      "primary_key": [
+        "fin_year"
+      ],
+      "unique": [],
+      "checks": [
+        "start_date < end_date"
+      ],
+      "columns": [
+        {
+          "name": "fin_year",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "e.g. 2025-26"
+        },
+        {
+          "name": "start_date",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1 July"
+        },
+        {
+          "name": "end_date",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "30 June (inclusive)"
+        }
+      ]
+    },
+    {
+      "name": "distributor",
+      "description": "The 14 electricity distribution network service providers (DNSPs).",
+      "why": [
+        "Time zone and DST live here because TOU windows are stated in local or standard time and QLD/NT have no daylight saving."
+      ],
+      "file": "tables/distributor.csv",
+      "primary_key": [
+        "distributor_id"
+      ],
+      "unique": [
+        [
+          "name"
+        ]
+      ],
+      "checks": [],
+      "columns": [
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "slug, e.g. ausgrid"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "canonical name used by the reconciliation (scripts/schema.py CANON)"
+        },
+        {
+          "name": "aer_label",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "name the AER workbooks use"
+        },
+        {
+          "name": "state",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "NSW",
+            "VIC",
+            "QLD",
+            "SA",
+            "TAS",
+            "ACT",
+            "NT"
+          ],
+          "unit": null,
+          "description": "jurisdiction"
+        },
+        {
+          "name": "iana_timezone",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "IANA zone of the network area, e.g. Australia/Sydney"
+        },
+        {
+          "name": "observes_dst",
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1 when local clocks move for daylight saving"
+        }
+      ]
+    },
+    {
+      "name": "document_series",
+      "description": "A publication that is reissued in versions (e.g. the AER 2025-26 consolidated stakeholder report v1..v5, or one distributor's price list for a year).",
+      "why": [
+        "Versions of the same publication are grouped so 'latest version' and 'v1 vs approved' are simple queries; no version ever overwrites another."
+      ],
+      "file": "tables/document_series.csv",
+      "primary_key": [
+        "series_id"
+      ],
+      "unique": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "series_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "slug"
+        },
+        {
+          "name": "author",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "AER",
+            "distributor"
+          ],
+          "unit": null,
+          "description": "who wrote the prices"
+        },
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "NULL for multi-distributor AER reports"
+        },
+        {
+          "name": "fin_year",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "financial_year.fin_year",
+          "enum": null,
+          "unit": null,
+          "description": "pricing year"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "series title"
+        }
+      ]
+    },
+    {
+      "name": "source_document",
+      "description": "One version of one document: the unit of provenance. Every value row points here.",
+      "why": [
+        "Proposed, approved, AER and distributor numbers coexist because each is keyed by its own document version.",
+        "sha256 + URL + retrieval date make each file re-fetchable and tamper-evident.",
+        "Versions known to exist but not retrievable (AER login-gated files) are still recorded so the history has no silent gaps."
+      ],
+      "file": "tables/source_document.csv",
+      "primary_key": [
+        "document_id"
+      ],
+      "unique": [
+        [
+          "series_id",
+          "version_seq"
+        ],
+        [
+          "local_path"
+        ]
+      ],
+      "checks": [
+        "retrieval_status <> 'retrieved' OR (local_path IS NOT NULL AND sha256 IS NOT NULL)"
+      ],
+      "columns": [
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "slug derived from the file name"
+        },
+        {
+          "name": "series_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "document_series.series_id",
+          "enum": null,
+          "unit": null,
+          "description": "publication series"
+        },
+        {
+          "name": "version_label",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "as published, e.g. v1, v5, v1.1, 'updated 17 Jul 2024'"
+        },
+        {
+          "name": "version_seq",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "order within the series (1 = first)"
+        },
+        {
+          "name": "author",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "AER",
+            "distributor"
+          ],
+          "unit": null,
+          "description": "who wrote the prices"
+        },
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "NULL for multi-distributor AER reports"
+        },
+        {
+          "name": "fin_year",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "financial_year.fin_year",
+          "enum": null,
+          "unit": null,
+          "description": "pricing year"
+        },
+        {
+          "name": "document_type",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "aer_consolidated_stakeholder_report",
+            "aer_stakeholder_report",
+            "pricing_proposal",
+            "pricing_proposal_overview",
+            "price_list",
+            "tariff_summary",
+            "tariff_schedule",
+            "schedule_of_charges",
+            "statement_of_tariff_classes",
+            "price_guide",
+            "pricing_schedule"
+          ],
+          "unit": null,
+          "description": "kind of publication"
+        },
+        {
+          "name": "price_status",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "proposed",
+            "approved",
+            "mixed",
+            "published",
+            "indicative"
+          ],
+          "unit": null,
+          "description": "regulatory status of the prices in this version (mixed: differs by distributor, see document_coverage)"
+        },
+        {
+          "name": "recon_side",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "AER",
+            "AER_HOSTED",
+            "DNSP"
+          ],
+          "unit": null,
+          "description": "role in the reconciliation: AER = AER-authored, AER_HOSTED = distributor document hosted on aer.gov.au, DNSP = distributor's own site"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "description from sources/inventory.csv"
+        },
+        {
+          "name": "publication_date",
+          "type": "date",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "date the version was published, when known"
+        },
+        {
+          "name": "publication_date_basis",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "how the date is known"
+        },
+        {
+          "name": "retrieval_status",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "retrieved",
+            "not_retrievable"
+          ],
+          "unit": null,
+          "description": "whether the file is held"
+        },
+        {
+          "name": "local_path",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "repo-relative path"
+        },
+        {
+          "name": "source_url",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "exact URL the file was retrieved from (or the landing page when not retrievable)"
+        },
+        {
+          "name": "access_note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "access caveats from the inventory"
+        },
+        {
+          "name": "sha256",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "SHA-256 of the file used"
+        },
+        {
+          "name": "retrieved_on",
+          "type": "date",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "date the file was retrieved (or the Wayback capture date)"
+        },
+        {
+          "name": "retrieved_on_basis",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "wayback_capture | inventory_commit"
+        },
+        {
+          "name": "committed_in_repo",
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1 when the file itself is committed (Wayback copies)"
+        }
+      ]
+    },
+    {
+      "name": "document_coverage",
+      "description": "Which distributors' prices an AER consolidated version carries, and whether they are proposed or approved there (from the AER changelog).",
+      "why": [
+        "One AER file mixes proposed and approved prices by jurisdiction (2025-26 v3: approved ACT/NSW/TAS/VIC, proposed QLD/SA/NT), so price status is per (document, distributor), not per document.",
+        "Versions the AER no longer serves are still covered, so the history of what was published when is complete even where the file is gone."
+      ],
+      "file": "tables/document_coverage.csv",
+      "primary_key": [
+        "document_id",
+        "distributor_id"
+      ],
+      "unique": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "AER consolidated version"
+        },
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "distributor"
+        },
+        {
+          "name": "price_status",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "proposed",
+            "approved",
+            "mixed",
+            "published",
+            "indicative"
+          ],
+          "unit": null,
+          "description": "status of that distributor's prices in that version"
+        },
+        {
+          "name": "evidence_document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "saved AER landing page holding the changelog"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+        }
+      ]
+    },
+    {
+      "name": "document_ingestion",
+      "description": "Explicit extraction coverage for every held or unavailable source document.",
+      "why": [
+        "A source inventory entry is not evidence that its prices were extracted; independent row counts expose empty or rules-only documents."
+      ],
+      "file": "tables/document_ingestion.csv",
+      "primary_key": [
+        "document_id"
+      ],
+      "unique": [],
+      "checks": [
+        "charge_count >= 0 AND listing_count >= 0 AND eligibility_count >= 0 AND tou_schedule_count >= 0 AND metering_count >= 0"
+      ],
+      "columns": [
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "Source version"
+        },
+        {
+          "name": "charge_count",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Number of charge rows read from this source"
+        },
+        {
+          "name": "listing_count",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Tariff listings from this source"
+        },
+        {
+          "name": "eligibility_count",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Structured or quoted requirements from this source"
+        },
+        {
+          "name": "tou_schedule_count",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "TOU schedules from this source"
+        },
+        {
+          "name": "metering_count",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Separately stored metering rates"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "prices",
+            "rules_only",
+            "metadata_only",
+            "unavailable"
+          ],
+          "unit": null,
+          "description": "Extraction state"
+        }
+      ]
+    },
+    {
+      "name": "tariff",
+      "description": "Stable identity of a network tariff across years: the distributor's own code.",
+      "why": [
+        "Codes are the only identifier both sides share; names and labels drift every year.",
+        "Codes the AER prints that no distributor document uses stay as their own identity (identity_basis) instead of being force-matched."
+      ],
+      "file": "tables/tariff.csv",
+      "primary_key": [
+        "tariff_id"
+      ],
+      "unique": [
+        [
+          "distributor_id",
+          "tariff_code"
+        ]
+      ],
+      "checks": [],
+      "columns": [
+        {
+          "name": "tariff_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<distributor_id>:<code>"
+        },
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "owner"
+        },
+        {
+          "name": "tariff_code",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "canonical code"
+        },
+        {
+          "name": "identity_basis",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "distributor_code",
+            "aer_label",
+            "aer_tariff_id"
+          ],
+          "unit": null,
+          "description": "where the canonical code comes from"
+        }
+      ]
+    },
+    {
+      "name": "tariff_alias",
+      "description": "Other labels under which a tariff is published: AER code labels, AER tariff IDs, joint labels ('010, 011*'), regional suffixes.",
+      "why": [
+        "Code-label quirks are data, not code: each alias is tied to the document it appears in."
+      ],
+      "file": "tables/tariff_alias.csv",
+      "primary_key": [
+        "alias_id"
+      ],
+      "unique": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "alias_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<document_id>/<alias_kind>/<alias_label>/<tariff_id>"
+        },
+        {
+          "name": "tariff_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "tariff the label resolves to"
+        },
+        {
+          "name": "alias_label",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "label exactly as published"
+        },
+        {
+          "name": "alias_kind",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "aer_code_label",
+            "aer_tariff_id",
+            "joint_label_member",
+            "regional_suffix",
+            "name_matched",
+            "code_variant"
+          ],
+          "unit": null,
+          "description": "kind of alias"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "document where the label appears"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "how the alias was resolved"
+        }
+      ]
+    },
+    {
+      "name": "tariff_relation",
+      "description": "Relationships between tariffs: renames, replacements, opt-out alternatives, export companions.",
+      "why": [
+        "Renames across years (e.g. SAPN RELE -> RESELE) keep both identities and link them, so history is never rewritten."
+      ],
+      "file": "tables/tariff_relation.csv",
+      "primary_key": [
+        "relation_id"
+      ],
+      "unique": [],
+      "checks": [
+        "from_tariff_id <> to_tariff_id"
+      ],
+      "columns": [
+        {
+          "name": "relation_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<from>|<relation_type>|<to>|<document_id>"
+        },
+        {
+          "name": "from_tariff_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "subject"
+        },
+        {
+          "name": "relation_type",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "renamed_to",
+            "replaced_by",
+            "opt_out_alternative",
+            "export_companion",
+            "xmc_variant",
+            "same_prices_as",
+            "assigned_with",
+            "aer_sibling_code"
+          ],
+          "unit": null,
+          "description": "relationship"
+        },
+        {
+          "name": "to_tariff_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "object"
+        },
+        {
+          "name": "fin_year",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "financial_year.fin_year",
+          "enum": null,
+          "unit": null,
+          "description": "year the relation is stated for"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "evidence"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Source qualifications or interpretation notes"
+        }
+      ]
+    },
+    {
+      "name": "tariff_listing",
+      "description": "A tariff as listed in one document version (code, name and class as printed there).",
+      "why": [
+        "The historical grain: one row per (document version, tariff); attributes are never updated, a new version adds a new listing.",
+        "is_priced = 0 represents AER zero-priced placeholder rows without inventing charges."
+      ],
+      "file": "tables/tariff_listing.csv",
+      "primary_key": [
+        "listing_id"
+      ],
+      "unique": [],
+      "checks": [
+        "effective_from <= effective_to"
+      ],
+      "columns": [
+        {
+          "name": "listing_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<document_id>/<code_published>[/<n>]"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "where"
+        },
+        {
+          "name": "tariff_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "which tariff"
+        },
+        {
+          "name": "code_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "code exactly as printed (joint, starred ...); NULL when the row prints no code (AER 2025-26 v1)"
+        },
+        {
+          "name": "name_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "tariff name as printed"
+        },
+        {
+          "name": "class_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "tariff class / customer class heading as printed"
+        },
+        {
+          "name": "region",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "pricing region or zone when the document splits one code by region"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first day the listed prices apply"
+        },
+        {
+          "name": "effective_to",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "last day (inclusive)"
+        },
+        {
+          "name": "price_availability",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "priced",
+            "placeholder",
+            "rules_only"
+          ],
+          "unit": null,
+          "description": "Whether this document prints prices, a zero/blank placeholder, or only rules"
+        },
+        {
+          "name": "is_priced",
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "0 when the source has no priced components (placeholder); explicit zero charges remain prices"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first price cell/page of the listing"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "parser notes for the listing"
+        }
+      ]
+    },
+    {
+      "name": "listing_flag",
+      "description": "Status flags of a listing: trial, closed to new customers, withdrawn, site-specific, placeholder, proposed price, LFiT/metering inclusion.",
+      "why": [
+        "A tariff can be several of these at once and they change by year, so they are rows, not columns."
+      ],
+      "file": "tables/listing_flag.csv",
+      "primary_key": [
+        "listing_id",
+        "flag"
+      ],
+      "unique": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "listing_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "tariff_listing.listing_id",
+          "enum": null,
+          "unit": null,
+          "description": "listing"
+        },
+        {
+          "name": "flag",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": [
+            "trial",
+            "closed_to_new",
+            "withdrawn",
+            "obsolete",
+            "grandfathered",
+            "site_specific",
+            "zero_priced_placeholder",
+            "transitional",
+            "indicative",
+            "proposed_price",
+            "includes_lfit",
+            "excludes_lfit",
+            "includes_metering",
+            "excludes_metering",
+            "duplicate_listing",
+            "joint_label_member",
+            "regional_variant"
+          ],
+          "unit": null,
+          "description": "status"
+        },
+        {
+          "name": "evidence_kind",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "published_text",
+            "parser_note",
+            "document",
+            "curated"
+          ],
+          "unit": null,
+          "description": "where the flag comes from"
+        },
+        {
+          "name": "evidence",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the wording that establishes it"
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "description": "One published price component of one listing in one price basis (NUoS/DUoS/TUoS/...).",
+      "why": [
+        "Value and unit are kept exactly as published (value_published, unit_published, value_raw) next to the normalised value (value_std in cents; fixed charges per day; demand per billing period).",
+        "Inclusion of metering and LFiT is explicit per row because AER and distributor totals differ by them.",
+        "Every row carries a locator that the tests re-read from the source file."
+      ],
+      "file": "tables/charge.csv",
+      "primary_key": [
+        "charge_id"
+      ],
+      "unique": [],
+      "checks": [
+        "effective_from <= effective_to",
+        "(locator_kind = 'xlsx' AND sheet IS NOT NULL AND cell IS NOT NULL AND page IS NULL) OR (locator_kind <> 'xlsx' AND page IS NOT NULL AND sheet IS NULL AND cell IS NULL)"
+      ],
+      "columns": [
+        {
+          "name": "charge_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<listing_id>/<price_basis>/<gst>/<locator>"
+        },
+        {
+          "name": "listing_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "tariff_listing.listing_id",
+          "enum": null,
+          "unit": null,
+          "description": "listing"
+        },
+        {
+          "name": "price_basis",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "NUoS",
+            "DUoS",
+            "TUoS",
+            "DPPC",
+            "JSA",
+            "metering",
+            "unknown"
+          ],
+          "unit": null,
+          "description": "NUoS = total network price; DUoS/TUoS/DPPC/JSA components; metering"
+        },
+        {
+          "name": "component_label",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "component label as published (header hierarchy joined with ' - ')"
+        },
+        {
+          "name": "charge_type",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "fixed",
+            "energy",
+            "demand",
+            "capacity",
+            "export",
+            "other"
+          ],
+          "unit": null,
+          "description": "normalised component kind"
+        },
+        {
+          "name": "time_band",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "normalised band (peak, off_peak, shoulder, block1, ...)"
+        },
+        {
+          "name": "season",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "normalised season (summer, non_summer, high, low, winter)"
+        },
+        {
+          "name": "value_published",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "number exactly as displayed in the document"
+        },
+        {
+          "name": "unit_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "unit exactly as published"
+        },
+        {
+          "name": "unit_interpreted",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Unit used for conversion; differs only where the source parser supplies a period or repairs a source typo"
+        },
+        {
+          "name": "normalisation_note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Reason the conversion unit differs from the printed unit"
+        },
+        {
+          "name": "value_raw",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "full-precision cell value for spreadsheets (NULL for PDFs)"
+        },
+        {
+          "name": "value_num",
+          "type": "numeric",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "value_published as a number"
+        },
+        {
+          "name": "value_std",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": "see unit_std",
+          "description": "value in standard units"
+        },
+        {
+          "name": "unit_std",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "c/day, c/kWh, c/kVAh, c/kW/<period>, c/kVA/<period>, c/lamp/day ..."
+        },
+        {
+          "name": "quantity",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "kWh",
+            "kVAh",
+            "kW",
+            "kVA",
+            "kW_or_kVA",
+            "lamp",
+            "none"
+          ],
+          "unit": null,
+          "description": "what the price is per"
+        },
+        {
+          "name": "period",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "day",
+            "month",
+            "year",
+            "season",
+            "none",
+            "unstated"
+          ],
+          "unit": null,
+          "description": "billing period of the unit"
+        },
+        {
+          "name": "period_inferred",
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1 when the period comes from the component label, not the published unit"
+        },
+        {
+          "name": "gst",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "excl",
+            "incl"
+          ],
+          "unit": null,
+          "description": "GST basis"
+        },
+        {
+          "name": "includes_metering",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "yes",
+            "no",
+            "unknown"
+          ],
+          "unit": null,
+          "description": "whether the value contains a metering charge"
+        },
+        {
+          "name": "includes_lfit",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "yes",
+            "no",
+            "unknown",
+            "not_applicable"
+          ],
+          "unit": null,
+          "description": "whether the value contains the ACT large-scale feed-in tariff amount"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first day"
+        },
+        {
+          "name": "effective_to",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "last day (inclusive)"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "where the value is (re-read by the tests)"
+        },
+        {
+          "name": "locator_kind",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "xlsx",
+            "pdf",
+            "pdf-ocr"
+          ],
+          "unit": null,
+          "description": "xlsx | pdf | pdf-ocr"
+        },
+        {
+          "name": "sheet",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "spreadsheet tab"
+        },
+        {
+          "name": "cell",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "spreadsheet cell"
+        },
+        {
+          "name": "page",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "PDF page (1-based)"
+        },
+        {
+          "name": "verification",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "cell_display",
+            "page_text",
+            "ocr_sum_check"
+          ],
+          "unit": null,
+          "description": "how the value is re-read"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "parser caveats"
+        }
+      ]
+    },
+    {
+      "name": "charge_step",
+      "description": "Quantity blocks or export allowances, separate from tariff eligibility thresholds.",
+      "why": [
+        "Consumption blocks reset independently of eligibility: a 60 kWh/day block is not a customer assignment threshold.",
+        "Open-ended upper bounds use NULL; inclusivity and reset period prevent ambiguous boundaries."
+      ],
+      "file": "tables/charge_step.csv",
+      "primary_key": [
+        "step_id"
+      ],
+      "unique": [],
+      "checks": [
+        "step_index > 0",
+        "effective_from <= effective_to",
+        "lower_bound IS NULL OR upper_bound IS NULL OR lower_bound < upper_bound"
+      ],
+      "columns": [
+        {
+          "name": "step_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Stable evidence-derived key"
+        },
+        {
+          "name": "tariff_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "Tariff"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "Version stating the block"
+        },
+        {
+          "name": "fin_year",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "financial_year.fin_year",
+          "enum": null,
+          "unit": null,
+          "description": "Pricing year"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "First applicable day"
+        },
+        {
+          "name": "effective_to",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Last applicable day, inclusive"
+        },
+        {
+          "name": "step_group",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "The quantity divided into blocks, as the source names it (e.g. 'Anytime Energy'); the blocks of one (tariff, document, step_group) form one ladder"
+        },
+        {
+          "name": "component_label",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Source component or allowance name"
+        },
+        {
+          "name": "step_index",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1-based block order"
+        },
+        {
+          "name": "lower_bound",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Lower quantity boundary"
+        },
+        {
+          "name": "upper_bound",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Upper quantity boundary, NULL means unbounded"
+        },
+        {
+          "name": "lower_inclusive",
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Whether lower boundary belongs to the block"
+        },
+        {
+          "name": "upper_inclusive",
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Whether upper boundary belongs to the block"
+        },
+        {
+          "name": "quantity_unit",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "kWh",
+            "kW",
+            "kVA"
+          ],
+          "unit": null,
+          "description": "Unit of the boundaries"
+        },
+        {
+          "name": "reset_period",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "day",
+            "month",
+            "billing_period",
+            "year",
+            "unstated"
+          ],
+          "unit": null,
+          "description": "Period over which quantity accumulates"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+        }
+      ]
+    },
+    {
+      "name": "metering_price",
+      "description": "Metering prices: the AER Metering worksheet (2025-26 on), the AER 2024-25 'Tariff schedule 1', and the per-tariff Metering block of the Energex/Ergon price lists.",
+      "why": [
+        "The AER prints network prices without metering and metering separately; storing both lets the distributor's metering-inclusive daily charge be reproduced exactly ($/yr x 100 / 365).",
+        "charge_basis keeps 'per year' vs exit fee vs unstated apart: the sheet mixes them in one column."
+      ],
+      "file": "tables/metering_price.csv",
+      "primary_key": [
+        "metering_price_id"
+      ],
+      "unique": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "metering_price_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<document_id>/<locator>"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "where"
+        },
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "whose metering"
+        },
+        {
+          "name": "fin_year",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "financial_year.fin_year",
+          "enum": null,
+          "unit": null,
+          "description": "year"
+        },
+        {
+          "name": "source_block",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "aer_metering_sheet",
+            "aer_tariff_schedule_1",
+            "distributor_metering_block"
+          ],
+          "unit": null,
+          "description": "which table of the document"
+        },
+        {
+          "name": "meter_class",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "customer/meter class label as published"
+        },
+        {
+          "name": "tariff_codes_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "content of the sheet's 'Tariff code' column as printed (tariff codes, or metering-service codes such as MP7)"
+        },
+        {
+          "name": "tariff_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "tariff the row belongs to (per-tariff blocks only)"
+        },
+        {
+          "name": "component_label",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "price component the block value adds to (per-tariff blocks only)"
+        },
+        {
+          "name": "charge_basis",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "per_year",
+            "per_meter",
+            "per_day",
+            "unstated"
+          ],
+          "unit": null,
+          "description": "what the price is per"
+        },
+        {
+          "name": "value_published",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "as displayed"
+        },
+        {
+          "name": "unit_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "as published"
+        },
+        {
+          "name": "value_raw",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "full-precision cell value"
+        },
+        {
+          "name": "value_num",
+          "type": "numeric",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "number"
+        },
+        {
+          "name": "value_c_per_day",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": "c/day",
+          "description": "cents per day: per_year x 100 / 365, per_day x 100 ($) ; NULL otherwise"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "cell (re-read by the tests)"
+        },
+        {
+          "name": "sheet",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "spreadsheet tab"
+        },
+        {
+          "name": "cell",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "spreadsheet cell"
+        }
+      ]
+    },
+    {
+      "name": "tou_schedule",
+      "description": "A named set of time-of-use windows as stated in one document.",
+      "why": [
+        "Windows are shared by many tariffs and change by year, so they are versioned per document and linked to tariffs through tariff_tou.",
+        "time_basis and public-holiday treatment are explicit because distributors differ (local vs standard time; holidays as weekends or not)."
+      ],
+      "file": "tables/tou_schedule.csv",
+      "primary_key": [
+        "tou_schedule_id"
+      ],
+      "unique": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "tou_schedule_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "slug"
+        },
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "owner"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "where stated"
+        },
+        {
+          "name": "fin_year",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "financial_year.fin_year",
+          "enum": null,
+          "unit": null,
+          "description": "year"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "what the windows are for"
+        },
+        {
+          "name": "time_basis",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "local_time",
+            "standard_time",
+            "not_stated"
+          ],
+          "unit": null,
+          "description": "clock the times refer to"
+        },
+        {
+          "name": "public_holidays",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "as_weekend",
+            "as_weekday",
+            "as_non_business_day",
+            "not_stated",
+            "unchanged"
+          ],
+          "unit": null,
+          "description": "how public holidays are treated"
+        },
+        {
+          "name": "covers_full_day",
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1 when the document's windows partition every day (tested: 24h, no overlap)"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Source qualifications or interpretation notes"
+        }
+      ]
+    },
+    {
+      "name": "tou_window",
+      "description": "One time window: period, day type, start/end time, months.",
+      "why": [
+        "Times are 'HH:MM' with an exclusive end ('24:00' allowed) so windows tile a day without gaps or overlaps; months are explicit so seasonal windows need no special casing."
+      ],
+      "file": "tables/tou_window.csv",
+      "primary_key": [
+        "window_id"
+      ],
+      "unique": [],
+      "checks": [
+        "months IS NOT NULL OR season IS NOT NULL",
+        "start_time < end_time",
+        "length(start_time) = 5 AND length(end_time) = 5"
+      ],
+      "columns": [
+        {
+          "name": "window_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<tou_schedule_id>/<n>"
+        },
+        {
+          "name": "tou_schedule_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "tou_schedule.tou_schedule_id",
+          "enum": null,
+          "unit": null,
+          "description": "schedule"
+        },
+        {
+          "name": "period",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "peak",
+            "shoulder",
+            "off_peak",
+            "solar_soak",
+            "critical_peak",
+            "critical_minimum",
+            "super_off_peak",
+            "demand_window",
+            "export_charge_window",
+            "export_reward_window",
+            "controlled_load_supply",
+            "anytime",
+            "high_season_peak",
+            "low_season_peak",
+            "overnight",
+            "evening",
+            "day"
+          ],
+          "unit": null,
+          "description": "period name (normalised)"
+        },
+        {
+          "name": "period_label",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "period name as published"
+        },
+        {
+          "name": "day_type",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "weekday",
+            "weekend",
+            "all_days",
+            "business_day",
+            "non_business_day",
+            "saturday",
+            "sunday",
+            "public_holiday",
+            "weekend_and_public_holiday"
+          ],
+          "unit": null,
+          "description": "days the window applies to"
+        },
+        {
+          "name": "start_time",
+          "type": "time",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "inclusive"
+        },
+        {
+          "name": "end_time",
+          "type": "time",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "exclusive; 24:00 = midnight at the end of the day"
+        },
+        {
+          "name": "months",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "comma-separated month numbers 1-12 the window applies in; NULL when the source names a season without listing its months (exception season_months_not_stated)"
+        },
+        {
+          "name": "season",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "season name as published"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+        }
+      ]
+    },
+    {
+      "name": "tou_window_month",
+      "description": "Relational month membership of each TOU window.",
+      "why": [
+        "Month joins do not need comma-separated string matching; tou_window.months retains the readable extraction."
+      ],
+      "file": "tables/tou_window_month.csv",
+      "primary_key": [
+        "window_id",
+        "month"
+      ],
+      "unique": [],
+      "checks": [
+        "month BETWEEN 1 AND 12"
+      ],
+      "columns": [
+        {
+          "name": "window_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "tou_window.window_id",
+          "enum": null,
+          "unit": null,
+          "description": "Window"
+        },
+        {
+          "name": "month",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Calendar month 1–12"
+        }
+      ]
+    },
+    {
+      "name": "tariff_tou",
+      "description": "Which TOU schedule a tariff uses, for which kind of charge, in which year.",
+      "why": [
+        "A tariff can have different windows for energy, demand and export charges."
+      ],
+      "file": "tables/tariff_tou.csv",
+      "primary_key": [
+        "tariff_tou_id"
+      ],
+      "unique": [],
+      "checks": [
+        "effective_from <= effective_to"
+      ],
+      "columns": [
+        {
+          "name": "tariff_tou_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<tariff_id>|<tou_schedule_id>|<applies_to>"
+        },
+        {
+          "name": "tariff_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "tariff"
+        },
+        {
+          "name": "tou_schedule_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "tou_schedule.tou_schedule_id",
+          "enum": null,
+          "unit": null,
+          "description": "schedule"
+        },
+        {
+          "name": "applies_to",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "energy",
+            "demand",
+            "export",
+            "controlled_load",
+            "all"
+          ],
+          "unit": null,
+          "description": "charge kind the windows price"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first day"
+        },
+        {
+          "name": "effective_to",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "last day (inclusive)"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "evidence"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+        }
+      ]
+    },
+    {
+      "name": "demand_rule",
+      "description": "How billed demand is measured: kW or kVA, interval, aggregation, window, months, minimums.",
+      "why": [
+        "Demand prices are meaningless without the measurement rule; the rule is a row so one rule can serve several tariffs and components."
+      ],
+      "file": "tables/demand_rule.csv",
+      "primary_key": [
+        "demand_rule_id"
+      ],
+      "unique": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "demand_rule_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "slug"
+        },
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "owner"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "where stated"
+        },
+        {
+          "name": "fin_year",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "financial_year.fin_year",
+          "enum": null,
+          "unit": null,
+          "description": "year"
+        },
+        {
+          "name": "measure",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "kW",
+            "kVA"
+          ],
+          "unit": null,
+          "description": "kW or kVA"
+        },
+        {
+          "name": "interval_minutes",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "metering interval the maximum is taken over"
+        },
+        {
+          "name": "aggregation",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "monthly_max",
+            "billing_period_max",
+            "rolling_12_month_max",
+            "annual_max",
+            "seasonal_max",
+            "daily_average_of_monthly_max",
+            "average_of_highest_days",
+            "contracted",
+            "agreed",
+            "not_stated"
+          ],
+          "unit": null,
+          "description": "how the billed figure is derived"
+        },
+        {
+          "name": "aggregation_count",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "n for average_of_highest_days (e.g. 4 highest days in the month)"
+        },
+        {
+          "name": "window_tou_schedule_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "tou_schedule.tou_schedule_id",
+          "enum": null,
+          "unit": null,
+          "description": "schedule holding the demand window"
+        },
+        {
+          "name": "window_period",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "peak",
+            "shoulder",
+            "off_peak",
+            "solar_soak",
+            "critical_peak",
+            "critical_minimum",
+            "super_off_peak",
+            "demand_window",
+            "export_charge_window",
+            "export_reward_window",
+            "controlled_load_supply",
+            "anytime",
+            "high_season_peak",
+            "low_season_peak",
+            "overnight",
+            "evening",
+            "day"
+          ],
+          "unit": null,
+          "description": "period of that schedule"
+        },
+        {
+          "name": "months",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "months the charge applies; NULL when the rule states none (a linked window carries any season)"
+        },
+        {
+          "name": "minimum_chargeable",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "minimum chargeable demand"
+        },
+        {
+          "name": "minimum_unit",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "unit of the minimum"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Source qualifications or interpretation notes"
+        }
+      ]
+    },
+    {
+      "name": "tariff_demand_rule",
+      "description": "Which demand rule a tariff's demand component uses.",
+      "why": [
+        "Peak and off-peak demand components of one tariff can follow different rules."
+      ],
+      "file": "tables/tariff_demand_rule.csv",
+      "primary_key": [
+        "tariff_demand_rule_id"
+      ],
+      "unique": [],
+      "checks": [
+        "effective_from <= effective_to"
+      ],
+      "columns": [
+        {
+          "name": "tariff_demand_rule_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<tariff_id>|<demand_rule_id>|<time_band>|<season>"
+        },
+        {
+          "name": "tariff_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "tariff"
+        },
+        {
+          "name": "demand_rule_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "demand_rule.demand_rule_id",
+          "enum": null,
+          "unit": null,
+          "description": "rule"
+        },
+        {
+          "name": "time_band",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "component band it governs (NULL = all demand components)"
+        },
+        {
+          "name": "season",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "season it governs (NULL = all)"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first day"
+        },
+        {
+          "name": "effective_to",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "last day (inclusive)"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "evidence"
+        }
+      ]
+    },
+    {
+      "name": "eligibility_rule",
+      "description": "Requirements and assignment rules: customer type, voltage, consumption/demand thresholds, meter type, default/opt-in/opt-out, closure, required technology.",
+      "why": [
+        "Requirements are heterogeneous, so each is one typed row (rule_type + operator + number + unit) rather than dozens of mostly-empty columns; every rule quotes its source."
+      ],
+      "file": "tables/eligibility_rule.csv",
+      "primary_key": [
+        "rule_id"
+      ],
+      "unique": [],
+      "checks": [
+        "effective_from <= effective_to",
+        "value_num IS NOT NULL OR value_text IS NOT NULL OR target_tariff_id IS NOT NULL"
+      ],
+      "columns": [
+        {
+          "name": "rule_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<tariff_id>|<fin_year>|<n>"
+        },
+        {
+          "name": "tariff_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "tariff"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "where stated"
+        },
+        {
+          "name": "fin_year",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "financial_year.fin_year",
+          "enum": null,
+          "unit": null,
+          "description": "year"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first day"
+        },
+        {
+          "name": "effective_to",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "last day (inclusive)"
+        },
+        {
+          "name": "rule_type",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "customer_type",
+            "voltage_level",
+            "consumption_min",
+            "consumption_max",
+            "demand_min",
+            "demand_max",
+            "meter_type",
+            "assignment",
+            "availability",
+            "requires_technology",
+            "opt_out_to",
+            "minimum_demand_charge",
+            "other"
+          ],
+          "unit": null,
+          "description": "what the rule constrains"
+        },
+        {
+          "name": "operator",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "eq",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "unit": null,
+          "description": "comparison for numeric rules"
+        },
+        {
+          "name": "value_num",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "threshold"
+        },
+        {
+          "name": "value_unit",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "unit of the threshold (MWh/yr, kVA, kW, kV ...)"
+        },
+        {
+          "name": "value_text",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "categorical value (residential, LV, interval, default, opt_in, ...)"
+        },
+        {
+          "name": "target_tariff_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "tariff referred to (opt-out target, required companion)"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Source qualifications or interpretation notes"
+        }
+      ]
+    },
+    {
+      "name": "price_adjustment",
+      "description": "A documented difference between AER and distributor prices for one distributor-year (metering adder, ACT LFiT adder or rebate, rounding artefact).",
+      "why": [
+        "The known AER-vs-distributor offsets are explained by data with a formula and evidence, so a consumer can derive the distributor price from the AER price."
+      ],
+      "file": "tables/price_adjustment.csv",
+      "primary_key": [
+        "adjustment_id"
+      ],
+      "unique": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "adjustment_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<kind>/<distributor_id>/<fin_year>"
+        },
+        {
+          "name": "kind",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "metering_adder",
+            "lfit_adder",
+            "lfit_rebate"
+          ],
+          "unit": null,
+          "description": "kind"
+        },
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "distributor"
+        },
+        {
+          "name": "fin_year",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "financial_year.fin_year",
+          "enum": null,
+          "unit": null,
+          "description": "year"
+        },
+        {
+          "name": "amount",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "uniform amount when there is one"
+        },
+        {
+          "name": "amount_unit",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "unit of amount"
+        },
+        {
+          "name": "formula",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "distributor value = f(AER value)"
+        },
+        {
+          "name": "aer_document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "AER-side document"
+        },
+        {
+          "name": "distributor_document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "distributor-side document"
+        },
+        {
+          "name": "evidence_document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "document stating or containing the amount"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+        }
+      ]
+    },
+    {
+      "name": "price_adjustment_tariff",
+      "description": "Tariffs an adjustment applies to, with the expected per-tariff difference.",
+      "why": [
+        "Metering adders differ by tariff (only small-customer tariffs carry them); listing the tariffs makes the rule testable."
+      ],
+      "file": "tables/price_adjustment_tariff.csv",
+      "primary_key": [
+        "adjustment_id",
+        "tariff_id"
+      ],
+      "unique": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "adjustment_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "price_adjustment.adjustment_id",
+          "enum": null,
+          "unit": null,
+          "description": "adjustment"
+        },
+        {
+          "name": "tariff_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "tariff"
+        },
+        {
+          "name": "metering_price_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "metering_price.metering_price_id",
+          "enum": null,
+          "unit": null,
+          "description": "metering row supplying the amount"
+        },
+        {
+          "name": "expected_delta_std",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "distributor minus AER, standard units"
+        },
+        {
+          "name": "delta_unit",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "unit of expected_delta_std"
+        }
+      ]
+    },
+    {
+      "name": "exception_type",
+      "description": "Catalogue of irregularities the data must represent, and how it represents each.",
+      "why": [
+        "Exceptions are first-class data with a stated representation and a test, so new years can be checked against the same catalogue."
+      ],
+      "file": "tables/exception_type.csv",
+      "primary_key": [
+        "exception_code"
+      ],
+      "unique": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "exception_code",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "slug"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "short name"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "what happens in the sources"
+        },
+        {
+          "name": "representation",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "tables/columns that represent it"
+        },
+        {
+          "name": "test",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "test that exercises it (tests/test_tariffdb.py)"
+        }
+      ]
+    },
+    {
+      "name": "exception_instance",
+      "description": "Each occurrence of a catalogued exception.",
+      "why": [
+        "Occurrences point at the exact tariff/listing/charge/document affected."
+      ],
+      "file": "tables/exception_instance.csv",
+      "primary_key": [
+        "instance_id"
+      ],
+      "unique": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "instance_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<exception_code>/<n>"
+        },
+        {
+          "name": "exception_code",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "exception_type.exception_code",
+          "enum": null,
+          "unit": null,
+          "description": "type"
+        },
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "distributor affected (NULL for multi-distributor AER documents)"
+        },
+        {
+          "name": "fin_year",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "financial_year.fin_year",
+          "enum": null,
+          "unit": null,
+          "description": "financial year of the occurrence"
+        },
+        {
+          "name": "tariff_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "tariff.tariff_id",
+          "enum": null,
+          "unit": null,
+          "description": "tariff affected"
+        },
+        {
+          "name": "listing_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "tariff_listing.listing_id",
+          "enum": null,
+          "unit": null,
+          "description": "listing affected"
+        },
+        {
+          "name": "charge_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "charge.charge_id",
+          "enum": null,
+          "unit": null,
+          "description": "charge affected"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "document where it occurs"
+        },
+        {
+          "name": "related_document_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "second document (e.g. approved version vs v1)"
+        },
+        {
+          "name": "quantity",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "size of the effect where numeric"
+        },
+        {
+          "name": "quantity_unit",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "Unit of the exception quantity"
+        },
+        {
+          "name": "detail",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "what happens here"
+        }
+      ]
+    }
+  ]
+}

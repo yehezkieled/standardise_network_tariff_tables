@@ -1,0 +1,3608 @@
+distributor: ausgrid
+tou_schedules:
+- id: ausgrid-2024-25-ea958-tou
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  name: EA958 Super off-peak trial charging windows
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p3
+  quote: '*The charging windows for EA958 differ from the standard network charging windows. The off-peak (branded ‘super
+    off-peak’) applies from midnight to 6am every day. The peak applies to all other times.'
+  note: Windows apply 'every day', so public holidays are not treated differently. The standard network charging windows referred
+    to are not given in this price list.
+  windows:
+  - period: off_peak
+    label: off-peak (branded 'super off-peak')
+    days: all_days
+    start: 00:00
+    end: 06:00
+  - period: peak
+    label: peak
+    days: all_days
+    start: 06:00
+    end: '24:00'
+  tariffs:
+  - codes: [EA958]
+    applies_to: energy
+- id: ausgrid-2023-24-low-season-demand-window
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  name: Low season demand window (residential and small business demand tariffs)
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p27
+  quote: In other months (‘low season’) where the peak energy price does not apply, residential and small business charging
+    windows are aligned with the capacity charging windows for larger businesses (2-8 pm working weekdays).
+  note: 'Section 10.7. Section 10.3 (p25) says the same: ''In seasons where there is no peak energy on working weekdays, a
+    window of 2-8 pm applies for low season demand charging''. The months of the low season and the summer/winter peak energy
+    windows (which are the high-season demand windows) are not given in this document; it refers to the TSS and the ES7 Network
+    Price Guide.'
+  windows:
+  - period: demand_window
+    label: low season demand window (2-8 pm working weekdays)
+    days: business_day
+    start: '14:00'
+    end: '20:00'
+    season: low season
+  tariffs:
+  - codes: [EA111, EA115, EA116, EA251, EA255, EA256]
+    applies_to: demand
+    locator: pdf:p25
+    quote: From 1 July 2019, we introduced demand tariffs for residential and small business customers.
+    note: Residential and small business demand tariffs with high season / low season demand charges in Table 4.1.
+- id: ausgrid-2023-24-larger-business-capacity-window
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  name: Capacity charging window for larger businesses (2-8 pm working weekdays)
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p27
+  quote: the capacity charging windows for larger businesses (2-8 pm working weekdays)
+  note: Section 10.7; the same wording is in the Section 2.1 key reforms list (p6). 'Working weekdays' is recorded as business_day.
+    The document does not list which codes are 'larger businesses'; the linked codes are the tariffs Table 4.1 (p12) prices
+    under the 'Capacity charge - Peak' heading (EA302/EA316 in c/kW/day, the rest in c/kVA/day). EA501 (Transmission-connected)
+    also carries a capacity charge there but is not a business tariff class, so it is not linked.
+  windows:
+  - period: demand_window
+    label: capacity charging window (2-8 pm working weekdays)
+    days: business_day
+    start: '14:00'
+    end: '20:00'
+  tariffs:
+  - codes: [EA302, EA305, EA310, EA316, EA317, EA325, EA360, EA370, EA380, EA390, EA391]
+    applies_to: demand
+    locator: pdf:p12
+    quote: c/kW/day c/kW/day c/kW/day c/kVA/day
+    note: 'Table 4.1 unit row; these codes have a value in the last two columns (''Capacity charge'' heading: Peak c/kW/day
+      for EA302/EA316, Peak c/kVA/day for the others).'
+demand_rules:
+- id: ausgrid-2023-24-demand-kw-low-season
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: ausgrid-2023-24-low-season-demand-window
+  window_period: demand_window
+  locator: pdf:p25
+  quote: The demand measure is the maximum energy consumption recorded over any 30-minute period within the defined seasonal
+    demand window on a working weekday in each month (measured in kW).
+  note: 'Low season demand charge. The next sentence: ''The resulting demand charge applies for each day in the month (before
+    being reset for the next month)''. Window: ''In seasons where there is no peak energy on working weekdays, a window of
+    2-8 pm applies for low season demand charging'' (same page).'
+  tariffs:
+  - codes: &id001 [EA111, EA115, EA116, EA251, EA255, EA256]
+    season: low
+- id: ausgrid-2023-24-demand-kw-high-season
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  locator: pdf:p25
+  quote: The demand measure is the maximum energy consumption recorded over any 30-minute period within the defined seasonal
+    demand window on a working weekday in each month (measured in kW).
+  note: 'High season demand charge. Window: ''The demand window for measuring the maximum demand is aligned with a corresponding
+    TOU peak energy window'' (same page); the peak energy windows and high-season months are not given in this document (it
+    refers to TSS Section 3.1 and the ES7 Network Price Guide), so no window is linked.'
+  tariffs:
+  - codes: *id001
+    season: high
+- id: ausgrid-2023-24-capacity-kw
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  aggregation: not_stated
+  window_schedule: ausgrid-2023-24-larger-business-capacity-window
+  window_period: demand_window
+  locator: pdf:p26
+  quote: we introduced capacity charges for the transitional tariffs EA316 (in kW) and EA317 (in kVA) effective from 1 July
+    2021
+  note: EA302 is linked because Table 4.1 (p12) prices EA302 and EA316 identically in the Peak c/kW/day column under the 'Capacity
+    charge' heading ('c/kW/day c/kW/day c/kW/day c/kVA/day'). Measurement interval and aggregation are not stated; the window
+    is the 'capacity charging windows for larger businesses (2-8 pm working weekdays)' (p27).
+  tariffs:
+  - codes: [EA302, EA316]
+    time_band: peak
+- id: ausgrid-2023-24-capacity-kva
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  measure: kVA
+  aggregation: not_stated
+  window_schedule: ausgrid-2023-24-larger-business-capacity-window
+  window_period: demand_window
+  locator: pdf:p12
+  quote: c/kW/day c/kW/day c/kW/day c/kVA/day
+  note: 'Table 4.1 unit row: the last column (''Capacity charge - Peak'') is c/kVA/day; these codes are priced in it. Section
+    10.6 (p26) also says EA317''s capacity charge is ''in kVA''. Interval and aggregation are not stated; window per p27 (''capacity
+    charging windows for larger businesses (2-8 pm working weekdays)'').'
+  tariffs:
+  - codes: [EA305, EA310, EA317, EA325, EA360, EA370, EA380, EA390, EA391]
+    time_band: peak
+- id: ausgrid-2023-24-capacity-kva-transmission
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  measure: kVA
+  aggregation: not_stated
+  locator: pdf:p12
+  quote: c/kW/day c/kW/day c/kW/day c/kVA/day
+  note: 'Table 4.1 unit row: EA501 (Transmission-connected) is priced in the last column (''Capacity charge - Peak'', c/kVA/day).
+    No window or measurement method is stated for it.'
+  tariffs:
+  - codes: [EA501]
+    time_band: peak
+- id: ausgrid-2024-25-demand-kw
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  measure: kW
+  aggregation: not_stated
+  locator: pdf:p1
+  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
+  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
+    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
+    text). EA111/EA116/EA251/EA256 are priced in ''High Season Peak'' (their only demand charge in this list); EA302 in ''Peak''.
+    The price list states no demand window, months, interval or aggregation.'
+  tariffs:
+  - codes: [EA111, EA116, EA251, EA256]
+    season: high
+  - codes: [EA302]
+    time_band: peak
+- id: ausgrid-2024-25-capacity-kva
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  measure: kVA
+  aggregation: not_stated
+  locator: pdf:p1
+  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
+  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
+    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
+    text). These codes are priced in ''Network Capacity Prices: Peak'' (¢/kVA/day). No window, interval or aggregation is
+    stated.'
+  tariffs:
+  - codes: &id002 [EA305, EA310, EA314, EA315, EA365, EA370, EA390, EA501]
+    time_band: peak
+- id: ausgrid-2024-25-tuos-demand-kw
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  measure: kW
+  aggregation: not_stated
+  locator: pdf:p3
+  quote: ¢/kWh ¢/kWh ¢/kWh ¢/kWh ¢/kW/day
+  note: Storage tariff table unit row; the only ¢/kW/day column is headed 'TUOS demand' and only EA394 (Storage (load), sub-transmission)
+    has a value in it. No window or measurement method is stated.
+  tariffs:
+  - codes: [EA394]
+- id: ausgrid-2025-26-demand-kw
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  measure: kW
+  aggregation: not_stated
+  locator: pdf:p1
+  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
+  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
+    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
+    text). EA111/EA116/EA251/EA256 are priced in ''High Season Peak'' (their only demand charge in this list); EA302 in ''Peak''.
+    The price list states no demand window, months, interval or aggregation.'
+  tariffs:
+  - codes: [EA111, EA116, EA251, EA256]
+    season: high
+  - codes: [EA302]
+    time_band: peak
+- id: ausgrid-2025-26-capacity-kva
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  measure: kVA
+  aggregation: not_stated
+  locator: pdf:p1
+  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
+  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
+    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
+    text). These codes are priced in ''Network Capacity Prices: Peak'' (¢/kVA/day). No window, interval or aggregation is
+    stated.'
+  tariffs:
+  - codes: *id002
+    time_band: peak
+- id: ausgrid-2025-26-tuos-demand-kw
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  measure: kW
+  aggregation: not_stated
+  locator: pdf:p3
+  quote: ¢/kWh ¢/kWh ¢/kWh ¢/kWh ¢/kW/day
+  note: Storage tariff table unit row; the only ¢/kW/day column is headed 'TUOS demand' and only EA394 (Storage (load), sub-transmission)
+    has a value in it. No window or measurement method is stated.
+  tariffs:
+  - codes: [EA394]
+- id: ausgrid-2026-27-demand-kw
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  measure: kW
+  aggregation: not_stated
+  locator: pdf:p1
+  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
+  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
+    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
+    text). EA111/EA116/EA251/EA256 are priced in ''High Season Peak'' (their only demand charge in this list); EA302 in ''Peak''.
+    The price list states no demand window, months, interval or aggregation.'
+  tariffs:
+  - codes: [EA111, EA116, EA251, EA256]
+    season: high
+  - codes: [EA302]
+    time_band: peak
+- id: ausgrid-2026-27-capacity-kva
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  measure: kVA
+  aggregation: not_stated
+  locator: pdf:p1
+  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
+  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
+    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
+    text). These codes are priced in ''Network Capacity Prices: Peak'' (¢/kVA/day). No window, interval or aggregation is
+    stated.'
+  tariffs:
+  - codes: *id002
+    time_band: peak
+- id: ausgrid-2026-27-tuos-demand-kw
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  measure: kW
+  aggregation: not_stated
+  locator: pdf:p3
+  quote: ¢/kWh ¢/kWh ¢/kWh ¢/kWh ¢/kWh ¢/kW/day
+  note: Storage tariff table unit row; the only ¢/kW/day column is headed 'TUOS demand' and only EA394 (Storage (load), sub-transmission)
+    has a value in it. No window or measurement method is stated.
+  tariffs:
+  - codes: [EA394]
+- id: ausgrid-2026-27-ea976-capacity-kva
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  measure: kVA
+  aggregation: not_stated
+  locator: pdf:p3
+  quote: '% For EA976, block 1 rate applies for the customer''s guaranteed kVA threshold.'
+  note: 'Footnote continues: ''Block 2 is the rate applied to demand used above the firm threshold.'' The trial table prices
+    ''Capacity charges: Block 1 Firm capacity'' and ''Block 2 Flexible capacity'' in ¢/kVA/day. The firm threshold is customer-specific
+    (no number), so no charge_step is recorded; no window or aggregation is stated.'
+  tariffs:
+  - codes: [EA976]
+    time_band: block1
+  - codes: [EA976]
+    time_band: block2
+- id: ausgrid-2024-25-aer-peak-demand-kw
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  measure: kW
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!M84
+  quote: cents/kW/highsn
+  note: AER tariff schedule unit cell; column headings (row 83) are 'Peak Demand', 'Real Capacity', 'App. Capacity', 'TUOS
+    demand'. No window, interval or aggregation is stated. Peak demand column (cents/kW/highsn) is populated for EA111, EA116,
+    EA251, EA256.
+  tariffs:
+  - codes: [EA111, EA116, EA251, EA256]
+    season: high
+- id: ausgrid-2024-25-aer-real-capacity-kw
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  measure: kW
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!N84
+  quote: cents/kW/day
+  note: AER tariff schedule unit cell; column headings (row 83) are 'Peak Demand', 'Real Capacity', 'App. Capacity', 'TUOS
+    demand'. No window, interval or aggregation is stated. Real capacity column (cents/kW/day) is populated for EA302 only.
+  tariffs:
+  - codes: [EA302]
+    time_band: peak
+- id: ausgrid-2024-25-aer-apparent-capacity-kva
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  measure: kVA
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!O84
+  quote: cents/kVA/day
+  note: AER tariff schedule unit cell; column headings (row 83) are 'Peak Demand', 'Real Capacity', 'App. Capacity', 'TUOS
+    demand'. No window, interval or aggregation is stated. Apparent capacity column (cents/kVA/day) is populated for these
+    codes.
+  tariffs:
+  - codes: *id002
+    time_band: peak
+- id: ausgrid-2024-25-aer-tuos-demand-kw
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  measure: kW
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!T84
+  quote: cents/kW/day
+  note: AER tariff schedule unit cell; column headings (row 83) are 'Peak Demand', 'Real Capacity', 'App. Capacity', 'TUOS
+    demand'. No window, interval or aggregation is stated. TUOS demand column (cents/kW/day) is populated for EA394 only.
+  tariffs:
+  - codes: [EA394]
+- id: ausgrid-2025-26-aer-peak-demand-kw
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  measure: kW
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!L14
+  quote: cents/kW/highsn
+  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
+    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Peak demand column (cents/kW/highsn)
+    is populated for EA111, EA116, EA251, EA256.
+  tariffs:
+  - codes: [EA111, EA116, EA251, EA256]
+    season: high
+- id: ausgrid-2025-26-aer-real-capacity-kw
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  measure: kW
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!M14
+  quote: cents/kW/day
+  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
+    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Real capacity column (cents/kW/day)
+    is populated for EA302 only.
+  tariffs:
+  - codes: [EA302]
+    time_band: peak
+- id: ausgrid-2025-26-aer-apparent-capacity-kva
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  measure: kVA
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!N14
+  quote: cents/kVA/day
+  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
+    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Apparent capacity column (cents/kVA/day)
+    is populated for these codes.
+  tariffs:
+  - codes: *id002
+    time_band: peak
+- id: ausgrid-2025-26-aer-tuos-demand-kw
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  measure: kW
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!S14
+  quote: cents/kW/day
+  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
+    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. TUOS demand column (cents/kW/day)
+    is populated for EA394 only.
+  tariffs:
+  - codes: [EA394]
+- id: ausgrid-2026-27-aer-peak-demand-kw
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  measure: kW
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!L14
+  quote: cents/kW/highsn
+  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
+    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Peak demand column (cents/kW/highsn)
+    is populated for EA111, EA116, EA251, EA256.
+  tariffs:
+  - codes: [EA111, EA116, EA251, EA256]
+    season: high
+- id: ausgrid-2026-27-aer-real-capacity-kw
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  measure: kW
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!M14
+  quote: cents/kW/day
+  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
+    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Real capacity column (cents/kW/day)
+    is populated for EA302 only.
+  tariffs:
+  - codes: [EA302]
+    time_band: peak
+- id: ausgrid-2026-27-aer-apparent-capacity-kva
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  measure: kVA
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!N14
+  quote: cents/kVA/day
+  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
+    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Apparent capacity column (cents/kVA/day)
+    is populated for these codes.
+  tariffs:
+  - codes: [EA305, EA310, EA314, EA315, EA365, EA370, EA390]
+    time_band: peak
+- id: ausgrid-2026-27-aer-tuos-demand-kw
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  measure: kW
+  aggregation: not_stated
+  locator: xlsx:Tariff schedule!S14
+  quote: cents/kW/day
+  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
+    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. TUOS demand column (cents/kW/day)
+    is populated for EA394 only.
+  tariffs:
+  - codes: [EA394]
+eligibility:
+- codes: [EA010, EA025, EA111, EA116, EA029, EA030, EA040, EA050, EA225, EA251, EA256, EA302, EA305, EA310, EA314, EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Low Voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA365, EA370]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p1
+  quote: High Voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA390]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p1
+  quote: Sub-transmission EA390
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA401, EA402, EA403]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: Unmetered EA402
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA501]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: transmission
+  locator: pdf:p1
+  quote: Transmission EA501 Transmission Connected
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA334, EA335]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p3
+  quote: Low Voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA374, EA375]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p3
+  quote: High voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA394, EA395]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p3
+  quote: Sub- transmission
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA956, EA957, EA958, EA964, EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p3
+  quote: Low Voltage
+  note: Tariff class heading of the trial tariff table.
+- codes: [EA010]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: EA010 Residential flat Closed
+  note: Tariff name as published.
+- codes: [EA010]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p1
+  quote: EA010 Residential flat Closed
+- codes: [EA025]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: EA025 Residential ToU
+  note: Tariff name as published.
+- codes: [EA111]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Residential demand EA111
+  note: Tariff name as published.
+- codes: [EA116]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: EA116 Residential demand
+  note: Tariff name as published.
+- codes: [EA030]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p1
+  quote: EA030 Controlled Load 1
+  note: Tariff name as published.
+- codes: [EA040]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p1
+  quote: EA040 Controlled Load 2
+  note: Tariff name as published.
+- codes: [EA050]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: EA050 Small Business flat Closed
+  note: Tariff name as published.
+- codes: [EA050]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p1
+  quote: EA050 Small Business flat Closed
+- codes: [EA225]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: Low Voltage EA225 Small Business ToU
+  note: Tariff name as published.
+- codes: [EA251]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: Small business demand EA251
+  note: Tariff name as published.
+- codes: [EA256]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: EA256 Small business demand
+  note: Tariff name as published.
+- codes: [EA302]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: ge
+  value_num: 60
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA302 LV 60-160 MWh
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA302]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA302 LV 60-160 MWh
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA305]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA305 LV 160-750 MWh (system)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA305]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA305 LV 160-750 MWh (system)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA310]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA310 LV > 750 MWh (system)
+  note: Threshold as published in the tariff name.
+- codes: [EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV 160-750 MWh (embedded EA314
+  note: Tariff name as published; the name ends 'network)' on the next line, after the prices. Range as published in the tariff
+    name; whether the end points are inclusive is not stated.
+- codes: [EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV 160-750 MWh (embedded EA314
+  note: Tariff name as published; the name ends 'network)' on the next line, after the prices. Range as published in the tariff
+    name; whether the end points are inclusive is not stated.
+- codes: [EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network connection
+  locator: pdf:p1
+  quote: LV 160-750 MWh (embedded EA314
+  note: Tariff name as published; the name ends 'network)' on the next line, after the prices.
+- codes: [EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV > 750 MWh (embedded EA315
+  note: Tariff name as published; the name ends 'network)' on the next line, after the prices. Range as published in the tariff
+    name; whether the end points are inclusive is not stated.
+- codes: [EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network connection
+  locator: pdf:p1
+  quote: LV > 750 MWh (embedded EA315
+  note: Tariff name as published; the name ends 'network)' on the next line, after the prices.
+- codes: [EA365]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network connection
+  locator: pdf:p1
+  quote: EA365 HV connection (embedded
+  note: Tariff name as published; the name ends 'network)' on the next line, after the prices.
+- codes: [EA401]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p1
+  quote: EA401 Public Lighting
+  note: Tariff name as published.
+- codes: [EA402]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: Unmetered EA402 Constant Unmetered
+  note: Tariff name as published.
+- codes: [EA403]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: EA403 Energy Light
+  note: Tariff name as published.
+- codes: [EA334]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA334 Storage (load)
+  note: Tariff name as published.
+- codes: [EA335]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA335 Storage (generation)
+  note: Tariff name as published.
+- codes: [EA374]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA374 Storage (load)
+  note: Tariff name as published.
+- codes: [EA375]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA375 Storage (generation)
+  note: Tariff name as published.
+- codes: [EA394]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA394 Storage (load)
+  note: Tariff name as published.
+- codes: [EA395]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA395 Storage (generation)
+  note: Tariff name as published.
+- codes: [EA956, EA957, EA958, EA964, EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: trial
+  locator: pdf:p3
+  quote: Trial Tariff Network Price List 2024-2025
+  note: Heading of the trial tariff table that lists these codes.
+- codes: [EA029]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p1
+  quote: '*Small customers who are export capable and do not opt in to EA029 in FY25 will also be subject to this metering
+    service charge.'
+- codes: [EA029]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: export_capable
+  locator: pdf:p1
+  quote: '*Small customers who are export capable and do not opt in to EA029 in FY25 will also be subject to this metering
+    service charge.'
+- codes: [EA010, EA025, EA111, EA116, EA029, EA030, EA040, EA050, EA225, EA251, EA256, EA302, EA305, EA310, EA314, EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Low Voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA365, EA370]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p1
+  quote: High Voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA390]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p1
+  quote: Sub-transmission EA390
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA401, EA402, EA403]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: Unmetered EA402
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA501]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: transmission
+  locator: pdf:p1
+  quote: Transmission EA501 Transmission Connected
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA334, EA335]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p3
+  quote: Low Voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA374, EA375]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p3
+  quote: High voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA394, EA395]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p3
+  quote: Sub- transmission
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA955, EA956, EA964, EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p3
+  quote: Low Voltage
+  note: Tariff class heading of the trial tariff table.
+- codes: [EA010]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: EA010 Residential flat Closed
+  note: Tariff name as published.
+- codes: [EA010]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p1
+  quote: EA010 Residential flat Closed
+- codes: [EA025]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: EA025 Residential ToU
+  note: Tariff name as published.
+- codes: [EA111]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Residential demand 1.0447 7.5452 48.5188 11.0169 11.0169 1.4138 EA111 (introductory)
+  note: Tariff name as published ('Residential demand (introductory)' / 'Small business demand (introductory)'); the extracted
+    row puts the prices between the name and the code.
+- codes: [EA116]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: EA116 Residential demand
+  note: Tariff name as published.
+- codes: [EA030]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p1
+  quote: EA030 Controlled Load 1
+  note: Tariff name as published.
+- codes: [EA040]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p1
+  quote: EA040 Controlled Load 2
+  note: Tariff name as published.
+- codes: [EA050]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: EA050 Small Business flat Closed
+  note: Tariff name as published.
+- codes: [EA050]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p1
+  quote: EA050 Small Business flat Closed
+- codes: [EA225]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: Low Voltage EA225 Small Business ToU
+  note: Tariff name as published.
+- codes: [EA251]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: Small business demand 1.0409 10.4548 179.5027 9.9981 9.9981 1.3931 EA251
+  note: Tariff name as published ('Residential demand (introductory)' / 'Small business demand (introductory)'); the extracted
+    row puts the prices between the name and the code.
+- codes: [EA256]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: EA256 Small business demand
+  note: Tariff name as published.
+- codes: [EA302]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: ge
+  value_num: 80
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA302 LV 80-160 MWh
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA302]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA302 LV 80-160 MWh
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA305]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA305 LV 160-750 MWh (system)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA305]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA305 LV 160-750 MWh (system)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA310]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA310 LV > 750 MWh (system)
+  note: Threshold as published in the tariff name.
+- codes: [EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV 160-750 MWh (embedded
+  note: Tariff name as published; the row continues with the prices, then the code 'EA314' and 'network)' on the next lines.
+    Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV 160-750 MWh (embedded
+  note: Tariff name as published; the row continues with the prices, then the code 'EA314' and 'network)' on the next lines.
+    Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network connection
+  locator: pdf:p1
+  quote: LV 160-750 MWh (embedded
+  note: Tariff name as published; the row continues with the prices, then the code 'EA314' and 'network)' on the next lines.
+- codes: [EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV > 750 MWh (embedded
+  note: Tariff name as published; the row continues with the prices, then the code 'EA315' and 'network)' on the next lines.
+    Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network connection
+  locator: pdf:p1
+  quote: LV > 750 MWh (embedded
+  note: Tariff name as published; the row continues with the prices, then the code 'EA315' and 'network)' on the next lines.
+- codes: [EA365]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network connection
+  locator: pdf:p1
+  quote: HV connection (embedded
+  note: Tariff name as published; the row continues with the prices, then the code 'EA365' and 'network)' on the next lines.
+- codes: [EA401]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p1
+  quote: EA401 Public Lighting
+  note: Tariff name as published.
+- codes: [EA402]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: Unmetered EA402 Constant Unmetered
+  note: Tariff name as published.
+- codes: [EA403]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: EA403 Energy Light
+  note: Tariff name as published.
+- codes: [EA334]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA334 Storage (load)
+  note: Tariff name as published.
+- codes: [EA335]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA335 Storage (generation)
+  note: Tariff name as published.
+- codes: [EA374]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA374 Storage (load)
+  note: Tariff name as published.
+- codes: [EA375]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA375 Storage (generation)
+  note: Tariff name as published.
+- codes: [EA394]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA394 Storage (load)
+  note: Tariff name as published.
+- codes: [EA395]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA395 Storage (generation)
+  note: Tariff name as published.
+- codes: [EA955]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p3
+  quote: Local use of system trial - EA955 1.0195 7.5452 188.3660 13.0529 4.7687 small business
+  note: Tariff name as published ('Local use of system trial - small business' / '... - residential'); the extracted row puts
+    the code and prices inside the name.
+- codes: [EA956]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p3
+  quote: Local use of system trial - EA956 1.0195 7.5452 54.0624 15.4417 4.5162 residential
+  note: Tariff name as published ('Local use of system trial - small business' / '... - residential'); the extracted row puts
+    the code and prices inside the name.
+- codes: [EA955, EA956, EA964, EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: availability
+  value_text: trial
+  locator: pdf:p3
+  quote: Trial Tariff Network Price List 2025-2026
+  note: Heading of the trial tariff table that lists these codes.
+- codes: [EA010, EA025, EA111, EA116, EA029, EA030, EA040, EA050, EA225, EA251, EA256, EA302, EA305, EA310, EA314, EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Low Voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA365, EA370]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p1
+  quote: High Voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA390]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p1
+  quote: Sub-transmission EA390
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA401, EA402, EA403]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: Unmetered EA402
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA501]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: transmission
+  locator: pdf:p1
+  quote: Transmission Transmission EA501
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA334, EA335]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p3
+  quote: Low Voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA374, EA375]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p3
+  quote: High Voltage
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA394, EA395]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p3
+  quote: Sub-transmission
+  note: Tariff class heading of the price table, which spans the rows of these codes.
+- codes: [EA905, EA955, EA956, EA964, EA965, EA974, EA975]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p3
+  quote: Low Voltage
+  note: Tariff class heading of the trial tariff table.
+- codes: [EA976]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p3
+  quote: HV Dynamic High Voltage EA976
+- codes: [EA010]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: EA010 Residential flat Closed
+  note: Tariff name as published.
+- codes: [EA010]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p1
+  quote: EA010 Residential flat Closed
+- codes: [EA025]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: EA025 Residential ToU
+  note: Tariff name as published.
+- codes: [EA111]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Residential demand EA111
+  note: Tariff name as published.
+- codes: [EA116]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: EA116 Residential demand
+  note: Tariff name as published.
+- codes: [EA030]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p1
+  quote: EA030 Controlled Load 1
+  note: Tariff name as published.
+- codes: [EA040]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p1
+  quote: EA040 Controlled Load 2
+  note: Tariff name as published.
+- codes: [EA050]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: Small Business flat EA050
+  note: Tariff name as published.
+- codes: [EA050]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p1
+  quote: Small Business flat EA050 1.0398 10.8329 202.3139 11.3299 Closed
+  note: Tariff name 'Small Business flat Closed'; the word 'Closed' follows the prices in the extracted text.
+- codes: [EA225]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: EA225 Small Business ToU
+  note: Tariff name as published.
+- codes: [EA251]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: Small business demand EA251
+  note: Tariff name as published.
+- codes: [EA256]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: EA256 Small business demand
+  note: Tariff name as published.
+- codes: [EA302]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: ge
+  value_num: 100
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA302 LV 100-160 MWh
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA302]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: EA302 LV 100-160 MWh
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA305]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV 160-750 MWh EA305
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA305]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV 160-750 MWh EA305
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated.
+- codes: [EA310]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV > 750 MWh EA310
+  note: Threshold as published in the tariff name.
+- codes: [EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV 160-750 MWh EA314
+  note: Tariff name as published; it continues '(embedded network)' on the line after the prices. Range as published in the
+    tariff name; whether the end points are inclusive is not stated.
+- codes: [EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV 160-750 MWh EA314
+  note: Tariff name as published; it continues '(embedded network)' on the line after the prices. Range as published in the
+    tariff name; whether the end points are inclusive is not stated.
+- codes: [EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network connection
+  locator: pdf:p1
+  quote: LV 160-750 MWh EA314 1.0398 2546.5371 8.2347 1.8459 68.7649 (embedded network)
+  note: Tariff name 'LV 160-750 MWh (embedded network)'; the prices sit between the code and '(embedded network)' in the extracted
+    text.
+- codes: [EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: LV > 750 MWh EA315
+  note: Tariff name as published; it continues '(embedded network)' on the line after the prices. Range as published in the
+    tariff name; whether the end points are inclusive is not stated.
+- codes: [EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network connection
+  locator: pdf:p1
+  quote: LV > 750 MWh EA315 1.0398 5118.1674 6.4889 1.6914 70.8275 (embedded network)
+  note: Tariff name 'LV > 750 MWh (embedded network)'; the prices sit between the code and '(embedded network)' in the extracted
+    text.
+- codes: [EA365]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network connection
+  locator: pdf:p1
+  quote: HV connection EA365 1.0128 7979.2649 4.0147 1.9792 41.1941 (embedded network)
+  note: Tariff name 'HV connection (embedded network)'; the prices sit between the code and '(embedded network)'.
+- codes: [EA401]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p1
+  quote: EA401 Public Lighting
+  note: Tariff name as published.
+- codes: [EA402]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: Unmetered EA402 Constant Unmetered
+  note: Tariff name as published.
+- codes: [EA403]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: EA403 Energy Light
+  note: Tariff name as published.
+- codes: [EA334]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA334 Storage (load)
+  note: Tariff name as published.
+- codes: [EA335]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA335 Storage (generation)
+  note: Tariff name as published.
+- codes: [EA374]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA374 Storage (load)
+  note: Tariff name as published.
+- codes: [EA375]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA375 Storage (generation)
+  note: Tariff name as published.
+- codes: [EA394]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA394 Storage (load)
+  note: Tariff name as published.
+- codes: [EA395]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p3
+  quote: EA395 Storage (generation)
+  note: Tariff name as published.
+- codes: [EA955]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p3
+  quote: EA955 1.0115 10.8329 201.2217 13.2469 4.8987 trial - small business
+  note: Tariff name as published ('Local use of system trial - small business' / '... - residential'); the extracted row puts
+    the code and prices inside the name.
+- codes: [EA956]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p3
+  quote: EA956 1.0115 7.8192 61.4642 15.8322 4.7080 trial - residential
+  note: Tariff name as published ('Local use of system trial - small business' / '... - residential'); the extracted row puts
+    the code and prices inside the name.
+- codes: [EA974]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p3
+  quote: Residential Dynamic EA974
+  note: Tariff name as published.
+- codes: [EA975]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p3
+  quote: Residential Dynamic EA975
+  note: Tariff name as published.
+- codes: [EA905, EA955, EA956, EA964, EA965, EA974, EA975, EA976]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: availability
+  value_text: trial
+  locator: pdf:p3
+  quote: Ausgrid trial tariffs.
+  note: Heading of the trial tariff table that lists these codes.
+- codes: [EA964, EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: peak charges apply to critical peaks only when called by Ausgrid
+  locator: pdf:p3
+  quote: '& The EA964 and EA965 peak charges apply to critical peaks only when called by Ausgrid.'
+- codes: [EA974, EA975]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: dynamic components apply only when an event is called by Ausgrid
+  locator: pdf:p3
+  quote: ^ EA974 and EA975 dynamic tariff components are applied to customers only when an event is called by Ausgrid.
+- codes: [EA976]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: block 1 capacity rate up to the customer's guaranteed (firm) kVA threshold; block 2 above it
+  locator: pdf:p3
+  quote: '% For EA976, block 1 rate applies for the customer''s guaranteed kVA threshold. Block 2 is the rate applied to demand
+    used above the firm threshold.'
+- codes: [EA010]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p12
+  quote: EA010 Residential non-TOU closed
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA010]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p12
+  quote: EA010 Residential non-TOU closed
+  note: '''Closed means only available for customers already assigned to the tariff.'' (Table 3.1 note)'
+- codes: [EA011]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p12
+  quote: EA011 Residential transitional TOU closed
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA011]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p12
+  quote: EA011 Residential transitional TOU closed
+  note: '''Closed means only available for customers already assigned to the tariff.'' (Table 3.1 note)'
+- codes: [EA025]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p12
+  quote: EA025 Residential TOU
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA111]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p12
+  quote: EA111 Residential demand (introductory)
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA115]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p12
+  quote: EA115 Residential TOU demand
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA116]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p12
+  quote: EA116 Residential demand
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA030]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p12
+  quote: EA030 Controlled load 1
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA040]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p12
+  quote: EA040 Controlled load 2
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA050]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p12
+  quote: EA050 Small business non-TOU closed
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA050]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p12
+  quote: EA050 Small business non-TOU closed
+  note: '''Closed means only available for customers already assigned to the tariff.'' (Table 3.1 note)'
+- codes: [EA051]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p12
+  quote: EA051 Small business transitional TOU closed
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA051]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p12
+  quote: EA051 Small business transitional TOU closed
+  note: '''Closed means only available for customers already assigned to the tariff.'' (Table 3.1 note)'
+- codes: [EA225]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p12
+  quote: EA225 Small business TOU
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA251]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p12
+  quote: EA251 Small business demand (introductory)
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA255]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p12
+  quote: EA255 Small business TOU demand
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA256]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p12
+  quote: EA256 Small business demand
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA302]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: ge
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: EA302 LV 40-160 MWh
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Table 4.1 (NUOS tariffs
+    from 1 July 2023).
+- codes: [EA302]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: EA302 LV 40-160 MWh
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Table 4.1 (NUOS tariffs
+    from 1 July 2023).
+- codes: [EA305]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: EA305 LV 160-750 MWh
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Table 4.1 (NUOS tariffs
+    from 1 July 2023).
+- codes: [EA305]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: EA305 LV 160-750 MWh
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Table 4.1 (NUOS tariffs
+    from 1 July 2023).
+- codes: [EA310]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: EA310 LV >750 MWh
+  note: Threshold as published in the tariff name. Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA316]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: ge
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: EA316 Transitional 40-160 MWh closed
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Table 4.1 (NUOS tariffs
+    from 1 July 2023).
+- codes: [EA316]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: EA316 Transitional 40-160 MWh closed
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Table 4.1 (NUOS tariffs
+    from 1 July 2023).
+- codes: [EA316]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p12
+  quote: EA316 Transitional 40-160 MWh closed
+  note: '''Closed means only available for customers already assigned to the tariff.'' (Table 3.1 note)'
+- codes: [EA317]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: EA317 Transitional 160-750 MWh closed
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Table 4.1 (NUOS tariffs
+    from 1 July 2023).
+- codes: [EA317]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: EA317 Transitional 160-750 MWh closed
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Table 4.1 (NUOS tariffs
+    from 1 July 2023).
+- codes: [EA317]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p12
+  quote: EA317 Transitional 160-750 MWh closed
+  note: '''Closed means only available for customers already assigned to the tariff.'' (Table 3.1 note)'
+- codes: [EA325]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p12
+  quote: EA325 LV Connection (standby) closed
+  note: '''Closed means only available for customers already assigned to the tariff.'' (Table 3.1 note)'
+- codes: [EA360]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p12
+  quote: EA360 HV Connection (standby) closed
+  note: '''Closed means only available for customers already assigned to the tariff.'' (Table 3.1 note)'
+- codes: [EA401]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p12
+  quote: EA401 Public lighting
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA402]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p12
+  quote: Unmetered EA402 Constant unmetered
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA403]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p12
+  quote: EA403 EnergyLight
+  note: Table 4.1 (NUOS tariffs from 1 July 2023).
+- codes: [EA025, EA111, EA115, EA116, EA030, EA040, EA010, EA011, EA225, EA251, EA255, EA256, EA050, EA051, EA302, EA305,
+    EA310, EA316, EA317, EA325]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p10
+  quote: Low Voltage Applicable to separately metered low EA025 – Residential TOU Secondary
+  note: 'Table 3.1 tariff class definitions: ''separately metered low voltage (415V or 240V) connections''.'
+- codes: [EA370, EA360]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p10
+  quote: High Voltage Applicable to any connection at high EA370 – HV Connection (system) EA360 – HV Connection (standby)
+    closed
+  note: 'Table 3.1: high voltage (11kV) level.'
+- codes: [EA380]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p10
+  quote: voltage (11kV) level, as measured at the EA380 – HV Connection (substation)
+  note: Table 3.1 High Voltage class.
+- codes: [EA390, EA391]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p10
+  quote: Sub- Applicable to any connection at a sub- EA390 – ST Connection (system) Individually calculated tariffs
+  note: 'Table 3.1: sub-transmission voltage (132/66/33kV).'
+- codes: [EA401, EA402, EA403]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p10
+  quote: Unmetered Applicable to any LV connection that is EA401 – Public lighting
+  note: 'Table 3.1 Unmetered class: ''defined as an unmetered supply''.'
+- codes: [EA501]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: transmission
+  locator: pdf:p10
+  quote: Transmission Applicable to any site that is connected to EA501 – Transmission tariff Individually calculated tariffs
+- codes: [EA251, EA255, EA256]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf:p9
+  quote: including a set of demand tariffs for residential customers and for non-residential customers with less than 40 MWh
+    energy consumption a year
+  note: Small business demand tariffs (EA251, EA255, EA256) per Table 3.1.
+- codes: [EA116, EA256]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p26
+  quote: From 1 July 2019, demand tariffs became a default assignment for residential and small business new connections and
+    customers on flat tariffs upgrading their meter by customer choice.
+  note: After 12 months on a demand (introductory) tariff customers are re-assigned to 'the default demand tariff' (EA116
+    residential, EA256 small business).
+- codes: [EA111, EA251]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: assigned_by_distributor
+  locator: pdf:p26
+  quote: Tariff assignment policy and tariffs include a demand (introductory) tariff for 12 months for existing residential
+    and small business customers on a flat tariff when they replace their meter due to meter failure.
+  note: '''After 12 months on a demand (introductory) tariff, customers are automatically re-assigned to a demand tariff.'''
+- codes: [EA116]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: EA025
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA116]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: EA115
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA256]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: EA225
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA256]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: EA255
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA111]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: EA025
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA111]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: EA115
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA251]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: EA225
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA251]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: EA255
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA010, EA011, EA050, EA051]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p26
+  quote: Existing flat (non-cost reflective) residential and small business tariffs (EA010/EA011 and EA050/EA051) were closed
+    in 2019-20 to new customers
+- codes: [EA010]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D86
+  quote: Low Voltage
+  note: Tariff class column for EA010 (Residential flat).
+- codes: [EA010]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C86
+  quote: Residential flat
+  note: Tariff name for EA010.
+- codes: [EA025]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D87
+  quote: Low Voltage
+  note: Tariff class column for EA025 (Residential TOU).
+- codes: [EA025]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C87
+  quote: Residential TOU
+  note: Tariff name for EA025.
+- codes: [EA111]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D88
+  quote: Low Voltage
+  note: Tariff class column for EA111 (Residential Demand (introductory)).
+- codes: [EA111]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C88
+  quote: Residential Demand (introductory)
+  note: Tariff name for EA111.
+- codes: [EA116]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D89
+  quote: Low Voltage
+  note: Tariff class column for EA116 (Residential Demand).
+- codes: [EA116]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C89
+  quote: Residential Demand
+  note: Tariff name for EA116.
+- codes: [EA030]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D90
+  quote: Low Voltage
+  note: Tariff class column for EA030 (Controlled Load 1).
+- codes: [EA030]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C90
+  quote: Controlled Load 1
+  note: Tariff name for EA030.
+- codes: [EA040]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D91
+  quote: Low Voltage
+  note: Tariff class column for EA040 (Controlled Load 2).
+- codes: [EA040]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C91
+  quote: Controlled Load 2
+  note: Tariff name for EA040.
+- codes: [EA050]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D92
+  quote: Low Voltage
+  note: Tariff class column for EA050 (Small Business flat).
+- codes: [EA050]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C92
+  quote: Small Business flat
+  note: Tariff name for EA050.
+- codes: [EA225]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D93
+  quote: Low Voltage
+  note: Tariff class column for EA225 (Small Business ToU).
+- codes: [EA225]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C93
+  quote: Small Business ToU
+  note: Tariff name for EA225.
+- codes: [EA251]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D94
+  quote: Low Voltage
+  note: Tariff class column for EA251 (Small Business Demand (introductory)).
+- codes: [EA251]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C94
+  quote: Small Business Demand (introductory)
+  note: Tariff name for EA251.
+- codes: [EA256]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D95
+  quote: Low Voltage
+  note: Tariff class column for EA256 (Small Business Demand).
+- codes: [EA256]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C95
+  quote: Small Business Demand
+  note: Tariff name for EA256.
+- codes: [EA302]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D96
+  quote: Low Voltage
+  note: Tariff class column for EA302 (LV 60-160 MWh (System)).
+- codes: [EA302]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: ge
+  value_num: 60
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C96
+  quote: LV 60-160 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA302.
+- codes: [EA302]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C96
+  quote: LV 60-160 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA302.
+- codes: [EA305]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D97
+  quote: Low Voltage
+  note: Tariff class column for EA305 (LV 160-750 MWh (System)).
+- codes: [EA305]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C97
+  quote: LV 160-750 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA305.
+- codes: [EA305]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C97
+  quote: LV 160-750 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA305.
+- codes: [EA310]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D98
+  quote: Low Voltage
+  note: Tariff class column for EA310 (LV >750 MWh (System)).
+- codes: [EA310]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C98
+  quote: LV >750 MWh (System)
+  note: Threshold as published in the tariff name. Tariff name for EA310.
+- codes: [EA314]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D99
+  quote: Low Voltage
+  note: Tariff class column for EA314 (LV 160-750 MWh (embedded network)).
+- codes: [EA314]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C99
+  quote: LV 160-750 MWh (embedded network)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA314.
+- codes: [EA314]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C99
+  quote: LV 160-750 MWh (embedded network)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA314.
+- codes: [EA314]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network connection
+  locator: xlsx:Tariff schedule!C99
+  quote: LV 160-750 MWh (embedded network)
+- codes: [EA315]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D100
+  quote: Low Voltage
+  note: Tariff class column for EA315 (LV >750 MWh (embedded network)).
+- codes: [EA315]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C100
+  quote: LV >750 MWh (embedded network)
+  note: Threshold as published in the tariff name. Tariff name for EA315.
+- codes: [EA315]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network connection
+  locator: xlsx:Tariff schedule!C100
+  quote: LV >750 MWh (embedded network)
+- codes: [EA029]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D101
+  quote: Low Voltage
+  note: Tariff class column for EA029 (Small customer export tariff).
+- codes: [EA334]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D102
+  quote: Low Voltage
+  note: Tariff class column for EA334 (LV storage (Import)).
+- codes: [EA334]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C102
+  quote: LV storage (Import)
+  note: Tariff name for EA334.
+- codes: [EA335]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D103
+  quote: Low Voltage
+  note: Tariff class column for EA335 (LV storage (Export)).
+- codes: [EA335]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C103
+  quote: LV storage (Export)
+  note: Tariff name for EA335.
+- codes: [EA365]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!D105
+  quote: High Voltage
+  note: Tariff class column for EA365 (HV connection (embedded network)).
+- codes: [EA365]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network connection
+  locator: xlsx:Tariff schedule!C105
+  quote: HV connection (embedded network)
+- codes: [EA370]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!D106
+  quote: High Voltage
+  note: Tariff class column for EA370 (HV connection (system)).
+- codes: [EA374]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!D107
+  quote: High Voltage
+  note: Tariff class column for EA374 (HV storage (Import)).
+- codes: [EA374]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C107
+  quote: HV storage (Import)
+  note: Tariff name for EA374.
+- codes: [EA375]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!D108
+  quote: High Voltage
+  note: Tariff class column for EA375 (HV storage (Export)).
+- codes: [EA375]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C108
+  quote: HV storage (Export)
+  note: Tariff name for EA375.
+- codes: [EA390]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!D110
+  quote: Subtransmission
+  note: Tariff class column for EA390 (ST Connection).
+- codes: [EA394]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!D111
+  quote: Subtransmission
+  note: Tariff class column for EA394 (ST storage (Import)).
+- codes: [EA394]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C111
+  quote: ST storage (Import)
+  note: Tariff name for EA394.
+- codes: [EA395]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!D112
+  quote: Subtransmission
+  note: Tariff class column for EA395 (ST storage (Export)).
+- codes: [EA395]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C112
+  quote: ST storage (Export)
+  note: Tariff name for EA395.
+- codes: [EA401]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D114
+  quote: Unmetered
+  note: Tariff class column for EA401 (Public lighting).
+- codes: [EA401]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: xlsx:Tariff schedule!C114
+  quote: Public lighting
+  note: Tariff name for EA401.
+- codes: [EA402]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D115
+  quote: Unmetered
+  note: Tariff class column for EA402 (Constant unmetered).
+- codes: [EA402]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C115
+  quote: Constant unmetered
+  note: Tariff name for EA402.
+- codes: [EA403]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D116
+  quote: Unmetered
+  note: Tariff class column for EA403 (EnergyLight).
+- codes: [EA403]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C116
+  quote: EnergyLight
+  note: Tariff name for EA403.
+- codes: [EA501]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: transmission
+  locator: xlsx:Tariff schedule!D118
+  quote: Transmission
+  note: Tariff class column for EA501 (Transmission-connected).
+- codes: [EA010]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C16
+  quote: Residential flat
+  note: Tariff name for EA010 in the Ausgrid section of the consolidated report.
+- codes: [EA025]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C17
+  quote: Residential TOU
+  note: Tariff name for EA025 in the Ausgrid section of the consolidated report.
+- codes: [EA111]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C18
+  quote: Residential Demand (introductory)
+  note: Tariff name for EA111 in the Ausgrid section of the consolidated report.
+- codes: [EA116]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C19
+  quote: Residential Demand
+  note: Tariff name for EA116 in the Ausgrid section of the consolidated report.
+- codes: [EA030]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C20
+  quote: Controlled Load 1
+  note: Tariff name for EA030 in the Ausgrid section of the consolidated report.
+- codes: [EA040]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C21
+  quote: Controlled Load 2
+  note: Tariff name for EA040 in the Ausgrid section of the consolidated report.
+- codes: [EA050]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C22
+  quote: Small Business flat
+  note: Tariff name for EA050 in the Ausgrid section of the consolidated report.
+- codes: [EA225]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C23
+  quote: Small Business ToU
+  note: Tariff name for EA225 in the Ausgrid section of the consolidated report.
+- codes: [EA251]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C24
+  quote: Small Business Demand (introductory)
+  note: Tariff name for EA251 in the Ausgrid section of the consolidated report.
+- codes: [EA256]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C25
+  quote: Small Business Demand
+  note: Tariff name for EA256 in the Ausgrid section of the consolidated report.
+- codes: [EA302]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: ge
+  value_num: 80
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C26
+  quote: LV 80-160 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA302.
+- codes: [EA302]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C26
+  quote: LV 80-160 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA302.
+- codes: [EA302]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C26
+  quote: LV 80-160 MWh (System)
+  note: Tariff name for EA302.
+- codes: [EA305]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C27
+  quote: LV 160-750 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA305.
+- codes: [EA305]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C27
+  quote: LV 160-750 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA305.
+- codes: [EA305]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C27
+  quote: LV 160-750 MWh (System)
+  note: Tariff name for EA305.
+- codes: [EA310]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C28
+  quote: LV >750 MWh (System)
+  note: Threshold as published in the tariff name. Tariff name for EA310.
+- codes: [EA310]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C28
+  quote: LV >750 MWh (System)
+  note: Tariff name for EA310.
+- codes: [EA314]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C29
+  quote: LV 160-750 MWh (embedded network)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA314.
+- codes: [EA314]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C29
+  quote: LV 160-750 MWh (embedded network)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA314.
+- codes: [EA314]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network connection
+  locator: xlsx:Tariff schedule!C29
+  quote: LV 160-750 MWh (embedded network)
+- codes: [EA314]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C29
+  quote: LV 160-750 MWh (embedded network)
+  note: Tariff name for EA314.
+- codes: [EA315]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C30
+  quote: LV >750 MWh (embedded network)
+  note: Threshold as published in the tariff name. Tariff name for EA315.
+- codes: [EA315]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network connection
+  locator: xlsx:Tariff schedule!C30
+  quote: LV >750 MWh (embedded network)
+- codes: [EA315]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C30
+  quote: LV >750 MWh (embedded network)
+  note: Tariff name for EA315.
+- codes: [EA334]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C32
+  quote: LV storage (Import)
+  note: Tariff name for EA334 in the Ausgrid section of the consolidated report.
+- codes: [EA334]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C32
+  quote: LV storage (Import)
+  note: Tariff name for EA334.
+- codes: [EA335]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C33
+  quote: LV storage (Export)
+  note: Tariff name for EA335 in the Ausgrid section of the consolidated report.
+- codes: [EA335]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C33
+  quote: LV storage (Export)
+  note: Tariff name for EA335.
+- codes: [EA365]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network connection
+  locator: xlsx:Tariff schedule!C35
+  quote: HV connection (embedded network)
+- codes: [EA365]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C35
+  quote: HV connection (embedded network)
+  note: Tariff name for EA365.
+- codes: [EA370]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C36
+  quote: HV connection (system)
+  note: Tariff name for EA370.
+- codes: [EA374]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C37
+  quote: HV storage (Import)
+  note: Tariff name for EA374 in the Ausgrid section of the consolidated report.
+- codes: [EA374]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C37
+  quote: HV storage (Import)
+  note: Tariff name for EA374.
+- codes: [EA375]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C38
+  quote: HV storage (Export)
+  note: Tariff name for EA375 in the Ausgrid section of the consolidated report.
+- codes: [EA375]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C38
+  quote: HV storage (Export)
+  note: Tariff name for EA375.
+- codes: [EA390]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!C40
+  quote: ST Connection
+  note: Tariff name for EA390.
+- codes: [EA394]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C41
+  quote: ST storage (Import)
+  note: Tariff name for EA394 in the Ausgrid section of the consolidated report.
+- codes: [EA394]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!C41
+  quote: ST storage (Import)
+  note: Tariff name for EA394.
+- codes: [EA395]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C42
+  quote: ST storage (Export)
+  note: Tariff name for EA395 in the Ausgrid section of the consolidated report.
+- codes: [EA395]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!C42
+  quote: ST storage (Export)
+  note: Tariff name for EA395.
+- codes: [EA401]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: xlsx:Tariff schedule!C44
+  quote: Public lighting
+  note: Tariff name for EA401 in the Ausgrid section of the consolidated report.
+- codes: [EA402]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C45
+  quote: Constant unmetered
+  note: Tariff name for EA402 in the Ausgrid section of the consolidated report.
+- codes: [EA403]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C46
+  quote: EnergyLight
+  note: Tariff name for EA403 in the Ausgrid section of the consolidated report.
+- codes: [EA501]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: transmission
+  locator: xlsx:Tariff schedule!C48
+  quote: Transmission-connected
+  note: Tariff name for EA501.
+- codes: [EA010]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C16
+  quote: Residential flat
+  note: Tariff name for EA010 in the Ausgrid section of the consolidated report.
+- codes: [EA025]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C17
+  quote: Residential TOU
+  note: Tariff name for EA025 in the Ausgrid section of the consolidated report.
+- codes: [EA111]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C18
+  quote: Residential Demand (introductory)
+  note: Tariff name for EA111 in the Ausgrid section of the consolidated report.
+- codes: [EA116]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C19
+  quote: Residential Demand
+  note: Tariff name for EA116 in the Ausgrid section of the consolidated report.
+- codes: [EA030]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C20
+  quote: Controlled Load 1
+  note: Tariff name for EA030 in the Ausgrid section of the consolidated report.
+- codes: [EA040]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C21
+  quote: Controlled Load 2
+  note: Tariff name for EA040 in the Ausgrid section of the consolidated report.
+- codes: [EA050]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C22
+  quote: Small Business flat
+  note: Tariff name for EA050 in the Ausgrid section of the consolidated report.
+- codes: [EA225]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C23
+  quote: Small Business ToU
+  note: Tariff name for EA225 in the Ausgrid section of the consolidated report.
+- codes: [EA251]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C24
+  quote: Small Business Demand (introductory)
+  note: Tariff name for EA251 in the Ausgrid section of the consolidated report.
+- codes: [EA256]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!C25
+  quote: Small Business Demand
+  note: Tariff name for EA256 in the Ausgrid section of the consolidated report.
+- codes: [EA302]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: ge
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C26
+  quote: LV 100-160 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA302.
+- codes: [EA302]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C26
+  quote: LV 100-160 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA302.
+- codes: [EA302]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C26
+  quote: LV 100-160 MWh (System)
+  note: Tariff name for EA302.
+- codes: [EA305]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C27
+  quote: LV 160-750 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA305.
+- codes: [EA305]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C27
+  quote: LV 160-750 MWh (System)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA305.
+- codes: [EA305]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C27
+  quote: LV 160-750 MWh (System)
+  note: Tariff name for EA305.
+- codes: [EA310]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C28
+  quote: LV >750 MWh (System)
+  note: Threshold as published in the tariff name. Tariff name for EA310.
+- codes: [EA310]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C28
+  quote: LV >750 MWh (System)
+  note: Tariff name for EA310.
+- codes: [EA314]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C29
+  quote: LV 160-750 MWh (embedded network)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA314.
+- codes: [EA314]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C29
+  quote: LV 160-750 MWh (embedded network)
+  note: Range as published in the tariff name; whether the end points are inclusive is not stated. Tariff name for EA314.
+- codes: [EA314]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network connection
+  locator: xlsx:Tariff schedule!C29
+  quote: LV 160-750 MWh (embedded network)
+- codes: [EA314]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C29
+  quote: LV 160-750 MWh (embedded network)
+  note: Tariff name for EA314.
+- codes: [EA315]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!C30
+  quote: LV >750 MWh (embedded network)
+  note: Threshold as published in the tariff name. Tariff name for EA315.
+- codes: [EA315]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network connection
+  locator: xlsx:Tariff schedule!C30
+  quote: LV >750 MWh (embedded network)
+- codes: [EA315]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C30
+  quote: LV >750 MWh (embedded network)
+  note: Tariff name for EA315.
+- codes: [EA334]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C32
+  quote: LV storage (Import)
+  note: Tariff name for EA334 in the Ausgrid section of the consolidated report.
+- codes: [EA334]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C32
+  quote: LV storage (Import)
+  note: Tariff name for EA334.
+- codes: [EA335]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C33
+  quote: LV storage (Export)
+  note: Tariff name for EA335 in the Ausgrid section of the consolidated report.
+- codes: [EA335]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C33
+  quote: LV storage (Export)
+  note: Tariff name for EA335.
+- codes: [EA365]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network connection
+  locator: xlsx:Tariff schedule!C35
+  quote: HV connection (embedded network)
+- codes: [EA365]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C35
+  quote: HV connection (embedded network)
+  note: Tariff name for EA365.
+- codes: [EA370]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C36
+  quote: HV connection (system)
+  note: Tariff name for EA370.
+- codes: [EA374]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C37
+  quote: HV storage (Import)
+  note: Tariff name for EA374 in the Ausgrid section of the consolidated report.
+- codes: [EA374]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C37
+  quote: HV storage (Import)
+  note: Tariff name for EA374.
+- codes: [EA375]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C38
+  quote: HV storage (Export)
+  note: Tariff name for EA375 in the Ausgrid section of the consolidated report.
+- codes: [EA375]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C38
+  quote: HV storage (Export)
+  note: Tariff name for EA375.
+- codes: [EA390]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!C40
+  quote: ST Connection
+  note: Tariff name for EA390.
+- codes: [EA394]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C41
+  quote: ST storage (Import)
+  note: Tariff name for EA394 in the Ausgrid section of the consolidated report.
+- codes: [EA394]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!C41
+  quote: ST storage (Import)
+  note: Tariff name for EA394.
+- codes: [EA395]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C42
+  quote: ST storage (Export)
+  note: Tariff name for EA395 in the Ausgrid section of the consolidated report.
+- codes: [EA395]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!C42
+  quote: ST storage (Export)
+  note: Tariff name for EA395.
+- codes: [EA401]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: xlsx:Tariff schedule!C44
+  quote: Public lighting
+  note: Tariff name for EA401 in the Ausgrid section of the consolidated report.
+- codes: [EA402]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C45
+  quote: Constant unmetered
+  note: Tariff name for EA402 in the Ausgrid section of the consolidated report.
+- codes: [EA403]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C46
+  quote: EnergyLight
+  note: Tariff name for EA403 in the Ausgrid section of the consolidated report.
+- codes: [EA956, EA957, EA958, EA964, EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: only available to partner retailers
+  locator: pdf:p3
+  quote: Our trial tariffs are only available to partner retailers.
+- codes: [EA955, EA956, EA964, EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: only available to partner retailers
+  locator: pdf:p3
+  quote: Our trial tariffs are only available to partner retailers.
+- codes: [EA905, EA955, EA956, EA964, EA965, EA974, EA975, EA976]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: only available to partner retailers
+  locator: pdf:p3
+  quote: Our trial tariffs are only available to partner retailers.
+- codes: [EA401, EA402, EA403]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p10
+  quote: Applicable to any LV connection that is
+  note: 'Table 3.1 Unmetered class definition: ''Applicable to any LV connection that is defined as an unmetered supply by
+    Ausgrid in consultation with AEMO'' (wording interleaved with the tariff column).'
+- codes: [EA030, EA040]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: listed as a secondary network tariff
+  locator: pdf:p10
+  quote: Secondary voltage (415V or 240V) connections, as EA111 – Residential demand (introductory) EA030 – Controlled load
+    1
+  note: 'Table 3.1 ''Other Network Tariffs'' column: heading ''Secondary'' over ''EA030 – Controlled load 1'' and ''EA040
+    – Controlled load 2'' (next line); the class-definition and primary-tariff columns are interleaved in the extracted text.'
+- codes: [EA025, EA115, EA225, EA255]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_out
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariffs EA025/EA225 and TOU-demand tariffs EA115/EA255 (Table 4.1 names).
+- codes: [EA116, EA256]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p26
+  quote: TOU customers replacing meter for any reason remain on TOU tariffs and can opt-in to demand tariffs
+  note: '''Demand tariffs'' read as the residential and small business demand tariffs EA116/EA256 (Table 4.1 names); the sentence
+    does not name codes.'
+- codes: [EA316, EA317]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p26
+  quote: Transitional tariffs for medium and large business customers will transition to an appropriate capacity-based tariff
+    over the 2019-24 period
+  note: Medium and large business customers; the next sentences name EA316 (40-160 MWh) and EA317 (160-750 MWh).
+- codes: [EA964]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: flexible_load
+  locator: pdf:p3
+  quote: EA964 Flexible load (primary)
+  note: Tariff name as published.
+- codes: [EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: flexible_load
+  locator: pdf:p3
+  quote: EA965 Flexible load (secondary)
+  note: Tariff name as published.
+- codes: [EA964]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: flexible_load
+  locator: pdf:p3
+  quote: EA964 Flexible load (primary)
+  note: Tariff name as published.
+- codes: [EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: flexible_load
+  locator: pdf:p3
+  quote: EA965 Flexible load (secondary)
+  note: Tariff name as published.
+- codes: [EA964]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: flexible_load
+  locator: pdf:p3
+  quote: EA964 Flexible load (primary)
+  note: Tariff name as published.
+- codes: [EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: flexible_load
+  locator: pdf:p3
+  quote: Flexible load EA965
+  note: Tariff name as published. The name continues '(secondary)' after the prices.
+- codes: [EA905]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: flexible_load
+  locator: pdf:p3
+  quote: EA905 Flexible load (LV large)
+  note: Tariff name as published.
+relations:
+- from: EA011
+  type: same_prices_as
+  to: EA010
+  fin_year: 2023-24
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  locator: pdf:p26
+  quote: our transitional TOU tariffs for residential (EA011) and small business (EA051) customers introduced during 2018-19
+    were set to the legacy flat tariff in NUOS charges in 2019-20.
+  note: Transitional TOU tariffs 'are set to the same level as legacy flat tariffs for the 2019-24 regulatory period'.
+- from: EA051
+  type: same_prices_as
+  to: EA050
+  fin_year: 2023-24
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  locator: pdf:p26
+  quote: our transitional TOU tariffs for residential (EA011) and small business (EA051) customers introduced during 2018-19
+    were set to the legacy flat tariff in NUOS charges in 2019-20.
+  note: Transitional TOU tariffs 'are set to the same level as legacy flat tariffs for the 2019-24 regulatory period'.
+- from: EA316
+  type: same_prices_as
+  to: EA302
+  fin_year: 2023-24
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  locator: pdf:p26
+  quote: Transitional tariff EA316 (40-160 MWh) will converge with EA302 (40-160 MWh). Transitional tariff EA317 (160-750
+    MWh) will converge with EA305 (160-750 MWh).
+  note: 'Section 10.6 continues: ''This transition will be completed in 2023-24, ensuring that all charging components for
+    these tariffs are aligned.'''
+- from: EA317
+  type: same_prices_as
+  to: EA305
+  fin_year: 2023-24
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  locator: pdf:p26
+  quote: Transitional tariff EA316 (40-160 MWh) will converge with EA302 (40-160 MWh). Transitional tariff EA317 (160-750
+    MWh) will converge with EA305 (160-750 MWh).
+  note: 'Section 10.6 continues: ''This transition will be completed in 2023-24, ensuring that all charging components for
+    these tariffs are aligned.'''
+flags:
+- codes: [EA010]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p1
+  quote: EA010 Residential flat Closed
+- codes: [EA050]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p1
+  quote: EA050 Small Business flat Closed
+- codes: [EA956, EA957, EA958, EA964, EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
+  fin_year: 2024-25
+  flag: trial
+  locator: pdf:p3
+  quote: Our trial tariffs are only available to partner retailers.
+- codes: [EA010]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p1
+  quote: EA010 Residential flat Closed
+- codes: [EA050]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p1
+  quote: EA050 Small Business flat Closed
+- codes: [EA955, EA956, EA964, EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
+  fin_year: 2025-26
+  flag: trial
+  locator: pdf:p3
+  quote: Our trial tariffs are only available to partner retailers.
+- codes: [EA010]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p1
+  quote: EA010 Residential flat Closed
+- codes: [EA050]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p1
+  quote: Small Business flat EA050 1.0398 10.8329 202.3139 11.3299 Closed
+- codes: [EA905, EA955, EA956, EA964, EA965, EA974, EA975, EA976]
+  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  flag: trial
+  locator: pdf:p3
+  quote: Our trial tariffs are only available to partner retailers.
+- codes: [EA010]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p12
+  quote: EA010 Residential non-TOU closed
+- codes: [EA011]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p12
+  quote: EA011 Residential transitional TOU closed
+- codes: [EA011]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: transitional
+  locator: pdf:p12
+  quote: EA011 Residential transitional TOU closed
+- codes: [EA050]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p12
+  quote: EA050 Small business non-TOU closed
+- codes: [EA051]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p12
+  quote: EA051 Small business transitional TOU closed
+- codes: [EA051]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: transitional
+  locator: pdf:p12
+  quote: EA051 Small business transitional TOU closed
+- codes: [EA316]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p12
+  quote: EA316 Transitional 40-160 MWh closed
+- codes: [EA316]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: transitional
+  locator: pdf:p12
+  quote: EA316 Transitional 40-160 MWh closed
+- codes: [EA317]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p12
+  quote: EA317 Transitional 160-750 MWh closed
+- codes: [EA317]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: transitional
+  locator: pdf:p12
+  quote: EA317 Transitional 160-750 MWh closed
+- codes: [EA325]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p12
+  quote: EA325 LV Connection (standby) closed
+- codes: [EA360]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p12
+  quote: EA360 HV Connection (standby) closed
+- codes: [EA957]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  flag: trial
+  locator: xlsx:Proposal report!B124
+  quote: EA957
+  note: 'Row label of the tariff-trial revenue table; B118: ''The below table provides trial tariff revenues for Ausgrid for
+    2024–25 and historical years.'''
+- codes: [EA958]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  flag: trial
+  locator: xlsx:Proposal report!B125
+  quote: EA958
+  note: 'Row label of the tariff-trial revenue table; B118: ''The below table provides trial tariff revenues for Ausgrid for
+    2024–25 and historical years.'''
+- codes: [EA964]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  flag: trial
+  locator: xlsx:Proposal report!B131
+  quote: EA964
+  note: 'Row label of the tariff-trial revenue table; B118: ''The below table provides trial tariff revenues for Ausgrid for
+    2024–25 and historical years.'''
+- codes: [EA965]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  flag: trial
+  locator: xlsx:Proposal report!B132
+  quote: EA965
+  note: 'Row label of the tariff-trial revenue table; B118: ''The below table provides trial tariff revenues for Ausgrid for
+    2024–25 and historical years.'''
+- codes: [EA956]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
+  fin_year: 2024-25
+  flag: trial
+  locator: xlsx:Proposal report!B133
+  quote: EA956
+  note: 'Row label of the tariff-trial revenue table; B118: ''The below table provides trial tariff revenues for Ausgrid for
+    2024–25 and historical years.'''

@@ -20,7 +20,9 @@ import schema  # noqa: E402
 import units  # noqa: E402
 
 from published import cell_value
+from tariffdb import locators  # noqa: E402
 import openpyxl  # noqa: E402
+from openpyxl.utils import get_column_letter  # noqa: E402
 import pdfplumber  # noqa: E402
 
 DIST = "TasNetworks"
@@ -118,9 +120,11 @@ class Emitter:
         self.rows = []
         self.ctx = dict(fin_year=fin_year, side=side, path=path, url=url, gst=gst, file_note=file_note)
 
-    def add(self, code, name, cls, component, unit, value, basis, note="", charge_type=None, time_band=None):
+    def add(self, code, name, cls, component, unit, value, basis, note="", charge_type=None, time_band=None, locator=""):
         if value is None or value == "":
             return
+        if not locator:
+            raise ValueError(f"no locator for {code} {component!r} = {value!r}")
         v_std, u_std = units.to_std(value, unit, component)
         notes = [n for n in (self.ctx["file_note"], note) if n]
         self.rows.append({
@@ -133,15 +137,17 @@ class Emitter:
             "unit": unit, "value": value, "value_std": "" if v_std is None else v_std, "unit_std": u_std,
             "gst": self.ctx["gst"], "basis": basis,
             "source_file": self.ctx["path"], "source_url": self.ctx["url"], "note": "; ".join(notes),
+            "locator": locator,
         })
 
 
 def add_locational(em, pairs, basis_note, name="kVA specified demand (>2MVA)", cls="Large business HV"):
-    """Locational TUoS service charges (per transmission node) -> TUoS rows attached to TAS15."""
-    for desc, node, val in pairs:
+    """Locational TUoS service charges (per transmission node) -> TUoS rows attached to TAS15.
+    pairs: (description, node, value, locator)."""
+    for desc, node, val, loc in pairs:
         em.add("TAS15", name, cls, f"Locational TUoS service charge - {desc} ({node})", "c/kVA/day", val, "TUoS",
                note=f"site-specific: locational TUoS demand charge for transmission node {node}; {basis_note}",
-               charge_type="demand", time_band="")
+               charge_type="demand", time_band="", locator=loc)
 
 
 # ----------------------------------------------------------------------------- xlsx 2025-26 / 2026-27
@@ -184,14 +190,14 @@ def parse_xlsx(path, fin_year, side, url):
             code = str(drow[code_col]).strip() if drow[code_col] is not None else ""
             b = str(drow[name_col]).strip() if drow[name_col] is not None else ""
             if CODE_RE.match(code):
-                data.append(drow)
+                data.append((rr, drow))
             elif re.match(r"^\(\d\)", b):
                 m = re.match(r"^\((\d)\)\s*(.+)$", b)
                 foot[m.group(1)] = m.group(2).strip()
             elif b.startswith("DISCLAIMER") or b.startswith("http") or re.search(r"prices for .*use of service", b, re.I):
                 break
             rr += 1
-        for drow in data:
+        for ri, drow in data:
             code = str(drow[code_col]).strip()
             name, marks = strip_markers(str(drow[name_col]))
             cls = squash(str(drow[class_col] or ""))
@@ -209,7 +215,9 @@ def parse_xlsx(path, fin_year, side, url):
                 except ValueError:
                     continue
                 unit, unote = tariff_unit(code, c["group"], c["units"])
-                em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(notes + [unote] if unote else notes))
+                # grid is read from min_row=1, col 1: grid[ri][ci] is the cell at row ri + 1, column ci + 1
+                em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(notes + [unote] if unote else notes),
+                       locator=locators.xlsx(sheet, f"{get_column_letter(ci + 1)}{ri + 1}"))
         r = rr
     # locational TUoS sheet
     loc = f"Locational TUoS {fin_year}"
@@ -219,7 +227,8 @@ def parse_xlsx(path, fin_year, side, url):
             cells = [c for c in row if c.value is not None and str(c.value).strip()]
             vals = [c.value for c in cells]
             if len(vals) >= 3 and re.match(r"^T[A-Z]{2}\d$", str(vals[1]).strip()) and isinstance(vals[2], (int, float)):
-                pairs.append((squash(str(vals[0])), str(vals[1]).strip(), cell_value(cells[2])))
+                pairs.append((squash(str(vals[0])), str(vals[1]).strip(), cell_value(cells[2]),
+                              locators.xlsx(loc, cells[2].coordinate)))
         add_locational(em, pairs, f"sheet '{loc}' (applies to TAS15, footnote (2) 'Additional locational TUOS demand charges apply')")
     return em.rows
 
@@ -228,12 +237,12 @@ def parse_xlsx(path, fin_year, side, url):
 def parse_pdf_2024_25(path, fin_year, side, url):
     em = Emitter(fin_year, side, path, url, "excl", "GST not stated in document, assumed excl")
     with pdfplumber.open(path) as pdf:
-        for page in pdf.pages:
+        for pno, page in enumerate(pdf.pages, 1):
             text = page.extract_text() or ""
             m = re.search(r"prices for (network|distribution|transmission) use of service", text, re.I)
             if not m:
                 if "Locational TUoS charges" in text:
-                    pairs = [(a, b, num_text(c)) for a, b, c in
+                    pairs = [(a, b, num_text(c), locators.pdf(pno)) for a, b, c in
                              re.findall(r"^(.+?)\s+(T[A-Z]{2}\d)\s+([\d,.]+)$", text, re.M)]
                     add_locational(em, pairs, "'Locational TUoS charges for 2024-25' page (applies to TAS15, footnote (2))")
                 continue
@@ -281,7 +290,8 @@ def parse_pdf_2024_25(path, fin_year, side, url):
                     if val is None:
                         continue
                     unit, unote = tariff_unit(code, c["group"], c["units"])
-                    em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(notes + [unote] if unote else notes))
+                    em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(notes + [unote] if unote else notes),
+                           locator=locators.pdf(pno))
     return em.rows
 
 
@@ -399,21 +409,22 @@ def parse_pdf_2023_24_schedule(path, fin_year, side, url):
                 # fixed charge
                 fv = [w for w in by_col.get(fixed_ci, []) if num_text(w["text"])]
                 if fv:
-                    em.add(code, name, cls, fixed_label, fixed_unit, num_text(fv[0]["text"]), basis, note="; ".join(notes))
+                    em.add(code, name, cls, fixed_label, fixed_unit, num_text(fv[0]["text"]), basis, note="; ".join(notes),
+                           locator=locators.pdf(pno))
                 for ci, c in cols.items():
                     nums = [w for w in sorted(by_col.get(ci, []), key=lambda w: w["top"]) if num_text(w["text"])]
                     if not nums:
                         continue
                     if c["group"] == "Energy charges":
                         em.add(code, name, cls, f"{c['group']} - {c['sub']}", "c/kWh", num_text(nums[0]["text"]), basis,
-                               note="; ".join(notes))
+                               note="; ".join(notes), locator=locators.pdf(pno))
                     elif c["group"] == "Demand rates":
                         if code == "TASUMSSL":
                             unit, un = "c/lamp watt/day", "unit per footnote 'Public lighting is charged on the basis of c/lamp watt/day'"
                         else:
                             unit, un = tariff_unit(code, "c/kVA, kW, lamp watt/day", ["c/kVA/day", "c/kW/day"])
                         em.add(code, name, cls, f"{c['group']} - {c['sub']}", unit, num_text(nums[0]["text"]), basis,
-                               note="; ".join(notes + [un]))
+                               note="; ".join(notes + [un]), locator=locators.pdf(pno))
                     else:  # Capacity/connection charges: 'a / b' = demand charge / connection charge
                         labels = [f"{c['group']} - {c['sub']}", f"{c['group']} - {c['sub']} connection"]
                         for k, w in enumerate(nums[:2]):
@@ -422,7 +433,7 @@ def parse_pdf_2023_24_schedule(path, fin_year, side, url):
                                 n2.append("cell published as 'demand / connection' pair (labels per 2023-24 price guide Table 27: "
                                           f"{'specified/excess daily demand charge' if k == 0 else 'specified/excess daily demand connection charge'})")
                             em.add(code, name, cls, labels[k], "c/kVA/day", num_text(w["text"]), basis,
-                                   note="; ".join(n2), charge_type="demand", time_band="")
+                                   note="; ".join(n2), charge_type="demand", time_band="", locator=locators.pdf(pno))
     return em.rows
 
 
@@ -551,11 +562,12 @@ def parse_guide_2023_24(path, fin_year, side, url):
                             n.append(f"{tb} published as text: '{tc}'")
                         if "NUoS" not in centres:
                             n.append("NUoS column not published for this tariff (TUoS is locational, see Table 33 rows)")
-                        em.add(code, mt.get("name") or tname, mt.get("cls", ""), label, unit, val, b, note="; ".join(n))
+                        em.add(code, mt.get("name") or tname, mt.get("cls", ""), label, unit, val, b, note="; ".join(n),
+                               locator=locators.pdf(pno))
 
         # Table 33: locational TUoS (transmission connection sites)
         pairs, grab = [], False
-        for page in pdf.pages:
+        for pno, page in enumerate(pdf.pages, 1):
             text = page.extract_text() or ""
             if "Table 33: Transmission connection sites" in text:
                 grab = True
@@ -563,7 +575,7 @@ def parse_guide_2023_24(path, fin_year, side, url):
                 continue
             for m in re.finditer(r"^(.+?)\s+(T[A-Z]{2}\d)\s+([\d,.]+|-)$", text, re.M):
                 if num_text(m.group(3)) is not None:
-                    pairs.append((m.group(1), m.group(2), num_text(m.group(3))))
+                    pairs.append((m.group(1), m.group(2), num_text(m.group(3)), locators.pdf(pno)))
             if "Virtual nodes" in text:
                 break
         mt = meta.get("TAS15", {})

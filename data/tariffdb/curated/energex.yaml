@@ -1,0 +1,2246 @@
+# Energex curated facts (every fact quotes a workbook cell; tariff-class headings, legends and labels).
+# Sources checked, every sheet incl. notes and Trial Tariffs / CAC Trial sheets: Energex Network Price Lists
+# 2023-24..2026-27 (Sch 8 Wayback copies), AER-hosted price lists 2023-24 and 2024-25, the AER 2024-25 Energex
+# stakeholder report and the Energex sections of the AER consolidated 2025-26 (v1, v5) and 2026-27 reports. None states
+# TOU clock times, demand measurement rules (interval/aggregation/window), seasons or quantity block thresholds, so
+# tou_schedules and demand_rules are empty; relations are empty because no document states a rename/replacement between
+# parsed codes. The consolidated 2025-26 v5 rows labelled '(withdrawn from 1 Jul 25)*' carry the code HSAC (Historic
+# SAC), not the withdrawn tariff's own code, so no withdrawn flag is recorded for them.
+distributor: energex
+tou_schedules: []
+demand_rules: []
+eligibility:
+- codes: ['3700', '3900', '6900', '8400', '8900']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B6
+  quote: Residential (<100MWh pa)
+- codes: ['3700', '3900', '6900', '8400', '8900']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:SACS Residential!B6
+  quote: Residential (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B12
+  quote: Controlled load (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Residential!B12
+  quote: Controlled load (<100MWh pa)
+- codes: ['8400']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
+- codes: ['8900']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
+- codes: ['3600', '3800', '6000', '6800', '7100', '8500', '8800']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B6
+  quote: Small Business (<100MWh pa)
+- codes: ['3600', '3800', '6000', '6800', '7100', '8500', '8800']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:SACS Business!B6
+  quote: Small Business (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B14
+  quote: Controlled load (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Business!B14
+  quote: Controlled load (<100MWh pa)
+- codes: ['7100']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
+- codes: ['8500']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
+- codes: ['8800']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
+- codes: ['6600', '6700', '7200', '8100', '8300']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B6
+  quote: Large (>100MWh pa)
+- codes: ['6600']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:SAC Large!B7
+  quote: Large Residential Energy
+- codes: ['6700', '7200', '8100', '8300']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:SAC Large!B6
+  quote: Large (>100MWh pa)
+  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+- codes: ['5800', '5900']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B12
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['5800', '5900']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SAC Large!B12
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['7200']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:SAC Large!B9
+  quote: LV Demand Time-of-Use
+- codes: ['9600']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:SAC Unmetered!B6
+  quote: Unmetered
+- codes: ['9600']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:SAC Unmetered!B6
+  quote: Unmetered
+- codes: ['3000']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: embedded_generation
+  locator: xlsx:CAC!B7
+  quote: EG - 11kV*
+  note: EG = embedded generation (Connection Asset Customer)
+- codes: ['4000', '4500', '7400']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CAC!B2
+  quote: Connection Asset Customers (CACs) - Energex
+  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
+- codes: ['3000']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B7
+  quote: EG - 11kV*
+- codes: ['3000']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
+- codes: ['4000']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B8
+  quote: 11kV Bus
+- codes: ['4500']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B9
+  quote: 11kV Line*
+- codes: ['4500']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
+- codes: ['7400']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B10
+  quote: Demand ToU 11kV
+- codes: [TBA]
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CAC Trial!B2
+  quote: Connection Asset Customers (CACs) - Energex
+  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
+- codes: ['1000']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network Tariff Classes & Codes!B32
+  quote: Individually Calculated Customer – South East
+  note: tariff class Individually Calculated Customer (ICC); large_business is the closest schema value
+- codes: ['3700', '3900', '6900', '8400', '8900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B6
+  quote: Residential (<100MWh pa)
+- codes: ['3700', '3900', '6900', '8400', '8900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:SACS Residential!B6
+  quote: Residential (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B12
+  quote: Controlled load (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Residential!B12
+  quote: Controlled load (<100MWh pa)
+- codes: ['8400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
+- codes: ['8900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
+- codes: ['3600', '3800', '6000', '6800', '7100', '8500', '8800']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B6
+  quote: Small Business (<100MWh pa)
+- codes: ['3600', '3800', '6000', '6800', '7100', '8500', '8800']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:SACS Business!B6
+  quote: Small Business (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B14
+  quote: Controlled load (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Business!B14
+  quote: Controlled load (<100MWh pa)
+- codes: ['7100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
+- codes: ['8500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
+- codes: ['8800']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
+- codes: ['6600', '6700', '7200', '8100', '8300']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B6
+  quote: Large (>100MWh pa)
+- codes: ['6600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:SAC Large!B7
+  quote: Large Residential Energy
+- codes: ['6700', '7200', '8100', '8300']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:SAC Large!B6
+  quote: Large (>100MWh pa)
+  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+- codes: ['5800', '5900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B12
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['5800', '5900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SAC Large!B12
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['7200']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:SAC Large!B9
+  quote: LV Demand Time-of-Use
+- codes: ['9600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:SAC Unmetered!B6
+  quote: Unmetered
+- codes: ['9600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:SAC Unmetered!B6
+  quote: Unmetered
+- codes: ['3000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: embedded_generation
+  locator: xlsx:CAC!B7
+  quote: EG - 11kV*
+  note: EG = embedded generation (Connection Asset Customer)
+- codes: ['4000', '4500', '7400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CAC!B2
+  quote: Connection Asset Customers (CACs) - Energex
+  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
+- codes: ['3000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B7
+  quote: EG - 11kV*
+- codes: ['3000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
+- codes: ['4000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B8
+  quote: 11kV Bus
+- codes: ['4500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B9
+  quote: 11kV Line*
+- codes: ['4500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
+- codes: ['7400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B10
+  quote: Demand ToU 11kV
+- codes: [TBA]
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CAC Trial!B2
+  quote: Connection Asset Customers (CACs) - Energex
+  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
+- codes: ['1000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network Tariff Classes & Codes!B32
+  quote: Individually Calculated Customer – South East
+  note: tariff class Individually Calculated Customer (ICC); large_business is the closest schema value
+- codes: ['3700', '3900', '6900', '8400', '8900']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B6
+  quote: Residential (<100MWh pa)
+- codes: ['3700', '3900', '6900', '8400', '8900']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:SACS Residential!B6
+  quote: Residential (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B12
+  quote: Controlled load (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Residential!B12
+  quote: Controlled load (<100MWh pa)
+- codes: ['8400']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
+- codes: ['8900']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
+- codes: ['3600', '3800', '6000', '6800', '7100', '8500', '8800']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B6
+  quote: Small Business (<100MWh pa)
+- codes: ['3600', '3800', '6000', '6800', '7100', '8500', '8800']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:SACS Business!B6
+  quote: Small Business (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B14
+  quote: Controlled load (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Business!B14
+  quote: Controlled load (<100MWh pa)
+- codes: ['7100']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
+- codes: ['8500']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
+- codes: ['8800']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
+- codes: ['6600', '6700', '7200', '8100', '8300']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B6
+  quote: Large (>100MWh pa)
+- codes: ['6600']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:SAC Large!B7
+  quote: Large Residential Energy
+- codes: ['6700', '7200', '8100', '8300']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:SAC Large!B6
+  quote: Large (>100MWh pa)
+  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+- codes: ['5800', '5900']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B12
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['5800', '5900']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SAC Large!B12
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['7200']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:SAC Large!B9
+  quote: LV Demand Time-of-Use
+- codes: ['9600']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:SAC Unmetered!B6
+  quote: Unmetered
+- codes: ['9600']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:SAC Unmetered!B6
+  quote: Unmetered
+- codes: ['3000']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: embedded_generation
+  locator: xlsx:CAC!B7
+  quote: EG - 11kV*
+  note: EG = embedded generation (Connection Asset Customer)
+- codes: ['4000', '4500', '7400']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CAC!B2
+  quote: Connection Asset Customers (CACs) - Energex
+  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
+- codes: ['3000']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B7
+  quote: EG - 11kV*
+- codes: ['3000']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
+- codes: ['4000']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B8
+  quote: 11kV Bus
+- codes: ['4500']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B9
+  quote: 11kV Line*
+- codes: ['4500']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
+- codes: ['7400']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B10
+  quote: Demand ToU 11kV
+- codes: [TBA3, TBA4, TBA6]
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: trial
+  locator: xlsx:Trial Tariffs!B2
+  quote: Tariff Trials - Energex
+- codes: [TBA3]
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Trial Tariffs!B7
+  quote: CAC Dynamic Price Storage
+- codes: [TBA3]
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Trial Tariffs!B7
+  quote: CAC Dynamic Price Storage
+  note: CAC = Connection Asset Customer
+- codes: [TBA4]
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Trial Tariffs!B8
+  quote: CAC Dynamic Flex Storage
+- codes: [TBA4]
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Trial Tariffs!B8
+  quote: CAC Dynamic Flex Storage
+  note: CAC = Connection Asset Customer
+- codes: [TBA6]
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Trial Tariffs!B9
+  quote: Large Dynamic Flex Storage
+- codes: [TBA6]
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Trial Tariffs!B9
+  quote: Large Dynamic Flex Storage
+- codes: ['3700', '3900', '6900', '8400', '8900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B6
+  quote: Residential (<100MWh pa)
+- codes: ['3700', '3900', '6900', '8400', '8900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:SACS Residential!B6
+  quote: Residential (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B12
+  quote: Controlled load (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Residential!B12
+  quote: Controlled load (<100MWh pa)
+- codes: ['8400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
+- codes: ['8900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
+- codes: ['3600', '3800', '6000', '6800', '7100', '8500', '8800']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B6
+  quote: Small Business (<100MWh pa)
+- codes: ['3600', '3800', '6000', '6800', '7100', '8500', '8800']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:SACS Business!B6
+  quote: Small Business (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B14
+  quote: Controlled load (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Business!B14
+  quote: Controlled load (<100MWh pa)
+- codes: ['7100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
+- codes: ['8500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
+- codes: ['8800']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
+- codes: ['6600', '6700', '7200', '8100', '8300']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B6
+  quote: Large (>100MWh pa)
+- codes: ['6600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:SAC Large!B7
+  quote: Large Residential Energy
+- codes: ['6700', '7200', '8100', '8300']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:SAC Large!B6
+  quote: Large (>100MWh pa)
+  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+- codes: ['5800', '5900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B12
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['5800', '5900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SAC Large!B12
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['7200']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:SAC Large!B9
+  quote: LV Demand Time-of-Use
+- codes: ['9600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:SAC Unmetered!B6
+  quote: Unmetered
+- codes: ['9600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:SAC Unmetered!B6
+  quote: Unmetered
+- codes: ['3000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: embedded_generation
+  locator: xlsx:CAC!B7
+  quote: EG - 11kV*
+  note: EG = embedded generation (Connection Asset Customer)
+- codes: ['4000', '4500', '7400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CAC!B2
+  quote: Connection Asset Customers (CACs) - Energex
+  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
+- codes: ['3000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B7
+  quote: EG - 11kV*
+- codes: ['3000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
+- codes: ['4000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B8
+  quote: 11kV Bus
+- codes: ['4500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B9
+  quote: 11kV Line*
+- codes: ['4500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
+- codes: ['7400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B10
+  quote: Demand ToU 11kV
+- codes: ['92000', '92100', '94000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: trial
+  locator: xlsx:Trial Tariffs!B2
+  quote: Tariff Trials - Energex
+- codes: ['92100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Trial Tariffs!B7
+  quote: CAC Dynamic Price Storage
+- codes: ['92100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Trial Tariffs!B7
+  quote: CAC Dynamic Price Storage
+  note: CAC = Connection Asset Customer
+- codes: ['92000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Trial Tariffs!B8
+  quote: CAC Dynamic Flex Storage
+- codes: ['92000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Trial Tariffs!B8
+  quote: CAC Dynamic Flex Storage
+  note: CAC = Connection Asset Customer
+- codes: ['94000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Trial Tariffs!B9
+  quote: Large Dynamic Flex Storage
+- codes: ['94000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Trial Tariffs!B9
+  quote: Large Dynamic Flex Storage
+- codes: ['3900', '6900', '8400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B7
+  quote: Residential (<100MWh pa)
+- codes: ['3900', '6900', '8400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:SACS Residential!B7
+  quote: Residential (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B11
+  quote: Controlled load (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Residential!B11
+  quote: Controlled load (<100MWh pa)
+- codes: ['8400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Residential!B14
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
+- codes: ['3800', '6800', '8500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B7
+  quote: Small Business (<100MWh pa)
+- codes: ['3800', '6800', '8500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:SACS Business!B7
+  quote: Small Business (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B11
+  quote: Controlled load (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Business!B11
+  quote: Controlled load (<100MWh pa)
+- codes: ['9600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:SACS Business!B15
+  quote: Unmetered
+- codes: ['9600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:SACS Business!B15
+  quote: Unmetered
+- codes: ['9600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B3
+  quote: Standard Asset Customers (SAC) - Small Business (<100MWh pa) - Energex
+- codes: ['8500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: availability
+  value_text: grandfathered
+  locator: xlsx:SACS Business!B17
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B10)
+- codes: ['6700', '7200', '8300', '94300']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B7
+  quote: Large (>100MWh pa)
+- codes: ['6700', '7200', '8300', '94300']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:SAC Large!B7
+  quote: Large (>100MWh pa)
+  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+- codes: ['94000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:SAC Large!B12
+  quote: Storage
+- codes: ['5800', '5900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B14
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['5800', '5900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SAC Large!B14
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['94000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B3
+  quote: Standard Asset Customers (SAC) - Large (>100MWh pa) - Energex
+- codes: ['94000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:SAC Large!B3
+  quote: Standard Asset Customers (SAC) - Large (>100MWh pa) - Energex
+  note: sheet title 'Large (>100MWh pa)'; tariff label names a large (non-residential) tariff
+- codes: ['92000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:CAC!B12
+  quote: Storage
+- codes: ['4000', '7400', '92000', '92300', '92400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CAC!B3
+  quote: Connection Asset Customers (CACs) - Energex
+  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
+- codes: ['7400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B8
+  quote: 11kV ToU Demand
+- codes: ['4000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B9
+  quote: 11kV Bus
+- codes: ['92300']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B10
+  quote: CAC HV Line TOU Demand
+- codes: ['92400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B11
+  quote: CAC HV Bus TOU Demand
+- codes: ['92100', '92200', '94100', '94200']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: availability
+  value_text: trial
+  locator: xlsx:Tariff Trials!B3
+  quote: Trial Tariffs - Energex
+- codes: ['92100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Tariff Trials!B8
+  quote: CAC Dynamic Price Storage
+- codes: ['92100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff Trials!B8
+  quote: CAC Dynamic Price Storage
+  note: CAC = Connection Asset Customer
+- codes: ['94100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Tariff Trials!B9
+  quote: SAC Dynamic Price Storage
+- codes: ['92200']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Tariff Trials!B11
+  quote: CAC Secondary Dynamic Price Storage
+- codes: ['92200']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff Trials!B11
+  quote: CAC Secondary Dynamic Price Storage
+  note: CAC = Connection Asset Customer
+- codes: ['94200']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Tariff Trials!B12
+  quote: SAC Secondary Dynamic Price Storage
+- codes: ['3900', '6900', '8400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B7
+  quote: Residential (<100MWh pa)
+- codes: ['3900', '6900', '8400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:SACS Residential!B7
+  quote: Residential (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Residential!B11
+  quote: Controlled load (<100MWh pa)
+- codes: ['9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Residential!B11
+  quote: Controlled load (<100MWh pa)
+- codes: ['8400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: availability
+  value_text: closed_to_new
+  locator: xlsx:SACS Residential!B14
+  quote: '*Closed to new customers'
+  note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
+- codes: ['3800', '6800', '8500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B7
+  quote: Small Business (<100MWh pa)
+- codes: ['3800', '6800', '8500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:SACS Business!B7
+  quote: Small Business (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B11
+  quote: Controlled load (<100MWh pa)
+- codes: ['5700', '9000', '9100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SACS Business!B11
+  quote: Controlled load (<100MWh pa)
+- codes: ['9600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:SACS Business!B15
+  quote: Unmetered
+- codes: ['9600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:SACS Business!B15
+  quote: Unmetered
+- codes: ['9600']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SACS Business!B3
+  quote: Standard Asset Customers (SAC) - Small Business (<100MWh pa) - Energex
+- codes: ['8500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: availability
+  value_text: closed_to_new
+  locator: xlsx:SACS Business!B17
+  quote: '*Closed to new customers'
+  note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B10)
+- codes: ['6700', '7200', '8300', '94300']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B7
+  quote: Large (>100MWh pa)
+- codes: ['6700', '7200', '8300', '94300']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:SAC Large!B7
+  quote: Large (>100MWh pa)
+  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+- codes: ['94000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:SAC Large!B12
+  quote: Storage
+- codes: ['5800', '5900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B14
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['5800', '5900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:SAC Large!B14
+  quote: Large Controlled Load (>100MWh pa)
+- codes: ['94000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 100
+  value_unit: MWh/yr
+  locator: xlsx:SAC Large!B3
+  quote: Standard Asset Customers (SAC) - Large (>100MWh pa) - Energex
+- codes: ['94000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:SAC Large!B3
+  quote: Standard Asset Customers (SAC) - Large (>100MWh pa) - Energex
+  note: sheet title 'Large (>100MWh pa)'; tariff label names a large (non-residential) tariff
+- codes: ['92000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:CAC!B12
+  quote: Storage
+- codes: ['4000', '7400', '92000', '92300', '92400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CAC!B3
+  quote: Connection Asset Customers (CACs) - Energex
+  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
+- codes: ['7400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B8
+  quote: 11kV ToU Demand
+- codes: ['4000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B9
+  quote: 11kV Bus
+- codes: ['92300']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B10
+  quote: CAC HV Line TOU Demand
+- codes: ['92400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CAC!B11
+  quote: CAC HV Bus TOU Demand
+- codes: ['92500', '94500', '96200']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: availability
+  value_text: trial
+  locator: xlsx:Tariff Trials!B3
+  quote: Tariff Trials - Energex
+- codes: ['96200']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff Trials!B8
+  quote: Residential Two-Way Tariff Trial
+- codes: ['94500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff Trials!B9
+  quote: Dynamic Business LV Tariff Trial
+- codes: ['94500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff Trials!B9
+  quote: Dynamic Business LV Tariff Trial
+- codes: ['92500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff Trials!B11
+  quote: Dynamic Business HV Tariff Trial
+- codes: ['92500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff Trials!B11
+  quote: Dynamic Business HV Tariff Trial
+- codes: ['8400']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!F86
+  quote: SACS Res
+  note: AER secondary tariff class
+- codes: ['8900']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!F87
+  quote: SACS Res
+  note: AER secondary tariff class
+- codes: ['6900']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!F88
+  quote: SACS Res
+  note: AER secondary tariff class
+- codes: ['3900']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!F89
+  quote: SACS Res
+  note: AER secondary tariff class
+- codes: ['3700']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!F90
+  quote: SACS Res
+  note: AER secondary tariff class
+- codes: ['9000']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!F92
+  quote: SACS CL
+  note: AER secondary tariff class
+- codes: ['9100']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!F93
+  quote: SACS CL
+  note: AER secondary tariff class
+- codes: ['8500']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!F95
+  quote: SACS Bus
+  note: AER secondary tariff class
+- codes: ['8800']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!F96
+  quote: SACS Bus
+  note: AER secondary tariff class
+- codes: ['6800']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!F97
+  quote: SACS Bus
+  note: AER secondary tariff class
+- codes: ['6000']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!F98
+  quote: SACS Bus
+  note: AER secondary tariff class
+- codes: ['7100']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!F99
+  quote: SACS Bus
+  note: AER secondary tariff class
+- codes: ['3800']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!F100
+  quote: SACS Bus
+  note: AER secondary tariff class
+- codes: ['3600']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!F101
+  quote: SACS Bus
+  note: AER secondary tariff class
+- codes: ['5700']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!F102
+  quote: SACS Bus
+  note: AER secondary tariff class
+- codes: ['9600']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!F104
+  quote: SACS Unm
+  note: AER secondary tariff class
+- codes: ['9600']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!F104
+  quote: SACS Unm
+- codes: ['8100']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!F106
+  quote: SACL
+  note: AER secondary tariff class SACL (SAC Large)
+- codes: ['8300']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!F107
+  quote: SACL
+  note: AER secondary tariff class SACL (SAC Large)
+- codes: ['7200']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!F108
+  quote: SACL
+  note: AER secondary tariff class SACL (SAC Large)
+- codes: ['7200']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C108
+  quote: Demand ToU LV
+- codes: ['6600']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C109
+  quote: Large Residential Energy
+- codes: ['6700']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!F110
+  quote: SACL
+  note: AER secondary tariff class SACL (SAC Large)
+- codes: ['5800']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!F111
+  quote: SACL
+  note: AER secondary tariff class SACL (SAC Large)
+- codes: ['5900']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!F112
+  quote: SACL
+  note: AER secondary tariff class SACL (SAC Large)
+- codes: ['7400']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D114
+  quote: CAC
+  note: AER tariff class CAC; large_business is the closest schema value
+- codes: ['7400']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C114
+  quote: HV ToU Demand
+- codes: ['4500']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D115
+  quote: CAC
+  note: AER tariff class CAC; large_business is the closest schema value
+- codes: ['4500']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C115
+  quote: 11 kV Line
+- codes: ['3000']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: embedded_generation
+  locator: xlsx:Tariff schedule!C116
+  quote: EG 11 kV
+  note: EG = embedded generation (CAC tariff class)
+- codes: ['3000']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C116
+  quote: EG 11 kV
+- codes: ['4000']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D117
+  quote: CAC
+  note: AER tariff class CAC; large_business is the closest schema value
+- codes: ['4000']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C117
+  quote: 11 kV Bus
+- codes: ['1000']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D119
+  quote: ICC
+  note: AER tariff class ICC; large_business is the closest schema value
+relations: []
+flags:
+- codes: ['3900']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:SACS Residential!B8
+  quote: Residential Transitional Demand
+- codes: ['3800']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:SACS Business!B8
+  quote: Small Business Transitional Demand
+- codes: ['3000']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: site_specific
+  locator: xlsx:CAC!D7
+  quote: Site Specific
+  note: Fixed Charge column for 'EG - 11kV*' reads 'Site Specific'
+- codes: ['4000']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: site_specific
+  locator: xlsx:CAC!D8
+  quote: Site Specific
+  note: Fixed Charge column for '11kV Bus' reads 'Site Specific'
+- codes: ['4500']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: site_specific
+  locator: xlsx:CAC!D9
+  quote: Site Specific
+  note: Fixed Charge column for '11kV Line*' reads 'Site Specific'
+- codes: ['7100']
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Network Tariff Classes & Codes!D14
+  quote: Business Demand (closed) South East
+- codes: ['3900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:SACS Residential!B8
+  quote: Residential Transitional Demand
+- codes: ['3800']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:SACS Business!B8
+  quote: Small Business Transitional Demand
+- codes: ['3000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: site_specific
+  locator: xlsx:CAC!D7
+  quote: Site Specific
+  note: Fixed Charge column for 'EG - 11kV*' reads 'Site Specific'
+- codes: ['4000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: site_specific
+  locator: xlsx:CAC!D8
+  quote: Site Specific
+  note: Fixed Charge column for '11kV Bus' reads 'Site Specific'
+- codes: ['4500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: site_specific
+  locator: xlsx:CAC!D9
+  quote: Site Specific
+  note: Fixed Charge column for '11kV Line*' reads 'Site Specific'
+- codes: ['7100']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Network Tariff Classes & Codes!D14
+  quote: Business Demand (closed) South East
+- codes: ['3900']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:SACS Residential!B8
+  quote: Residential Transitional Demand
+- codes: ['3800']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:SACS Business!B8
+  quote: Small Business Transitional Demand
+- codes: ['3000']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: site_specific
+  locator: xlsx:CAC!D7
+  quote: Site Specific
+  note: Fixed Charge column for 'EG - 11kV*' reads 'Site Specific'
+- codes: ['4000']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: site_specific
+  locator: xlsx:CAC!D8
+  quote: Site Specific
+  note: Fixed Charge column for '11kV Bus' reads 'Site Specific'
+- codes: ['4500']
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: site_specific
+  locator: xlsx:CAC!D9
+  quote: Site Specific
+  note: Fixed Charge column for '11kV Line*' reads 'Site Specific'
+- codes: [TBA3, TBA4, TBA6]
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: trial
+  locator: xlsx:Trial Tariffs!B2
+  quote: Tariff Trials - Energex
+- codes: ['3900']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:SACS Residential!B8
+  quote: Residential Transitional Demand
+- codes: ['3800']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:SACS Business!B8
+  quote: Small Business Transitional Demand
+- codes: ['3000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: site_specific
+  locator: xlsx:CAC!D7
+  quote: Site Specific
+  note: Fixed Charge column for 'EG - 11kV*' reads 'Site Specific'
+- codes: ['4000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: site_specific
+  locator: xlsx:CAC!D8
+  quote: Site Specific
+  note: Fixed Charge column for '11kV Bus' reads 'Site Specific'
+- codes: ['4500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: site_specific
+  locator: xlsx:CAC!D9
+  quote: Site Specific
+  note: Fixed Charge column for '11kV Line*' reads 'Site Specific'
+- codes: ['92000', '92100', '94000']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: trial
+  locator: xlsx:Trial Tariffs!B2
+  quote: Tariff Trials - Energex
+- codes: ['92100', '92200', '94100', '94200']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  flag: trial
+  locator: xlsx:Tariff Trials!B3
+  quote: Trial Tariffs - Energex
+- codes: ['8400']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: xlsx:SACS Residential!B14
+  quote: '*Closed to new customers'
+  note: 'tariff marked *: ''Residential Flat*'' (SACS Residential!B10)'
+- codes: ['8500']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: xlsx:SACS Business!B17
+  quote: '*Closed to new customers'
+  note: 'tariff marked *: ''Business Flat*'' (SACS Business!B10)'
+- codes: ['92500', '94500', '96200']
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
+  fin_year: 2026-27
+  flag: trial
+  locator: xlsx:Tariff Trials!B3
+  quote: Tariff Trials - Energex
+- codes: ['3900']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:Tariff schedule!C89
+  quote: Residential Transitional Demand
+- codes: ['3800']
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:Tariff schedule!C100
+  quote: Small Business Transitional Demand
+- codes:
+  - '8400'
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
+- codes:
+  - '8900'
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
+- codes:
+  - '7100'
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
+- codes:
+  - '8500'
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
+- codes:
+  - '8800'
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
+- codes:
+  - '3000'
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
+- codes:
+  - '4500'
+  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
+- codes:
+  - '8400'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
+- codes:
+  - '8900'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
+- codes:
+  - '7100'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
+- codes:
+  - '8500'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
+- codes:
+  - '8800'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
+- codes:
+  - '3000'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
+- codes:
+  - '4500'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
+  fin_year: 2023-24
+  flag: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
+- codes:
+  - '8400'
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
+- codes:
+  - '8900'
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
+- codes:
+  - '7100'
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
+- codes:
+  - '8500'
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
+- codes:
+  - '8800'
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
+- codes:
+  - '3000'
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
+- codes:
+  - '4500'
+  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
+- codes:
+  - '8400'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
+- codes:
+  - '8900'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:SACS Residential!B15
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
+- codes:
+  - '7100'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
+- codes:
+  - '8500'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
+- codes:
+  - '8800'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:SACS Business!B18
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
+- codes:
+  - '3000'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
+- codes:
+  - '4500'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
+  fin_year: 2024-25
+  flag: grandfathered
+  locator: xlsx:CAC!B11
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
+- codes:
+  - '8400'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  flag: grandfathered
+  locator: xlsx:SACS Residential!B14
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
+- codes:
+  - '8500'
+  doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
+  fin_year: 2025-26
+  flag: grandfathered
+  locator: xlsx:SACS Business!B17
+  quote: '*Grandfathered'
+  note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B10)

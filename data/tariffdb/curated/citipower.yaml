@@ -1,0 +1,5127 @@
+distributor: citipower
+tou_schedules:
+- id: citipower-2324-pdf-res-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Residential ToU (CRTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p25
+  quote: all days non-peak ToU CRTOU Default ✓ 3pm-9pm times
+  note: Table A.7; 'all times are local time' (same page). Applies all days, so public holidays are unchanged.
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '15:00'
+  - period: peak
+    label: peak all days 3pm-9pm
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CRTOU
+    applies_to: energy
+- id: citipower-2324-pdf-res-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Residential demand (CR) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: workdays workdays Demand CR Opt-in ✓ ✓ 3pm-9pm 3pm-9pm
+  note: Table A.7 summer demand and non-summer demand columns; 'summer period covers December to March, non-summer is
+    April to November'. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
+    not stated
+  windows:
+  - period: demand_window
+    label: workdays 3pm-9pm (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 3pm-9pm (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - CR
+    applies_to: demand
+- id: citipower-2324-pdf-hot-water
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Dedicated circuit (CDS) hot water typical switching times
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: 'Switching Times: Typically switching times will occur between 9.30pm and 7am. These times may vary depending
+    on localised demand'
+  note: Typical times only; they may vary with localised demand management. Days not stated (taken as every day).
+  windows:
+  - period: controlled_load_supply
+    label: typical switching 9.30pm-7am
+    days: all_days
+    start: '21:30'
+    end: '24:00'
+  - period: controlled_load_supply
+    label: typical switching 9.30pm-7am
+    days: all_days
+    start: 00:00
+    end: 07:00
+  tariffs:
+  - codes:
+    - CDS
+    applies_to: controlled_load
+- id: citipower-2324-pdf-slab-heating
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Dedicated circuit (CDS) slab heating typical switching times
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: Typically switching times may vary depending on localised demand management activities normally between 12am
+    and 7am.
+  note: 'Typical times only. Same page: ''An afternoon boost between 1pm and 4pm may occur during winter'' (winter months
+    not defined, so not encoded as a window).'
+  windows:
+  - period: controlled_load_supply
+    label: normally 12am-7am
+    days: all_days
+    start: 00:00
+    end: 07:00
+  tariffs:
+  - codes:
+    - CDS
+    applies_to: controlled_load
+- id: citipower-2324-pdf-sb-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Small business ToU (CGTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p26
+  quote: workdays Non-peak ToU CGTOU Default ✓ 9am-9pm times
+  note: Table A.8; 'all times are local time, except for C2U'. 'workdays' is not defined in the document; mapped to business_day
+    (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: 09:00
+  - period: peak
+    label: peak workdays 9am-9pm
+    days: business_day
+    start: 09:00
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CGTOU
+    applies_to: energy
+- id: citipower-2324-pdf-cg-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Small business demand (CG) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p26
+  quote: workdays workdays Demand CG Opt-in ✓ ✓ 10am-6pm 10am-6pm
+  note: Table A.8 summer / non-summer demand columns; summer is December to March. 'workdays' is not defined in the document;
+    mapped to business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: demand_window
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - CG
+    applies_to: demand
+- id: citipower-2324-pdf-cmg-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Medium business demand (CMG) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p26
+  quote: '> 40MWh pa workdays workdays Medium business demand CMG Default ✓ ✓ < 120KVA 10am-6pm 10am-6pm'
+  note: Table A.8 summer / non-summer demand columns; summer is December to March. 'workdays' is not defined in the document;
+    mapped to business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: demand_window
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: demand
+- id: citipower-2324-pdf-cmg-energy-bill
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Medium business demand (CMG) energy as shown on the bill
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p26
+  quote: CMG energy rate is reflected as anytime rate in our pricing schedule, however on our bill it will show as peak
+    7am-11pm work days and off peak all other time with exactly the same rate.
+  note: Peak and off-peak carry exactly the same (anytime) rate; the split is a billing presentation. 'workdays' is not
+    defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: off_peak
+    label: off peak all other time
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-11pm work days
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: off peak all other time
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: off peak all other time
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: energy
+- id: citipower-2324-pdf-cmgo21-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Medium business opt-out (CMGO21) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p26
+  quote: < 160MWh workdays Non-peak Medium business opt-out CMGO21 Opt-out ✓ pa 10am-6pm times
+  note: Table A.8. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
+    not stated
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: peak
+    label: peak workdays 10am-6pm
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '18:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMGO21
+    applies_to: energy
+- id: citipower-2324-pdf-c2u-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Unmetered supply (C2U) energy peak / off-peak
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p26
+  quote: weekdays Non-peak Unmetered supply C2U Default unmetered 7am-11pm times
+  note: 'Notes on the page: ''all times are local time, except for C2U'' - the basis for C2U is not stated on this page
+    (later documents say AEST).'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak weekdays 7am-11pm
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2U
+    applies_to: energy
+- id: citipower-2324-pdf-large-incentive-1
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: 'Large tariffs ending 1: summer incentive demand 1-4pm'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p27
+  quote: tariffs ending 1 represent 1-4pm, tariffs ending 2 represent 4-7pm summer incentive demand period
+  note: 'Months and workdays from A.4.3 (p29): ''maximum monthly 15-minute kVA for the December to March months ... on
+    each workday''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
+    not stated'
+  windows:
+  - period: demand_window
+    label: summer incentive 1-4pm
+    days: business_day
+    start: '13:00'
+    end: '16:00'
+    months: 12,1,2,3
+    season: summer
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLV1
+    - CHVT1
+    - CHV1
+    applies_to: demand
+- id: citipower-2324-pdf-large-incentive-2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: 'Large tariffs ending 2 and CST2: summer incentive demand 4-7pm'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p27
+  quote: tariffs ending 1 represent 1-4pm, tariffs ending 2 represent 4-7pm summer incentive demand period
+  note: CST2 shows 4-7pm in the summer incentive demand column of Table A.9. 'workdays' is not defined in the document;
+    mapped to business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: demand_window
+    label: summer incentive 4-7pm
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 12,1,2,3
+    season: summer
+  tariffs:
+  - codes:
+    - CLLVT2
+    - CLLV2
+    - CHVT2
+    - CHV2
+    applies_to: demand
+  - codes:
+    - CST2
+    applies_to: demand
+    locator: pdf:p27
+    quote: Sub-transmission CST2 Default ≥ 22kV N/A 5,000 Non-peak times 4-7pm
+- id: citipower-2324-pdf-large-energy
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Large LV / HV / sub-transmission peak and off-peak usage
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other
+    times.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
+    stated'
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '19:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLV1
+    - CHVT1
+    - CHV1
+    - CLLVT2
+    - CLLV2
+    - CHVT2
+    - CHV2
+    - CST2
+    applies_to: energy
+- id: citipower-2324-pdf-large-rolling
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Large LV / HV / sub-transmission 12-month rolling demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p29
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
+    stated'
+  windows:
+  - period: demand_window
+    label: rolling demand 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLV1
+    - CHVT1
+    - CHV1
+    - CLLVT2
+    - CLLV2
+    - CHVT2
+    - CHV2
+    - CST2
+    applies_to: demand
+- id: citipower-2324-pdf-crds
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Residential daytime saver trial (CRDS) peak / saver / off-peak
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p13
+  quote: Residential daytime saver peak period is 4pm-9pm, saver period is 10am-3pm, and off-peak is all other times,
+    from Monday to Sunday. Time band from 3pm to 4pm is considered as off-peak
+  note: 'p14: ''all trial tariffs are in local time.'''
+  windows:
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: 00:00
+    end: '10:00'
+  - period: solar_soak
+    label: saver 10am-3pm
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+  - period: off_peak
+    label: off-peak (3pm-4pm)
+    days: all_days
+    start: '15:00'
+    end: '16:00'
+  - period: peak
+    label: peak 4pm-9pm
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CRDS
+    applies_to: all
+- id: citipower-2324-pdf-cndb
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Community battery time of use trial (CNDB) peak / saver / off-peak
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p14
+  quote: The peak period is 4pm-9pm, saver period is 10am-3pm, and off- peak is all other times, from Monday to Sunday.
+    Time band from 3pm to 4pm is considered as off-peak
+  note: Community battery note; applies to import and export (negative values are a rebate). 'all trial tariffs are in
+    local time.'
+  windows:
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: 00:00
+    end: '10:00'
+  - period: solar_soak
+    label: saver 10am-3pm
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+  - period: off_peak
+    label: off-peak (3pm-4pm)
+    days: all_days
+    start: '15:00'
+    end: '16:00'
+  - period: peak
+    label: peak 4pm-9pm
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CNDB
+    applies_to: all
+- id: citipower-2324-pdf-gt-demand-a
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Generator storage trial (GT) demand window option 4-9pm
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p14
+  quote: Generator tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for
+    only 4-9pm or only 11am-4pm, every day of year, local time
+  note: Each site is measured over one of the two windows (4-9pm or 11am-4pm).
+  windows:
+  - period: demand_window
+    label: only 4-9pm every day
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes:
+    - GT
+    applies_to: demand
+- id: citipower-2324-pdf-gt-demand-b
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Generator storage trial (GT) demand window option 11am-4pm
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p14
+  quote: Generator tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for
+    only 4-9pm or only 11am-4pm, every day of year, local time
+  note: Each site is measured over one of the two windows (4-9pm or 11am-4pm).
+  windows:
+  - period: demand_window
+    label: only 11am-4pm every day
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+  tariffs:
+  - codes:
+    - GT
+    applies_to: demand
+- id: citipower-2425-pdf-slab-heating
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Dedicated circuit (CDS) slab heating typical switching times
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: Typically switching times may vary depending on localised demand management activities normally between 12am
+    and 7am.
+  note: 'Typical times only. ''An afternoon boost between 1pm and 4pm may occur during winter'' (winter months not defined).
+    Hot water: ''Switching times will vary depending on localised demand management activities'' (no times).'
+  windows:
+  - period: controlled_load_supply
+    label: normally 12am-7am
+    days: all_days
+    start: 00:00
+    end: 07:00
+  tariffs:
+  - codes:
+    - CDS
+    applies_to: controlled_load
+- id: citipower-2425-pdf-sb-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Small business ToU (CGTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p10
+  quote: workdays 9am- ToU CGTOU Default ✓ Non-peak times 9pm
+  note: Table 5; 'All times are local time, except for C2U'. 'workdays' is not defined in the document; mapped to business_day
+    (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: 09:00
+  - period: peak
+    label: peak workdays 9am-9pm
+    days: business_day
+    start: 09:00
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CGTOU
+    applies_to: energy
+- id: citipower-2425-pdf-cg-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Small business demand (CG) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: workdays 10am- workdays 10am- Demand CG Opt-in ✓ ✓ 6pm 6pm
+  note: Table 5 summer / non-summer demand; summer covers December to March. 'workdays' is not defined in the document;
+    mapped to business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: demand_window
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - CG
+    applies_to: demand
+- id: citipower-2425-pdf-cmg-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Medium business demand (CMG) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: '> 40MWh pa workdays 10am- workdays 10am- Medium business demand CMG Default ✓ ✓ < 120KVA 6pm 6pm'
+  note: Table 5 summer / non-summer demand; summer covers December to March. 'workdays' is not defined in the document;
+    mapped to business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: demand_window
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: demand
+- id: citipower-2425-pdf-cmgo21-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Medium business opt-out (CMGO21) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p10
+  quote: workdays 10am- Medium business opt-out CMGO21 Opt-out < 160MWh pa ✓ Non-peak times 6pm
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
+    stated'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: peak
+    label: peak workdays 10am-6pm
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '18:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMGO21
+    applies_to: energy
+- id: citipower-2425-pdf-c2u-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Unmetered supply (C2U) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p10
+  quote: weekdays 7am- Unmetered supply C2U Default unmetered Non-peak times 11pm
+  note: 'p5: ''Exceptions are unmetered supply tariff C2U where the tariff is based on Australian Eastern Standard Time
+    (AEST).'''
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak weekdays 7am-11pm
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2U
+    applies_to: energy
+- id: citipower-2425-pdf-cmg-energy-bill
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Medium business demand (CMG) energy as shown on the bill
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p11
+  quote: CMG energy rate is reflected as anytime rate in our pricing schedule, however, on our bill it will show as peak
+    7am-11pm workdays and off peak all other time with exactly the same rate
+  note: Peak and off-peak carry exactly the same (anytime) rate. 'workdays' is not defined in the document; mapped to
+    business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: off_peak
+    label: off peak all other time
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-11pm workdays
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: off peak all other time
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: off peak all other time
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: energy
+- id: citipower-2425-pdf-large-incentive-1
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: 'Large tariffs ending 1: summer incentive demand 1-4pm'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: 'p13: summer incentive is the ''maximum monthly 15-minute kVA for the December to March months'' on each workday.
+    ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: summer incentive 1-4pm
+    days: business_day
+    start: '13:00'
+    end: '16:00'
+    months: 12,1,2,3
+    season: summer
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLV1
+    - CHVT1
+    - CHV1
+    applies_to: demand
+- id: citipower-2425-pdf-large-incentive-2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: 'Large tariffs ending 2: summer incentive demand 4-7pm'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: CST2's 4-7pm incentive period is printed in Table 6, whose text does not extract cleanly. 'workdays' is not defined
+    in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: demand_window
+    label: summer incentive 4-7pm
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 12,1,2,3
+    season: summer
+  tariffs:
+  - codes:
+    - CLLVT2
+    - CLLV2
+    - CHVT2
+    - CHV2
+    applies_to: demand
+- id: citipower-2425-pdf-large-energy
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Large LV / HV / sub-transmission peak and off-peak usage
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p13
+  quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other
+    times.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
+    stated'
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '19:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLV1
+    - CHVT1
+    - CHV1
+    - CLLVT2
+    - CLLV2
+    - CHVT2
+    - CHV2
+    - CST2
+    applies_to: energy
+- id: citipower-2425-pdf-large-rolling
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Large LV / HV / sub-transmission 12-month rolling demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p13
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
+    stated'
+  windows:
+  - period: demand_window
+    label: rolling demand 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLV1
+    - CHVT1
+    - CHV1
+    - CLLVT2
+    - CLLV2
+    - CHVT2
+    - CHV2
+    - CST2
+    applies_to: demand
+- id: citipower-2425-pdf-crds
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Residential daytime saver trial (CRDS) peak / saver / off-peak
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p6
+  quote: Peak period is 4pm-9pm, saver period is 10am-3pm, and off-peak is all other times, from Monday to Sunday, local
+    time
+  windows:
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: 00:00
+    end: '10:00'
+  - period: solar_soak
+    label: saver 10am-3pm
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: '15:00'
+    end: '16:00'
+  - period: peak
+    label: peak 4pm-9pm
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CRDS
+    applies_to: all
+- id: citipower-2425-pdf-gt-demand-a
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Generator storage trial (GT) demand window option 4-9pm
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p6
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or
+    over 11am-4pm depending on location, every day of the year, local time
+  note: Window depends on location (one of the two).
+  windows:
+  - period: demand_window
+    label: over 4-9pm every day
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes:
+    - GT
+    applies_to: demand
+- id: citipower-2425-pdf-gt-demand-b
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Generator storage trial (GT) demand window option 11am-4pm
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p6
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or
+    over 11am-4pm depending on location, every day of the year, local time
+  note: Window depends on location (one of the two).
+  windows:
+  - period: demand_window
+    label: over 11am-4pm every day
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+  tariffs:
+  - codes:
+    - GT
+    applies_to: demand
+- id: citipower-2526-pdf-slab-heating
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Dedicated circuit (CDS) slab heating typical switching times
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p6
+  quote: Typically switching times may vary depending on localised demand management activities normally between 12am
+    and 7am.
+  note: Typical times only; 'An afternoon boost between 1pm and 4pm may occur during winter'. Hot water switching times
+    vary (no times).
+  windows:
+  - period: controlled_load_supply
+    label: normally 12am-7am
+    days: all_days
+    start: 00:00
+    end: 07:00
+  tariffs:
+  - codes:
+    - CDS
+    applies_to: controlled_load
+- id: citipower-2526-pdf-cmg-energy-bill
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Medium business demand (CMG) energy as shown on the bill
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p7
+  quote: CMG energy rate is reflected as anytime rate in our pricing schedule, however, on our bill it will show as peak
+    7am-11pm workdays and off peak all other times with exactly the same rate
+  note: Same rate in both periods. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri); public
+    holiday treatment not stated
+  windows:
+  - period: off_peak
+    label: off peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-11pm workdays
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: off peak all other times
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: off peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: energy
+- id: citipower-2526-pdf-large-incentive-1
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: 'Large tariffs ending 1: summer incentive demand 1-4pm'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: 'p10: summer incentive is measured on each workday of the December to March months. ''workdays'' is not defined
+    in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: summer incentive 1-4pm
+    days: business_day
+    start: '13:00'
+    end: '16:00'
+    months: 12,1,2,3
+    season: summer
+  tariffs:
+  - codes:
+    - CLLV1
+    - CHV1
+    applies_to: demand
+- id: citipower-2526-pdf-large-incentive-2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: 'Large tariffs ending 2: summer incentive demand 4-7pm'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
+    stated'
+  windows:
+  - period: demand_window
+    label: summer incentive 4-7pm
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 12,1,2,3
+    season: summer
+  tariffs:
+  - codes:
+    - CLLV2
+    - CHV2
+    applies_to: demand
+- id: citipower-2526-pdf-large-energy
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Large LV / HV / sub-transmission peak and off-peak usage
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p10
+  quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other
+    times.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
+    stated'
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '19:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CLLV1
+    - CLLV2
+    - CHV1
+    - CHV2
+    - CST2
+    applies_to: energy
+- id: citipower-2526-pdf-large-rolling
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Large LV / HV / sub-transmission 12-month rolling demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
+    stated'
+  windows:
+  - period: demand_window
+    label: rolling demand 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  tariffs:
+  - codes:
+    - CLLV1
+    - CLLV2
+    - CHV1
+    - CHV2
+    - CST2
+    applies_to: demand
+- id: citipower-2627-pdf-crcer-bel
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Residential CER (CRCER) free export (BEL) window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p6
+  quote: CRCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number
+    of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh
+  note: Months not stated on this page; the 2026-27 Tariff Summary heads the export charge column 'Saver Export Sep-May'.
+    Import windows of CRSTOU / CRCER are in Table 4, an image in this document.
+  windows:
+  - period: export_charge_window
+    label: exports between 11:00am - 4:00pm (1 kWh/day basic export level free)
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+  tariffs:
+  - codes:
+    - CRCER
+    applies_to: export
+- id: citipower-2627-pdf-slab-heating
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Dedicated circuit (CDS) slab heating typical switching times
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p6
+  quote: Typically switching times are between 12am and 7am but may vary depending on localised demand management activities.
+  note: Typical times only; 'An afternoon boost between 1pm and 4pm may occur during winter'. Hot water switching times
+    vary (no times).
+  windows:
+  - period: controlled_load_supply
+    label: typically 12am-7am
+    days: all_days
+    start: 00:00
+    end: 07:00
+  tariffs:
+  - codes:
+    - CDS
+    applies_to: controlled_load
+- id: citipower-2627-pdf-cmg-energy-bill
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Medium business demand (CMG) energy as shown on the bill
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p7
+  quote: CMG energy rate is reflected as anytime rate in our pricing schedule, however on our bill it will show as peak
+    7am-11pm workdays and off peak all other times with exactly the same rate
+  note: Same rate in both periods; 'All times are local time, except for C2U which is in AEST' (p6). 'workdays' is not
+    defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: off_peak
+    label: off peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-11pm workdays
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: off peak all other times
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: off peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: energy
+- id: citipower-2627-pdf-cfs-bel
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Flexible small (CFS) free export (BEL) window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p7
+  quote: CFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number
+    of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh
+  note: Months not stated on this page; CFS import windows are in Table 5, an image in this document.
+  windows:
+  - period: export_charge_window
+    label: exports between 11:00am - 4:00pm (1 kWh/day basic export level free)
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+  tariffs:
+  - codes:
+    - CFS
+    applies_to: export
+- id: citipower-2627-pdf-large-incentive-1
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: 'Large tariffs ending 1: 1-4pm summer incentive demand period'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm
+    summer incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: 'Same page: ''Summer incentive demand period is December to March and winter incentive demand period is May to
+    August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
+    not stated'
+  windows:
+  - period: demand_window
+    label: 1-4pm summer incentive
+    days: business_day
+    start: '13:00'
+    end: '16:00'
+    months: 12,1,2,3
+    season: summer
+    locator: pdf:p11
+    quote: 1-4pm local time workdays in summer (Dec-Mar), or
+  tariffs:
+  - codes:
+    - CLLV1
+    - CHV1
+    applies_to: demand
+- id: citipower-2627-pdf-large-incentive-2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: 'Large tariffs ending 2: 4-7pm summer incentive demand period'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm
+    summer incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: 'Same page: ''Summer incentive demand period is December to March and winter incentive demand period is May to
+    August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
+    not stated'
+  windows:
+  - period: demand_window
+    label: 4-7pm summer incentive
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 12,1,2,3
+    season: summer
+    locator: pdf:p11
+    quote: 4-7pm local time workdays in summer (Dec-Mar), or
+  tariffs:
+  - codes:
+    - CLLV2
+    - CHV2
+    applies_to: demand
+- id: citipower-2627-pdf-large-incentive-3
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: 'Large tariffs ending 3: 4-7pm winter incentive demand period'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm
+    summer incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: 'Same page: ''Summer incentive demand period is December to March and winter incentive demand period is May to
+    August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
+    not stated'
+  windows:
+  - period: demand_window
+    label: 4-7pm winter incentive
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 5,6,7,8
+    season: winter
+    locator: pdf:p11
+    quote: 4-7pm local time workdays in winter (May-Aug).
+  tariffs:
+  - codes:
+    - CLLV3
+    - CHV3
+    applies_to: demand
+- id: citipower-2627-pdf-large-rolling
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Large LV / HV / sub-transmission 12-month rolling demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
+    stated'
+  windows:
+  - period: demand_window
+    label: rolling demand 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  tariffs:
+  - codes:
+    - CLLV1
+    - CLLV2
+    - CLLV3
+    - CHV1
+    - CHV2
+    - CHV3
+    - CST2
+    applies_to: demand
+- id: citipower-2627-pdf-large-energy
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Large LV / HV / sub-transmission peak and off-peak usage
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p12
+  quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other
+    times.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
+    stated'
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '19:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CLLV1
+    - CLLV2
+    - CLLV3
+    - CHV1
+    - CHV2
+    - CHV3
+    - CST2
+    applies_to: energy
+- id: citipower-2025-26-cmg-demand-table
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: CMG monthly demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p7
+  quote: 10am
+  note: 'Table 5 CMG row: workdays 10am–6pm, both summer and non-summer columns; visually checked.'
+  windows:
+  - period: demand_window
+    label: Summer and non-summer demand
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    locator: pdf-ocr:p7
+    quote: 6pm
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: demand
+- id: citipower-2026-27-cmg-demand-table
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: CMG monthly demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p6
+  quote: 10am
+  note: 'Table 5 CMG row: workdays 10am–6pm, both summer and non-summer columns; visually checked.'
+  windows:
+  - period: demand_window
+    label: Summer and non-summer demand
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    locator: pdf-ocr:p6
+    quote: 6pm
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: demand
+demand_rules:
+- id: citipower-2324-pdf-cr-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  measure: kW
+  aggregation: not_stated
+  window_schedule: citipower-2324-pdf-res-demand
+  window_period: demand_window
+  locator: pdf:p25
+  quote: c/day c/kWh c/kWh c/kWh $/kW/month $/kW/month
+  note: Table A.7 prices summer and non-summer demand in $/kW/month; the 2023-24 document does not state the interval
+    or aggregation for CR
+  tariffs:
+  - codes:
+    - CR
+    season: summer
+  - codes:
+    - CR
+    season: non-summer
+- id: citipower-2324-pdf-cg-cmg-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  measure: kW
+  aggregation: not_stated
+  window_schedule: citipower-2324-pdf-cmg-demand
+  window_period: demand_window
+  locator: pdf:p26
+  quote: c/day c/kWh c/kWh c/kWh $/kW/month $/kW/month
+  note: Table A.8 prices summer and non-summer demand in $/kW/month (CG uses the identical window citipower-2324-pdf-cg-demand);
+    the 2023-24 document does not state interval or aggregation
+  tariffs:
+  - codes:
+    - CG
+    - CMG
+    season: summer
+  - codes:
+    - CG
+    - CMG
+    season: non-summer
+- id: citipower-2324-pdf-large-rolling-lv
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2324-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 120
+  minimum_unit: kVA
+  locator: pdf:p29
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: 'Same page: ''Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers
+    and 5,000 kVA for sub-transmission customers.'''
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLVT2
+    - CLLV1
+    - CLLV2
+    time_band: rolling
+- id: citipower-2324-pdf-large-rolling-hv
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2324-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 500
+  minimum_unit: kVA
+  locator: pdf:p29
+  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and
+    5,000 kVA for sub-transmission customers.
+  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
+    12 months.'''
+  tariffs:
+  - codes:
+    - CHVT1
+    - CHVT2
+    - CHV1
+    - CHV2
+    time_band: rolling
+- id: citipower-2324-pdf-large-rolling-st
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2324-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 5000
+  minimum_unit: kVA
+  locator: pdf:p29
+  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and
+    5,000 kVA for sub-transmission customers.
+  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
+    12 months.'''
+  tariffs:
+  - codes:
+    - CST2
+    time_band: rolling
+- id: citipower-2324-pdf-large-incentive-1
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: citipower-2324-pdf-large-incentive-1
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p29
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge
+    for the other eight months of the year.
+  tariffs:
+  - codes: &id001
+    - CLLVT1
+    - CLLV1
+    - CHVT1
+    - CHV1
+    time_band: summer incentive
+    season: summer
+- id: citipower-2324-pdf-large-incentive-2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: citipower-2324-pdf-large-incentive-2
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p29
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge
+    for the other eight months of the year.
+  tariffs:
+  - codes:
+    - CLLVT2
+    - CLLV2
+    - CHVT2
+    - CHV2
+    - CST2
+    time_band: summer incentive
+    season: summer
+- id: citipower-2324-pdf-gt-demand-a
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2324-pdf-gt-demand-a
+  window_period: demand_window
+  locator: pdf:p14
+  quote: Generator tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for
+    only 4-9pm or only 11am-4pm, every day of year, local time
+  note: One of two alternative windows
+  tariffs:
+  - codes:
+    - GT
+- id: citipower-2324-pdf-gt-demand-b
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2324-pdf-gt-demand-b
+  window_period: demand_window
+  locator: pdf:p14
+  quote: Generator tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for
+    only 4-9pm or only 11am-4pm, every day of year, local time
+  note: One of two alternative windows
+  tariffs:
+  - codes:
+    - GT
+- id: citipower-2425-pdf-cr-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  locator: pdf:p9
+  quote: CR demand component will be billed based on the highest 30-minute KW reading in the maximum demand period for
+    each month and is not based on a rolling 12- month period
+  note: The maximum demand period (workdays 3pm-9pm) is printed in Table 4, whose text does not extract cleanly (glyphs
+    out of order), so no window is linked. Summer period covers December to March, non-summer is April to November (same
+    page).
+  tariffs:
+  - codes:
+    - CR
+    season: summer
+  - codes:
+    - CR
+    season: non-summer
+- id: citipower-2425-pdf-cg-cmg-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: citipower-2425-pdf-cmg-demand
+  window_period: demand_window
+  locator: pdf:p10
+  quote: CG and CMG demand component will be billed based on the highest 30-minute KW reading in the maximum demand period
+    for each month and is not based on a rolling 12-month period
+  note: CG uses the identical window citipower-2425-pdf-cg-demand. Summer December to March, non-summer April to November.
+  tariffs:
+  - codes:
+    - CG
+    - CMG
+    season: summer
+  - codes:
+    - CG
+    - CMG
+    season: non-summer
+- id: citipower-2425-pdf-large-rolling-lv
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2425-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 120
+  minimum_unit: kVA
+  locator: pdf:p13
+  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and
+    5,000 kVA for sub-transmission customers.
+  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
+    12 months.'''
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLVT2
+    - CLLV1
+    - CLLV2
+    time_band: rolling
+- id: citipower-2425-pdf-large-rolling-hv
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2425-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 500
+  minimum_unit: kVA
+  locator: pdf:p13
+  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and
+    5,000 kVA for sub-transmission customers.
+  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
+    12 months.'''
+  tariffs:
+  - codes:
+    - CHVT1
+    - CHVT2
+    - CHV1
+    - CHV2
+    time_band: rolling
+- id: citipower-2425-pdf-large-rolling-st
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2425-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 5000
+  minimum_unit: kVA
+  locator: pdf:p13
+  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and
+    5,000 kVA for sub-transmission customers.
+  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
+    12 months.'''
+  tariffs:
+  - codes:
+    - CST2
+    time_band: rolling
+- id: citipower-2425-pdf-large-incentive-1
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: citipower-2425-pdf-large-incentive-1
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p13
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge
+    for the other eight months of the year.
+  tariffs:
+  - codes: *id001
+    time_band: summer incentive
+    season: summer
+- id: citipower-2425-pdf-large-incentive-2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: citipower-2425-pdf-large-incentive-2
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p13
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge
+    for the other eight months of the year.
+  tariffs:
+  - codes:
+    - CLLVT2
+    - CLLV2
+    - CHVT2
+    - CHV2
+    time_band: summer incentive
+    season: summer
+- id: citipower-2425-pdf-gt-demand-a
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kW
+  interval_minutes: 30
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2425-pdf-gt-demand-a
+  window_period: demand_window
+  locator: pdf:p6
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or
+    over 11am-4pm depending on location, every day of the year, local time
+  note: One of two location-dependent windows
+  tariffs:
+  - codes:
+    - GT
+- id: citipower-2425-pdf-gt-demand-b
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kW
+  interval_minutes: 30
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2425-pdf-gt-demand-b
+  window_period: demand_window
+  locator: pdf:p6
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or
+    over 11am-4pm depending on location, every day of the year, local time
+  note: One of two location-dependent windows
+  tariffs:
+  - codes:
+    - GT
+- id: citipower-2526-pdf-cr-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  locator: pdf:p6
+  quote: CR demand component will be billed based on the highest 30-minute KW reading in the maximum demand period for
+    each month and is not based on a rolling 12- month period
+  note: The maximum demand period is printed in Table 4, which is an image in this document, so no window is linked.
+    Summer covers December to March, non-summer April to November (same page).
+  tariffs:
+  - codes:
+    - CR
+    season: summer
+  - codes:
+    - CR
+    season: non-summer
+- id: citipower-2526-pdf-cg-cmg-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  locator: pdf:p7
+  quote: CG and CMG demand component will be billed based on the highest 30-minute KW reading in the maximum demand period
+    for each month and is not based on a rolling 12-month period
+  note: The maximum demand period (workdays 10am-6pm in the 2023-24 and 2024-25 documents) is printed in Table 5, an
+    image in this document, so no window is linked. Summer covers December to March, non-summer April to November (same
+    page).
+  tariffs:
+  - codes:
+    - CG
+    - CMG
+    season: summer
+  - codes:
+    - CG
+    - CMG
+    season: non-summer
+- id: citipower-2526-pdf-large-rolling-lv
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2526-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 120
+  minimum_unit: kVA
+  locator: pdf:p10
+  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA
+    for sub-transmission customers.
+  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
+    12 months.'''
+  tariffs:
+  - codes:
+    - CLLV1
+    - CLLV2
+    time_band: rolling
+- id: citipower-2526-pdf-large-rolling-hv
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2526-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 500
+  minimum_unit: kVA
+  locator: pdf:p10
+  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA
+    for sub-transmission customers.
+  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
+    12 months.'''
+  tariffs:
+  - codes:
+    - CHV1
+    - CHV2
+    time_band: rolling
+- id: citipower-2526-pdf-large-rolling-st
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2526-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 5000
+  minimum_unit: kVA
+  locator: pdf:p10
+  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA
+    for sub-transmission customers.
+  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
+    12 months.'''
+  tariffs:
+  - codes:
+    - CST2
+    time_band: rolling
+- id: citipower-2526-pdf-large-incentive-1
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: citipower-2526-pdf-large-incentive-1
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p10
+  quote: Summer incentive kVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge
+    for the other eight months of the year.
+  tariffs:
+  - codes:
+    - CLLV1
+    - CHV1
+    time_band: summer incentive
+    season: summer
+- id: citipower-2526-pdf-large-incentive-2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: citipower-2526-pdf-large-incentive-2
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p10
+  quote: Summer incentive kVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge
+    for the other eight months of the year.
+  tariffs:
+  - codes:
+    - CLLV2
+    - CHV2
+    time_band: summer incentive
+    season: summer
+- id: citipower-2627-pdf-cg-cmg-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  locator: pdf:p7
+  quote: CG and CMG demand component is billed based on the highest 30-minute KW reading in the maximum demand period
+    for each month and is not based on a rolling 12-month period
+  note: 'The maximum demand period (workdays 10am-6pm) is printed in Table 5, an image in this document, so no window
+    is linked. Same page: ''Summer period covers December to March, non-summer is April to November''.'
+  tariffs:
+  - codes:
+    - CG
+    - CMG
+    season: summer
+  - codes:
+    - CG
+    - CMG
+    season: non-summer
+- id: citipower-2627-pdf-cfs-capacity
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kW
+  interval_minutes: 30
+  aggregation: rolling_12_month_max
+  locator: pdf:p7
+  quote: CFS capacity charge applied to maximum 30-minute kW demand over the most recent rolling 12-months measured at
+    all times
+  note: measured at all times (no window)
+  tariffs:
+  - codes:
+    - CFS
+    time_band: capacity
+- id: citipower-2627-pdf-large-rolling-lv
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2627-pdf-large-rolling
+  window_period: demand_window
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months.
+  note: No minimum chargeable demand is stated for low voltage in 2026-27 ('Minimum chargeable demand of 500kVA for high
+    voltage customers and 5,000kVA for sub-transmission customers').
+  tariffs:
+  - codes:
+    - CLLV1
+    - CLLV2
+    - CLLV3
+    time_band: rolling
+- id: citipower-2627-pdf-large-rolling-hv
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2627-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 500
+  minimum_unit: kVA
+  locator: pdf:p11
+  quote: Minimum chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
+  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most
+    recent 12 months.'''
+  tariffs:
+  - codes:
+    - CHV1
+    - CHV2
+    - CHV3
+    time_band: rolling
+- id: citipower-2627-pdf-large-rolling-st
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: citipower-2627-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 5000
+  minimum_unit: kVA
+  locator: pdf:p11
+  quote: Minimum chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
+  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most
+    recent 12 months.'''
+  tariffs:
+  - codes:
+    - CST2
+    time_band: rolling
+- id: citipower-2627-pdf-large-incentive-1
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: citipower-2627-pdf-large-incentive-1
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p11
+  quote: Incentive kVA is the maximum monthly 15-minute kVA each of four months of the year. There is no charge for the
+    other eight months of the year.
+  tariffs:
+  - codes:
+    - CLLV1
+    - CHV1
+    time_band: incentive
+    season: summer
+- id: citipower-2627-pdf-large-incentive-2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: citipower-2627-pdf-large-incentive-2
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p11
+  quote: Incentive kVA is the maximum monthly 15-minute kVA each of four months of the year. There is no charge for the
+    other eight months of the year.
+  tariffs:
+  - codes:
+    - CLLV2
+    - CHV2
+    time_band: incentive
+    season: summer
+- id: citipower-2627-pdf-large-incentive-3
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: citipower-2627-pdf-large-incentive-3
+  window_period: demand_window
+  months: 5,6,7,8
+  locator: pdf:p11
+  quote: Incentive kVA is the maximum monthly 15-minute kVA each of four months of the year. There is no charge for the
+    other eight months of the year.
+  tariffs:
+  - codes:
+    - CLLV3
+    - CHV3
+    time_band: incentive
+    season: winter
+- id: citipower-2025-26-cmg-demand-table-rule
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: citipower-2025-26-cmg-demand-table
+  window_period: demand_window
+  locator: pdf:p7
+  quote: CG and CMG demand component will be billed based on the highest 30-minute KW reading in the maximum demand period
+    for each month
+  tariffs:
+  - codes:
+    - CMG
+- id: citipower-2026-27-cmg-demand-table-rule
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: citipower-2026-27-cmg-demand-table
+  window_period: demand_window
+  locator: pdf:p7
+  quote: CG and CMG demand component is billed based on the highest 30-minute KW reading in the maximum demand period
+    for each month
+  tariffs:
+  - codes:
+    - CMG
+eligibility:
+- codes:
+  - CRTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p25
+  quote: ToU CRTOU Default
+- codes:
+  - C1R
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p25
+  quote: Single rate C1R Opt-in
+- codes:
+  - CR
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p25
+  quote: Demand CR Opt-in
+- codes:
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p25
+  quote: Dedicated circuit CDS Opt-in
+- codes:
+  - CRTOU
+  - C1R
+  - CR
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p25
+  quote: Table A. 7 Residential tariff class
+- codes:
+  - CRTOU
+  - C1R
+  - CR
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p25
+  quote: < 1kV N/A
+  note: Supply voltage column '< 1kV' (merged cell for all residential tariffs)
+- codes:
+  - CRTOU
+  - CR
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p25
+  quote: CRTOU and CR require an active market interval read meter
+- codes:
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: pdf:p25
+  quote: CDS is available to customers with a dedicated circuit connected to time-switch
+- codes:
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: 'hot water: 1-phase electric hot water service with total load < 30 amps'
+  locator: pdf:p25
+  quote: Available to 1-phase electric hot water service with a total load of <30 amps
+- codes:
+  - C1R
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p25
+  quote: C1R is available to any residential customer except if they have a dedicated electric vehicle charger with a
+    specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - CRTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV
+    chargers >= 3.6kW
+  locator: pdf:p25
+  quote: CRTOU is the default residential tariff for greenfield new connections, new or upgraded solar or battery installations,
+    three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity or charging
+    rate of 3.6kW or greater
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p26
+  quote: ToU CGTOU Default
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p26
+  quote: Single rate C1G Opt-in
+- codes:
+  - CG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p26
+  quote: Demand CG Opt-in
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p26
+  quote: Medium business demand CMG Default
+- codes:
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_out
+  locator: pdf:p26
+  quote: Medium business opt-out CMGO21 Opt-out
+- codes:
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p26
+  quote: Unmetered supply C2U Default
+- codes:
+  - CGTOU
+  - C1G
+  - CG
+  - CMG
+  - CMGO21
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p26
+  quote: Table A. 8 Small and medium business tariff class
+  note: tariff class heading
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: medium_business
+  locator: pdf:p26
+  quote: Medium business demand CMG
+- codes:
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: medium_business
+  locator: pdf:p26
+  quote: Medium business opt-out CMGO21
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p26
+  quote: CGTOU is the default small business tariff
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p26
+  quote: C1G is available to any small business customer
+- codes:
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p26
+  quote: Unmetered supply C2U Default unmetered
+- codes:
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p26
+  quote: Unmetered supply C2U Default unmetered
+- codes:
+  - CGTOU
+  - C1G
+  - CG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf:p26
+  quote: Single rate C1G Opt-in < 40MWh pa
+  note: Energy/Demand threshold '< 40MWh pa' is one merged cell spanning the ToU, single rate and demand rows
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: gt
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf:p26
+  quote: '> 40MWh pa workdays workdays Medium business demand CMG'
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: demand_max
+  operator: lt
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p26
+  quote: Medium business demand CMG Default ✓ ✓ < 120KVA
+- codes:
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p26
+  quote: < 160MWh workdays Non-peak Medium business opt-out CMGO21 Opt-out ✓ pa
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  target_code: CMGO21
+  locator: pdf:p26
+  quote: CMG customers consuming less than 160 MWh pa can opt out of the demand tariff to CMGO21
+- codes:
+  - CGTOU
+  - CG
+  - CMG
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p26
+  quote: CGTOU, CG, CMG and CMGO21 require an active market interval read meter
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p26
+  quote: C1G is available to any small business customer except if they have a dedicated electric vehicle charger with
+    a specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV
+    chargers >= 3.6kW
+  locator: pdf:p26
+  quote: CGTOU is the default small business tariff for greenfield new connections, new or upgraded solar or battery
+    installations, three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity
+    or charging rate of 3.6kW or greater
+- codes:
+  - CGTOU
+  - C1G
+  - CG
+  - CMG
+  - CMGO21
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p26
+  quote: < 1kV
+  note: Supply voltage column '< 1kV' (merged cell for the class)
+- codes:
+  - CLLVT1
+  - CLLVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p27
+  quote: Large Low Voltage transition Default < 1kV ≥ 120kVA 120
+- codes:
+  - CLLVT1
+  - CLLVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p27
+  quote: Large Low Voltage transition Default < 1kV ≥ 120kVA 120
+- codes:
+  - CLLVT1
+  - CLLVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: demand_min
+  operator: ge
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p27
+  quote: Large Low Voltage transition Default < 1kV ≥ 120kVA 120
+- codes:
+  - CHVT1
+  - CHVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p27
+  quote: High Voltage transition Default 1kV-22KV N/A 500
+- codes:
+  - CHVT1
+  - CHVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p27
+  quote: High Voltage transition Default 1kV-22KV N/A 500
+- codes:
+  - CLLV1
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p27
+  quote: Large Low Voltage opt-in < 1kV ≥ 120kVA 120
+- codes:
+  - CLLV1
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: demand_min
+  operator: ge
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p27
+  quote: Large Low Voltage opt-in < 1kV ≥ 120kVA 120
+- codes:
+  - CHV1
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p27
+  quote: High Voltage opt-in 1kV-22KV N/A 500
+- codes:
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p27
+  quote: customers who opt in to CLLV1, CLLV2, CHV1 and CHV2 cannot later opt out of these tariffs
+- codes:
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: once opted in, cannot later opt out
+  locator: pdf:p27
+  quote: customers who opt in to CLLV1, CLLV2, CHV1 and CHV2 cannot later opt out of these tariffs
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p27
+  quote: Sub-transmission CST2 Default ≥ 22kV N/A 5,000
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p27
+  quote: Sub-transmission CST2 Default ≥ 22kV N/A 5,000
+- codes:
+  - CLLVT1
+  - CLLV1
+  - CHVT1
+  - CHV1
+  - CLLVT2
+  - CLLV2
+  - CHVT2
+  - CHV2
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p27
+  quote: all tariffs require an interval meter capable of recording E, Q, B, K data stream
+- codes:
+  - CLLVT1
+  - CLLVT2
+  - CLLV1
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p27
+  quote: Table A. 9 Large low voltage, high voltage and sub-transmission tariff classes
+  note: tariff class heading (large low voltage)
+- codes:
+  - CLLVT1
+  - CLLVT2
+  - CLLV1
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p27
+  quote: Large Low Voltage transition Default < 1kV ≥ 120kVA 120
+  note: Minimum chargeable rolling demand column (kVA); same value on the opt-in row
+- codes:
+  - CHVT1
+  - CHVT2
+  - CHV1
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 500
+  value_unit: kVA
+  locator: pdf:p27
+  quote: High Voltage transition Default 1kV-22KV N/A 500
+  note: Minimum chargeable rolling demand column (kVA); same value on the opt-in row
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 5000
+  value_unit: kVA
+  locator: pdf:p27
+  quote: Sub-transmission CST2 Default ≥ 22kV N/A 5,000
+- codes:
+  - CLLVT1
+  - CLLVT2
+  - CLLV1
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: to move away from a large business tariff the load must be limited to 200 amps per phase (cannot exceed
+    120 kVA)
+  locator: pdf:p30
+  quote: We will require confirmation that the load for the connection point is/has been limited to 200 amps per phase
+    to ensure the site cannot exceed a demand greater than 120 kVA.
+- codes:
+  - CRDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p13
+  quote: 'Residential daytime saver: • available to any residential customer with an AMI meter'
+- codes:
+  - CRDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p13
+  quote: 'Residential daytime saver: • available to any residential customer with an AMI meter'
+  note: AMI meter
+- codes:
+  - CRDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p13
+  quote: retailer can opt a residential customer in and out of the trial tariff at any time
+- codes:
+  - CRDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: customer numbers capped at 1% of distribution revenue (about 10,000 customers)
+  locator: pdf:p13
+  quote: customer numbers will be capped at 1% of distribution revenue which is approximately 10,000 customers.
+- codes:
+  - CRDS
+  - CNDB
+  - CDBB
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: trial
+  locator: pdf:p13
+  quote: 3.4 Trial tariffs
+- codes:
+  - CNDB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: requires_technology
+  value_text: battery
+  locator: pdf:p13
+  quote: applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
+    where the battery is not owned by the distributor
+- codes:
+  - CNDB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: demand_max
+  operator: le
+  value_num: 240
+  value_unit: kVA
+  locator: pdf:p13
+  quote: applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
+    where the battery is not owned by the distributor
+- codes:
+  - CNDB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p13
+  quote: applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
+    where the battery is not owned by the distributor
+- codes:
+  - CDBB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: requires_technology
+  value_text: battery
+  locator: pdf:p13
+  quote: applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
+    where the battery is owned by CitiPower
+- codes:
+  - CDBB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: demand_max
+  operator: le
+  value_num: 240
+  value_unit: kVA
+  locator: pdf:p13
+  quote: applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
+    where the battery is owned by CitiPower
+- codes:
+  - CDBB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p13
+  quote: applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
+    where the battery is owned by CitiPower
+- codes:
+  - CNDB
+  - CDBB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: metered by an AMI or COMMS (type 1-4) meter depending on battery size
+  locator: pdf:p13
+  quote: required to be metered by an AMI or COMMS (type 1-4) meter depending on the size of the battery
+- codes:
+  - CNDB
+  - CDBB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: a community battery assigned to this tariff remains on it until 30 June 2026
+  locator: pdf:p13
+  quote: any community battery that is assigned to this tariff will remain on this tariff until 30 June 2026.
+- codes:
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: embedded_generation
+  locator: pdf:p13
+  quote: available to generation site which only uses ancillary power (such as a solar or wind farm) or generation and
+    storage site (such as a battery or battery and solar farm)
+- codes:
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: not for loads co-located with generation or storage
+  locator: pdf:p13
+  quote: it is not intended to be used for loads which are co-located with generation or storage
+- codes:
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: any voltage level
+  locator: pdf:p13
+  quote: Can be connected to any voltage level in the distribution network
+- codes:
+  - CRTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p9
+  quote: CRTOU is the default residential tariff for greenfield new connections, new or upgraded solar or battery installations,
+    three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity or charging
+    rate of 3.6kW or greater. This will occur without any B2B Service Order requests or notifications and MSATS will
+    be updated accordingly
+  note: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV chargers
+    >= 3.6kW
+- codes:
+  - C1R
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p9
+  quote: C1R is available to any residential customer except if they have a dedicated electric vehicle charger with a
+    specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - CRTOU
+  - CR
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p9
+  quote: CRTOU and CR require an active market interval read meter
+- codes:
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: pdf:p9
+  quote: CDS is available to customers with a dedicated circuit connected to a time-switch
+- codes:
+  - CRTOU
+  - C1R
+  - CR
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p9
+  quote: TABLE 4 RESIDENTIAL TARIFF CLASS
+  note: tariff class heading
+- codes:
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: 'hot water: 1-phase electric hot water service with total load < 30 amps'
+  locator: pdf:p9
+  quote: Available to 1-phase electric hot water service with a total load of <30 amps
+- codes:
+  - CR
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: with a dedicated circuit, demand is measured on the general power & light circuits only
+  locator: pdf:p9
+  quote: For residential demand tariff with a dedicated circuit, the demand calculation will only apply to consumption
+    on the General Power & Light circuits
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p10
+  quote: ToU CGTOU Default
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p10
+  quote: Single rate C1G Opt-in
+- codes:
+  - CG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p10
+  quote: Demand CG Opt-in
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p10
+  quote: Medium business demand CMG Default
+- codes:
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_out
+  locator: pdf:p10
+  quote: Medium business opt-out CMGO21 Opt-out
+- codes:
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p10
+  quote: Unmetered supply C2U Default
+- codes:
+  - CGTOU
+  - C1G
+  - CG
+  - CMG
+  - CMGO21
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p10
+  quote: TABLE 5 SMALL AND MEDIUM BUSINESS TARIFF CLASS
+  note: tariff class heading
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: medium_business
+  locator: pdf:p10
+  quote: Medium business demand CMG
+- codes:
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: medium_business
+  locator: pdf:p10
+  quote: Medium business opt-out CMGO21
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p10
+  quote: CGTOU is the default small business tariff
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p10
+  quote: C1G is available to any small business customer
+- codes:
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p10
+  quote: Unmetered supply C2U Default unmetered
+- codes:
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p10
+  quote: Unmetered supply C2U Default unmetered
+- codes:
+  - CGTOU
+  - C1G
+  - CG
+  - CMG
+  - CMGO21
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p10
+  quote: < 1kV
+  note: Supply voltage column '< 1kV' (merged cell for the class)
+- codes:
+  - CGTOU
+  - C1G
+  - CG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf:p10
+  quote: Single rate C1G Opt-in < 40MWh pa
+  note: threshold cell spans the ToU, single rate and demand rows (merged cell)
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf:p10
+  quote: '> 40MWh pa workdays 10am- workdays 10am- Medium business demand CMG'
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: demand_max
+  operator: lt
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p10
+  quote: Medium business demand CMG Default ✓ ✓ < 120KVA
+- codes:
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p10
+  quote: Medium business opt-out CMGO21 Opt-out < 160MWh pa
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV
+    chargers >= 3.6kW
+  locator: pdf:p10
+  quote: CGTOU is the default small business tariff for greenfield new connections, new or upgraded solar or battery
+    installations, three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity
+    or charging rate of 3.6kW or greater
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p10
+  quote: C1G is available to any small business customer except if they have a dedicated electric vehicle charger with
+    a specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - CGTOU
+  - CG
+  - CMG
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p11
+  quote: CGTOU, CG, CMG and CMGO21 require an active market interval read meter
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  target_code: CMGO21
+  locator: pdf:p11
+  quote: CMG customers consuming less than 160 MWh pa can opt out of the demand tariff to CMGO21
+- codes:
+  - CLLVT1
+  - CLLV1
+  - CHVT1
+  - CHV1
+  - CLLVT2
+  - CLLV2
+  - CHVT2
+  - CHV2
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p11
+  quote: All tariffs require an interval meter capable of recording E, Q, B, K data stream
+- codes:
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p11
+  quote: Customers who opt in to CLLV1, CLLV2, CHV1 and CHV2 cannot later opt out of these tariffs
+- codes:
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: once opted in, cannot later opt out
+  locator: pdf:p11
+  quote: Customers who opt in to CLLV1, CLLV2, CHV1 and CHV2 cannot later opt out of these tariffs
+- codes:
+  - CLLVT1
+  - CLLV1
+  - CHVT1
+  - CHV1
+  - CLLVT2
+  - CLLV2
+  - CHVT2
+  - CHV2
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p11
+  quote: TABLE 6 LARGE LOW VOLTAGE, HIGH VOLTAGE AND SUB-TRANSMISSION TARIFF CLASSES
+  note: tariff class heading; the per-class columns of Table 6 do not extract cleanly
+- codes:
+  - CLLVT1
+  - CLLVT2
+  - CLLV1
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p11
+  quote: Minimum chargeable demand 120 kVA will be applied for low voltage, 500 kVA for high voltage and 5 MVA for sub-transmission
+- codes:
+  - CHVT1
+  - CHVT2
+  - CHV1
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 500
+  value_unit: kVA
+  locator: pdf:p11
+  quote: Minimum chargeable demand 120 kVA will be applied for low voltage, 500 kVA for high voltage and 5 MVA for sub-transmission
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 5000
+  value_unit: kVA
+  locator: pdf:p11
+  quote: Minimum chargeable demand 120 kVA will be applied for low voltage, 500 kVA for high voltage and 5 MVA for sub-transmission
+  note: 5 MVA
+- codes:
+  - CRDS
+  - CNDB
+  - CDBB
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: trial
+  locator: pdf:p6
+  quote: 2.2 Trial tariffs
+- codes:
+  - CRDS
+  - CNDB
+  - CDBB
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: trial ends 30 June 2026; customers transferred to approved network tariffs
+  locator: pdf:p6
+  quote: All trial tariffs will end on 30 June 2026 and customers will be transferred to approved network tariffs.
+- codes:
+  - CRDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p6
+  quote: Available to any residential customer with an AMI meter
+- codes:
+  - CRDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p6
+  quote: Available to any residential customer with an AMI meter
+  note: AMI meter
+- codes:
+  - CRDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p6
+  quote: Retailer can opt a residential customer in and out of the trial tariff at any time
+- codes:
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: embedded_generation
+  locator: pdf:p6
+  quote: Available to generation sites which only use ancillary power (such as a solar or wind farm) or generation and
+    storage sites (such as a battery or battery and solar farm)
+- codes:
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: any voltage level
+  locator: pdf:p6
+  quote: Can be connected to any voltage level in the distribution network
+- codes:
+  - CNDB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: battery
+  locator: pdf:p7
+  quote: Applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
+    where the battery is not owned by the distributor
+- codes:
+  - CNDB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: demand_max
+  operator: le
+  value_num: 240
+  value_unit: kVA
+  locator: pdf:p7
+  quote: Applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
+    where the battery is not owned by the distributor
+- codes:
+  - CDBB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: battery
+  locator: pdf:p7
+  quote: Applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
+    where the battery is owned by CitiPower
+- codes:
+  - CDBB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: demand_max
+  operator: le
+  value_num: 240
+  value_unit: kVA
+  locator: pdf:p7
+  quote: Applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
+    where the battery is owned by CitiPower
+- codes:
+  - CNDB
+  - CDBB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: metered by an AMI or COMMS (type 1-4) meter depending on battery size
+  locator: pdf:p7
+  quote: Required to be metered by an AMI or COMMS (type 1-4) meter depending on the size of the battery
+- codes:
+  - CRTOU
+  - C1R
+  - CR
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p4
+  quote: Residential < 1 kV N/A
+  note: 'Figure 2 tariff classes: residential supply voltage < 1 kV'
+- codes:
+  - CGTOU
+  - C1G
+  - CG
+  - CMG
+  - CMGO21
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: demand_max
+  operator: lt
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p4
+  quote: Small and medium < 1 kV < 120 kVA business
+  note: 'Figure 2 tariff classes: small and medium business maximum demand < 120 kVA (class members per the decision
+    tree, p9)'
+- codes:
+  - CGTOU
+  - C1G
+  - CG
+  - CMG
+  - CMGO21
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p4
+  quote: Small and medium < 1 kV < 120 kVA business
+- codes:
+  - CLLV1
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: demand_min
+  operator: gt
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p4
+  quote: Large low voltage < 1 kV > 120 kVA
+  note: Figure 2 tariff classes
+- codes:
+  - CLLV1
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p4
+  quote: Large low voltage < 1 kV > 120 kVA
+- codes:
+  - CHV1
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p4
+  quote: High voltage 1 kV – 22 kV N/A
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p4
+  quote: Sub-transmission ≥ 22 kV N/A
+- codes:
+  - CRTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p6
+  quote: CRTOU is the default residential tariff for greenfield new connections, new or upgraded solar or battery installations,
+    three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity or charging
+    rate of 3.6kW or greater.
+  note: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV chargers
+    >= 3.6kW
+- codes:
+  - C1R
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p6
+  quote: C1R is available to any residential customer except if they have a dedicated electric vehicle charger with a
+    specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - CRTOU
+  - CR
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p6
+  quote: CRTOU and CR require an active market interval read meter
+- codes:
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: pdf:p6
+  quote: CDS is available to customers with a dedicated circuit connected to a time-switch
+- codes:
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: 'hot water: 1-phase electric hot water service with total load < 30 amps'
+  locator: pdf:p6
+  quote: Available to 1-phase electric hot water service with a total load of <30 amps
+- codes:
+  - CRTOU
+  - C1R
+  - CR
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p5
+  quote: TABLE 4 RESIDENTIAL TARIFF CLASS
+  note: tariff class heading (p5); table body is an image
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p7
+  quote: CGTOU is the default small business tariff for greenfield new connections, new or upgraded solar or battery
+    installations, three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity
+    or charging rate of 3.6kW or greater.
+  note: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV chargers
+    >= 3.6kW
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: CGTOU is the default small business tariff
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: C1G is available to any small business customer
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p7
+  quote: C1G is available to any small business customer except if they have a dedicated electric vehicle charger with
+    a specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - CGTOU
+  - CG
+  - CMG
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p7
+  quote: CGTOU, CG, CMG and CMGO21 require an active market interval read meter
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  target_code: CMGO21
+  locator: pdf:p7
+  quote: CMG customers consuming less than 160MWh pa can opt out of the demand tariff to CMGO21
+- codes:
+  - CGTOU
+  - C1G
+  - CG
+  - CMG
+  - CMGO21
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p7
+  quote: TABLE 5 SMALL AND MEDIUM BUSINESS TARIFF CLASS
+  note: tariff class heading; table body is an image
+- codes:
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p8
+  quote: All tariffs require an interval meter capable of recording E, Q, B, K data stream
+- codes:
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p8
+  quote: TABLE 6 LARGE LOW VOLTAGE, HIGH VOLTAGE AND SUB-TRANSMISSION TARIFF CLASSES
+  note: tariff class heading; table body is an image
+- codes:
+  - CLLV1
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p8
+  quote: Minimum chargeable demand 120kVA will be applied for low voltage, 500kVA for high voltage and 5MVA for sub-transmission
+- codes:
+  - CHV1
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 500
+  value_unit: kVA
+  locator: pdf:p8
+  quote: Minimum chargeable demand 120kVA will be applied for low voltage, 500kVA for high voltage and 5MVA for sub-transmission
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 5000
+  value_unit: kVA
+  locator: pdf:p8
+  quote: Minimum chargeable demand 120kVA will be applied for low voltage, 500kVA for high voltage and 5MVA for sub-transmission
+  note: 5 MVA
+- codes:
+  - CRTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p9
+  quote: Residential Non-Residential Default Customer choice Time-of-use Single rate Demand
+  note: 'decision tree: Residential -> Default: Time-of-use CRTOU; Customer choice: single rate C1R, demand CR'
+- codes:
+  - C1R
+  - CR
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p9
+  quote: Residential Non-Residential Default Customer choice Time-of-use Single rate Demand
+  note: 'decision tree: ''Customer choice'' branch (C1R, CR)'
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf:p9
+  quote: <40MWh >40MWh
+  note: 'decision tree: Non-Residential, Low Voltage <120kVA, >40MWh -> Demand CMG (Default)'
+- codes:
+  - CGTOU
+  - C1G
+  - CG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf:p9
+  quote: <40MWh >40MWh
+  note: 'decision tree: Non-Residential, Low Voltage <120kVA, <40MWh -> Time-of-use CGTOU (Default), customer choice
+    C1G / CG'
+- codes:
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p9
+  quote: Customer choice Customer choice <160MWh
+  note: 'decision tree: CMG customer choice <160MWh -> Non-demand CMGO21'
+- codes:
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p9
+  quote: Default Default <40MWh >40MWh Demand Demand Demand
+  note: 'decision tree: Low Voltage >120kVA -> Demand CLLV1 or CLLV2; High Voltage -> Demand CHV1 or CHV2; Sub transmission
+    -> Demand CST2'
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  target_code: CMGO21
+  locator: pdf:p11
+  quote: 'Option 2 - "opt-out" of network demand tariff (New tariff code CMGO21) To opt a customer out of a network demand
+    tariff, the following criteria must be satisfied: • A customer’s aggregate consumption must be less than 160MWh per
+    annum'
+  note: 'Also: customer applies to a retailer; retailer supplies an invoice showing a demand component is charged'
+- codes:
+  - CLLV1
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: 'option 1 to move away from a large business tariff: load limited to 200 amps per phase (cannot exceed
+    120 kVA)'
+  locator: pdf:p11
+  quote: We will require confirmation that the load for the connection point is/has been limited to 200 amps per phase
+    to ensure the site cannot exceed a demand greater than 120kVA.
+- codes:
+  - CFS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p4
+  quote: Flexible small will be assigned to small and medium business tariff class
+  note: tariff class assignment (small and medium business)
+- codes:
+  - CFL
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p4
+  quote: Flexible large will be assigned to high voltage tariff class
+  note: tariff class assignment
+- codes:
+  - CFTUOS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p4
+  quote: Flexible TUOS pass-through will be assigned to sub-transmission tariff class
+  note: tariff class assignment
+- codes:
+  - CRSTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p5
+  quote: CRSTOU is the default residential tariff for greenfield new connections, new or upgraded solar or battery installations,
+    three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity or charging
+    rate of 3.6kW or greater.
+  note: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV chargers
+    >= 3.6kW
+- codes:
+  - C1R
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p5
+  quote: C1R is available to any residential customer except if they have a dedicated electric vehicle charger with a
+    specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - CRSTOU
+  - C1R
+  - CRCER
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p5
+  quote: TABLE 4 RESIDENTIAL TARIFF CLASS
+  note: tariff class heading; table body is an image
+- codes:
+  - CRSTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p6
+  quote: CRSTOU require an active market interval read meter
+- codes:
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: pdf:p6
+  quote: CDS is available to customers with a dedicated circuit connected to a time-switch
+- codes:
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: 'hot water: 1-phase electric hot water service with total load < 30 amps'
+  locator: pdf:p6
+  quote: Available to 1-phase electric hot water service with a total load of <30 amps
+- codes:
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: 'type 7 or 9 metering: all public lighting, all type 7 metered loads, type 9 metered loads up to 5 MWh
+    pa'
+  locator: pdf:p6
+  quote: Type 7 and 9 metering assignment criteria apply for all public lighting, all type 7 metered loads, and type
+    9 metered loads up to 5 MWh pa
+- codes:
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: le
+  value_num: 5
+  value_unit: MWh/yr
+  locator: pdf:p6
+  quote: type 9 metered loads up to 5 MWh pa
+  note: applies to type 9 metered loads; all public lighting and all type 7 metered loads qualify regardless
+- codes:
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p6
+  quote: Type 7 and 9 metering assignment criteria apply for all public lighting
+- codes:
+  - CGTOU
+  - C1G
+  - CG
+  - CMG
+  - CMGO21
+  - C2U
+  - CFS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p6
+  quote: TABLE 5 SMALL AND MEDIUM BUSINESS TARIFF CLASS
+  note: tariff class heading; table body is an image
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p7
+  quote: CGTOU is the default small business tariff for greenfield new connections, new or upgraded solar or battery
+    installations, three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity
+    or charging rate of 3.6kW or greater.
+  note: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV chargers
+    >= 3.6kW
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: CGTOU is the default small business tariff
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: C1G is available to any small business customer
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p7
+  quote: C1G is available to any small business customer except if they have a dedicated electric vehicle charger with
+    a specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - CGTOU
+  - CG
+  - CMG
+  - CMGO21
+  - CFS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p7
+  quote: CGTOU, CG, CMG, CMGO21 and CFS require an active market interval read meter
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  target_code: CMGO21
+  locator: pdf:p7
+  quote: CMG customers consuming less than 160MWh pa can opt out of the demand tariff to CMGO21
+- codes:
+  - CG
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: with a dedicated circuit, demand is measured on the general power & light circuits only
+  locator: pdf:p7
+  quote: For small and medium demand tariffs with dedicated circuit, the demand calculation will only apply to consumption
+    on the General Power & Light circuits
+- codes:
+  - CLLV1
+  - CLLV2
+  - CLLV3
+  - CHV1
+  - CHV2
+  - CHV3
+  - CST2
+  - CFL
+  - CFTUOS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p9
+  quote: All tariffs require an interval meter capable of recording E, Q, B, K data stream
+- codes:
+  - CHV1
+  - CHV2
+  - CHV3
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 500
+  value_unit: kVA
+  locator: pdf:p9
+  quote: Minimum chargeable demand is 500kVA for high voltage and 5,000kVA for sub- transmission
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 5000
+  value_unit: kVA
+  locator: pdf:p9
+  quote: Minimum chargeable demand is 500kVA for high voltage and 5,000kVA for sub- transmission
+- codes:
+  - CLLV1
+  - CLLV2
+  - CLLV3
+  - CHV1
+  - CHV2
+  - CHV3
+  - CST2
+  - CFL
+  - CFTUOS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p8
+  quote: TABLE 6 LARGE LOW VOLTAGE, HIGH VOLTAGE AND SUB-TRANSMISSION TARIFF CLASSES
+  note: tariff class heading; table body is an image
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: no incentive demand for sub-transmission
+  locator: pdf:p12
+  quote: Incentive demand is not applicable to Sub-transmission customers.
+- codes:
+  - CLLV1
+  - CLLV2
+  - CLLV3
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: 'to move away from a large business tariff: 15 months of data and consumption below 160 MWh pa for at least
+    3 months'
+  locator: pdf:p12
+  quote: We require that consumption values consistently remain below the average daily load threshold of 160 MWh per
+    annum for a minimum period of 3 months prior to submitting a request to move away from a large business tariff.
+- codes:
+  - EVCTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: 'kerbside EV charging: dedicated charger up to 44 kW with its own NMI'
+  locator: pdf:p14
+  quote: Dedicated charger with supply capacity up to 44 kW with its own NMI
+  note: KEVC trial; the code EVCTOU ('Residential kerbside EV charger') is given in the 2026-27 Tariff Summary trial
+    sheet
+- codes:
+  - EVCTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: ev
+  locator: pdf:p14
+  quote: Dedicated charger with supply capacity up to 44 kW with its own NMI
+  note: KEVC trial tariff (code from the Tariff Summary trial sheet)
+- codes:
+  - EVCTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: availability
+  value_text: trial
+  locator: pdf:p14
+  quote: We are introducing a kerbside electric vehicle charging (KEVC) trial tariff on 1 July 2026.
+  note: runs three years from 1 July 2026, may be extended two years
+- codes:
+  - EVCTOU
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: any
+  locator: pdf:p14
+  quote: The trial tariff will be available irrespective of KEVC ownership or meter type
+- codes:
+  - CRSTOU
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:CP_2026-27_NUOS!B7
+  quote: Residential ToU
+  note: tariff name
+- codes:
+  - CRSTOU
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D7
+  quote: Default
+  note: Status column for CRSTOU
+- codes:
+  - C1R
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:CP_2026-27_NUOS!B8
+  quote: Residential single rate
+  note: tariff name
+- codes:
+  - C1R
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:CP_2026-27_NUOS!D8
+  quote: Opt-in
+  note: Status column for C1R
+- codes:
+  - CRCER
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:CP_2026-27_NUOS!B9
+  quote: Residential CER
+  note: tariff name
+- codes:
+  - CRCER
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:CP_2026-27_NUOS!D9
+  quote: Opt-in
+  note: Status column for CRCER
+- codes:
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: xlsx:CP_2026-27_NUOS!B10
+  quote: Dedicated circuit
+  note: tariff name
+- codes:
+  - CDS
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:CP_2026-27_NUOS!D10
+  quote: Opt-in
+  note: Status column for CDS
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:CP_2026-27_NUOS!B11
+  quote: Small business ToU
+  note: tariff name
+- codes:
+  - CGTOU
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D11
+  quote: Default
+  note: Status column for CGTOU
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:CP_2026-27_NUOS!B12
+  quote: Small business single rate
+  note: tariff name
+- codes:
+  - C1G
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:CP_2026-27_NUOS!D12
+  quote: Opt-in
+  note: Status column for C1G
+- codes:
+  - CG
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:CP_2026-27_NUOS!B13
+  quote: Small business demand
+  note: tariff name
+- codes:
+  - CG
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:CP_2026-27_NUOS!D13
+  quote: Opt-in
+  note: Status column for CG
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:CP_2026-27_NUOS!B14
+  quote: Medium business demand
+  note: tariff name
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D14
+  quote: Default
+  note: Status column for CMG
+- codes:
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:CP_2026-27_NUOS!B15
+  quote: Medium business opt-out
+  note: tariff name
+- codes:
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_out
+  locator: xlsx:CP_2026-27_NUOS!B15
+  quote: Medium business opt-out
+  note: tariff name
+- codes:
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_out
+  locator: xlsx:CP_2026-27_NUOS!D15
+  quote: Opt-out
+  note: Status column for CMGO21
+- codes:
+  - C2U
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D16
+  quote: Default
+  note: Status column for C2U
+- codes:
+  - CFS
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D17
+  quote: Default
+  note: Status column for CFS
+- codes:
+  - CLLV1
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CP_2026-27_NUOS!B18
+  quote: Large low voltage 1
+  note: tariff name
+- codes:
+  - CLLV1
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:CP_2026-27_NUOS!B18
+  quote: Large low voltage 1
+  note: tariff name
+- codes:
+  - CLLV1
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D18
+  quote: Default
+  note: Status column for CLLV1
+- codes:
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CP_2026-27_NUOS!B19
+  quote: Large low voltage 2
+  note: tariff name
+- codes:
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:CP_2026-27_NUOS!B19
+  quote: Large low voltage 2
+  note: tariff name
+- codes:
+  - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D19
+  quote: Default
+  note: Status column for CLLV2
+- codes:
+  - CLLV3
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CP_2026-27_NUOS!B20
+  quote: Large low voltage 3
+  note: tariff name
+- codes:
+  - CLLV3
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:CP_2026-27_NUOS!B20
+  quote: Large low voltage 3
+  note: tariff name
+- codes:
+  - CLLV3
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D20
+  quote: Default
+  note: Status column for CLLV3
+- codes:
+  - CHV1
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CP_2026-27_NUOS!B21
+  quote: High voltage 1
+  note: tariff name
+- codes:
+  - CHV1
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D21
+  quote: Default
+  note: Status column for CHV1
+- codes:
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CP_2026-27_NUOS!B22
+  quote: High voltage 2
+  note: tariff name
+- codes:
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D22
+  quote: Default
+  note: Status column for CHV2
+- codes:
+  - CHV3
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CP_2026-27_NUOS!B23
+  quote: High voltage 3
+  note: tariff name
+- codes:
+  - CHV3
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D23
+  quote: Default
+  note: Status column for CHV3
+- codes:
+  - CFL
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D24
+  quote: Default
+  note: Status column for CFL
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:CP_2026-27_NUOS!B25
+  quote: Subtransmission
+  note: tariff name
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_NUOS!D25
+  quote: Default
+  note: Status column for CST2
+- codes:
+  - EVCTOU
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:CP_2026-27_TRIAL_NUOS!B7
+  quote: Residential kerbside EV charger
+  note: tariff name
+- codes:
+  - EVCTOU
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: ev
+  locator: xlsx:CP_2026-27_TRIAL_NUOS!B7
+  quote: Residential kerbside EV charger
+  note: tariff name
+- codes:
+  - EVCTOU
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_TRIAL_NUOS!D7
+  quote: Default
+  note: Status column for EVCTOU
+- codes:
+  - CFTUOS
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:CP_2026-27_INDIVIDUALLY_CALC!D6
+  quote: Default
+  note: Status column for CFTUOS
+- codes:
+  - EVCTOU
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: availability
+  value_text: trial
+  locator: xlsx:CP_2026-27_TRIAL_NUOS!B1
+  quote: 2026-27 CITIPOWER TRIAL TARIFF SCHEDULE
+- codes:
+  - C1R
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:CP_2023_24_NUOS!B7
+  quote: Residential Single Rate
+  note: tariff name
+- codes:
+  - CRTOU
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:CP_2023_24_NUOS!B8
+  quote: Residential ToU
+  note: tariff name
+- codes:
+  - CR
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:CP_2023_24_NUOS!B9
+  quote: Residential Demand
+  note: tariff name
+- codes:
+  - CDS
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: xlsx:CP_2023_24_NUOS!B10
+  quote: Dedicated Circuit
+  note: tariff name
+- codes:
+  - C1G
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:CP_2023_24_NUOS!B11
+  quote: Small Business Single Rate
+  note: tariff name
+- codes:
+  - CGTOU
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:CP_2023_24_NUOS!B12
+  quote: Small Business ToU
+  note: tariff name
+- codes:
+  - CG
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:CP_2023_24_NUOS!B13
+  quote: Small Business Demand Tariff
+  note: tariff name
+- codes:
+  - CMG
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:CP_2023_24_NUOS!B14
+  quote: Medium Business Demand
+  note: tariff name
+- codes:
+  - CMGO21
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:CP_2023_24_NUOS!B15
+  quote: Medium Business Opt-out
+  note: tariff name
+- codes:
+  - CMGO21
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_out
+  locator: xlsx:CP_2023_24_NUOS!B15
+  quote: Medium Business Opt-out
+  note: tariff name
+- codes:
+  - C2U
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:CP_2023_24_NUOS!B16
+  quote: Unmetered Supply
+  note: tariff name
+- codes:
+  - CLLVT1
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CP_2023_24_NUOS!B17
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - CLLVT1
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:CP_2023_24_NUOS!B17
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - CLLVT2
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CP_2023_24_NUOS!B18
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - CLLVT2
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:CP_2023_24_NUOS!B18
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - CLLV1
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CP_2023_24_NUOS!B19
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - CLLV1
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:CP_2023_24_NUOS!B19
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - CLLV2
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CP_2023_24_NUOS!B20
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - CLLV2
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:CP_2023_24_NUOS!B20
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - CHVT1
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CP_2023_24_NUOS!B21
+  quote: High Voltage Transitional
+  note: tariff name
+- codes:
+  - CHVT2
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CP_2023_24_NUOS!B22
+  quote: High Voltage Transitional
+  note: tariff name
+- codes:
+  - CHV1
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CP_2023_24_NUOS!B23
+  quote: High Voltage
+  note: tariff name
+- codes:
+  - CHV2
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CP_2023_24_NUOS!B24
+  quote: High Voltage
+  note: tariff name
+- codes:
+  - CST2
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:CP_2023_24_NUOS!B25
+  quote: Subtransmission
+  note: tariff name
+- codes:
+  - C1R
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:CP_2024_25_NUOS!B7
+  quote: Residential Single Rate
+  note: tariff name
+- codes:
+  - CRTOU
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:CP_2024_25_NUOS!B8
+  quote: Residential ToU
+  note: tariff name
+- codes:
+  - CR
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:CP_2024_25_NUOS!B9
+  quote: Residential Demand
+  note: tariff name
+- codes:
+  - CDS
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: xlsx:CP_2024_25_NUOS!B10
+  quote: Dedicated Circuit
+  note: tariff name
+- codes:
+  - C1G
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:CP_2024_25_NUOS!B11
+  quote: Small Business Single Rate
+  note: tariff name
+- codes:
+  - CGTOU
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:CP_2024_25_NUOS!B12
+  quote: Small Business ToU
+  note: tariff name
+- codes:
+  - CG
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:CP_2024_25_NUOS!B13
+  quote: Small Business Demand Tariff
+  note: tariff name
+- codes:
+  - CMG
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:CP_2024_25_NUOS!B14
+  quote: Medium Business Demand
+  note: tariff name
+- codes:
+  - CMGO21
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:CP_2024_25_NUOS!B15
+  quote: Medium Business Opt-out
+  note: tariff name
+- codes:
+  - CMGO21
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_out
+  locator: xlsx:CP_2024_25_NUOS!B15
+  quote: Medium Business Opt-out
+  note: tariff name
+- codes:
+  - C2U
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:CP_2024_25_NUOS!B16
+  quote: Unmetered Supply
+  note: tariff name
+- codes:
+  - CLLVT1
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CP_2024_25_NUOS!B17
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - CLLVT1
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:CP_2024_25_NUOS!B17
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - CLLVT2
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CP_2024_25_NUOS!B18
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - CLLVT2
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:CP_2024_25_NUOS!B18
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - CLLV1
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CP_2024_25_NUOS!B19
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - CLLV1
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:CP_2024_25_NUOS!B19
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - CLLV2
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:CP_2024_25_NUOS!B20
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - CLLV2
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:CP_2024_25_NUOS!B20
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - CHVT1
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CP_2024_25_NUOS!B21
+  quote: High Voltage Transitional
+  note: tariff name
+- codes:
+  - CHVT2
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CP_2024_25_NUOS!B22
+  quote: High Voltage Transitional
+  note: tariff name
+- codes:
+  - CHV1
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CP_2024_25_NUOS!B23
+  quote: High Voltage
+  note: tariff name
+- codes:
+  - CHV2
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:CP_2024_25_NUOS!B24
+  quote: High Voltage
+  note: tariff name
+- codes:
+  - CST2
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:CP_2024_25_NUOS!B25
+  quote: Subtransmission
+  note: tariff name
+- codes:
+  - C1R
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D86
+  quote: Residential
+  note: AER tariff schedule 3 'Tariff class' column for C1R
+- codes:
+  - CRTOU
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D87
+  quote: Residential
+  note: AER tariff schedule 3 'Tariff class' column for CRTOU
+- codes:
+  - CR
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D88
+  quote: Residential
+  note: AER tariff schedule 3 'Tariff class' column for CR
+- codes:
+  - CDS
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D89
+  quote: Residential
+  note: AER tariff schedule 3 'Tariff class' column for CDS
+- codes:
+  - C1G
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D91
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for C1G (small and medium business class)
+- codes:
+  - CGTOU
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D92
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for CGTOU (small and medium business class)
+- codes:
+  - CG
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D93
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for CG (small and medium business class)
+- codes:
+  - CMG
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D94
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for CMG (small and medium business class)
+- codes:
+  - CMGO21
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D95
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for CMGO21 (small and medium business class)
+- codes:
+  - C2U
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D96
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for C2U (small and medium business class)
+- codes:
+  - C2U
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C96
+  quote: Unmetered Supplies / Public Lighting
+  note: AER tariff schedule 3 tariff name
+- codes:
+  - CLLVT
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D98
+  quote: Large low voltage
+  note: AER tariff schedule 3 'Tariff class' column for CLLVT
+- codes:
+  - CLLVT
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D98
+  quote: Large low voltage
+  note: AER tariff schedule 3 'Tariff class' column for CLLVT
+- codes:
+  - CLLV
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D99
+  quote: Large low voltage
+  note: AER tariff schedule 3 'Tariff class' column for CLLV
+- codes:
+  - CLLV
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D99
+  quote: Large low voltage
+  note: AER tariff schedule 3 'Tariff class' column for CLLV
+- codes:
+  - CLLV
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:Tariff schedule!C99
+  quote: Large low Voltage (opt-in)
+  note: AER tariff schedule 3 tariff name
+- codes:
+  - CHVT
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!D101
+  quote: High voltage
+  note: AER tariff schedule 3 'Tariff class' column for CHVT
+- codes:
+  - CHV
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!D102
+  quote: High voltage
+  note: AER tariff schedule 3 'Tariff class' column for CHV
+- codes:
+  - CHV
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:Tariff schedule!C102
+  quote: High Voltage (opt-in)
+  note: AER tariff schedule 3 tariff name
+- codes:
+  - CST2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_CitiPower_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!D104
+  quote: Sub-transmission
+  note: AER tariff schedule 3 'Tariff class' column for CST2
+- codes:
+  - CMG
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: ge
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf-ocr:p6
+  quote: ≥40MWh pa
+  note: 'Table 5 CMG and CMGO21 rows: ≥40 MWh pa and ≤160 MWh; inequalities checked on rendered PDF, OCR drops the ≤
+    sign on the CMG row.'
+- codes:
+  - CMG
+  - CMGO21
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf-ocr:p6
+  quote: 160MWh
+  note: 'Table 5 CMG and CMGO21 rows: ≥40 MWh pa and ≤160 MWh; inequalities checked on rendered PDF, OCR drops the ≤
+    sign on the CMG row.'
+relations:
+- from: CMG
+  type: opt_out_alternative
+  to: CMGO21
+  fin_year: 2023-24
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  locator: pdf:p26
+  quote: CMG customers consuming less than 160 MWh pa can opt out of the demand tariff to CMGO21
+- from: CMG
+  type: opt_out_alternative
+  to: CMGO21
+  fin_year: 2024-25
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: CMG customers consuming less than 160 MWh pa can opt out of the demand tariff to CMGO21
+- from: CMG
+  type: opt_out_alternative
+  to: CMGO21
+  fin_year: 2025-26
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p7
+  quote: CMG customers consuming less than 160MWh pa can opt out of the demand tariff to CMGO21
+- from: CMG
+  type: opt_out_alternative
+  to: CMGO21
+  fin_year: 2026-27
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p7
+  quote: CMG customers consuming less than 160MWh pa can opt out of the demand tariff to CMGO21
+flags:
+- codes:
+  - CLLVT1
+  - CLLVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  flag: transitional
+  locator: pdf:p27
+  quote: Large Low Voltage transition Default
+- codes:
+  - CHVT1
+  - CHVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  flag: transitional
+  locator: pdf:p27
+  quote: High Voltage transition Default
+- codes:
+  - CRDS
+  - CNDB
+  - CDBB
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  flag: trial
+  locator: pdf:p13
+  quote: 'Additionally, following existing trial tariffs will continue to run:'
+- codes:
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  flag: trial
+  locator: pdf:p13
+  quote: 'The following trial tariff will commence in 2023/24: Generator tariff:'
+- codes:
+  - CLLVT1
+  - CLLVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  flag: transitional
+  locator: pdf:p5
+  quote: Large low Voltage Transitional CLLVT1
+- codes:
+  - CHVT1
+  - CHVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  flag: transitional
+  locator: pdf:p5
+  quote: High Voltage Transitional CHVT1
+- codes:
+  - CRDS
+  - CNDB
+  - CDBB
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  flag: trial
+  locator: pdf:p6
+  quote: TABLE 2 TRIAL TARIFFS 2024/25 TARIFFS
+- codes:
+  - CFTUOS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  flag: site_specific
+  locator: pdf:p9
+  quote: CFTUOS annual TUOS/NMI charges will be calculated and applied uniquely on a per NMI basis
+- codes:
+  - EVCTOU
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  flag: trial
+  locator: xlsx:CP_2026-27_TRIAL_NUOS!B1
+  quote: 2026-27 CITIPOWER TRIAL TARIFF SCHEDULE
+- codes:
+  - CFTUOS
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  flag: site_specific
+  locator: xlsx:CP_2026-27_INDIVIDUALLY_CALC!B1
+  quote: 2026-27 CITIPOWER INDIVIDUALLY CALCULATED TARIFF SCHEDULE
+- codes:
+  - CLLVT1
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:CP_2023_24_NUOS!B17
+  quote: Large low Voltage Transitional
+- codes:
+  - CLLVT2
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:CP_2023_24_NUOS!B18
+  quote: Large low Voltage Transitional
+- codes:
+  - CHVT1
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:CP_2023_24_NUOS!B21
+  quote: High Voltage Transitional
+- codes:
+  - CHVT2
+  doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:CP_2023_24_NUOS!B22
+  quote: High Voltage Transitional
+- codes:
+  - CLLVT1
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:CP_2024_25_NUOS!B17
+  quote: Large low Voltage Transitional
+- codes:
+  - CLLVT2
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:CP_2024_25_NUOS!B18
+  quote: Large low Voltage Transitional
+- codes:
+  - CHVT1
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:CP_2024_25_NUOS!B21
+  quote: High Voltage Transitional
+- codes:
+  - CHVT2
+  doc: sources/aer/dnsp_copies/CitiPower_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:CP_2024_25_NUOS!B22
+  quote: High Voltage Transitional

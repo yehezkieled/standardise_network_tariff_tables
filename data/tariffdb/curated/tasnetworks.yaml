@@ -1,0 +1,3713 @@
+# TasNetworks curated tariff facts (TOU windows, demand rules, eligibility, relations, flags).
+# Format and rules: scripts/tariffdb/curated.py. Every item quotes its source at the locator.
+# TOU windows and demand rules are stated only in the 2023-24 Network tariff application and price guide. The other held
+# TasNetworks documents (pricing schedules 2023-24 and 2024-25 PDF, 2025-26 and 2026-27 xlsx incl. their indicative
+# 2026-27..2028-29 and Locational TUoS sheets, the AER 2024-25 stakeholder report and the TasNetworks sections of the AER
+# consolidated 2025-26 v1/v5 and 2026-27 reports) carry no time windows, demand measurement rules or block thresholds,
+# so 2024-25..2026-27 have no tou_schedules or demand_rules.
+distributor: tasnetworks
+tou_schedules:
+- id: tasnetworks-2023-24-guide-res-tou
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  name: Peak / off-peak time periods shared by residential and LV demand tariffs (Tables 2, 5, 7, 10, 15, 17, 20)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p19
+  quote: Peak Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not
+    covered above Weekends (Saturday and Sunday) All day
+  note: 'Guide section 3.3 (pdf:p9): ''All times referred to in this Guide are in Australian Eastern Standard Time (AEST).''
+    Public holidays are not mentioned anywhere in the guide.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "10:00"
+    end: "16:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "16:00"
+    end: "21:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "21:00"
+    end: "24:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS93
+    applies_to: energy
+    locator: pdf:p19
+    quote: 'Table 2: Time periods for residential low voltage time of use (TAS93)'
+  - codes:
+    - TAS87
+    applies_to: demand
+    locator: pdf:p22
+    quote: 'Table 5 sets out the time of use periods applicable to this network tariff. Table 5: Time periods for residential
+      time of use demand'
+  - codes:
+    - TAS97
+    applies_to: demand
+    locator: pdf:p25
+    quote: 'Table 7: Time periods for residential time of use demand'
+  - codes:
+    - TAS92
+    applies_to: energy
+    locator: pdf:p29
+    quote: 'Table 10: Time periods for residential low voltage pay as you go time of use consumption (TAS92)'
+  - codes:
+    - TAS88
+    applies_to: demand
+    locator: pdf:p34
+    quote: 'Table 15: Time periods for small business low voltage time of use demand (TAS88)'
+  - codes:
+    - TAS98
+    applies_to: demand
+    locator: pdf:p37
+    quote: 'Table 17: Time periods for small business low voltage time of use demand DER (TAS98)'
+  - codes:
+    - TAS89
+    applies_to: demand
+    locator: pdf:p41
+    quote: 'Table 20: Time periods for large business low voltage time of use demand (TAS89)'
+- id: tasnetworks-2023-24-guide-sb-tou
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  name: Small business time of use consumption periods (Table 12)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p31
+  quote: Peak Weekdays (Monday to Friday) 07:00 – 22:00 Shoulder Weekends (Saturday and Sunday) 07:00 – 22:00 Off-peak Weekdays
+    (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All times not covered above
+  note: 'Guide section 3.3 (pdf:p9): ''All times referred to in this Guide are in Australian Eastern Standard Time (AEST).''
+    Public holidays are not mentioned anywhere in the guide. Figure 5 on the same page labels the weekday peak and weekend
+    shoulder bars ''07:00 - 10:00'', which contradicts Table 12; the table''s 07:00 - 22:00 is used.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "22:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "07:00"
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: "07:00"
+    end: "22:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "22:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS94
+    applies_to: energy
+    locator: pdf:p31
+    quote: 'Table 12: Time periods for small business low voltage time of use consumption (TAS94)'
+- id: tasnetworks-2023-24-guide-seasonal-tou
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  name: Seasonal peak / shoulder / off-peak periods for irrigation and HV specified demand tariffs (Tables 22, 24, 26)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p42
+  quote: Summer Shoulder Weekdays (Monday to Friday) 07:00 – 22:00 (1 Oct – 31 Mar) Off-peak Weekdays (Monday to Friday) All
+    other summer times Weekends (Saturday and Sunday) All day Winter Peak Weekdays (Monday to Friday) 07:00 – 22:00 (1 Apr
+    – 30 Sep) Shoulder Weekends (Saturday and Sunday) 07:00 – 22:00 Off-peak Weekdays (Monday to Friday) All other winter
+    times Weekends (Saturday and Sunday) All other winter times
+  note: 'Guide section 3.3 (pdf:p9): ''All times referred to in this Guide are in Australian Eastern Standard Time (AEST).''
+    Public holidays are not mentioned anywhere in the guide.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+    months: 10,11,12,1,2,3
+    season: Summer (1 Oct – 31 Mar)
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: "07:00"
+    end: "22:00"
+    months: 10,11,12,1,2,3
+    season: Summer (1 Oct – 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+    months: 10,11,12,1,2,3
+    season: Summer (1 Oct – 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "24:00"
+    months: 10,11,12,1,2,3
+    season: Summer (1 Oct – 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+    months: 4,5,6,7,8,9
+    season: Winter (1 Apr – 30 Sep)
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "22:00"
+    months: 4,5,6,7,8,9
+    season: Winter (1 Apr – 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+    months: 4,5,6,7,8,9
+    season: Winter (1 Apr – 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "07:00"
+    months: 4,5,6,7,8,9
+    season: Winter (1 Apr – 30 Sep)
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: "07:00"
+    end: "22:00"
+    months: 4,5,6,7,8,9
+    season: Winter (1 Apr – 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "22:00"
+    end: "24:00"
+    months: 4,5,6,7,8,9
+    season: Winter (1 Apr – 30 Sep)
+  tariffs:
+  - codes:
+    - TAS75
+    applies_to: energy
+    locator: pdf:p42
+    quote: 'Table 22: Time periods for irrigation low voltage time of use'
+  - codes:
+    - TASSDM
+    applies_to: energy
+    locator: pdf:p45
+    quote: 'Table 24: Time periods for large business high voltage specified demand < 2MVA (TASSDM)'
+  - codes:
+    - TAS15
+    applies_to: energy
+    locator: pdf:p48
+    quote: 'Table 26: Time periods for large business high voltage specified demand > 2MVA (TAS15)'
+- id: tasnetworks-2023-24-guide-tas63-supply
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  name: Controlled energy night period only (TAS63) supply availability
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p53
+  quote: Energy to installations connected on this network tariff will only be available between 22:00 hours and 07:00 hours
+    the following day.
+  note: 'Guide section 3.3 (pdf:p9): ''All times referred to in this Guide are in Australian Eastern Standard Time (AEST).''
+    Public holidays are not mentioned anywhere in the guide. The guide does not restrict the window to particular day types,
+    so it is recorded for all days.'
+  windows:
+  - period: controlled_load_supply
+    label: Night period
+    days: all_days
+    start: "00:00"
+    end: "07:00"
+  - period: controlled_load_supply
+    label: Night period
+    days: all_days
+    start: "22:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS63
+    applies_to: controlled_load
+- id: tasnetworks-2023-24-guide-tas61-supply
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  name: Controlled energy off-peak with afternoon boost (TAS61) supply envelopes
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p55
+  quote: 'energy will be available daily for: • at least nine hours between 20:00 hours and 07:00 hours the following day;
+    and • a further two hours between 13:00 hours and 16:30 hours.'
+  note: 'Guide section 3.3 (pdf:p9): ''All times referred to in this Guide are in Australian Eastern Standard Time (AEST).''
+    Public holidays are not mentioned anywhere in the guide. These are envelopes, not exact switching times: supply is at
+    least 9 hours within 20:00-07:00 and a further 2 hours within 13:00-16:30, and pdf:p56 says ''TasNetworks will choose
+    the actual times during the periods that the energy will be available.'''
+  windows:
+  - period: controlled_load_supply
+    label: Overnight (at least nine hours within)
+    days: all_days
+    start: "00:00"
+    end: "07:00"
+  - period: controlled_load_supply
+    label: Afternoon boost (two hours within)
+    days: all_days
+    start: "13:00"
+    end: "16:30"
+  - period: controlled_load_supply
+    label: Overnight (at least nine hours within)
+    days: all_days
+    start: "20:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS61
+    applies_to: controlled_load
+demand_rules:
+- id: tasnetworks-2023-24-tas87-peak-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: average_of_highest_days
+  aggregation_count: 4
+  window_schedule: tasnetworks-2023-24-guide-res-tou
+  window_period: peak
+  locator: pdf:p21
+  quote: average of the four highest peaks in demand recorded for the customer over the course of the month during the peak
+    periods which apply to TAS87
+  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
+    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Residential low voltage
+    time of use demand TAS87 kW 30''. No minimum chargeable demand is stated.'
+  tariffs:
+  - codes:
+    - TAS87
+    time_band: peak
+- id: tasnetworks-2023-24-tas87-offpeak-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: average_of_highest_days
+  aggregation_count: 4
+  window_schedule: tasnetworks-2023-24-guide-res-tou
+  window_period: off_peak
+  locator: pdf:p22
+  quote: average of the four highest peaks in demand recorded for the customer over the course of a month during the off-peak
+    periods which apply to TAS87
+  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
+    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Residential low voltage
+    time of use demand TAS87 kW 30''. No minimum chargeable demand is stated.'
+  tariffs:
+  - codes:
+    - TAS87
+    time_band: off_peak
+- id: tasnetworks-2023-24-tas97-peak-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: average_of_highest_days
+  aggregation_count: 4
+  window_schedule: tasnetworks-2023-24-guide-res-tou
+  window_period: peak
+  locator: pdf:p25
+  quote: average of the four highest peaks in demand recorded for the customer over the course of the month during the peak
+    periods with apply to TAS97
+  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
+    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Residential low voltage
+    time of use demand DER TAS97 kW 30''. No minimum chargeable demand is stated.'
+  tariffs:
+  - codes:
+    - TAS97
+    time_band: peak
+- id: tasnetworks-2023-24-tas97-offpeak-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: average_of_highest_days
+  aggregation_count: 4
+  window_schedule: tasnetworks-2023-24-guide-res-tou
+  window_period: off_peak
+  locator: pdf:p25
+  quote: average of the four highest peaks in demand recorded for the customer over the course of a month during the off-peak
+    periods with apply to TAS97
+  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
+    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Residential low voltage
+    time of use demand DER TAS97 kW 30''. No minimum chargeable demand is stated.'
+  tariffs:
+  - codes:
+    - TAS97
+    time_band: off_peak
+- id: tasnetworks-2023-24-tas88-peak-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: average_of_highest_days
+  aggregation_count: 4
+  window_schedule: tasnetworks-2023-24-guide-res-tou
+  window_period: peak
+  locator: pdf:p33
+  quote: average of the four highest peaks in demand recorded for the customer over the course of the month during the peak
+    periods which apply to TAS88
+  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
+    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Small business low
+    voltage time of use demand TAS88 kW 30''. No minimum chargeable demand is stated.'
+  tariffs:
+  - codes:
+    - TAS88
+    time_band: peak
+- id: tasnetworks-2023-24-tas88-offpeak-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: average_of_highest_days
+  aggregation_count: 4
+  window_schedule: tasnetworks-2023-24-guide-res-tou
+  window_period: off_peak
+  locator: pdf:p33
+  quote: average of the four highest peaks in demand recorded for the customer over the course of a month during the off-peak
+    periods which apply to TAS88
+  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
+    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Small business low
+    voltage time of use demand TAS88 kW 30''. No minimum chargeable demand is stated.'
+  tariffs:
+  - codes:
+    - TAS88
+    time_band: off_peak
+- id: tasnetworks-2023-24-tas98-peak-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: average_of_highest_days
+  aggregation_count: 4
+  window_schedule: tasnetworks-2023-24-guide-res-tou
+  window_period: peak
+  locator: pdf:p36
+  quote: average of the four highest peaks in demand recorded for the customer over the course of the month during the peak
+    periods which apply to TAS98
+  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
+    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Small business low
+    voltage time of use demand DER TAS98 kW 30''. No minimum chargeable demand is stated.'
+  tariffs:
+  - codes:
+    - TAS98
+    time_band: peak
+- id: tasnetworks-2023-24-tas98-offpeak-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  interval_minutes: 30
+  aggregation: average_of_highest_days
+  aggregation_count: 4
+  window_schedule: tasnetworks-2023-24-guide-res-tou
+  window_period: off_peak
+  locator: pdf:p36
+  quote: average of the four highest peaks in demand recorded for the customer over the course of a month during the off-peak
+    periods which apply to TAS98
+  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
+    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Small business low
+    voltage time of use demand DER TAS98 kW 30''. No minimum chargeable demand is stated.'
+  tariffs:
+  - codes:
+    - TAS98
+    time_band: off_peak
+- id: tasnetworks-2023-24-tas89-peak-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kVA
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: tasnetworks-2023-24-guide-res-tou
+  window_period: peak
+  locator: pdf:p40
+  quote: The monthly billing period peak demand charge uses the maximum demand recorded during the peak period within the
+    period.
+  note: 'Measure and interval from Table 36 (pdf:p66): ''Large business low voltage time of use demand TAS89 kVA 30''. No
+    minimum chargeable demand is stated.'
+  tariffs:
+  - codes:
+    - TAS89
+    time_band: peak
+- id: tasnetworks-2023-24-tas89-offpeak-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kVA
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: tasnetworks-2023-24-guide-res-tou
+  window_period: off_peak
+  locator: pdf:p40
+  quote: The monthly billing period off-peak demand charge uses the maximum demand recorded during the off-peak period within
+    the period.
+  note: 'Measure and interval from Table 36 (pdf:p66): ''Large business low voltage time of use demand TAS89 kVA 30''. No
+    minimum chargeable demand is stated.'
+  tariffs:
+  - codes:
+    - TAS89
+    time_band: off_peak
+- id: tasnetworks-2023-24-tas82-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kVA
+  interval_minutes: 15
+  aggregation: billing_period_max
+  locator: pdf:p39
+  quote: multiplying the amount calculated in (a) by the anytime maximum demand recorded during the billing period.
+  note: 'Anytime maximum demand over the billing period (Table 37, pdf:p67: ''ATMD Billing period''; standard billing frequency
+    for demand tariffs is monthly, section 20.6). Measure and interval from Table 36 (pdf:p66): ''Large business low voltage kVA demand TAS82 kVA 15''.'
+  tariffs:
+  - codes:
+    - TAS82
+- id: tasnetworks-2023-24-tassdm-specified-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kVA
+  interval_minutes: 15
+  aggregation: agreed
+  locator: pdf:p44
+  quote: No later than two months prior to the commencement of each financial year, customers on this network tariff are required
+    to reach agreement with TasNetworks on the level of specified demand
+  note: Daily charge on the agreed specified demand; daily anytime maximum demand (ATMD) above the specified demand is charged
+    at the specified rate up to 120 per cent, and the part above 120 per cent at the excess rate (10 times the specified rate)
+    (section 11.1.3, pdf:p45). Measure and interval from Table 36 (pdf:p66).
+  tariffs:
+  - codes:
+    - TASSDM
+- id: tasnetworks-2023-24-tas15-specified-demand
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  measure: kVA
+  interval_minutes: 15
+  aggregation: agreed
+  locator: pdf:p47
+  quote: No later than two months prior to the commencement of each financial year, customers on this network tariff are required
+    to reach agreement with TasNetworks on the level of specified demand
+  note: Daily charge on the agreed specified demand; daily ATMD above the specified demand is charged at the excess rate,
+    5 times the specified rate (section 11.2.3, pdf:p48). Measure and interval from Table 36 (pdf:p66).
+  tariffs:
+  - codes:
+    - TAS15
+eligibility:
+- codes:
+  - TAS93
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p18
+  quote: This network tariff is available for low voltage installations that are premises used wholly or principally as private
+    residential dwellings.
+- codes:
+  - TAS93
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p18
+  quote: This network tariff is available for low voltage installations that are premises used wholly or principally as private
+    residential dwellings.
+- codes:
+  - TAS93
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: basic
+  locator: pdf:p18
+  quote: A Type 6 meter capable of recording time of use data is the minimum required for installations on this network tariff.
+  note: Type 6 meter (basic metering under the NER) capable of recording time of use data.
+- codes:
+  - TAS93
+  - TAS94
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p15
+  quote: the customer will be reassigned to the applicable default network tariff (either TAS93 or TAS94)
+  note: Default (opt-out) assignment for residential / small business LV customers after a trigger event (new connection,
+    connection alteration, advanced meter), applied after a 12-month delay and 2-month notification period (section 5.2).
+- codes:
+  - TAS31
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p20
+  quote: This network tariff is for low voltage installations located at premises that are used wholly or principally as private
+    residential dwellings.
+- codes:
+  - TAS31
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p20
+  quote: This network tariff is for low voltage installations located at premises that are used wholly or principally as private
+    residential dwellings.
+- codes:
+  - TAS31
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: basic
+  locator: pdf:p20
+  quote: A Type 6 meter is the minimum required for installations on this network tariff.
+  note: Type 6 meter (basic metering under the NER).
+- codes:
+  - TAS87
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p21
+  quote: This network tariff is for low voltage installations that are premises used wholly or principally as private residential
+    dwellings.
+- codes:
+  - TAS87
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p21
+  quote: This network tariff is for low voltage installations that are premises used wholly or principally as private residential
+    dwellings.
+- codes:
+  - TAS87
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p21
+  quote: A remote read interval meter is the minimum required for installations on this network tariff.
+  note: Remote read interval meter.
+- codes:
+  - TAS87
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p21
+  quote: To encourage customers to take up of this demand based time of use tariff on an opt-in basis
+  note: A 10 per cent off-peak demand incentive applies until 30 June 2024.
+- codes:
+  - TAS87
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: may not be combined with any other network tariff except import / feed-in tariffs
+  locator: pdf:p21
+  quote: This network tariff may not be used in conjunction with any other network tariff, however is eligible to be used
+    in conjunction with import or feed-in-tariffs.
+- codes:
+  - TAS97
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p24
+  quote: This network tariff is for low voltage installations that are used wholly or principally as private residential dwellings
+    where electricity storage, generation or electricity management devices
+- codes:
+  - TAS97
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p24
+  quote: This network tariff is for low voltage installations that are used wholly or principally as private residential dwellings
+    where electricity storage, generation or electricity management devices
+- codes:
+  - TAS97
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: requires distributed energy resources (storage, generation or electricity management devices) behind the meter
+  locator: pdf:p24
+  quote: collectively referred to as “distributed energy resources” (DER) – have been deployed behind the meter.
+  note: Recorded as 'other' because the requirement is any one of storage, generation or electricity management devices, which
+    no single requires_technology value captures.
+- codes:
+  - TAS97
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p24
+  quote: A remote read interval meter is the minimum required for installations on this network tariff.
+  note: Remote read interval meter.
+- codes:
+  - TAS97
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p24
+  quote: To encourage customers to take up this new demand-based time of use tariff on an opt-in basis
+  note: A 10 per cent off-peak demand incentive applies until 30 June 2024.
+- codes:
+  - TAS97
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: may not be combined with any other network tariff except import / feed-in tariffs
+  locator: pdf:p24
+  quote: This network tariff may not be used in conjunction with any other network tariff, however is eligible to be used
+    in conjunction with import or feed-in-tariffs.
+- codes:
+  - TAS101
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p27
+  quote: This network tariff applies to low voltage installations at premises which are used wholly or principally as private
+    residential dwellings and were supplied in accordance with Aurora Energy’s Pay As You Go (PAYG) prepayment metering product
+    prior to 1 July 2013.
+- codes:
+  - TAS101
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p27
+  quote: This network tariff applies to low voltage installations at premises which are used wholly or principally as private
+    residential dwellings and were supplied in accordance with Aurora Energy’s Pay As You Go (PAYG) prepayment metering product
+    prior to 1 July 2013.
+- codes:
+  - TAS101
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: only installations on Aurora Energy's PAYG prepayment metering product before 1 July 2013
+  locator: pdf:p27
+  quote: This network tariff applies to low voltage installations at premises which are used wholly or principally as private
+    residential dwellings and were supplied in accordance with Aurora Energy’s Pay As You Go (PAYG) prepayment metering product
+    prior to 1 July 2013.
+- codes:
+  - TAS101
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p27
+  quote: This network tariff is obsolete and no longer available to new installations. Existing installations on other network
+    tariffs are also unable to be reassigned to TAS101.
+- codes:
+  - TAS101
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: may not be combined with any other network tariff
+  locator: pdf:p27
+  quote: This network tariff may not be used in conjunction with any other network tariff.
+- codes:
+  - TAS92
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p28
+  quote: This network tariff is for low voltage installations at premises which are used wholly or principally as private
+    residential dwellings and are supplied with a prepayment metering product.
+- codes:
+  - TAS92
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p28
+  quote: This network tariff is for low voltage installations at premises which are used wholly or principally as private
+    residential dwellings and are supplied with a prepayment metering product.
+- codes:
+  - TAS92
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: only installations supplied with a prepayment metering product
+  locator: pdf:p28
+  quote: This network tariff is for low voltage installations at premises which are used wholly or principally as private
+    residential dwellings and are supplied with a prepayment metering product.
+- codes:
+  - TAS92
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p28
+  quote: This network tariff is obsolete and no longer available to new installations. Existing installations on other network
+    tariffs are also unable to be reassigned to TAS92.
+- codes:
+  - TAS92
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: pdf:p28
+  quote: Customer installations that were, as at 1 July 2019, assigned to TAS92 are able to remain assigned to this network
+    tariff
+- codes:
+  - TAS92
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: basic
+  locator: pdf:p28
+  quote: A Type 6 meter capable of recording time of use data is the minimum required for installations on this network tariff.
+  note: Type 6 meter (basic metering under the NER) capable of recording time of use data.
+- codes:
+  - TAS94
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p30
+  quote: 8 Small business low voltage 8.1 Small business low voltage time of use consumption (TAS94)
+  note: Tariff class heading.
+- codes:
+  - TAS94
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p30
+  quote: This network tariff is available for low voltage installations located on premises that are not used wholly or principally
+    as private residential dwellings.
+- codes:
+  - TAS94
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: basic
+  locator: pdf:p30
+  quote: A Type 6 meter capable of recording time of use data is the minimum required for installations on this network tariff.
+  note: Type 6 meter (basic metering under the NER) capable of recording time of use data.
+- codes:
+  - TAS22
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p32
+  quote: 8.2 Small business low voltage general light and power (TAS22)
+  note: Tariff class / section heading.
+- codes:
+  - TAS22
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p32
+  quote: This network tariff is for low voltage installations located on premises that are not used wholly or principally
+    as private residential dwellings.
+- codes:
+  - TAS22
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: basic
+  locator: pdf:p32
+  quote: A Type 6 meter is the minimum required for installations on this network tariff.
+  note: Type 6 meter (basic metering under the NER).
+- codes:
+  - TAS88
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p33
+  quote: 8.3 Small business low voltage time of use demand (TAS88)
+  note: Tariff class / section heading.
+- codes:
+  - TAS88
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p33
+  quote: This network tariff is for low voltage installations that are not used wholly or principally as private residential
+    dwellings.
+- codes:
+  - TAS88
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p33
+  quote: A remote read interval meter is the minimum required for installation on this network tariff.
+  note: Remote read interval meter.
+- codes:
+  - TAS88
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p33
+  quote: To encourage customers to take up of this demand based time of use tariff on an opt-in basis
+  note: A 10 per cent off-peak demand incentive applies until 30 June 2024.
+- codes:
+  - TAS88
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: may not be combined with any other network tariff except import / feed-in tariffs
+  locator: pdf:p33
+  quote: This network tariff may not be used in conjunction with any other network tariff, however is eligible to be used
+    in conjunction with import or feed-in-tariffs.
+- codes:
+  - TAS98
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p36
+  quote: 8.4 Small business low voltage time of use demand DER (TAS98)
+  note: Tariff class / section heading.
+- codes:
+  - TAS98
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p36
+  quote: This network tariff is for low voltage installations that are not used wholly or principally as private residential
+    dwellings and where electricity storage, generation or electricity management devices
+- codes:
+  - TAS98
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: requires distributed energy resources (storage, generation or electricity management devices) behind the meter
+  locator: pdf:p36
+  quote: collectively referred to as “distributed energy resources” (DER) – have been deployed behind the meter.
+  note: Recorded as 'other' because the requirement is any one of storage, generation or electricity management devices, which
+    no single requires_technology value captures.
+- codes:
+  - TAS98
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p36
+  quote: A remote read interval meter is the minimum required for installation on this network tariff.
+  note: Remote read interval meter.
+- codes:
+  - TAS98
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p36
+  quote: To encourage customers to take up this new demand-based time of use tariff on an opt-in basis
+  note: A 10 per cent off-peak demand incentive applies until 30 June 2024.
+- codes:
+  - TAS98
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: may not be combined with any other network tariff except import / feed-in tariffs
+  locator: pdf:p36
+  quote: This network tariff may not be used in conjunction with any other network tariff, however is eligible to be used
+    in conjunction with import or feed-in-tariffs.
+- codes:
+  - TAS82
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p39
+  quote: 9 Large business low voltage 9.1 Large business low voltage kVA demand (TAS82)
+  note: Tariff class heading.
+- codes:
+  - TAS82
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p39
+  quote: This network tariff is for installations taking low voltage multi-phase supply that are not used wholly or principally
+    as private residential dwellings.
+- codes:
+  - TAS82
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: requires a low voltage multi-phase supply
+  locator: pdf:p39
+  quote: This network tariff is for installations taking low voltage multi-phase supply that are not used wholly or principally
+    as private residential dwellings.
+- codes:
+  - TAS82
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: basic
+  locator: pdf:p39
+  quote: A Type 6 meter is the minimum required for installations on this network tariff.
+  note: Type 6 meter (basic metering under the NER).
+- codes:
+  - TAS82
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: may not be combined with any other network tariff
+  locator: pdf:p39
+  quote: This network tariff may not be used in conjunction with any other network tariff.
+- codes:
+  - TAS89
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p40
+  quote: 9.2 Large business low voltage time of use demand (TAS89)
+  note: Tariff class / section heading.
+- codes:
+  - TAS89
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p40
+  quote: This network tariff is for installations taking a for low voltage multi-phase supply that are not used wholly or
+    principally as private residential dwellings.
+- codes:
+  - TAS89
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: requires a low voltage multi-phase supply
+  locator: pdf:p40
+  quote: This network tariff is for installations taking a for low voltage multi-phase supply that are not used wholly or
+    principally as private residential dwellings.
+- codes:
+  - TAS89
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p40
+  quote: A remote read interval meter is the minimum required for installations on this network tariff.
+  note: Remote read interval meter.
+- codes:
+  - TAS89
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: may not be combined with any other network tariff except import / feed-in tariffs
+  locator: pdf:p40
+  quote: This network tariff may not be used in conjunction with any other network tariff, however is eligible to be used
+    in conjunction with import or feed-in-tariffs.
+- codes:
+  - TAS75
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p42
+  quote: This low voltage network tariff is for primary producers’ business installations that are used solely for the irrigation
+    of crops (including pasture) and classified as ANZSIC class 01.
+- codes:
+  - TAS75
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p42
+  quote: This low voltage network tariff is for primary producers’ business installations that are used solely for the irrigation
+    of crops (including pasture) and classified as ANZSIC class 01.
+- codes:
+  - TAS75
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: irrigation of crops (including pasture) only, ANZSIC class 01
+  locator: pdf:p42
+  quote: This low voltage network tariff is for primary producers’ business installations that are used solely for the irrigation
+    of crops (including pasture) and classified as ANZSIC class 01.
+- codes:
+  - TAS75
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: basic
+  locator: pdf:p42
+  quote: A Type 6 meter capable of recording time of use data is the minimum required for installations on this network tariff.
+  note: Type 6 meter (basic metering under the NER) capable of recording time of use data.
+- codes:
+  - TAS75
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: may not be combined with any other network tariff
+  locator: pdf:p42
+  quote: This network tariff may not be used in conjunction with any other network tariff.
+- codes:
+  - TASSDM
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p44
+  quote: 11 Large business high voltage 11.1 Large business high voltage specified demand < 2MVA (TASSDM)
+  note: Tariff class heading.
+- codes:
+  - TASSDM
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p44
+  quote: This network tariff is for installations taking supply at high voltage, with an expected ATMD less than 2 MVA.
+- codes:
+  - TASSDM
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: demand_max
+  operator: lt
+  value_num: 2
+  value_unit: MVA
+  locator: pdf:p44
+  quote: This network tariff is for installations taking supply at high voltage, with an expected ATMD less than 2 MVA.
+  note: Expected anytime maximum demand (ATMD).
+- codes:
+  - TASSDM
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p44
+  quote: requires a meter capable of recording interval data
+- codes:
+  - TASSDM
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: customer supplies own transformers and switchgear
+  locator: pdf:p44
+  quote: The customer must supply their own transformers and switchgear for installations connected on this network tariff.
+- codes:
+  - TAS15
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p47
+  quote: 11.2 Large business high voltage specified demand > 2MVA (TAS15)
+  note: Tariff class / section heading.
+- codes:
+  - TAS15
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: demand_min
+  operator: gt
+  value_num: 2
+  value_unit: MVA
+  locator: pdf:p47
+  quote: This network tariff applies to customers with an ATMD in excess of 2 MVA
+  note: Anytime maximum demand (ATMD).
+- codes:
+  - TAS15
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p47
+  quote: Metering of consumption (and demand) for an installation on this network tariff occurs at the HV connection point
+- codes:
+  - TAS15
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p47
+  quote: requires a meter capable of recording interval data
+- codes:
+  - TAS15
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: no TasNetworks-owned assets beyond the connection point; customer supplies own transformers and switchgear
+  locator: pdf:p47
+  quote: supplied directly from the TasNetworks distribution network with no TasNetworks owned assets beyond the connection
+    point.
+- codes:
+  - TAS41
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p50
+  quote: 12.1 Uncontrolled low voltage heating and hot water (TAS41) This network tariff is for low voltage installations.
+- codes:
+  - TAS41
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: only with TAS31 or TAS22
+  locator: pdf:p50
+  quote: This network tariff is not available on a stand-alone basis and to be eligible for TAS41, customers must also be
+    supplied under one of the following network tariffs
+- codes:
+  - TAS41
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: 'residential: water heating, space heating, indoor pool heating only; other premises: water heating only'
+  locator: pdf:p50
+  quote: this network tariff is for water heating and/or residential space heating and/or domestic indoor pool heating only.
+- codes:
+  - TAS41
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: basic
+  locator: pdf:p50
+  quote: A Type 6 meter is the minimum required for installations on this network tariff.
+  note: Type 6 meter (basic metering under the NER).
+- codes:
+  - TAS63
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p53
+  quote: 13 Controlled energy 13.1 Controlled low voltage energy – night period only (TAS63)
+  note: Tariff class heading.
+- codes:
+  - TAS63
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p53
+  quote: This network tariff is available for low voltage installations only.
+- codes:
+  - TAS63
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: only with TAS31, TAS93, TAS92, TAS22 or TAS94
+  locator: pdf:p53
+  quote: This network tariff is not available in its own right and must be used in conjunction with one of the following additional
+    network tariffs
+- codes:
+  - TAS63
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: not combinable with import / feed-in tariffs
+  locator: pdf:p53
+  quote: This network tariff is not eligible to be used in conjunction with import or feed-in-tariffs.
+- codes:
+  - TAS63
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: basic
+  locator: pdf:p53
+  quote: A Type 6 meter is the minimum required for installations on this network tariff, and must be capable of recording
+    time of use data and have the ability to control energy flows.
+  note: Type 6 meter (basic metering under the NER) capable of recording time of use data, with the ability to control energy
+    flows.
+- codes:
+  - TAS61
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p55
+  quote: 13.2 Controlled low voltage energy – off-peak with afternoon boost (TAS61)
+  note: Section heading under the Controlled energy tariff class.
+- codes:
+  - TAS61
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p55
+  quote: This network tariff is obsolete and no longer available to new installations. Existing installations on other network
+    tariffs are also unable to be reassigned to TAS61.
+- codes:
+  - TAS61
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: grandfathered
+  locator: pdf:p55
+  quote: Customer installations that were, as at 1 July 2019, assigned to TAS61 will be able to remain assigned to this network
+    tariff
+- codes:
+  - TAS61
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p55
+  quote: This network tariff is for low voltage installations.
+- codes:
+  - TAS61
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: only with TAS31 or TAS22
+  locator: pdf:p55
+  quote: This network tariff is not available in its own right and must be used in conjunction with one of the following additional
+    network tariffs
+- codes:
+  - TAS61
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: not combinable with import / feed-in tariffs
+  locator: pdf:p55
+  quote: This network tariff is not eligible to be used in conjunction with import or feed-in-tariffs.
+- codes:
+  - TAS61
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: basic
+  locator: pdf:p55
+  quote: A Type 6 meter is the minimum required for installations on this network tariff and must have the ability to control
+    energy flows.
+  note: Type 6 meter (basic metering under the NER) with the ability to control energy flows.
+- codes:
+  - TASUMS
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p58
+  quote: This network tariff is intended to be applied to small, low voltage, low demand installations with a relatively constant
+    load profile
+- codes:
+  - TASUMS
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p58
+  quote: This network tariff is intended to be applied to small, low voltage, low demand installations with a relatively constant
+    load profile
+- codes:
+  - TASUMS
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p58
+  quote: This is an unmetered network tariff with a calculation methodology used to determine the energy consumed by these
+    installations.
+- codes:
+  - TASUMS
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: devices must be permanently connected; no general purpose outlet
+  locator: pdf:p58
+  quote: An installation containing a general purpose outlet does not qualify for this network tariff.
+- codes:
+  - TASUMSSL
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p59
+  quote: This low voltage network tariff is for the provision of TasNetworks’ public lighting services and is available to
+    councils, road authorities and other customers who wish to install contract lighting.
+- codes:
+  - TASUMSSL
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p59
+  quote: This low voltage network tariff is for the provision of TasNetworks’ public lighting services and is available to
+    councils, road authorities and other customers who wish to install contract lighting.
+- codes:
+  - TASUMSSL
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p59
+  quote: This is an unmetered network tariff and is treated as a Type 7 metering installation.
+- codes:
+  - TAS93
+  - TAS31
+  - TAS87
+  - TAS97
+  - TAS101
+  - TAS92
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: embedded network parent connections may not be assigned to residential network tariffs
+  locator: pdf:p14
+  quote: Embedded network operators are not eligible to have the embedded network’s connection with our network (sometimes
+    referred to as the ‘parent’ meter) assigned to residential network tariffs.
+  note: Applies to all residential network tariffs (Table 1, pdf:p17).
+- codes:
+  - TAS93
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p7
+  quote: Residential low voltage time of use consumption TAS93
+- codes:
+  - TAS93
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Residential low voltage time of use consumption TAS93
+- codes:
+  - TAS31
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p7
+  quote: Residential low voltage general light and power TAS31
+- codes:
+  - TAS31
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Residential low voltage general light and power TAS31
+- codes:
+  - TAS87
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p7
+  quote: Residential low voltage time of use demand TAS87
+- codes:
+  - TAS87
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Residential low voltage time of use demand TAS87
+- codes:
+  - TAS97
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p7
+  quote: Residential low voltage time of use demand DER TAS97
+- codes:
+  - TAS97
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Residential low voltage time of use demand DER TAS97
+- codes:
+  - TAS101
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p7
+  quote: Residential low voltage pay as you go consumption TAS101
+- codes:
+  - TAS101
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Residential low voltage pay as you go consumption TAS101
+- codes:
+  - TAS92
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p7
+  quote: Residential low voltage pay as you go time of use TAS92
+- codes:
+  - TAS92
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Residential low voltage pay as you go time of use TAS92
+- codes:
+  - TAS94
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: Small business low voltage time of use consumption TAS94
+- codes:
+  - TAS94
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Small business low voltage time of use consumption TAS94
+- codes:
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: Small business low voltage general light and power TAS22
+- codes:
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Small business low voltage general light and power TAS22
+- codes:
+  - TAS88
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: Small business low voltage time of use demand TAS88
+- codes:
+  - TAS88
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Small business low voltage time of use demand TAS88
+- codes:
+  - TAS98
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: Small business low voltage time of use demand DER TAS98
+- codes:
+  - TAS98
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Small business low voltage time of use demand DER TAS98
+- codes:
+  - TAS82
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p7
+  quote: Large business low voltage kVA demand TAS82
+- codes:
+  - TAS82
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Large business low voltage kVA demand TAS82
+- codes:
+  - TAS89
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p7
+  quote: Large business low voltage time of use demand TAS89
+- codes:
+  - TAS89
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Large business low voltage time of use demand TAS89
+- codes:
+  - TAS75
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p8
+  quote: Irrigation low voltage time of use consumption TAS75
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p8
+  quote: TASSDM 20.400 / 204.000 / Large business high voltage specified demand < 2MVA
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p8
+  quote: TASSDM 20.400 / 204.000 / Large business high voltage specified demand < 2MVA
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p8
+  quote: Large business high voltage specified demand > 2MVA TAS15
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p8
+  quote: Large business high voltage specified demand > 2MVA TAS15
+- codes:
+  - TAS41
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p8
+  quote: Uncontrolled energy Uncontrolled low voltage heating and hot water TAS41
+- codes:
+  - TAS63
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p8
+  quote: Controlled energy Controlled low voltage energy – night period only TAS63
+- codes:
+  - TAS63
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p8
+  quote: Controlled energy Controlled low voltage energy – night period only TAS63
+- codes:
+  - TAS61
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p8
+  quote: Controlled low voltage energy – off-peak with afternoon TAS61
+- codes:
+  - TAS61
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p8
+  quote: Controlled low voltage energy – off-peak with afternoon TAS61
+- codes:
+  - TASUMS
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p8
+  quote: Unmetered supply Unmetered supply low voltage general TASUMS
+- codes:
+  - TASUMS
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p8
+  quote: Unmetered supply Unmetered supply low voltage general TASUMS
+- codes:
+  - TASUMSSL
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p8
+  quote: Street Lighting Unmetered supply low voltage public lighting TASUMSSL
+- codes:
+  - TASUMSSL
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p8
+  quote: Street Lighting Unmetered supply low voltage public lighting TASUMSSL
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: demand_max
+  operator: lt
+  value_num: 2
+  value_unit: MVA
+  locator: pdf:p8
+  quote: Large business high voltage specified demand < 2MVA
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: demand_min
+  operator: gt
+  value_num: 2
+  value_unit: MVA
+  locator: pdf:p8
+  quote: Large business high voltage specified demand > 2MVA TAS15
+- codes:
+  - TAS101
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p7
+  quote: This network tariff is obsolete, and no new connections are allowed.
+  note: Footnote attached to TAS101 in Table 1 (NUoS).
+- codes:
+  - TAS92
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p7
+  quote: This network tariff is obsolete, and no new connections are allowed.
+  note: Footnote attached to TAS92 in Table 1 (NUoS).
+- codes:
+  - TAS61
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p8
+  quote: This network tariff is obsolete, and no new connections are allowed.
+  note: Footnote attached to TAS61 in Table 1 (NUoS).
+- codes:
+  - TAS93
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Residential time of use consumption Residential TAS93
+  note: Tariff class column of the price table.
+- codes:
+  - TAS87
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Residential time of use demand Residential TAS87
+  note: Tariff class column of the price table.
+- codes:
+  - TAS97
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Residential time of use CER Residential TAS97
+  note: Tariff class column of the price table.
+- codes:
+  - TAS31
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Residential general light and power (1) Residential TAS31
+  note: Tariff class column of the price table.
+- codes:
+  - TAS41
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Uncontrolled energy low voltage heating (1) Residential TAS41
+  note: Tariff class column of the price table.
+- codes:
+  - TAS41
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Uncontrolled energy low voltage heating (1) Residential TAS41
+- codes:
+  - TAS63
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Controlled energy off-peak [night only] Residential TAS63
+  note: Tariff class column of the price table.
+- codes:
+  - TAS61
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Controlled energy off-peak with afternoon boost (1) Residential TAS61
+  note: Tariff class column of the price table.
+- codes:
+  - TAS92
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Residential pay as you go (PAYG) time of use (1) Residential TAS92
+  note: Tariff class column of the price table.
+- codes:
+  - TAS101
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: Residential pay as you go (PAYG) (1) Residential TAS101
+  note: Tariff class column of the price table.
+- codes:
+  - TAS94
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: Small business time of use consumption Small business LV TAS94
+  note: Tariff class column of the price table.
+- codes:
+  - TAS94
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Small business time of use consumption Small business LV TAS94
+  note: Tariff class column of the price table.
+- codes:
+  - TAS88
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: Small business time of use demand Small business LV TAS88
+  note: Tariff class column of the price table.
+- codes:
+  - TAS88
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Small business time of use demand Small business LV TAS88
+  note: Tariff class column of the price table.
+- codes:
+  - TAS98
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: Small business time of use demand CER Small business LV TAS98
+  note: Tariff class column of the price table.
+- codes:
+  - TAS98
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Small business time of use demand CER Small business LV TAS98
+  note: Tariff class column of the price table.
+- codes:
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p1
+  quote: General light and power (1) Small business LV TAS22
+  note: Tariff class column of the price table.
+- codes:
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: General light and power (1) Small business LV TAS22
+  note: Tariff class column of the price table.
+- codes:
+  - TAS89
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p1
+  quote: Large business time of use demand Large business LV TAS89
+  note: Tariff class column of the price table.
+- codes:
+  - TAS89
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Large business time of use demand Large business LV TAS89
+  note: Tariff class column of the price table.
+- codes:
+  - TAS82
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p1
+  quote: Large business kVA demand Large business LV TAS82
+  note: Tariff class column of the price table.
+- codes:
+  - TAS82
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Large business kVA demand Large business LV TAS82
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 1 Large business LV TAS84T1
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 1 Large business LV TAS84T1
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 1 Large business LV TAS84T1
+- codes:
+  - TAS84T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 2 Large business LV TAS84T2
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 2 Large business LV TAS84T2
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 2 Large business LV TAS84T2
+- codes:
+  - TAS84T3
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 3 Large business LV TAS84T3
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T3
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 3 Large business LV TAS84T3
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T3
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 3 Large business LV TAS84T3
+- codes:
+  - TAS84T4
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 4 Large business LV TAS84T4
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T4
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 4 Large business LV TAS84T4
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T4
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: pdf:p1
+  quote: Embedded Networks LV Tier 4 Large business LV TAS84T4
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p1
+  quote: kVA specified demand (>2MVA) (2) Large business HV TAS15
+  note: Tariff class column of the price table.
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p1
+  quote: kVA specified demand (>2MVA) (2) Large business HV TAS15
+  note: Tariff class column of the price table.
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: demand_min
+  operator: gt
+  value_num: 2
+  value_unit: MVA
+  locator: pdf:p1
+  quote: kVA specified demand (>2MVA) (2) Large business HV TAS15
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p1
+  quote: kVA specified demand (<2MVA) Large business HV TASSDM
+  note: Tariff class column of the price table.
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p1
+  quote: kVA specified demand (<2MVA) Large business HV TASSDM
+  note: Tariff class column of the price table.
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: demand_max
+  operator: lt
+  value_num: 2
+  value_unit: MVA
+  locator: pdf:p1
+  quote: kVA specified demand (<2MVA) Large business HV TASSDM
+- codes:
+  - TAS14T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p1
+  quote: Embedded Networks HV Tier 1 Large business HV TAS14T1
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p1
+  quote: Embedded Networks HV Tier 1 Large business HV TAS14T1
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: pdf:p1
+  quote: Embedded Networks HV Tier 1 Large business HV TAS14T1
+- codes:
+  - TAS14T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p1
+  quote: Embedded Networks HV Tier 2 Large business HV TAS14T2
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p1
+  quote: Embedded Networks HV Tier 2 Large business HV TAS14T2
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: pdf:p1
+  quote: Embedded Networks HV Tier 2 Large business HV TAS14T2
+- codes:
+  - TASUMS
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: Unmetered supply general Unmetered supplies TASUMS
+  note: Tariff class column of the price table.
+- codes:
+  - TASUMSSL
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p1
+  quote: Unmetered supply public lighting Street lighting TASUMSSL
+  note: Tariff class column of the price table.
+- codes:
+  - TAS93
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2025-26!C6
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS87
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2025-26!C7
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS97
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2025-26!C8
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS31
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2025-26!C9
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS41
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2025-26!C10
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS41
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2025-26!B10
+  quote: Uncontrolled energy low voltage heating (1)
+- codes:
+  - TAS63
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2025-26!C11
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS61
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2025-26!C12
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS94
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Network tariffs 2025-26!C13
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS94
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2025-26!C13
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS88
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Network tariffs 2025-26!C14
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS88
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2025-26!C14
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS98
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Network tariffs 2025-26!C15
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS98
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2025-26!C15
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Network tariffs 2025-26!C16
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2025-26!C16
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS89
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2025-26!C18
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS89
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2025-26!C18
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS82
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2025-26!C19
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS82
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2025-26!C19
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2025-26!C20
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2025-26!C20
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2025-26!B20
+  quote: Embedded Networks LV Tier 1
+- codes:
+  - TAS84T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2025-26!C21
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2025-26!C21
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2025-26!B21
+  quote: Embedded Networks LV Tier 2
+- codes:
+  - TAS84T3
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2025-26!C22
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T3
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2025-26!C22
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T3
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2025-26!B22
+  quote: Embedded Networks LV Tier 3
+- codes:
+  - TAS84T4
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2025-26!C23
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T4
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2025-26!C23
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T4
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2025-26!B23
+  quote: Embedded Networks LV Tier 4
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2025-26!C24
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Network tariffs 2025-26!C24
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: demand_min
+  operator: gt
+  value_num: 2
+  value_unit: MVA
+  locator: xlsx:Network tariffs 2025-26!B24
+  quote: kVA specified demand (>2MVA)
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2025-26!C25
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Network tariffs 2025-26!C25
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: demand_max
+  operator: lt
+  value_num: 2
+  value_unit: MVA
+  locator: xlsx:Network tariffs 2025-26!B25
+  quote: kVA specified demand (<2MVA)
+- codes:
+  - TAS14T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2025-26!C26
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Network tariffs 2025-26!C26
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2025-26!B26
+  quote: Embedded Networks HV Tier 1
+- codes:
+  - TAS14T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2025-26!C27
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Network tariffs 2025-26!C27
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2025-26!B27
+  quote: Embedded Networks HV Tier 2
+- codes:
+  - TASUMS
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Network tariffs 2025-26!C28
+  quote: Unmetered supplies
+  note: Tariff class column of the price table.
+- codes:
+  - TASUMSSL
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: xlsx:Network tariffs 2025-26!C29
+  quote: Street lighting
+  note: Tariff class column of the price table.
+- codes:
+  - TAS93
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2026-27!C6
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS87
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2026-27!C7
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS97
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2026-27!C8
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS31
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2026-27!C9
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS41
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2026-27!C10
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS41
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2026-27!B10
+  quote: Uncontrolled energy low voltage heating (1)
+- codes:
+  - TAS63
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2026-27!C11
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS61
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Network tariffs 2026-27!C12
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS94
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Network tariffs 2026-27!C13
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS94
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2026-27!C13
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS88
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Network tariffs 2026-27!C14
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS88
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2026-27!C14
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS98
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Network tariffs 2026-27!C15
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS98
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2026-27!C15
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Network tariffs 2026-27!C16
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2026-27!C16
+  quote: Small business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS89
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2026-27!C18
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS89
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2026-27!C18
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS82
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2026-27!C19
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS82
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2026-27!C19
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2026-27!C20
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2026-27!C20
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2026-27!B20
+  quote: Embedded Networks LV Tier 1
+- codes:
+  - TAS84T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2026-27!C21
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2026-27!C21
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2026-27!B21
+  quote: Embedded Networks LV Tier 2
+- codes:
+  - TAS84T3
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2026-27!C22
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T3
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2026-27!C22
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T3
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2026-27!B22
+  quote: Embedded Networks LV Tier 3
+- codes:
+  - TAS84T4
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2026-27!C23
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T4
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Network tariffs 2026-27!C23
+  quote: Large business LV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T4
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2026-27!B23
+  quote: Embedded Networks LV Tier 4
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2026-27!C24
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Network tariffs 2026-27!C24
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS15
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: demand_min
+  operator: gt
+  value_num: 2
+  value_unit: MVA
+  locator: xlsx:Network tariffs 2026-27!B24
+  quote: kVA specified demand (>2MVA)
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2026-27!C25
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Network tariffs 2026-27!C25
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TASSDM
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: demand_max
+  operator: lt
+  value_num: 2
+  value_unit: MVA
+  locator: xlsx:Network tariffs 2026-27!B25
+  quote: kVA specified demand (<2MVA)
+- codes:
+  - TAS14T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2026-27!C26
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Network tariffs 2026-27!C26
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T1
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2026-27!B26
+  quote: Embedded Networks HV Tier 1
+- codes:
+  - TAS14T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Network tariffs 2026-27!C27
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Network tariffs 2026-27!C27
+  quote: Large business HV
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T2
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Network tariffs 2026-27!B27
+  quote: Embedded Networks HV Tier 2
+- codes:
+  - TASUMS
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Network tariffs 2026-27!C28
+  quote: Unmetered supplies
+  note: Tariff class column of the price table.
+- codes:
+  - TASUMSSL
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: xlsx:Network tariffs 2026-27!C29
+  quote: Street lighting
+  note: Tariff class column of the price table.
+- codes:
+  - TAS93
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D86
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS93
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C86
+  quote: Low voltage
+- codes:
+  - TAS87
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D87
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS87
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C87
+  quote: Low voltage
+- codes:
+  - TAS97
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D88
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS97
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C88
+  quote: Low voltage
+- codes:
+  - TAS31
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D89
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS31
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C89
+  quote: Low voltage
+- codes:
+  - TAS41
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D90
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS41
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C90
+  quote: Low voltage
+- codes:
+  - TAS63
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D91
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS63
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C91
+  quote: Low voltage
+- codes:
+  - TAS61
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D92
+  quote: Residential
+  note: Tariff class column of the price table.
+- codes:
+  - TAS61
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C92
+  quote: Low voltage
+- codes:
+  - TAS94
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!D96
+  quote: Small business low voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS94
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C96
+  quote: Low voltage
+- codes:
+  - TAS88
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!D97
+  quote: Small business low voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS88
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C97
+  quote: Low voltage
+- codes:
+  - TAS98
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!D98
+  quote: Small business low voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS98
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C98
+  quote: Low voltage
+- codes:
+  - TAS22
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:Tariff schedule!D99
+  quote: Small business low voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS22
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C99
+  quote: Low voltage
+- codes:
+  - TAS75
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C101
+  quote: Low voltage
+- codes:
+  - TAS89
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D103
+  quote: Large business low voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS89
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C103
+  quote: Low voltage
+- codes:
+  - TAS82
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D104
+  quote: Large business low voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS82
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C104
+  quote: Low voltage
+- codes:
+  - TAS84T1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D105
+  quote: Large business low voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C105
+  quote: Low voltage
+- codes:
+  - TAS84T1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Tariff schedule!C105
+  quote: Low voltage embedded network - Tier 1
+- codes:
+  - TAS84T2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D106
+  quote: Large business low voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C106
+  quote: Low voltage
+- codes:
+  - TAS84T2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Tariff schedule!C106
+  quote: Low voltage embedded network - Tier 2
+- codes:
+  - TAS84T3
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D107
+  quote: Large business low voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T3
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C107
+  quote: Low voltage
+- codes:
+  - TAS84T3
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Tariff schedule!C107
+  quote: Low voltage embedded network - Tier 3
+- codes:
+  - TAS84T4
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D108
+  quote: Large business low voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS84T4
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C108
+  quote: Low voltage
+- codes:
+  - TAS84T4
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Tariff schedule!C108
+  quote: Low voltage embedded network - Tier 4
+- codes:
+  - TAS15
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D110
+  quote: Large business high voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS15
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C110
+  quote: High voltage
+- codes:
+  - TAS15
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: demand_min
+  operator: gt
+  value_num: 2
+  value_unit: MVA
+  locator: xlsx:Tariff schedule!C110
+  quote: kVA specified demand (>2 MVA)
+- codes:
+  - TASSDM
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D111
+  quote: Large business high voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TASSDM
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C111
+  quote: High voltage
+- codes:
+  - TASSDM
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: demand_max
+  operator: lt
+  value_num: 2
+  value_unit: MVA
+  locator: xlsx:Tariff schedule!C111
+  quote: kVA specified demand (<2 MVA)
+- codes:
+  - TAS14T1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D112
+  quote: Large business high voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C112
+  quote: High voltage
+- codes:
+  - TAS14T1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Tariff schedule!C112
+  quote: High voltage embedded network - Tier 1
+- codes:
+  - TAS14T2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D113
+  quote: Large business high voltage
+  note: Tariff class column of the price table.
+- codes:
+  - TAS14T2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C113
+  quote: High voltage
+- codes:
+  - TAS14T2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: other
+  value_text: embedded network (parent connection) tariff
+  locator: xlsx:Tariff schedule!C113
+  quote: High voltage embedded network - Tier 2
+- codes:
+  - TASUMS
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D115
+  quote: Unmetered supplies
+  note: Tariff class column of the price table.
+- codes:
+  - TASUMSSL
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: xlsx:Tariff schedule!C116
+  quote: Unmetered supply public lighting
+- codes:
+  - TASUMSSL
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D116
+  quote: Unmetered supplies
+  note: Tariff class column of the price table.
+- codes:
+  - TAS31
+  - TAS41
+  - TAS61
+  - TAS92
+  - TAS101
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: obsolete
+  locator: pdf:p1
+  quote: (1) These network tariffs are obsolete
+  note: Footnote (1); the tariffs marked (1) in the price table are TAS31, TAS41, TAS61, TAS92, TAS101 and TAS22.
+- codes:
+  - TAS31
+  - TAS41
+  - TAS61
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: availability
+  value_text: obsolete
+  locator: xlsx:Network tariffs 2025-26!B31
+  quote: (1) These network tariffs are obsolete
+  note: Footnote (1); the tariffs marked (1) in the price table are TAS31, TAS41, TAS61 and TAS22.
+- codes:
+  - TAS31
+  - TAS41
+  - TAS61
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: availability
+  value_text: obsolete
+  locator: xlsx:Network tariffs 2026-27!B31
+  quote: (1) These network tariffs are obsolete
+  note: Footnote (1); the tariffs marked (1) in the price table are TAS31, TAS41, TAS61 and TAS22.
+- codes:
+  - TASUMS
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: Unmetered supply general Unmetered supplies TASUMS
+- codes:
+  - TASUMSSL
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: Unmetered supply public lighting Street lighting TASUMSSL
+- codes:
+  - TASUMS
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Network tariffs 2025-26!B28
+  quote: Unmetered supply general
+- codes:
+  - TASUMSSL
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Network tariffs 2025-26!B29
+  quote: Unmetered supply public lighting
+- codes:
+  - TASUMS
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Network tariffs 2026-27!B28
+  quote: Unmetered supply general
+- codes:
+  - TASUMSSL
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Network tariffs 2026-27!B29
+  quote: Unmetered supply public lighting
+- codes:
+  - TASUMS
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_TasNetworks_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D115
+  quote: Unmetered supplies
+relations:
+- from: TAS93
+  type: assigned_with
+  to: TAS63
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  locator: pdf:p18
+  quote: This network tariff may also be used in conjunction with the network tariff TAS63 – controlled low voltage energy
+    – night period only.
+- from: TAS93
+  type: opt_out_alternative
+  to: TAS31
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  locator: pdf:p18
+  quote: An installation that is supplied under this tariff may be reassigned to network tariff TAS31 – residential low voltage
+    general light and power, provided it remains a private residential dwelling.
+  note: The guide states TAS93 installations may be reassigned to the flat TAS31; it does not call TAS31 the opt-out target
+    of default assignment in those words.
+- from: TAS31
+  type: assigned_with
+  to: TAS41
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  locator: pdf:p20
+  quote: TAS41 – uncontrolled low voltage heating and hot water;
+  note: Listed under 'This network tariff may also be used in conjunction with the following additional network tariffs'.
+- from: TAS31
+  type: assigned_with
+  to: TAS61
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  locator: pdf:p20
+  quote: TAS61 – controlled low voltage energy – off-peak with afternoon boost; and
+  note: Listed under 'This network tariff may also be used in conjunction with the following additional network tariffs'.
+- from: TAS31
+  type: assigned_with
+  to: TAS63
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  locator: pdf:p20
+  quote: TAS63 – controlled low voltage energy – night period only.
+  note: Listed under 'This network tariff may also be used in conjunction with the following additional network tariffs'.
+- from: TAS22
+  type: assigned_with
+  to: TAS41
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  locator: pdf:p32
+  quote: TAS41 – uncontrolled low voltage heating and hot water;
+  note: Listed under 'This network tariff may also be used in conjunction with the following additional network tariffs'.
+- from: TAS22
+  type: assigned_with
+  to: TAS61
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  locator: pdf:p32
+  quote: TAS61 – controlled low voltage energy – off-peak with afternoon boost; and
+  note: Listed under 'This network tariff may also be used in conjunction with the following additional network tariffs'.
+- from: TAS22
+  type: assigned_with
+  to: TAS63
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  locator: pdf:p32
+  quote: TAS63 – controlled low voltage energy – night period only.
+  note: Listed under 'This network tariff may also be used in conjunction with the following additional network tariffs'.
+- from: TAS92
+  type: assigned_with
+  to: TAS63
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  locator: pdf:p28
+  quote: This network tariff may be used in conjunction with TAS63 – controlled low voltage energy – night period only.
+- from: TAS94
+  type: assigned_with
+  to: TAS63
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  locator: pdf:p30
+  quote: This network tariff may be used in conjunction with the network tariff TAS63 – controlled low voltage energy – night
+    period only.
+flags:
+- codes:
+  - TAS101
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  flag: obsolete
+  locator: pdf:p17
+  quote: Residential low voltage pay as you go consumption TAS101 Published obsolete tariff
+- codes:
+  - TAS92
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  flag: obsolete
+  locator: pdf:p17
+  quote: Residential low voltage pay as you go time of use consumption TAS92 Published obsolete tariff
+- codes:
+  - TAS61
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  flag: obsolete
+  locator: pdf:p17
+  quote: Controlled low voltage energy – off-peak with afternoon boost TAS61 Published obsolete tariff
+- codes:
+  - TAS61
+  - TAS92
+  - TAS101
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p11
+  quote: Obsolete network tariffs are no longer available to new installations or able to be applied to an existing installation
+    not already assigned to the obsolete tariff.
+- codes: &id001
+  - TAS101
+  - TAS92
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  flag: obsolete
+  locator: pdf:p7
+  quote: This network tariff is obsolete, and no new connections are allowed.
+- codes: *id001
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p7
+  quote: This network tariff is obsolete, and no new connections are allowed.
+- codes: &id002
+  - TAS61
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  flag: obsolete
+  locator: pdf:p8
+  quote: This network tariff is obsolete, and no new connections are allowed.
+- codes: *id002
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p8
+  quote: This network tariff is obsolete, and no new connections are allowed.
+- codes:
+  - TAS31
+  - TAS41
+  - TAS61
+  - TAS92
+  - TAS101
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
+  fin_year: 2024-25
+  flag: obsolete
+  locator: pdf:p1
+  quote: (1) These network tariffs are obsolete
+- codes:
+  - TAS31
+  - TAS41
+  - TAS61
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
+  fin_year: 2025-26
+  flag: obsolete
+  locator: xlsx:Network tariffs 2025-26!B31
+  quote: (1) These network tariffs are obsolete
+- codes:
+  - TAS31
+  - TAS41
+  - TAS61
+  - TAS22
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
+  fin_year: 2026-27
+  flag: obsolete
+  locator: xlsx:Network tariffs 2026-27!B31
+  quote: (1) These network tariffs are obsolete

@@ -24,6 +24,7 @@ COLUMNS = [
     "source_file",     # repo-relative path of the file parsed
     "source_url",      # exact URL the file was downloaded from
     "note",            # free text caveats (e.g. "LFiT included", "site-specific", "obsolete tariff")
+    "locator",         # where the value was read: xlsx:<sheet>!<cell> | pdf:p<page> | pdf-ocr:p<page> (scripts/tariffdb/locators.py)
 ]
 
 CANON = {

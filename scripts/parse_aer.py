@@ -14,6 +14,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from schema import COLUMNS, charge_type_from_label, time_band_from_label, season_from_label
 from units import to_std
 from published import cell_value
+from tariffdb import locators
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,6 +23,14 @@ CONSOLIDATED = [
      "https://www.aer.gov.au/system/files/2025-05/AER%20-%20Consolidated%20stakeholder%20report%202025%E2%80%9326%20v5%C2%A0.xlsx"),
     ("2026-27", "sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx",
      "https://www.aer.gov.au/system/files/2026-08/AER%20%E2%80%93%202026%E2%80%9327%20%E2%80%93%20Consolidated%20stakeholder%20report%20%E2%80%93%2026%20August%202026.xlsx"),
+]
+
+# Superseded versions: not used by the reconciliation (which compares the final AER version), written to
+# out/aer_versions_long.csv for the tariff database (scripts/tariffdb/build.py) so proposed and approved prices coexist.
+SUPERSEDED = [
+    ("2025-26", "sources/aer/AER_Consolidated_stakeholder_report_2025-26_v1_wayback.xlsx",
+     "https://web.archive.org/web/20250409020106id_/https://www.aer.gov.au/system/files/2025-04/Consolidated%C2%A0stakeholder%20report%202025%E2%80%9326.xlsx",
+     "AER consolidated stakeholder report v1 (8 Apr 2025): proposed prices"),
 ]
 
 STAKEHOLDER_2024_25 = {
@@ -53,7 +62,7 @@ def nz(v):
     return v is not None and v != "" and not (isinstance(v, (int, float)) and v == 0)
 
 
-def row(dnsp, fy, code, name, cls, comp, unit, val, basis, src, url, note="", side="AER"):
+def row(dnsp, fy, code, name, cls, comp, unit, val, basis, src, url, note="", side="AER", locator=""):
     vs, us = to_std(val, unit, comp)
     ct = charge_type_from_label(comp, unit)
     if dnsp == "Ausgrid" and str(code).strip().rstrip("*") == "EA029" and ct == "energy":
@@ -63,10 +72,21 @@ def row(dnsp, fy, code, name, cls, comp, unit, val, basis, src, url, note="", si
         "customer_class": cls or "", "component": comp.strip(), "charge_type": ct,
         "time_band": time_band_from_label(comp), "season": season_from_label(comp) or season_from_label(unit), "unit": unit, "value": val,
         "value_std": vs, "unit_std": us, "gst": "excl", "basis": basis, "source_file": src, "source_url": url, "note": note,
+        "locator": locator,
     }
 
 
-def parse_consolidated(fy, path, url):
+def consolidated_columns(ws, hr):
+    """Columns of one distributor block, found by header label: the layout moves between versions (2025-26 v1 has
+    'Tariff class' and 'Code' in D/E and prices from G; v5 and 2026-27 have 'Tariff code' (SA Power Networks: 'Code SA')
+    in D and prices from H)."""
+    labels = {c: ws.cell(hr, c).value.strip() for c in range(3, ws.max_column + 1) if isinstance(ws.cell(hr, c).value, str)}
+    code_col = next(c for c, v in labels.items() if v in ("Tariff code", "Code", "Code SA"))
+    top_col = next(c for c, v in labels.items() if v == "Top")
+    return code_col, top_col + 1
+
+
+def parse_consolidated(fy, path, url, note_prefix=""):
     wb = openpyxl.load_workbook(os.path.join(ROOT, path), data_only=True)
     ws = wb["Tariff schedule"]
     out = []
@@ -79,18 +99,20 @@ def parse_consolidated(fy, path, url):
             blocks.append(rr)
     for bi, hr in enumerate(blocks):
         dnsp = re.sub(r"\s+\d{4}.\d{2} network prices$", "", ws.cell(hr, 2).value.strip())
-        code_label = ws.cell(hr, 4).value
+        code_col, first_price_col = consolidated_columns(ws, hr)
         comps = {}
-        for c in range(8, ws.max_column + 1):
+        for c in range(first_price_col, ws.max_column + 1):
             lab = ws.cell(hr, c).value
             if isinstance(lab, str) and lab.strip():
                 comps[c] = (lab.strip(), (ws.cell(hr + 1, c).value or "").strip() if isinstance(ws.cell(hr + 1, c).value, str) else str(ws.cell(hr + 1, c).value or ""))
         end = blocks[bi + 1] if bi + 1 < len(blocks) else maxr + 1
         for rr in range(hr + 2, end):
-            code = ws.cell(rr, 4).value
+            code = ws.cell(rr, code_col).value
             name = ws.cell(rr, 3).value
             if ws.cell(rr, 2).value == "End":
                 break
+            if code == "#REF!":
+                code = ""  # 2025-26 v1: the code column is a broken formula; the row is identified by its AER tariff ID
             if not nz(code) and not (isinstance(name, str) and name.strip()):
                 continue
             if code in (None, "", 0) and isinstance(name, str):
@@ -101,10 +123,14 @@ def parse_consolidated(fy, path, url):
                 v = ws.cell(rr, c).value
                 if isinstance(v, (int, float)) and v != 0:
                     any_val = True
-                    note = f"aer_id={aer_id}" if aer_id else ""
-                    out.append(row(dnsp, fy, code, name, "", lab, unit, cell_value(ws.cell(rr, c)), "NUoS", path, url, note))
-            if not any_val and nz(code):
-                out.append(row(dnsp, fy, code, name, "", "(no non-zero components)", "", 0, "NUoS", path, url, "zero-priced row" + (f"; aer_id={aer_id}" if aer_id else "")))
+                    note = "; ".join(x for x in (note_prefix, f"aer_id={aer_id}" if aer_id else "") if x)
+                    out.append(row(dnsp, fy, code, name, "", lab, unit, cell_value(ws.cell(rr, c)), "NUoS", path, url, note,
+                                   locator=locators.xlsx(ws, ws.cell(rr, c))))
+            # a superseded version without codes (v1) keeps its zero-priced rows by AER tariff ID
+            if not any_val and (nz(code) or (note_prefix and aer_id)):
+                note = "; ".join(x for x in (note_prefix, "zero-priced row", f"aer_id={aer_id}" if aer_id else "") if x)
+                out.append(row(dnsp, fy, code, name, "", "(no non-zero components)", "", 0, "NUoS", path, url, note,
+                               locator=locators.xlsx(ws, ws.cell(rr, code_col if nz(code) else 2))))
     return out
 
 
@@ -147,9 +173,11 @@ def parse_stakeholder_2024_25(dnsp, fname, url):
                 v = ws.cell(rr, c).value
                 if isinstance(v, (int, float)) and v != 0:
                     any_val = True
-                    out.append(row(dnsp, "2024-25", code, name, cls, lab, unit, cell_value(ws.cell(rr, c)), basis, path, url, note))
+                    out.append(row(dnsp, "2024-25", code, name, cls, lab, unit, cell_value(ws.cell(rr, c)), basis, path, url, note,
+                                   locator=locators.xlsx(ws, ws.cell(rr, c))))
             if not any_val and basis == "NUoS":
-                out.append(row(dnsp, "2024-25", code, name, cls, "(no non-zero components)", "", 0, basis, path, url, ("zero-priced row; " + note).strip("; ")))
+                out.append(row(dnsp, "2024-25", code, name, cls, "(no non-zero components)", "", 0, basis, path, url, ("zero-priced row; " + note).strip("; "),
+                               locator=locators.xlsx(ws, ws.cell(rr, 5))))
     return out
 
 
@@ -164,6 +192,14 @@ def main():
         w = csv.DictWriter(f, fieldnames=COLUMNS)
         w.writeheader()
         w.writerows(rows)
+    versions = []
+    for fy, path, url, note in SUPERSEDED:
+        versions += parse_consolidated(fy, path, url, note_prefix=note)
+    with open(os.path.join(ROOT, "out/aer_versions_long.csv"), "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=COLUMNS)
+        w.writeheader()
+        w.writerows(versions)
+    print("superseded-version rows", len(versions))
     # summary
     from collections import Counter
     c = Counter((r["fin_year"], r["distributor"], r["basis"]) for r in rows)

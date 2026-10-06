@@ -119,7 +119,7 @@ class ReconciliationRegression(unittest.TestCase):
                     ('Min. Cap.', 'Minimum Capacity Charge', '3.8160', 'capacity_minimum'),
                     ('Rem. Cap.', 'Remaining Capacity Charge', '11.5210', 'capacity_remaining')]):
                 sheet.records.append(dict(basis='NUoS', code=code, name=code, zone='', cls='',
-                                          comp=dlabel, unit='$/kW', value=float(value), published=value, row=index + 1))
+                                          comp=dlabel, unit='$/kW', value=float(value), published=value, row=index + 1, locator=f'xlsx:Business!E{index + 1}'))
                 a = parse_aer.row('Ergon Energy', '2024-25', code, '', '', alabel,
                                   '$/kW', value, 'NUoS', 'aer.xlsx', '')
                 self.assertEqual((a['charge_type'], a['time_band']), ('capacity', band))
@@ -154,7 +154,7 @@ class ReconciliationRegression(unittest.TestCase):
                 blocks.append((2, 'Volume Peak Charge (over 10,000)', '0.3789', '0.37886'))
             for block, label, av, dv in blocks:
                 sheet.records.append(dict(basis='NUoS', code=code, name=code, zone='', cls='',
-                                          comp=label, unit='$/kWh', value=float(dv), published=dv, row=block))
+                                          comp=label, unit='$/kWh', value=float(dv), published=dv, row=block, locator=f'xlsx:Business!E{block}'))
                 aer.append(parse_aer.row('Ergon Energy', '2024-25', code, '', '', f'Pk Block {block}',
                                          '$/kWh', av, 'NUoS', 'aer.xlsx', ''))
             dnsp = energex_ergon.rows_for_sheet(sheet, 'Business', 'Ergon Energy', '2024-25',
@@ -222,7 +222,7 @@ class ReconciliationRegression(unittest.TestCase):
                 value = given[0] if given else '1.0000'
                 a = parse_aer.row('Ausgrid', '2025-26', 'TEST', '', '', alabel, unit, value, 'NUoS', 'aer.xlsx', '')
                 d = ausgrid_endeavour.make_row('Ausgrid', '2025-26', 'DNSP', 'dnsp.pdf', '', 'TEST', '', '',
-                                             dlabel, unit, value, 'NUoS', 'excl', '')
+                                             dlabel, unit, value, 'NUoS', 'excl', '', locator='pdf:p1')
                 for pair in ([a, d], [dict(d, side='AER'), dict(a, side='DNSP')]):
                     detail, grid = self.compare(pair)
                     self.assertEqual(grid['components_compared'], 1)
@@ -260,7 +260,7 @@ class ReconciliationRegression(unittest.TestCase):
                 a = parse_aer.row('Endeavour Energy', '2025-26', 'TEST', '', '', alabel, unit, '42.7800', 'NUoS', 'aer.xlsx', '')
                 self.assertEqual((a['unit_std'], a['season']), ('c/kVA/day', season))
                 d = ausgrid_endeavour.make_row('Endeavour Energy', '2025-26', 'DNSP', 'dnsp.pdf', '', 'TEST', '', '',
-                                             dlabel, 'c/kVA/day', '42.7800', 'NUoS', 'excl', '')
+                                             dlabel, 'c/kVA/day', '42.7800', 'NUoS', 'excl', '', locator='pdf:p1')
                 detail, grid = self.compare([a, d])
                 self.assertEqual(grid['components_compared'], 1)
                 self.assertEqual(detail[0]['status'], 'equal')
@@ -294,9 +294,9 @@ class ReconciliationRegression(unittest.TestCase):
         b = parse_aer.row('Ausgrid', '2025-26', 'EA029', '', '', 'Energy (reward)', 'c/kWh',
                           '-2.3951', 'NUoS', 'aer.xlsx', '')
         d = ausgrid_endeavour.make_row('Ausgrid', '2025-26', 'DNSP', 'dnsp.pdf', '', 'EA029', '', '',
-                                      'Opt in export charge', 'c/kWh', '-2.3951', 'NUoS', 'excl', '')
+                                      'Opt in export charge', 'c/kWh', '-2.3951', 'NUoS', 'excl', '', locator='pdf:p1')
         e = ausgrid_endeavour.make_row('Ausgrid', '2025-26', 'DNSP', 'dnsp.pdf', '', 'EA029', '', '',
-                                      'Opt in export reward', 'c/kWh', '1.2029', 'NUoS', 'excl', '')
+                                      'Opt in export reward', 'c/kWh', '1.2029', 'NUoS', 'excl', '', locator='pdf:p1')
         detail, grid = self.compare([a, b, d, e])
         self.assertEqual(grid['unexplained'], 2)
         self.assertEqual({r['status'] for r in detail}, {'value_differs'})
@@ -333,11 +333,11 @@ class ReconciliationRegression(unittest.TestCase):
                 with self.subTest(dist=dist, code=code, label=alabel, year=year):
                     a = parse_aer.row(dist, year, code, '', '', alabel, unit, value, 'NUoS', 'aer.xlsx', '')
                     if dist == 'Ausgrid':
-                        d = ausgrid_endeavour.make_row(dist, year, 'DNSP', 'dnsp.pdf', '', code, '', '', dlabel, unit, value, 'NUoS', 'excl', '')
+                        d = ausgrid_endeavour.make_row(dist, year, 'DNSP', 'dnsp.pdf', '', code, '', '', dlabel, unit, value, 'NUoS', 'excl', '', locator='pdf:p1')
                     else:
                         d = cp_pc_ue.make_row(dist=dist, fin_year=year, code=code, name='', component=dlabel,
                                              unit=unit, value=value, gst='excl', basis='NUoS',
-                                             source_file='sources/dnsp/fixture.xlsx', url='', note='')
+                                             source_file='sources/dnsp/fixture.xlsx', url='', note='', locator='xlsx:Prices!B2')
                     detail, grid = self.compare([a, d])
                     self.assertEqual(len(detail), 1)
                     self.assertEqual(detail[0]['status'], 'equal')
@@ -350,7 +350,7 @@ class ReconciliationRegression(unittest.TestCase):
             for value in ['1.0000', '2.0000']:
                 a = parse_aer.row('Ausgrid', '2025-26', 'EA974', '', '', alabel, 'c/kWh', '1.0000', 'NUoS', 'aer.xlsx', '')
                 d = ausgrid_endeavour.make_row('Ausgrid', '2025-26', 'DNSP', 'dnsp.pdf', '', 'EA974', '', '', dlabel,
-                                              'c/kWh', value, 'NUoS', 'excl', '')
+                                              'c/kWh', value, 'NUoS', 'excl', '', locator='pdf:p1')
                 detail, grid = self.compare([a, d])
                 self.assertIsNone(grid)
                 self.assertEqual({r['status'] for r in detail}, {'aer_only_component', 'dnsp_only_component'})

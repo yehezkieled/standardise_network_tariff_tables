@@ -1,0 +1,3130 @@
+# Hand-curated TOU windows, demand rules, eligibility, relations and flags for powerwater.
+# Every item cites a document locator and a verbatim quote; validate with scripts/tariffdb/curated.py.
+distributor: powerwater
+tou_schedules:
+- id: pwc-2324-sc-t3-demand
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Tariff 3 demand charge peak period (1 October – 31 March)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p1
+  quote: The peak period rates apply to usage between 12pm and 9pm on any weekday, including public holidays.
+  note: Weekday windows explicitly include public holidays ('on any weekday, including public holidays').
+  windows:
+  - period: demand_window
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p1
+    quote: For Tariff 3 LV Smart Meter customers peak charges apply from 1 October through 31 March.
+  tariffs:
+  - codes:
+    - Tariff 3
+    applies_to: demand
+- id: pwc-2324-sc-annual-demand
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Tariffs 5, 6 and 7 demand charge peak period (all year)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p1
+  quote: The peak period rates apply to usage between 12pm and 9pm on any weekday, including public holidays.
+  note: '''For all other customers annual peak charges apply''; Tariffs 5, 6 and 7 are the other tariffs with a Demand Charge*
+    price. Weekdays include public holidays.'
+  windows:
+  - period: demand_window
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: all
+    season: annual
+    locator: pdf:p1
+    quote: For all other customers annual peak charges apply.
+  tariffs:
+  - codes:
+    - Tariff 5
+    - Tariff 6
+    - Tariff 7
+    applies_to: demand
+- id: pwc-2324-np-t3-demand
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  name: Tariff 3 demand peak period (1 October – 31 March)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p12
+  quote: The current peak period is 12pm to 9pm weekdays, which includes public holidays
+  note: '''All other times are off‐peak.'' Weekdays include public holidays.'
+  windows:
+  - period: demand_window
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p13
+    quote: For customers assigned to the LV Smart Meter (Tariff 3), the demand charge only applies between 1 October and 31
+      March (6 months) each year
+  tariffs:
+  - codes:
+    - Tariff 3
+    applies_to: demand
+- id: pwc-2324-np-annual-demand
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  name: Tariffs 5, 6 and 7 demand peak period (full year)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p12
+  quote: The current peak period is 12pm to 9pm weekdays, which includes public holidays
+  note: '''All other times are off‐peak.'' Weekdays include public holidays.'
+  windows:
+  - period: demand_window
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: all
+    season: full year
+    locator: pdf:p13
+    quote: For customers assigned to the LV Majors (Tariff 5), HV Majors (Tariff 7) or HV Minors (Tariff 6), the demand window
+      applies across the full year (12 months).
+  tariffs:
+  - codes:
+    - Tariff 5
+    - Tariff 6
+    - Tariff 7
+    applies_to: demand
+- id: pwc-2425-sc-tou-energy
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: LV smart meter three-tier time-of-use energy periods (Tariffs 3a, 3b, 3c)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: true
+  locator: pdf:p2
+  quote: Breakdown of time-of-use energy and seasonal demand periods
+  note: 'Weekday windows explicitly include public holidays (''Monday to Friday (including public holidays)''). High Period:
+    ''3pm to 9pm Monday to Friday (including public holidays) from 01 October to 31 March''.'
+  windows:
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekday
+    start: 00:00
+    end: 09:00
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: weekday
+    start: 09:00
+    end: '15:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
+  - period: peak
+    label: High Period (Peak)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 3pm to 9pm Monday to Friday (including public holidays) from
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekend
+    start: 00:00
+    end: 09:00
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: weekend
+    start: 09:00
+    end: '15:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekend
+    start: '15:00'
+    end: '24:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: all_days
+    start: 00:00
+    end: 09:00
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p2
+    quote: 3pm to 9am Monday to Sunday (including public holidays) from September 01 April to 30 September, and
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: all_days
+    start: 09:00
+    end: '15:00'
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p2
+    quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: all_days
+    start: '15:00'
+    end: '24:00'
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p2
+    quote: 3pm to 9am Monday to Sunday (including public holidays) from September 01 April to 30 September, and
+  tariffs:
+  - codes:
+    - Tariff 3a
+    - Tariff 3b
+    - Tariff 3c
+    applies_to: energy
+    locator: pdf:p1
+    quote: Super Off -Peak Off -Peak Peak
+    note: Only Tariffs 3a, 3b and 3c carry Low/Mid/High period energy prices in the price table.
+- id: pwc-2425-sc-anytime-energy
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Anytime energy period
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p2
+  quote: 24 hours a day, 7 days a week, is a flat rate that applies all day
+  windows:
+  - period: anytime
+    label: Anytime Energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - Tariff 1
+    - Tariff 2
+    - Tariff 4
+    - Tariff 5
+    - Tariff 6
+    applies_to: energy
+    note: Tariffs priced in the Anytime Energy Charge column.
+- id: pwc-2425-sc-seasonal-demand
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Seasonal peak demand periods (On Season / Off Season)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p2
+  quote: On Season - Peak Period Low Period (Super Off-Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from
+    01 October to • 9am to 3pm Monday to Sunday (including public holidays), all 31 March
+  note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)').
+  windows:
+  - period: high_season_peak
+    label: On Season - Peak Period
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: On Season
+    locator: pdf:p2
+    quote: On Season - Peak Period Low Period (Super Off-Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from
+      01 October to • 9am to 3pm Monday to Sunday (including public holidays), all 31 March
+  - period: low_season_peak
+    label: Off Season - Peak Period
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9
+    season: Off Season
+    locator: pdf:p2
+    quote: Off Season - Peak Period Mid Period (Off Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from 01
+      April to 30 • 3pm to 9am Monday to Sunday (including public holidays) from September
+  tariffs:
+  - codes: &id001
+    - Tariff 5
+    - Tariff 6
+    applies_to: demand
+    locator: pdf:p1
+    quote: On Season Off Season
+    note: Only Tariffs 5 and 6 carry On Season / Off Season demand prices in the price table.
+- id: pwc-2526-sc-tou-energy
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  name: LV smart meter three-tier time-of-use energy periods (Tariffs 3a, 3b, 3c)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: true
+  locator: pdf:p2
+  quote: Breakdown of time-of-use energy and seasonal demand periods
+  note: 'Weekday windows explicitly include public holidays (''Monday to Friday (including public holidays)''). High Period:
+    ''3pm to 9pm Monday to Friday (including public holidays) from 01 October to 31 March''.'
+  windows:
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekday
+    start: 00:00
+    end: 09:00
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: weekday
+    start: 09:00
+    end: '15:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
+  - period: peak
+    label: High Period (Peak)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 3pm to 9pm Monday to Friday (including public holidays) from
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekend
+    start: 00:00
+    end: 09:00
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: weekend
+    start: 09:00
+    end: '15:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekend
+    start: '15:00'
+    end: '24:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p2
+    quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: all_days
+    start: 00:00
+    end: 09:00
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p2
+    quote: 3pm to 9am Monday to Sunday (including public holidays) from September 01 April to 30 September, and
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: all_days
+    start: 09:00
+    end: '15:00'
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p2
+    quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: all_days
+    start: '15:00'
+    end: '24:00'
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p2
+    quote: 3pm to 9am Monday to Sunday (including public holidays) from September 01 April to 30 September, and
+  tariffs:
+  - codes:
+    - Tariff 3a
+    - Tariff 3b
+    - Tariff 3c
+    applies_to: energy
+    locator: pdf:p1
+    quote: Mid Period (Off High Period
+    note: Only Tariffs 3a, 3b and 3c carry Low/Mid/High period energy prices in the price table.
+- id: pwc-2526-sc-anytime-energy
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  name: Anytime energy period
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p2
+  quote: 24 hours a day, 7 days a week, is a flat rate that applies all day
+  windows:
+  - period: anytime
+    label: Anytime Energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - Tariff 1
+    - Tariff 2
+    - Tariff 4
+    - Tariff 5
+    - Tariff 6
+    applies_to: energy
+    note: Tariffs priced in the Anytime Energy Charge column.
+- id: pwc-2526-sc-seasonal-demand
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  name: Seasonal peak demand periods (On Season / Off Season)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p2
+  quote: On Season - Peak Period Low Period (Super Off-Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from
+    01 October to • 9am to 3pm Monday to Sunday (including public holidays), all 31 March
+  note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)').
+  windows:
+  - period: high_season_peak
+    label: On Season - Peak Period
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: On Season
+    locator: pdf:p2
+    quote: On Season - Peak Period Low Period (Super Off-Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from
+      01 October to • 9am to 3pm Monday to Sunday (including public holidays), all 31 March
+  - period: low_season_peak
+    label: Off Season - Peak Period
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9
+    season: Off Season
+    locator: pdf:p2
+    quote: Off Season - Peak Period Mid Period (Off Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from 01
+      April to 30 • 3pm to 9am Monday to Sunday (including public holidays) from September
+  tariffs:
+  - codes: &id002
+    - Tariff 5
+    - Tariff 6
+    applies_to: demand
+    locator: pdf:p1
+    quote: On Season Off Season
+    note: Only Tariffs 5 and 6 carry On Season / Off Season demand prices in the price table.
+- id: pwc-2425-np-tou-energy
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  name: LV smart meter three-tier time-of-use energy periods (Tariffs 3a, 3b, 3c)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: true
+  locator: pdf:p14
+  quote: 'The different periods for charging energy in the 2024-29 regulatory control period are:'
+  note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)'). Windows also
+    tabulated on pdf:p17.
+  windows:
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekday
+    start: 00:00
+    end: 09:00
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p15
+    quote: From 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: weekday
+    start: 09:00
+    end: '15:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p15
+    quote: Every day of the year between 9am and 3pm.
+  - period: peak
+    label: High Period (Peak)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p14
+    quote: From 1 October to 31 March weekdays, between 3pm and 9pm.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p15
+    quote: From 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekend
+    start: 00:00
+    end: 09:00
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p15
+    quote: From 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: weekend
+    start: 09:00
+    end: '15:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p15
+    quote: Every day of the year between 9am and 3pm.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekend
+    start: '15:00'
+    end: '24:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p15
+    quote: From 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: all_days
+    start: 00:00
+    end: 09:00
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p14
+    quote: From 1 April to 30 September Monday to Sunday between 3pm to 9am.
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: all_days
+    start: 09:00
+    end: '15:00'
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p15
+    quote: Every day of the year between 9am and 3pm.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: all_days
+    start: '15:00'
+    end: '24:00'
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p14
+    quote: From 1 April to 30 September Monday to Sunday between 3pm to 9am.
+  tariffs:
+  - codes:
+    - Tariff 3a
+    - Tariff 3b
+    - Tariff 3c
+    applies_to: energy
+    locator: pdf:p14
+    quote: The time of use energy charge only applies to our tariff 3 customers, covering tariffs 3a, 3b and 3c
+- id: pwc-2425-np-anytime-energy
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  name: Anytime energy period
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p15
+  quote: 24 hour a day, 7 days a week all year round.
+  windows:
+  - period: anytime
+    label: Anytime Energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - Tariff 1
+    - Tariff 2
+    - Tariff 4
+    - Tariff 5
+    - Tariff 6
+    applies_to: energy
+    locator: pdf:p14
+    quote: The anytime energy tariff applies to all customers assigned to tariffs 1, 2, 4, 5 and 6.
+- id: pwc-2425-np-seasonal-demand
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  name: Seasonal peak demand periods (On Season / Off Season)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p17
+  quote: On Season - Peak Period Low Period (Super Off-Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from
+    01 October to 31 • 9am to 3pm Monday to Sunday, all year March
+  note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)').
+  windows:
+  - period: high_season_peak
+    label: On Season - Peak Period
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: On Season
+    locator: pdf:p17
+    quote: On Season - Peak Period Low Period (Super Off-Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from
+      01 October to 31 • 9am to 3pm Monday to Sunday, all year March
+  - period: low_season_peak
+    label: Off Season - Peak Period
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9
+    season: Off Season
+    locator: pdf:p17
+    quote: Off Season - Peak Period Mid Period (Off Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from 01
+      April to 30 • 3pm to 9am Monday to Sunday from 01 April to 30 September
+  tariffs:
+  - codes: &id003
+    - Tariff 5
+    - Tariff 6
+    applies_to: demand
+    locator: pdf:p14
+    quote: The demand (kVA) charges applied to tariff 5 and 6 customers also vary dependent on the season in which
+- id: pwc-2526-np-tou-energy
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  name: LV smart meter three-tier time-of-use energy periods (Tariffs 3a, 3b, 3c)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: true
+  locator: pdf:p12
+  quote: 'The different periods for charging energy in the 2024-29 regulatory control period are:'
+  note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)'). Windows also
+    tabulated on pdf:p13.
+  windows:
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekday
+    start: 00:00
+    end: 09:00
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p12
+    quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: weekday
+    start: 09:00
+    end: '15:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p12
+    quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
+  - period: peak
+    label: High Period (Peak)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p12
+    quote: High (Peak) period, which is from 1 October to 31 March weekdays, between 3pm and 9pm.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p12
+    quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekend
+    start: 00:00
+    end: 09:00
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p12
+    quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: weekend
+    start: 09:00
+    end: '15:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p12
+    quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekend
+    start: '15:00'
+    end: '24:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p12
+    quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: all_days
+    start: 00:00
+    end: 09:00
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p12
+    quote: Medium (Off-peak) period, which is from 1 April to 30 September Monday to Sunday between 3pm to 9am
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: all_days
+    start: 09:00
+    end: '15:00'
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p12
+    quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: all_days
+    start: '15:00'
+    end: '24:00'
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p12
+    quote: Medium (Off-peak) period, which is from 1 April to 30 September Monday to Sunday between 3pm to 9am
+  tariffs:
+  - codes:
+    - Tariff 3a
+    - Tariff 3b
+    - Tariff 3c
+    applies_to: energy
+    locator: pdf:p12
+    quote: The time of use energy charge only applies to our tariff 3 customers, covering tariffs 3a, 3b and 3c
+- id: pwc-2526-np-anytime-energy
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  name: Anytime energy period
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p12
+  quote: Anytime energy period, which is 24 hour a day, 7 days a week all year round.
+  windows:
+  - period: anytime
+    label: Anytime Energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - Tariff 1
+    - Tariff 2
+    - Tariff 4
+    - Tariff 5
+    - Tariff 6
+    applies_to: energy
+    locator: pdf:p12
+    quote: The anytime energy tariff applies to all customers assigned to tariffs 1, 2, 4, 5 and 6.
+- id: pwc-2526-np-seasonal-demand
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  name: Seasonal peak demand periods (On Season / Off Season)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p13
+  quote: On Season - Peak Period • 9am to 3pm Monday to Sunday, all year 3pm to 9pm Monday to Friday (including public Holidays)
+    from 01 October to 31 March
+  note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)').
+  windows:
+  - period: high_season_peak
+    label: On Season - Peak Period
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: On Season
+    locator: pdf:p13
+    quote: On Season - Peak Period • 9am to 3pm Monday to Sunday, all year 3pm to 9pm Monday to Friday (including public Holidays)
+      from 01 October to 31 March
+  - period: low_season_peak
+    label: Off Season - Peak Period
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9
+    season: Off Season
+    locator: pdf:p13
+    quote: Off Season - Peak Period • 3pm to 9am Monday to Sunday from 01 April to 30 3pm to 9pm Monday to Friday (including
+      public September, and Holidays) from 01 April to 30 September
+  tariffs:
+  - codes: &id004
+    - Tariff 5
+    - Tariff 6
+    applies_to: demand
+    locator: pdf:p13
+    quote: For our major customers, i.e. LV customers consuming above 750MWh annually and all customers connected to the HV
+      network, an annual peak demand charge will continue to apply.
+- id: pwc-2627-np-tou-energy
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  name: LV smart meter three-tier time-of-use energy periods (Tariffs 3a, 3b, 3c)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: true
+  locator: pdf:p14
+  quote: 'The different periods for charging energy in the 2024-29 regulatory control period are:'
+  note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)'). Windows also
+    tabulated on pdf:p15.
+  windows:
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekday
+    start: 00:00
+    end: 09:00
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p14
+    quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: weekday
+    start: 09:00
+    end: '15:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p14
+    quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
+  - period: peak
+    label: High Period (Peak)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p14
+    quote: High (Peak) period, which is from 1 October to 31 March weekdays, between 3pm and 9pm.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p14
+    quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekend
+    start: 00:00
+    end: 09:00
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p14
+    quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: weekend
+    start: 09:00
+    end: '15:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p14
+    quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: weekend
+    start: '15:00'
+    end: '24:00'
+    months: 10,11,12,1,2,3
+    season: 1 October – 31 March
+    locator: pdf:p14
+    quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: all_days
+    start: 00:00
+    end: 09:00
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p14
+    quote: Medium (Off-peak) period, which is from 1 April to 30 September Monday to Sunday between 3pm to 9am
+  - period: super_off_peak
+    label: Low Period (Super Off-Peak)
+    days: all_days
+    start: 09:00
+    end: '15:00'
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p14
+    quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
+  - period: off_peak
+    label: Mid Period (Off Peak)
+    days: all_days
+    start: '15:00'
+    end: '24:00'
+    months: 4,5,6,7,8,9
+    season: 1 April – 30 September
+    locator: pdf:p14
+    quote: Medium (Off-peak) period, which is from 1 April to 30 September Monday to Sunday between 3pm to 9am
+  tariffs:
+  - codes:
+    - Tariff 3a
+    - Tariff 3b
+    - Tariff 3c
+    applies_to: energy
+    locator: pdf:p14
+    quote: The time of use energy charge only applies to our tariff 3 customers, covering tariffs 3a, 3b and 3c
+- id: pwc-2627-np-anytime-energy
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  name: Anytime energy period
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p14
+  quote: Anytime energy period, which is 24 hour a day, 7 days a week all year round.
+  windows:
+  - period: anytime
+    label: Anytime Energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - Tariff 1
+    - Tariff 2
+    - Tariff 4
+    - Tariff 5
+    - Tariff 6
+    applies_to: energy
+    locator: pdf:p14
+    quote: The anytime energy tariff applies to all customers assigned to tariffs 1, 2, 4, 5 and 6.
+- id: pwc-2627-np-seasonal-demand
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  name: Seasonal peak demand periods (On Season / Off Season)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p15
+  quote: On Season - Peak Period • 9am to 3pm Monday to Sunday, all year 3pm to 9pm Monday to Friday (including public Holidays)
+    from 01 October to 31 March
+  note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)').
+  windows:
+  - period: high_season_peak
+    label: On Season - Peak Period
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season: On Season
+    locator: pdf:p15
+    quote: On Season - Peak Period • 9am to 3pm Monday to Sunday, all year 3pm to 9pm Monday to Friday (including public Holidays)
+      from 01 October to 31 March
+  - period: low_season_peak
+    label: Off Season - Peak Period
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9
+    season: Off Season
+    locator: pdf:p15
+    quote: Off Season - Peak Period • 3pm to 9am Monday to Sunday from 01 April to 30 3pm to 9pm Monday to Friday (including
+      public September, and Holidays) from 01 April to 30 September
+  tariffs:
+  - codes: &id005
+    - Tariff 5
+    - Tariff 6
+    applies_to: demand
+    locator: pdf:p15
+    quote: For our major customers, i.e. LV customers consuming above 750MWh annually and all customers connected to the HV
+      network, an annual peak demand charge will continue to apply.
+demand_rules:
+- id: pwc-2324-sc-t3-demand
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  measure: kVA
+  aggregation: not_stated
+  window_schedule: pwc-2324-sc-t3-demand
+  window_period: demand_window
+  months: 10,11,12,1,2,3
+  locator: pdf:p1
+  quote: For Tariff 3 LV Smart Meter customers peak charges apply from 1 October through 31 March.
+  note: Demand Charge* priced in $/kVA (the table footer lists 'Demand* $/kVA/month'); the aggregation is not stated here.
+  tariffs:
+  - codes:
+    - Tariff 3
+- id: pwc-2324-sc-annual-demand
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  measure: kVA
+  aggregation: not_stated
+  window_schedule: pwc-2324-sc-annual-demand
+  window_period: demand_window
+  locator: pdf:p1
+  quote: For all other customers annual peak charges apply.
+  note: Demand Charge* priced in $/kVA; the aggregation is not stated here.
+  tariffs:
+  - codes:
+    - Tariff 5
+    - Tariff 6
+    - Tariff 7
+- id: pwc-2324-np-t3-demand
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2324-np-t3-demand
+  window_period: demand_window
+  months: 10,11,12,1,2,3
+  locator: pdf:p12
+  quote: The demand charge is applied to the maximum demand value, within the defined peak period each month.
+  note: Demand charges apply only to customers with smart meters.
+  tariffs:
+  - codes:
+    - Tariff 3
+- id: pwc-2324-np-annual-demand
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2324-np-annual-demand
+  window_period: demand_window
+  locator: pdf:p12
+  quote: The demand charge is applied to the maximum demand value, within the defined peak period each month.
+  tariffs:
+  - codes:
+    - Tariff 5
+    - Tariff 6
+    - Tariff 7
+- id: pwc-2425-sc-on-season-demand
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2425-sc-seasonal-demand
+  window_period: high_season_peak
+  months: 10,11,12,1,2,3
+  locator: pdf:p2
+  quote: Consumer are charged for the highest recorded demand during the peak period • 3pm to 9pm Monday to Friday (including
+    public holidays) from (regardless of season) each month
+  note: Charged on the highest recorded demand in the peak period each month (regardless of season).
+  tariffs:
+  - codes: *id001
+    season: On Season
+- id: pwc-2425-sc-off-season-demand
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2425-sc-seasonal-demand
+  window_period: low_season_peak
+  months: 4,5,6,7,8,9
+  locator: pdf:p2
+  quote: Consumer are charged for the highest recorded demand during the peak period • 3pm to 9pm Monday to Friday (including
+    public holidays) from (regardless of season) each month
+  note: Charged on the highest recorded demand in the peak period each month (regardless of season).
+  tariffs:
+  - codes: *id001
+    season: Off Season
+- id: pwc-2526-sc-on-season-demand
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2526-sc-seasonal-demand
+  window_period: high_season_peak
+  months: 10,11,12,1,2,3
+  locator: pdf:p2
+  quote: Consumer are charged for the highest recorded demand during the peak period • 3pm to 9pm Monday to Friday (including
+    public holidays) from (regardless of season) each month
+  note: Charged on the highest recorded demand in the peak period each month (regardless of season).
+  tariffs:
+  - codes: *id002
+    season: On Season
+- id: pwc-2526-sc-off-season-demand
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2526-sc-seasonal-demand
+  window_period: low_season_peak
+  months: 4,5,6,7,8,9
+  locator: pdf:p2
+  quote: Consumer are charged for the highest recorded demand during the peak period • 3pm to 9pm Monday to Friday (including
+    public holidays) from (regardless of season) each month
+  note: Charged on the highest recorded demand in the peak period each month (regardless of season).
+  tariffs:
+  - codes: *id002
+    season: Off Season
+- id: pwc-2425-np-on-season-demand
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2425-np-seasonal-demand
+  window_period: high_season_peak
+  months: 10,11,12,1,2,3
+  locator: pdf:p17
+  quote: Consumer charged for the highest recorded demand during the peak period • 3pm to 9pm Monday to Friday (including
+    public Holidays) from 01 (regardless of season) each month
+  note: Charged on the highest recorded demand in the peak period each month (regardless of season).
+  tariffs:
+  - codes: *id003
+    season: On Season
+- id: pwc-2425-np-off-season-demand
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2425-np-seasonal-demand
+  window_period: low_season_peak
+  months: 4,5,6,7,8,9
+  locator: pdf:p17
+  quote: Consumer charged for the highest recorded demand during the peak period • 3pm to 9pm Monday to Friday (including
+    public Holidays) from 01 (regardless of season) each month
+  note: Charged on the highest recorded demand in the peak period each month (regardless of season).
+  tariffs:
+  - codes: *id003
+    season: Off Season
+- id: pwc-2526-np-on-season-demand
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2526-np-seasonal-demand
+  window_period: high_season_peak
+  months: 10,11,12,1,2,3
+  locator: pdf:p13
+  quote: Consumer charged for the highest recorded Holidays) from 01 October to 31 March demand during the peak period (regardless
+    of season) each month
+  note: Charged on the highest recorded demand in the peak period each month (regardless of season).
+  tariffs:
+  - codes: *id004
+    season: On Season
+- id: pwc-2526-np-off-season-demand
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2526-np-seasonal-demand
+  window_period: low_season_peak
+  months: 4,5,6,7,8,9
+  locator: pdf:p13
+  quote: Consumer charged for the highest recorded Holidays) from 01 October to 31 March demand during the peak period (regardless
+    of season) each month
+  note: Charged on the highest recorded demand in the peak period each month (regardless of season).
+  tariffs:
+  - codes: *id004
+    season: Off Season
+- id: pwc-2627-np-on-season-demand
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2627-np-seasonal-demand
+  window_period: high_season_peak
+  months: 10,11,12,1,2,3
+  locator: pdf:p15
+  quote: Consumer charged for the highest recorded Holidays) from 01 October to 31 March demand during the peak period (regardless
+    of season) each month
+  note: Charged on the highest recorded demand in the peak period each month (regardless of season).
+  tariffs:
+  - codes: *id005
+    season: On Season
+- id: pwc-2627-np-off-season-demand
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  aggregation: monthly_max
+  window_schedule: pwc-2627-np-seasonal-demand
+  window_period: low_season_peak
+  months: 4,5,6,7,8,9
+  locator: pdf:p15
+  quote: Consumer charged for the highest recorded Holidays) from 01 October to 31 March demand during the peak period (regardless
+    of season) each month
+  note: Charged on the highest recorded demand in the peak period each month (regardless of season).
+  tariffs:
+  - codes: *id005
+    season: Off Season
+eligibility:
+- codes:
+  - Tariff 1
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: 'Tariff 1: Residential Tariff'
+  note: From the tariff name.
+- codes:
+  - Tariff 2
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p1
+  quote: 'Tariff 2: Non-residential Tariff'
+  note: From the tariff name.
+- codes:
+  - Tariff 3
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: 'Tariff 3: LV Smart Meter Tariff'
+  note: From the tariff name.
+- codes:
+  - Tariff 3
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p1
+  quote: 'Tariff 3: LV Smart Meter Tariff'
+  note: From the tariff name.
+- codes:
+  - Tariff 4
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: 'Tariff 4: Unmetered Tariff'
+  note: From the tariff name.
+- codes:
+  - Tariff 4
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: 'Tariff 4: Unmetered Tariff'
+  note: From the tariff name.
+- codes:
+  - Tariff 5
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: 'Tariff 5: LV Majors Tariff'
+  note: From the tariff name.
+- codes:
+  - Tariff 6
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p1
+  quote: 'Tariff 6: HV Minors Tariff'
+  note: From the tariff name.
+- codes:
+  - Tariff 7
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p1
+  quote: 'Tariff 7: HV Majors Tariff'
+  note: From the tariff name.
+- codes:
+  - Tariff 1
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p11
+  quote: 'The Residential Tariff (Tariff 1) applies to residential customers supplied at a connection point with the following
+    characteristics: • total electricity consumption is less than 750MWh per annum per NMI • electricity is supplied at a
+    voltage level defined as LV – nominally 230/400V • the customer is connected to the LV network via an accumulation meter'
+- codes:
+  - Tariff 1
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: 'The Residential Tariff (Tariff 1) applies to residential customers supplied at a connection point with the following
+    characteristics: • total electricity consumption is less than 750MWh per annum per NMI • electricity is supplied at a
+    voltage level defined as LV – nominally 230/400V • the customer is connected to the LV network via an accumulation meter'
+- codes:
+  - Tariff 1
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: 'The Residential Tariff (Tariff 1) applies to residential customers supplied at a connection point with the following
+    characteristics: • total electricity consumption is less than 750MWh per annum per NMI • electricity is supplied at a
+    voltage level defined as LV – nominally 230/400V • the customer is connected to the LV network via an accumulation meter'
+- codes:
+  - Tariff 1
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: accumulation
+  locator: pdf:p11
+  quote: 'The Residential Tariff (Tariff 1) applies to residential customers supplied at a connection point with the following
+    characteristics: • total electricity consumption is less than 750MWh per annum per NMI • electricity is supplied at a
+    voltage level defined as LV – nominally 230/400V • the customer is connected to the LV network via an accumulation meter'
+- codes:
+  - Tariff 2
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p11
+  quote: 'The Non-residential Tariff (Tariff 2) is applied to non-residential customers with the following characteristics:
+    • total electricity consumption is less than 750MWh per annum per NMI • electricity is supplied at a voltage level defined
+    as LV – nominally 230/400V • the customer is connected to the LV network via an accumulation meter.'
+- codes:
+  - Tariff 2
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: 'The Non-residential Tariff (Tariff 2) is applied to non-residential customers with the following characteristics:
+    • total electricity consumption is less than 750MWh per annum per NMI • electricity is supplied at a voltage level defined
+    as LV – nominally 230/400V • the customer is connected to the LV network via an accumulation meter.'
+- codes:
+  - Tariff 2
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: 'The Non-residential Tariff (Tariff 2) is applied to non-residential customers with the following characteristics:
+    • total electricity consumption is less than 750MWh per annum per NMI • electricity is supplied at a voltage level defined
+    as LV – nominally 230/400V • the customer is connected to the LV network via an accumulation meter.'
+- codes:
+  - Tariff 2
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: accumulation
+  locator: pdf:p11
+  quote: 'The Non-residential Tariff (Tariff 2) is applied to non-residential customers with the following characteristics:
+    • total electricity consumption is less than 750MWh per annum per NMI • electricity is supplied at a voltage level defined
+    as LV – nominally 230/400V • the customer is connected to the LV network via an accumulation meter.'
+- codes:
+  - Tariff 3
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: any
+  locator: pdf:p11
+  quote: 'The LV Smart Meter Tariff (Tariff 3) is applied to customers with the following characteristics: • total electricity
+    consumption is less than 750MWh per annum per NMI • electricity is supplied at a voltage level defined as LV – nominally
+    230/400V • the customer is connected to the LV network via a smart meter. Residential and non-residential customers are
+    treated equally under this tariff.'
+- codes:
+  - Tariff 3
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: 'The LV Smart Meter Tariff (Tariff 3) is applied to customers with the following characteristics: • total electricity
+    consumption is less than 750MWh per annum per NMI • electricity is supplied at a voltage level defined as LV – nominally
+    230/400V • the customer is connected to the LV network via a smart meter. Residential and non-residential customers are
+    treated equally under this tariff.'
+- codes:
+  - Tariff 3
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: 'The LV Smart Meter Tariff (Tariff 3) is applied to customers with the following characteristics: • total electricity
+    consumption is less than 750MWh per annum per NMI • electricity is supplied at a voltage level defined as LV – nominally
+    230/400V • the customer is connected to the LV network via a smart meter. Residential and non-residential customers are
+    treated equally under this tariff.'
+- codes:
+  - Tariff 3
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p11
+  quote: 'The LV Smart Meter Tariff (Tariff 3) is applied to customers with the following characteristics: • total electricity
+    consumption is less than 750MWh per annum per NMI • electricity is supplied at a voltage level defined as LV – nominally
+    230/400V • the customer is connected to the LV network via a smart meter. Residential and non-residential customers are
+    treated equally under this tariff.'
+- codes:
+  - Tariff 4
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p11
+  quote: The Unmetered Tariff (Tariff 4) applies to connection points that with the agreement of Power and Water are unmetered
+    (type 7 metering).
+  note: Tariff 4 sits in the 'Low Voltage less than 750MWh Tariff Class' (section 2.1.1).
+- codes:
+  - Tariff 4
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p11
+  quote: The Unmetered Tariff (Tariff 4) applies to connection points that with the agreement of Power and Water are unmetered
+    (type 7 metering).
+  note: Tariff 4 sits in the 'Low Voltage less than 750MWh Tariff Class' (section 2.1.1).
+- codes:
+  - Tariff 4
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: The Unmetered Tariff (Tariff 4) applies to connection points that with the agreement of Power and Water are unmetered
+    (type 7 metering).
+  note: Tariff 4 sits in the 'Low Voltage less than 750MWh Tariff Class' (section 2.1.1).
+- codes:
+  - Tariff 5
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: This tariff class (Tariff 5) solely consists of the LV Majors Tariff, which applies to customers supplied at a connection
+    point where total electricity consumption is greater than 750MWh per annum per NMI, and electricity is supplied at a voltage
+    level defined as LV – nominally 230/400V.
+- codes:
+  - Tariff 5
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p12
+  quote: This tariff class (Tariff 5) solely consists of the LV Majors Tariff, which applies to customers supplied at a connection
+    point where total electricity consumption is greater than 750MWh per annum per NMI, and electricity is supplied at a voltage
+    level defined as LV – nominally 230/400V.
+- codes:
+  - Tariff 6
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: 'The HV Minors Tariff (Tariff 6) applies to customers supplied at a connection point where: • Total electricity consumption
+    is less than 750MWh per annum per NMI • Electricity is supplied at a voltage level of 11 kilovolts (kV) or higher.'
+  note: '''supplied at a voltage level of 11 kilovolts (kV) or higher''.'
+- codes:
+  - Tariff 6
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p12
+  quote: 'The HV Minors Tariff (Tariff 6) applies to customers supplied at a connection point where: • Total electricity consumption
+    is less than 750MWh per annum per NMI • Electricity is supplied at a voltage level of 11 kilovolts (kV) or higher.'
+  note: '''supplied at a voltage level of 11 kilovolts (kV) or higher''.'
+- codes:
+  - Tariff 7
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: 'The HV Majors Tariff (Tariff 7) applies to customers supplied at a connection point where: • Total electricity consumption
+    is greater than 750MWh per annum per NMI • Electricity is supplied at a voltage level of 11 kilovolts (kV) or higher.'
+  note: '''supplied at a voltage level of 11 kilovolts (kV) or higher''.'
+- codes:
+  - Tariff 7
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p12
+  quote: 'The HV Majors Tariff (Tariff 7) applies to customers supplied at a connection point where: • Total electricity consumption
+    is greater than 750MWh per annum per NMI • Electricity is supplied at a voltage level of 11 kilovolts (kV) or higher.'
+  note: '''supplied at a voltage level of 11 kilovolts (kV) or higher''.'
+- codes:
+  - Tariff 1
+  - Tariff 2
+  - Tariff 3
+  - Tariff 4
+  - Tariff 5
+  - Tariff 6
+  - Tariff 7
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: assigned_by_distributor
+  locator: pdf:p13
+  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and
+  note: Power and Water assigns tariffs by connection voltage, consumption, meter type and end use; reassignment can follow
+    an annual review, a smart meter install, a new connection or a retailer/customer request.
+- codes:
+  - Tariff 1
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: 'Tariff 1: Residential Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 2
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p1
+  quote: 'Tariff 2: Non-residential Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3a
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: 'Tariff 3a: LV Smart Meter Tariff $2.000000 $0.000000 $0.050000 $0.190000 (Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3a
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: 'Tariff 3a: LV Smart Meter Tariff $2.000000 $0.000000 $0.050000 $0.190000 (Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3a
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p1
+  quote: 'Tariff 3a: LV Smart Meter Tariff $2.000000 $0.000000 $0.050000 $0.190000 (Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3a
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: 'Tariff 3a: LV Smart Meter Tariff $2.000000 $0.000000 $0.050000 $0.190000 (Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3b
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p1
+  quote: 'Tariff 3b: LV Smart Meter Tariff $2.500000 $0.000000 $0.057500 $0.250000 (Non-Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3b
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: 'Tariff 3b: LV Smart Meter Tariff $2.500000 $0.000000 $0.057500 $0.250000 (Non-Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3b
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p1
+  quote: 'Tariff 3b: LV Smart Meter Tariff $2.500000 $0.000000 $0.057500 $0.250000 (Non-Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3b
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: 'Tariff 3b: LV Smart Meter Tariff $2.500000 $0.000000 $0.057500 $0.250000 (Non-Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3c
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: 'Tariff 3c: LV Smart Meter Tariff $8.500000 $0.000000 $0.080000 $0.320255 (160-750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3c
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p1
+  quote: 'Tariff 3c: LV Smart Meter Tariff $8.500000 $0.000000 $0.080000 $0.320255 (160-750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3c
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: 'Tariff 3c: LV Smart Meter Tariff $8.500000 $0.000000 $0.080000 $0.320255 (160-750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3c
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: 'Tariff 3c: LV Smart Meter Tariff $8.500000 $0.000000 $0.080000 $0.320255 (160-750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 4
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: 'Tariff 4: Unmetered Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 4
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: 'Tariff 4: Unmetered Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 5
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: 'Tariff 5: LV Majors Tariff $95.000000 $0.025000 $15.000000 $2.200000 (Above 750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 5
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: 'Tariff 5: LV Majors Tariff $95.000000 $0.025000 $15.000000 $2.200000 (Above 750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 6
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p1
+  quote: 'Tariff 6: HV Smart Meter Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 6
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p1
+  quote: 'Tariff 6: HV Smart Meter Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 1
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: 'Tariff 1: Residential Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 2
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p1
+  quote: 'Tariff 2: Non-residential Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3a
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p1
+  quote: 'Tariff 3a: LV Smart Meter Tariff (Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3a
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: 'Tariff 3a: LV Smart Meter Tariff (Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3a
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p1
+  quote: 'Tariff 3a: LV Smart Meter Tariff (Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3a
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: 'Tariff 3a: LV Smart Meter Tariff (Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3b
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p1
+  quote: 'Tariff 3b: LV Smart Meter Tariff (Non-Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3b
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: 'Tariff 3b: LV Smart Meter Tariff (Non-Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3b
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p1
+  quote: 'Tariff 3b: LV Smart Meter Tariff (Non-Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3b
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: 'Tariff 3b: LV Smart Meter Tariff (Non-Residential 0-160MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3c
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: 'Tariff 3c: LV Smart Meter Tariff (160-750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3c
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p1
+  quote: 'Tariff 3c: LV Smart Meter Tariff (160-750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3c
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: ge
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: 'Tariff 3c: LV Smart Meter Tariff (160-750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 3c
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: le
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: 'Tariff 3c: LV Smart Meter Tariff (160-750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 4
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: 'Tariff 4: Unmetered Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 4
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p1
+  quote: 'Tariff 4: Unmetered Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 5
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p1
+  quote: 'Tariff 5: LV Majors Tariff (Above 750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 5
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p1
+  quote: 'Tariff 5: LV Majors Tariff (Above 750MWh pa)'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 6
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p1
+  quote: 'Tariff 6: HV Smart Meter Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 6
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p1
+  quote: 'Tariff 6: HV Smart Meter Tariff'
+  note: From the tariff name in the price list.
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p11
+  quote: 'Tariff 1 Applies to customers supplied at any NMI point where: Residential • Total electricity consumption is less
+    than 750MWh annually per NMI. Accumulation • Electricity is supplied at a voltage level defined as low voltage – nominally
+    Meter 230/400V. • The customer is connected to the low voltage network via an accumulation meter. • The premises is intended
+    to be used primarily for residential purposes'
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: 'Tariff 1 Applies to customers supplied at any NMI point where: Residential • Total electricity consumption is less
+    than 750MWh annually per NMI. Accumulation • Electricity is supplied at a voltage level defined as low voltage – nominally
+    Meter 230/400V. • The customer is connected to the low voltage network via an accumulation meter. • The premises is intended
+    to be used primarily for residential purposes'
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: 'Tariff 1 Applies to customers supplied at any NMI point where: Residential • Total electricity consumption is less
+    than 750MWh annually per NMI. Accumulation • Electricity is supplied at a voltage level defined as low voltage – nominally
+    Meter 230/400V. • The customer is connected to the low voltage network via an accumulation meter. • The premises is intended
+    to be used primarily for residential purposes'
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: accumulation
+  locator: pdf:p11
+  quote: 'Tariff 1 Applies to customers supplied at any NMI point where: Residential • Total electricity consumption is less
+    than 750MWh annually per NMI. Accumulation • Electricity is supplied at a voltage level defined as low voltage – nominally
+    Meter 230/400V. • The customer is connected to the low voltage network via an accumulation meter. • The premises is intended
+    to be used primarily for residential purposes'
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p12
+  quote: 'Tariff 2 Applies to customers where: Non-Residential • Total electricity consumption is less than 750MWh annually
+    per NMI. Accumulation • Electricity is supplied at a voltage level defined as low voltage – nominally Meter 230/400V.
+    • The customer is connected to the low voltage network via an accumulation meter. • The premises is intended to be used
+    for non-residential purposes'
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: 'Tariff 2 Applies to customers where: Non-Residential • Total electricity consumption is less than 750MWh annually
+    per NMI. Accumulation • Electricity is supplied at a voltage level defined as low voltage – nominally Meter 230/400V.
+    • The customer is connected to the low voltage network via an accumulation meter. • The premises is intended to be used
+    for non-residential purposes'
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p12
+  quote: 'Tariff 2 Applies to customers where: Non-Residential • Total electricity consumption is less than 750MWh annually
+    per NMI. Accumulation • Electricity is supplied at a voltage level defined as low voltage – nominally Meter 230/400V.
+    • The customer is connected to the low voltage network via an accumulation meter. • The premises is intended to be used
+    for non-residential purposes'
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: accumulation
+  locator: pdf:p12
+  quote: 'Tariff 2 Applies to customers where: Non-Residential • Total electricity consumption is less than 750MWh annually
+    per NMI. Accumulation • Electricity is supplied at a voltage level defined as low voltage – nominally Meter 230/400V.
+    • The customer is connected to the low voltage network via an accumulation meter. • The premises is intended to be used
+    for non-residential purposes'
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p12
+  quote: 'Tariff 3a Applies to customers where: LV Smart Meter • Total electricity consumption is less than 160MWh annually
+    per NMI. Residential • Electricity is supplied at a voltage level defined as low voltage – nominally 230/400V. • The customer
+    is connected to the low voltage network via a smart meter. • The premises is intended to be used primarily for residential
+    purposes'
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: 'Tariff 3a Applies to customers where: LV Smart Meter • Total electricity consumption is less than 160MWh annually
+    per NMI. Residential • Electricity is supplied at a voltage level defined as low voltage – nominally 230/400V. • The customer
+    is connected to the low voltage network via a smart meter. • The premises is intended to be used primarily for residential
+    purposes'
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p12
+  quote: 'Tariff 3a Applies to customers where: LV Smart Meter • Total electricity consumption is less than 160MWh annually
+    per NMI. Residential • Electricity is supplied at a voltage level defined as low voltage – nominally 230/400V. • The customer
+    is connected to the low voltage network via a smart meter. • The premises is intended to be used primarily for residential
+    purposes'
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p12
+  quote: 'Tariff 3a Applies to customers where: LV Smart Meter • Total electricity consumption is less than 160MWh annually
+    per NMI. Residential • Electricity is supplied at a voltage level defined as low voltage – nominally 230/400V. • The customer
+    is connected to the low voltage network via a smart meter. • The premises is intended to be used primarily for residential
+    purposes'
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p12
+  quote: 'Tariff 3b Applies to customers where: LV Smart Meter • Total electricity consumption is less than 160MWh annually
+    per NMI. Non-Residential • Electricity is supplied at a voltage level defined as low voltage – nominally 230/400V. • The
+    customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for non-residential
+    purposes'
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: 'Tariff 3b Applies to customers where: LV Smart Meter • Total electricity consumption is less than 160MWh annually
+    per NMI. Non-Residential • Electricity is supplied at a voltage level defined as low voltage – nominally 230/400V. • The
+    customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for non-residential
+    purposes'
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p12
+  quote: 'Tariff 3b Applies to customers where: LV Smart Meter • Total electricity consumption is less than 160MWh annually
+    per NMI. Non-Residential • Electricity is supplied at a voltage level defined as low voltage – nominally 230/400V. • The
+    customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for non-residential
+    purposes'
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p12
+  quote: 'Tariff 3b Applies to customers where: LV Smart Meter • Total electricity consumption is less than 160MWh annually
+    per NMI. Non-Residential • Electricity is supplied at a voltage level defined as low voltage – nominally 230/400V. • The
+    customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for non-residential
+    purposes'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: any
+  locator: pdf:p13
+  quote: • Total electricity consumption is greater than 160MWh but less than 750MWh annually per NMI. • Electricity is supplied
+    at a voltage defined as low voltage – nominally 230 to 400V. • The customer is connected to the low voltage network via
+    a smart meter. • The premises is intended to be used for either residential or non-residential purposes.
+  note: 'Continuation of the Table 2.2 row headed ''Tariff 3c Applies to customers where: LV Smart Meter'' (pdf:p12).'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: • Total electricity consumption is greater than 160MWh but less than 750MWh annually per NMI. • Electricity is supplied
+    at a voltage defined as low voltage – nominally 230 to 400V. • The customer is connected to the low voltage network via
+    a smart meter. • The premises is intended to be used for either residential or non-residential purposes.
+  note: 'Continuation of the Table 2.2 row headed ''Tariff 3c Applies to customers where: LV Smart Meter'' (pdf:p12).'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: • Total electricity consumption is greater than 160MWh but less than 750MWh annually per NMI. • Electricity is supplied
+    at a voltage defined as low voltage – nominally 230 to 400V. • The customer is connected to the low voltage network via
+    a smart meter. • The premises is intended to be used for either residential or non-residential purposes.
+  note: 'Continuation of the Table 2.2 row headed ''Tariff 3c Applies to customers where: LV Smart Meter'' (pdf:p12).'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p13
+  quote: • Total electricity consumption is greater than 160MWh but less than 750MWh annually per NMI. • Electricity is supplied
+    at a voltage defined as low voltage – nominally 230 to 400V. • The customer is connected to the low voltage network via
+    a smart meter. • The premises is intended to be used for either residential or non-residential purposes.
+  note: 'Continuation of the Table 2.2 row headed ''Tariff 3c Applies to customers where: LV Smart Meter'' (pdf:p12).'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p13
+  quote: • Total electricity consumption is greater than 160MWh but less than 750MWh annually per NMI. • Electricity is supplied
+    at a voltage defined as low voltage – nominally 230 to 400V. • The customer is connected to the low voltage network via
+    a smart meter. • The premises is intended to be used for either residential or non-residential purposes.
+  note: 'Continuation of the Table 2.2 row headed ''Tariff 3c Applies to customers where: LV Smart Meter'' (pdf:p12).'
+- codes:
+  - Tariff 4
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: Tariff 4 Applies to connection points that, with the agreement of Power and Water, are unmetered (Type 7 metering)
+    and the consumption is anticipated to be less than Unmetered Supply 160MWh annually.
+- codes:
+  - Tariff 4
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: Tariff 4 Applies to connection points that, with the agreement of Power and Water, are unmetered (Type 7 metering)
+    and the consumption is anticipated to be less than Unmetered Supply 160MWh annually.
+- codes:
+  - Tariff 4
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: Tariff 4 Applies to connection points that, with the agreement of Power and Water, are unmetered (Type 7 metering)
+    and the consumption is anticipated to be less than Unmetered Supply 160MWh annually.
+- codes:
+  - Tariff 5
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: 'Tariff 5 Is the tariff available for all customers supplied at an NMI point where: LV Majors • Total electricity
+    consumption is greater than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally
+    230 to 400V.'
+- codes:
+  - Tariff 5
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p13
+  quote: 'Tariff 5 Is the tariff available for all customers supplied at an NMI point where: LV Majors • Total electricity
+    consumption is greater than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally
+    230 to 400V.'
+- codes:
+  - Tariff 6
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p13
+  quote: Customers connected to the High Voltage network (at a voltage of 11 kilovolts (kV) or higher) will be assigned to
+    Tariff 6.
+- codes:
+  - Tariff 6
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 10
+  value_unit: GWh/yr
+  locator: pdf:p11
+  quote: 'HV 6: HV Smart Meters All customers connected to the high voltage network consuming less than 10GWh annually'
+  note: Table 2.1 description of Tariff 6.
+- codes:
+  - Tariff 1
+  - Tariff 2
+  - Tariff 3a
+  - Tariff 3b
+  - Tariff 3c
+  - Tariff 4
+  - Tariff 5
+  - Tariff 6
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: assigned_by_distributor
+  locator: pdf:p20
+  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and
+  note: Power and Water assigns tariffs by connection voltage, consumption, meter type and end use.
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p11
+  quote: Tariff 1 • Total electricity consumption is less than 750MWh annually per NMI. residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: Tariff 1 • Total electricity consumption is less than 750MWh annually per NMI. residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: Tariff 1 • Total electricity consumption is less than 750MWh annually per NMI. residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: accumulation
+  locator: pdf:p11
+  quote: Tariff 1 • Total electricity consumption is less than 750MWh annually per NMI. residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p11
+  quote: Tariff 2 • Total electricity consumption is less than 750MWh annually per NMI. non-residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: Tariff 2 • Total electricity consumption is less than 750MWh annually per NMI. non-residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: Tariff 2 • Total electricity consumption is less than 750MWh annually per NMI. non-residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: accumulation
+  locator: pdf:p11
+  quote: Tariff 2 • Total electricity consumption is less than 750MWh annually per NMI. non-residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p11
+  quote: Tariff 3a • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. residential • The customer is connected to
+    the low voltage network via a smart meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: Tariff 3a • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. residential • The customer is connected to
+    the low voltage network via a smart meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: Tariff 3a • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. residential • The customer is connected to
+    the low voltage network via a smart meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p11
+  quote: Tariff 3a • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. residential • The customer is connected to
+    the low voltage network via a smart meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p11
+  quote: Tariff 3b • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. non-residential • The customer is connected
+    to the low voltage network via a smart meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: Tariff 3b • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. non-residential • The customer is connected
+    to the low voltage network via a smart meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: Tariff 3b • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. non-residential • The customer is connected
+    to the low voltage network via a smart meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p11
+  quote: Tariff 3b • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. non-residential • The customer is connected
+    to the low voltage network via a smart meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: any
+  locator: pdf:p11
+  quote: 'Tariff 3c Applies to customers where: LV smart meter • Total electricity consumption is greater than 160MWh but
+    less than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally 230 to 400V.
+    • The customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for either
+    residential or non-residential purposes.'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: 'Tariff 3c Applies to customers where: LV smart meter • Total electricity consumption is greater than 160MWh but
+    less than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally 230 to 400V.
+    • The customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for either
+    residential or non-residential purposes.'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: 'Tariff 3c Applies to customers where: LV smart meter • Total electricity consumption is greater than 160MWh but
+    less than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally 230 to 400V.
+    • The customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for either
+    residential or non-residential purposes.'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: 'Tariff 3c Applies to customers where: LV smart meter • Total electricity consumption is greater than 160MWh but
+    less than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally 230 to 400V.
+    • The customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for either
+    residential or non-residential purposes.'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p11
+  quote: 'Tariff 3c Applies to customers where: LV smart meter • Total electricity consumption is greater than 160MWh but
+    less than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally 230 to 400V.
+    • The customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for either
+    residential or non-residential purposes.'
+- codes:
+  - Tariff 4
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p11
+  quote: Tariff 4 Applies to connection points that, with the agreement of Power and Water, are unmetered (Type 7 metering)
+    and the consumption is anticipated to be less than 750MWh annually.
+- codes:
+  - Tariff 4
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p11
+  quote: Tariff 4 Applies to connection points that, with the agreement of Power and Water, are unmetered (Type 7 metering)
+    and the consumption is anticipated to be less than 750MWh annually.
+- codes:
+  - Tariff 4
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: Tariff 4 Applies to connection points that, with the agreement of Power and Water, are unmetered (Type 7 metering)
+    and the consumption is anticipated to be less than 750MWh annually.
+- codes:
+  - Tariff 5
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p9
+  quote: Customers connected to the low voltage network5 and who consume greater than 750MWh annually will be assigned to
+    the low voltage, greater than 750MWh under Tariff 5.
+- codes:
+  - Tariff 5
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p9
+  quote: Customers connected to the low voltage network5 and who consume greater than 750MWh annually will be assigned to
+    the low voltage, greater than 750MWh under Tariff 5.
+- codes:
+  - Tariff 5
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: assigned_by_distributor
+  locator: pdf:p9
+  quote: Customers connected to the low voltage network5 and who consume greater than 750MWh annually will be assigned to
+    the low voltage, greater than 750MWh under Tariff 5.
+- codes:
+  - Tariff 6
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p9
+  quote: Customers connected to the high voltage network6 will be assigned to the high voltage tariff class under Tariff 6.
+- codes:
+  - Tariff 1
+  - Tariff 2
+  - Tariff 3a
+  - Tariff 3b
+  - Tariff 3c
+  - Tariff 4
+  - Tariff 5
+  - Tariff 6
+  doc: sources/aer/dnsp_copies/PWC_2025-26_Network_Pricing_Proposal_23May2025.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: assigned_by_distributor
+  locator: pdf:p15
+  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and
+  note: Power and Water assigns tariffs by connection voltage, consumption, meter type and end use.
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p13
+  quote: Tariff 1 • Total electricity consumption is less than 750MWh annually per NMI. residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: Tariff 1 • Total electricity consumption is less than 750MWh annually per NMI. residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p13
+  quote: Tariff 1 • Total electricity consumption is less than 750MWh annually per NMI. residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 1
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: accumulation
+  locator: pdf:p13
+  quote: Tariff 1 • Total electricity consumption is less than 750MWh annually per NMI. residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p13
+  quote: Tariff 2 • Total electricity consumption is less than 750MWh annually per NMI. non-residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: Tariff 2 • Total electricity consumption is less than 750MWh annually per NMI. non-residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p13
+  quote: Tariff 2 • Total electricity consumption is less than 750MWh annually per NMI. non-residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 2
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: accumulation
+  locator: pdf:p13
+  quote: Tariff 2 • Total electricity consumption is less than 750MWh annually per NMI. non-residential • Electricity is supplied
+    at a voltage level defined as low voltage – nominally 230/400V. accumulation meter • The customer is connected to the
+    low voltage network via an accumulation meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p13
+  quote: Tariff 3a • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. residential • The customer is connected to
+    the low voltage network via a smart meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: Tariff 3a • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. residential • The customer is connected to
+    the low voltage network via a smart meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p13
+  quote: Tariff 3a • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. residential • The customer is connected to
+    the low voltage network via a smart meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 3a
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p13
+  quote: Tariff 3a • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. residential • The customer is connected to
+    the low voltage network via a smart meter. • The premises is intended to be used primarily for residential purposes
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p13
+  quote: Tariff 3b • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. non-residential • The customer is connected
+    to the low voltage network via a smart meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: Tariff 3b • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. non-residential • The customer is connected
+    to the low voltage network via a smart meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p13
+  quote: Tariff 3b • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. non-residential • The customer is connected
+    to the low voltage network via a smart meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 3b
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p13
+  quote: Tariff 3b • Total electricity consumption is less than 160MWh annually for each NMI. LV smart meter • Electricity
+    is supplied at a voltage level defined as low voltage – nominally 230/400V. non-residential • The customer is connected
+    to the low voltage network via a smart meter. • The premises is intended to be used for non-residential purposes
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: any
+  locator: pdf:p13
+  quote: 'Tariff 3c Applies to customers where: LV smart meter • Total electricity consumption is greater than 160MWh but
+    less than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally 230 to 400V.
+    • The customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for either
+    residential or non-residential purposes.'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: 'Tariff 3c Applies to customers where: LV smart meter • Total electricity consumption is greater than 160MWh but
+    less than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally 230 to 400V.
+    • The customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for either
+    residential or non-residential purposes.'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: 'Tariff 3c Applies to customers where: LV smart meter • Total electricity consumption is greater than 160MWh but
+    less than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally 230 to 400V.
+    • The customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for either
+    residential or non-residential purposes.'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p13
+  quote: 'Tariff 3c Applies to customers where: LV smart meter • Total electricity consumption is greater than 160MWh but
+    less than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally 230 to 400V.
+    • The customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for either
+    residential or non-residential purposes.'
+- codes:
+  - Tariff 3c
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p13
+  quote: 'Tariff 3c Applies to customers where: LV smart meter • Total electricity consumption is greater than 160MWh but
+    less than 750MWh annually per NMI. • Electricity is supplied at a voltage defined as low voltage – nominally 230 to 400V.
+    • The customer is connected to the low voltage network via a smart meter. • The premises is intended to be used for either
+    residential or non-residential purposes.'
+- codes:
+  - Tariff 4
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: Tariff 4 Applies to connection points that, with the agreement of Power and Water, are unmetered (Type 7 metering)
+    and the consumption is anticipated to be less than 160MWh annually.
+  note: Table 2.2 states less than 160MWh; Table 2.1 (pdf:p12) describes Tariff 4 as 'consuming less than 750MWh annually'.
+- codes:
+  - Tariff 4
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: Tariff 4 Applies to connection points that, with the agreement of Power and Water, are unmetered (Type 7 metering)
+    and the consumption is anticipated to be less than 160MWh annually.
+  note: Table 2.2 states less than 160MWh; Table 2.1 (pdf:p12) describes Tariff 4 as 'consuming less than 750MWh annually'.
+- codes:
+  - Tariff 4
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: Tariff 4 Applies to connection points that, with the agreement of Power and Water, are unmetered (Type 7 metering)
+    and the consumption is anticipated to be less than 160MWh annually.
+  note: Table 2.2 states less than 160MWh; Table 2.1 (pdf:p12) describes Tariff 4 as 'consuming less than 750MWh annually'.
+- codes:
+  - Tariff 4
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: '4: Unmetered Unmetered supply (for street lighting, traffic lights, CCTV cameras and other unmetered devices) consuming
+    less than 750MWh'
+  note: Table 2.1 wording; Table 2.2 (pdf:p13) says less than 160MWh.
+- codes:
+  - Tariff 5
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: Customers connected to the low voltage network4 and who consume greater than 750MWh annually, will be assigned to
+    the low voltage greater than 750MWh tariff class under Tariff 5.
+- codes:
+  - Tariff 5
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: Customers connected to the low voltage network4 and who consume greater than 750MWh annually, will be assigned to
+    the low voltage greater than 750MWh tariff class under Tariff 5.
+- codes:
+  - Tariff 6
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p11
+  quote: Customers connected to the high voltage network5will be assigned to the high voltage tariff class under Tariff 6.
+- codes:
+  - Tariff 1
+  - Tariff 2
+  - Tariff 3a
+  - Tariff 3b
+  - Tariff 3c
+  - Tariff 4
+  - Tariff 5
+  - Tariff 6
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: assigned_by_distributor
+  locator: pdf:p17
+  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and
+  note: Power and Water assigns tariffs by connection voltage, consumption, meter type and end use.
+- codes:
+  - Tariff 1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D86
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!D86
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C86
+  quote: Residential Accumulation
+  note: From the tariff name.
+- codes:
+  - Tariff 1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: accumulation
+  locator: xlsx:Tariff schedule!C86
+  quote: Residential Accumulation
+  note: From the tariff name.
+- codes:
+  - Tariff 2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D87
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!D87
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!C87
+  quote: Non-Residential Accumulation
+  note: From the tariff name.
+- codes:
+  - Tariff 2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: accumulation
+  locator: xlsx:Tariff schedule!C87
+  quote: Non-Residential Accumulation
+  note: From the tariff name.
+- codes:
+  - Tariff 3a
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D88
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 3a
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!D88
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 3a
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C88
+  quote: LV Smart Meter - Residential
+  note: From the tariff name.
+- codes:
+  - Tariff 3a
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: xlsx:Tariff schedule!C88
+  quote: LV Smart Meter - Residential
+  note: From the tariff name.
+- codes:
+  - Tariff 3b
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D89
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 3b
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!D89
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 3b
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: xlsx:Tariff schedule!C89
+  quote: LV Smart Meter - Small Commercial
+  note: From the tariff name.
+- codes:
+  - Tariff 3c
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D90
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 3c
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!D90
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 3c
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: xlsx:Tariff schedule!C90
+  quote: LV Smart Meter - Large Commercial
+  note: From the tariff name.
+- codes:
+  - Tariff 4
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D91
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 4
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!D91
+  quote: LV <750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 4
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C91
+  quote: Unmetered
+  note: From the tariff name.
+- codes:
+  - Tariff 4
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C91
+  quote: Unmetered
+  note: From the tariff name.
+- codes:
+  - Tariff 5
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D93
+  quote: LV >750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 5
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 750
+  value_unit: MWh/yr
+  locator: xlsx:Tariff schedule!D93
+  quote: LV >750MWh
+  note: Tariff class column.
+- codes:
+  - Tariff 6
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!D95
+  quote: HV
+  note: Tariff class column.
+- codes:
+  - Tariff 6
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: xlsx:Tariff schedule!C95
+  quote: HV Smart Meters
+  note: From the tariff name.
+relations:
+- from: Tariff 3
+  type: replaced_by
+  to: Tariff 3a
+  fin_year: 2024-25
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  locator: pdf:p5
+  quote: Tariff 3 is segmented into three individual tariffs to better reflect the NT’s customer base and cost-to-
+  note: The three tariffs are Tariffs 3a, 3b and 3c (LV Smart Meter Residential / Non-Residential 0-160MWh, 160-750MWh).
+- from: Tariff 3
+  type: replaced_by
+  to: Tariff 3b
+  fin_year: 2024-25
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  locator: pdf:p5
+  quote: Tariff 3 is segmented into three individual tariffs to better reflect the NT’s customer base and cost-to-
+  note: The three tariffs are Tariffs 3a, 3b and 3c (LV Smart Meter Residential / Non-Residential 0-160MWh, 160-750MWh).
+- from: Tariff 3
+  type: replaced_by
+  to: Tariff 3c
+  fin_year: 2024-25
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  locator: pdf:p5
+  quote: Tariff 3 is segmented into three individual tariffs to better reflect the NT’s customer base and cost-to-
+  note: The three tariffs are Tariffs 3a, 3b and 3c (LV Smart Meter Residential / Non-Residential 0-160MWh, 160-750MWh).
+- from: Tariff 7
+  type: replaced_by
+  to: Tariff 6
+  fin_year: 2024-25
+  doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
+  locator: pdf:p5
+  quote: Combined our two high voltage (HV) tariffs into one
+  note: The two 2023-24 HV tariffs were Tariff 6 (HV Minors) and Tariff 7 (HV Majors); from 2024-25 the only HV tariff is
+    Tariff 6 (HV Smart Meters). The code mapping is read from the two years' tariff tables.
+flags: []

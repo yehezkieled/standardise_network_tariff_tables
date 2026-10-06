@@ -906,7 +906,8 @@
             "export_companion",
             "same_prices_as",
             "assigned_with",
-            "aer_sibling_code"
+            "aer_sibling_code",
+            "aer_combined_label"
           ],
           "unit": null,
           "derived": false,
@@ -1130,8 +1131,8 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "derived": false,
-          "description": "parser notes for the listing"
+          "derived": true,
+          "description": "what the notes of the listing's charges all say ('; '-separated parts common to every charge, leaving out repeated printings and GST-inclusive copies); for a rules-only listing, the quote that lists it (derived from the charge notes on every build)"
         }
       ]
     },
@@ -1183,7 +1184,8 @@
             "includes_metering",
             "excludes_metering",
             "joint_label_member",
-            "regional_variant"
+            "regional_variant",
+            "dmo_vdo_tariff"
           ],
           "unit": null,
           "derived": false,
@@ -1312,10 +1314,28 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": null,
+          "enum": [
+            "anytime",
+            "peak",
+            "shoulder",
+            "offpeak",
+            "super_offpeak",
+            "critical_peak",
+            "solar_soak",
+            "block1",
+            "block2",
+            "block3",
+            "peak_block1",
+            "peak_block2",
+            "capacity_minimum",
+            "capacity_remaining",
+            "critical_minimum",
+            "dynamic_maximum",
+            "dynamic_minimum"
+          ],
           "unit": null,
           "derived": false,
-          "description": "normalised band (peak, off_peak, shoulder, block1, ...)"
+          "description": "normalised band"
         },
         {
           "name": "season",
@@ -1323,10 +1343,16 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": null,
+          "enum": [
+            "summer",
+            "non_summer",
+            "high",
+            "low",
+            "winter"
+          ],
           "unit": null,
           "derived": false,
-          "description": "normalised season (summer, non_summer, high, low, winter)"
+          "description": "normalised season"
         },
         {
           "name": "value_published",
@@ -1490,7 +1516,7 @@
           ],
           "unit": null,
           "derived": true,
-          "description": "whether the value contains a metering charge (derived: 'yes' where a metering_adder price_adjustment reproduces the value from the AER price plus metering)"
+          "description": "whether the value contains a metering charge (derived: 'yes' where a metering_adder price_adjustment reproduces the value from the AER price plus metering; 'no' where a distributor daily charge equals the AER's, which excludes metering)"
         },
         {
           "name": "includes_lfit",
@@ -1801,11 +1827,12 @@
           "enum": [
             "day",
             "billing_period_per_day",
+            "quarter",
             "unstated"
           ],
           "unit": null,
           "derived": false,
-          "description": "Period over which quantity accumulates: day (each day stands alone); billing_period_per_day (the bounds are per day and are multiplied by the days in the billing period, so an unused allowance rolls over within that period); unstated"
+          "description": "Period over which quantity accumulates: day (each day stands alone); billing_period_per_day (the bounds are per day and are multiplied by the days in the billing period, so an unused allowance rolls over within that period); quarter (the bounds accumulate per calendar quarter, e.g. AusNet '1020 kWh/qtr'); unstated"
         },
         {
           "name": "locator",
@@ -1833,7 +1860,7 @@
     },
     {
       "name": "metering_price",
-      "description": "Metering prices: the AER Metering worksheet (2025-26 on), the AER 2024-25 'Tariff schedule 1', and the per-tariff Metering block of the Energex/Ergon price lists.",
+      "description": "Metering prices: the AER Metering worksheet (2025-26 on), the AER 2024-25 'Tariff schedule 1', the per-tariff Metering block of the Energex/Ergon price lists, and the metering columns of distributor network price tables.",
       "why": [
         "The AER prints network prices without metering and metering separately; storing both lets the distributor's metering-inclusive daily charge be reproduced exactly ($/yr x 100 / 365).",
         "charge_basis keeps 'per year' vs exit fee vs unstated apart: the sheet mixes them in one column."
@@ -1899,7 +1926,8 @@
           "enum": [
             "aer_metering_sheet",
             "aer_tariff_schedule_1",
-            "distributor_metering_block"
+            "distributor_metering_block",
+            "distributor_price_table"
           ],
           "unit": null,
           "derived": false,
@@ -1990,13 +2018,13 @@
         {
           "name": "value_raw",
           "type": "text",
-          "nullable": false,
+          "nullable": true,
           "primary_key": false,
           "references": null,
           "enum": null,
           "unit": null,
           "derived": false,
-          "description": "full-precision cell value"
+          "description": "full-precision cell value (NULL for PDFs)"
         },
         {
           "name": "value_num",
@@ -2008,6 +2036,20 @@
           "unit": null,
           "derived": false,
           "description": "number"
+        },
+        {
+          "name": "gst",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "excl",
+            "incl"
+          ],
+          "unit": null,
+          "derived": false,
+          "description": "GST basis (the AER sheets are GST exclusive; some distributor tables print both)"
         },
         {
           "name": "value_c_per_day",
@@ -2029,12 +2071,27 @@
           "enum": null,
           "unit": null,
           "derived": false,
-          "description": "cell (re-read by the tests)"
+          "description": "cell or PDF page (re-read by the tests)"
+        },
+        {
+          "name": "locator_kind",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "xlsx",
+            "pdf",
+            "pdf-ocr"
+          ],
+          "unit": null,
+          "derived": false,
+          "description": "xlsx | pdf | pdf-ocr"
         },
         {
           "name": "sheet",
           "type": "text",
-          "nullable": false,
+          "nullable": true,
           "primary_key": false,
           "references": null,
           "enum": null,
@@ -2045,13 +2102,35 @@
         {
           "name": "cell",
           "type": "text",
-          "nullable": false,
+          "nullable": true,
           "primary_key": false,
           "references": null,
           "enum": null,
           "unit": null,
           "derived": false,
           "description": "spreadsheet cell"
+        },
+        {
+          "name": "page",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "derived": false,
+          "description": "PDF page (1-based)"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "derived": false,
+          "description": "parser caveats (distributor price tables)"
         }
       ]
     },
@@ -2812,10 +2891,16 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": null,
+          "enum": [
+            "summer",
+            "non_summer",
+            "high",
+            "low",
+            "winter"
+          ],
           "unit": null,
           "derived": false,
-          "description": "season it governs (NULL = all)"
+          "description": "season it governs, in the charge.season vocabulary (NULL = all)"
         },
         {
           "name": "effective_from",

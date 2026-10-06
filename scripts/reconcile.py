@@ -17,11 +17,11 @@ Comparison basis
   * Values are compared in standard units (cents; fixed charges per day; demand per published period),
     basis NUoS unless only another basis is published (flagged).
 """
-import argparse, csv, glob, json, os, re, sys, math
+import argparse, csv, glob, json, os, re, sys
 from collections import defaultdict, Counter
 from difflib import SequenceMatcher
 sys.path.insert(0, os.path.dirname(__file__))
-from schema import COLUMNS, REPEATED_PRINTING, season_from_label, export_direction
+from schema import REPEATED_PRINTING, season_from_label, export_direction
 from units import to_std
 from decimal import Decimal
 import adjustments
@@ -377,7 +377,6 @@ def reconcile(rows=None, years=YEARS, dnsps=DNSPS):
                 if hit:
                     used_d.add(dk); g["codes_joint_variant"] += 1
                     pairs.append((hit, dk, f"AER lists codes jointly ({A[hit][0]['tariff_code']}); distributor publishes {D[dk][0]['tariff_code']} separately - compared against the joint AER row"))
-            matched_a_keys = {p[0] for p in pairs}
             for ak in unmatched_a:
                 r0 = A[ak][0]
                 priced = [r for r in A[ak] if not r["component"].startswith("(no non-zero") and r["value_std_f"]]

@@ -1733,7 +1733,7 @@ demand_rules:
     season: summer
   - codes:
     - RESKW1R
-    season: non-summer
+    season: non_summer
 - id: ue-2324-pdf-lvmkw1r-demand
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -1750,7 +1750,7 @@ demand_rules:
     season: summer
   - codes:
     - LVMKW1R
-    season: non-summer
+    season: non_summer
 - id: ue-2324-pdf-kva-rolling-lv
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -1961,7 +1961,7 @@ demand_rules:
     season: summer
   - codes:
     - RESKW1R
-    season: non-summer
+    season: non_summer
 - id: ue-2526-pdf-lvmkw1r-demand
   doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
   fin_year: 2025-26
@@ -1980,7 +1980,7 @@ demand_rules:
     season: summer
   - codes:
     - LVMKW1R
-    season: non-summer
+    season: non_summer
 - id: ue-2526-pdf-kva-rolling-lv
   doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
   fin_year: 2025-26
@@ -2100,7 +2100,7 @@ demand_rules:
   - codes:
     - LVMKW1R
     - UMBD
-    season: non-summer
+    season: non_summer
 - id: ue-2627-pdf-ufs-capacity
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -4741,6 +4741,150 @@ relations:
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   locator: pdf:p8
   quote: UMBD customers consuming less than 160 MWh pa can opt out of the demand tariff to UMBO
+- from: LVKVATOU
+  type: aer_combined_label
+  to: LVKVATOU 1
+  fin_year: 2024-25
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
+  locator: xlsx:UE_2024-25_NUOS!C15
+  quote: LVKVATOU 1
+  note: The AER prints one row 'LVkVATOU' ('Large low voltage') for LVKVATOU 1, LVKVATOU 2, which this document prints as
+    separate tariffs that differ only in the incentive demand period; their prices equal the AER row's. This document prints
+    the codes only; it does not say what the suffix means (the 2025-26 and 2026-27 documents print the 1-4pm / 4-7pm incentive
+    demand periods).
+- from: LVKVATOU
+  type: aer_combined_label
+  to: LVKVATOU 2
+  fin_year: 2024-25
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
+  locator: xlsx:UE_2024-25_NUOS!C16
+  quote: LVKVATOU 2
+  note: The AER prints one row 'LVkVATOU' ('Large low voltage') for LVKVATOU 1, LVKVATOU 2, which this document prints as
+    separate tariffs that differ only in the incentive demand period; their prices equal the AER row's. This document prints
+    the codes only; it does not say what the suffix means (the 2025-26 and 2026-27 documents print the 1-4pm / 4-7pm incentive
+    demand periods).
+- from: HVKVATOU
+  type: aer_combined_label
+  to: HVKVATOU 1
+  fin_year: 2024-25
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
+  locator: xlsx:UE_2024-25_NUOS!C17
+  quote: HVKVATOU 1
+  note: The AER prints one row 'HVkVATOU' ('High Voltage') for HVKVATOU 1, HVKVATOU 2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's. This document prints the codes
+    only; it does not say what the suffix means (the 2025-26 and 2026-27 documents print the 1-4pm / 4-7pm incentive demand
+    periods).
+- from: HVKVATOU
+  type: aer_combined_label
+  to: HVKVATOU 2
+  fin_year: 2024-25
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
+  locator: xlsx:UE_2024-25_NUOS!C18
+  quote: HVKVATOU 2
+  note: The AER prints one row 'HVkVATOU' ('High Voltage') for HVKVATOU 1, HVKVATOU 2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's. This document prints the codes
+    only; it does not say what the suffix means (the 2025-26 and 2026-27 documents print the 1-4pm / 4-7pm incentive demand
+    periods).
+- from: LVKVATOU
+  type: aer_combined_label
+  to: LVKVATOU1
+  fin_year: 2025-26
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
+  locator: pdf-ocr:p8
+  quote: Low Voltage large LVKVATOU1 Default <1kV or ≥200amps per 120 Non-peak times Workdays 1-4pm
+  note: The AER prints one row 'LVkVATOU' ('Large low voltage') for LVKVATOU1, LVKVATOU2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's. Table (an image, rendered-page
+    OCR) prints the member's summer incentive demand period, 'Workdays 1-4pm' or 'Workdays 4-7pm'.
+- from: LVKVATOU
+  type: aer_combined_label
+  to: LVKVATOU2
+  fin_year: 2025-26
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
+  locator: pdf-ocr:p8
+  quote: Low Voltage large LVKVATOU2 Default <1kV or≥200ampsper 120 Non-peak times Workdays 4-7pm
+  note: The AER prints one row 'LVkVATOU' ('Large low voltage') for LVKVATOU1, LVKVATOU2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's. Table (an image, rendered-page
+    OCR) prints the member's summer incentive demand period, 'Workdays 1-4pm' or 'Workdays 4-7pm'.
+- from: HVKVATOU
+  type: aer_combined_label
+  to: HVKVATOU1
+  fin_year: 2025-26
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
+  locator: pdf-ocr:p8
+  quote: HVkVATOU1 Default 1kV-66KV N/A 500 Non-peak times Workdays 1-4pm
+  note: The AER prints one row 'HVkVATOU' ('High Voltage') for HVKVATOU1, HVKVATOU2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's. Table (an image, rendered-page
+    OCR) prints the member's summer incentive demand period, 'Workdays 1-4pm' or 'Workdays 4-7pm'.
+- from: HVKVATOU
+  type: aer_combined_label
+  to: HVKVATOU2
+  fin_year: 2025-26
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
+  locator: pdf-ocr:p8
+  quote: High Voltage HVKVATOU2 Default 1kV-66KV N/A 500 Non-peak times Workdays 4-7pm
+  note: The AER prints one row 'HVkVATOU' ('High Voltage') for HVKVATOU1, HVKVATOU2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's. Table (an image, rendered-page
+    OCR) prints the member's summer incentive demand period, 'Workdays 1-4pm' or 'Workdays 4-7pm'.
+- from: LVKVATOU
+  type: aer_combined_label
+  to: LVKVATOU1
+  fin_year: 2026-27
+  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'LVkVATOU' ('Large low Voltage') for LVKVATOU1, LVKVATOU2, LVKVATOU3, which this document prints
+    as separate tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LVKVATOU
+  type: aer_combined_label
+  to: LVKVATOU2
+  fin_year: 2026-27
+  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'LVkVATOU' ('Large low Voltage') for LVKVATOU1, LVKVATOU2, LVKVATOU3, which this document prints
+    as separate tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LVKVATOU
+  type: aer_combined_label
+  to: LVKVATOU3
+  fin_year: 2026-27
+  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'LVkVATOU' ('Large low Voltage') for LVKVATOU1, LVKVATOU2, LVKVATOU3, which this document prints
+    as separate tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: HVKVATOU
+  type: aer_combined_label
+  to: HVKVATOU1
+  fin_year: 2026-27
+  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'HVkVATOU' ('High Voltage') for HVKVATOU1, HVKVATOU2, HVKVATOU3, which this document prints
+    as separate tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: HVKVATOU
+  type: aer_combined_label
+  to: HVKVATOU2
+  fin_year: 2026-27
+  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'HVkVATOU' ('High Voltage') for HVKVATOU1, HVKVATOU2, HVKVATOU3, which this document prints
+    as separate tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: HVKVATOU
+  type: aer_combined_label
+  to: HVKVATOU3
+  fin_year: 2026-27
+  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'HVkVATOU' ('High Voltage') for HVKVATOU1, HVKVATOU2, HVKVATOU3, which this document prints
+    as separate tariffs that differ only in the incentive demand period; their prices equal the AER row's.
 flags:
 - codes:
   - URDS

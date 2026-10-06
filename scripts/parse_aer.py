@@ -104,7 +104,6 @@ def parse_consolidated(fy, path, url, note_prefix=""):
     wb = openpyxl.load_workbook(os.path.join(ROOT, path), data_only=True)
     ws = wb["Tariff schedule"]
     out = []
-    r = 1
     maxr = ws.max_row
     blocks = []
     for rr in range(1, maxr + 1):

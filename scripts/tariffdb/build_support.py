@@ -263,7 +263,11 @@ def documents():
             # the AER-hosted copy of a distributor proposal and the distributor's own publication are separate series
             series = f"{r['side'].lower().replace('_', '')}-{did or 'all'}-{fy}-{dtype.replace('_', '-')}" + (
                 f"-{variant}" if variant else "")
-        if r["side"] == "AER":
+        if r["side"] == "AER" and dtype == "aer_stakeholder_report":
+            # 2024-25 per-distributor reports: no held source says whether their prices are proposed or approved (the
+            # data sheet heads its tables 'Proposed prices'); consolidated versions take theirs from the changelog below
+            status = "unverified"
+        elif r["side"] == "AER":
             status = "approved"
         elif r["side"] == "AER_HOSTED":
             status = "unverified"  # hosting says nothing about whether these prices were proposed or approved
@@ -292,8 +296,8 @@ def documents():
             statuses = set(cov.values())
             d["price_status"] = statuses.pop() if len(statuses) == 1 else "mixed"
         elif "price_status" not in d:
-            # the superseded SAPN 2024-25 report carried approved prices; a landing page carries none
-            d["price_status"] = "approved" if d["document_type"] == "aer_stakeholder_report" else "published"
+            # the superseded SAPN 2024-25 report: as unverified as its replacement; a landing page carries no prices
+            d["price_status"] = "unverified" if d["document_type"] == "aer_stakeholder_report" else "published"
     return out
 
 

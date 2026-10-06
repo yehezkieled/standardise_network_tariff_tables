@@ -161,8 +161,9 @@ EXCEPTIONS = [
       "One instance per schedule.",
       "test_time_stated_in_daylight_time"),
     e("price_status_unverified", "Regulatory status of an AER-hosted document not stated",
-      "The AER hosts distributors' pricing documents (proposals, price lists, tariff summaries); none of the held "
-      "sources says whether the prices in a given hosted file were the proposed, approved or final ones.",
+      "The AER hosts distributors' pricing documents (proposals, price lists, tariff summaries), and the AER 2024-25 "
+      "stakeholder reports head their tables 'Proposed prices'; none of the held sources says whether the prices in "
+      "such a file were the proposed, approved or final ones.",
       "source_document.price_status = unverified (no status is asserted without evidence); its listings carry no "
       "proposed_price flag. One instance per document.",
       "test_price_status_unverified"),
@@ -173,6 +174,12 @@ EXCEPTIONS = [
       "eligibility_rule rows (consumption_min/max, demand_max, assignment, opt_out_to, meter_type) with operator, "
       "value and unit; demand_rule + tou_window for the measurement window; each with its quote.",
       "test_medium_business_demand_assignment"),
+    e("source_ambiguous", "Source can be read more than one way",
+      "A printed value or rule admits two readings: a value printed in a merged cell spanning two columns, a unit that "
+      "contradicts its column, a column with no printed unit, a time basis the glossary defines differently.",
+      "The database keeps one reading and records the other: one instance per case from scripts/tariffdb/ambiguities.py, "
+      "with the verbatim quote at its locator (re-read on every build).",
+      "test_source_ambiguous"),
     e("component_repeated_in_document", "Same component printed twice in one document",
       "A document prints the same tariff component twice (e.g. two tables, or the same line in two sections).",
       "Both values are kept as separate charge rows with their own locator; instances list the repeats so a consumer "

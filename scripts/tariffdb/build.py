@@ -20,10 +20,12 @@ byte-identical and a changed source shows up as added rows, never as rewritten o
 """
 import argparse
 import csv
+import functools
 import glob
 import hashlib
 import io
 import json
+import math
 import os
 import re
 import statistics
@@ -43,6 +45,7 @@ import locators  # noqa: E402
 import spec  # noqa: E402
 from published import cell_value  # noqa: E402
 from reconcile import code_alts, code_key, digits, sim  # noqa: E402
+from schema import REPEATED_PRINTING  # noqa: E402
 from units import to_std  # noqa: E402
 
 ROOT = bs.ROOT
@@ -92,6 +95,9 @@ STATUS_FLAGS = [  # (flag, pattern) matched in published tariff names and parser
     ("withdrawn", r"\bwithdrawn\b"), ("closed_to_new", r"closed to new|\bclosed\b|not available (?:on application|for new)"),
     ("obsolete", r"\bobsolete\b"), ("grandfathered", r"grandfather"), ("trial", r"(?<![-\w])trial\b(?![- ]rebate)"),
     ("transitional", r"\btransitional\b"), ("site_specific", r"site[- ]specific"), ("indicative", r"\bindicative\b"),
+    # AER 2024-25 'Tariff schedule 2 | 2024–25 DMO tariffs' / '... VDO tariffs': tariffs the default market offer
+    # (DMO) or Victorian default offer (VDO) is set on
+    ("dmo_vdo_tariff", r"^Tariff schedule 2 \| \S+ (?:DMO|VDO) tariffs"),
 ]
 
 
@@ -146,6 +152,23 @@ def num_text(x):
     if not d:
         return "0"
     return format(d.quantize(Decimal(1).scaleb(d.adjusted() - 14)).normalize(), "f")
+
+
+@functools.lru_cache(maxsize=None)
+def document_prints(path, code):
+    """Does the document print `code` as a word anywhere (any PDF page as text, any spreadsheet cell)?"""
+    if path.endswith(".xlsx"):
+        wb = locators._workbook(path)
+        return any(locators.verify_quote(path, locators.xlsx(ws, c), code)[0] for ws in wb.worksheets
+                   for row in ws.iter_rows() for c in row if isinstance(c.value, str) and code in c.value)
+    page = 1
+    while True:
+        ok, why = locators.verify_quote(path, locators.pdf(page), code)
+        if ok:
+            return True
+        if "beyond end" in why:
+            return False
+        page += 1
 
 
 class Tables:
@@ -262,6 +285,25 @@ class Builder:
             key = (r["source_file"], r["tariff_code"].strip(), r["tariff_name"].strip(), r["customer_class"].strip(),
                    region_of(r), aer_id_of(r) if r["side"] == "AER" else None)
             groups[key].append(r)
+        # a GST-inclusive table restates the exclusive one: its rows join the exclusive listing of the same code even
+        # where the two printings word the tariff's name or class differently (each such charge notes the wording)
+        excl_groups = defaultdict(list)
+        for key, rs in groups.items():
+            if key[1] and any(r["gst"] == "excl" for r in rs):
+                excl_groups[(key[0], key[1], key[4], key[5])].append(key)
+        for key in sorted(groups, key=lambda k: tuple("" if x is None else x for x in k)):
+            rs = groups[key]
+            target = [k for k in excl_groups.get((key[0], key[1], key[4], key[5]), []) if k != key]
+            if not key[1] or len(target) != 1 or any(r["gst"] != "incl" for r in rs):
+                continue
+            t = target[0]
+            wording = [f"{what} as {mine!r}" for what, mine, theirs in (("name", key[2], t[2]), ("class", key[3], t[3]))
+                       if mine != theirs]
+            for r in rs:
+                r["note"] = "; ".join(filter(None, [r["note"], "the GST-inclusive table prints the tariff "
+                                                    + " and ".join(wording)]))
+            groups[t].extend(rs)
+            del groups[key]
         # AER aer_id -> code in the latest version of the same year, to resolve the codeless 2025-26 v1 rows
         latest_code = {}
         latest_name = defaultdict(set)
@@ -312,6 +354,10 @@ class Builder:
                 continue
             d = groups[key][0]["_doc"]
             did = groups[key][0]["_did"]
+            v1_note = None
+            if not code and latest_code.get((d["fin_year"], did, aid)):  # codeless v1 row, code from its AER ID
+                code = latest_code[(d["fin_year"], did, aid)]
+                v1_note = f"v1 row with AER ID {aid}: code {code} from the same ID in the approved version"
             direct = {m[0] for k2, ms in resolved.items() if k2[0] == src for m in ms if m[1] != "aer_label_identity"}
             cands = set()
             for k2, ms in resolved.items():
@@ -329,7 +375,8 @@ class Builder:
                 resolved[key] = [(t2, "name_matched", f"AER label {code} matched by tariff name (similarity {sc})", label)]
             else:
                 resolved[key] = [(self.ensure_tariff(did, code or aid, "aer_label" if code else "aer_tariff_id"), None,
-                                  "AER label that no distributor document uses", label)]
+                                  "; ".join(filter(None, [v1_note, "AER label that no distributor document uses"])),
+                                  label)]
         # listings; a document that prints one label on several rows gets one listing per row, told apart by content
         entries = []
         for key in sorted(groups, key=lambda k: tuple("" if x is None else x for x in k)):
@@ -349,13 +396,12 @@ class Builder:
             tid, kind, note, label = member
             start, end = bs.FIN_YEAR_DATES[fy]
             priced = [r for r in rs if not r["component"].startswith(PLACEHOLDER)]
-            notes = sorted({r["note"] for r in rs if r["note"]})
             self.t.add("tariff_listing", {
                 "listing_id": lid, "document_id": d["document_id"], "tariff_id": tid, "code_published": code or None,
                 "name_published": name or None, "class_published": cls or None, "region": region,
                 "effective_from": start, "effective_to": end,
                 "price_availability": "priced" if priced else "placeholder",
-                "locator": rs[0]["locator"], "note": notes[0] if len(notes) == 1 else None,
+                "locator": rs[0]["locator"], "note": listing_note(rs),
             })
             self.listing_rows[lid] = priced
             self.listings_by_doc_tariff[(d["document_id"], tid)].append(lid)
@@ -435,9 +481,14 @@ class Builder:
                 _, direct_unit = to_std(r["value"], input_unit, r["component"])
                 normalisation_note = None
                 if direct_unit != r["unit_std"]:
-                    input_unit = r["unit_std"].replace('c/', '$/', 1) if '$' in r["unit"] else r["unit_std"]
+                    input_unit = interpreted_unit(r)
                     normalisation_note = f"Source parser interprets {r['unit']!r} as {input_unit!r}; see parser note and original unit."
-                    inferred = 1
+                    try:  # the period is inferred only where the printed unit does not give it
+                        printed_period = quantity_period(direct_unit)[1]
+                    except ValueError:
+                        printed_period = None
+                    if printed_period != period:
+                        inferred = 1
                 raw, value, value_std = None, r["value"], num_text(r["value_std"]) if r["value_std"] else None
                 if loc["kind"] == "xlsx":
                     raw_v, excel = locators.read_cell_excel(os.path.join(ROOT, r["source_file"]), loc["sheet"],
@@ -518,9 +569,9 @@ class Builder:
                     self.flag(lid, flag, "published_text", f"tariff name: {l['name_published']}")
             notes = sorted({r["note"] for r in self.listing_rows[lid] if r["note"]} | ({l["note"]} if l["note"] else set()))
             for flag, pat in STATUS_FLAGS:
-                hit = next((n for n in notes if re.search(pat, n, re.I)), None)
+                hit = next((m for m in (re.search(pat, n, re.I) for n in notes) if m), None)
                 if hit:
-                    self.flag(lid, flag, "parser_note", hit[:300])
+                    self.flag(lid, flag, "parser_note", evidence_excerpt(hit))
             status = cov.get((d["document_id"], did), d["price_status"])
             if status == "proposed":
                 self.flag(lid, "proposed_price", "document", f"{d['document_id']} carries {did} prices as proposed")
@@ -572,11 +623,58 @@ class Builder:
                         "meter_class": m["cls"] or ws.title.strip(), "tariff_codes_published": m["code"],
                         "tariff_id": tid if self.t.get("tariff", tid) else None, "component_label": m["comp"],
                         "charge_basis": "per_day" if per_day else "unstated", "value_published": str(shown),
-                        "unit_published": m["unit"] or None, "value_raw": repr(raw) if isinstance(raw, float) else str(raw),
+                        "unit_published": m["unit"] or None, "gst": "excl",
+                        "value_raw": repr(raw) if isinstance(raw, float) else str(raw),
                         "value_num": num_text(raw), "value_c_per_day": num_text(float(raw) * 100) if per_day else None,
-                        "locator": m["locator"], "sheet": loc["sheet"], "cell": loc["cell"],
+                        "locator": m["locator"], "locator_kind": "xlsx", "sheet": loc["sheet"], "cell": loc["cell"],
                     })
             wb.close()
+        self.distributor_price_table_metering()
+
+    def distributor_price_table_metering(self):
+        """Metering columns of distributor network price tables, from the parsers' side output (out/dnsp_metering)."""
+        import schema
+        did_of = {d["name"]: d["distributor_id"] for d in bs.DISTRIBUTORS}
+        rows = []
+        for path in sorted(glob.glob(os.path.join(ROOT, schema.METERING_OUT_DIR, "*.csv"))):
+            with open(path, newline="", encoding="utf-8") as f:
+                rows += [dict(r, _file=rel(path), _line=i) for i, r in enumerate(csv.DictReader(f), 2)]
+        ids = unique_ids([(f"{self.doc_by_path[r['source_file']]['document_id']}/{r['locator']}/{code_key(r['tariff_code'])}",
+                           [r["component"], f"{r['component']} {r['meter_class']}", f"{r['component']} {r['value']}"])
+                          for r in rows])
+        for r, mid in zip(rows, ids):
+            where = f"{r['_file']}:{r['_line']}"
+            if r["gst"] not in ("excl", "incl"):
+                raise SystemExit(f"{where}: gst must be excl or incl, got {r['gst']!r}")
+            d = self.doc_by_path[r["source_file"]]
+            did = did_of[r["distributor"]]
+            loc = locators.parse(r["locator"])
+            raw = None
+            if loc["kind"] == "xlsx":
+                raw_v, excel = locators.read_cell_excel(os.path.join(ROOT, r["source_file"]), loc["sheet"], loc["cell"])
+                if str(excel) != r["value"]:
+                    raise SystemExit(f"{where}: value {r['value']!r} is not the cell as Excel displays it ({excel!r})")
+                raw = repr(raw_v) if isinstance(raw_v, float) else str(raw_v)
+            unit = r["unit"].strip()
+            per_day = re.fullmatch(r"(?:c|cents|\$)\s*/\s*day", unit, re.I)
+            c_day = None
+            if per_day:
+                c_day = num_text(Decimal(r["value"]) * (100 if unit.startswith("$") else 1))
+            tid = None
+            k = code_key(r["tariff_code"])
+            if self.t.get("tariff", f"{did}:{k}"):
+                tid = f"{did}:{k}"
+            elif len(self.alias_to_tariff.get((did, k), ())) == 1:
+                tid = next(iter(self.alias_to_tariff[(did, k)]))
+            self.t.add("metering_price", {
+                "metering_price_id": mid, "document_id": d["document_id"], "distributor_id": did,
+                "fin_year": r["fin_year"], "source_block": "distributor_price_table", "meter_class": r["meter_class"],
+                "tariff_codes_published": r["tariff_code"], "tariff_id": tid, "component_label": r["component"],
+                "charge_basis": "per_day" if per_day else "unstated", "value_published": r["value"],
+                "unit_published": unit or None, "value_raw": raw, "value_num": num_text(r["value"]), "gst": r["gst"],
+                "value_c_per_day": c_day, "locator": r["locator"], "locator_kind": loc["kind"], "sheet": loc["sheet"],
+                "cell": loc["cell"], "page": loc["page"], "note": r["note"] or None,
+            })
 
     def _metering_row(self, d, did, ws, label_cell, value_cell, codes, unit, basis, block):
         raw = value_cell.value
@@ -587,9 +685,9 @@ class Builder:
             "metering_price_id": f"{d['document_id']}/{loc}", "document_id": d["document_id"], "distributor_id": did,
             "fin_year": d["fin_year"], "source_block": block, "meter_class": str(label_cell.value),
             "tariff_codes_published": codes, "tariff_id": None, "component_label": None, "charge_basis": basis,
-            "value_published": str(shown), "unit_published": unit, "value_raw": repr(raw) if isinstance(raw, float)
-            else str(raw), "value_num": num_text(raw), "value_c_per_day": per_day, "locator": loc, "sheet": ws.title,
-            "cell": value_cell.coordinate,
+            "value_published": str(shown), "unit_published": unit, "gst": "excl", "value_raw": repr(raw) if isinstance(raw, float)
+            else str(raw), "value_num": num_text(raw), "value_c_per_day": per_day, "locator": loc, "locator_kind": "xlsx",
+            "sheet": ws.title, "cell": value_cell.coordinate,
         })
 
     def aer_metering_sheet(self, d, path):
@@ -692,7 +790,8 @@ class Builder:
             def metering_hits(dd):
                 hits = []
                 for tid, a, dch in self.tariff_pairs(ad, dd, "fixed", "c/day"):
-                    if len(a) != 1 or len({c["value_std"] for c in dch}) != 1:
+                    # one price on each side (a repeated printing of the same price is still one price)
+                    if len({c["value_std"] for c in a}) != 1 or len({c["value_std"] for c in dch}) != 1:
                         continue
                     if not adjustments.metering_scope(self.dist[did]["name"], fy, tid.split(":", 1)[1]):
                         continue  # outside the verified metering scope
@@ -764,6 +863,29 @@ class Builder:
                   "distributor c/kWh = c/kWh of the AER-hosted pricing proposal (status unverified) - tariff-specific "
                   "LFiT rebate (2.27 c/kWh on average; not uniform; applied to consumption charges where possible); "
                   "the quoted statement applies the rebate to the AER's approved charges, which no held document lists")
+
+    def metering_by_aer_equality(self):
+        """A distributor fixed charge equal (to the published digits) to the AER's fixed charge for the same tariff, year,
+        basis and GST excludes metering: the AER prices metering separately (metering_price)."""
+        aer = defaultdict(list)
+        for (doc, tid), lids in self.listings_by_doc_tariff.items():
+            d = self.doc_by_id[doc]
+            if d["author"] == "AER":
+                for lid in lids:
+                    for c in self.charges_of(lid):
+                        if c["charge_type"] == "fixed" and c["unit_std"] == "c/day":
+                            aer[(tid, d["fin_year"], c["price_basis"], c["gst"])].append(c)
+        for (doc, tid), lids in self.listings_by_doc_tariff.items():
+            d = self.doc_by_id[doc]
+            if d["author"] == "AER":
+                continue
+            for lid in lids:
+                for c in self.charges_of(lid):
+                    if c["includes_metering"] != "unknown" or c["unit_std"] != "c/day":
+                        continue
+                    if any(abs(float(c["value_std"]) - float(a["value_std"])) <= self.half_unit(a) + self.half_unit(c)
+                           + 1e-9 for a in aer[(tid, d["fin_year"], c["price_basis"], c["gst"])]):
+                        c["includes_metering"] = "no"
 
     def lfit(self, adj, kind, fy, ad, dd, amount, loc, quote, formula):
         hits = []
@@ -948,8 +1070,14 @@ class Builder:
                     start, end = bs.FIN_YEAR_DATES[r["fin_year"]]
                     code = self.t.get("tariff", tid)["tariff_code"]
                     lid = f"{doc}/{code}/rules"
+                    # code_published only where the document prints the code (Jemena 2025-26 names its F-codes as
+                    # 'Tariffs starting with "F"', never one by one)
+                    printed = any(re.search(rf"(?<![\w]){re.escape(code)}(?![\w])", str(q or ""))
+                                  for q in (r["quote"], r.get("column_quote"))) or document_prints(
+                        os.path.join(ROOT, self.doc_by_id[doc]["local_path"]), code)
                     self.t.add("tariff_listing", {
-                        "listing_id": lid, "document_id": doc, "tariff_id": tid, "code_published": code,
+                        "listing_id": lid, "document_id": doc, "tariff_id": tid,
+                        "code_published": code if printed else None,
                         "effective_from": start, "effective_to": end,
                         "price_availability": "rules_only", "locator": r["locator"], "note": str(r["quote"])})
                     self.listings_by_doc_tariff[(doc, tid)].append(lid)
@@ -962,40 +1090,61 @@ class Builder:
 
     # ------------------------------------------------------------------ AER sibling code columns (SAPN)
     def aer_sibling_codes(self):
+        """SA Power Networks rows of the AER workbooks print sibling codes next to 'Code SA': 'Code CBD' and '>30kW'
+        (consolidated reports), 'Code CBD' and 'Other identifier' (2024-25 stakeholder report, e.g. 'LBAD-CBD')."""
         for d in self.docs:
-            if d["document_type"] != "aer_consolidated_stakeholder_report" or d["retrieval_status"] != "retrieved" \
-                    or not d["local_path"].endswith(".xlsx"):
+            if d["retrieval_status"] != "retrieved" or not d["local_path"].endswith(".xlsx") or d["document_type"] not in (
+                    "aer_consolidated_stakeholder_report", "aer_stakeholder_report"):
                 continue
             ws = locators._workbook(os.path.join(ROOT, d["local_path"]))["Tariff schedule"]
-            hdr = next((c for row in ws.iter_rows() for c in row if c.value == "Code SA"), None)
-            if hdr is None:
-                continue
-            labels = {hdr.column + i: str(ws.cell(hdr.row, hdr.column + i).value) for i in (1, 2)}
-            for r in range(hdr.row + 1, ws.max_row + 1):
-                main = ws.cell(r, hdr.column).value
-                if isinstance(main, str) and main.strip() == "Tariff code":
-                    break
-                if not (isinstance(main, str) and main.strip()):
-                    continue
-                for col, lab in labels.items():
-                    sib = ws.cell(r, col)
-                    if not (isinstance(sib.value, str) and sib.value.strip()):
+            headers = [c for row in ws.iter_rows() for c in row if c.value == "Code SA"]
+            seen = set()
+            for k, hdr in enumerate(headers):
+                labels = {hdr.column + i: str(ws.cell(hdr.row, hdr.column + i).value) for i in (1, 2)}
+                last = headers[k + 1].row if k + 1 < len(headers) else ws.max_row + 1
+                for r in range(hdr.row + 1, last):
+                    main = ws.cell(r, hdr.column).value
+                    if isinstance(main, str) and main.strip() == "Tariff code":
+                        break
+                    if not (isinstance(main, str) and main.strip()):
                         continue
-                    a = self.tariff_for_code("sapn", main, d["document_id"]) if self.t.get(
-                        "tariff", f"sapn:{code_key(main)}") or self.alias_to_tariff.get(("sapn", code_key(main))) else None
-                    if a is None:
-                        continue
-                    known = f"sapn:{code_key(sib.value)}" in {f"sapn:{k}" for k in self.universe["sapn"]}
-                    b = self.ensure_tariff("sapn", sib.value, "aer_label")
-                    self.t.add("tariff_relation", {
-                        "relation_id": f"{a}|aer_sibling_code|{b}|{d['document_id']}", "from_tariff_id": a,
-                        "relation_type": "aer_sibling_code", "to_tariff_id": b, "fin_year": d["fin_year"],
-                        "document_id": d["document_id"], "locator": locators.xlsx(ws, sib), "quote": sib.value.strip(),
-                        "note": f"printed in the AER '{lab}' column of the {main.strip()} row"}, same_ok=True)
-                    if not known:
-                        self.instance("code_label_quirk", did="sapn", fy=d["fin_year"], tariff=b, doc=d["document_id"],
-                                      detail=f"AER '{lab}' column prints {sib.value.strip()!r} (row {r}); SA Power "
-                                             f"Networks publishes no such code")
+                    for col, lab in labels.items():
+                        sib = ws.cell(r, col)
+                        if not (isinstance(sib.value, str) and sib.value.strip()) or code_key(sib.value) == code_key(main):
+                            continue
+                        a = self.tariff_for_code("sapn", main, d["document_id"]) if self.t.get(
+                            "tariff", f"sapn:{code_key(main)}") or self.alias_to_tariff.get(("sapn", code_key(main))) \
+                            else None
+                        if a is None:
+                            continue
+                        sk = code_key(sib.value)
+                        printed = ""
+                        if sk not in self.universe["sapn"] and sk.replace("-", "") in self.universe["sapn"]:
+                            sk = sk.replace("-", "")
+                            printed = f" (printed {sib.value.strip()!r})"
+                        known = sk in self.universe["sapn"]
+                        b = self.ensure_tariff("sapn", sk if known else sib.value, "aer_label")
+                        if (a, b) in seen:
+                            continue
+                        seen.add((a, b))
+                        self.t.add("tariff_relation", {
+                            "relation_id": f"{a}|aer_sibling_code|{b}|{d['document_id']}", "from_tariff_id": a,
+                            "relation_type": "aer_sibling_code", "to_tariff_id": b, "fin_year": d["fin_year"],
+                            "document_id": d["document_id"], "locator": locators.xlsx(ws, sib), "quote": sib.value.strip(),
+                            "note": f"printed in the AER '{lab}' column of the {main.strip()} row{printed}"}, same_ok=True)
+                        if not known:
+                            self.instance("code_label_quirk", did="sapn", fy=d["fin_year"], tariff=b, doc=d["document_id"],
+                                          detail=f"AER '{lab}' column prints {sib.value.strip()!r} (row {r}); SA Power "
+                                                 f"Networks publishes no such code")
+
+    def printed_identities(self):
+        """A tariff first met as an AER label is a distributor code once a distributor document prints that code, even
+        in rules text only (e.g. CitiPower 'CFTUOS', priced individually)."""
+        for l in self.t.all("tariff_listing"):
+            t = self.t.get("tariff", l["tariff_id"])
+            if t["identity_basis"] == "aer_label" and self.doc_by_id[l["document_id"]]["author"] == "distributor" \
+                    and l["code_published"] and code_key(l["code_published"]) == l["tariff_id"].split(":", 1)[1]:
+                self.t.add("tariff", dict(t, identity_basis="distributor_code"), replace=True)
 
     # ------------------------------------------------------------------ exceptions
     def instance(self, code, did=None, fy=None, tariff=None, listing=None, charge=None, doc=None, related=None,
@@ -1006,6 +1155,18 @@ class Builder:
                                "detail": detail})
 
     def derived_exceptions(self):
+        from ambiguities import AMBIGUITIES
+        for a in AMBIGUITIES:
+            d = self.doc_by_path[a["doc"]]
+            ok, why = locators.verify_quote(os.path.join(ROOT, a["doc"]), a["locator"], a["quote"])
+            if not ok:
+                raise SystemExit(f"ambiguities.py {a['finding']}: {why} ({a['doc']} {a['locator']}: {a['quote']!r})")
+            tids = sorted({t for c in a.get("codes") or [] for t in self.tariffs_for_code(
+                a["distributor"], c, d["document_id"], a["locator"], f"ambiguities.py {a['finding']}")}) or [None]
+            for tid in tids:
+                self.instance("source_ambiguous", did=a["distributor"], fy=a["fin_year"], tariff=tid,
+                              doc=d["document_id"], detail=f"{a['finding']} {a['locator']}: '{a['quote']}'; stored: "
+                              f"{a['stored']}; also readable as: {a['alternative']}")
         for path, locator, quote in PRICE_ATTACHMENTS_NOT_HELD:
             d = self.doc_by_path[path]
             self.instance("price_attachment_not_held", did=d["distributor_id"], fy=d["fin_year"],
@@ -1068,22 +1229,43 @@ class Builder:
                               listing=l["listing_id"], doc=l["document_id"], detail="flags: " + ", ".join(sorted(fl)))
         # tariffs missing from the AER side / only on the AER side, per distributor-year with an AER-authored file
         # (listings a document names only in its rules text do not count as published tariffs on either side)
-        aer_t, dn_t = defaultdict(set), defaultdict(set)
+        # (a code the distributor prints only in rules text still means the tariff is not AER-only)
+        aer_t, dn_t, dn_named = defaultdict(set), defaultdict(set), defaultdict(set)
         first = {}
         for l in listings:
-            if l["price_availability"] == "rules_only":
-                continue
             d = self.doc_by_id[l["document_id"]]
             did = self.t.get("tariff", l["tariff_id"])["distributor_id"]
             k = (did, d["fin_year"])
+            if l["price_availability"] == "rules_only":
+                if d["author"] != "AER":
+                    dn_named[k].add(l["tariff_id"])
+                continue
             if d["author"] == "AER":
                 if d["price_status"] != "proposed":
                     aer_t[k].add(l["tariff_id"])
             else:
                 dn_t[k].add(l["tariff_id"])
+                dn_named[k].add(l["tariff_id"])
                 first.setdefault((k, l["tariff_id"]), l)
+        # the AER also covers the sibling codes it prints on a row ('Code CBD', '>30kW') and the members of a label it
+        # prints once for several distributor tariffs (aer_combined_label)
+        aer_cover = defaultdict(set)
+        members = defaultdict(set)
+        for k, ts in aer_t.items():
+            aer_cover[k] |= ts
+        for rel in self.t.all("tariff_relation"):
+            did = self.t.get("tariff", rel["from_tariff_id"])["distributor_id"]
+            k = (did, rel["fin_year"])
+            if rel["relation_type"] == "aer_sibling_code" and rel["from_tariff_id"] in aer_t[k] \
+                    and self.doc_by_id[rel["document_id"]]["price_status"] != "proposed":
+                aer_cover[k].add(rel["to_tariff_id"])
+            elif rel["relation_type"] == "aer_combined_label":
+                members[(k, rel["from_tariff_id"])].add(rel["to_tariff_id"])
+        for (k, label), ms in members.items():
+            if label in aer_t[k]:
+                aer_cover[k] |= ms
         for k in sorted(aer_t):
-            for tid in sorted(dn_t[k] - aer_t[k]):
+            for tid in sorted(dn_t[k] - aer_cover[k]):
                 l = first[(k, tid)]
                 fl = sorted(flags[l["listing_id"]] & {"site_specific", "withdrawn", "closed_to_new", "obsolete", "trial"})
                 self.instance("aer_missing_tariff", did=k[0], fy=k[1], tariff=tid, listing=l["listing_id"],
@@ -1091,7 +1273,9 @@ class Builder:
                                   l["name_published"] or l["code_published"],
                                   f"[{l['class_published']}]" if l["class_published"] else None,
                                   f"flags: {', '.join(fl)}" if fl else None])))
-            for tid in sorted(aer_t[k] - dn_t[k]):
+            for tid in sorted(aer_t[k] - dn_named[k]):
+                if members.get((k, tid), set()) & dn_named[k]:
+                    continue  # the distributor prints the label's member tariffs
                 if dn_t[k]:
                     self.instance("aer_only_tariff", did=k[0], fy=k[1], tariff=tid,
                                   detail=f"{self.t.get('tariff', tid)['identity_basis']}: listed by the AER, not in the "
@@ -1176,13 +1360,24 @@ class Builder:
                 covered = tou[(t["tariff_id"], schedule["fin_year"], "energy" if kind == "controlled_load" else kind)]
                 covered.update(periods)
                 covered.update(any_band[(kind, p)] for p in periods if (kind, p) in any_band)
+        # an AER label printed once for several distributor tariffs is covered by its members' windows
+        for rel in self.t.all("tariff_relation"):
+            if rel["relation_type"] == "aer_combined_label":
+                for (tid, fy, kind), periods in list(tou.items()):
+                    if tid == rel["to_tariff_id"] and fy == rel["fin_year"]:
+                        tou[(rel["from_tariff_id"], fy, kind)] |= periods
         gaps = defaultdict(set)
         gap_listing = {}
+        # tariff-years the distributor prices itself are checked on its documents; the others (AER-only tariff-years)
+        # on the AER's
+        distributor_priced = {(l["tariff_id"], self.doc_by_id[l["document_id"]]["fin_year"]) for l in listings
+                              if self.doc_by_id[l["document_id"]]["author"] != "AER"
+                              and l["price_availability"] == "priced"}
         for l in listings:
             d = self.doc_by_id[l["document_id"]]
-            if d["author"] == "AER":
-                continue
             k = (l["tariff_id"], d["fin_year"])
+            if d["author"] == "AER" and k in distributor_priced:
+                continue
             for c in self.charges_of(l["listing_id"]):
                 band = (c["time_band"] or "").replace("_", "")
                 if band not in {"peak", "offpeak", "shoulder", "solarsoak", "criticalpeak", "superoffpeak"}:
@@ -1280,10 +1475,12 @@ class Builder:
         self.metering_prices()
         self.aer_sibling_codes()
         self.curated()
+        self.printed_identities()
         for w in self.t.all("tou_window"):
             for m in (w["months"] or "").split(",") if w["months"] else []:
                 self.t.add("tou_window_month", {"window_id": w["window_id"], "month": int(m)})
         self.adjustments()
+        self.metering_by_aer_equality()
         self.parser_flags()
         self.derived_exceptions()
         self.exceptions()
@@ -1332,6 +1529,40 @@ def write_all(b, out_dir=OUT_DIR):
         f.write(spec.postgres_load())
 
 
+def interpreted_unit(r):
+    """The unit the parser read a charge in: its standard unit, in dollars where the printed unit is. A column that
+    prints no unit (Power and Water) was read in the unit that reproduces the parser's standard value; a zero
+    reproduces either, and the parser's assumed units for such columns are in dollars."""
+    cents, dollars = r["unit_std"], r["unit_std"].replace("c/", "$/", 1)
+    if r["unit"]:
+        return dollars if "$" in r["unit"] else cents
+    for unit in (dollars, cents):
+        v = to_std(r["value"], unit, r["component"])[0]
+        if v is not None and r["value_std"] and math.isclose(v, float(r["value_std"]), rel_tol=1e-9):
+            return unit
+    return dollars
+
+
+def evidence_excerpt(match, width=300):
+    """The text a pattern matched in, cut to `width` characters around the match so the evidence shows it."""
+    text = match.string
+    if len(text) <= width:
+        return text
+    start = max(0, min(match.start() - (width - (match.end() - match.start())) // 2, len(text) - width))
+    return ("..." if start else "") + text[start:start + width] + ("..." if start + width < len(text) else "")
+
+
+def listing_note(rows):
+    """The note of a listing: what its rows' notes say in common. Repeated printings and GST-inclusive copies (rows that
+    restate a price printed elsewhere) are left out when the listing has other rows; of the rest, the '; '-separated
+    parts every row carries, in the order of the first row."""
+    core = [r for r in rows if REPEATED_PRINTING not in (r["note"] or "")] or rows
+    core = [r for r in core if r.get("gst", "excl") == "excl"] or core
+    parts = [[p for p in (r["note"] or "").split("; ") if p] for r in core]
+    common = [p for p in parts[0] if all(p in other for other in parts[1:])]
+    return "; ".join(common) or None
+
+
 def read_table_text(text):
     rows = list(csv.reader(io.StringIO(text)))
     return rows[0], rows[1:]
@@ -1366,13 +1597,27 @@ def check_append_only(ref):
 
 
 # In-place changes to committed source-fact rows that correct a transcription error of this repository's tooling (the
-# document did not change, so a new document version would be wrong). Each one is listed with the exact old and new
-# value: the append-only check accepts that change and nothing else. (table, primary key, column) -> (old, new, why)
-TRANSCRIPTION_FIXES = {
-    ("metering_price", ("aer-consolidated-2026-27-v5/xlsx:Metering!L147",), "value_published"): (
-        "44.89", "44.90", "the cell holds 44.895, which Excel displays as 44.90; scripts/published.py formatted the "
-        "binary float (44.894999...) until it rounded like Excel (exception display_rounds_half_way)"),
-}
+# document did not change, so a new document version would be wrong). data/tariffdb/transcription_fixes.csv lists each
+# one with the exact old and new value and the finding it fixes; a row removed by a fix (an id that changed because
+# its content was corrected) is listed with column '' and its replacement's key. The append-only check accepts these
+# and nothing else. The file is written by scripts/tariffdb/fixes.py, which refuses a change no finding explains.
+FIXES_PATH = os.path.join(OUT_DIR, "transcription_fixes.csv")
+FIXES_COLUMNS = ["table", "key", "column", "old", "new", "finding", "why"]
+
+
+def load_transcription_fixes(path=FIXES_PATH):
+    """{(table, primary key tuple, column or None for a removed row): (old, new, why)}"""
+    out = {}
+    if not os.path.exists(path):
+        return out
+    with open(path, newline="", encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            out[(r["table"], tuple(json.loads(r["key"])), r["column"] or None)] = (r["old"], r["new"],
+                                                                                 f"{r['finding']}: {r['why']}")
+    return out
+
+
+TRANSCRIPTION_FIXES = load_transcription_fixes()
 
 
 def append_only_violations(table, old_text, new_text, fixes=TRANSCRIPTION_FIXES):
@@ -1392,7 +1637,8 @@ def append_only_violations(table, old_text, new_text, fixes=TRANSCRIPTION_FIXES)
         k = tuple(o[c] for c in pk)
         n = newmap.get(k)
         if n is None:
-            out.append(f"{table['name']} {k}: removed")
+            if (table["name"], k, None) not in fixes:
+                out.append(f"{table['name']} {k}: removed")
             continue
         diff = [f"{c}: {v!r} -> {n.get(c)!r}" for c, v in o.items() if c not in derived and n.get(c, "") != v
                 and fixes.get((table["name"], k, c), (None, None))[:2] != (v, n.get(c, ""))]

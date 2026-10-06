@@ -401,6 +401,13 @@ def parse_ausgrid_price_list(dist, fy, side, path, url):
                             note += "; footnote: " + footnotes["*"]
                         rows.append(make_row(dist, fy, side, path, url, code, name, r["class"], comp, col["unit"], raw.replace("\n", "").replace(",", "").rstrip("*").strip(),
                                              "NUoS", gst, note, locators.pdf(pno)))
+    # the GST-inclusive table repeats the exclusive one, but some years (2026-27 p2) draw its class column as one cell
+    # per row with the class printed once per group: take the class the exclusive table prints for the code
+    excl_class = {r["tariff_code"]: r["customer_class"] for r in rows if r["gst"] == "excl" and r["customer_class"]}
+    for r in rows:
+        if r["gst"] == "incl" and not r["customer_class"] and r["tariff_code"] in excl_class:
+            r["customer_class"] = excl_class[r["tariff_code"]]
+            r["note"] += "; tariff class as printed in the GST-exclusive table (this table prints it once per group)"
     # validate GST-inclusive pages against exclusive rows (incl = excl * 1.1, 4dp)
     checked = 0
     for r in rows:
@@ -554,7 +561,10 @@ def endeavour_words_table(page, cols):
     centre = {j: (w["x0"] + w["x1"]) / 2 for (j, _, _), w in zip(sorted(cols), units)}
     width = max(centre) + 1
     grid, grey = [[None] * width], {}
-    for code_w in sorted((w for w in words if w["top"] > unit_top + 3 and w["x0"] < 45
+    # rows end at the notes, whose sentences also start with a tariff code ('N89 is a Transitional Network Tariff
+    # applicable to ... > 160 MWh')
+    notes_top = min((w["top"] for w in words if w["text"] == "IMPORTANT" and w["top"] > unit_top), default=page.height)
+    for code_w in sorted((w for w in words if unit_top + 3 < w["top"] < notes_top and w["x0"] < 45
                           and ENDEAVOUR_CODE_RE.match(w["text"])), key=lambda w: w["top"]):
         line = sorted((w for w in words if abs(w["top"] - code_w["top"]) < 3 and w is not code_w), key=lambda w: w["x0"])
         row = [None] * width
@@ -611,7 +621,7 @@ def parse_endeavour_price_list(dist, fy, side, path, url):
                           text, re.M)
             if not m:
                 continue
-            tno, title, gst_word = m.group(1), m.group(2).strip(), m.group(3)
+            tno, gst_word = m.group(1), m.group(3)
             found = page.find_tables()
             tables = [t.extract() for t in found]
             if tno == "2":

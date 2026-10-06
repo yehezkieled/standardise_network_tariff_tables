@@ -383,7 +383,6 @@ def parse_pdf_2023_24_schedule(path, fin_year, side, url):
             sub_top = max(w["top"] for w in hw)
             subs = sorted([w for w in hw if abs(w["top"] - sub_top) < 3 and col_of(w) is not None and col_of(w) > fixed_ci],
                           key=lambda w: w["x0"])
-            htext = squash(" ".join(w["text"] for w in sorted(hw, key=lambda w: (w["top"], w["x0"]))))
             cols, group, seen_anytime = {}, "Energy charges", 0
             for w in subs:
                 if w["text"] == "Anytime":

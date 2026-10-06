@@ -38,6 +38,6 @@ jobs:
       - name: Tariff database suite
         run: |
           export TARIFFDB_PG_BIN="$(python -c 'import os, pgserver; print(os.path.join(os.path.dirname(pgserver.__file__), "pginstall", "bin"))')"
-          python -m unittest tests/test_tariffdb.py
+          python -m unittest tests/test_tariffdb.py tests/test_rates.py
         env:
           TARIFFDB_SOURCES: committed

@@ -69,6 +69,19 @@ erDiagram
     price_adjustment ||--o{ price_adjustment_tariff : adjustment_id
     tariff ||--o{ price_adjustment_tariff : tariff_id
     metering_price ||--o{ price_adjustment_tariff : metering_price_id
+    charge ||--o{ rate_history : charge_id
+    source_document ||--o{ rate_history : document_id
+    distributor ||--o{ rate_history : distributor_id
+    financial_year ||--o{ rate_history : fin_year
+    tariff ||--o{ rate_history : tariff_id
+    price_adjustment ||--o{ rate_history : adjustment_id
+    distributor ||--o{ effective_rate : distributor_id
+    financial_year ||--o{ effective_rate : fin_year
+    tariff ||--o{ effective_rate : tariff_id
+    rate_history ||--o{ effective_rate : rate_id
+    source_document ||--o{ effective_rate : document_id
+    rate_history ||--o{ effective_rate : replaced_rate_id
+    price_adjustment ||--o{ effective_rate : adjustment_id
     exception_type ||--o{ exception_instance : exception_code
     distributor ||--o{ exception_instance : distributor_id
     financial_year ||--o{ exception_instance : fin_year
@@ -89,6 +102,7 @@ erDiagram
 | Every AER version is archived and reconcilable, held or not | The AER reissues its consolidated report several times a year (v1..v5) and takes each superseded file private. Every AER-authored file is committed under sources/; a version whose file is gone keeps a source_document row and is listed under Known gaps, so the history has no silent gaps; scripts/reconcile.py --aer-version reconciles any held version | source_document, document_coverage; sources/aer/; out/version_grid.csv | test_document_not_retrievable |
 | Every value row carries a locator and every rule a verbatim quote | Anyone can re-check a number by hand: xlsx sheet!cell or PDF page, plus the exact wording | charge.locator/sheet/cell/page, *.locator + *.quote | test_every_charge_value_is_in_its_source, test_every_quote_is_in_its_source re-read the files |
 | Source facts are append-only; derived tables are recomputed; keys come from content | Nothing read from a source is updated in place: a re-issued document adds rows, so earlier answers stay reproducible. Tables and columns computed from those facts (ingestion counts, flags, adjustments, exception rows, metering/LFiT inclusion) are marked derived and rebuilt every time, so they can never drift from the facts | ids built from document, code and component, never row order; spec 'derived'; build.py --check-append-only <git ref> | test_append_only_check, test_append_only_check_against_git, test_ids_come_from_content_not_row_order, test_rebuild_reproduces_every_table |
+| AER rates are provisional, the distributor's own published rates are final | The AER publishes 3-10 weeks before the distributors, so its rates are usable at once; each is validated against the distributor's rate (rounding, metering and LFiT adjustments) and replaced by it when the distributor publishes. Jemena and Power and Water wait for approved AER prices (rates.WAIT_FOR_APPROVED). Every rate stays in an append-only history with what superseded it | rate_history, effective_rate; scripts/tariffdb/rates.py (rate --as-of, history, changes, report); docs/effective_rates.md | tests/test_rates.py |
 | Every value has a financial year AND explicit effective_from / effective_to dates | The yearly grain is how prices are published, the dates let a mid-year change fit without schema change | effective_from/effective_to on charge, listing, rules, links | test_every_value_is_tied_to_a_year_dates_and_a_document_version, test_no_duplicate_effective_ranges |
 | Tariff identity is separate from how a document lists it | Codes drift (renames, AER labels, joint labels '010, 011*', regional suffixes); the stable tariff keeps one identity, each listing keeps the code exactly as printed | tariff, tariff_listing, tariff_alias, tariff_relation | test_code_label_quirk, test_joint_code_label, test_aer_id_changed_between_versions |
 | Published value and unit are kept verbatim next to the normalised value | Normalisation (cents, per day, demand per period) is an interpretation; the original is never lost | charge.value_published/unit_published/value_raw vs value_num/value_std/unit_std | test_value_num_and_std_follow_the_published_value |
@@ -760,6 +774,83 @@ How billed demand is measured: kW or kVA, interval, aggregation, window, months,
 | `locator` | text |  |  |  | Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py) |
 | `quote` | text |  |  |  | Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does) |
 | `note` | text |  | yes |  | Source qualifications or interpretation notes |
+
+### Effective rates
+
+#### `rate_history` (16085 rows)
+
+Every published value of every tariff component, in the order the sources replace one another: AER versions as provisional rates, then the distributor's own published price list as the final rate (built by scripts/tariffdb/rates.py). Derived: recomputed from the source-fact tables on every build, not append-only.
+
+- Why: The flow is: the AER publishes first (v1 proposed, later versions approved), so its rates are provisional; the distributor publishes its price list weeks later, every AER rate is validated against it, and the distributor's rate becomes final.
+- Why: One row per source charge and nothing is overwritten: a new document only adds rows, and a replaced row stays with superseded_by pointing at its replacement, so what was provisional before stays visible.
+- Why: Every AER row records its validation against the final rate of its component, so each difference is a row with its size and the documented adjustment (metering, LFiT) that explains it, if any.
+
+| Column | Type | Key | Null | Values / unit | Description |
+|---|---|---|---|---|---|
+| `rate_id` | text | PK |  |  | the charge_id this rate was read from |
+| `component_id` | text |  |  |  | tariff component the rate prices: <tariff_id>\|<fin_year>\|<label>\|<time_band>\|<season>\|<unit_std>, from the AER label (the first source); 'dnsp:' marks a component only the distributor prints |
+| `charge_id` | text | FK charge.charge_id |  |  | source charge |
+| `document_id` | text | FK source_document.document_id |  |  | source document version |
+| `distributor_id` | text | FK distributor.distributor_id |  |  | distributor |
+| `fin_year` | text | FK financial_year.fin_year |  |  | pricing year |
+| `tariff_id` | text | FK tariff.tariff_id |  |  | tariff |
+| `source_side` | text |  |  | aer, aer_hosted, distributor | aer = AER-authored file; aer_hosted = distributor document hosted by the AER (the AER side where no AER-authored file carries the distributor-year, as in 2023-24); distributor = the distributor's own published price list |
+| `price_status` | text |  |  | proposed, approved, mixed, published, unverified | status of this distributor's prices in that document (document_coverage, else source_document) |
+| `role` | text |  |  | provisional, final, withheld | provisional = an AER-side rate; final = the distributor's published rate; withheld = an AER rate the wait rule keeps out (rates.WAIT_FOR_APPROVED: not approved, for a distributor whose proposed prices are not used) |
+| `precedence` | integer |  |  |  | rank among the rates of one component; the highest usable rate is current: final 100, then AER approved 60, unverified 40, proposed 20, each + version_seq |
+| `known_from` | date |  | yes |  | earliest date the sources show the document existed: its publication date, else its retrieval date (an upper bound) |
+| `known_from_basis` | text |  | yes |  | how known_from is known (publication_date_basis, or retrieved_on_basis when only the retrieval date is known) |
+| `value_std` | numeric |  |  | see unit_std | value in standard units |
+| `unit_std` | text |  |  |  | standard unit |
+| `is_current` | boolean |  |  |  | 1 for the rate effective_rate uses for the component |
+| `superseded_by` | text |  | yes |  | the next usable rate of the same component that replaced this one (NULL for the current rate, and for a rate whose component a later AER version no longer prints); a rate_id of this table |
+| `validated_against` | text |  | yes |  | AER-side rows: the final rate of the component; final rows: the AER-side rate it replaced (the best provisional one, else the best withheld one); a rate_id of this table |
+| `validation_status` | text |  |  | match, match_within_rounding, match_after_adjustment, mismatch, aer_only, distributor_only, pending | match / match_within_rounding (half a unit of either published digit) / match_after_adjustment (the documented metering or LFiT amount reproduces the difference) / mismatch; aer_only = the distributor's list has no such component; distributor_only = no AER-side rate; pending = the distributor has not published |
+| `delta_std` | numeric |  | yes |  | final minus AER-side value, standard units |
+| `expected_delta_std` | numeric |  | yes |  | difference the documented adjustment predicts (price_adjustment_tariff) |
+| `adjustment_id` | text | FK price_adjustment.adjustment_id | yes |  | documented adjustment applied (or, for the LFiT rebate, the documented cause without a per-component amount) |
+| `validation_note` | text |  | yes |  | why the validation came out as it did |
+
+Check: `precedence >= 0`
+
+#### `effective_rate` (8975 rows)
+
+One answer per tariff component: the distributor's published rate (final) when it has published, otherwise the best AER version (approved over proposed), with its status, source, version and validation (built by scripts/tariffdb/rates.py). Derived: recomputed from the source-fact tables on every build, not append-only.
+
+- Why: Consumers need one rate per component and date, not a choice between documents: this is the current rate_history row of each component, with the rule's outcome spelled out.
+- Why: Components that only one source prints are kept and flagged (only_in) instead of dropped.
+
+| Column | Type | Key | Null | Values / unit | Description |
+|---|---|---|---|---|---|
+| `component_id` | text | PK |  |  | tariff component (rate_history.component_id) |
+| `distributor_id` | text | FK distributor.distributor_id |  |  | distributor |
+| `fin_year` | text | FK financial_year.fin_year |  |  | pricing year |
+| `tariff_id` | text | FK tariff.tariff_id |  |  | tariff |
+| `effective_from` | date |  |  |  | first day the rate applies |
+| `effective_to` | date |  |  |  | last day (inclusive) |
+| `charge_type` | text |  |  | fixed, energy, demand, capacity, export, other | normalised component kind |
+| `time_band` | text |  | yes | anytime, peak, shoulder, offpeak, super_offpeak, critical_peak, solar_soak, block1, block2, block3, peak_block1, peak_block2, capacity_minimum, capacity_remaining, critical_minimum, dynamic_maximum, dynamic_minimum | time band of the component (the charge.time_band vocabulary) |
+| `season` | text |  | yes | summer, non_summer, high, low, winter | normalised season |
+| `component_label` | text |  |  |  | label as published in the document the rate comes from |
+| `unit_std` | text |  |  |  | standard unit |
+| `status` | text |  |  | final, provisional, awaiting_approval, dropped | final = distributor's published rate; provisional = best usable AER-side rate, the distributor has not published it; awaiting_approval = only rates the wait rule withholds; dropped = only an earlier AER version prints it, the later one (or the distributor) does not |
+| `value_std` | numeric |  | yes | see unit_std | effective value in standard units (NULL when awaiting_approval or dropped) |
+| `value_published` | text |  | yes |  | number as displayed in the source |
+| `unit_published` | text |  | yes |  | unit as published |
+| `rate_id` | text | FK rate_history.rate_id | yes |  | current rate (NULL when awaiting_approval or dropped) |
+| `document_id` | text | FK source_document.document_id |  |  | document of the current rate (else of the latest rate) |
+| `version_label` | text |  |  |  | version of that document |
+| `source_side` | text |  |  | aer, aer_hosted, distributor | side of that document |
+| `price_status` | text |  |  | proposed, approved, mixed, published, unverified | status of the prices there |
+| `replaced_rate_id` | text | FK rate_history.rate_id | yes |  | final rates: the provisional rate this one replaced |
+| `validation_status` | text |  |  | match, match_within_rounding, match_after_adjustment, mismatch, aer_only, distributor_only, pending | final: the replaced rate's validation; provisional: aer_only or pending |
+| `delta_std` | numeric |  | yes |  | final rates: final minus the AER-side value it was validated against (rate_history.validated_against) |
+| `adjustment_id` | text | FK price_adjustment.adjustment_id | yes |  | documented adjustment that explains the difference |
+| `only_in` | text |  | yes | aer_tariff, aer_component, distributor_tariff, distributor_component | set when one source alone prints the component: aer_tariff / aer_component (the distributor's list has no such tariff / component), distributor_tariff / distributor_component (no AER-side rate) |
+
+Check: `effective_from <= effective_to`
+
+Check: `(status IN ('final', 'provisional')) = (rate_id IS NOT NULL)`
 
 ### Exceptions
 

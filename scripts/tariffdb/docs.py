@@ -33,6 +33,7 @@ GROUPS = [
     ("Tariff identity", ["tariff", "tariff_alias", "tariff_relation"]),
     ("Rules", ["eligibility_rule", "tariff_tou", "tou_schedule", "tou_window", "tou_window_month", "tariff_demand_rule",
                "demand_rule"]),
+    ("Effective rates", ["rate_history", "effective_rate"]),
     ("Exceptions", ["exception_type", "exception_instance"]),
 ]
 
@@ -71,6 +72,14 @@ DECISIONS = [
      "build.py --check-append-only <git ref>",
      "test_append_only_check, test_append_only_check_against_git, test_ids_come_from_content_not_row_order, "
      "test_rebuild_reproduces_every_table"),
+    ("AER rates are provisional, the distributor's own published rates are final",
+     "The AER publishes 3-10 weeks before the distributors, so its rates are usable at once; each is validated "
+     "against the distributor's rate (rounding, metering and LFiT adjustments) and replaced by it when the "
+     "distributor publishes. Jemena and Power and Water wait for approved AER prices (rates.WAIT_FOR_APPROVED). "
+     "Every rate stays in an append-only history with what superseded it",
+     "rate_history, effective_rate; scripts/tariffdb/rates.py (rate --as-of, history, changes, report); "
+     "docs/effective_rates.md",
+     "tests/test_rates.py"),
     ("Every value has a financial year AND explicit effective_from / effective_to dates",
      "The yearly grain is how prices are published, the dates let a mid-year change fit without schema change",
      "effective_from/effective_to on charge, listing, rules, links",

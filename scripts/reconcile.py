@@ -260,6 +260,46 @@ def compatible(a, d):
     return True
 
 
+def match_components(arows, drows):
+    """Pair the priced components of one AER-side tariff (arows) with those of the distributor tariff it matched
+    (drows). Pass 1: the compatible distributor component whose value is within the distributor's published rounding
+    (closest first); pass 2: the remaining compatible components by label (a unique candidate, or label similarity).
+    Returns (pairs [(a, d)], unmatched AER-side rows, unmatched distributor rows). Rows need value_std_f, unit_std,
+    charge_type, component, unit, value, time_band and season."""
+    drows_avail = list(drows)
+    matched = []
+    for a in arows:
+        best = None; bd = None
+        for d in drows_avail:
+            if not compatible(a, d): continue
+            dd = abs(d["value_std_f"] - a["value_std_f"])
+            tol = rounding_tolerance(d)
+            if dd <= tol and (bd is None or dd < bd):
+                best, bd = d, dd
+        if best is not None:
+            matched.append((a, best)); drows_avail.remove(best)
+    # pass 2: label match among remaining
+    rem_a = [a for a in arows if all(a is not m[0] for m in matched)]
+    for a in rem_a:
+        cands = [d for d in drows_avail if compatible(a, d)]
+        if not cands:
+            continue
+        sa = season_from_label(a["component"] + " " + a["unit"])
+        def lscore(d):
+            s = sim(a["component"], d["component"]) + 0.2
+            if a["time_band"]: s += 0.5
+            if a.get("season") or sa: s += 0.3
+            return s
+        best = max(cands, key=lscore)
+        unique = len(cands) == 1 and sum(
+            compatible(other, best) for other in rem_a
+            if all(other is not pair[0] for pair in matched)
+        ) == 1
+        if unique or lscore(best) >= 0.55:
+            matched.append((a, best)); drows_avail.remove(best)
+    return matched, [a for a in arows if all(a is not m[0] for m in matched)], drows_avail
+
+
 def reconcile(rows=None, years=YEARS, dnsps=DNSPS):
     if rows is None:
         rows = load_rows()
@@ -422,37 +462,7 @@ def reconcile(rows=None, years=YEARS, dnsps=DNSPS):
                 drows = [r for r in D[dk] if r["value_std_f"] is not None]
                 # drop AER zero-placeholder rows
                 arows = [r for r in arows if not r["component"].startswith("(no non-zero")]
-                drows_avail = list(drows)
-                matched = []
-                for a in arows:
-                    best = None; bd = None
-                    for d in drows_avail:
-                        if not compatible(a, d): continue
-                        dd = abs(d["value_std_f"] - a["value_std_f"])
-                        tol = rounding_tolerance(d)
-                        if dd <= tol and (bd is None or dd < bd):
-                            best, bd = d, dd
-                    if best is not None:
-                        matched.append((a, best)); drows_avail.remove(best)
-                # pass 2: label match among remaining
-                rem_a = [a for a in arows if all(a is not m[0] for m in matched)]
-                for a in rem_a:
-                    cands = [d for d in drows_avail if compatible(a, d)]
-                    if not cands:
-                        continue
-                    sa = season_from_label(a["component"] + " " + a["unit"])
-                    def lscore(d):
-                        s = sim(a["component"], d["component"]) + 0.2
-                        if a["time_band"]: s += 0.5
-                        if a.get("season") or sa: s += 0.3
-                        return s
-                    best = max(cands, key=lscore)
-                    unique = len(cands) == 1 and sum(
-                        compatible(other, best) for other in rem_a
-                        if all(other is not pair[0] for pair in matched)
-                    ) == 1
-                    if unique or lscore(best) >= 0.55:
-                        matched.append((a, best)); drows_avail.remove(best)
+                matched, _, drows_avail = match_components(arows, drows)
                 for a, d in matched:
                     av, dv = a["value_std_f"], d["value_std_f"]
                     cls, det = classify_diff(a, d, av, dv, ctx)

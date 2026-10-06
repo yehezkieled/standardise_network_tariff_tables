@@ -35,6 +35,7 @@ import openpyxl  # noqa: E402
 
 from published import cell_value
 import schema  # noqa: E402
+from tariffdb import locators  # noqa: E402
 import units  # noqa: E402
 
 warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
@@ -139,8 +140,9 @@ class Sheet:
     """Raw extraction for one sheet, before zero-filtering."""
 
     def __init__(self):
-        self.records = []      # dicts: basis, code, name, zone, cls, comp, unit, value, row, notes
+        self.records = []      # dicts: basis, code, name, zone, cls, comp, unit, value, published, row, locator
         self.metering = {}     # (tid, comp_key) -> metering block value
+        self.metering_cells = []  # metering block values with their cells (read by scripts/tariffdb/build.py)
         self.footnotes = []    # e.g. '*Grandfathered'
         self.site_specific = {}  # tid -> [note, ...]
         self.gst = None
@@ -265,10 +267,16 @@ def parse_sheet(ws) -> Sheet:
                 continue
             if metering:
                 out.metering[(rec_id, comp_key(comp))] = num
+                out.metering_cells.append({
+                    "code": code, "name": cur_name, "zone": cur_zone, "cls": cls, "comp": comp,
+                    "unit": unit_of.get(i, ""), "value": num, "published": cell_value(cell_rows[ri - 1][i]),
+                    "locator": locators.xlsx(ws, cell_rows[ri - 1][i]),
+                })
             elif basis is not None:
                 out.records.append({
                     "basis": basis, "code": code, "name": cur_name, "zone": cur_zone, "cls": cls,
                     "comp": comp, "unit": unit_of.get(i, ""), "value": num, "published": cell_value(cell_rows[ri - 1][i]), "row": ri,
+                    "locator": locators.xlsx(ws, cell_rows[ri - 1][i]),
                 })
     return out
 
@@ -363,6 +371,7 @@ def rows_for_sheet(sheet: Sheet, sheet_name, distributor, fin_year, side, source
             "source_file": source_file,
             "source_url": source_url,
             "note": "; ".join(notes),
+            "locator": r["locator"],
             "_sheet": sheet_name,
             "_zone": r["zone"],
         })

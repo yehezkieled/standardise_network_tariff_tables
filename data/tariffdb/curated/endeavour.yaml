@@ -1,0 +1,4093 @@
+distributor: endeavour
+tou_schedules:
+- id: endeavour-2024-25-res-gs-tou
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  name: Residential and General Supply time of day periods (energy, demand and export)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p23
+  quote: 'Residential and General Supply Pricing Options: ‘Peak’, ‘Solar Soak’ and ‘Off Peak’ periods are based on the following
+    time periods and apply during both Eastern Standard Time (EST) and Daylight Saving Time (DST): Business Days Peak: 16:00
+    – 20:00 Solar Soak: 10:00 – 14:00 Off Peak: All other times. Non-business Days Solar Soak: 10:00 – 14:00 Off Peak: All
+    other times.'
+  note: 'Seasons (same page): ''High-season: November to March Low-season: April to October''; ''Demand charges apply to ‘Peak’
+    periods only.'' Public holidays: section 6.2 ''The following public holidays are deemed to be non-business days''. Section
+    6.7 states: ''In order to maintain the same time limits during both Eastern Standard Time (EST) and Daylight Saving Time
+    (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows are clock times in force (local
+    time) all year.'
+  windows:
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: solar_soak
+    label: Solar Soak
+    days: business_day
+    start: '10:00'
+    end: '14:00'
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: '14:00'
+    end: '16:00'
+  - period: peak
+    label: Peak (High-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 11,12,1,2,3
+    season: High-season
+  - period: peak
+    label: Peak (Low-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 4,5,6,7,8,9,10
+    season: Low-season
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: '20:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off Peak
+    days: non_business_day
+    start: 00:00
+    end: '10:00'
+  - period: solar_soak
+    label: Solar Soak
+    days: non_business_day
+    start: '10:00'
+    end: '14:00'
+  - period: off_peak
+    label: Off Peak
+    days: non_business_day
+    start: '14:00'
+    end: '24:00'
+  tariffs:
+  - codes: [N71]
+    applies_to: energy
+    locator: pdf:p7
+    quote: Residential Seasonal TOU Tariff – N71
+    note: Heading of the N71 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
+  - codes: [N91]
+    applies_to: energy
+    locator: pdf:p10
+    quote: General Supply Seasonal TOU Tariff – N91
+    note: Heading of the N91 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
+  - codes: [N72]
+    applies_to: energy
+    locator: pdf:p7
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section states 'Solar Soak and Energy consumption, High-season and Low-season demand
+      values are calculated using the time of day definitions outlined in section 6.1.' N72 has a Solar Soak energy rate and one
+      energy rate for all other times.
+  - codes: [N72]
+    applies_to: demand
+    locator: pdf:p7
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N73]
+    applies_to: demand
+    locator: pdf:p7
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N92]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N93]
+    applies_to: demand
+    locator: pdf:p11
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N73]
+    applies_to: energy
+    locator: pdf:p7
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N73 has a Solar Soak energy rate and one energy
+      rate for all other times.
+  - codes: [N92]
+    applies_to: energy
+    locator: pdf:p10
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N92 has a Solar Soak energy rate and one energy
+      rate for all other times.
+  - codes: [N93]
+    applies_to: energy
+    locator: pdf:p11
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N93 has a Solar Soak energy rate and one energy
+      rate for all other times.
+  - codes: [N61]
+    applies_to: export
+    locator: pdf:p8
+    quote: Prosumer – N61
+    note: Heading of the N61 section under 4.1.1 Residential; the section states 'High-season Peak, Low-season Peak and Solar
+      Soak energy exports are calculated using the time of day definitions outlined in section 6.1.' Export charge (block 2) in
+      the Solar Soak period; export rewards in High-season and Low-season Peak.
+  - codes: [N95]
+    applies_to: all
+    locator: pdf:p11
+    quote: Low Voltage Grid Connected Storage – N95
+    note: Heading of the N95 section; the section lists 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      charges (¢/kWh)' for energy consumed from the network and states 'High-season Peak, Low-season Peak and Solar Soak energy
+      exports are calculated using the time of day definitions outlined in section 6.1.' Exports are charged in Solar Soak (block
+      2) and rewarded in High-/Low-season Peak.
+- id: endeavour-2024-25-large-tou
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  name: Large Demand and Site Specific time of day periods (energy and demand)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p23
+  quote: 'Large Demand and Site Specific Pricing Options: ‘Peak’ and ‘Off Peak’ periods are based on the following time periods
+    and apply during both Eastern Standard Time (EST) and Daylight Saving Time (DST): Business Days Peak: 16:00 – 20:00 Off
+    Peak: All other times. Non-business Days Off Peak: All other times.'
+  note: 'Seasons (same page): ''High-season: November to March Low-season: April to October''. Public holidays: section 6.2.
+    Section 6.7 states: ''In order to maintain the same time limits during both Eastern Standard Time (EST) and Daylight Saving
+    Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows are clock times in force
+    (local time) all year.'
+  windows:
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: 00:00
+    end: '16:00'
+  - period: peak
+    label: Peak (High-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 11,12,1,2,3
+    season: High-season
+  - period: peak
+    label: Peak (Low-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 4,5,6,7,8,9,10
+    season: Low-season
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: '20:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off Peak
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes: [N19]
+    applies_to: all
+    locator: pdf:p12
+    quote: 4.1.4. Large Demand Low Voltage Seasonal Time of Use Demand Tariff – N19
+    note: Section 4.1.4 Large Demand; the N19 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page). Section 6.1 gives these
+      periods for 'Large Demand and Site Specific Pricing Options'.
+  - codes: [N20]
+    applies_to: all
+    locator: pdf:p12
+    quote: Low Voltage Seasonal Time of Use Demand Tariff (Embedded Network) – N20
+    note: Section 4.1.4 Large Demand; the N20 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p13
+    quote: High Voltage Seasonal Time of Use Demand Tariff – N29
+    note: Section 4.1.4 Large Demand; the N29 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p14
+    quote: Sub-transmission Seasonal Time of Use Demand Tariff – N39
+    note: Section 4.1.4 Large Demand; the N39 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page).
+  - codes: [N89]
+    applies_to: energy
+    locator: pdf:p13
+    quote: Low Voltage Seasonal Time of Use Transitional Tariff – N89
+    note: Section 4.1.4 Large Demand; the N89 section states 'High-season Peak, Low-season Peak and Off Peak energy consumption
+      is calculated under the time of day definitions outlined in section 6.1.' (same page).
+  - codes: [NS19, NS29, NS39]
+    applies_to: all
+    locator: pdf:p33
+    quote: NS19 LV Demand TOU Solar (Net) N19 NESN NS29 HV Demand TOU Solar (Net) N29 NESN NS39 ST Demand TOU Solar (Net) N39
+      NESN
+    note: 'Table 7 maps the obsolete codes NS19/NS29/NS39 to the Large Demand tariffs N19/N29/N39. Section 4.4 Obsolete Pricing
+      Options (p16): ''The energy consumption and demand charges for these Pricing Options are calculated using the time of day
+      definitions outlined in section 6.1.'''
+- id: endeavour-2024-25-cl1-supply
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  name: Controlled Load 1 supply window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p26
+  quote: so that supply may not be available between 7:00am and 10:00pm during Eastern Standard Time (EST) and Daylight Saving
+    Time (DST). Supply will be made available for selected periods between 10:00pm and 7:00am (EST and DST).
+  note: 'Supply is given for selected periods within the window, not necessarily all of it. Controlled Load 2 (N54) has no stated
+    window: ''electricity is available for restricted periods not exceeding a total of 17 hours in any period of 24 hours''
+    (section 4.1.2).'
+  windows:
+  - period: controlled_load_supply
+    label: selected periods between 10:00pm and 7:00am
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+  - period: controlled_load_supply
+    label: selected periods between 10:00pm and 7:00am
+    days: all_days
+    start: 00:00
+    end: 07:00
+  tariffs:
+  - codes: [N50]
+    applies_to: controlled_load
+    locator: pdf:p8
+    quote: Controlled Load 1 (N50) applies where supply to approved specified appliances is controlled such that supply may not
+      be available between 7:00am and 10:00pm
+    note: Section 4.1.2 Controlled Load; section 8.1 (the schedule quote) gives the supply hours.
+  - codes: [NC01]
+    applies_to: controlled_load
+    locator: pdf:p32
+    quote: NC01 Domestic (BT) + Controlled Load 1 N70 N50
+    note: Table 7 maps this obsolete code's controlled load to N50 (Controlled Load 1).
+  - codes: [NC03]
+    applies_to: controlled_load
+    locator: pdf:p32
+    quote: NC03 General Supply BT + Controlled Load 1 N90 N50
+    note: Table 7 maps this obsolete code's controlled load to N50 (Controlled Load 1).
+  - codes: [NFTC]
+    applies_to: controlled_load
+    locator: pdf:p33
+    quote: NFTC N70 N50 NESN
+    note: Table 7 maps this obsolete code's controlled load to N50 (Controlled Load 1).
+  - codes: [NFTE]
+    applies_to: controlled_load
+    locator: pdf:p33
+    quote: NFTE N90 N50 NESN
+    note: Table 7 maps this obsolete code's controlled load to N50 (Controlled Load 1).
+- id: endeavour-2025-26-res-gs-tou
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  name: Residential and General Supply time of day periods (energy, demand and export)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'Residential and General Supply Pricing Options: ‘Peak’, ‘Solar Soak’ and ‘Off Peak’ periods are based on the following
+    time periods and apply during both Eastern Standard Time (EST) and Daylight Saving Time (DST): Business Days Peak: 16:00
+    – 20:00 Solar Soak: 10:00 – 14:00 Off Peak: All other times. Non-business Days Solar Soak: 10:00 – 14:00 Off Peak: All
+    other times.'
+  note: 'Seasons (same page): ''High-season: November to March Low-season: April to October''; ''Demand charges apply to ‘Peak’
+    periods only.'' Public holidays: section 6.2 ''The following public holidays are deemed to be non-business days''. Section
+    6.7 states: ''In order to maintain the same time limits during both Eastern Standard Time (EST) and Daylight Saving Time
+    (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows are clock times in force (local
+    time) all year.'
+  windows:
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: solar_soak
+    label: Solar Soak
+    days: business_day
+    start: '10:00'
+    end: '14:00'
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: '14:00'
+    end: '16:00'
+  - period: peak
+    label: Peak (High-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 11,12,1,2,3
+    season: High-season
+  - period: peak
+    label: Peak (Low-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 4,5,6,7,8,9,10
+    season: Low-season
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: '20:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off Peak
+    days: non_business_day
+    start: 00:00
+    end: '10:00'
+  - period: solar_soak
+    label: Solar Soak
+    days: non_business_day
+    start: '10:00'
+    end: '14:00'
+  - period: off_peak
+    label: Off Peak
+    days: non_business_day
+    start: '14:00'
+    end: '24:00'
+  tariffs:
+  - codes: [N71]
+    applies_to: energy
+    locator: pdf:p6
+    quote: Residential Seasonal TOU Tariff – N71
+    note: Heading of the N71 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
+  - codes: [N91]
+    applies_to: energy
+    locator: pdf:p9
+    quote: General Supply Seasonal TOU Tariff – N91
+    note: Heading of the N91 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
+  - codes: [N72]
+    applies_to: energy
+    locator: pdf:p6
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section states 'Solar Soak and Energy consumption, High-season and Low-season demand
+      values are calculated using the time of day definitions outlined in section 6.1.' N72 has a Solar Soak energy rate and one
+      energy rate for all other times.
+  - codes: [N72]
+    applies_to: demand
+    locator: pdf:p6
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N73]
+    applies_to: demand
+    locator: pdf:p6
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N92]
+    applies_to: demand
+    locator: pdf:p9
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N93]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N73]
+    applies_to: energy
+    locator: pdf:p6
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N73 has a Solar Soak energy rate and one energy
+      rate for all other times.
+  - codes: [N92]
+    applies_to: energy
+    locator: pdf:p9
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N92 has a Solar Soak energy rate and one energy
+      rate for all other times.
+  - codes: [N93]
+    applies_to: energy
+    locator: pdf:p10
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N93 has a Solar Soak energy rate and one energy
+      rate for all other times.
+  - codes: [N61]
+    applies_to: export
+    locator: pdf:p7
+    quote: Prosumer – N61
+    note: Heading of the N61 section under 4.1.1 Residential; the section states 'High-season Peak, Low-season Peak and Solar
+      Soak energy exports are calculated using the time of day definitions outlined in section 6.1.' Export charge (block 2) in
+      the Solar Soak period; export rewards in High-season and Low-season Peak.
+  - codes: [N95]
+    applies_to: all
+    locator: pdf:p10
+    quote: Low Voltage Grid Connected Storage – N95
+    note: Heading of the N95 section; the section states 'High-season Peak, Low-season Peak and Solar Soak energy imports and
+      exports are calculated using the time of day definitions outlined in section 6.1.' Exports are charged in Solar Soak (block
+      2) and rewarded in High-/Low-season Peak.
+- id: endeavour-2025-26-large-tou
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  name: Large Demand and Site Specific time of day periods (energy and demand)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'Large Demand and Site Specific Pricing Options: ‘Peak’ and ‘Off Peak’ periods are based on the following time periods
+    and apply during both Eastern Standard Time (EST) and Daylight Saving Time (DST): Business Days Peak: 16:00 – 20:00 Off
+    Peak: All other times. Non-business Days Off Peak: All other times.'
+  note: 'Seasons (same page): ''High-season: November to March Low-season: April to October''. Public holidays: section 6.2.
+    Section 6.7 states: ''In order to maintain the same time limits during both Eastern Standard Time (EST) and Daylight Saving
+    Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows are clock times in force
+    (local time) all year.'
+  windows:
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: 00:00
+    end: '16:00'
+  - period: peak
+    label: Peak (High-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 11,12,1,2,3
+    season: High-season
+  - period: peak
+    label: Peak (Low-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 4,5,6,7,8,9,10
+    season: Low-season
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: '20:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off Peak
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes: [N19]
+    applies_to: all
+    locator: pdf:p11
+    quote: 4.1.4. Large Demand Low Voltage Seasonal Time of Use Demand Tariff – N19
+    note: Section 4.1.4 Large Demand; the N19 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page). Section 6.1 gives these
+      periods for 'Large Demand and Site Specific Pricing Options'.
+  - codes: [N20]
+    applies_to: all
+    locator: pdf:p11
+    quote: Low Voltage Seasonal Time of Use Demand Tariff (Embedded Network) – N20
+    note: Section 4.1.4 Large Demand; the N20 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p12
+    quote: High Voltage Seasonal Time of Use Demand Tariff – N29
+    note: Section 4.1.4 Large Demand; the N29 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p13
+    quote: Sub-transmission Seasonal Time of Use Demand Tariff – N39
+    note: Section 4.1.4 Large Demand; the N39 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page).
+  - codes: [N89]
+    applies_to: energy
+    locator: pdf:p12
+    quote: Low Voltage Seasonal Time of Use Transitional Tariff – N89
+    note: Section 4.1.4 Large Demand; the N89 section states 'High-season Peak, Low-season Peak and Off Peak energy consumption
+      is calculated under the time of day definitions outlined in section 6.1.' (same page).
+- id: endeavour-2025-26-cl1-supply
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  name: Controlled Load 1 supply window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: so that supply may not be available between 7:00am and 10:00pm during Eastern Standard Time (EST) and Daylight Saving
+    Time (DST). Supply will be made available for selected periods between 10:00pm and 7:00am (EST and DST).
+  note: 'Supply is given for selected periods within the window, not necessarily all of it. Controlled Load 2 (N54) has no stated
+    window: ''electricity is available for restricted periods not exceeding a total of 17 hours in any period of 24 hours''
+    (section 4.1.2).'
+  windows:
+  - period: controlled_load_supply
+    label: selected periods between 10:00pm and 7:00am
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+  - period: controlled_load_supply
+    label: selected periods between 10:00pm and 7:00am
+    days: all_days
+    start: 00:00
+    end: 07:00
+  tariffs:
+  - codes: [N50]
+    applies_to: controlled_load
+    locator: pdf:p7
+    quote: Controlled Load 1 (N50) applies where supply to approved specified appliances is controlled such that supply may not
+      be available between 7:00am and 10:00pm
+    note: Section 4.1.2 Controlled Load; section 8.1 (the schedule quote) gives the supply hours.
+- id: endeavour-2026-27-res-gs-tou
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  name: Residential and General Supply time of day periods (energy, demand and export)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'Residential and General Supply Pricing Options: ‘Peak’, ‘Solar Soak’ and ‘Off Peak’ periods are based on the following
+    time periods and apply during both Eastern Standard Time (EST) and Daylight Saving Time (DST): Business Days Peak: 16:00
+    – 20:00 Solar Soak: 10:00 – 14:00 Off Peak: All other times. Non-business Days Solar Soak: 10:00 – 14:00 Off Peak: All
+    other times.'
+  note: 'Seasons (same page): ''High-season: November to March Low-season: April to October''; ''Demand charges apply to ‘Peak’
+    periods only.'' Public holidays: section 6.2 ''The following public holidays are deemed to be non-business days''. Section
+    6.7 states: ''In order to maintain the same time limits during both Eastern Standard Time (EST) and Daylight Saving Time
+    (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows are clock times in force (local
+    time) all year.'
+  windows:
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: solar_soak
+    label: Solar Soak
+    days: business_day
+    start: '10:00'
+    end: '14:00'
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: '14:00'
+    end: '16:00'
+  - period: peak
+    label: Peak (High-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 11,12,1,2,3
+    season: High-season
+  - period: peak
+    label: Peak (Low-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 4,5,6,7,8,9,10
+    season: Low-season
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: '20:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off Peak
+    days: non_business_day
+    start: 00:00
+    end: '10:00'
+  - period: solar_soak
+    label: Solar Soak
+    days: non_business_day
+    start: '10:00'
+    end: '14:00'
+  - period: off_peak
+    label: Off Peak
+    days: non_business_day
+    start: '14:00'
+    end: '24:00'
+  tariffs:
+  - codes: [N71]
+    applies_to: energy
+    locator: pdf:p6
+    quote: Residential Seasonal TOU Tariff – N71
+    note: Heading of the N71 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
+  - codes: [N91]
+    applies_to: energy
+    locator: pdf:p9
+    quote: General Supply Seasonal TOU Tariff – N91
+    note: Heading of the N91 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
+  - codes: [N72]
+    applies_to: energy
+    locator: pdf:p6
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section states 'Solar Soak and Energy consumption, High-season and Low-season demand
+      values are calculated using the time of day definitions outlined in section 6.1.' N72 has a Solar Soak energy rate and one
+      energy rate for all other times.
+  - codes: [N72]
+    applies_to: demand
+    locator: pdf:p6
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N73]
+    applies_to: demand
+    locator: pdf:p6
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N92]
+    applies_to: demand
+    locator: pdf:p9
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N93]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N73]
+    applies_to: energy
+    locator: pdf:p6
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N73 has a Solar Soak energy rate and one energy
+      rate for all other times.
+  - codes: [N92]
+    applies_to: energy
+    locator: pdf:p9
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N92 has a Solar Soak energy rate and one energy
+      rate for all other times.
+  - codes: [N93]
+    applies_to: energy
+    locator: pdf:p10
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N93 has a Solar Soak energy rate and one energy
+      rate for all other times.
+  - codes: [N61]
+    applies_to: export
+    locator: pdf:p7
+    quote: Prosumer – N61
+    note: Heading of the N61 section under 4.1.1 Residential; the section states 'High-season Peak, Low-season Peak and Solar
+      Soak energy exports are calculated using the time of day definitions outlined in section 6.1.' Export charge (block 2) in
+      the Solar Soak period; export rewards in High-season and Low-season Peak.
+  - codes: [N95]
+    applies_to: all
+    locator: pdf:p10
+    quote: Low Voltage Grid Connected Storage – N95
+    note: Heading of the N95 section; the section states 'High-season Peak, Low-season Peak and Solar Soak energy imports and
+      exports are calculated using the time of day definitions outlined in section 6.1.' Exports are charged in Solar Soak (block
+      2) and rewarded in High-/Low-season Peak.
+- id: endeavour-2026-27-large-tou
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  name: Large Demand and Site Specific time of day periods (energy and demand)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'Large Demand and Site Specific Pricing Options: ‘Peak’ and ‘Off Peak’ periods are based on the following time periods
+    and apply during both Eastern Standard Time (EST) and Daylight Saving Time (DST): Business Days Peak: 16:00 – 20:00 Off
+    Peak: All other times. Non-business Days Off Peak: All other times.'
+  note: 'Seasons (same page): ''High-season: November to March Low-season: April to October''. Public holidays: section 6.2.
+    Section 6.7 states: ''In order to maintain the same time limits during both Eastern Standard Time (EST) and Daylight Saving
+    Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows are clock times in force
+    (local time) all year.'
+  windows:
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: 00:00
+    end: '16:00'
+  - period: peak
+    label: Peak (High-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 11,12,1,2,3
+    season: High-season
+  - period: peak
+    label: Peak (Low-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 4,5,6,7,8,9,10
+    season: Low-season
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: '20:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off Peak
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes: [N19]
+    applies_to: all
+    locator: pdf:p11
+    quote: 4.1.4. Large Demand Low Voltage Seasonal Time of Use Demand Tariff – N19
+    note: Section 4.1.4 Large Demand; the N19 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page). Section 6.1 gives these
+      periods for 'Large Demand and Site Specific Pricing Options'.
+  - codes: [N20]
+    applies_to: all
+    locator: pdf:p11
+    quote: Low Voltage Seasonal Time of Use Demand Tariff (Embedded Network) – N20
+    note: Section 4.1.4 Large Demand; the N20 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p12
+    quote: High Voltage Seasonal Time of Use Demand Tariff – N29
+    note: Section 4.1.4 Large Demand; the N29 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p13
+    quote: Sub-transmission Seasonal Time of Use Demand Tariff – N39
+    note: Section 4.1.4 Large Demand; the N39 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page).
+  - codes: [N89]
+    applies_to: energy
+    locator: pdf:p12
+    quote: Low Voltage Seasonal Time of Use Transitional Tariff – N89
+    note: Section 4.1.4 Large Demand; the N89 section states 'High-season Peak, Low-season Peak and Off Peak energy consumption
+      is calculated under the time of day definitions outlined in section 6.1.' (same page).
+- id: endeavour-2026-27-cl1-supply
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  name: Controlled Load 1 supply window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: so that supply may not be available between 7:00am and 10:00pm during Eastern Standard Time (EST) and Daylight Saving
+    Time (DST). Supply will be made available for selected periods between 10:00pm and 7:00am (EST and DST).
+  note: 'Supply is given for selected periods within the window, not necessarily all of it. Controlled Load 2 (N54) has no stated
+    window: ''electricity is available for restricted periods not exceeding a total of 17 hours in any period of 24 hours''
+    (section 4.1.2).'
+  windows:
+  - period: controlled_load_supply
+    label: selected periods between 10:00pm and 7:00am
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+  - period: controlled_load_supply
+    label: selected periods between 10:00pm and 7:00am
+    days: all_days
+    start: 00:00
+    end: 07:00
+  tariffs:
+  - codes: [N50]
+    applies_to: controlled_load
+    locator: pdf:p7
+    quote: Controlled Load 1 (N50) applies where supply to approved specified appliances is controlled such that supply may not
+      be available between 7:00am and 10:00pm
+    note: Section 4.1.2 Controlled Load; section 8.1 (the schedule quote) gives the supply hours.
+- id: endeavour-2023-24-stou
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  name: Seasonal TOU peak window (STOU energy, LV/HV/ST demand tariffs and demand charges)
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: High-season Peak c/kWh Charge applied to energy consumed between Energy 16:00 to 20:00 on business days. High-season
+    includes the months November to March inclusive. Low-season Peak c/kWh Charge applied to energy consumed between Energy
+    16:00 to 20:00 on business days. Low-season includes the months April to October inclusive. Off Peak Energy c/kWh Charge
+    applied to energy consumed at all other times.
+  note: Tables 4.1-4.5 state the same peak window for STOU energy, LV/HV/ST demand tariffs (energy and kVA demand) and kW
+    demand charges ('Charge applied to maximum energy demand between 16:00 to 20:00 on business days'). Business days and
+    public holidays are not defined in this document.
+  windows:
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: 00:00
+    end: '16:00'
+  - period: peak
+    label: Peak (High-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 11,12,1,2,3
+    season: High-season
+  - period: peak
+    label: Peak (Low-season)
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    months: 4,5,6,7,8,9,10
+    season: Low-season
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: '20:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off Peak
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes: [N71]
+    applies_to: energy
+    locator: pdf:p63
+    quote: Residential STOU N71
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N91]
+    applies_to: energy
+    locator: pdf:p63
+    quote: General Supply STOU N91
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N19]
+    applies_to: all
+    locator: pdf:p63
+    quote: LV (TOU) Demand N19
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N89]
+    applies_to: energy
+    locator: pdf:p63
+    quote: LV Transitional (TOU) Tariff N89
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p63
+    quote: HV (TOU) Demand N29
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p63
+    quote: ST (TOU) Demand N39
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N72]
+    applies_to: demand
+    locator: pdf:p63
+    quote: Residential Demand N72
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N73]
+    applies_to: demand
+    locator: pdf:p63
+    quote: Residential Transitional Demand N73
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N92]
+    applies_to: demand
+    locator: pdf:p63
+    quote: General Supply (Seaonal) Demand N92
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N93]
+    applies_to: demand
+    locator: pdf:p63
+    quote: General Supply Transitional (Seasonal) Demand N93
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- id: endeavour-2023-24-obsolete-tou
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  name: Obsolete Residential / General Supply TOU (closed to new entrants) energy windows
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: Obsolete Fixed c/day Access charge reflecting a fixed amount per day. Residential TOU (closed to new Peak Energy c/kWh
+    Charge applied to energy consumed between entrants) 13:00 and 20:00 on business days. Shoulder Energy c/kWh Charge applied
+    to energy consumed between 07:00 to 13:00 and 20:00 to 22:00 on business days Off Peak Energy c/kWh Charge applied to energy
+    consumed at all other times.
+  note: Table 4.1 'Obsolete Residential TOU (closed to new entrants)'; the same windows are stated for 'Obsolete General Supply
+    TOU (closed to new entrants)'.
+  windows:
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: shoulder
+    label: Shoulder
+    days: business_day
+    start: 07:00
+    end: '13:00'
+  - period: peak
+    label: Peak
+    days: business_day
+    start: '13:00'
+    end: '20:00'
+  - period: shoulder
+    label: Shoulder
+    days: business_day
+    start: '20:00'
+    end: '22:00'
+  - period: off_peak
+    label: Off Peak
+    days: business_day
+    start: '22:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off Peak
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes: [N705]
+    applies_to: energy
+    locator: pdf:p63
+    quote: Obsolete Residential (type 5) TOU N705
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N706]
+    applies_to: energy
+    locator: pdf:p63
+    quote: Obsolete Residential TOU N706
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N84]
+    applies_to: energy
+    locator: pdf:p63
+    quote: Obsolete General Supply TOU N84
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+  - codes: [N845]
+    applies_to: energy
+    locator: pdf:p63
+    quote: Obsolete General Supply (type 5) TOU N845
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- id: endeavour-2023-24-cl1-supply
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  name: Controlled Load 1 supply restriction
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p26
+  quote: where energy consumption is controlled by our equipment so that supply may not be available between 07:00 and 22:00.
+  note: The document states only that supply may not be available between 07:00 and 22:00; the windows below are the hours
+    outside that restriction (supply is not promised for all of them).
+  windows:
+  - period: controlled_load_supply
+    label: outside 07:00-22:00
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+  - period: controlled_load_supply
+    label: outside 07:00-22:00
+    days: all_days
+    start: 00:00
+    end: 07:00
+  tariffs:
+  - codes: [N50]
+    applies_to: controlled_load
+    locator: pdf:p63
+    quote: Controlled Load 1 N50
+    note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+demand_rules:
+- id: endeavour-2024-25-demand-kw
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: endeavour-2024-25-res-gs-tou
+  window_period: peak
+  locator: pdf:p20
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: 'Section 5.3.2: ''Endeavour Energy bills on a 30-minute demand interval. If data is received as 5-minute or 15-minute
+    intervals, the data will be aggregated to 30-minute.'' Rates differ by season (High-season Nov-Mar, Low-season Apr-Oct).
+    Units c/kW/day per Table 1a.'
+  tariffs:
+  - codes: [N72, N73, N92, N93]
+- id: endeavour-2024-25-demand-kva
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  measure: kVA
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: endeavour-2024-25-large-tou
+  window_period: peak
+  locator: pdf:p20
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: 'Section 5.3.2: ''Endeavour Energy bills on a 30-minute demand interval. If data is received as 5-minute or 15-minute
+    intervals, the data will be aggregated to 30-minute.'' Rates differ by season (High-season Nov-Mar, Low-season Apr-Oct).
+    Units c/kVA/day per Table 1a.'
+  tariffs:
+  - codes: [N19, N20, N29, N39]
+- id: endeavour-2024-25-demand-kw-obsolete-large
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: endeavour-2024-25-large-tou
+  window_period: peak
+  locator: pdf:p20
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: 'Section 5.3.2: ''Endeavour Energy bills on a 30-minute demand interval. If data is received as 5-minute or 15-minute
+    intervals, the data will be aggregated to 30-minute.'' Table 3a (p42) and Table 3b (p43) print the NS19, NS29 and NS39
+    demand prices in the c/kW/day columns (High/Low Season Demand), although Table 7 (p33) maps these codes to N19/N29/N39,
+    whose demand prices Table 1a prints in c/kVA/day.'
+  tariffs:
+  - codes: [NS19, NS29, NS39]
+- id: endeavour-2025-26-demand-kw
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: endeavour-2025-26-res-gs-tou
+  window_period: peak
+  locator: pdf:p19
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: 'Section 5.3.2: ''Endeavour Energy bills on a 30-minute demand interval. If data is received as 5-minute or 15-minute
+    intervals, the data will be aggregated to 30-minute.'' Rates differ by season (High-season Nov-Mar, Low-season Apr-Oct).
+    Units c/kW/day per Table 1a.'
+  tariffs:
+  - codes: [N72, N73, N92, N93]
+- id: endeavour-2025-26-demand-kva
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  measure: kVA
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: endeavour-2025-26-large-tou
+  window_period: peak
+  locator: pdf:p19
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: 'Section 5.3.2: ''Endeavour Energy bills on a 30-minute demand interval. If data is received as 5-minute or 15-minute
+    intervals, the data will be aggregated to 30-minute.'' Rates differ by season (High-season Nov-Mar, Low-season Apr-Oct).
+    Units c/kVA/day per Table 1a.'
+  tariffs:
+  - codes: [N19, N20, N29, N39]
+- id: endeavour-2026-27-demand-kw
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: endeavour-2026-27-res-gs-tou
+  window_period: peak
+  locator: pdf:p19
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: 'Section 5.3.2: ''Endeavour Energy bills on a 30-minute demand interval. If data is received as 5-minute or 15-minute
+    intervals, the data will be aggregated to 30-minute.'' Rates differ by season (High-season Nov-Mar, Low-season Apr-Oct).
+    Units c/kW/day per Table 1a.'
+  tariffs:
+  - codes: [N72, N73, N92, N93]
+- id: endeavour-2026-27-demand-kva
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: endeavour-2026-27-large-tou
+  window_period: peak
+  locator: pdf:p19
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: 'Section 5.3.2: ''Endeavour Energy bills on a 30-minute demand interval. If data is received as 5-minute or 15-minute
+    intervals, the data will be aggregated to 30-minute.'' Rates differ by season (High-season Nov-Mar, Low-season Apr-Oct).
+    Units c/kVA/day per Table 1a.'
+  tariffs:
+  - codes: [N19, N20, N29, N39]
+- id: endeavour-2023-24-demand-kw
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  measure: kW
+  aggregation: not_stated
+  window_schedule: endeavour-2023-24-stou
+  window_period: peak
+  locator: pdf:p24
+  quote: High-season c/kW/day Charge applied to maximum energy demand Demand between 16:00 to 20:00 on business days.
+  note: Interval and aggregation period are not stated. Residential/General Supply (Transitional) Demand.
+  tariffs:
+  - codes: [N72, N73, N92, N93]
+- id: endeavour-2023-24-demand-kva
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  measure: kVA
+  aggregation: not_stated
+  window_schedule: endeavour-2023-24-stou
+  window_period: peak
+  locator: pdf:p28
+  quote: High-season c/kVA/day Charge applied to maximum energy demand Demand between 16:00 to 20:00 on business days.
+  note: Interval and aggregation period are not stated. Same wording for HV Demand (Table 4.3) and ST Demand (Table 4.4).
+  tariffs:
+  - codes: [N19, N29, N39]
+eligibility:
+- codes: [N70, N71, N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p6
+  quote: 4.1.1. Residential A Residential Pricing Option applies to customer connection services supplied to the connection
+    point
+  note: Section 4.1.1 lists N70, N71, N72 and N73.
+- codes: [N70, N71, N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p6
+  quote: Total electricity consumption, per financial year, is less than 160MWh; and
+- codes: [N70, N71, N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p6
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V.
+- codes: [N71]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p7
+  quote: Tariff N71 is the default tariff for residential customers.
+- codes: [N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p30
+  quote: 'Tariffs available on application: N71, N72, N73'
+  note: Figure 1 (retailer initiated changes to Residential Pricing Options); N71* is marked default.
+- codes: [N61]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p8
+  quote: This tariff is optional for customers to elect and is offered in the form of a ‘secondary tariff’
+- codes: [N61]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p8
+  quote: Prosumer – N61
+  note: N61 is described under both 4.1.1 Residential and 4.1.3 General Supply.
+- codes: [N61]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p11
+  quote: Prosumer – N61
+  note: N61 is also offered under 4.1.3 General Supply (alongside N91, N92 and N93).
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p8
+  quote: Controlled Load Tariffs – N50 and N54
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p8
+  quote: Total electricity consumption, per financial year, is less than 160MWh;
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p8
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: A Residential or General Supply tariff must also apply at the connection point
+  locator: pdf:p8
+  quote: A Residential or General Supply tariff also applies.
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: controlled_load_device
+  locator: pdf:p8
+  quote: A Controlled Load tariff applies where electricity load is separately metered and controlled at a connection point
+  note: '''A Controlled Load tariff is applicable to approved appliances only. Approved appliances must be permanently wired
+    without a plug and socket.'''
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p9
+  quote: Electricity is used for any purpose other than Residential
+  note: Section 4.1.3 General Supply (non-residential); lists N90, N91, N92 and N93.
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p9
+  quote: Total electricity consumption, per financial year, is less than 160MWh;
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p9
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: any
+  locator: pdf:p9
+  quote: at a connection point with a meter delivering accumulated metering data or interval metering data.
+- codes: [N91]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p10
+  quote: Tariff N91 is the default tariff for low voltage non-residential customers.
+  note: Also the default for all new (greenfield) low voltage non-residential sites regardless of future consumption.
+- codes: [N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p31
+  quote: 'Tariffs available on application: N91, N92, N93'
+  note: Figure 2 (retailer initiated changes to General Supply Pricing Options); N91* is marked default.
+- codes: [N91]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: may be applied to an HV or ST connection point that exists primarily to connect a generator when consumption
+    is under 5% of generation in a billing cycle
+  locator: pdf:p25
+  quote: then Endeavour Energy may apply the General Supply Seasonal Time of Use Network Pricing Option (tariff N91), to that
+    connection point.
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p11
+  quote: Low Voltage Grid Connected Storage – N95
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: must consume no more than 160 MWh per annum
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p12
+  quote: the storage device must be directly connected to the low voltage network
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: storage
+  locator: pdf:p12
+  quote: The storage device must be connected to the electricity network for the sole purpose of importing electricity for
+    export at a later time, from the same connection point.
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: not available to storage connected with generation or additional load behind the same connection point
+  locator: pdf:p12
+  quote: Storage connected with generation or additional load behind the same connection point are not eligible.
+- codes: [N19, N20, N89, N29, N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p12
+  quote: 4.1.4. Large Demand
+  note: Section heading 4.1.4 Large Demand covers N19, N20, N89, N29 and N39; Table 6 lists them as Non-Residential.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: Total electricity consumption, per financial year, is greater than 160MWh;
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p12
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p12
+  quote: The meter delivers both interval metering data and demand data.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p32
+  quote: Non-Residential > 160 MWh LV N19 Site Specific
+  note: 'Table 6 columns: Customer Type, Annualised Consumption, Supply Voltage, Default, Alternate (on application). N19
+    is not applied as the default for new (greenfield) sites, which start on N91.'
+- codes: [N29]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p32
+  quote: Non-Residential n/a HV N29 Site Specific
+  note: Table 6 Default column.
+- codes: [N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p32
+  quote: Non-Residential n/a ST N39 Site Specific
+  note: Table 6 Default column.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: opt_out_to
+  target_code: N91
+  locator: pdf:p36
+  quote: In this event the choice of Pricing Option is limited to tariffs N91, N92 or N93.
+  note: Only if 'a history of consistently low consumption (less than 160MWh pa) over the twelve months preceding the date
+    of the application can be established'.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: opt_out_to
+  target_code: N92
+  locator: pdf:p36
+  quote: In this event the choice of Pricing Option is limited to tariffs N91, N92 or N93.
+  note: Only if 'a history of consistently low consumption (less than 160MWh pa) over the twelve months preceding the date
+    of the application can be established'.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: opt_out_to
+  target_code: N93
+  locator: pdf:p36
+  quote: In this event the choice of Pricing Option is limited to tariffs N91, N92 or N93.
+  note: Only if 'a history of consistently low consumption (less than 160MWh pa) over the twelve months preceding the date
+    of the application can be established'.
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p37
+  quote: Total electricity consumption, per financial year, is greater than 160MWh;
+  note: Section 9.7 Tariff Requests for Embedded Networks.
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p37
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V;
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p37
+  quote: The meter delivers both interval metering data and demand data;
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: connection point is an embedded network
+  locator: pdf:p37
+  quote: Is an Embedded Network.
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p13
+  quote: Total electricity consumption, per financial year, greater than 160MWh but less than 40GWh or 10MVA maximum demand;
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 40
+  value_unit: GWh/yr
+  locator: pdf:p13
+  quote: Total electricity consumption, per financial year, greater than 160MWh but less than 40GWh or 10MVA maximum demand;
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: demand_max
+  operator: lt
+  value_num: 10
+  value_unit: MVA
+  locator: pdf:p13
+  quote: Total electricity consumption, per financial year, greater than 160MWh but less than 40GWh or 10MVA maximum demand;
+  note: '''less than 40GWh or 10MVA maximum demand'' as published.'
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p13
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p13
+  quote: The meter delivers interval metering data.
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: assigned_by_distributor
+  locator: pdf:p13
+  quote: Tariff N89 is not available by customer request.
+  note: '''Tariff N89 applies to those customers who satisfy the LV STOU Demand (N19) criteria, but cannot be transferred
+    to this tariff due to a lack of metering capable of supporting the demand based tariff.'''
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: transitional
+  locator: pdf:p39
+  quote: N89 is a Transitional Network Tariff applicable to selected customers with annual consumption > 160 MWh. It is not
+    available on application.
+- codes: [N29]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p13
+  quote: Electricity is supplied at a voltage level defined as High Voltage (HV) - nominally 12.7 kV SWER, 11 or 22 kV; and
+- codes: [N29]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p13
+  quote: delivers both interval metering data and demand data.
+- codes: [N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p14
+  quote: Electricity is supplied at a voltage level defined as Sub-transmission (ST) - 33, 66 or 132 kV; and
+- codes: [N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p14
+  quote: The meter (All meters must have E, Q and K channels/registers) delivers both interval metering data and demand data.
+- codes: [N99, ENSL, ENTL, ENNW]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p14
+  quote: are applicable to connection points that are not metered.
+  note: Section 4.2 Unmetered Pricing Options lists N99, ENSL, ENTL and ENNW.
+- codes: [N99]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p14
+  quote: The Unmetered Supply tariff applies to unmetered supplies not eligible for supply under unmetered tariff ENSL or
+    ENTL.
+- codes: [ENSL]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p14
+  quote: The unmetered Streetlighting supply tariff applies to streetlighting connection points that are not metered.
+- codes: [ENTL]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p14
+  quote: The unmetered Traffic Control Signal Light supply tariff applies to traffic control signal light connection points
+    that are not metered.
+- codes: [ENNW]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p14
+  quote: The unmetered Nightwatch supply tariff applies to night watch connection points that are not metered.
+- codes: [NS70, NG70, NFTG, NFTH, NFT9, NFT0, NC01, NC02, NFTC, NFTD, NS90, NG90, NFTJ, NFTK, NFTA, NFTB, NC03, NC04, NFTE,
+    NFTF, NS19, NS29, NS39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p42
+  quote: The tariffs in this table are obsolete and no new customers will be added to them. They are not available on application.
+- codes: [NS70]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p42
+  quote: NS70 Residential Flat, Gen Net
+- codes: [NG70]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p42
+  quote: NG70 Residential Flat, Gen Gross
+- codes: [NFTG]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p42
+  quote: NFTG Residential Flat, Gen Gross DR meter
+- codes: [NFTH]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p42
+  quote: NFTH Residential Flat, Gen Gross DR meter
+- codes: [NFT9]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p42
+  quote: NFT9 Residential Flat, Gen Net DR meter
+- codes: [NFT0]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p42
+  quote: NFT0 Residential Flat, Gen Net DR meter
+- codes: [NC01]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p42
+  quote: NC01 Residential Flat, Controlled Load 1
+- codes: [NC02]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p42
+  quote: NC02 Residential Flat, Controlled Load 2
+- codes: [NFTC]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p42
+  quote: NFTC Residential Flat, CL1, Gen Net
+- codes: [NFTD]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p42
+  quote: NFTD Residential Flat, CL2, Gen Net
+- codes: [NS90]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p42
+  quote: NS90 General Supply Block, Gen Net
+  note: General Supply (non-residential) per section 4.1.3.
+- codes: [NG90]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p42
+  quote: NG90 General Supply Block, Gen Gross
+  note: General Supply (non-residential) per section 4.1.3.
+- codes: [NFTJ]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p42
+  quote: NFTJ General Supply Block, Gen Gross DR meter
+  note: General Supply (non-residential) per section 4.1.3.
+- codes: [NFTK]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p42
+  quote: NFTK General Supply Block, Gen Gross DR meter
+  note: General Supply (non-residential) per section 4.1.3.
+- codes: [NFTA]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p42
+  quote: NFTA General Supply Block, Gen Net
+  note: General Supply (non-residential) per section 4.1.3.
+- codes: [NFTB]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p42
+  quote: NFTB General Supply Block, Gen Net
+  note: General Supply (non-residential) per section 4.1.3.
+- codes: [NC03]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p42
+  quote: NC03 General Supply Block, Controlled Load 1
+  note: General Supply (non-residential) per section 4.1.3.
+- codes: [NC04]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p42
+  quote: NC04 General Supply Block, Controlled Load 2
+  note: General Supply (non-residential) per section 4.1.3.
+- codes: [NFTE]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p42
+  quote: NFTE General Supply Block, CL1, Gen Net
+  note: General Supply (non-residential) per section 4.1.3.
+- codes: [NFTF]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p42
+  quote: NFTF General Supply Block, CL2, Gen Net
+  note: General Supply (non-residential) per section 4.1.3.
+- codes: [NS19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p42
+  quote: NS19 LV STOU Demand, Gen Net
+- codes: [NS29]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p42
+  quote: NS29 HV STOU Demand, Gen Net
+- codes: [NS39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p42
+  quote: NS39 ST STOU Demand, Gen Net
+- codes: [NS70]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: solar
+  locator: pdf:p32
+  quote: NS70 Domestic (BT) Solar (Net) N70 NESN
+  note: Table 7 name includes 'Solar'; generation measured on NESN/NESG.
+- codes: [NG70]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: solar
+  locator: pdf:p32
+  quote: NG70 Domestic (BT) Solar (Gross) N70 NESG
+  note: Table 7 name includes 'Solar'; generation measured on NESN/NESG.
+- codes: [NS90]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: solar
+  locator: pdf:p32
+  quote: NS90 General Supply Non-TOU (BT) Solar (Net) N90 NESN
+  note: Table 7 name includes 'Solar'; generation measured on NESN/NESG.
+- codes: [NG90]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: solar
+  locator: pdf:p32
+  quote: NG90 General Supply Non-TOU (BT) Solar (Gross) N90 NESG
+  note: Table 7 name includes 'Solar'; generation measured on NESN/NESG.
+- codes: [NS19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: solar
+  locator: pdf:p33
+  quote: NS19 LV Demand TOU Solar (Net) N19 NESN
+  note: Table 7 name includes 'Solar'; generation measured on NESN/NESG.
+- codes: [NS29]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: solar
+  locator: pdf:p33
+  quote: NS29 HV Demand TOU Solar (Net) N29 NESN
+  note: Table 7 name includes 'Solar'; generation measured on NESN/NESG.
+- codes: [NS39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: solar
+  locator: pdf:p33
+  quote: NS39 ST Demand TOU Solar (Net) N39 NESN
+  note: Table 7 name includes 'Solar'; generation measured on NESN/NESG.
+- codes: [NC01]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: controlled_load_device
+  locator: pdf:p42
+  quote: NC01 Residential Flat, Controlled Load 1
+- codes: [NC02]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: controlled_load_device
+  locator: pdf:p42
+  quote: NC02 Residential Flat, Controlled Load 2
+- codes: [NC03]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: controlled_load_device
+  locator: pdf:p42
+  quote: NC03 General Supply Block, Controlled Load 1
+- codes: [NC04]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: controlled_load_device
+  locator: pdf:p42
+  quote: NC04 General Supply Block, Controlled Load 2
+- codes: [NFTC]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: controlled_load_device
+  locator: pdf:p42
+  quote: NFTC Residential Flat, CL1, Gen Net
+- codes: [NFTD]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: controlled_load_device
+  locator: pdf:p42
+  quote: NFTD Residential Flat, CL2, Gen Net
+- codes: [NFTE]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: controlled_load_device
+  locator: pdf:p42
+  quote: NFTE General Supply Block, CL1, Gen Net
+- codes: [NFTF]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: controlled_load_device
+  locator: pdf:p42
+  quote: NFTF General Supply Block, CL2, Gen Net
+- codes: [N70, N71, N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p5
+  quote: 4.1.1. Residential A Residential Pricing Option applies to customer connection services supplied to the connection
+    point
+  note: Section 4.1.1 lists N70, N71, N72 and N73.
+- codes: [N70, N71, N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p5
+  quote: Total electricity consumption, per financial year, is less than 160MWh; and
+- codes: [N70, N71, N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p5
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V.
+- codes: [N71]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p6
+  quote: Tariff N71 is the default tariff for residential customers.
+- codes: [N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p29
+  quote: 'Tariffs available on application: N71, N72, N73'
+  note: Figure 1 (retailer initiated changes to Residential Pricing Options); N71* is marked default.
+- codes: [N61]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p7
+  quote: This tariff is optional for customers to elect and is offered in the form of a ‘secondary tariff’
+- codes: [N61]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p7
+  quote: Prosumer – N61
+  note: N61 is described under both 4.1.1 Residential and 4.1.3 General Supply.
+- codes: [N61]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p10
+  quote: Prosumer – N61
+  note: N61 is also offered under 4.1.3 General Supply (alongside N91, N92 and N93).
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p7
+  quote: Controlled Load Tariffs – N50 and N54
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p7
+  quote: Total electricity consumption, per financial year, is less than 160MWh;
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: A Residential or General Supply tariff must also apply at the connection point
+  locator: pdf:p7
+  quote: A Residential or General Supply tariff also applies.
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: controlled_load_device
+  locator: pdf:p7
+  quote: A Controlled Load tariff applies where electricity load is separately metered and controlled at a connection point
+  note: '''A Controlled Load tariff is applicable to approved appliances only. Approved appliances must be permanently wired
+    without a plug and socket.'''
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p8
+  quote: Electricity is used for any purpose other than Residential
+  note: Section 4.1.3 General Supply (non-residential); lists N90, N91, N92 and N93.
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p8
+  quote: Total electricity consumption, per financial year, is less than 160MWh;
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p8
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: any
+  locator: pdf:p8
+  quote: at a connection point with a meter delivering accumulated metering data or interval metering data.
+- codes: [N91]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p9
+  quote: Tariff N91 is the default tariff for low voltage non-residential customers.
+  note: Also the default for all new (greenfield) low voltage non-residential sites regardless of future consumption.
+- codes: [N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p30
+  quote: 'Tariffs available on application: N91, N92, N93'
+  note: Figure 2 (retailer initiated changes to General Supply Pricing Options); N91* is marked default.
+- codes: [N91]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: may be applied to an HV or ST connection point that exists primarily to connect a generator when consumption
+    is under 5% of generation in a billing cycle
+  locator: pdf:p24
+  quote: then Endeavour Energy may apply the General Supply Seasonal Time of Use Network Pricing Option (tariff N91), to that
+    connection point.
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p10
+  quote: Low Voltage Grid Connected Storage – N95
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: must consume no more than 160 MWh per annum
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: the storage device must be directly connected to the low voltage network
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: storage
+  locator: pdf:p11
+  quote: The storage device must be connected to the electricity network for the sole purpose of importing electricity for
+    export at a later time, from the same connection point.
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: not available to storage connected with generation or additional load behind the same connection point
+  locator: pdf:p11
+  quote: Storage connected with generation or additional load behind the same connection point are not eligible.
+- codes: [N19, N20, N89, N29, N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p11
+  quote: 4.1.4. Large Demand
+  note: Section heading 4.1.4 Large Demand covers N19, N20, N89, N29 and N39; Table 6 lists them as Non-Residential.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: Total electricity consumption, per financial year, is greater than 160MWh;
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p11
+  quote: The meter delivers both interval metering data and demand data.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p31
+  quote: Non-Residential > 160 MWh LV N19 Site Specific
+  note: 'Table 6 columns: Customer Type, Annualised Consumption, Supply Voltage, Default, Alternate (on application). N19
+    is not applied as the default for new (greenfield) sites, which start on N91.'
+- codes: [N29]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p31
+  quote: Non-Residential n/a HV N29 Site Specific
+  note: Table 6 Default column.
+- codes: [N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p31
+  quote: Non-Residential n/a ST N39 Site Specific
+  note: Table 6 Default column.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: opt_out_to
+  target_code: N91
+  locator: pdf:p34
+  quote: In this event the choice of Pricing Option is limited to tariffs N91, N92 or N93.
+  note: Only if 'a history of consistently low consumption (less than 160MWh pa) over the twelve months preceding the date
+    of the application can be established'.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: opt_out_to
+  target_code: N92
+  locator: pdf:p34
+  quote: In this event the choice of Pricing Option is limited to tariffs N91, N92 or N93.
+  note: Only if 'a history of consistently low consumption (less than 160MWh pa) over the twelve months preceding the date
+    of the application can be established'.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: opt_out_to
+  target_code: N93
+  locator: pdf:p34
+  quote: In this event the choice of Pricing Option is limited to tariffs N91, N92 or N93.
+  note: Only if 'a history of consistently low consumption (less than 160MWh pa) over the twelve months preceding the date
+    of the application can be established'.
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p35
+  quote: Total electricity consumption, per financial year, is greater than 160MWh;
+  note: Section 9.6 Tariff Requests for Embedded Networks.
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p35
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V;
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p35
+  quote: The meter delivers both interval metering data and demand data;
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: connection point is an embedded network
+  locator: pdf:p35
+  quote: Is an Embedded Network.
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: Total electricity consumption, per financial year, greater than 160MWh but less than 40GWh or 10MVA maximum demand;
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 40
+  value_unit: GWh/yr
+  locator: pdf:p12
+  quote: Total electricity consumption, per financial year, greater than 160MWh but less than 40GWh or 10MVA maximum demand;
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: demand_max
+  operator: lt
+  value_num: 10
+  value_unit: MVA
+  locator: pdf:p12
+  quote: Total electricity consumption, per financial year, greater than 160MWh but less than 40GWh or 10MVA maximum demand;
+  note: '''less than 40GWh or 10MVA maximum demand'' as published.'
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p12
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p12
+  quote: The meter delivers interval metering data.
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: assigned_by_distributor
+  locator: pdf:p12
+  quote: Tariff N89 is not available by customer request.
+  note: '''Tariff N89 applies to those customers who satisfy the LV STOU Demand (N19) criteria, but cannot be transferred
+    to this tariff due to a lack of metering capable of supporting the demand based tariff.'''
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: availability
+  value_text: transitional
+  locator: pdf:p37
+  quote: N89 is a Transitional Network Tariff applicable to selected customers with annual consumption > 160 MWh. It is not
+    available on application.
+- codes: [N29]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p12
+  quote: Electricity is supplied at a voltage level defined as High Voltage (HV) - nominally 12.7 kV SWER, 11 or 22 kV; and
+- codes: [N29]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p12
+  quote: delivers both interval metering data and demand data.
+- codes: [N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p13
+  quote: Electricity is supplied at a voltage level defined as Sub-transmission (ST) - 33, 66 or 132 kV; and
+- codes: [N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p13
+  quote: The meter (All meters must have E, Q and K channels/registers) delivers both interval metering data and demand data.
+- codes: [N99, ENSL, ENTL, ENNW]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: are applicable to connection points that are not metered.
+  note: Section 4.2 Unmetered Pricing Options lists N99, ENSL, ENTL and ENNW.
+- codes: [N99]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: The Unmetered Supply tariff applies to unmetered supplies not eligible for supply under unmetered tariff ENSL or
+    ENTL.
+- codes: [ENSL]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p13
+  quote: The unmetered Streetlighting supply tariff applies to streetlighting connection points that are not metered.
+- codes: [ENTL]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: The unmetered Traffic Control Signal Light supply tariff applies to traffic control signal light connection points
+    that are not metered.
+- codes: [ENNW]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: The unmetered Nightwatch supply tariff applies to night watch connection points that are not metered.
+- codes: [N70, N71, N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p5
+  quote: 4.1.1. Residential A Residential Pricing Option applies to customer connection services supplied to the connection
+    point
+  note: Section 4.1.1 lists N70, N71, N72 and N73.
+- codes: [N70, N71, N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p5
+  quote: Total electricity consumption, per financial year, is less than 160MWh; and
+- codes: [N70, N71, N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p5
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V.
+- codes: [N71]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p6
+  quote: Tariff N71 is the default tariff for residential customers.
+- codes: [N72, N73]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p29
+  quote: 'Tariffs available on application: N71, N72, N73'
+  note: Figure 1 (retailer initiated changes to Residential Pricing Options); N71* is marked default.
+- codes: [N61]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p7
+  quote: This tariff is optional for customers to elect and is offered in the form of a ‘secondary tariff’
+- codes: [N61]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p7
+  quote: Prosumer – N61
+  note: N61 is described under both 4.1.1 Residential and 4.1.3 General Supply.
+- codes: [N61]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p10
+  quote: Prosumer – N61
+  note: N61 is also offered under 4.1.3 General Supply (alongside N91, N92 and N93).
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p7
+  quote: Controlled Load Tariffs – N50 and N54
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p7
+  quote: Total electricity consumption, per financial year, is less than 160MWh;
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: A Residential or General Supply tariff must also apply at the connection point
+  locator: pdf:p7
+  quote: A Residential or General Supply tariff also applies.
+- codes: [N50, N54]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: controlled_load_device
+  locator: pdf:p7
+  quote: A Controlled Load tariff applies where electricity load is separately metered and controlled at a connection point
+  note: '''A Controlled Load tariff is applicable to approved appliances only. Approved appliances must be permanently wired
+    without a plug and socket.'''
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p8
+  quote: Electricity is used for any purpose other than Residential
+  note: Section 4.1.3 General Supply (non-residential); lists N90, N91, N92 and N93.
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p8
+  quote: Total electricity consumption, per financial year, is less than 160MWh;
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p8
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N90, N91, N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: any
+  locator: pdf:p8
+  quote: at a connection point with a meter delivering accumulated metering data or interval metering data.
+- codes: [N91]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p9
+  quote: Tariff N91 is the default tariff for low voltage non-residential customers.
+  note: Also the default for all new (greenfield) low voltage non-residential sites regardless of future consumption.
+- codes: [N92, N93]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p30
+  quote: 'Tariffs available on application: N91, N92, N93'
+  note: Figure 2 (retailer initiated changes to General Supply Pricing Options); N91* is marked default.
+- codes: [N91]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: may be applied to an HV or ST connection point that exists primarily to connect a generator when consumption
+    is under 5% of generation in a billing cycle
+  locator: pdf:p24
+  quote: then Endeavour Energy may apply the General Supply Seasonal Time of Use Network Pricing Option (tariff N91), to that
+    connection point.
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: pdf:p10
+  quote: Low Voltage Grid Connected Storage – N95
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: le
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: must consume no more than 160 MWh per annum
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: the storage device must be directly connected to the low voltage network
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: storage
+  locator: pdf:p11
+  quote: The storage device must be connected to the electricity network for the sole purpose of importing electricity for
+    export at a later time, from the same connection point.
+- codes: [N95]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: not available to storage connected with generation or additional load behind the same connection point
+  locator: pdf:p11
+  quote: Storage connected with generation or additional load behind the same connection point are not eligible.
+- codes: [N19, N20, N89, N29, N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p11
+  quote: 4.1.4. Large Demand
+  note: Section heading 4.1.4 Large Demand covers N19, N20, N89, N29 and N39; Table 6 lists them as Non-Residential.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: Total electricity consumption, per financial year, is greater than 160MWh;
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p11
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p11
+  quote: The meter delivers both interval metering data and demand data.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p31
+  quote: Non-Residential > 160 MWh LV N19 Site Specific
+  note: 'Table 6 columns: Customer Type, Annualised Consumption, Supply Voltage, Default, Alternate (on application). N19
+    is not applied as the default for new (greenfield) sites, which start on N91.'
+- codes: [N29]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p31
+  quote: Non-Residential n/a HV N29 Site Specific
+  note: Table 6 Default column.
+- codes: [N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p31
+  quote: Non-Residential n/a ST N39 Site Specific
+  note: Table 6 Default column.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: opt_out_to
+  target_code: N91
+  locator: pdf:p34
+  quote: In this event the choice of Pricing Option is limited to tariffs N91, N92 or N93.
+  note: Only if 'a history of consistently low consumption (less than 160MWh pa) over the twelve months preceding the date
+    of the application can be established'.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: opt_out_to
+  target_code: N92
+  locator: pdf:p34
+  quote: In this event the choice of Pricing Option is limited to tariffs N91, N92 or N93.
+  note: Only if 'a history of consistently low consumption (less than 160MWh pa) over the twelve months preceding the date
+    of the application can be established'.
+- codes: [N19]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: opt_out_to
+  target_code: N93
+  locator: pdf:p34
+  quote: In this event the choice of Pricing Option is limited to tariffs N91, N92 or N93.
+  note: Only if 'a history of consistently low consumption (less than 160MWh pa) over the twelve months preceding the date
+    of the application can be established'.
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p35
+  quote: Total electricity consumption, per financial year, is greater than 160MWh;
+  note: Section 9.6 Tariff Requests for Embedded Networks.
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p35
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V;
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p35
+  quote: The meter delivers both interval metering data and demand data;
+- codes: [N20]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: connection point is an embedded network
+  locator: pdf:p35
+  quote: Is an Embedded Network.
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p12
+  quote: Total electricity consumption, per financial year, greater than 160MWh but less than 40GWh or 10MVA maximum demand;
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: lt
+  value_num: 40
+  value_unit: GWh/yr
+  locator: pdf:p12
+  quote: Total electricity consumption, per financial year, greater than 160MWh but less than 40GWh or 10MVA maximum demand;
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: demand_max
+  operator: lt
+  value_num: 10
+  value_unit: MVA
+  locator: pdf:p12
+  quote: Total electricity consumption, per financial year, greater than 160MWh but less than 40GWh or 10MVA maximum demand;
+  note: '''less than 40GWh or 10MVA maximum demand'' as published.'
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p12
+  quote: Electricity is supplied at a voltage level defined as Low Voltage (LV) - nominally 230/400 V; and
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p12
+  quote: The meter delivers interval metering data.
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: assigned_by_distributor
+  locator: pdf:p12
+  quote: Tariff N89 is not available by customer request.
+  note: '''Tariff N89 applies to those customers who satisfy the LV STOU Demand (N19) criteria, but cannot be transferred
+    to this tariff due to a lack of metering capable of supporting the demand based tariff.'''
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: availability
+  value_text: transitional
+  locator: pdf:p37
+  quote: N89 is a Transitional Network Tariff applicable to selected customers with annual consumption > 160 MWh. It is not
+    available on application.
+- codes: [N29]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p12
+  quote: Electricity is supplied at a voltage level defined as High Voltage (HV) - nominally 12.7 kV SWER, 11 or 22 kV; and
+- codes: [N29]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p12
+  quote: delivers both interval metering data and demand data.
+- codes: [N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p13
+  quote: Electricity is supplied at a voltage level defined as Sub-transmission (ST) - 33, 66 or 132 kV; and
+- codes: [N39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p13
+  quote: The meter (All meters must have E, Q and K channels/registers) delivers both interval metering data and demand data.
+- codes: [N99, ENSL, ENTL, ENNW]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: are applicable to connection points that are not metered.
+  note: Section 4.2 Unmetered Pricing Options lists N99, ENSL, ENTL and ENNW.
+- codes: [N99]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: The Unmetered Supply tariff applies to unmetered supplies not eligible for supply under unmetered tariff ENSL or
+    ENTL.
+- codes: [ENSL]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p13
+  quote: The unmetered Streetlighting supply tariff applies to streetlighting connection points that are not metered.
+- codes: [ENTL]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: The unmetered Traffic Control Signal Light supply tariff applies to traffic control signal light connection points
+    that are not metered.
+- codes: [ENNW]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p13
+  quote: The unmetered Nightwatch supply tariff applies to night watch connection points that are not metered.
+- codes: [N70]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p63
+  quote: Residential Flat tariff N70
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- codes: [N71]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p63
+  quote: Residential STOU N71
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- codes: [N72]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p63
+  quote: Residential Demand N72
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- codes: [N73]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p63
+  quote: Residential Transitional Demand N73
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- codes: [N705]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p63
+  quote: Obsolete Residential (type 5) TOU N705
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- codes: [N706]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p63
+  quote: Obsolete Residential TOU N706
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- codes: [NC1]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p63
+  quote: Residential / CL1 NC1
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- codes: [NC2]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p63
+  quote: Residential / CL2 NC2
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- codes: [N90]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p63
+  quote: General Supply Block Tariff N90
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'. General Supply tariffs
+    are the 'non-residential customers in the small low voltage tariff class' (section 4.1.1).
+- codes: [N91]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p63
+  quote: General Supply STOU N91
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'. General Supply tariffs
+    are the 'non-residential customers in the small low voltage tariff class' (section 4.1.1).
+- codes: [N92]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p63
+  quote: General Supply (Seaonal) Demand N92
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'. General Supply tariffs
+    are the 'non-residential customers in the small low voltage tariff class' (section 4.1.1).
+- codes: [N93]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p63
+  quote: General Supply Transitional (Seasonal) Demand N93
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'. General Supply tariffs
+    are the 'non-residential customers in the small low voltage tariff class' (section 4.1.1).
+- codes: [N84]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p63
+  quote: Obsolete General Supply TOU N84
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'. General Supply tariffs
+    are the 'non-residential customers in the small low voltage tariff class' (section 4.1.1).
+- codes: [N845]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p63
+  quote: Obsolete General Supply (type 5) TOU N845
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'. General Supply tariffs
+    are the 'non-residential customers in the small low voltage tariff class' (section 4.1.1).
+- codes: [NC3]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p63
+  quote: General Supply / CL1 NC3
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'. General Supply tariffs
+    are the 'non-residential customers in the small low voltage tariff class' (section 4.1.1).
+- codes: [NC4]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p63
+  quote: General Supply / CL2 NC4
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'. General Supply tariffs
+    are the 'non-residential customers in the small low voltage tariff class' (section 4.1.1).
+- codes: [N50]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p63
+  quote: Controlled Load 1 N50
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- codes: [N54]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: pdf:p63
+  quote: Controlled Load 2 N54
+  note: Code linked to the tariff type by its name in Appendix 2 'Proposed Network Prices - FY24'.
+- codes: [N50, N54]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: other
+  value_text: customer must have a residential or general supply tariff
+  locator: pdf:p22
+  quote: these tariffs apply to any customer that has a residential or general supply tariff
+- codes: [N70, N71, N72, N73, N705, N706, N90, N91, N92, N93, N84, N845, N50, N54, NC1, NC2, NC3, NC4]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p10
+  quote: Residential and small to Small Low Voltage LV Connection (230/400 V) Total electricity medium enterprise consumption,
+    per financial year, is less than businesses 160MWh
+  note: Table 2.1 Small Low Voltage tariff class (text as extracted, columns interleaved); class membership from section 4.1.1
+    tariff types.
+- codes: [N70, N71, N72, N73, N705, N706, N90, N91, N92, N93, N84, N845, N50, N54, NC1, NC2, NC3, NC4]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p10
+  quote: Residential and small to Small Low Voltage LV Connection (230/400 V)
+  note: Table 2.1 Small Low Voltage tariff class.
+- codes: [N19, N89]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: consumption_min
+  operator: gt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p10
+  quote: Larger commercial and Large Low Voltage LV Connection (230/400 V) Total electricity light industrial consumption,
+    per financial year, is greater than 160MWh
+  note: Table 2.1 Large Low Voltage tariff class; section 4.1.2 lists its demand and transitional tariffs.
+- codes: [N19, N89]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p10
+  quote: Larger commercial and Large Low Voltage LV Connection (230/400 V) Total electricity light industrial consumption,
+    per financial year, is greater than 160MWh
+- codes: [N19, N89]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p10
+  quote: Larger commercial and Large Low Voltage LV Connection (230/400 V) Total electricity light industrial consumption,
+    per financial year, is greater than 160MWh
+- codes: [N29]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p10
+  quote: Industrial High Voltage Demand HV Connection (12.7 kV SWER, 11 or 22 kV)
+- codes: [N39]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p10
+  quote: Industrial Sub-transmission ST Connection (33, 66 or 132 kV)
+- codes: [N99, SL, TL, NW]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf:p10
+  quote: Unmetered Unmetered Supply Unmetered
+  note: Table 2.1 Unmetered Supply tariff class.
+- codes: [N99, TL, NW]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf:p10
+  quote: Unmetered Unmetered Supply Unmetered
+- codes: [SL]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p23
+  quote: streetlighting connection points;
+  note: 'Section 4.1.6: one of four unmetered energy tariffs; code SL ''Street Lighting Tariff'' in Appendix 2.'
+- codes: [N99]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p23
+  quote: unmetered energy (the default tariff for customers in this tariff class);
+- codes: [N73, N93]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p22
+  quote: will be assigned to the default transitional demand tariff, with the option to opt-out to the alternate cost reflective
+    tariffs or the flat energy tariff;
+  note: 'Applies to new customers and to existing customers whose meter is upgraded to a smart interval meter after 1 July
+    2019 (small low voltage class: residential N73, general supply N93).'
+- codes: [N73]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: N70
+  locator: pdf:p22
+  quote: with the option to opt-out to the alternate cost reflective tariffs or the flat energy tariff;
+  note: Alternate cost reflective tariffs = demand and seasonal TOU tariffs of the same customer type; flat energy tariff
+    = N70.
+- codes: [N73]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: N71
+  locator: pdf:p22
+  quote: with the option to opt-out to the alternate cost reflective tariffs or the flat energy tariff;
+  note: Alternate cost reflective tariffs = demand and seasonal TOU tariffs of the same customer type; flat energy tariff
+    = N70.
+- codes: [N73]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: N72
+  locator: pdf:p22
+  quote: with the option to opt-out to the alternate cost reflective tariffs or the flat energy tariff;
+  note: Alternate cost reflective tariffs = demand and seasonal TOU tariffs of the same customer type; flat energy tariff
+    = N70.
+- codes: [N93]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: N91
+  locator: pdf:p22
+  quote: with the option to opt-out to the alternate cost reflective tariffs or the flat energy tariff;
+  note: Alternate cost reflective tariffs = demand and seasonal TOU tariffs of the same customer type; the non-residential
+    flat/IBT alternative is not named for general supply.
+- codes: [N93]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: opt_out_to
+  target_code: N92
+  locator: pdf:p22
+  quote: with the option to opt-out to the alternate cost reflective tariffs or the flat energy tariff;
+  note: Alternate cost reflective tariffs = demand and seasonal TOU tariffs of the same customer type; the non-residential
+    flat/IBT alternative is not named for general supply.
+- codes: [N71, N72, N73, N91, N92, N93]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p22
+  quote: existing customers with interval meters will remain on their existing tariff (i.e., a flat tariff or IBT as appropriate),
+    with the option to opt-in to the transitional demand tariff, demand tariff or STOU tariff.
+  note: Opt-in route for existing interval-metered customers; N73/N93 are also the default for new/upgraded meters.
+- codes: [N19]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p22
+  quote: The demand tariff is the default tariff for customers that consume more than 160MWh per annum.
+- codes: [N89]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: assigned_by_distributor
+  locator: pdf:p22
+  quote: The transition tariff is not available on customer or retailer request.
+- codes: [N89]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: transitional
+  locator: pdf:p22
+  quote: The transitional large LV demand tariff is a mandated transitional tariff
+- codes: [N29]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p22
+  quote: Our HV demand tariff is the default tariff for customers where electricity is supplied at a voltage level defined
+    as high voltage.
+- codes: [N39]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p23
+  quote: Our ST demand tariff is the default tariff for customers where electricity is supplied at a voltage level defined
+    as subtransmission voltage.
+- codes: [N705, N706, N84, N845]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  rule_type: availability
+  value_text: closed_to_new
+  locator: pdf:p21
+  quote: An obsolete time of use energy tariff that has time of use energy consumption charges (under our existing, obsolete
+    charging windows) and a fixed charge. This tariff is closed to new entrants.
+  note: 'Section 4.1.1 (residential N705/N706 and non-residential N84/N845 obsolete TOU tariffs): ''Customers on this tariff
+    will be reassigned to the default demand cost-reflective tariff as a priority or the STOU if the bill impacts do not allow.'''
+- codes: [N70]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D86
+  quote: Small LV
+  note: Tariff class column for N70 (Residential Flat).
+- codes: [N70]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C86
+  quote: Residential Flat
+  note: Tariff name for N70.
+- codes: [N71]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D87
+  quote: Small LV
+  note: Tariff class column for N71 (Residential STOU).
+- codes: [N71]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C87
+  quote: Residential STOU
+  note: Tariff name for N71.
+- codes: [N72]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D89
+  quote: Small LV
+  note: Tariff class column for N72 (Residential Demand).
+- codes: [N72]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C89
+  quote: Residential Demand
+  note: Tariff name for N72.
+- codes: [N73]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D90
+  quote: Small LV
+  note: Tariff class column for N73 (Residential Demand Transitional).
+- codes: [N73]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C90
+  quote: Residential Demand Transitional
+  note: Tariff name for N73.
+- codes: [N90]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D91
+  quote: Small LV
+  note: Tariff class column for N90 (General Supply Block).
+- codes: [N91]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D92
+  quote: Small LV
+  note: Tariff class column for N91 (GS STOU).
+- codes: [N92]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D94
+  quote: Small LV
+  note: Tariff class column for N92 (GS Demand).
+- codes: [N93]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D95
+  quote: Small LV
+  note: Tariff class column for N93 (GS Demand Transitional).
+- codes: [N50]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D96
+  quote: Small LV
+  note: Tariff class column for N50 (Controlled Load 1).
+- codes: [N50]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C96
+  quote: Controlled Load 1
+  note: Tariff name for N50.
+- codes: [N54]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D97
+  quote: Small LV
+  note: Tariff class column for N54 (Controlled Load 2).
+- codes: [N54]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C97
+  quote: Controlled Load 2
+  note: Tariff name for N54.
+- codes: [N61]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D100
+  quote: Small LV
+  note: Tariff class column for N61 (Prosumer).
+- codes: [N95]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D101
+  quote: Small LV
+  note: Tariff class column for N95 (Storage).
+- codes: [N95]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C101
+  quote: Storage
+  note: Tariff name for N95.
+- codes: [N19]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D103
+  quote: Large LV
+  note: Tariff class column for N19 (LV STOU Demand).
+- codes: [N20]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D104
+  quote: Large LV
+  note: Tariff class column for N20 (LV STOU Demand - Embedded NW).
+- codes: [N89]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D105
+  quote: Large LV
+  note: Tariff class column for N89 (LV STOU Transitional).
+- codes: [N29]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!D107
+  quote: HV Demand
+  note: Tariff class column for N29 (HV STOU Demand).
+- codes: [N39]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!D109
+  quote: Subtransmission
+  note: Tariff class column for N39 (ST STOU Demand).
+- codes: [N99]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D111
+  quote: Unmetered
+  note: Tariff class column for N99 (Unmetered Supply).
+- codes: [N99]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C111
+  quote: Unmetered Supply
+  note: Tariff name for N99.
+- codes: [SL]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D112
+  quote: Unmetered
+  note: Tariff class column for SL (Streetlighting).
+- codes: [SL]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: xlsx:Tariff schedule!C112
+  quote: Streetlighting
+  note: Tariff name for SL.
+- codes: [TL]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D113
+  quote: Unmetered
+  note: Tariff class column for TL (Traffic Control Signal Lights).
+- codes: [TL]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D113
+  quote: Unmetered
+  note: Tariff class column ('Tariff class' header, D83) for TL (Traffic Control Signal Lights).
+- codes: [NW]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D114
+  quote: Unmetered
+  note: Tariff class column for NW (Nightwatch).
+- codes: [NW]
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!D114
+  quote: Unmetered
+  note: Tariff class column ('Tariff class' header, D83) for NW (Nightwatch).
+- codes: [N70]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C253
+  quote: Residential Flat
+  note: Tariff name for N70 in the Endeavour Energy section of the consolidated report.
+- codes: [N71]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C254
+  quote: Residential STOU
+  note: Tariff name for N71 in the Endeavour Energy section of the consolidated report.
+- codes: [N72]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C256
+  quote: Residential Demand
+  note: Tariff name for N72 in the Endeavour Energy section of the consolidated report.
+- codes: [N73]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C257
+  quote: Residential Demand Transitional
+  note: Tariff name for N73 in the Endeavour Energy section of the consolidated report.
+- codes: [N50]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C263
+  quote: Controlled Load 1
+  note: Tariff name for N50 in the Endeavour Energy section of the consolidated report.
+- codes: [N54]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C264
+  quote: Controlled Load 2
+  note: Tariff name for N54 in the Endeavour Energy section of the consolidated report.
+- codes: [N95]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C268
+  quote: Storage
+  note: Tariff name for N95 in the Endeavour Energy section of the consolidated report.
+- codes: [N19]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C270
+  quote: LV STOU Demand
+  note: Tariff name for N19.
+- codes: [N20]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C271
+  quote: LV STOU Demand - Embedded NW
+  note: Tariff name for N20.
+- codes: [N89]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C272
+  quote: LV STOU Transitional
+  note: Tariff name for N89.
+- codes: [N29]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C274
+  quote: HV STOU Demand
+  note: Tariff name for N29.
+- codes: [N39]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!C276
+  quote: ST STOU Demand
+  note: Tariff name for N39.
+- codes: [N99]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C278
+  quote: Unmetered Supply
+  note: Tariff name for N99 in the Endeavour Energy section of the consolidated report.
+- codes: [SL]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: xlsx:Tariff schedule!C279
+  quote: Streetlighting
+  note: Tariff name for SL in the Endeavour Energy section of the consolidated report.
+- codes: [N70]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C253
+  quote: Residential Flat
+  note: Tariff name for N70 in the Endeavour Energy section of the consolidated report.
+- codes: [N71]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C254
+  quote: Residential STOU
+  note: Tariff name for N71 in the Endeavour Energy section of the consolidated report.
+- codes: [N72]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C256
+  quote: Residential Demand
+  note: Tariff name for N72 in the Endeavour Energy section of the consolidated report.
+- codes: [N73]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!C257
+  quote: Residential Demand Transitional
+  note: Tariff name for N73 in the Endeavour Energy section of the consolidated report.
+- codes: [N50]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C263
+  quote: Controlled Load 1
+  note: Tariff name for N50 in the Endeavour Energy section of the consolidated report.
+- codes: [N54]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: controlled_load
+  locator: xlsx:Tariff schedule!C264
+  quote: Controlled Load 2
+  note: Tariff name for N54 in the Endeavour Energy section of the consolidated report.
+- codes: [N95]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: storage
+  locator: xlsx:Tariff schedule!C268
+  quote: Storage
+  note: Tariff name for N95 in the Endeavour Energy section of the consolidated report.
+- codes: [N19]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C274
+  quote: LV STOU Demand
+  note: Tariff name for N19.
+- codes: [N20]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C275
+  quote: LV STOU Demand - Embedded NW
+  note: Tariff name for N20.
+- codes: [N89]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!C276
+  quote: LV STOU Transitional
+  note: Tariff name for N89.
+- codes: [N29]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!C278
+  quote: HV STOU Demand
+  note: Tariff name for N29.
+- codes: [N39]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!C280
+  quote: ST STOU Demand
+  note: Tariff name for N39.
+- codes: [N99]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C282
+  quote: Unmetered Supply
+  note: Tariff name for N99 in the Endeavour Energy section of the consolidated report.
+- codes: [ENSL]
+  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: xlsx:Tariff schedule!C283
+  quote: Streetlighting
+  note: Tariff name for ENSL in the Endeavour Energy section of the consolidated report.
+relations:
+- from: N61
+  type: export_companion
+  to: N71
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p8
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N71, N72 and N73).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N72
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p8
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N71, N72 and N73).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N73
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p8
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N71, N72 and N73).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N91
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p11
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N91, N92 and N93).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N92
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p11
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N91, N92 and N93).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N93
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p11
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N91, N92 and N93).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: NC01
+  type: same_prices_as
+  to: N70
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NC01 Domestic (BT) + Controlled Load 1 N70 N50
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NC01
+  type: same_prices_as
+  to: N50
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NC01 Domestic (BT) + Controlled Load 1 N70 N50
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Controlled
+    load component.'
+- from: NC02
+  type: same_prices_as
+  to: N70
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NC02 Domestic (BT) + Controlled Load 2 N70 N54
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NC02
+  type: same_prices_as
+  to: N54
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NC02 Domestic (BT) + Controlled Load 2 N70 N54
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Controlled
+    load component.'
+- from: NC03
+  type: same_prices_as
+  to: N90
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NC03 General Supply BT + Controlled Load 1 N90 N50
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NC03
+  type: same_prices_as
+  to: N50
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NC03 General Supply BT + Controlled Load 1 N90 N50
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Controlled
+    load component.'
+- from: NC04
+  type: same_prices_as
+  to: N90
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NC04 General Supply BT + Controlled Load 2 N90 N54
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NC04
+  type: same_prices_as
+  to: N54
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NC04 General Supply BT + Controlled Load 2 N90 N54
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Controlled
+    load component.'
+- from: NS70
+  type: same_prices_as
+  to: N70
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NS70 Domestic (BT) Solar (Net) N70 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NG70
+  type: same_prices_as
+  to: N70
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NG70 Domestic (BT) Solar (Gross) N70 NESG
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NS90
+  type: same_prices_as
+  to: N90
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NS90 General Supply Non-TOU (BT) Solar (Net) N90 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NG90
+  type: same_prices_as
+  to: N90
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p32
+  quote: NG90 General Supply Non-TOU (BT) Solar (Gross) N90 NESG
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NS19
+  type: same_prices_as
+  to: N19
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NS19 LV Demand TOU Solar (Net) N19 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NS29
+  type: same_prices_as
+  to: N29
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NS29 HV Demand TOU Solar (Net) N29 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NS39
+  type: same_prices_as
+  to: N39
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NS39 ST Demand TOU Solar (Net) N39 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFTG
+  type: same_prices_as
+  to: N70
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTG N70 NESG
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFTH
+  type: same_prices_as
+  to: N70
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTH N70 NESG
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFTJ
+  type: same_prices_as
+  to: N90
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTJ N90 NESG
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFTK
+  type: same_prices_as
+  to: N90
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTK N90 NESG
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFT9
+  type: same_prices_as
+  to: N70
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFT9 N70 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFT0
+  type: same_prices_as
+  to: N70
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFT0 N70 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFTA
+  type: same_prices_as
+  to: N90
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTA N90 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFTB
+  type: same_prices_as
+  to: N90
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTB N90 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFTC
+  type: same_prices_as
+  to: N70
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTC N70 N50 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFTC
+  type: same_prices_as
+  to: N50
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTC N70 N50 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Controlled
+    load component.'
+- from: NFTD
+  type: same_prices_as
+  to: N70
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTD N70 N54 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFTD
+  type: same_prices_as
+  to: N54
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTD N70 N54 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Controlled
+    load component.'
+- from: NFTE
+  type: same_prices_as
+  to: N90
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTE N90 N50 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFTE
+  type: same_prices_as
+  to: N50
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTE N90 N50 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Controlled
+    load component.'
+- from: NFTF
+  type: same_prices_as
+  to: N90
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTF N90 N54 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Primary load
+    component.'
+- from: NFTF
+  type: same_prices_as
+  to: N54
+  fin_year: 2024-25
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  locator: pdf:p33
+  quote: NFTF N90 N54 NESN
+  note: 'Table 7 ''Mapping Obsolete / Combination tariff codes to their equivalent individual network tariff codes''; section
+    4.4: ''Obsolete Pricing Options were formulated on the basis of the equivalent Standard Pricing Options.'' Controlled
+    load component.'
+- from: N61
+  type: export_companion
+  to: N71
+  fin_year: 2025-26
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  locator: pdf:p7
+  quote: 'applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (Residential: N71, N72 and N73. General
+    Supply: N91, N92 and N93).'
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N72
+  fin_year: 2025-26
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  locator: pdf:p7
+  quote: 'applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (Residential: N71, N72 and N73. General
+    Supply: N91, N92 and N93).'
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N73
+  fin_year: 2025-26
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  locator: pdf:p7
+  quote: 'applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (Residential: N71, N72 and N73. General
+    Supply: N91, N92 and N93).'
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N91
+  fin_year: 2025-26
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  locator: pdf:p10
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N91, N92 and N93).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N92
+  fin_year: 2025-26
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  locator: pdf:p10
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N91, N92 and N93).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N93
+  fin_year: 2025-26
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  locator: pdf:p10
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N91, N92 and N93).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N71
+  fin_year: 2026-27
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  locator: pdf:p7
+  quote: 'applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (Residential: N71, N72 and N73. General
+    Supply: N91, N92 and N93).'
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N72
+  fin_year: 2026-27
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  locator: pdf:p7
+  quote: 'applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (Residential: N71, N72 and N73. General
+    Supply: N91, N92 and N93).'
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N73
+  fin_year: 2026-27
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  locator: pdf:p7
+  quote: 'applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (Residential: N71, N72 and N73. General
+    Supply: N91, N92 and N93).'
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N91
+  fin_year: 2026-27
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  locator: pdf:p10
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N91, N92 and N93).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N92
+  fin_year: 2026-27
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  locator: pdf:p10
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N91, N92 and N93).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+- from: N61
+  type: export_companion
+  to: N93
+  fin_year: 2026-27
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  locator: pdf:p10
+  quote: applied alongside our seasonal TOU energy and seasonal TOU demand tariffs (N91, N92 and N93).
+  note: N61 (Prosumer, two-way) is an optional secondary tariff applied alongside the primary tariff.
+flags:
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  flag: transitional
+  locator: pdf:p39
+  quote: N89 is a Transitional Network Tariff applicable to selected customers with annual consumption > 160 MWh. It is not
+    available on application.
+- codes: [NS70, NG70, NFTG, NFTH, NFT9, NFT0, NC01, NC02, NFTC, NFTD, NS90, NG90, NFTJ, NFTK, NFTA, NFTB, NC03, NC04, NFTE,
+    NFTF, NS19, NS29, NS39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  flag: obsolete
+  locator: pdf:p42
+  quote: The tariffs in this table are obsolete and no new customers will be added to them. They are not available on application.
+- codes: [NS70, NG70, NFTG, NFTH, NFT9, NFT0, NC01, NC02, NFTC, NFTD, NS90, NG90, NFTJ, NFTK, NFTA, NFTB, NC03, NC04, NFTE,
+    NFTF, NS19, NS29, NS39]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p42
+  quote: The tariffs in this table are obsolete and no new customers will be added to them. They are not available on application.
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  flag: transitional
+  locator: pdf:p37
+  quote: N89 is a Transitional Network Tariff applicable to selected customers with annual consumption > 160 MWh. It is not
+    available on application.
+- codes: [N89]
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  flag: transitional
+  locator: pdf:p37
+  quote: N89 is a Transitional Network Tariff applicable to selected customers with annual consumption > 160 MWh. It is not
+    available on application.
+- codes: [N89]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: transitional
+  locator: pdf:p22
+  quote: The transitional large LV demand tariff is a mandated transitional tariff
+- codes: [N705]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: obsolete
+  locator: pdf:p63
+  quote: Obsolete Residential (type 5) TOU N705
+- codes: [N706]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: obsolete
+  locator: pdf:p63
+  quote: Obsolete Residential TOU N706
+- codes: [N84]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: obsolete
+  locator: pdf:p63
+  quote: Obsolete General Supply TOU N84
+- codes: [N845]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: obsolete
+  locator: pdf:p63
+  quote: Obsolete General Supply (type 5) TOU N845
+- codes: [N705, N706, N84, N845]
+  doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: pdf:p21
+  quote: An obsolete time of use energy tariff that has time of use energy consumption charges (under our existing, obsolete
+    charging windows) and a fixed charge. This tariff is closed to new entrants.

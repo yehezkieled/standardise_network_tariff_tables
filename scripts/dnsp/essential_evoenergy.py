@@ -28,6 +28,7 @@ sys.path.insert(0, "scripts")
 from published import cell_value
 import schema  # noqa: E402
 import units  # noqa: E402
+from tariffdb import locators  # noqa: E402
 
 ROOT = os.getcwd()
 OUT = os.path.join("out", "dnsp", "essential_evoenergy.csv")
@@ -137,7 +138,7 @@ def season(label):
 
 
 def make_row(distributor, fin_year, side, path, url, code, name, cls, component, unit, value,
-             gst, basis, note):
+             gst, basis, note, locator):
     unit_pub = clean(unit)
     value = re.sub(r"^-\s+(?=\d)", "-", str(value).replace(",", "").strip())
     if re.search(r"kvah", unit_pub, re.I):
@@ -167,6 +168,7 @@ def make_row(distributor, fin_year, side, path, url, code, name, cls, component,
         "source_file": path,
         "source_url": url,
         "note": note,
+        "locator": locator,
     }
 
 
@@ -372,7 +374,8 @@ def parse_essential_xlsx(path, fin_year, side, url):
                 for code, cnote in emit_codes:
                     rows_out.append(make_row("Essential Energy", fin_year, side, path, url, code, name, section,
                                              label, unit, cell_value(cell_row[c - 1]), gst, basis,
-                                             "; ".join(n for n in notes + comp_note + ([cnote] if cnote else []) if n)))
+                                             "; ".join(n for n in notes + comp_note + ([cnote] if cnote else []) if n),
+                                             locators.xlsx(ws, cell_row[c - 1])))
     return rows_out
 
 
@@ -555,7 +558,7 @@ def parse_essential_pdf(path, fin_year, side, url):
                         cnote.append(foot["*"])
                     rows_out.append(make_row("Essential Energy", fin_year, side, path, url, code, name, cls,
                                              label.replace("*", "").strip(), unit, str(raw).replace("^", "").replace("*", "").replace(",", "").strip(), gst, "NUoS",
-                                             "; ".join(notes + cnote)))
+                                             "; ".join(notes + cnote), locators.pdf(pno)))
     return rows_out
 
 
@@ -696,7 +699,7 @@ def parse_evo_statement(path, fin_year, side, url):
             else:
                 continue  # metering capital / non-capital columns (alternative control) not emitted
             rows_out.append(make_row("Evoenergy", fin_year, side, path, url, r["code"], name, cls, r["label"], r["unit"], val,
-                                     "excl", basis, "; ".join([note] + notes_common)))
+                                     "excl", basis, "; ".join([note] + notes_common), locators.pdf(r["page"])))
     base27 = "Table 2.7 2022/23 and 2023/24 NUOS tariffs, excluding metering (nominal)"
     for r in recs27:
         for col, val in r["values"].items():
@@ -706,7 +709,7 @@ def parse_evo_statement(path, fin_year, side, url):
             if v is None:
                 continue
             rows_out.append(make_row("Evoenergy", fin_year, side, path, url, r["code"], r["name"], r["section"] or "", r["label"], r["unit"], val,
-                                     "excl", "NUoS", "; ".join(["LFiT included: NUOS 2023/24 column (excludes metering; LFiT rebate applied via the JS price)", base27, f"page {r['page']}"])))
+                                     "excl", "NUoS", "; ".join(["LFiT included: NUOS 2023/24 column (excludes metering; LFiT rebate applied via the JS price)", base27, f"page {r['page']}"]), locators.pdf(r["page"])))
     return rows_out
 
 
@@ -905,7 +908,8 @@ def parse_evo_proposal(path, fin_year, side, url, reference_rows):
                              ("JSA", "JS prices", "JS prices column (jurisdictional schemes excluding LFiT)"),
                              ("NUoS", "NUOS prices", "NUOS prices column = DUOS + TUOS + JS; excludes metering")):
             rows_out.append(make_row("Evoenergy", fin_year, side, path, url, r["code"], r["name"], r["section"] or "", label, r["unit"],
-                                     f'{r["nums"][key]:.3f}', "excl", b, "; ".join(notes + [note])))
+                                     f'{r["nums"][key]:.3f}', "excl", b, "; ".join(notes + [note]),
+                                     locators.pdf(r["page"], ocr=True)))
     if not rows_out:
         raise RuntimeError("Evoenergy proposal OCR produced no validated price rows")
     return rows_out
@@ -984,7 +988,7 @@ def parse_evo_pdf(path, fin_year, side, url, lfit_note):
                     if app:
                         notes.append("applicability: " + app)
                     rows_out.append(make_row("Evoenergy", fin_year, side, path, url, code, name, cls, comp, uw["text"], rate,
-                                             "excl", "NUoS", "; ".join(notes)))
+                                             "excl", "NUoS", "; ".join(notes), locators.pdf(int(pl[0] // 10000))))
                 block, price_lines = [], []
 
             for top, lw in lines:
@@ -1095,7 +1099,8 @@ def parse_evo_xlsx(path, fin_year, side, url, lfit_note):
             notes.append(tariff_note)
         if app:
             notes.append("applicability: " + app.replace("\n", " "))
-        rows_out.append(make_row("Evoenergy", fin_year, side, path, url, code, name, section, comp, unit, cell_value(cell_row[rate_col - 1]), gst, "NUoS", "; ".join(notes)))
+        rows_out.append(make_row("Evoenergy", fin_year, side, path, url, code, name, section, comp, unit, cell_value(cell_row[rate_col - 1]), gst, "NUoS", "; ".join(notes),
+                                 locators.xlsx(ws, cell_row[rate_col - 1])))
     names_per_code = {}
     for r in rows_out:
         names_per_code.setdefault(r["tariff_code"], set()).add(r["tariff_name"])

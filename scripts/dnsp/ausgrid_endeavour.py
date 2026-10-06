@@ -20,6 +20,8 @@ import pdfplumber
 sys.path.insert(0, "scripts")
 import schema  # noqa: E402
 import units  # noqa: E402
+sys.path.insert(0, "scripts/tariffdb")
+import locators  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 OUT = os.path.join(ROOT, "out", "dnsp", "ausgrid_endeavour.csv")
@@ -73,7 +75,7 @@ def norm_unit(u):
 
 
 def make_row(dist, fy, side, path, url, code, name, cls, component, unit, value, basis, gst, note,
-             time_band=None, season=None, charge_type=None):
+             locator, time_band=None, season=None, charge_type=None):
     vstd, ustd = units.to_std(value, unit, component)
     return {
         "side": side, "distributor": dist, "fin_year": fy, "tariff_code": code.strip(), "tariff_name": name.strip(),
@@ -84,6 +86,7 @@ def make_row(dist, fy, side, path, url, code, name, cls, component, unit, value,
         "unit": unit, "value": repr(float(value)) if isinstance(value, float) else str(value),
         "value_std": "" if vstd is None else repr(float(vstd)), "unit_std": ustd, "gst": gst, "basis": basis,
         "source_file": path, "source_url": url, "note": note,
+        "locator": locator,
     }
 
 
@@ -373,7 +376,7 @@ def parse_ausgrid_price_list(dist, fy, side, path, url):
                         if raw.endswith("*") and footnotes.get("*"):
                             note += "; footnote: " + footnotes["*"]
                         rows.append(make_row(dist, fy, side, path, url, code, name, r["class"], comp, col["unit"], raw.replace("\n", "").replace(",", "").rstrip("*").strip(),
-                                             "NUoS", gst, note))
+                                             "NUoS", gst, note, locators.pdf(pno)))
     # validate GST-inclusive pages against exclusive rows (incl = excl * 1.1, 4dp)
     checked = 0
     for r in rows:
@@ -435,7 +438,7 @@ def parse_ausgrid_proposal_2324(dist, fy, side, path, url):
                                 warn(f"{path} p{pno} {r['code']} {comp}: unparsed cell {raw!r}")
                             continue
                         rows.append(make_row(dist, fy, side, path, url, r["code"], name, r["class"], comp, col["unit"], raw.replace("\n", "").replace(",", "").rstrip("*").strip(),
-                                             basis, gst, "; ".join(notes)))
+                                             basis, gst, "; ".join(notes), locators.pdf(pno)))
     if found != {"NUoS", "DUoS", "TUoS", "JSA"}:
         warn(f"{path}: expected 4 tables, found {found}")
     # consistency check: NUOS = DUOS + TUOS + JSA
@@ -600,7 +603,7 @@ def parse_endeavour_price_list(dist, fy, side, path, url):
                                  + (comp_quote or "Network prices comprise Distribution (DUOS) charges including Metering, "
                                     "Transmission (TUOS) passthroughs and recovery of the NSW CCF and EIR contributions")
                                  + "\"; no metering/network split published")
-                    rows.append(make_row(dist, fy, side, path, url, code, name, "", lab, u, v, "NUoS", gst, note))
+                    rows.append(make_row(dist, fy, side, path, url, code, name, "", lab, u, v, "NUoS", gst, note, locators.pdf(pno)))
     for key, v in incl.items():
         if key in excl_vals and abs(v - round(excl_vals[key] * Decimal("1.1"), 4)) > 0.00051:
             warn(f"{path}: GST check {key}: excl {excl_vals[key]} *1.1 != incl {v}")
@@ -707,7 +710,8 @@ def parse_endeavour_proposal_2324(dist, fy, side, path, url):
                     notes.append("obsolete tariff")
                 if "Transitional" in name:
                     notes.append("transitional tariff")
-                rows.append(make_row(dist, fy, side, path, url, code, name, "", lab, u, v, basis, gst, "; ".join(notes)))
+                rows.append(make_row(dist, fy, side, path, url, code, name, "", lab, u, v, basis, gst, "; ".join(notes),
+                                     locators.pdf(pno)))
     # additive check
     bad = 0
     for code, (name, vals, pno, gst) in ref.items():

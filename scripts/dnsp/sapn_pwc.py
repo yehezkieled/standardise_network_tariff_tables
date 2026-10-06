@@ -30,6 +30,7 @@ import pdfplumber
 sys.path.insert(0, "scripts")
 import schema  # noqa: E402
 import units  # noqa: E402
+from tariffdb import locators  # noqa: E402
 
 ROOT = os.getcwd()
 OUT_PATH = os.path.join("out", "dnsp", "sapn_pwc.csv")
@@ -261,7 +262,7 @@ def money_values(words):
 
 def make_row(distributor, fin_year, side, code, name, cls, component, unit, value, gst, basis,
              source_file, source_url, note, charge_type=None, time_band=None, season=None,
-             std_unit=None):
+             std_unit=None, locator=""):
     vstd, ustd = units.to_std(value, std_unit or unit, component)
     return {
         "side": side,
@@ -283,6 +284,7 @@ def make_row(distributor, fin_year, side, code, name, cls, component, unit, valu
         "source_file": source_file,
         "source_url": source_url,
         "note": "; ".join(p for p in note if p),
+        "locator": locator,
     }
 
 
@@ -641,7 +643,7 @@ def sapn_parse_page(lines, hdr, basis, ctx, state):
                     SAPN, ctx["fin_year"], ctx["side"], published_code, name, cls, comp, hdr.units[k], v,
                     "excl", basis, ctx["file"], ctx["url"],
                     [ctx["table_note"], ctx.get("doc_note", ""), site] + variant_notes + extra + [ctx["gst_note"]],
-                    charge_type=ct, time_band=tb))
+                    charge_type=ct, time_band=tb, locator=locators.pdf(ctx["page"])))
     return rows
 
 
@@ -823,7 +825,8 @@ def pwc_emit(cur, cols, centres, gst, fin_year, side, path, url, extra, title, f
             std_unit = "$/kVA/month"
             note.append(extra["demand_period_note"])
         out.append(make_row(PWC, fin_year, side, cur["code"], " ".join(cur["name"]), "", label, unit, v,
-                            gst, "unknown", path, url, note, charge_type=pwc_charge_type(label), std_unit=std_unit))
+                            gst, "unknown", path, url, note, charge_type=pwc_charge_type(label), std_unit=std_unit,
+                            locator=locators.pdf(1)))  # one-pager: only pdf.pages[0] is parsed
     cur["vals"] = []
     return out
 
@@ -890,7 +893,8 @@ def parse_pwc_7col(path, fin_year, side, url, extra):
                         note.append(unit_note)
                     note.append("'-' placeholders in other columns omitted")
                     rows.append(make_row(PWC, fin_year, side, cur["code"], " ".join(cur["name"]), "", label, unit_pub, v,
-                                         "excl", "unknown", path, url, note, charge_type=pwc_charge_type(label)))
+                                         "excl", "unknown", path, url, note, charge_type=pwc_charge_type(label),
+                                         locator=locators.pdf(pno)))
             break
     return rows
 
@@ -958,7 +962,8 @@ def parse_pwc_indicative(path, fin_year, side, url, extra):
             std_unit = "$/kVA/month"
             note.append(extra["demand_period_note"])
         out.append(make_row(PWC, fin_year, side, cur["code"], cur["name"], "", comp["label"], unit, comp["value"],
-                            "excl", "unknown", path, url, note, charge_type=pwc_charge_type(comp["label"]), std_unit=std_unit))
+                            "excl", "unknown", path, url, note, charge_type=pwc_charge_type(comp["label"]), std_unit=std_unit,
+                            locator=locators.pdf(comp["page"])))
     return out
 
 

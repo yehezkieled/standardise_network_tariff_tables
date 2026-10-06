@@ -22,3 +22,22 @@ jobs:
         run: python -m pip install openpyxl pdfplumber
       - name: Regression suite
         run: python -m unittest tests/test_reconciliation.py
+
+  tariffdb:
+    # The tariff database tests: schema, loads into SQLite and a real PostgreSQL (the pgserver wheel), history rules,
+    # exceptions, and every value and quote re-read from the source documents committed in the repository (the other
+    # documents are fetched by ./run.sh, so TARIFFDB_SOURCES=committed limits the re-reads to those files).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install the packages the suite imports
+        run: python -m pip install openpyxl pdfplumber pyyaml pgserver rapidocr_onnxruntime
+      - name: Tariff database suite
+        run: |
+          export TARIFFDB_PG_BIN="$(python -c 'import os, pgserver; print(os.path.join(os.path.dirname(pgserver.__file__), "pginstall", "bin"))')"
+          python -m unittest tests/test_tariffdb.py
+        env:
+          TARIFFDB_SOURCES: committed

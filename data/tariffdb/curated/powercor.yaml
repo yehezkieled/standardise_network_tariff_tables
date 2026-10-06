@@ -1,0 +1,5260 @@
+# Hand-curated facts for powercor (see scripts/tariffdb/curated.py for the format).
+# Generated from verbatim quotes; every quote is re-checked by the validator.
+distributor: powercor
+tou_schedules:
+- id: powercor-2425-pdf-slab-heating
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Dedicated circuit (DD1) slab heating typical switching times
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: Typically switching times may vary depending on localised demand management activities normally between 12am and 7am.
+  note: 'Typical times only; ''An afternoon boost between 1pm and 4pm may occur during winter'' (winter months not defined).
+    Hot water: ''Switching times will vary depending on localised demand management activities'' (no times). Tariff link: in
+    the Table 4 notes (p9-p10) the ''Hot water'' and ''Slab heating'' sub-notes follow the note ''DD1 is available to customers
+    with a dedicated circuit connected to a time-switch''.'
+  windows: &id001
+  - period: controlled_load_supply
+    label: normally 12am-7am
+    days: all_days
+    start: 00:00
+    end: 07:00
+  tariffs:
+  - codes:
+    - DD1
+    applies_to: controlled_load
+    locator: pdf:p9
+    quote: DD1 is available to customers with a dedicated circuit connected to a time-switch
+- id: powercor-2425-pdf-sb-tou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Small business ToU (NDTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p10
+  quote: ToU NDTOU Default workdays 9am- Non-peak times 9pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5: peak energy ''workdays 9am-9pm'', off-peak energy ''Non-peak times''). Notes: ''All times are local time, except for PL2''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: 09:00
+  - period: peak
+    label: peak workdays 9am-9pm
+    days: business_day
+    start: 09:00
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDTOU
+    applies_to: energy
+- id: powercor-2425-pdf-ndmo21-tou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Medium business opt-out (NDMO21) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p10
+  quote: workdays 10am- Medium business opt-out NDMO21 no-1do <160MWh pa Non-peak times 6pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5: peak energy ''workdays 10am-6pm'', off-peak energy ''Non-peak times''); ''no-1do'' is the OCR reading of the rotated status cell ''Opt-out''. Notes: ''All times are local time, except for PL2''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: peak
+    label: peak workdays 10am-6pm
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '18:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDMO21
+    applies_to: energy
+- id: powercor-2425-pdf-pl2-tou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Unmetered supply (PL2) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p10
+  quote: Unmetered supply weekdays 7am- PL2 Default unmetered Non-peak times 11pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5: peak energy ''weekdays 7am-11pm'', off-peak energy ''Non-peak times''). p5: ''Exceptions are unmetered supply tariff PL2 where the tariff is based on Australian Eastern Standard Time (AEST).'' Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak weekdays 7am-11pm
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PL2
+    applies_to: energy
+- id: powercor-2425-pdf-ndd-ndm-demand
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Small / medium business demand (NDD, NDM) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p10
+  quote: Demand NDD Opt-in workdays 10am- workdays 10am- 6pm 6pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row: summer and non-summer demand columns both read ''workdays 10am-6pm'' on the NDD row; the NDM row reads ''workdays 10am- workdays 10am- Mediumbusinessdemand NDM Default √ <120KVA 6pm 6pm''. Notes: ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - NDD
+    applies_to: demand
+  - codes:
+    - NDM
+    applies_to: demand
+    locator: pdf-ocr:p10
+    quote: workdays 10am- workdays 10am- Mediumbusinessdemand NDM Default √ <120KVA 6pm 6pm
+- id: powercor-2425-pdf-ndm-energy-bill
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Medium business demand (NDM) energy as shown on the bill
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p11
+  quote: NDM energy rate is reflected as anytime rate in our pricing schedule, however on our bill it will show as peak 7am-11pm workdays and off peak all other time with the exactly the same rate
+  note: Same (anytime) rate in both periods. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: off_peak
+    label: off peak all other time
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-11pm workdays
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: off peak all other time
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: off peak all other time
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: energy
+- id: powercor-2425-pdf-large-energy
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Large LV / HV / sub-transmission peak and off-peak usage
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p13
+  quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other times.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each tariff link quotes the code''s row of Table 6 (an image; rendered-page OCR, p11), whose peak energy column reads ''workdays
+    7am-7pm''.'
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '19:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    applies_to: energy
+    locator: pdf-ocr:p11
+    quote: LLVT1 Closed workdays 7am- workdays 7am- Large Low Voltage transition <1kV ≥120kVA 120 Non-peak times 1-4pm or 4-7pm
+      LLVT2 7pm 7pm
+  - codes:
+    - HVT1
+    - HVT2
+    applies_to: energy
+    locator: pdf-ocr:p11
+    quote: HVT1 Closed workdays 7am- workdays 7am- HighVoltage transition ≥1kV<66KV N/A 500 Non-peak times 1-4pm or 4-7pm HVT2
+      7pm 7pm
+  - codes:
+    - LLV1
+    - LLV2
+    applies_to: energy
+    locator: pdf-ocr:p11
+    quote: LLV1 Default workdays 7am- workdays 7am- LargeLowVoltage <1kV ≥120kVA 120 Non-peak times 1-4pm or 4-7pm LLV2 7pm
+      7pm
+  - codes:
+    - HV1
+    - HV2
+    applies_to: energy
+    locator: pdf-ocr:p11
+    quote: HV1 workdays 7am- High Voltage 500 workdays 7am- Default ≥ 1kV <66KV N/A Non-peak times 1-4pm or 4-7pm HV2 7pm 7pm
+  - codes:
+    - ST2
+    applies_to: energy
+    locator: pdf-ocr:p11
+    quote: ST2 Default ≥ 66kV N/A workdays 7am- workdays 7am- Sub-transmission 5000 Non-peak times 4-7pm 7pm 7pm
+- id: powercor-2425-pdf-large-rolling
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Large LV / HV / sub-transmission 12-month rolling demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p13
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each tariff link quotes the code''s row of Table 6 (an image; rendered-page OCR, p11), whose 12-month rolling demand column
+    reads ''workdays 7am-7pm''.'
+  windows:
+  - period: demand_window
+    label: rolling demand 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    applies_to: demand
+    locator: pdf-ocr:p11
+    quote: LLVT1 Closed workdays 7am- workdays 7am- Large Low Voltage transition <1kV ≥120kVA 120 Non-peak times 1-4pm or 4-7pm
+      LLVT2 7pm 7pm
+  - codes:
+    - HVT1
+    - HVT2
+    applies_to: demand
+    locator: pdf-ocr:p11
+    quote: HVT1 Closed workdays 7am- workdays 7am- HighVoltage transition ≥1kV<66KV N/A 500 Non-peak times 1-4pm or 4-7pm HVT2
+      7pm 7pm
+  - codes:
+    - LLV1
+    - LLV2
+    applies_to: demand
+    locator: pdf-ocr:p11
+    quote: LLV1 Default workdays 7am- workdays 7am- LargeLowVoltage <1kV ≥120kVA 120 Non-peak times 1-4pm or 4-7pm LLV2 7pm
+      7pm
+  - codes:
+    - HV1
+    - HV2
+    applies_to: demand
+    locator: pdf-ocr:p11
+    quote: HV1 workdays 7am- High Voltage 500 workdays 7am- Default ≥ 1kV <66KV N/A Non-peak times 1-4pm or 4-7pm HV2 7pm 7pm
+  - codes:
+    - ST2
+    applies_to: demand
+    locator: pdf-ocr:p11
+    quote: ST2 Default ≥ 66kV N/A workdays 7am- workdays 7am- Sub-transmission 5000 Non-peak times 4-7pm 7pm 7pm
+- id: powercor-2425-pdf-large-incentive-1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: 'Large tariffs ending 1: summer incentive demand 1-4pm'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: 'Kva section: summer incentive is the ''maximum monthly 15-minute kVA for the December to March months'' measured on each workday. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: summer incentive 1-4pm
+    days: business_day
+    start: '13:00'
+    end: '16:00'
+    months: 12,1,2,3
+    season: summer
+    locator: pdf:p13
+    quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
+      the other eight months of the year. Maximum monthly kVA is based on a fixed either a 1-4pm or 4-7pm measurement period on
+      each workday of the applicable months.
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLV1
+    - HVT1
+    - HV1
+    applies_to: demand
+- id: powercor-2425-pdf-large-incentive-2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: 'Large tariffs ending 2: summer incentive demand 4-7pm'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: 'Kva section: summer incentive is the ''maximum monthly 15-minute kVA for the December to March months'' measured on each workday. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: summer incentive 4-7pm
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 12,1,2,3
+    season: summer
+    locator: pdf:p13
+    quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
+      the other eight months of the year. Maximum monthly kVA is based on a fixed either a 1-4pm or 4-7pm measurement period on
+      each workday of the applicable months.
+  tariffs:
+  - codes:
+    - LLVT2
+    - LLV2
+    - HVT2
+    - HV2
+    applies_to: demand
+- id: powercor-2425-pdf-prds
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Residential daytime saver trial (PRDS) peak / saver / off-peak
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p6
+  quote: Peak period is 4pm-9pm, saver period is 10am-3pm, and off-peak is all other times, from Monday to Sunday, local time
+  note: The windows quote is a note under the heading 'Residential daytime saver:' (p6); the tariff link quotes the Table 2
+    row (rendered-page OCR, same page) that gives that tariff the code PRDS.
+  windows:
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: 00:00
+    end: '10:00'
+  - period: solar_soak
+    label: saver 10am-3pm
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: '15:00'
+    end: '16:00'
+  - period: peak
+    label: peak 4pm-9pm
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PRDS
+    applies_to: all
+    locator: pdf-ocr:p6
+    quote: Residentialdaytime saver PRDS
+- id: powercor-2425-pdf-gt-demand-a
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Generator storage trial (GT) demand window option 4-9pm
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p6
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or over 11am-4pm depending on location, every day of the year, local time
+  note: Window depends on location (one of the two). The windows quote is a note under the heading 'Generator storage:' (p6);
+    the tariff link quotes the Table 2 row (rendered-page OCR, same page) that gives that tariff the code GT.
+  windows:
+  - period: demand_window
+    label: over 4-9pm every day
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes:
+    - GT
+    applies_to: demand
+    locator: pdf-ocr:p6
+    quote: Generatorstorage GT
+- id: powercor-2425-pdf-gt-demand-b
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Generator storage trial (GT) demand window option 11am-4pm
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p6
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or over 11am-4pm depending on location, every day of the year, local time
+  note: Window depends on location (one of the two). The windows quote is a note under the heading 'Generator storage:' (p6);
+    the tariff link quotes the Table 2 row (rendered-page OCR, same page) that gives that tariff the code GT.
+  windows:
+  - period: demand_window
+    label: over 11am-4pm every day
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+  tariffs:
+  - codes:
+    - GT
+    applies_to: demand
+    locator: pdf-ocr:p6
+    quote: Generatorstorage GT
+- id: powercor-2425-pdf-prtou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Residential ToU (PRTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p9
+  quote: ToU PRTOU Default all days 3pm-9pm non-peaktimes
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 4: peak energy ''all days 3pm-9pm'', off-peak energy ''non-peak times''). Notes on the same page: ''All times are local time''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '15:00'
+  - period: peak
+    label: peak all days 3pm-9pm
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PRTOU
+    applies_to: energy
+- id: powercor-2425-pdf-dd-demand
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  name: Residential demand (DD) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p9
+  quote: Opt-in workdays 3pm- workdays 3pm- Demand DD 9pm 9pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row: summer and non-summer demand columns both read ''workdays 3pm-9pm'' on the DD row. Notes: ''All times are local time''; ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: workdays 3pm-9pm (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 3pm-9pm (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - DD
+    applies_to: demand
+- id: powercor-2526-pdf-slab-heating
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Dedicated circuit (DD1) slab heating typical switching times
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p6
+  quote: Typically switching times may vary depending on localised demand management activities normally between 12am and 7am.
+  note: 'Typical times only; ''An afternoon boost between 1pm and 4pm may occur during winter'' (winter months not defined).
+    Hot water: ''Switching times will vary depending on localised demand management activities'' (no times). Tariff link: in
+    the Table 4 notes (p6) the ''Hot water'' and ''Slab heating'' sub-notes follow the note ''DD1 is available to customers
+    with a dedicated circuit connected to a time-switch''.'
+  windows: *id001
+  tariffs:
+  - codes:
+    - DD1
+    applies_to: controlled_load
+    locator: pdf:p6
+    quote: DD1 is available to customers with a dedicated circuit connected to a time-switch
+- id: powercor-2526-pdf-ndm-energy-bill
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Medium business demand (NDM) energy as shown on the bill
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p7
+  quote: NDM energy rate is reflected as anytime rate in our pricing schedule, however on our bill it will show as peak 7am-11pm workdays and off peak all other times with exactly the same rate
+  note: Same rate in both periods. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: off_peak
+    label: off peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-11pm workdays
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: off peak all other times
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: off peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: energy
+- id: powercor-2526-pdf-large-energy
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Large LV / HV / sub-transmission peak and off-peak usage
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p10
+  quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other times.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each tariff link quotes the code''s row of Table 6 (an image; rendered-page OCR, p8), whose peak energy column reads ''workdays
+    7am-7pm''.'
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '19:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: LLVT1 Workdays 7am- workdays 7am- Large Low Voltage transition Closed 1kV ≥120kVA 120 Non-peak times 1-4pm or 4-7pm
+      LLVT2 7pm 7pm
+  - codes:
+    - HVT1
+    - HVT2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: HVT1 Workdays 7am- Workdays 7am- High Voltage transition Closed ≥1kV <66KV N/A 500 Non-peak times 1-4pm or 4-7pm
+      HVT2 7pm 7pm
+  - codes:
+    - LLV1
+    - LLV2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: LLV1 Workdays 7am- Workdays 7am- Large Low Voltage LLV2 Default <1kV 2120kVA 120 Non-peak times 1-4pm or 4-7pm 7pm
+      7pm
+  - codes:
+    - HV1
+    - HV2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: HV1 Workdays 7am- Workdays 7am- High Voltage Default ≥1kV <66KV N/A 005 Non-peak times 1-4pm or 4-7pm HV2 7pm 7pm
+  - codes:
+    - ST2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: workdays 7am- Non-peak times workdays 7am- Sub-transmission ST2 Default 2 66kV N/A 5000 4-7pm 7pm 7pm
+- id: powercor-2526-pdf-large-rolling
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Large LV / HV / sub-transmission 12-month rolling demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each tariff link quotes the code''s row of Table 6 (an image; rendered-page OCR, p8), whose 12-month rolling demand column
+    reads ''workdays 7am-7pm''.'
+  windows:
+  - period: demand_window
+    label: rolling demand 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: LLVT1 Workdays 7am- workdays 7am- Large Low Voltage transition Closed 1kV ≥120kVA 120 Non-peak times 1-4pm or 4-7pm
+      LLVT2 7pm 7pm
+  - codes:
+    - HVT1
+    - HVT2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: HVT1 Workdays 7am- Workdays 7am- High Voltage transition Closed ≥1kV <66KV N/A 500 Non-peak times 1-4pm or 4-7pm
+      HVT2 7pm 7pm
+  - codes:
+    - LLV1
+    - LLV2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: LLV1 Workdays 7am- Workdays 7am- Large Low Voltage LLV2 Default <1kV 2120kVA 120 Non-peak times 1-4pm or 4-7pm 7pm
+      7pm
+  - codes:
+    - HV1
+    - HV2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: HV1 Workdays 7am- Workdays 7am- High Voltage Default ≥1kV <66KV N/A 005 Non-peak times 1-4pm or 4-7pm HV2 7pm 7pm
+  - codes:
+    - ST2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: workdays 7am- Non-peak times workdays 7am- Sub-transmission ST2 Default 2 66kV N/A 5000 4-7pm 7pm 7pm
+- id: powercor-2526-pdf-large-incentive-1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: 'Large tariffs ending 1: summer incentive demand 1-4pm'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: 'Kva section: summer incentive is the ''maximum monthly 15-minute kVA for the December to March months'' measured on each workday. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: summer incentive 1-4pm
+    days: business_day
+    start: '13:00'
+    end: '16:00'
+    months: 12,1,2,3
+    season: summer
+    locator: pdf:p10
+    quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
+      the other eight months of the year. Maximum monthly kVA is based on a fixed measurement period of either 1-4pm or 4-7pm
+      on each workday of the applicable months.
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLV1
+    - HVT1
+    - HV1
+    applies_to: demand
+- id: powercor-2526-pdf-large-incentive-2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: 'Large tariffs ending 2: summer incentive demand 4-7pm'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: 'Kva section: summer incentive is the ''maximum monthly 15-minute kVA for the December to March months'' measured on each workday. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: summer incentive 4-7pm
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 12,1,2,3
+    season: summer
+    locator: pdf:p10
+    quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
+      the other eight months of the year. Maximum monthly kVA is based on a fixed measurement period of either 1-4pm or 4-7pm
+      on each workday of the applicable months.
+  tariffs:
+  - codes:
+    - LLVT2
+    - LLV2
+    - HVT2
+    - HV2
+    applies_to: demand
+- id: powercor-2526-xlsx-prds
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  name: Residential daytime saver trial (PRDS) peak / saver / off-peak
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: xlsx:Trial tariffs!B26
+  quote: Peak period is 4pm-9pm, saver period is 10am-3pm, and off-peak is all other times, from Monday to Sunday, local time
+  note: 'The windows quote (B26) is a note under the heading ''Residential daytime saver: '' (B23); the tariff link quotes C7,
+    the code on row 7 whose name (B7) is ''Residential daytime saver''.'
+  windows:
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: 00:00
+    end: '10:00'
+  - period: solar_soak
+    label: saver 10am-3pm
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: '15:00'
+    end: '16:00'
+  - period: peak
+    label: peak 4pm-9pm
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: off-peak
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PRDS
+    applies_to: all
+    locator: xlsx:Trial tariffs!C7
+    quote: PRDS
+- id: powercor-2526-xlsx-gt-demand-a
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  name: Generator storage trial (GT) demand window option 4-9pm
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: xlsx:Trial tariffs!B21
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or over 11am-4pm depending on location, every day of the year, local time
+  note: 'Window depends on location (one of the two). The windows quote (B21) is a note under the heading ''Generator storage:
+    '' (B17); the tariff link quotes C11, the code on row 11 whose name (B11) is ''Generator storage''.'
+  windows:
+  - period: demand_window
+    label: over 4-9pm every day
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes:
+    - GT
+    applies_to: demand
+    locator: xlsx:Trial tariffs!C11
+    quote: GT
+- id: powercor-2526-xlsx-gt-demand-b
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  name: Generator storage trial (GT) demand window option 11am-4pm
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: xlsx:Trial tariffs!B21
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or over 11am-4pm depending on location, every day of the year, local time
+  note: 'Window depends on location (one of the two). The windows quote (B21) is a note under the heading ''Generator storage:
+    '' (B17); the tariff link quotes C11, the code on row 11 whose name (B11) is ''Generator storage''.'
+  windows:
+  - period: demand_window
+    label: over 11am-4pm every day
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+  tariffs:
+  - codes:
+    - GT
+    applies_to: demand
+    locator: xlsx:Trial tariffs!C11
+    quote: GT
+- id: powercor-2526-pdf-prtou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Residential ToU (PRTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p5
+  quote: PRTOU Default all days 3pm-9pm non-peak times
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image: peak energy ''all days 3pm-9pm'', off-peak energy ''non-peak times''). Notes (p6): ''All times are local time''; ''Summer period covers December to March, non-summer is April to November''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '15:00'
+  - period: peak
+    label: peak all days 3pm-9pm
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PRTOU
+    applies_to: energy
+- id: powercor-2526-pdf-dd-demand
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Residential demand (DD) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p5
+  quote: DD Opt-in workdays 3pm- workdays 3pm- Demand 9pm 9pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image): summer and non-summer demand columns both read ''workdays 3pm-9pm'' on the DD row. Notes (p6): ''All times are local time''; ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: workdays 3pm-9pm (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 3pm-9pm (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - DD
+    applies_to: demand
+- id: powercor-2526-pdf-sb-tou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Small business ToU (NDTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p7
+  quote: Workdays 9am- ToU NDTOU Default 9pm Non-peak times
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image: peak energy ''workdays 9am-9pm'', off-peak energy ''Non-peak times''). Notes (p7): ''All times are local time, except for PL2''; ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: 09:00
+  - period: peak
+    label: peak workdays 9am-9pm
+    days: business_day
+    start: 09:00
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDTOU
+    applies_to: energy
+- id: powercor-2526-pdf-ndd-ndm-demand
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Small / medium business demand (NDD, NDM) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p7
+  quote: Demand workdays 10am- Workdays 10am- NDD Opt-in 6pm 6pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image): summer and non-summer demand columns both read ''workdays 10am-6pm'' on the NDD row; the NDM row reads ''workdays 10am- Medium business demand Default Workdays 10am- NDM <120kVA 6pm 6pm''. Notes (p7): ''All times are local time, except for PL2''; ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - NDD
+    applies_to: demand
+  - codes:
+    - NDM
+    applies_to: demand
+    locator: pdf-ocr:p7
+    quote: workdays 10am- Medium business demand Default Workdays 10am- NDM <120kVA 6pm 6pm
+- id: powercor-2526-pdf-ndmo21-tou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Medium business opt-out (NDMO21) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p7
+  quote: NDM021 Opt-in 160MWh pa workdays 10am- Medium business opt-out Non-peak times 6pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image; ''NDM021'' is the OCR reading of NDMO21): peak energy ''workdays 10am-6pm'', off-peak energy ''Non-peak times''. Notes (p7): ''All times are local time, except for PL2''; ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: peak
+    label: peak workdays 10am-6pm
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '18:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDMO21
+    applies_to: energy
+- id: powercor-2526-pdf-pl2-tou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Unmetered supply (PL2) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p7
+  quote: Weekdays 7am- Unmetered supply PL2 Default unmetered Non-peak times 11pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image: peak energy ''weekdays 7am-11pm'', off-peak energy ''Non-peak times''). Notes (p7): ''All times are local time, except for PL2''; 2025-26 Tariff Summary PAL_2025_26_NUOS!B29: ''Exceptions are unmetered supply tariff PL2 where the tariff is based on Australian Eastern Standard Time (AEST).'' Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak weekdays 7am-11pm
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PL2
+    applies_to: energy
+- id: powercor-2627-pdf-prcer-bel
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Residential CER (PRCER) free export (BEL) window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p6
+  quote: PRCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh
+  note: 'PRCER (Table 4) ''Saver energy export'' column (image; rendered-page OCR): ''all days 11am-4pm during Sep-May with 1 kWh per day BEL''; the 2026-27 Tariff Summary heads the column ''Saver Export Sep-May''.'
+  windows:
+  - period: export_charge_window
+    label: exports between 11:00am - 4:00pm (1 kWh/day basic export level free)
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+    months: 9,10,11,12,1,2,3,4,5
+    locator: pdf-ocr:p5
+    quote: all days 11am- 4pm during Sep- Residential CER PRCER Opt-in 9pm during Dec- 9pm during Dec- May and Sep- 11am 4pm Feb
+      and Jun-AugFeb and Jun-Aug May with 1 kWh Nov per day BEL
+  tariffs:
+  - codes:
+    - PRCER
+    applies_to: export
+- id: powercor-2627-pdf-slab-heating
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Dedicated circuit (DD1) slab heating typical switching times
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p6
+  quote: Typically switching times are between 12am and 7am but may vary depending on localised demand management activities.
+  note: 'Typical times only; ''An afternoon boost between 1pm and 4pm may occur during winter'' (winter months not defined).
+    Hot water: ''Switching times will vary depending on localised demand management activities'' (no times). Tariff link: in
+    the Table 4 notes (p6) the ''Hot water'' and ''Slab heating'' sub-notes follow the note ''DD1 is available to customers
+    with a dedicated circuit connected to a time-switch''.'
+  windows: *id001
+  tariffs:
+  - codes:
+    - DD1
+    applies_to: controlled_load
+    locator: pdf:p6
+    quote: DD1 is available to customers with a dedicated circuit connected to a time-switch
+- id: powercor-2627-pdf-ndm-energy-bill
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Medium business demand (NDM) energy as shown on the bill
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p8
+  quote: NDM energy rate is reflected as anytime rate in our pricing schedule, however on our bill it will show as peak 7am-11pm workdays and off-peak all other times with exactly the same rate
+  note: Same rate in both periods; 'All times are local time, except for PL2 which is in AEST' (p7). 'workdays' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-11pm workdays
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: energy
+- id: powercor-2627-pdf-pfs-bel
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Flexible small (PFS) free export (BEL) window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p8
+  quote: PFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh
+  note: 'PFS (Table 5) ''Saver energy export'' column (image; rendered-page OCR): ''all days 11am-4pm during Sep-May with 1 kWh per day BEL''; the 2026-27 Tariff Summary heads the column ''Saver Export Sep-May''.'
+  windows:
+  - period: export_charge_window
+    label: exports between 11:00am - 4:00pm (1 kWh/day basic export level free)
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+    months: 9,10,11,12,1,2,3,4,5
+    locator: pdf-ocr:p7
+    quote: all days 4pm- all days 4pm- all days 11am- ≤240kVA import Flexible small 9pm during Dec- outside of peak PFS Default
+      9pm during Dec- 4pm during Sep- capacity Feb and Jun-Aug Feb and Jun-Aug import times May with 1 kWh per day BEL
+  tariffs:
+  - codes:
+    - PFS
+    applies_to: export
+- id: powercor-2627-pdf-large-incentive-1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: 'Large tariffs ending 1: 1-4pm summer incentive demand period'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: 'Same page: ''Summer incentive demand period is December to March and winter incentive demand period is May to August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: 1-4pm summer incentive
+    days: business_day
+    start: '13:00'
+    end: '16:00'
+    months: 12,1,2,3
+    season: summer
+    locator: pdf:p11
+    quote: 1-4pm local time workdays in summer (Dec-Mar), or
+  tariffs:
+  - codes:
+    - LLV1
+    - HV1
+    applies_to: demand
+- id: powercor-2627-pdf-large-incentive-2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: 'Large tariffs ending 2: 4-7pm summer incentive demand period'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: 'Same page: ''Summer incentive demand period is December to March and winter incentive demand period is May to August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: 4-7pm summer incentive
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 12,1,2,3
+    season: summer
+    locator: pdf:p11
+    quote: 4-7pm local time workdays in summer (Dec-Mar), or
+  tariffs:
+  - codes:
+    - LLV2
+    - HV2
+    applies_to: demand
+- id: powercor-2627-pdf-large-incentive-3
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: 'Large tariffs ending 3: 4-7pm winter incentive demand period'
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: 'Same page: ''Summer incentive demand period is December to March and winter incentive demand period is May to August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: 4-7pm winter incentive
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 5,6,7,8
+    season: winter
+    locator: pdf:p11
+    quote: 4-7pm local time workdays in winter (May-Aug).
+  tariffs:
+  - codes:
+    - LLV3
+    - HV3
+    applies_to: demand
+- id: powercor-2627-pdf-large-rolling
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Large LV / HV / sub-transmission 12-month rolling demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each tariff link quotes the code''s row of Table 6 (an image; rendered-page OCR, p8), whose 12-month rolling demand column
+    reads ''workdays 7am-7pm''.'
+  windows:
+  - period: demand_window
+    label: rolling demand 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  tariffs:
+  - codes:
+    - LLV1
+    - LLV2
+    - LLV3
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: LLV1 1-4pm summer Large low voltage (Dec-Mar) LLV2 workdays 7am- workdays 7am- 4-7pm summer Large low voltage Default
+      1kV >160MWh non-peak times 7pm 7pm (Dec-Mar) 4-7pm winter Large low voltage LLV3
+  - codes:
+    - HV1
+    - HV2
+    - HV3
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: HV1 1-4pm summer High voltage (Dec-Mar) HV2 Workdays 7am- workdays 7am- 4-7pm summer High voltage Default 1kV-66KV
+      N/A 500 non-peak times 7pm 7pm (Dec-Mar) 4-7pm winter High voltage HV3
+  - codes:
+    - ST2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- workdays 7am- Sub-transmission ST2 Default 266kV N/A 5000 non-peak times Not applicable 7pm 7pm
+- id: powercor-2627-pdf-large-energy
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Large LV / HV / sub-transmission peak and off-peak usage
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p12
+  quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other times.
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each tariff link quotes the code''s row of Table 6 (an image; rendered-page OCR, p8), whose peak energy column reads ''workdays
+    7am-7pm''.'
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '19:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - LLV1
+    - LLV2
+    - LLV3
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: LLV1 1-4pm summer Large low voltage (Dec-Mar) LLV2 workdays 7am- workdays 7am- 4-7pm summer Large low voltage Default
+      1kV >160MWh non-peak times 7pm 7pm (Dec-Mar) 4-7pm winter Large low voltage LLV3
+  - codes:
+    - HV1
+    - HV2
+    - HV3
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: HV1 1-4pm summer High voltage (Dec-Mar) HV2 Workdays 7am- workdays 7am- 4-7pm summer High voltage Default 1kV-66KV
+      N/A 500 non-peak times 7pm 7pm (Dec-Mar) 4-7pm winter High voltage HV3
+  - codes:
+    - ST2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- workdays 7am- Sub-transmission ST2 Default 266kV N/A 5000 non-peak times Not applicable 7pm 7pm
+- id: powercor-2627-pdf-prstou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Residential ToU (PRSTOU) energy peak / off-peak / saver
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p5
+  quote: all days 4pm- all days 9pm- all days 11am- Residential ToU PRSTOU Default 9pm 11am 4pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image: peak energy ''all days 4pm-9pm'', off-peak energy ''all days 9pm-11am'', saver energy ''all days 11am-4pm''). Notes (p6): ''All times are local time''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: off-peak all days 9pm-11am
+    days: all_days
+    start: 00:00
+    end: '11:00'
+  - period: solar_soak
+    label: saver all days 11am-4pm
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+  - period: peak
+    label: peak all days 4pm-9pm
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: off-peak all days 9pm-11am
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PRSTOU
+    applies_to: energy
+- id: powercor-2627-pdf-prcer-import
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Residential CER (PRCER) import peak / peak (shoulder) / off-peak / saver
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p5
+  quote: Residential CER PRCER Opt-in 9pm during Dec- 9pm during Dec- May and Sep- 11am 4pm Feb and Jun-AugFeb and Jun-Aug May with 1 kWh Nov per day BEL
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image; OCR interleaves the stacked cell lines). PRCER row: peak energy ''all days 4pm-9pm during Dec-Feb and Jun-Aug''; peak energy (shoulder) ''all days 4pm-9pm during Mar-May and Sep-Nov''; off-peak energy ''all days 9pm-11am''; saver energy ''all days 11am-4pm''. Notes (p6): ''All times are local time''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: off-peak all days 9pm-11am
+    days: all_days
+    start: 00:00
+    end: '11:00'
+  - period: solar_soak
+    label: saver all days 11am-4pm
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+  - period: peak
+    label: peak all days 4pm-9pm during Dec-Feb and Jun-Aug
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 12,1,2,6,7,8
+  - period: shoulder
+    label: peak energy (shoulder) all days 4pm-9pm during Mar-May and Sep-Nov
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 3,4,5,9,10,11
+    locator: pdf-ocr:p5
+    quote: 9pm during Mar-
+  - period: off_peak
+    label: off-peak all days 9pm-11am
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PRCER
+    applies_to: energy
+- id: powercor-2627-pdf-prcer-export-credit
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Residential CER (PRCER) peak export credit window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p5
+  quote: Residential CER PRCER Opt-in 9pm during Dec- 9pm during Dec- May and Sep- 11am 4pm Feb and Jun-AugFeb and Jun-Aug May with 1 kWh Nov per day BEL
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image). PRCER row, ''Peak energy export credit'' column: ''all days 4pm-9pm during Dec-Feb and Jun-Aug''. Notes (p6): ''All times are local time''.'
+  windows:
+  - period: export_reward_window
+    label: peak energy export credit all days 4pm-9pm during Dec-Feb and Jun-Aug
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 12,1,2,6,7,8
+  tariffs:
+  - codes:
+    - PRCER
+    applies_to: export
+- id: powercor-2627-pdf-sb-tou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Small business ToU (NDTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p7
+  quote: Small business ToU Default workdays 9am- NDTOU non-peak times 9pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image: peak energy ''workdays 9am-9pm'', off-peak energy ''non-peak times''). Notes (p7): ''All times are local time, except for PL2 which is in AEST''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: 09:00
+  - period: peak
+    label: peak workdays 9am-9pm
+    days: business_day
+    start: 09:00
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDTOU
+    applies_to: energy
+- id: powercor-2627-pdf-ndd-ndm-demand
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Small / medium business demand (NDD, NDM) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p7
+  quote: Opt-in workdays 10am- workdays 10am- Small business demand NDD 6pm 6pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image): summer and non-summer demand columns both read ''workdays 10am-6pm'' on the NDD row; the NDM row reads ''≥ 40MWh pa Medium business demand NDM workdays 10am-workdays 10am- ≤160MWh 6pm 6pm''. Notes (p7): ''All times are local time, except for PL2 which is in AEST''. Same page: ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - NDD
+    applies_to: demand
+  - codes:
+    - NDM
+    applies_to: demand
+    locator: pdf-ocr:p7
+    quote: ≥ 40MWh pa Medium business demand NDM workdays 10am-workdays 10am- ≤160MWh 6pm 6pm
+- id: powercor-2627-pdf-ndmo-tou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Medium business opt-out (NDMO) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p7
+  quote: ≥40MWh pa NDM021 workdays 10am- Medium business opt-out Opt-out <1kV non-peak times ≤160MWh 6pm
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image; the table prints the code as NDMO21, OCR reads ''NDM021''; the 2026-27 Tariff Summary lists the tariff as NDMO): peak energy ''workdays 10am-6pm'', off-peak energy ''non-peak times''. Notes (p7): ''All times are local time, except for PL2 which is in AEST''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: peak
+    label: peak workdays 10am-6pm
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '18:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDMO
+    applies_to: energy
+- id: powercor-2627-pdf-pl2-tou
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Type 7 or 9 metering (PL2) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p7
+  quote: weekdays 7am- Type 7 or 9 metering PL2 Default 11pm non-peak times
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image: peak energy ''weekdays 7am-11pm'', off-peak energy ''non-peak times''). Notes (p7): ''All times are local time, except for PL2 which is in AEST''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak weekdays 7am-11pm
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PL2
+    applies_to: energy
+- id: powercor-2627-pdf-pfs-import
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Flexible small (PFS) import peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p7
+  quote: all days 4pm- all days 4pm- all days 11am- ≤240kVA import Flexible small 9pm during Dec- outside of peak PFS Default
+    9pm during Dec- 4pm during Sep- capacity Feb and Jun-Aug Feb and Jun-Aug import times May with 1 kWh per day BEL
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image; OCR interleaves the stacked cell lines). PFS row: peak energy ''all days 4pm-9pm during Dec-Feb and Jun-Aug''; off-peak energy ''outside of peak import times'' (so all times in Mar-May and Sep-Nov). Notes (p7): ''All times are local time, except for PL2 which is in AEST''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: outside of peak import times
+    days: all_days
+    start: 00:00
+    end: '16:00'
+    months: 12,1,2,6,7,8
+  - period: peak
+    label: peak all days 4pm-9pm during Dec-Feb and Jun-Aug
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 12,1,2,6,7,8
+  - period: off_peak
+    label: outside of peak import times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    months: 12,1,2,6,7,8
+  - period: off_peak
+    label: outside of peak import times
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,9,10,11
+  tariffs:
+  - codes:
+    - PFS
+    applies_to: energy
+- id: powercor-2627-pdf-pfs-export-credit
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Flexible small (PFS) peak export credit window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p7
+  quote: all days 4pm- all days 4pm- all days 11am- ≤240kVA import Flexible small 9pm during Dec- outside of peak PFS Default
+    9pm during Dec- 4pm during Sep- capacity Feb and Jun-Aug Feb and Jun-Aug import times May with 1 kWh per day BEL
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the PFS row (Table 5 is an
+    image; OCR interleaves the stacked cell lines). PFS row, ''Peak energy export credit'' column: ''all days 4pm-9pm during
+    Dec-Feb and Jun-Aug'' (the second ''all days 4pm-'' and second ''9pm during Dec-'' in the quote). Notes (p7): ''All times
+    are local time, except for PL2 which is in AEST''.'
+  windows:
+  - period: export_reward_window
+    label: peak energy export credit all days 4pm-9pm during Dec-Feb and Jun-Aug
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 12,1,2,6,7,8
+  tariffs:
+  - codes:
+    - PFS
+    applies_to: export
+- id: powercor-2627-pdf-pfl
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Flexible large (PFL) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p8
+  quote: all days 4pm- >240 kVA& Flexible large PFL Default N/A 9pm during Dec- non-peak times Not applicable 30MVA Feb and
+    Jun-Aug
+  note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 6 is an image). PFL row: peak energy ''all days 4pm-9pm during Dec-Feb and Jun-Aug'', off-peak energy ''non-peak times'', incentive demand ''Not applicable''. Notes on Table 6 (p9): ''All times are local time''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '16:00'
+    months: 12,1,2,6,7,8
+  - period: peak
+    label: peak all days 4pm-9pm during Dec-Feb and Jun-Aug
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 12,1,2,6,7,8
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    months: 12,1,2,6,7,8
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,9,10,11
+  tariffs:
+  - codes:
+    - PFL
+    applies_to: energy
+demand_rules:
+- id: powercor-2324-xlsx-large-kva-jul-jun
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  measure: kVA
+  aggregation: not_stated
+  locator: xlsx:PAL_2023_24_NUOS!E5
+  quote: Jul-Jun
+  note: The 2023-24 Tariff Summary (the only Powercor 2023-24 document held) prices this column under the header 'Jul-Jun' with unit '$/kVA/month' (E6); it states no measurement interval, window or aggregation, and no 2023-24 pricing proposal is held. Codes are those with a non-zero price in the column.
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    - LLV1
+    - LLV2
+    - HVT1
+    - HVT2
+    - HV1
+    - HV2
+    - ST2
+- id: powercor-2324-xlsx-large-kva-dec-mar
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  measure: kVA
+  aggregation: not_stated
+  months: 12,1,2,3
+  locator: xlsx:PAL_2023_24_NUOS!F5
+  quote: Dec-Mar
+  note: The 2023-24 Tariff Summary (the only Powercor 2023-24 document held) prices this column under the header 'Dec-Mar' with unit '$/kVA/month' (F6); it states no measurement interval, window or aggregation, and no 2023-24 pricing proposal is held. Codes are those with a non-zero price in the column. Season label 'summer' links the Dec-Mar price column; the workbook states only the months. ST2 is 0 in this column.
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    - LLV1
+    - LLV2
+    - HVT1
+    - HVT2
+    - HV1
+    - HV2
+    season: summer
+- id: powercor-2324-xlsx-kw-dec-mar
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  measure: kW
+  aggregation: not_stated
+  months: 12,1,2,3
+  locator: xlsx:PAL_2023_24_NUOS!G5
+  quote: Dec-Mar
+  note: The 2023-24 Tariff Summary (the only Powercor 2023-24 document held) prices this column under the header 'Dec-Mar' with unit '$/kW/month' (G6); it states no measurement interval, window or aggregation, and no 2023-24 pricing proposal is held. Codes are those with a non-zero price in the column. Season label 'summer' links the Dec-Mar price column; the workbook states only the months.
+  tariffs:
+  - codes:
+    - DD
+    - NDD
+    - NDM
+    season: summer
+- id: powercor-2324-xlsx-kw-apr-nov
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  measure: kW
+  aggregation: not_stated
+  months: 4,5,6,7,8,9,10,11
+  locator: xlsx:PAL_2023_24_NUOS!H5
+  quote: Apr-Nov
+  note: The 2023-24 Tariff Summary (the only Powercor 2023-24 document held) prices this column under the header 'Apr-Nov' with unit '$/kW/month' (H6); it states no measurement interval, window or aggregation, and no 2023-24 pricing proposal is held. Codes are those with a non-zero price in the column. Season label 'non-summer' links the Apr-Nov price column; the workbook states only the months.
+  tariffs:
+  - codes:
+    - DD
+    - NDD
+    - NDM
+    season: non-summer
+- id: powercor-2425-pdf-dd-demand
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: powercor-2425-pdf-dd-demand
+  window_period: demand_window
+  locator: pdf:p9
+  quote: DD demand component will be billed based on the highest 30-minute KW reading in the maximum demand period for each month and is not based on a rolling 12- month period
+  note: 'Window from Table 4 (rendered-page OCR, schedule powercor-2425-pdf-dd-demand): workdays 3pm-9pm in summer and non-summer. Summer covers December to March, non-summer April to November (same page).'
+  tariffs:
+  - codes:
+    - DD
+    season: summer
+  - codes:
+    - DD
+    season: non-summer
+- id: powercor-2425-pdf-ndd-ndm-demand
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: powercor-2425-pdf-ndd-ndm-demand
+  window_period: demand_window
+  locator: pdf:p10
+  quote: NDD and NDM demand component will be billed based on the highest 30-minute KW reading in the maximum demand period for each month and is not based on a rolling 12-month period
+  tariffs:
+  - codes:
+    - NDD
+    - NDM
+    season: summer
+  - codes:
+    - NDD
+    - NDM
+    season: non-summer
+- id: powercor-2425-pdf-large-rolling-lv
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2425-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 120
+  minimum_unit: kVA
+  locator: pdf:p13
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    - LLV1
+    - LLV2
+    time_band: rolling
+- id: powercor-2425-pdf-large-rolling-hv
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2425-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 500
+  minimum_unit: kVA
+  locator: pdf:p13
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  tariffs:
+  - codes:
+    - HVT1
+    - HVT2
+    - HV1
+    - HV2
+    time_band: rolling
+- id: powercor-2425-pdf-large-rolling-st
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2425-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 5000
+  minimum_unit: kVA
+  locator: pdf:p13
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  tariffs:
+  - codes:
+    - ST2
+    time_band: rolling
+- id: powercor-2425-pdf-large-incentive-1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: powercor-2425-pdf-large-incentive-1
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p13
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for the other eight months of the year.
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLV1
+    - HVT1
+    - HV1
+    time_band: summer incentive
+    season: summer
+- id: powercor-2425-pdf-large-incentive-2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: powercor-2425-pdf-large-incentive-2
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p13
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for the other eight months of the year.
+  tariffs:
+  - codes:
+    - LLVT2
+    - LLV2
+    - HVT2
+    - HV2
+    time_band: summer incentive
+    season: summer
+- id: powercor-2425-pdf-gt-demand-a
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kW
+  interval_minutes: 30
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2425-pdf-gt-demand-a
+  window_period: demand_window
+  locator: pdf:p6
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or over 11am-4pm depending on location, every day of the year, local time
+  note: One of two location-dependent windows
+  tariffs:
+  - codes:
+    - GT
+- id: powercor-2425-pdf-gt-demand-b
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  measure: kW
+  interval_minutes: 30
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2425-pdf-gt-demand-b
+  window_period: demand_window
+  locator: pdf:p6
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or over 11am-4pm depending on location, every day of the year, local time
+  note: One of two location-dependent windows
+  tariffs:
+  - codes:
+    - GT
+- id: powercor-2526-pdf-dd-demand
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: powercor-2526-pdf-dd-demand
+  window_period: demand_window
+  locator: pdf:p6
+  quote: DD demand component will be billed based on the highest 30-minute KW reading in the maximum demand period for each month and is not based on a rolling 12- month period
+  note: 'Window from Table 4 (image; rendered-page OCR): workdays 3pm-9pm in summer and non-summer (schedule powercor-2526-pdf-dd-demand). Summer covers December to March, non-summer April to November (same page).'
+  tariffs:
+  - codes:
+    - DD
+    season: summer
+  - codes:
+    - DD
+    season: non-summer
+- id: powercor-2526-pdf-ndd-ndm-demand
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: powercor-2526-pdf-ndd-ndm-demand
+  window_period: demand_window
+  locator: pdf:p7
+  quote: NDD and NDM demand component will be billed based on the highest 30-minute KW reading in the maximum demand period for each month and is not based on a rolling 12-month period
+  note: 'Window from Table 5 (image; rendered-page OCR): workdays 10am-6pm in summer and non-summer (schedule powercor-2526-pdf-ndd-ndm-demand). Summer covers December to March, non-summer April to November (same page).'
+  tariffs:
+  - codes:
+    - NDD
+    - NDM
+    season: summer
+  - codes:
+    - NDD
+    - NDM
+    season: non-summer
+- id: powercor-2526-pdf-large-rolling-lv
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2526-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 120
+  minimum_unit: kVA
+  locator: pdf:p10
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    - LLV1
+    - LLV2
+    time_band: rolling
+- id: powercor-2526-pdf-large-rolling-hv
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2526-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 500
+  minimum_unit: kVA
+  locator: pdf:p10
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
+  tariffs:
+  - codes:
+    - HVT1
+    - HVT2
+    - HV1
+    - HV2
+    time_band: rolling
+- id: powercor-2526-pdf-large-rolling-st
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2526-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 5000
+  minimum_unit: kVA
+  locator: pdf:p10
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
+  tariffs:
+  - codes:
+    - ST2
+    time_band: rolling
+- id: powercor-2526-pdf-large-incentive-1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: powercor-2526-pdf-large-incentive-1
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p10
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for the other eight months of the year.
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLV1
+    - HVT1
+    - HV1
+    time_band: summer incentive
+    season: summer
+- id: powercor-2526-pdf-large-incentive-2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: powercor-2526-pdf-large-incentive-2
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p10
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for the other eight months of the year.
+  tariffs:
+  - codes:
+    - LLVT2
+    - LLV2
+    - HVT2
+    - HV2
+    time_band: summer incentive
+    season: summer
+- id: powercor-2526-xlsx-gt-demand-a
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  measure: kW
+  interval_minutes: 30
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2526-xlsx-gt-demand-a
+  window_period: demand_window
+  locator: xlsx:Trial tariffs!B21
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or over 11am-4pm depending on location, every day of the year, local time
+  note: One of two location-dependent windows
+  tariffs:
+  - codes:
+    - GT
+- id: powercor-2526-xlsx-gt-demand-b
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  measure: kW
+  interval_minutes: 30
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2526-xlsx-gt-demand-b
+  window_period: demand_window
+  locator: xlsx:Trial tariffs!B21
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or over 11am-4pm depending on location, every day of the year, local time
+  note: One of two location-dependent windows
+  tariffs:
+  - codes:
+    - GT
+- id: powercor-2627-pdf-ndd-ndm-demand
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: powercor-2627-pdf-ndd-ndm-demand
+  window_period: demand_window
+  locator: pdf:p7
+  quote: NDD and NDM demand component is billed based on the highest 30-minute KW reading in the maximum demand period for each month and is not based on a rolling 12-month period
+  note: 'Window from Table 5 (image; rendered-page OCR): workdays 10am-6pm in summer and non-summer (schedule powercor-2627-pdf-ndd-ndm-demand). Same page: ''Summer period covers December to March, non-summer is April to November''.'
+  tariffs:
+  - codes:
+    - NDD
+    - NDM
+    season: summer
+  - codes:
+    - NDD
+    - NDM
+    season: non-summer
+- id: powercor-2627-pdf-pfs-capacity
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kW
+  interval_minutes: 30
+  aggregation: rolling_12_month_max
+  locator: pdf:p8
+  quote: PFS capacity charge applied to maximum 30-minute kW demand over the most recent rolling 12-months measured at all times
+  note: measured at all times (no window)
+  tariffs:
+  - codes:
+    - PFS
+    time_band: capacity
+- id: powercor-2627-pdf-large-rolling-lv
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2627-pdf-large-rolling
+  window_period: demand_window
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months.
+  note: No minimum chargeable demand is stated for low voltage in 2026-27 ('Minimum chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.')
+  tariffs:
+  - codes:
+    - LLV1
+    - LLV2
+    - LLV3
+    time_band: rolling
+- id: powercor-2627-pdf-large-rolling-hv
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2627-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 500
+  minimum_unit: kVA
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months. Minimum
+    chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
+  tariffs:
+  - codes:
+    - HV1
+    - HV2
+    - HV3
+    time_band: rolling
+- id: powercor-2627-pdf-large-rolling-st
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: rolling_12_month_max
+  window_schedule: powercor-2627-pdf-large-rolling
+  window_period: demand_window
+  minimum_chargeable: 5000
+  minimum_unit: kVA
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months. Minimum
+    chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
+  tariffs:
+  - codes:
+    - ST2
+    time_band: rolling
+- id: powercor-2627-pdf-large-incentive-1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: powercor-2627-pdf-large-incentive-1
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p11
+  quote: Incentive KVA is the maximum monthly 15-minute kVA for each of four months of the year. There is no charge for the other eight months of the year.
+  tariffs:
+  - codes:
+    - LLV1
+    - HV1
+    time_band: incentive
+    season: summer
+- id: powercor-2627-pdf-large-incentive-2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: powercor-2627-pdf-large-incentive-2
+  window_period: demand_window
+  months: 12,1,2,3
+  locator: pdf:p11
+  quote: Incentive KVA is the maximum monthly 15-minute kVA for each of four months of the year. There is no charge for the other eight months of the year.
+  tariffs:
+  - codes:
+    - LLV2
+    - HV2
+    time_band: incentive
+    season: summer
+- id: powercor-2627-pdf-large-incentive-3
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  measure: kVA
+  interval_minutes: 15
+  aggregation: monthly_max
+  window_schedule: powercor-2627-pdf-large-incentive-3
+  window_period: demand_window
+  months: 5,6,7,8
+  locator: pdf:p11
+  quote: Incentive KVA is the maximum monthly 15-minute kVA for each of four months of the year. There is no charge for the other eight months of the year.
+  tariffs:
+  - codes:
+    - LLV3
+    - HV3
+    time_band: incentive
+    season: winter
+eligibility:
+- codes:
+  - PRTOU
+  - D1
+  - DD
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p9
+  quote: TABLE 4 RESIDENTIAL TARIFF CLASS
+  note: Tariff class heading (p9); PRTOU, D1, DD and DD1 are the rows of Table 4 under it (the table body does not extract cleanly;
+    its rendered-page OCR shows the rows).
+- codes:
+  - PRTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p9
+  quote: PRTOU is the default residential tariff for greenfield new connections, new or upgraded solar or battery installations, three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater.
+  note: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV chargers >= 3.6kW
+- codes:
+  - D1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p9
+  quote: D1 is available to any residential customer except if they have a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - PRTOU
+  - DD
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p9
+  quote: PRTOU and DD require an active market interval read meter
+- codes:
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: pdf:p9
+  quote: DD1 is available to customers with a dedicated circuit connected to a time-switch
+- codes:
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: 'hot water: 1-phase electric hot water service with total load < 30 amps'
+  locator: pdf:p9
+  quote: Available to 1-phase electric hot water service with a total load of <30 amps
+- codes:
+  - DD
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: with a dedicated circuit, demand is measured on the general power & light circuits only
+  locator: pdf:p9
+  quote: For residential demand tariff with dedicated circuit, the demand calculation will only apply to consumption on the General Power & Light circuits
+- codes:
+  - NDTOU
+  - ND1
+  - NDD
+  - NDM
+  - NDMO21
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p10
+  quote: TABLE 5 SMALL AND MEDIUM BUSINESS TARIFF CLASS
+  note: Tariff class heading (p10); NDTOU, ND1, NDD, NDM, NDMO21 and PL2 are the rows of Table 5 under it (rendered-page OCR
+    shows the rows).
+- codes:
+  - NDTOU
+  - ND1
+  - NDD
+  - NDM
+  - NDMO21
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p4
+  quote: Small and medium < 1 kV < 120 kVA business
+  note: 'Figure 2 tariff classes (p4): the small and medium business class is supplied at < 1 kV; its tariffs are the rows of
+    Table 5 ''Small and medium business tariff class'' (p10), whose supply voltage column is one merged ''< 1kV'' cell.'
+- codes:
+  - NDTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf-ocr:p10
+  quote: ToU NDTOU Default
+  note: Status column of Table 5 (rendered-page OCR of the NDTOU row).
+- codes:
+  - ND1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf-ocr:p10
+  quote: Single rate ND1 Opt-in
+  note: Status column of Table 5 (rendered-page OCR of the ND1 row).
+- codes:
+  - NDD
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf-ocr:p10
+  quote: Demand NDD Opt-in
+  note: Status column of Table 5 (rendered-page OCR of the NDD row).
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf-ocr:p10
+  quote: Mediumbusinessdemand NDM Default
+  note: Status column of Table 5 (rendered-page OCR of the NDM row).
+- codes:
+  - NDMO21
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_out
+  locator: pdf:p11
+  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
+  note: Table 5 status/threshold cells of the NDMO21 row OCR as 'no-1do <160MWh pa' (rotated 'Opt-out'), so the quote is the Table 5 note on p11, which states the opt-out and the 160 MWh pa limit.
+- codes:
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf-ocr:p10
+  quote: PL2 Default unmetered
+  note: Status column of Table 5 (rendered-page OCR of the PL2 row).
+- codes:
+  - NDTOU
+  - ND1
+  - NDD
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf-ocr:p10
+  quote: Single rate ND1 Opt-in <40MWh pa
+  note: 'Energy/demand threshold column of Table 5: ''<40MWh pa'' is one merged cell spanning the ToU (NDTOU), single rate (ND1) and demand (NDD) rows on the page image; OCR places it on the ND1 row.'
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: consumption_min
+  operator: gt
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf-ocr:p10
+  quote: '> 40MWh pa workdays 10am- workdays 10am- Mediumbusinessdemand NDM'
+  note: Threshold column of Table 5, NDM row ('> 40MWh pa <120KVA'; rendered-page OCR).
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: demand_max
+  operator: lt
+  value_num: 120
+  value_unit: kVA
+  locator: pdf-ocr:p10
+  quote: Mediumbusinessdemand NDM Default √ <120KVA
+  note: Threshold column of Table 5, NDM row ('> 40MWh pa <120KVA'; rendered-page OCR).
+- codes:
+  - NDMO21
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p11
+  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
+  note: Table 5 status/threshold cells of the NDMO21 row OCR as 'no-1do <160MWh pa' (rotated 'Opt-out'), so the quote is the Table 5 note on p11, which states the opt-out and the 160 MWh pa limit.
+- codes:
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: pdf-ocr:p10
+  quote: PL2 Default unmetered
+  note: Threshold column of Table 5 reads 'unmetered' on the PL2 row (rendered-page OCR).
+- codes:
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: unmetered
+  locator: pdf-ocr:p10
+  quote: PL2 Default unmetered
+  note: Threshold column of Table 5 reads 'unmetered' on the PL2 row (rendered-page OCR).
+- codes:
+  - NDTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p10
+  quote: NDTOU is the default small business tariff for greenfield new connections, new or upgraded solar or battery installations, three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater.
+  note: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV chargers >= 3.6kW
+- codes:
+  - NDTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p10
+  quote: NDTOU is the default small business tariff
+- codes:
+  - ND1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p10
+  quote: ND1 is available to any small business customer
+- codes:
+  - ND1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p10
+  quote: ND1 is available to any small business customer except if they have a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - NDD
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: with a dedicated circuit, demand is measured on the general power & light circuits only
+  locator: pdf:p10
+  quote: For small and medium demand tariffs with dedicated circuit, the demand calculation will only apply to consumption on the General Power & Light circuits
+- codes:
+  - NDTOU
+  - NDD
+  - NDM
+  - NDMO21
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p11
+  quote: NDTOU, NDD, NDM and NDMO21 require an active market interval read meter
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  target_code: NDMO21
+  locator: pdf:p11
+  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  - HVT1
+  - HVT2
+  - HV1
+  - HV2
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p11
+  quote: All tariffs require an interval meter capable of recording E, Q, B, K data stream
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  - HVT1
+  - HVT2
+  - HV1
+  - HV2
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p11
+  quote: TABLE 6 LARGE LOW VOLTAGE, HIGH VOLTAGE AND SUB-TRANSMISSION TARIFF CLASSES
+  note: Tariff class heading (p11); the codes are the rows of Table 6 under it (rendered-page OCR shows the rows).
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p4
+  quote: Large low voltage < 1 kV > 120 kVA
+  note: Figure 2 tariff classes (p4); LLVT1/LLVT2 ('Large Low Voltage transition') and LLV1/LLV2 ('Large Low Voltage') are the
+    large low voltage rows of Table 6 (p11, rendered-page OCR), which print '<1kV' as their supply voltage.
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p11
+  quote: minimum chargeable demand 120 KVA will be applied for low voltage, 500 KVA for high voltage and 5 MVA for sub-transmission
+- codes:
+  - HVT1
+  - HVT2
+  - HV1
+  - HV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p4
+  quote: ≥1 kV High voltage N/A <66 kV
+  note: 'Figure 2 tariff classes (p4): high voltage is >=1 kV and <66 kV; HVT1/HVT2 (''High Voltage transition'') and HV1/HV2
+    (''High Voltage'') are the high voltage rows of Table 6 (p11, rendered-page OCR), which print ''≥1kV<66KV'' as their supply
+    voltage.'
+- codes:
+  - HVT1
+  - HVT2
+  - HV1
+  - HV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 500
+  value_unit: kVA
+  locator: pdf:p11
+  quote: minimum chargeable demand 120 KVA will be applied for low voltage, 500 KVA for high voltage and 5 MVA for sub-transmission
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf-ocr:p11
+  quote: ST2 Default ≥ 66kV
+  note: Supply voltage column of Table 6, ST2 row (rendered-page OCR).
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 5000
+  value_unit: kVA
+  locator: pdf:p11
+  quote: minimum chargeable demand 120 KVA will be applied for low voltage, 500 KVA for high voltage and 5 MVA for sub-transmission
+  note: 5 MVA
+- codes:
+  - LLV1
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf-ocr:p11
+  quote: LLV1 Default workdays 7am- workdays 7am- LargeLowVoltage <1kV ≥120kVA 120 Non-peak times 1-4pm or 4-7pm LLV2
+  note: Status column of Table 6 (rendered-page OCR) reads 'Default' for LLV1/LLV2 (was recorded as opt_in from the note 'Customers
+    who opt in to LLV1, LLV2, HV1 and HV2 cannot later opt out of these tariffs', which is kept as the separate 'other' rule).
+- codes:
+  - HV1
+  - HV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf-ocr:p11
+  quote: HV1 workdays 7am- High Voltage 500 workdays 7am- Default ≥ 1kV <66KV N/A Non-peak times 1-4pm or 4-7pm HV2
+  note: Status column of Table 6 (rendered-page OCR) reads 'Default' for the HV1/HV2 row.
+- codes:
+  - LLV1
+  - LLV2
+  - HV1
+  - HV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: once opted in, cannot later opt out
+  locator: pdf:p11
+  quote: Customers who opt in to LLV1, LLV2, HV1 and HV2 cannot later opt out of these tariffs
+- codes:
+  - PRDS
+  - PNDB
+  - PDBB
+  - HV2A
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: availability
+  value_text: trial
+  locator: pdf:p6
+  quote: 2.2 Trial tariffs
+  note: Section heading; PRDS, PNDB, PDBB, HV2A and GT are the rows of Table 2 'Trial tariffs 2024/25' under it (rendered-page
+    OCR of the same page).
+- codes:
+  - PRDS
+  - PNDB
+  - PDBB
+  - HV2A
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: trial ends 30 June 2026; customers transferred to approved network tariffs
+  locator: pdf:p6
+  quote: All trial tariffs will end on 30 June 2026 and customers will be transferred to approved network tariffs.
+- codes:
+  - PRDS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p6
+  quote: Available to any residential customer with an AMI meter
+  note: '''Residential daytime saver:'' (the heading the quoted note sits under on p6) is PRDS in Table 2 (p6 row ''Residentialdaytime
+    saver PRDS'', rendered-page OCR).'
+- codes:
+  - PRDS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: meter_type
+  value_text: smart
+  locator: pdf:p6
+  quote: Available to any residential customer with an AMI meter
+  note: AMI meter. 'Residential daytime saver:' (the heading the quoted note sits under on p6) is PRDS in Table 2 (p6 row 'Residentialdaytime
+    saver PRDS', rendered-page OCR).
+- codes:
+  - PRDS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p6
+  quote: Retailer can opt a residential customer in and out of the trial tariff at any time
+  note: '''Residential daytime saver:'' (the heading the quoted note sits under on p6) is PRDS in Table 2 (p6 row ''Residentialdaytime
+    saver PRDS'', rendered-page OCR).'
+- codes:
+  - PRDS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: customer numbers capped at 1% of distribution revenue (about 17,000 customers)
+  locator: pdf:p6
+  quote: Customer numbers will be capped at 1% of distribution revenue which is approximately 17,000 customers
+  note: '''Residential daytime saver:'' (the heading the quoted note sits under on p6) is PRDS in Table 2 (p6 row ''Residentialdaytime
+    saver PRDS'', rendered-page OCR).'
+- codes:
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: embedded_generation
+  locator: pdf:p6
+  quote: Available to generation sites which only use ancillary power (such as a solar or wind farm) or generation and storage sites (such as a battery or battery and solar farm)
+  note: '''Generator storage:'' (the heading the quoted note sits under on p6) is GT in Table 2 (p6 row ''Generatorstorage GT'',
+    rendered-page OCR).'
+- codes:
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: not for loads co-located with generation or storage
+  locator: pdf:p6
+  quote: It is not intended to be used for loads which are co-located with generation or storage
+  note: '''Generator storage:'' (the heading the quoted note sits under on p6) is GT in Table 2 (p6 row ''Generatorstorage GT'',
+    rendered-page OCR).'
+- codes:
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: any voltage level
+  locator: pdf:p6
+  quote: Can be connected to any voltage level in the distribution network
+  note: '''Generator storage:'' (the heading the quoted note sits under on p6) is GT in Table 2 (p6 row ''Generatorstorage GT'',
+    rendered-page OCR).'
+- codes:
+  - PNDB
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: battery
+  locator: pdf:p7
+  quote: Applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is not owned by the distributor
+  note: '''Community battery time of use:'' (the heading the quoted note sits under on p7) is PNDB in Table 2 (p6 row ''Community
+    battery time of use PNDB'', rendered-page OCR).'
+- codes:
+  - PNDB
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: demand_max
+  operator: le
+  value_num: 240
+  value_unit: kVA
+  locator: pdf:p7
+  quote: Applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is not owned by the distributor
+  note: '''Community battery time of use:'' (the heading the quoted note sits under on p7) is PNDB in Table 2 (p6 row ''Community
+    battery time of use PNDB'', rendered-page OCR).'
+- codes:
+  - PNDB
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is not owned by the distributor
+  note: '''Community battery time of use:'' (the heading the quoted note sits under on p7) is PNDB in Table 2 (p6 row ''Community
+    battery time of use PNDB'', rendered-page OCR).'
+- codes:
+  - PDBB
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: battery
+  locator: pdf:p7
+  quote: Applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is owned by Powercor
+  note: '''Distributor owned community battery:'' (the heading the quoted note sits under on p7) is PDBB in Table 2 (p6 row
+    ''Distributor-ownedcommunitybattery PDBB'', rendered-page OCR).'
+- codes:
+  - PDBB
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: demand_max
+  operator: le
+  value_num: 240
+  value_unit: kVA
+  locator: pdf:p7
+  quote: Applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is owned by Powercor
+  note: '''Distributor owned community battery:'' (the heading the quoted note sits under on p7) is PDBB in Table 2 (p6 row
+    ''Distributor-ownedcommunitybattery PDBB'', rendered-page OCR).'
+- codes:
+  - PDBB
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p7
+  quote: Applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is owned by Powercor
+  note: '''Distributor owned community battery:'' (the heading the quoted note sits under on p7) is PDBB in Table 2 (p6 row
+    ''Distributor-ownedcommunitybattery PDBB'', rendered-page OCR).'
+- codes:
+  - PNDB
+  - PDBB
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: metered by an AMI or COMMS (type 1-4) meter depending on battery size
+  locator: pdf:p7
+  quote: Required to be metered by an AMI or COMMS (type 1-4) meter depending on the size of the battery
+  note: '''Community battery time of use:'' (the heading the quoted note sits under on p7) is PNDB in Table 2 (p6 row ''Community
+    battery time of use PNDB'', rendered-page OCR); ''Distributor owned community battery:'' (the heading the quoted note sits
+    under on p7) is PDBB in Table 2 (p6 row ''Distributor-ownedcommunitybattery PDBB'', rendered-page OCR).'
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: storage
+  locator: pdf:p7
+  quote: For a generation / storage only site
+  note: '''HV storage'' (the heading the quoted note sits under on p7) is HV2A in Table 2 (p6 row ''HVstorage HV2A'', rendered-page
+    OCR).'
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: must be directly connected to a 22 kV feeder which typically peaks 4pm-9pm
+  locator: pdf:p7
+  quote: Must be directly connected to a 22 KV feeder which typically peaks from 4pm to 9pm
+  note: '''HV storage'' (the heading the quoted note sits under on p7) is HV2A in Table 2 (p6 row ''HVstorage HV2A'', rendered-page
+    OCR).'
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: must not receive avoided Customer TUOS charges
+  locator: pdf:p7
+  quote: Must not receive avoided Customer TUOS charges
+  note: '''HV storage'' (the heading the quoted note sits under on p7) is HV2A in Table 2 (p6 row ''HVstorage HV2A'', rendered-page
+    OCR).'
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: other
+  value_text: a site assigned to this tariff remains on it until 30 June 2026
+  locator: pdf:p7
+  quote: Any site that is assigned to this tariff will remain on this tariff until 30 June 2026
+  note: '''HV storage'' (the heading the quoted note sits under on p7) is HV2A in Table 2 (p6 row ''HVstorage HV2A'', rendered-page
+    OCR).'
+- codes:
+  - PRTOU
+  - D1
+  - DD
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p4
+  quote: Residential < 1 kV N/A
+  note: Figure 2 tariff classes; PRTOU, D1, DD and DD1 are the rows of Table 4 'Residential tariff class' (p5, an image; rendered-page
+    OCR).
+- codes:
+  - NDTOU
+  - ND1
+  - NDD
+  - NDM
+  - NDMO21
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p4
+  quote: Small and medium < 1 kV < 120 kVA business
+  note: Figure 2 tariff classes; the class's tariffs are the rows of Table 5 'Small and medium business tariff class' (p7, an
+    image; rendered-page OCR).
+- codes:
+  - NDTOU
+  - ND1
+  - NDD
+  - NDM
+  - NDMO21
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: demand_max
+  operator: lt
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p4
+  quote: Small and medium < 1 kV < 120 kVA business
+  note: Figure 2 tariff classes; the class's tariffs are the rows of Table 5 'Small and medium business tariff class' (p7, an
+    image; rendered-page OCR).
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: pdf:p4
+  quote: Large low voltage < 1 kV > 120 kVA
+  note: Figure 2 tariff classes; LLVT1/LLVT2 ('Large Low Voltage transition') and LLV1/LLV2 ('Large Low Voltage') are the large
+    low voltage rows of Table 6 (p8, an image; rendered-page OCR).
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: demand_min
+  operator: gt
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p4
+  quote: Large low voltage < 1 kV > 120 kVA
+  note: Figure 2 tariff classes; LLVT1/LLVT2 ('Large Low Voltage transition') and LLV1/LLV2 ('Large Low Voltage') are the large
+    low voltage rows of Table 6 (p8, an image; rendered-page OCR).
+- codes:
+  - HVT1
+  - HVT2
+  - HV1
+  - HV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: pdf:p4
+  quote: ≥1 kV High voltage N/A <66 kV
+  note: Figure 2 tariff classes; HVT1/HVT2 ('High Voltage transition') and HV1/HV2 ('High Voltage') are the high voltage rows
+    of Table 6 (p8, an image; rendered-page OCR).
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: pdf:p4
+  quote: Sub-transmission ≥ 66 kV N/A
+  note: Figure 2 tariff classes; ST2 is the 'Sub-transmission' row of Table 6 (p8, an image; rendered-page OCR).
+- codes:
+  - PRTOU
+  - D1
+  - DD
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p5
+  quote: TABLE 4 RESIDENTIAL TARIFF CLASS
+  note: Tariff class heading; PRTOU, D1, DD and DD1 are the rows of the table under it (an image; rendered-page OCR).
+- codes:
+  - PRTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p6
+  quote: PRTOU is the default residential tariff for greenfield new connections, new or upgraded solar or battery installations, three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater.
+  note: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV chargers >= 3.6kW
+- codes:
+  - D1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p6
+  quote: D1 is available to any residential customer except if they have a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - PRTOU
+  - DD
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p6
+  quote: PRTOU and DD require an active market interval read meter
+- codes:
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: pdf:p6
+  quote: DD1 is available to customers with a dedicated circuit connected to a time-switch
+- codes:
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: 'hot water: 1-phase electric hot water service with total load < 30 amps'
+  locator: pdf:p6
+  quote: Available to 1-phase electric hot water service with a total load of <30 amps
+- codes:
+  - NDTOU
+  - ND1
+  - NDD
+  - NDM
+  - NDMO21
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p7
+  quote: TABLE 5 SMALL AND MEDIUM BUSINESS TARIFF CLASS
+  note: Tariff class heading; NDTOU, ND1, NDD, NDM, NDMO21 and PL2 are the rows of the table under it (an image; rendered-page
+    OCR).
+- codes:
+  - NDTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p7
+  quote: NDTOU is the default small business tariff for greenfield new connections, new or upgraded solar or battery installations, three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater.
+  note: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV chargers >= 3.6kW
+- codes:
+  - NDTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: NDTOU is the default small business tariff
+- codes:
+  - ND1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: ND1 is available to any small business customer
+- codes:
+  - ND1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p7
+  quote: ND1 is available to any small business customer except if they have a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - NDTOU
+  - NDD
+  - NDM
+  - NDMO21
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p7
+  quote: NDTOU, NDD, NDM and NDMO21 require an active market interval read meter
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  target_code: NDMO21
+  locator: pdf:p7
+  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  - HVT1
+  - HVT2
+  - HV1
+  - HV2
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p8
+  quote: All tariffs require an interval meter capable of recording E, Q, B, K data stream
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  - HVT1
+  - HVT2
+  - HV1
+  - HV2
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p8
+  quote: TABLE 6 LARGE LOW VOLTAGE, HIGH VOLTAGE AND SUB-TRANSMISSION TARIFF CLASSES
+  note: Tariff class heading; the codes are the rows of the table under it (an image; its rendered-page OCR lists LLVT1, LLVT2,
+    HVT1, HVT2, LLV1, LLV2, HV1, HV2 and ST2).
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 120
+  value_unit: kVA
+  locator: pdf:p8
+  quote: Minimum chargeable demand 120kVA will be applied for low voltage, 500kVA for high voltage and 5MVA for sub-transmission
+- codes:
+  - HVT1
+  - HVT2
+  - HV1
+  - HV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 500
+  value_unit: kVA
+  locator: pdf:p8
+  quote: Minimum chargeable demand 120kVA will be applied for low voltage, 500kVA for high voltage and 5MVA for sub-transmission
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 5000
+  value_unit: kVA
+  locator: pdf:p8
+  quote: Minimum chargeable demand 120kVA will be applied for low voltage, 500kVA for high voltage and 5MVA for sub-transmission
+  note: 5 MVA
+- codes:
+  - PRTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p9
+  quote: Default Customer choice Time-of-use Single rate Demand Low High Sub PRTOU D1 DD
+  note: 'decision tree: Residential -> Default: Time-of-use PRTOU; Customer choice: single rate D1, demand DD'
+- codes:
+  - D1
+  - DD
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p9
+  quote: Default Customer choice Time-of-use Single rate Demand Low High Sub PRTOU D1 DD
+  note: 'decision tree: ''Customer choice'' branch (D1, DD)'
+- codes:
+  - NDTOU
+  - ND1
+  - NDD
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf-ocr:p7
+  quote: Single rate ND1 Opt-in <40MWh pa
+  note: 'Energy/demand threshold column of Table 5 (an image): ''< 40MWh pa'' is one merged cell spanning the ToU (NDTOU), single
+    rate (ND1) and demand (NDD) rows on the page image; OCR places it on the ND1 row. The decision tree (p9) also routes ''<40MWh''
+    to NDTOU with ND1 and NDD as customer choices.'
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: consumption_min
+  operator: gt
+  value_num: 40
+  value_unit: MWh/yr
+  locator: pdf:p9
+  quote: Default Default <40MWh >40MWh Demand Demand Demand Time-of-use Demand LLV1 or LLV2 HV1 or HV2 ST2 NDTOU NDM
+  note: 'decision tree: Non-Residential, Low Voltage <120kVA, ''Default'' ''>40MWh'' -> Demand NDM'
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p9
+  quote: Default Default <40MWh >40MWh Demand Demand Demand Time-of-use Demand LLV1 or LLV2 HV1 or HV2 ST2 NDTOU NDM
+  note: 'decision tree: NDTOU and NDM under ''Default'''
+- codes:
+  - NDTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p9
+  quote: Default Default <40MWh >40MWh Demand Demand Demand Time-of-use Demand LLV1 or LLV2 HV1 or HV2 ST2 NDTOU NDM
+  note: 'decision tree: NDTOU and NDM under ''Default'''
+- codes:
+  - ND1
+  - NDD
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: opt_in
+  locator: pdf:p9
+  quote: Customer choice Customer choice <160MWh Single rate Demand Non-dem and ND1 NDD NDMO21
+  note: 'decision tree: ''Customer choice'' (ND1, NDD)'
+- codes:
+  - NDMO21
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: consumption_max
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  locator: pdf:p9
+  quote: Customer choice Customer choice <160MWh Single rate Demand Non-dem and ND1 NDD NDMO21
+  note: 'decision tree: NDM customer choice <160MWh -> Non-demand NDMO21'
+- codes:
+  - LLV1
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf-ocr:p8
+  quote: LLV1 Workdays 7am- Workdays 7am- Large Low Voltage LLV2 Default
+  note: Status column of Table 6 (an image; rendered-page OCR) reads 'Default' for the LLV1/LLV2 row. (The decision tree on
+    p9 shows no 'Default' label on the large-customer branches.)
+- codes:
+  - HV1
+  - HV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf-ocr:p8
+  quote: HV1 Workdays 7am- Workdays 7am- High Voltage Default ≥1kV <66KV N/A 005 Non-peak times 1-4pm or 4-7pm HV2
+  note: Status column of Table 6 (an image; rendered-page OCR) reads 'Default' for the HV1/HV2 row.
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf-ocr:p8
+  quote: Sub-transmission ST2 Default
+  note: Status column of Table 6 (an image; rendered-page OCR) reads 'Default' for ST2.
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  target_code: NDMO21
+  locator: pdf:p11
+  quote: 'Option 2 - "opt out" of network demand tariff (new tariff code NDMO21) To opt a customer out of a network demand tariff, the following criteria must be satisfied: • A customer’s aggregate consumption must be less than 160MWh per annum'
+  note: 'Also: customer applies to a retailer; retailer supplies an invoice showing a demand component is charged'
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: other
+  value_text: 'option 1 to move away from a large business tariff: load limited to 200 amps per phase (cannot exceed 120 kVA)'
+  locator: pdf:p11
+  quote: We will require confirmation that the load for the connection point is/has been limited to 200 amps per phase to ensure the site cannot exceed a demand greater than 120 kVA.
+- codes:
+  - D1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2025_26_NUOS!B7
+  quote: Residential Single Rate
+  note: tariff name
+- codes:
+  - PRTOU
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2025_26_NUOS!B8
+  quote: Residential ToU
+  note: tariff name
+- codes:
+  - DD
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2025_26_NUOS!B9
+  quote: Residential Demand
+  note: tariff name
+- codes:
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: xlsx:PAL_2025_26_NUOS!B10
+  quote: Dedicated Circuit
+  note: tariff name
+- codes:
+  - ND1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2025_26_NUOS!B11
+  quote: Small Business Single Rate
+  note: tariff name
+- codes:
+  - NDTOU
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2025_26_NUOS!B12
+  quote: Small Business ToU
+  note: tariff name
+- codes:
+  - NDD
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2025_26_NUOS!B13
+  quote: Small Business Demand Tariff
+  note: tariff name
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:PAL_2025_26_NUOS!B14
+  quote: Medium Business Demand
+  note: tariff name
+- codes:
+  - NDMO21
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:PAL_2025_26_NUOS!B15
+  quote: Medium Business Opt-out
+  note: tariff name
+- codes:
+  - NDMO21
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: opt_out
+  locator: xlsx:PAL_2025_26_NUOS!B15
+  quote: Medium Business Opt-out
+  note: tariff name
+- codes:
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:PAL_2025_26_NUOS!B16
+  quote: Unmetered Supply
+  note: tariff name
+- codes:
+  - LLVT1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2025_26_NUOS!B17
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLVT1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2025_26_NUOS!B17
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLVT2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2025_26_NUOS!B18
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLVT2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2025_26_NUOS!B18
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLV1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2025_26_NUOS!B19
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - LLV1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2025_26_NUOS!B19
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2025_26_NUOS!B20
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2025_26_NUOS!B20
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - HVT1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2025_26_NUOS!B21
+  quote: High Voltage Transitional
+  note: tariff name
+- codes:
+  - HVT2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2025_26_NUOS!B22
+  quote: High Voltage Transitional
+  note: tariff name
+- codes:
+  - HV1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2025_26_NUOS!B23
+  quote: High Voltage
+  note: tariff name
+- codes:
+  - HV2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2025_26_NUOS!B24
+  quote: High Voltage
+  note: tariff name
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:PAL_2025_26_NUOS!B25
+  quote: Subtransmission
+  note: tariff name
+- codes:
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: time of use measured in AEST (all other tariffs in local time, AEDT adjusted)
+  locator: xlsx:PAL_2025_26_NUOS!B29
+  quote: Exceptions are unmetered supply tariff PL2 where the tariff is based on Australian Eastern Standard Time (AEST).
+  note: No PL2 window is stated in this workbook; the 2025-26 PDF table is an image
+- codes:
+  - PRDS
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Trial tariffs!B7
+  quote: Residential daytime saver
+  note: tariff name
+- codes:
+  - PRDS
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:Trial tariffs!D7
+  quote: Opt-in
+  note: Status column for PRDS
+- codes:
+  - PNDB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: battery
+  locator: xlsx:Trial tariffs!B8
+  quote: Community battery time of use
+  note: tariff name
+- codes:
+  - PNDB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:Trial tariffs!D8
+  quote: Default
+  note: Status column for PNDB
+- codes:
+  - PDBB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: battery
+  locator: xlsx:Trial tariffs!B9
+  quote: Distributor-owned community battery
+  note: tariff name
+- codes:
+  - PDBB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:Trial tariffs!D9
+  quote: Default
+  note: Status column for PDBB
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Trial tariffs!B10
+  quote: HV storage
+  note: tariff name
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Trial tariffs!B10
+  quote: HV storage
+  note: tariff name
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:Trial tariffs!D10
+  quote: Opt-in
+  note: Status column for HV2A
+- codes:
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: embedded_generation
+  locator: xlsx:Trial tariffs!B11
+  quote: Generator storage
+  note: tariff name
+- codes:
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:Trial tariffs!D11
+  quote: Opt-in
+  note: Status column for GT
+- codes:
+  - PRDS
+  - PNDB
+  - PDBB
+  - HV2A
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: availability
+  value_text: trial
+  locator: xlsx:Trial tariffs!B1
+  quote: 2025/26 POWERCOR NETWORK TARIFF SCHEDULE - TRIAL TARIFFS
+- codes:
+  - PRDS
+  - PNDB
+  - PDBB
+  - HV2A
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: trial ends 30 June 2026; customers transferred to approved network tariffs
+  locator: xlsx:Trial tariffs!B14
+  quote: All trial tariffs will end on 30 June 2026 and customers will be transferred to approved network tariffs.
+- codes:
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: embedded_generation
+  locator: xlsx:Trial tariffs!B18
+  quote: Available to generation sites which only use ancillary power (such as a solar or wind farm) or generation and storage sites (such as a battery or battery and solar farm)
+  note: 'the quoted note sits under the heading ''Generator storage: '' (B17); code GT is C11 on the row named in B11.'
+- codes:
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: not for loads co-located with generation or storage
+  locator: xlsx:Trial tariffs!B19
+  quote: It is not intended to be used for loads which are co-located with generation or storage
+  note: 'the quoted note sits under the heading ''Generator storage: '' (B17); code GT is C11 on the row named in B11.'
+- codes:
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: any voltage level
+  locator: xlsx:Trial tariffs!B20
+  quote: Can be connected to any voltage level in the distribution network
+  note: 'the quoted note sits under the heading ''Generator storage: '' (B17); code GT is C11 on the row named in B11.'
+- codes:
+  - PRDS
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Trial tariffs!B24
+  quote: Available to any residential customer with an AMI meter
+  note: 'the quoted note sits under the heading ''Residential daytime saver: '' (B23); code PRDS is C7 on the row named in B7.'
+- codes:
+  - PRDS
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: meter_type
+  value_text: smart
+  locator: xlsx:Trial tariffs!B24
+  quote: Available to any residential customer with an AMI meter
+  note: 'AMI meter. the quoted note sits under the heading ''Residential daytime saver: '' (B23); code PRDS is C7 on the row
+    named in B7.'
+- codes:
+  - PRDS
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:Trial tariffs!B25
+  quote: Retailer can opt a residential customer in and out of the trial tariff at any time
+  note: 'the quoted note sits under the heading ''Residential daytime saver: '' (B23); code PRDS is C7 on the row named in B7.'
+- codes:
+  - PRDS
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: customer numbers capped at 1% of distribution revenue (about 17,000 customers)
+  locator: xlsx:Trial tariffs!B27
+  quote: Customer numbers will be capped at 1% of distribution revenue which is approximately 17,000 customers
+  note: 'the quoted note sits under the heading ''Residential daytime saver: '' (B23); code PRDS is C7 on the row named in B7.'
+- codes:
+  - PNDB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: battery
+  locator: xlsx:Trial tariffs!B30
+  quote: Applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is not owned by the distributor
+  note: 'the quoted note sits under the heading ''Community battery time of use: '' (B29); code PNDB is C8 on the row named
+    in B8.'
+- codes:
+  - PNDB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: demand_max
+  operator: le
+  value_num: 240
+  value_unit: kVA
+  locator: xlsx:Trial tariffs!B30
+  quote: Applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is not owned by the distributor
+  note: 'the quoted note sits under the heading ''Community battery time of use: '' (B29); code PNDB is C8 on the row named
+    in B8.'
+- codes:
+  - PNDB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Trial tariffs!B30
+  quote: Applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is not owned by the distributor
+  note: 'the quoted note sits under the heading ''Community battery time of use: '' (B29); code PNDB is C8 on the row named
+    in B8.'
+- codes:
+  - PNDB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: metered by an AMI or COMMS (type 1-4) meter depending on battery size
+  locator: xlsx:Trial tariffs!B31
+  quote: Required to be metered by an AMI or COMMS (type 1-4) meter depending on the size of the battery
+  note: 'the quoted note sits under the heading ''Community battery time of use: '' (B29); code PNDB is C8 on the row named
+    in B8.'
+- codes:
+  - PDBB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: battery
+  locator: xlsx:Trial tariffs!B35
+  quote: Applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is owned by Powercor
+  note: 'the quoted note sits under the heading ''Distributor owned community battery: '' (B34); code PDBB is C9 on the row
+    named in B9.'
+- codes:
+  - PDBB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: demand_max
+  operator: le
+  value_num: 240
+  value_unit: kVA
+  locator: xlsx:Trial tariffs!B35
+  quote: Applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is owned by Powercor
+  note: 'the quoted note sits under the heading ''Distributor owned community battery: '' (B34); code PDBB is C9 on the row
+    named in B9.'
+- codes:
+  - PDBB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Trial tariffs!B35
+  quote: Applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is owned by Powercor
+  note: 'the quoted note sits under the heading ''Distributor owned community battery: '' (B34); code PDBB is C9 on the row
+    named in B9.'
+- codes:
+  - PDBB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: metered by an AMI or COMMS (type 1-4) meter depending on battery size
+  locator: xlsx:Trial tariffs!B36
+  quote: Required to be metered by an AMI or COMMS (type 1-4) meter depending on the size of the battery
+  note: 'the quoted note sits under the heading ''Distributor owned community battery: '' (B34); code PDBB is C9 on the row
+    named in B9.'
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: requires_technology
+  value_text: storage
+  locator: xlsx:Trial tariffs!B40
+  quote: For a generation / storage only site
+  note: the quoted note sits under the heading 'HV storage' (B39); code HV2A is C10 on the row named in B10.
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: must be directly connected to a 22 kV feeder which typically peaks 4pm-9pm
+  locator: xlsx:Trial tariffs!B41
+  quote: Must be directly connected to a 22 KV feeder which typically peaks from 4pm to 9pm
+  note: the quoted note sits under the heading 'HV storage' (B39); code HV2A is C10 on the row named in B10.
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: must not receive avoided Customer TUOS charges
+  locator: xlsx:Trial tariffs!B42
+  quote: Must not receive avoided Customer TUOS charges
+  note: the quoted note sits under the heading 'HV storage' (B39); code HV2A is C10 on the row named in B10.
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  rule_type: other
+  value_text: a site assigned to this tariff remains on it until 30 June 2026
+  locator: xlsx:Trial tariffs!B43
+  quote: Any site that is assigned to this tariff will remain on this tariff until 30 June 2026
+  note: the quoted note sits under the heading 'HV storage' (B39); code HV2A is C10 on the row named in B10.
+- codes:
+  - PFS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p4
+  quote: Flexible small will be assigned to small and medium business tariff class
+  note: tariff class assignment
+- codes:
+  - PFL
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: assigned to the high voltage tariff class
+  locator: pdf:p4
+  quote: Flexible large will be assigned to high voltage tariff class
+  note: tariff class assignment; Table 6 prints PFL's supply voltage as 'N/A', so no connection voltage level is stated
+- codes:
+  - PFTUOS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: assigned to the sub-transmission tariff class
+  locator: pdf:p4
+  quote: Flexible TUOS pass-through will be assigned to sub-transmission tariff class
+  note: tariff class assignment; the PFTUOS row (p9) prints its supply voltage as 'N/A', so no connection voltage level is stated
+- codes:
+  - PRSTOU
+  - D1
+  - PRCER
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: pdf:p5
+  quote: TABLE 4 RESIDENTIAL TARIFF CLASS
+  note: Tariff class heading; PRSTOU, D1, PRCER and DD1 are the rows of the table under it (an image; rendered-page OCR).
+- codes:
+  - PRSTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p6
+  quote: PRSTOU is the default residential tariff for greenfield new connections, new or upgraded solar or battery installations, three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater.
+  note: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV chargers >= 3.6kW
+- codes:
+  - PRSTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p6
+  quote: PRSTOU require an active market interval read meter
+- codes:
+  - D1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p6
+  quote: D1 is available to any residential customer except if they have a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: pdf:p6
+  quote: DD1 is available to customers with a dedicated circuit connected to a time-switch
+- codes:
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: 'hot water: 1-phase electric hot water service with total load < 30 amps'
+  locator: pdf:p6
+  quote: Available to 1-phase electric hot water service with a total load of <30 amps
+- codes:
+  - NDTOU
+  - ND1
+  - NDD
+  - NDM
+  - NDMO
+  - PL2
+  - PFS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: business
+  locator: pdf:p7
+  quote: TABLE 5 SMALL AND MEDIUM BUSINESS TARIFF CLASS
+  note: Tariff class heading; the table under it (an image; rendered-page OCR) lists NDTOU, ND1, NDD, NDM, NDMO21 (OCR 'NDM021';
+    the 2026-27 Tariff Summary lists it as NDMO), PL2 and PFS.
+- codes:
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: 'type 7 or 9 metering: all public lighting, all type 7 metered loads, type 9 metered loads up to 5 MWh pa'
+  locator: pdf:p7
+  quote: Type 7 and 9 metering assignment criteria apply for all public lighting, all type 7 metered loads, and type 9 metered loads up to 5 MWh pa
+  note: Table 5 (an image; rendered-page OCR, same page) gives the tariff type 'Type 7 or 9 metering' the code PL2 ('Type 7
+    or 9 metering PL2 Default').
+- codes:
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: consumption_max
+  operator: le
+  value_num: 5
+  value_unit: MWh/yr
+  locator: pdf:p7
+  quote: type 9 metered loads up to 5 MWh pa
+  note: applies to type 9 metered loads; all public lighting and all type 7 metered loads qualify regardless. Table 5 (an image;
+    rendered-page OCR, same page) gives the tariff type 'Type 7 or 9 metering' the code PL2 ('Type 7 or 9 metering PL2 Default').
+- codes:
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: public_lighting
+  locator: pdf:p7
+  quote: Type 7 and 9 metering assignment criteria apply for all public lighting
+  note: Table 5 (an image; rendered-page OCR, same page) gives the tariff type 'Type 7 or 9 metering' the code PL2 ('Type 7
+    or 9 metering PL2 Default').
+- codes:
+  - NDTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p7
+  quote: NDTOU is the default small business tariff for greenfield new connections, new or upgraded solar or battery installations, three-phase upgrades and customers with a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater.
+  note: default for greenfield connections, new/upgraded solar or battery, three-phase upgrades and dedicated EV chargers >= 3.6kW
+- codes:
+  - NDTOU
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: NDTOU is the default small business tariff
+- codes:
+  - ND1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: pdf:p7
+  quote: ND1 is available to any small business customer
+- codes:
+  - ND1
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: not available to customers with a dedicated EV charger of 3.6kW or greater
+  locator: pdf:p7
+  quote: ND1 is available to any small business customer except if they have a dedicated electric vehicle charger with a specified capacity or charging rate of 3.6kW or greater
+- codes:
+  - NDTOU
+  - NDD
+  - NDM
+  - PFS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p7
+  quote: NDTOU, NDD, NDM, NDMO21 and PFS require an active market interval read meter
+  note: the note also names NDMO21; the 2026-27 Tariff Summary lists the medium business opt-out as NDMO
+- codes:
+  - NDMO
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p7
+  quote: NDTOU, NDD, NDM, NDMO21 and PFS require an active market interval read meter
+  note: the note names NDMO21; the 2026-27 Tariff Summary lists the medium business opt-out ('Opt-out' status) as NDMO
+- codes:
+  - NDD
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: with a dedicated circuit, demand is measured on the general power & light circuits only
+  locator: pdf:p7
+  quote: For small and medium demand tariffs with dedicated circuit, the demand calculation will only apply to consumption on the General Power & Light circuits
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  target_code: NDMO21
+  locator: pdf:p8
+  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
+  note: the 2026-27 Tariff Summary lists the medium business opt-out tariff as NDMO (status 'Opt-out')
+- codes:
+  - LLV1
+  - LLV2
+  - LLV3
+  - HV1
+  - HV2
+  - HV3
+  - ST2
+  - PFL
+  - PFTUOS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: pdf:p8
+  quote: TABLE 6 LARGE LOW VOLTAGE, HIGH VOLTAGE AND SUB-TRANSMISSION TARIFF CLASSES
+  note: Tariff class heading; the table under it (an image; rendered-page OCR, continued on p9) lists LLV1, LLV2, LLV3, HV1,
+    HV2, HV3, PFL, ST2 and PFTUOS.
+- codes:
+  - LLV1
+  - LLV2
+  - LLV3
+  - HV1
+  - HV2
+  - HV3
+  - ST2
+  - PFL
+  - PFTUOS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: meter_type
+  value_text: interval
+  locator: pdf:p9
+  quote: All tariffs require an interval meter capable of recording E, Q, B, K data stream
+- codes:
+  - HV1
+  - HV2
+  - HV3
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 500
+  value_unit: kVA
+  locator: pdf:p9
+  quote: Minimum chargeable demand is 500kVA for high voltage and 5,000kVA for sub- transmission
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: minimum_demand_charge
+  operator: eq
+  value_num: 5000
+  value_unit: kVA
+  locator: pdf:p9
+  quote: Minimum chargeable demand is 500kVA for high voltage and 5,000kVA for sub- transmission
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: no incentive demand for sub-transmission
+  locator: pdf:p12
+  quote: Incentive demand is not applicable to Sub-transmission customers
+- codes:
+  - LLV1
+  - LLV2
+  - LLV3
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  rule_type: other
+  value_text: 'to move away from a large business tariff: 15 months of data and consumption below 160 MWh pa for at least 3 months'
+  locator: pdf:p12
+  quote: We require that consumption values consistently remain below the average daily load threshold of 160 MWh per annum for a minimum period of 3 months prior to submitting a request to move away from a large business tariff.
+- codes:
+  - PRSTOU
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2026-27_NUOS!B7
+  quote: Residential ToU
+  note: tariff name
+- codes:
+  - PRSTOU
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D7
+  quote: Default
+  note: Status column for PRSTOU
+- codes:
+  - D1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2026-27_NUOS!B8
+  quote: Residential single rate
+  note: tariff name
+- codes:
+  - D1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:PAL_2026-27_NUOS!D8
+  quote: Opt-in
+  note: Status column for D1
+- codes:
+  - PRCER
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2026-27_NUOS!B9
+  quote: Residential CER
+  note: tariff name
+- codes:
+  - PRCER
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:PAL_2026-27_NUOS!D9
+  quote: Opt-in
+  note: Status column for PRCER
+- codes:
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: xlsx:PAL_2026-27_NUOS!B10
+  quote: Dedicated circuit
+  note: tariff name
+- codes:
+  - DD1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:PAL_2026-27_NUOS!D10
+  quote: Opt-in
+  note: Status column for DD1
+- codes:
+  - NDTOU
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2026-27_NUOS!B11
+  quote: Small business ToU
+  note: tariff name
+- codes:
+  - NDTOU
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D11
+  quote: Default
+  note: Status column for NDTOU
+- codes:
+  - ND1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2026-27_NUOS!B12
+  quote: Small business single rate
+  note: tariff name
+- codes:
+  - ND1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:PAL_2026-27_NUOS!D12
+  quote: Opt-in
+  note: Status column for ND1
+- codes:
+  - NDD
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2026-27_NUOS!B13
+  quote: Small business demand
+  note: tariff name
+- codes:
+  - NDD
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_in
+  locator: xlsx:PAL_2026-27_NUOS!D13
+  quote: Opt-in
+  note: Status column for NDD
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:PAL_2026-27_NUOS!B14
+  quote: Medium business demand
+  note: tariff name
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D14
+  quote: Default
+  note: Status column for NDM
+- codes:
+  - NDMO
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:PAL_2026-27_NUOS!B15
+  quote: Medium business opt-out
+  note: tariff name
+- codes:
+  - NDMO
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_out
+  locator: xlsx:PAL_2026-27_NUOS!B15
+  quote: Medium business opt-out
+  note: tariff name
+- codes:
+  - NDMO
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: opt_out
+  locator: xlsx:PAL_2026-27_NUOS!D15
+  quote: Opt-out
+  note: Status column for NDMO
+- codes:
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D16
+  quote: Default
+  note: Status column for PL2
+- codes:
+  - PFS
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D17
+  quote: Default
+  note: Status column for PFS
+- codes:
+  - LLV1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2026-27_NUOS!B18
+  quote: Large low voltage 1
+  note: tariff name
+- codes:
+  - LLV1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2026-27_NUOS!B18
+  quote: Large low voltage 1
+  note: tariff name
+- codes:
+  - LLV1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D18
+  quote: Default
+  note: Status column for LLV1
+- codes:
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2026-27_NUOS!B19
+  quote: Large low voltage 2
+  note: tariff name
+- codes:
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2026-27_NUOS!B19
+  quote: Large low voltage 2
+  note: tariff name
+- codes:
+  - LLV2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D19
+  quote: Default
+  note: Status column for LLV2
+- codes:
+  - LLV3
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2026-27_NUOS!B20
+  quote: Large low voltage 3
+  note: tariff name
+- codes:
+  - LLV3
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2026-27_NUOS!B20
+  quote: Large low voltage 3
+  note: tariff name
+- codes:
+  - LLV3
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D20
+  quote: Default
+  note: Status column for LLV3
+- codes:
+  - HV1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2026-27_NUOS!B21
+  quote: High voltage 1
+  note: tariff name
+- codes:
+  - HV1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D21
+  quote: Default
+  note: Status column for HV1
+- codes:
+  - HV2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2026-27_NUOS!B22
+  quote: High voltage 2
+  note: tariff name
+- codes:
+  - HV2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D22
+  quote: Default
+  note: Status column for HV2
+- codes:
+  - HV3
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2026-27_NUOS!B23
+  quote: High voltage 3
+  note: tariff name
+- codes:
+  - HV3
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D23
+  quote: Default
+  note: Status column for HV3
+- codes:
+  - PFL
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D24
+  quote: Default
+  note: Status column for PFL
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:PAL_2026-27_NUOS!B25
+  quote: Subtransmission
+  note: tariff name
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_NUOS!D25
+  quote: Default
+  note: Status column for ST2
+- codes:
+  - EVPTOU
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2026-27_TRIAL_NUOS!B7
+  quote: Residential kerbside EV charger
+  note: tariff name
+- codes:
+  - EVPTOU
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: requires_technology
+  value_text: ev
+  locator: xlsx:PAL_2026-27_TRIAL_NUOS!B7
+  quote: Residential kerbside EV charger
+  note: tariff name
+- codes:
+  - EVPTOU
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_TRIAL_NUOS!D7
+  quote: Default
+  note: Status column for EVPTOU
+- codes:
+  - PFTUOS
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: assignment
+  value_text: default
+  locator: xlsx:PAL_2026-27_INDIVIDUALLY_CALC!D6
+  quote: Default
+  note: Status column for PFTUOS
+- codes:
+  - PL2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: other
+  value_text: time of use measured in AEST (all other tariffs in local time, AEDT adjusted)
+  locator: xlsx:PAL_2026-27_NUOS!B29
+  quote: Exceptions are Type 7 or 9 metering (PL2) where the tariff is based on Australian Eastern Standard Time (AEST)
+  note: the PL2 window itself is in the PDF Table 5 image
+- codes:
+  - EVPTOU
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  rule_type: availability
+  value_text: trial
+  locator: xlsx:PAL_2026-27_TRIAL_NUOS!B1
+  quote: 2026-27 POWERCOR TRIAL TARIFF SCHEDULE
+- codes:
+  - D1
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2023_24_NUOS!B7
+  quote: Residential Single Rate
+  note: tariff name
+- codes:
+  - PRTOU
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2023_24_NUOS!B8
+  quote: Residential ToU
+  note: tariff name
+- codes:
+  - DD
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2023_24_NUOS!B9
+  quote: Residential Demand
+  note: tariff name
+- codes:
+  - DD1
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: xlsx:PAL_2023_24_NUOS!B10
+  quote: Dedicated circuit
+  note: tariff name
+- codes:
+  - ND1
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2023_24_NUOS!B11
+  quote: Small Business Single Rate
+  note: tariff name
+- codes:
+  - NDTOU
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2023_24_NUOS!B12
+  quote: Small Business ToU
+  note: tariff name
+- codes:
+  - NDD
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2023_24_NUOS!B13
+  quote: Small Business Demand
+  note: tariff name
+- codes:
+  - NDM
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:PAL_2023_24_NUOS!B14
+  quote: Medium Business Demand
+  note: tariff name
+- codes:
+  - NDMO21
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:PAL_2023_24_NUOS!B15
+  quote: Medium Business Opt-out
+  note: tariff name
+- codes:
+  - NDMO21
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: assignment
+  value_text: opt_out
+  locator: xlsx:PAL_2023_24_NUOS!B15
+  quote: Medium Business Opt-out
+  note: tariff name
+- codes:
+  - PL2
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:PAL_2023_24_NUOS!B16
+  quote: Unmetered supply
+  note: tariff name
+- codes:
+  - LLVT1
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2023_24_NUOS!B17
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLVT1
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2023_24_NUOS!B17
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLVT2
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2023_24_NUOS!B18
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLVT2
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2023_24_NUOS!B18
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLV1
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2023_24_NUOS!B19
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - LLV1
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2023_24_NUOS!B19
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - LLV2
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2023_24_NUOS!B20
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - LLV2
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2023_24_NUOS!B20
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - HVT1
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2023_24_NUOS!B21
+  quote: High Voltage Transitional
+  note: tariff name
+- codes:
+  - HVT2
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2023_24_NUOS!B22
+  quote: High Voltage Transitional
+  note: tariff name
+- codes:
+  - HV1
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2023_24_NUOS!B23
+  quote: High Voltage
+  note: tariff name
+- codes:
+  - HV2
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2023_24_NUOS!B24
+  quote: High Voltage
+  note: tariff name
+- codes:
+  - ST2
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:PAL_2023_24_NUOS!B25
+  quote: Subtransmission
+  note: tariff name
+- codes:
+  - D1
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2024_25_NUOS!B7
+  quote: Residential Single Rate
+  note: tariff name
+- codes:
+  - PRTOU
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2024_25_NUOS!B8
+  quote: Residential ToU
+  note: tariff name
+- codes:
+  - DD
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:PAL_2024_25_NUOS!B9
+  quote: Residential Demand
+  note: tariff name
+- codes:
+  - DD1
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: requires_technology
+  value_text: dedicated_circuit
+  locator: xlsx:PAL_2024_25_NUOS!B10
+  quote: Dedicated Circuit
+  note: tariff name
+- codes:
+  - ND1
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2024_25_NUOS!B11
+  quote: Small Business Single Rate
+  note: tariff name
+- codes:
+  - NDTOU
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2024_25_NUOS!B12
+  quote: Small Business ToU
+  note: tariff name
+- codes:
+  - NDD
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: small_business
+  locator: xlsx:PAL_2024_25_NUOS!B13
+  quote: Small Business Demand Tariff
+  note: tariff name
+- codes:
+  - NDM
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:PAL_2024_25_NUOS!B14
+  quote: Medium Business Demand
+  note: tariff name
+- codes:
+  - NDMO21
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: medium_business
+  locator: xlsx:PAL_2024_25_NUOS!B15
+  quote: Medium Business Opt-out
+  note: tariff name
+- codes:
+  - NDMO21
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: opt_out
+  locator: xlsx:PAL_2024_25_NUOS!B15
+  quote: Medium Business Opt-out
+  note: tariff name
+- codes:
+  - PL2
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:PAL_2024_25_NUOS!B16
+  quote: Unmetered Supply
+  note: tariff name
+- codes:
+  - LLVT1
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2024_25_NUOS!B17
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLVT1
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2024_25_NUOS!B17
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLVT2
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2024_25_NUOS!B18
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLVT2
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2024_25_NUOS!B18
+  quote: Large low Voltage Transitional
+  note: tariff name
+- codes:
+  - LLV1
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2024_25_NUOS!B19
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - LLV1
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2024_25_NUOS!B19
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - LLV2
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:PAL_2024_25_NUOS!B20
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - LLV2
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:PAL_2024_25_NUOS!B20
+  quote: Large low Voltage
+  note: tariff name
+- codes:
+  - HVT1
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2024_25_NUOS!B21
+  quote: High Voltage Transitional
+  note: tariff name
+- codes:
+  - HVT2
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2024_25_NUOS!B22
+  quote: High Voltage Transitional
+  note: tariff name
+- codes:
+  - HV1
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2024_25_NUOS!B23
+  quote: High Voltage
+  note: tariff name
+- codes:
+  - HV2
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:PAL_2024_25_NUOS!B24
+  quote: High Voltage
+  note: tariff name
+- codes:
+  - ST2
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:PAL_2024_25_NUOS!B25
+  quote: Subtransmission
+  note: tariff name
+- codes:
+  - D1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D86
+  quote: Residential
+  note: AER tariff schedule 3 'Tariff class' column for D1
+- codes:
+  - PRTOU
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D87
+  quote: Residential
+  note: AER tariff schedule 3 'Tariff class' column for PRTOU
+- codes:
+  - DD
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D88
+  quote: Residential
+  note: AER tariff schedule 3 'Tariff class' column for DD
+- codes:
+  - DD1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: residential
+  locator: xlsx:Tariff schedule!D89
+  quote: Residential
+  note: AER tariff schedule 3 'Tariff class' column for DD1
+- codes:
+  - ND1
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D92
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for ND1 (small and medium business class)
+- codes:
+  - NDTOU
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D93
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for NDTOU (small and medium business class)
+- codes:
+  - NDD
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D94
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for NDD (small and medium business class)
+- codes:
+  - NDM
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D95
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for NDM (small and medium business class)
+- codes:
+  - NDMO
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D96
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for NDMO (small and medium business class)
+- codes:
+  - PL2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: business
+  locator: xlsx:Tariff schedule!D97
+  quote: Small and medium business
+  note: AER tariff schedule 3 'Tariff class' column for PL2 (small and medium business class)
+- codes:
+  - PL2
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: unmetered
+  locator: xlsx:Tariff schedule!C97
+  quote: Unmetered Supplies
+  note: AER tariff schedule 3 tariff name
+- codes:
+  - LLVT
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D99
+  quote: Large low voltage
+  note: AER tariff schedule 3 'Tariff class' column for LLVT
+- codes:
+  - LLVT
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D99
+  quote: Large low voltage
+  note: AER tariff schedule 3 'Tariff class' column for LLVT
+- codes:
+  - LLV
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: LV
+  locator: xlsx:Tariff schedule!D100
+  quote: Large low voltage
+  note: AER tariff schedule 3 'Tariff class' column for LLV
+- codes:
+  - LLV
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: customer_type
+  value_text: large_business
+  locator: xlsx:Tariff schedule!D100
+  quote: Large low voltage
+  note: AER tariff schedule 3 'Tariff class' column for LLV
+- codes:
+  - HVT
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!D102
+  quote: High voltage
+  note: AER tariff schedule 3 'Tariff class' column for HVT
+- codes:
+  - HV
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: HV
+  locator: xlsx:Tariff schedule!D103
+  quote: High voltage
+  note: AER tariff schedule 3 'Tariff class' column for HV
+- codes:
+  - STT
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  rule_type: voltage_level
+  value_text: subtransmission
+  locator: xlsx:Tariff schedule!D105
+  quote: Sub-transmission
+  note: AER tariff schedule 3 'Tariff class' column for STT
+relations:
+- from: NDM
+  type: opt_out_alternative
+  to: NDMO21
+  fin_year: 2024-25
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
+- from: NDM
+  type: opt_out_alternative
+  to: NDMO21
+  fin_year: 2025-26
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p7
+  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
+- from: NDM
+  type: opt_out_alternative
+  to: NDMO21
+  fin_year: 2026-27
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p8
+  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
+  note: the 2026-27 Tariff Summary lists the medium business opt-out tariff as NDMO
+flags:
+- codes:
+  - PRDS
+  - PNDB
+  - PDBB
+  - HV2A
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  flag: trial
+  locator: pdf-ocr:p6
+  quote: Residentialdaytime saver PRDS 39.73 18.63 6.68 Community battery time of use PNDB 45.00 25.00 1.50 1.00 Distributor-ownedcommunitybattery
+    PDBB 0.80 HVstorage HV2A 2.51 1.68 7.15 9.52 Generatorstorage GT
+  column_locator: pdf:p6
+  column_quote: TABLE 2 TRIAL TARIFFS 2024/25 TARIFFS
+- codes:
+  - LLVT1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  flag: transitional
+  locator: xlsx:PAL_2025_26_NUOS!B17
+  quote: Large low Voltage Transitional
+- codes:
+  - LLVT2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  flag: transitional
+  locator: xlsx:PAL_2025_26_NUOS!B18
+  quote: Large low Voltage Transitional
+- codes:
+  - HVT1
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  flag: transitional
+  locator: xlsx:PAL_2025_26_NUOS!B21
+  quote: High Voltage Transitional
+- codes:
+  - HVT2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  flag: transitional
+  locator: xlsx:PAL_2025_26_NUOS!B22
+  quote: High Voltage Transitional
+- codes:
+  - PRDS
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  flag: trial
+  locator: xlsx:Trial tariffs!C7
+  quote: PRDS
+  column_locator: xlsx:Trial tariffs!B1
+  column_quote: 2025/26 POWERCOR NETWORK TARIFF SCHEDULE - TRIAL TARIFFS
+- codes:
+  - PNDB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  flag: trial
+  locator: xlsx:Trial tariffs!C8
+  quote: PNDB
+  column_locator: xlsx:Trial tariffs!B1
+  column_quote: 2025/26 POWERCOR NETWORK TARIFF SCHEDULE - TRIAL TARIFFS
+- codes:
+  - PDBB
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  flag: trial
+  locator: xlsx:Trial tariffs!C9
+  quote: PDBB
+  column_locator: xlsx:Trial tariffs!B1
+  column_quote: 2025/26 POWERCOR NETWORK TARIFF SCHEDULE - TRIAL TARIFFS
+- codes:
+  - HV2A
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  flag: trial
+  locator: xlsx:Trial tariffs!C10
+  quote: HV2A
+  column_locator: xlsx:Trial tariffs!B1
+  column_quote: 2025/26 POWERCOR NETWORK TARIFF SCHEDULE - TRIAL TARIFFS
+- codes:
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  flag: trial
+  locator: xlsx:Trial tariffs!C11
+  quote: GT
+  column_locator: xlsx:Trial tariffs!B1
+  column_quote: 2025/26 POWERCOR NETWORK TARIFF SCHEDULE - TRIAL TARIFFS
+- codes:
+  - PFTUOS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  flag: site_specific
+  locator: pdf:p9
+  quote: PFTUOS annual TUOS/NMI charges will be calculated and applied uniquely on a per NMI basis
+- codes:
+  - EVPTOU
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  flag: trial
+  locator: xlsx:PAL_2026-27_TRIAL_NUOS!C7
+  quote: EVPTOU
+  column_locator: xlsx:PAL_2026-27_TRIAL_NUOS!B1
+  column_quote: 2026-27 POWERCOR TRIAL TARIFF SCHEDULE
+- codes:
+  - PFTUOS
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2026-27_07May2026.xlsx
+  fin_year: 2026-27
+  flag: site_specific
+  locator: xlsx:PAL_2026-27_INDIVIDUALLY_CALC!C6
+  quote: PFTUOS
+  column_locator: xlsx:PAL_2026-27_INDIVIDUALLY_CALC!B1
+  column_quote: 2026-27 POWERCOR INDIVIDUALLY CALCULATED TARIFF SCHEDULE
+- codes:
+  - LLVT1
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:PAL_2023_24_NUOS!B17
+  quote: Large low Voltage Transitional
+- codes:
+  - LLVT2
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:PAL_2023_24_NUOS!B18
+  quote: Large low Voltage Transitional
+- codes:
+  - HVT1
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:PAL_2023_24_NUOS!B21
+  quote: High Voltage Transitional
+- codes:
+  - HVT2
+  doc: sources/aer/2023-24_price_lists/Powercor_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: transitional
+  locator: xlsx:PAL_2023_24_NUOS!B22
+  quote: High Voltage Transitional
+- codes:
+  - LLVT1
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:PAL_2024_25_NUOS!B17
+  quote: Large low Voltage Transitional
+- codes:
+  - LLVT2
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:PAL_2024_25_NUOS!B18
+  quote: Large low Voltage Transitional
+- codes:
+  - HVT1
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:PAL_2024_25_NUOS!B21
+  quote: High Voltage Transitional
+- codes:
+  - HVT2
+  doc: sources/aer/dnsp_copies/Powercor_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:PAL_2024_25_NUOS!B22
+  quote: High Voltage Transitional
+- codes:
+  - LLVT
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:Tariff schedule!C99
+  quote: Large Low Voltage transitional
+- codes:
+  - HVT
+  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Powercor_2024-25.xlsx
+  fin_year: 2024-25
+  flag: transitional
+  locator: xlsx:Tariff schedule!C102
+  quote: High Voltage transitional

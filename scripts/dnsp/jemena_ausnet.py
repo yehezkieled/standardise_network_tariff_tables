@@ -332,7 +332,11 @@ def emit_jemena(inv):
 
 
 # ------------------------------------------------------------------------------------ AusNet PDFs
-AUS_CODE_RE = re.compile(r"^[A-Z]{3,4}\d{2}[A-Z]?$")
+# one or two digits: NASN2S / NASN2P sit next to NASN21 (a two-digit-only pattern dropped them from every schedule)
+AUS_CODE_RE = re.compile(r"^[A-Z]{3,4}\d{1,2}[A-Z]?$")
+# the xlsx code column also prints letter-only site-specific codes (2026-27 'STSS'); its only other text is the
+# 'Tariff code' header
+AUS_XLSX_CODE_RE = re.compile(r"^(?:[A-Z]{3,4}\d{1,2}[A-Z]?|[A-Z]{4})$")
 AUS_TRIAL_CODE_RE = re.compile(r"^[A-Z]{3,4}\d{2}T$")
 UNIT_RE = re.compile(r"^(\$|c)/\S+$")  # "$/year", "c/kWh", "$/kVA/yr", "$/kW/mth", wrapped "$/kVA/ye"
 
@@ -563,7 +567,7 @@ def parse_ausnet_trial_tables(path, fin_year, inv):
                                     "basis not stated in table (values match the Network/NUoS schedule of the parent tariffs); "
                                     "GST not stated; assumed excl")
                             rows.append(make_row(distributor="AusNet Services", fin_year=fin_year, code=code_w["text"],
-                                                 name=f"{name} (tariff trial)", customer_class="Tariff trial",
+                                                 name=name, customer_class="Tariff trial",
                                                  component=label, unit=cols[i]["unit"], value=w["text"], gst="excl",
                                                  basis="unknown", source_file=path, source_url=inv[path], note=note,
                                                  locator=locators.pdf(pno), charge_type=ct))
@@ -620,7 +624,7 @@ def parse_ausnet_xlsx(path, fin_year, inv):
             elif isinstance(b, str) and b.strip() and not re.match(r"^(\*|\d+\.|notes)", b.strip(), re.I):
                 current_class = b.strip()
             code = str(c).strip() if c is not None else ""
-            if not AUS_CODE_RE.match(code):
+            if not AUS_XLSX_CODE_RE.match(code):
                 continue
             n_codes += 1
             desc = str(ws.cell(r, 5).value or "").strip()

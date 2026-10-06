@@ -13382,3 +13382,154 @@ flags:
   column_locator: "xlsx:Network 2026-27!F45"
   column_quote: Closed to New Entrants
   note: "Row 63: C63 'NEE93', F63 'Yes' under F45 'Closed to New Entrants'."
+steps:
+- codes: [NEE11, NEE11S, NEE11P, NEN11, NEE13, NEE14, NEE15, NEE12, NEE12S, NEE12P, NEN12, NEE16, NEE17, NEE18]
+  doc: sources/dnsp/ausnet/AusNet_Annual_Pricing_Proposal_2023-24.pdf
+  fin_year: 2023-24
+  locator: "pdf:p54"
+  quote: Inclining block 1 c/kWh 1020 kWh/qtr
+  step_group: Inclining block energy
+  component_label: Inclining block 1 (first 1020 kWh per quarter)
+  step_index: 1
+  lower_bound: 0
+  upper_bound: 1020
+  lower_inclusive: true
+  upper_inclusive: true
+  quantity_unit: kWh
+  reset_period: quarter
+  note: "Section 10.5 'Tariff structure and charging parameter' (p54), tariff structure 1; the 10.1 network tariff schedule (p42) prints 'Tariff Structure' 1 (or '1 & 9', '1 & 10', '1 & 11' with a dedicated circuit) for these tariffs and prices them in the 'Block 1' and 'Block 2' columns. Block 1 is the first 1020 kWh of each quarter. Whether 1020 kWh itself falls in block 1 or block 2 is not stated; the quarter is the unit printed ('kWh/qtr'), the document does not say how a billing period that is not a quarter is pro-rated."
+- codes: [NEE11, NEE11S, NEE11P, NEN11, NEE13, NEE14, NEE15, NEE12, NEE12S, NEE12P, NEN12, NEE16, NEE17, NEE18]
+  doc: sources/dnsp/ausnet/AusNet_Annual_Pricing_Proposal_2023-24.pdf
+  fin_year: 2023-24
+  locator: "pdf:p54"
+  quote: Inclining block 2 c/kWh kWh balance
+  step_group: Inclining block energy
+  component_label: Inclining block 2 (kWh balance above 1020 kWh per quarter)
+  step_index: 2
+  lower_bound: 1020
+  upper_bound: null
+  lower_inclusive: false
+  upper_inclusive: false
+  quantity_unit: kWh
+  reset_period: quarter
+  note: "Section 10.5 'Tariff structure and charging parameter' (p54), tariff structure 1; the 10.1 network tariff schedule (p42) prints 'Tariff Structure' 1 (or '1 & 9', '1 & 10', '1 & 11' with a dedicated circuit) for these tariffs and prices them in the 'Block 1' and 'Block 2' columns. Block 2 is the 'kWh balance' above the block 1 allowance. Whether 1020 kWh itself falls in block 1 or block 2 is not stated; the quarter is the unit printed ('kWh/qtr'), the document does not say how a billing period that is not a quarter is pro-rated."
+- codes: [NEE11, NEE11S, NEE11P, NEN11, NEE13, NEE14, NEE15, NEE12, NEE12S, NEE12P, NEN12, NEE16, NEE17, NEE18]
+  doc: sources/aer/dnsp_copies/AusNet_2024-25_Schedule_of_tariffs_28Mar2024.xlsx
+  fin_year: 2024-25
+  locator: "xlsx:Tariff structures!E7"
+  quote: 1020 kWh/qtr
+  step_group: Inclining block energy
+  component_label: Inclining block 1 (first 1020 kWh per quarter)
+  step_index: 1
+  lower_bound: 0
+  upper_bound: 1020
+  lower_inclusive: true
+  upper_inclusive: true
+  quantity_unit: kWh
+  reset_period: quarter
+  note: "Tariff structures sheet, structure 1 (B5): C7 'Inclining block 1' D7 'c/kWh' E7 '1020 kWh/qtr'; C8 'Inclining block 2' D8 'c/kWh' E8 'kWh balance'. Network 2024-25 column D5 'Tariff Structure' is 1 (or '1 & 9', '1 & 10', '1 & 11') for these tariffs, priced in I5 'Block 1' and J5 'Block 2'. Block 1 is the first 1020 kWh of each quarter. Whether 1020 kWh itself falls in block 1 or block 2 is not stated; the quarter is the unit printed ('kWh/qtr'), the document does not say how a billing period that is not a quarter is pro-rated."
+- codes: [NEE11, NEE11S, NEE11P, NEN11, NEE13, NEE14, NEE15, NEE12, NEE12S, NEE12P, NEN12, NEE16, NEE17, NEE18]
+  doc: sources/aer/dnsp_copies/AusNet_2024-25_Schedule_of_tariffs_28Mar2024.xlsx
+  fin_year: 2024-25
+  locator: "xlsx:Tariff structures!E8"
+  quote: kWh balance
+  step_group: Inclining block energy
+  component_label: Inclining block 2 (kWh balance above 1020 kWh per quarter)
+  step_index: 2
+  lower_bound: 1020
+  upper_bound: null
+  lower_inclusive: false
+  upper_inclusive: false
+  quantity_unit: kWh
+  reset_period: quarter
+  note: "Tariff structures sheet, structure 1 (B5): C7 'Inclining block 1' D7 'c/kWh' E7 '1020 kWh/qtr'; C8 'Inclining block 2' D8 'c/kWh' E8 'kWh balance'. Network 2024-25 column D5 'Tariff Structure' is 1 (or '1 & 9', '1 & 10', '1 & 11') for these tariffs, priced in I5 'Block 1' and J5 'Block 2'. Block 2 is the 'kWh balance' above the block 1 allowance. Whether 1020 kWh itself falls in block 1 or block 2 is not stated; the quarter is the unit printed ('kWh/qtr'), the document does not say how a billing period that is not a quarter is pro-rated."
+- codes: [NEE11, NEE11S, NEN11, NEE13, NEE14, NEE15, NEE12, NEE12S, NEN12, NEE16, NEE17, NEE18]
+  doc: sources/dnsp/ausnet/AusNet_Network_Tariff_Schedule_2025-26.xlsx
+  fin_year: 2025-26
+  locator: "xlsx:Tariff structures!E7"
+  quote: 1020 kWh/qtr
+  step_group: Inclining block energy
+  component_label: Inclining block 1 (first 1020 kWh per quarter)
+  step_index: 1
+  lower_bound: 0
+  upper_bound: 1020
+  lower_inclusive: true
+  upper_inclusive: true
+  quantity_unit: kWh
+  reset_period: quarter
+  note: "Tariff structures sheet, structure 1 (B5): C7 'Inclining block 1' D7 'c/kWh' E7 '1020 kWh/qtr'; C8 'Inclining block 2' D8 'c/kWh' E8 'kWh balance'. Network 2025-26 column D5 'Tariff Structure' is 1 (or '1 & 9', '1 & 10', '1 & 11') for these tariffs, priced in I5 'Block 1' and J5 'Block 2'. Block 1 is the first 1020 kWh of each quarter. Whether 1020 kWh itself falls in block 1 or block 2 is not stated; the quarter is the unit printed ('kWh/qtr'), the document does not say how a billing period that is not a quarter is pro-rated."
+- codes: [NEE11, NEE11S, NEN11, NEE13, NEE14, NEE15, NEE12, NEE12S, NEN12, NEE16, NEE17, NEE18]
+  doc: sources/dnsp/ausnet/AusNet_Network_Tariff_Schedule_2025-26.xlsx
+  fin_year: 2025-26
+  locator: "xlsx:Tariff structures!E8"
+  quote: kWh balance
+  step_group: Inclining block energy
+  component_label: Inclining block 2 (kWh balance above 1020 kWh per quarter)
+  step_index: 2
+  lower_bound: 1020
+  upper_bound: null
+  lower_inclusive: false
+  upper_inclusive: false
+  quantity_unit: kWh
+  reset_period: quarter
+  note: "Tariff structures sheet, structure 1 (B5): C7 'Inclining block 1' D7 'c/kWh' E7 '1020 kWh/qtr'; C8 'Inclining block 2' D8 'c/kWh' E8 'kWh balance'. Network 2025-26 column D5 'Tariff Structure' is 1 (or '1 & 9', '1 & 10', '1 & 11') for these tariffs, priced in I5 'Block 1' and J5 'Block 2'. Block 2 is the 'kWh balance' above the block 1 allowance. Whether 1020 kWh itself falls in block 1 or block 2 is not stated; the quarter is the unit printed ('kWh/qtr'), the document does not say how a billing period that is not a quarter is pro-rated."
+- codes: [NEE11, NEE11S, NEE19, NEE12, NEE12S, NEE16, NEE17, NEE18]
+  doc: sources/dnsp/ausnet/AusNet_Network_Tariff_Schedule_2026-27_20260515.xlsx
+  fin_year: 2026-27
+  locator: "xlsx:Tariff structures!E7"
+  quote: 1020 kWh/qtr
+  step_group: Inclining block energy
+  component_label: Inclining block 1 (first 1020 kWh per quarter)
+  step_index: 1
+  lower_bound: 0
+  upper_bound: 1020
+  lower_inclusive: true
+  upper_inclusive: true
+  quantity_unit: kWh
+  reset_period: quarter
+  note: "Tariff structures sheet, structure 1 (B5): C7 'Inclining block 1' D7 'c/kWh' E7 '1020 kWh/qtr'; C8 'Inclining block 2' D8 'c/kWh' E8 'kWh balance'. Network 2026-27 column D5 'Tariff Structure' is 1 (or '1 & 19', '1 & 9', '1 & 10', '1 & 11') for these tariffs, priced in I5 'Block 1' and J5 'Block 2'. Block 1 is the first 1020 kWh of each quarter. Whether 1020 kWh itself falls in block 1 or block 2 is not stated; the quarter is the unit printed ('kWh/qtr'), the document does not say how a billing period that is not a quarter is pro-rated."
+- codes: [NEE11, NEE11S, NEE19, NEE12, NEE12S, NEE16, NEE17, NEE18]
+  doc: sources/dnsp/ausnet/AusNet_Network_Tariff_Schedule_2026-27_20260515.xlsx
+  fin_year: 2026-27
+  locator: "xlsx:Tariff structures!E8"
+  quote: kWh balance
+  step_group: Inclining block energy
+  component_label: Inclining block 2 (kWh balance above 1020 kWh per quarter)
+  step_index: 2
+  lower_bound: 1020
+  upper_bound: null
+  lower_inclusive: false
+  upper_inclusive: false
+  quantity_unit: kWh
+  reset_period: quarter
+  note: "Tariff structures sheet, structure 1 (B5): C7 'Inclining block 1' D7 'c/kWh' E7 '1020 kWh/qtr'; C8 'Inclining block 2' D8 'c/kWh' E8 'kWh balance'. Network 2026-27 column D5 'Tariff Structure' is 1 (or '1 & 19', '1 & 9', '1 & 10', '1 & 11') for these tariffs, priced in I5 'Block 1' and J5 'Block 2'. Block 2 is the 'kWh balance' above the block 1 allowance. Whether 1020 kWh itself falls in block 1 or block 2 is not stated; the quarter is the unit printed ('kWh/qtr'), the document does not say how a billing period that is not a quarter is pro-rated."
+- codes: [RCER11]
+  doc: sources/dnsp/ausnet/AusNet_Network_Tariff_Schedule_2026-27_20260515.xlsx
+  fin_year: 2026-27
+  locator: "xlsx:Tariff structures!B106"
+  quote: Includes a BEL of 1 kWh per day
+  step_group: Export charge
+  component_label: Export charge - BEL (exempt), 1 kWh per day
+  step_index: 1
+  lower_bound: 0
+  upper_bound: 1
+  lower_inclusive: true
+  upper_inclusive: true
+  quantity_unit: kWh
+  reset_period: unstated
+  note: "Network 2026-27 row 20: C20 'RCER11', D20 '20' (tariff structure), S20 export charge. Tariff structures sheet, structure 20 (B95): C97 'Export charge' E97 '11:00 AM to 4:00 PM Monday to Sunday*^'; B106 '^ Includes a BEL of 1 kWh per day'. The schedule does not say whether an unused daily allowance rolls over within the billing period, so reset_period is unstated."
+- codes: [RCER11]
+  doc: sources/dnsp/ausnet/AusNet_Network_Tariff_Schedule_2026-27_20260515.xlsx
+  fin_year: 2026-27
+  locator: "xlsx:Tariff structures!B106"
+  quote: Includes a BEL of 1 kWh per day
+  step_group: Export charge
+  component_label: Export charge - above BEL (charged)
+  step_index: 2
+  lower_bound: 1
+  upper_bound: null
+  lower_inclusive: false
+  upper_inclusive: false
+  quantity_unit: kWh
+  reset_period: unstated
+  note: "Network 2026-27 row 20: C20 'RCER11', D20 '20' (tariff structure), S20 export charge. Tariff structures sheet, structure 20 (B95): C97 'Export charge' E97 '11:00 AM to 4:00 PM Monday to Sunday*^'; B106 '^ Includes a BEL of 1 kWh per day'. The schedule does not say whether an unused daily allowance rolls over within the billing period, so reset_period is unstated."

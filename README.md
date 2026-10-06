@@ -63,4 +63,5 @@ report treats those distributor-years as "no distributor-side data".
 - `scripts/tariffdb/` - the tariff database: `spec.py` (schema, single source of truth), `build.py` (builds
   `data/tariffdb/` from the parser outputs and `data/tariffdb/curated/*.yaml`), `curated.py` (validates the curated
   TOU/demand/eligibility facts against their sources), `load.py` (SQLite import check, `--out` to save a database),
-  `docs.py` (writes `docs/tariffdb.md`). Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py`.
+  `docs.py` (writes `docs/tariffdb.md`), `fixes.py` (writes `data/tariffdb/transcription_fixes.csv`),
+  `verification.py` (re-checks the independent verifiers' findings in `data/verification/`). Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py`.

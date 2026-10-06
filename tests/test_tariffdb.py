@@ -20,6 +20,7 @@ import unittest
 from collections import Counter, defaultdict
 from decimal import Decimal
 from pathlib import Path
+from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -125,8 +126,8 @@ class TestSchemaFiles(unittest.TestCase):
             for p in sorted(DB_DIR.rglob("*")):
                 if p.is_file():
                     rel = p.relative_to(DB_DIR)
-                    if rel.parts[0] == "curated":
-                        continue
+                    if rel.parts[0] == "curated" or rel.name == "transcription_fixes.csv":
+                        continue  # inputs: curated by hand, and fixes.py's record of corrections to committed rows
                     self.assertEqual((Path(tmp) / rel).read_bytes(), p.read_bytes(), str(rel))
 
 
@@ -317,9 +318,18 @@ class TestHistory(unittest.TestCase):
         self.assertEqual(build.append_only_violations(c, text(value_published="1"), text(value_published="2"), fixes), [])
         self.assertEqual(len(build.append_only_violations(c, text(value_published="1"), text(value_published="3"),
                                                           fixes)), 1)
+        # a listed removal (a row whose id changed with its corrected content) is accepted; an unlisted one is not
+        self.assertEqual(build.append_only_violations(t, old, removed, {("tariff", ("a:2",), None): ("", "", "why")}), [])
         for (table, k, col), (before, after, why) in build.TRANSCRIPTION_FIXES.items():
             pk = [x["name"] for x in spec.BY_NAME[table]["columns"] if x["primary_key"]]
-            (r,) = [r for r in rows(table) if tuple(r[n] for n in pk) == k]
+            found = [r for r in rows(table) if tuple(r[n] for n in pk) == k]
+            if col is None:  # removed; its replacement (if named) exists
+                self.assertEqual(found, [], why)
+                if after:
+                    self.assertTrue([r for r in rows(table) if tuple(r[n] for n in pk) == tuple(json.loads(after))],
+                                    why)
+                continue
+            (r,) = found
             self.assertEqual(r[col], after, why)
 
     def test_append_only_check_against_git(self):
@@ -525,6 +535,8 @@ class TestSourceValues(unittest.TestCase):
                 vs, us = to_std(c["value_published"], c["unit_interpreted"] or c["unit_published"] or "",
                                 c["component_label"])
                 self.assertAlmostEqual(float(c["value_std"]), vs, places=9, msg=c["charge_id"])
+                if (c["unit_interpreted"] or "").endswith("?") and not us.endswith("?"):
+                    us += "?"  # an inferred period stays flagged in unit_std
                 self.assertEqual(us, c["unit_std"], c["charge_id"])
                 # canonical text: no binary-float noise such as 205.79000000000002
                 self.assertEqual(c["value_std"], build.num_text(c["value_std"]), c["charge_id"])
@@ -535,8 +547,14 @@ class TestSourceValues(unittest.TestCase):
             p = source(m["document_id"])
             if p is None:
                 continue
+            if m["locator_kind"] != "xlsx":
+                ok, why = self.loc.verify(str(p), m["locator"], m["value_published"])
+                self.assertTrue(ok, f"{m['metering_price_id']}: {why}")
+                n += 1
+                continue
             raw, shown = self.loc.read_cell_excel(str(p), m["sheet"], m["cell"])
             self.assertEqual(repr(raw) if isinstance(raw, float) else str(raw), m["value_raw"], m["metering_price_id"])
+            self.assertEqual(str(shown), m["value_published"], m["metering_price_id"])
             n += 1
         self.checked(n, "metering prices")
 
@@ -877,6 +895,17 @@ class TestExceptions(unittest.TestCase):
                and m["distributor_id"] == "endeavour"}
         self.assertEqual(end["N70,N71,N72,N73"]["value_raw"], "13.293665")
 
+    def test_source_ambiguous(self):
+        """Each source the verifiers found ambiguous is recorded with its quote, what is stored and the other
+        reading; the build re-reads every quote at its locator."""
+        import ambiguities
+        ins = instances("source_ambiguous")
+        self.assertEqual(len(ins), len(ambiguities.AMBIGUITIES))
+        for i in ins:
+            self.assertRegex(i["detail"], r"^verifier-[AB] \S+ .+: '.+'; stored: .+; also readable as: .+", i["instance_id"])
+        findings = {i["detail"].split()[1] for i in ins}
+        self.assertTrue({"S1", "S2", "S3", "S4", "S5"} <= findings, findings)
+
     def test_display_rounds_half_way(self):
         c = by("charge", "charge_id")
         ins = {i["charge_id"]: i for i in instances("display_rounds_half_way")}
@@ -884,7 +913,7 @@ class TestExceptions(unittest.TestCase):
         self.assertTrue(sapn)
         self.assertEqual((c[sapn[0]]["value_published"], c[sapn[0]]["value_raw"]), ("0.0222", "0.02215"))
         self.assertIn("formatting the binary float gives 0.0221", ins[sapn[0]]["detail"])
-        self.assertEqual(len(ins), 84)
+        self.assertEqual(len(ins), 86)
         for h, i in ins.items():  # Excel's display is one unit above the binary float's at the last digit
             shown = re.search(r"gives (\S+)$", i["detail"]).group(1)
             step = Decimal(1).scaleb(Decimal(shown).as_tuple().exponent)
@@ -1001,9 +1030,10 @@ class TestExceptions(unittest.TestCase):
             self.assertNotIn(("jemena:A180", fy), gaps)
         for key in (("unitedenergy:URCER", "2026-27"), ("sapn:RELE2W", "2023-24"), ("sapn:RELE2W", "2024-25")):
             self.assertNotIn("export:", gaps.get(key, ""), key)
-        # an export_charge_window alone does not cover export credits
+        # the export credit windows CitiPower prints (verifier B M6/L12) cover the export credits
         for key in (("citipower:CFS", "2026-27"), ("citipower:CRCER", "2026-27")):
-            self.assertIn("export:peak", gaps[key])
+            self.assertNotIn("export:", gaps.get(key, ""), key)
+        # an export_charge_window alone does not cover export credits
         for code in ("027", "028"):
             self.assertIn("export:critical_peak", gaps[(f"evoenergy:{code}", "2023-24")])
         self.assertIn("energex", {i["distributor_id"] for i in ins})
@@ -1111,7 +1141,9 @@ class TestExceptions(unittest.TestCase):
         docs = rows("source_document")
         unverified = {d["document_id"] for d in docs if d["price_status"] == "unverified"}
         self.assertEqual(unverified, {i["document_id"] for i in instances("price_status_unverified")})
-        self.assertEqual(unverified, {d["document_id"] for d in docs if d["recon_side"] == "AER_HOSTED"})
+        # AER-hosted documents, and the AER 2024-25 stakeholder reports, which head their tables 'Proposed prices'
+        self.assertEqual(unverified, {d["document_id"] for d in docs if d["recon_side"] == "AER_HOSTED"
+                                      or d["document_type"] == "aer_stakeholder_report"})
         for a in rows("price_adjustment"):
             d = by("source_document", "document_id")[a["aer_document_id"]]
             if d["price_status"] == "unverified":
@@ -1125,6 +1157,311 @@ class TestExceptions(unittest.TestCase):
                           ("tariff-trial rebate applies", False), ("pre-trial review", False),
                           ("Network tariff trial rebate", False)]:
             self.assertEqual(bool(re.search(pattern, text, re.I)), hit, text)
+
+
+def listings_of(doc_prefix, tariff_id):
+    return [l for l in rows("tariff_listing") if l["document_id"].startswith(doc_prefix) and l["tariff_id"] == tariff_id]
+
+
+def charges_by_listing():
+    if "charges_by_listing" not in _cache:
+        out = defaultdict(list)
+        for c in rows("charge"):
+            out[c["listing_id"]].append(c)
+        _cache["charges_by_listing"] = out
+    return _cache["charges_by_listing"]
+
+
+def doc_of_charge(c):
+    return by("tariff_listing", "listing_id")[c["listing_id"]]["document_id"]
+
+
+def tariff_of_charge(c):
+    return by("tariff_listing", "listing_id")[c["listing_id"]]["tariff_id"]
+
+
+class TestVerification(unittest.TestCase):
+    """Every row the two independent verifiers listed (data/verification/) is resolved, and one regression per finding
+    class keeps it so. Finding ids are the verifiers' (verifier B: H1, M1-M6, L1-L16, S1-S6)."""
+
+    def test_every_listed_row_is_resolved(self):
+        import verification
+        res = verification.resolve_all()
+        self.assertEqual([r for r in res if r["status"] == "unresolved"], [])
+        # the verifier claims that do not hold, and the observation that makes no claim
+        self.assertEqual({(r["finding"], r["status"]) for r in res if r["status"] in ("misread", "observation")},
+                         {("L11", "misread"), ("S6", "observation")})
+        self.assertEqual(len(res), 243 + 712)
+
+    def test_resolvers_check_the_claim(self):
+        """A verifier row resolves only on the value, year and document it names: a changed reading does not."""
+        import verification
+        db = verification.DB()
+        with open(ROOT / "data" / "verification" / "aer-verify-a" / "mismatches.csv", newline="", encoding="utf-8") as f:
+            a = list(csv.DictReader(f))
+        meter = next(r for r in a if r["row_id"] == "ausgrid:EA010" and r["fin_year"] == "2024-25")
+        export = next(r for r in a if r["row_id"].startswith("endeavour:"))
+        evo = next(r for r in a if r["row_id"] == "evoenergy schedule 2025-26 xlsx")
+        cap = next(r for r in a if "Capacity charge" in r["source_value"])
+        for r in (meter, export, evo, cap):
+            self.assertEqual(verification.resolve_a(db, r)[0], "resolved", r["row_id"])
+        for r in (dict(meter, source_value="9.9999"), dict(meter, fin_year="2025-26"), dict(export, source_value="1.0"),
+                  dict(evo, source_value="14 non-zero G cells"), dict(cap, note="value correct 99.0000")):
+            self.assertEqual(verification.resolve_a(db, r)[0], "unresolved", r)
+
+    def test_transcription_fixes_name_their_finding(self):
+        import build
+        fixes = list(csv.DictReader(open(build.FIXES_PATH, newline="", encoding="utf-8")))
+        self.assertTrue(fixes)
+        for f in fixes:
+            self.assertTrue(f["finding"] and f["why"], f)
+            if f["column"] == "":  # a removed row names the row that replaces it (or none)
+                self.assertEqual(f["old"], "")
+
+    def test_fixes_refuse_an_unexplained_change(self):
+        import fixes
+        ctx = SimpleNamespace(tariff_of_charge=lambda r: "ausgrid:EA010", listing={
+            "x": {"document_id": "ausgrid-network-price-list-2025-26", "tariff_id": "ausgrid:EA010"}})
+        old = {"listing_id": "x", "charge_type": "energy", "component_label": "Anytime", "unit_published": "c/kWh",
+               "value_published": "1", "note": ""}
+        for column, value in (("value_published", "2"), ("unit_published", "c/kVAh"), ("note", "changed")):
+            self.assertIsNone(fixes.explain(ctx, "charge", column, old, dict(old, **{column: value})), column)
+        self.assertIsNone(fixes.explain(ctx, "charge", None, old, None))
+
+    def test_fixes_refuse_a_regression_inside_a_finding(self):
+        """A finding's rule explains only its own correction: e.g. TasNetworks' printed unit (L6) may change from the
+        old reading to the header text, never to another unit, and the converted value must not move."""
+        import fixes
+        ctx = SimpleNamespace(tariff_of_charge=lambda r: "tasnetworks:TAS94", listing={
+            "x": {"document_id": "tasnetworks-network-tariff-pricing-schedule-scs-2024-25", "tariff_id": "tasnetworks:TAS94"}})
+        old = {"listing_id": "x", "unit_published": "c/kVA/day", "unit_interpreted": "c/kVA/day",
+               "unit_std": "c/kVA/day", "value_std": "1.5", "normalisation_note": "", "note": ""}
+        self.assertEqual(fixes.explain(ctx, "charge", "unit_published", old,
+                                       dict(old, unit_published="c/kVA, kW, lamp watt/day"))[0], "verifier-b: L6")
+        self.assertIsNone(fixes.explain(ctx, "charge", "unit_published", old, dict(old, unit_published="c/kW/day")))
+        self.assertIsNone(fixes.explain(ctx, "charge", "unit_published", old,
+                                        dict(old, unit_published="c/kVA, kW, lamp watt/day", value_std="2")))
+
+    def test_endeavour_table_2_is_a_repeated_printing(self):
+        """Endeavour's Table 2 (unmetered options) reprints the Table 1a/1b prices: marked, so the reconciliation
+        compares them once (no false dnsp_only_component rows)."""
+        import schema
+        cs = [c for c in rows("charge") if "Table 2 p" in (c["note"] or "") and tariff_of_charge(c).startswith("endeavour:")]
+        self.assertEqual(len(cs), 48)
+        self.assertTrue(all(schema.REPEATED_PRINTING in c["note"] for c in cs))
+        with open(ROOT / "discrepancies.csv", newline="", encoding="utf-8") as f:
+            self.assertFalse([r for r in csv.DictReader(f) if r["distributor"] == "Endeavour Energy"
+                              and r["component"] == "Energy Charge - Flat"])
+
+    # ---- verifier B ------------------------------------------------------------------------------------------------
+    def test_h1_ausnet_nasn2s_nasn2p_are_priced(self):
+        # AusNet prints NASN2P until 2024-25; the 2025-26 and 2026-27 schedules list NASN21 and NASN2S
+        for code, years in (("NASN2S", {"2023-24", "2024-25", "2025-26", "2026-27"}),
+                            ("NASN2P", {"2023-24", "2024-25"})):
+            self.assertEqual(by("tariff", "tariff_id")[f"ausnet:{code}"]["identity_basis"], "distributor_code")
+            priced = {by("source_document", "document_id")[l["document_id"]]["fin_year"]
+                      for l in listings_of("ausnet-", f"ausnet:{code}") if l["price_availability"] == "priced"}
+            self.assertEqual(priced, years, code)
+
+    def test_m1_codeless_aer_v1_rows_take_the_approved_code(self):
+        for l in rows("tariff_listing"):
+            if l["document_id"] == "aer-consolidated-2025-26-v1" and l["tariff_id"].split(":")[0] in (
+                    "ausnet", "citipower", "powercor", "unitedenergy"):
+                self.assertNotEqual(by("tariff", "tariff_id")[l["tariff_id"]]["identity_basis"], "aer_tariff_id", l)
+        self.assertEqual(by("tariff_listing", "listing_id")["aer-consolidated-2025-26-v1/TD-CPR26oth-HV2"]["tariff_id"],
+                         "citipower:CHV")
+
+    def test_m2_code_sa_dash_is_zsn228(self):
+        self.assertNotIn("sapn:-", by("tariff", "tariff_id"))
+        self.assertTrue(listings_of("aer-stakeholder-report-sapn-2024-25", "sapn:ZSN228"))
+
+    def test_m3_sapn_meter_charge_column(self):
+        per_doc = Counter(m["document_id"] for m in rows("metering_price")
+                          if m["distributor_id"] == "sapn" and m["source_block"] == "distributor_price_table")
+        self.assertEqual(len(per_doc), 3, per_doc)
+        self.assertTrue(all(n == 16 for n in per_doc.values()), per_doc)
+
+    def test_m4_sapn_aer_demand_is_per_day(self):
+        n = 0
+        for c in rows("charge"):
+            if c["charge_type"] in ("demand", "capacity") and tariff_of_charge(c).startswith("sapn:") \
+                    and doc_of_charge(c).startswith("aer-") and re.search(r"/k(VA|W)$", c["unit_published"] or ""):
+                n += 1
+                self.assertEqual((c["period"], c["period_inferred"]), ("day", "1"), c["charge_id"])
+        self.assertGreater(n, 400)
+
+    def test_m5_ausnet_inclining_block_bound(self):
+        steps = [s for s in rows("charge_step") if s["tariff_id"].startswith("ausnet:") and s["step_group"] ==
+                 "Inclining block energy"]
+        self.assertEqual({s["fin_year"] for s in steps}, {"2023-24", "2024-25", "2025-26", "2026-27"})
+        for s in steps:
+            self.assertEqual(s["reset_period"], "quarter")
+            self.assertEqual(s["upper_bound"] if s["step_index"] == "1" else s["lower_bound"], "1020")
+
+    def test_m6_citipower_windows(self):
+        linked = {(t["tariff_id"], t["effective_from"][:4]) for t in rows("tariff_tou")}
+        for fy, codes in (("2025", "CRTOU CGTOU CMGO21 C2U CG CLLVT1 CLLVT2 CHVT1 CHVT2"),
+                          ("2026", "CRSTOU CRCER CGTOU CMGO21 C2U CFS CFL")):
+            for code in codes.split():
+                self.assertIn((f"citipower:{code}", fy), linked)
+
+    def test_l1_aer_vdo_schedule_is_a_repeated_printing(self):
+        flagged = {by("tariff_listing", "listing_id")[f["listing_id"]]["document_id"] for f in rows("listing_flag")
+                   if f["flag"] == "dmo_vdo_tariff"}
+        self.assertTrue({"aer-stakeholder-report-ausnet-2024-25", "aer-stakeholder-report-sapn-2024-25-updated17jul2024"}
+                        <= flagged, flagged)
+
+    def test_l2_ausnet_stss(self):
+        self.assertTrue(listings_of("ausnet-network-tariff-schedule-2026-27", "ausnet:STSS"))
+
+    def test_l3_last_row_of_a_sapn_page(self):
+        cs = [c for l in listings_of("sapn-2023-24-annual-pricing-proposal", "sapn:STN788")
+              for c in charges_by_listing()[l["listing_id"]] if c["locator"] == "pdf:p69"]
+        self.assertTrue(cs)
+
+    def test_l4_monthly_shoulder_demand(self):
+        cs = [c for c in rows("charge") if c["component_label"] == "Mth Dmnd Shld"]
+        self.assertTrue(cs)
+        self.assertEqual({c["time_band"] for c in cs}, {"shoulder"})
+
+    def test_l5_season_in_the_unit_is_not_a_period(self):
+        cs = [c for c in rows("charge") if re.search(r"/(Summer|highsn|lowsn)$", c["unit_published"] or "")]
+        self.assertTrue(cs)
+        self.assertEqual({(c["period"], c["period_inferred"]) for c in cs}, {("day", "1")})
+
+    def test_l6_tasnetworks_unit_as_printed(self):
+        doc = "tasnetworks-network-tariff-pricing-schedule-scs-2023-24"
+        cs = [c for c in rows("charge") if doc_of_charge(c) == doc and "emand" in c["component_label"]]
+        self.assertNotIn("c/kW/day", {c["unit_published"] for c in cs})
+        self.assertIn("c/kVA, kW, lamp watt/day", {c["unit_published"] for c in cs})
+
+    def test_l7_jemena_f_codes_not_printed(self):
+        ls = listings_of("jemena-network-tariff-schedule-2025-26", "jemena:F100")
+        self.assertTrue(ls)
+        self.assertEqual({l["code_published"] for l in ls}, {""})
+
+    def test_l8_names_as_printed(self):
+        self.assertFalse([l for l in rows("tariff_listing") if l["name_published"].endswith("(tariff trial)")])
+
+    def test_l9_codes_printed_by_distributors(self):
+        for tid in ("citipower:CFTUOS", "powercor:PFTUOS", "unitedenergy:UFTUOS", "ausnet:NASN2P"):
+            self.assertEqual(by("tariff", "tariff_id")[tid]["identity_basis"], "distributor_code", tid)
+
+    def test_l10_aer_prints_sapn_cbd_codes(self):
+        missing = {i["tariff_id"] for i in instances("aer_missing_tariff")}
+        for code in ("HVADCBD", "HVBGCBD", "B2RNE", "BSRNE"):
+            self.assertNotIn(f"sapn:{code}", missing)
+
+    def test_l11_cbd_column_codes_have_relations(self):
+        """Verifier misread: the AER prints LBGFSA / HVBGFSA in its 'Code CBD' column."""
+        rel = {(r["from_tariff_id"], r["relation_type"], r["to_tariff_id"]) for r in rows("tariff_relation")}
+        self.assertIn(("sapn:LBGF", "aer_sibling_code", "sapn:LBGFSA"), rel)
+        self.assertIn(("sapn:HVBGF", "aer_sibling_code", "sapn:HVBGFSA"), rel)
+
+    def test_l12_bel_steps(self):
+        have = {s["tariff_id"] for s in rows("charge_step") if s["fin_year"] == "2026-27"}
+        for tid in ("ausnet:RCER11", "citipower:CRCER", "citipower:CFS", "powercor:PRCER", "powercor:PFS"):
+            self.assertIn(tid, have)
+
+    def test_l13_aer_combined_labels(self):
+        rel = {(r["from_tariff_id"], r["to_tariff_id"], r["fin_year"]) for r in rows("tariff_relation")
+               if r["relation_type"] == "aer_combined_label"}
+        self.assertIn(("citipower:CHV", "citipower:CHV1", "2025-26"), rel)
+        self.assertIn(("unitedenergy:LVKVATOU", "unitedenergy:LVKVATOU2", "2026-27"), rel)
+        self.assertTrue(any(by("source_document", "document_id")[i["document_id"]]["author"] == "AER"
+                            for i in instances("tou_definition_missing")))
+
+    def test_l14_metering_excluded_where_equal_to_the_aer(self):
+        no = [c for c in rows("charge") if c["includes_metering"] == "no" and c["charge_type"] == "fixed"
+              and by("source_document", "document_id")[doc_of_charge(c)]["author"] != "AER"]
+        self.assertGreater(len(no), 763)
+
+    def test_l15_docs_list_the_stored_vocabulary(self):
+        """charge.time_band is documented with the values stored ('offpeak'); tou_window.period is a separate
+        vocabulary ('off_peak')."""
+        docs = (ROOT / "docs" / "tariffdb.md").read_text(encoding="utf-8")
+        (line,) = [x for x in docs.splitlines() if x.startswith("| `time_band` |") and "normalised band" in x]
+        self.assertIn(", ".join(spec.TIME_BANDS), line)
+        self.assertEqual({c["time_band"] for c in rows("charge")} - {""}, set(spec.TIME_BANDS))
+
+    def test_l16_one_listing_per_tariff_and_document(self):
+        per = Counter(l["tariff_id"] for l in rows("tariff_listing")
+                      if l["document_id"] == "tasnetworks-network-tariff-pricing-schedule-scs-2023-24")
+        self.assertEqual([t for t, n in per.items() if n > 1], [])
+
+    # ---- verifier A ------------------------------------------------------------------------------------------------
+    def test_a_ausgrid_capacity_columns(self):
+        cs = [c for c in rows("charge") if tariff_of_charge(c) == "ausgrid:EA302" and "apacity" in c["component_label"]]
+        self.assertTrue(cs)
+        self.assertEqual({c["charge_type"] for c in cs}, {"capacity"})
+
+    def test_a_energex_band_labels_as_printed(self):
+        """Each block of the 2023-24 'SACS Business' sheet has its own header: row 5 prints 'Band 1 Charge', rows 21,
+        37 and 53 print 'Band1 Charge'."""
+        import openpyxl
+        path = required_source(self, "energex-2023-24-network-price-list-27apr2023")
+        ws = openpyxl.load_workbook(path, data_only=True)["SACS Business"]
+        headers = {(c.column_letter, c.row): c.value for row in ws.iter_rows() for c in row
+                   if isinstance(c.value, str) and re.fullmatch(r"Band ?\d Charge", c.value)}
+        n = 0
+        for c in rows("charge"):
+            if doc_of_charge(c) == "energex-2023-24-network-price-list-27apr2023" and c["sheet"] == "SACS Business" \
+                    and c["component_label"].startswith("Band"):
+                col, r = re.fullmatch(r"([A-Z]+)(\d+)", c["cell"]).groups()
+                header = max(((k, v) for k, v in headers.items() if k[0] == col and k[1] < int(r)), key=lambda kv: kv[0][1])
+                self.assertEqual(c["component_label"], header[1], c["charge_id"])
+                n += 1
+        self.assertEqual(n, 40)
+
+    def test_a_evoenergy_ocr_unit_case(self):
+        self.assertNotIn("c/KVA/day", {c["unit_published"] for c in rows("charge")})
+
+    def test_a_power_and_water_unprinted_units(self):
+        cs = [c for c in rows("charge") if doc_of_charge(c) == "pwc-scs-tariffs-2025-26-210525-wayback"
+              and c["component_label"].startswith(("Energy", "Demand"))]
+        self.assertTrue(cs)
+        self.assertEqual({c["unit_published"] for c in cs}, {""})
+        self.assertEqual({c["period_inferred"] for c in cs if c["period"] not in ("none",)}, {"1"})
+        # read in the parser's assumed dollar unit, which the standard value (cents) reproduces
+        self.assertEqual({c["unit_interpreted"][:2] for c in cs}, {"$/"})
+
+    def test_a_demand_rule_seasons_use_the_charge_vocabulary(self):
+        # a rule may name a season the tariff prints no separate price for (e.g. CitiPower's winter incentive window)
+        self.assertEqual({r["season"] for r in rows("tariff_demand_rule")} - {""} - set(spec.SEASONS), set())
+
+    def test_a_metering_columns(self):
+        blocks = Counter((m["distributor_id"], m["fin_year"]) for m in rows("metering_price")
+                         if m["source_block"] == "distributor_price_table")
+        for key in (("ausgrid", "2024-25"), ("ausgrid", "2025-26"), ("ausgrid", "2026-27"),
+                    ("evoenergy", "2023-24"), ("evoenergy", "2024-25"), ("evoenergy", "2025-26"),
+                    ("evoenergy", "2026-27")):
+            self.assertGreater(blocks[key], 0, key)
+
+    def test_a_endeavour_all_time_export_and_generation_codes(self):
+        for code in ("NESN", "NESG", "GENR", "NFT3"):
+            self.assertTrue(listings_of("endeavour-", f"endeavour:{code}"), code)
+        cs = [c for c in rows("charge") if tariff_of_charge(c) == "endeavour:NS70" and "All Time" in c["component_label"]]
+        self.assertEqual({c["charge_type"] for c in cs}, {"export"})
+
+    def test_a_endeavour_notes_are_not_rows(self):
+        names = {l["name_published"] for l in listings_of("endeavour-nuos-price-list-2026-27", "endeavour:N89")}
+        self.assertEqual(names, {"LV STOU Transitional"})
+
+    def test_a_essential_unpriced_codes(self):
+        for code in ("BLNREX2", "BLNBEX1", "BLNE0AU"):
+            self.assertTrue([l for l in listings_of("essential-price-list", f"essential:{code}")
+                             if l["price_availability"] == "placeholder"], code)
+
+    def test_a_gst_inclusive_tables_join_the_exclusive_listing(self):
+        for doc, tid in (("ausgrid-network-price-list-2026-27", "ausgrid:EA010"),
+                         ("essential-price-list-and-explanatory-notes-2024-25", "essential:BLNRSS2")):
+            (l,) = listings_of(doc, tid)
+            self.assertEqual({c["gst"] for c in charges_by_listing()[l["listing_id"]]}, {"excl", "incl"})
+
+    def test_a_repeated_printings_are_stored(self):
+        import schema
+        dists = {tariff_of_charge(c).split(":")[0] for c in rows("charge") if schema.REPEATED_PRINTING in c["note"]}
+        self.assertTrue({"energex", "ergon"} <= dists, dists)
 
 
 if __name__ == "__main__":

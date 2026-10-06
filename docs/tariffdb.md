@@ -110,14 +110,14 @@ erDiagram
 | Code | Title | Occurrences | How the data represents it | Test |
 |---|---|---|---|---|
 | `price_attachment_not_held` | Rules PDF refers to a missing price attachment | 2 | The source document, eligibility and TOU rules are retained. No distributor price is invented or copied from the AER. Exception instances identify both source PDFs. | `test_price_attachment_not_held` |
-| `quantity_blocks` | Quantity blocks reset within a billing period | 90 | charge_step records bounds, boundary inclusivity, unit and reset period independently of tariff eligibility, with a document and locator. | `test_quantity_blocks` |
+| `quantity_blocks` | Quantity blocks reset within a billing period | 196 | charge_step records bounds, boundary inclusivity, unit and reset period independently of tariff eligibility, with a document and locator. | `test_quantity_blocks` |
 | `aer_version_differs` | AER versions differ (proposed v1 vs approved) | 14 | Each version is its own source_document in one document_series (version_seq); charges hang off the version they were read from; document_coverage gives the per-distributor price_status of every version; listing_flag proposed_price marks v1 listings. | `test_aer_version_differs` |
 | `metering_excluded_by_aer` | AER daily charges exclude metering | 10 | metering_price holds the AER metering amounts; price_adjustment (kind metering_adder) gives formula and evidence; price_adjustment_tariff lists each tariff and the expected c/day difference; charge.includes_metering is 'no' on the AER side and 'yes' on every distributor document (own site or AER-hosted) whose daily charge reproduces AER + metering. | `test_metering_excluded_by_aer` |
 | `act_lfit` | Evoenergy prices include the ACT LFiT | 4 | price_adjustment kinds lfit_adder / lfit_rebate with the quoted amount; price_adjustment_tariff per tariff; charge.includes_lfit; listing_flag includes_lfit / excludes_lfit with the document's own sentence. | `test_act_lfit` |
-| `zero_priced_placeholder` | Zero-priced placeholder tariffs | 93 | tariff_listing.price_availability = placeholder with no charge rows, and listing_flag zero_priced_placeholder; nothing is invented. | `test_zero_priced_placeholder` |
-| `withdrawn_tariff_listed` | Withdrawn / closed tariffs still listed | 646 | listing_flag (withdrawn, closed_to_new, obsolete, grandfathered) per listing, with the published wording as evidence; eligibility_rule availability where the document states it. | `test_withdrawn_tariff_listed` |
-| `aer_missing_tariff` | Tariffs missing from the AER file | 361 | The tariff and its distributor listings exist; it simply has no listing in that year's AER document. Each occurrence is an instance with the listing's flags (site_specific etc.). | `test_aer_missing_tariff` |
-| `aer_only_tariff` | Tariffs only the AER lists | 125 | tariff.identity_basis aer_label / aer_tariff_id for labels no distributor uses; the listing exists only under the AER document. | `test_aer_only_tariff` |
+| `zero_priced_placeholder` | Zero-priced placeholder tariffs | 132 | tariff_listing.price_availability = placeholder with no charge rows, and listing_flag zero_priced_placeholder; nothing is invented. | `test_zero_priced_placeholder` |
+| `withdrawn_tariff_listed` | Withdrawn / closed tariffs still listed | 679 | listing_flag (withdrawn, closed_to_new, obsolete, grandfathered) per listing, with the published wording as evidence; eligibility_rule availability where the document states it. | `test_withdrawn_tariff_listed` |
+| `aer_missing_tariff` | Tariffs missing from the AER file | 322 | The tariff and its distributor listings exist; it simply has no listing in that year's AER document. Each occurrence is an instance with the listing's flags (site_specific etc.). | `test_aer_missing_tariff` |
+| `aer_only_tariff` | Tariffs only the AER lists | 97 | tariff.identity_basis aer_label / aer_tariff_id for labels no distributor uses; the listing exists only under the AER document. | `test_aer_only_tariff` |
 | `joint_code_label` | AER labels naming several tariffs | 114 | One tariff_listing per member tariff (listing_flag joint_label_member), each carrying the same cells as charges; tariff_alias rows (joint_label_member) tie the label to every member. | `test_joint_code_label` |
 | `code_label_quirk` | Code-label quirks | 231 | tariff_alias (regional_suffix, code_variant, name_matched) and tariff_relation aer_sibling_code with the cell; codes no distributor uses keep their own tariff (identity_basis aer_label). | `test_code_label_quirk` |
 | `aer_id_changed_between_versions` | AER tariff ID changed between versions | 2 | tariff_listing.code_published is NULL; tariff_alias aer_tariff_id ties each v1 row to its tariff, resolved by unique tariff name where the ID changed (the alias note says so). | `test_aer_id_changed_between_versions` |
@@ -126,17 +126,18 @@ erDiagram
 | `document_not_retrievable` | Documents that could not be retrieved | 15 | source_document rows with retrieval_status = not_retrievable (no local_path, no sha256) so version history has no silent gaps; document_coverage still records what each AER version carried. | `test_document_not_retrievable` |
 | `proposed_distributor_document` | Distributor document is a proposal | 1 | source_document.price_status = proposed; its listings carry listing_flag proposed_price. | `test_proposed_distributor_document` |
 | `metering_sheet_quirk` | AER Metering sheet quirks | 75 | metering_price.charge_basis (per_year / per_meter / unstated) separates them; tariff_codes_published is NULL for 'Exit fee'; blank prices produce no row. | `test_metering_sheet_quirk` |
-| `display_rounds_half_way` | Cell value exactly half-way at its display precision | 84 | charge.value_published is the value as Excel displays it and value_raw the full cell value; the parsers and the build use the same Excel rounding (the build fails if they disagree). Each affected cell is an instance (binary float formatting in the detail). | `test_display_rounds_half_way` |
+| `display_rounds_half_way` | Cell value exactly half-way at its display precision | 86 | charge.value_published is the value as Excel displays it and value_raw the full cell value; the parsers and the build use the same Excel rounding (the build fails if they disagree). Each affected cell is an instance (binary float formatting in the detail). | `test_display_rounds_half_way` |
 | `parser_note_page_offset` | Parser note names the wrong page | 47 | charge.page / charge.locator hold the verified page; the note is kept verbatim and the offset recorded here. | `test_parser_note_page_offset` |
-| `gst_inclusive_prices` | GST-inclusive prices | 1 | charge.gst = incl on those rows; the GST basis is part of the charge key. | `test_gst_inclusive_prices` |
-| `demand_period_unstated` | Demand unit without a billing period | 31 | charge.period = unstated, or the label's period with period_inferred = 1; value_std is then not comparable across periods without the demand rule. | `test_demand_period_unstated` |
+| `gst_inclusive_prices` | GST-inclusive prices | 9 | charge.gst = incl on those rows; the GST basis is part of the charge key. | `test_gst_inclusive_prices` |
+| `demand_period_unstated` | Demand unit without a billing period | 34 | charge.period = unstated, or the label's period with period_inferred = 1; value_std is then not comparable across periods without the demand rule. | `test_demand_period_unstated` |
 | `boundary_inclusivity_unstated` | Numeric boundary inclusion not stated | 150 | eligibility_rule.operator = ge_unstated/le_unstated retains the threshold without asserting inclusion. One instance per rule lists potential shared-boundary overlaps with other tariffs in the same document/year; these are unresolved candidates, not an assignment decision. | `test_boundary_inclusivity_unstated` |
-| `tou_definition_missing` | TOU charges without matching window definitions | 749 | The charge rows exist with time_band; linked tariff_tou schedules do not cover every required kind/band. A link covers a charge when its applies_to matches the charge kind (demand includes capacity; all links cover every kind; controlled_load links cover energy) and one of its window periods is the charge band. A demand_window period covers every demand/capacity band, export_charge_window every export charge band (positive price), export_reward_window every export credit band (negative price), and controlled_load_supply on a controlled_load link every energy band. Instances list missing kind/band pairs once per tariff-year. | `test_tou_definition_missing` |
+| `tou_definition_missing` | TOU charges without matching window definitions | 754 | The charge rows exist with time_band; linked tariff_tou schedules do not cover every required kind/band. A link covers a charge when its applies_to matches the charge kind (demand includes capacity; all links cover every kind; controlled_load links cover energy) and one of its window periods is the charge band. A demand_window period covers every demand/capacity band, export_charge_window every export charge band (positive price), export_reward_window every export credit band (negative price), and controlled_load_supply on a controlled_load link every energy band. Instances list missing kind/band pairs once per tariff-year. | `test_tou_definition_missing` |
 | `season_months_not_stated` | Season named without its months | 59 | tou_window.months is NULL and season holds the name as published; tou_window_month has no rows for the window. One instance per window. | `test_season_months_not_stated` |
 | `time_stated_in_daylight_time` | Window stated in daylight-saving time | 8 | tou_schedule.time_basis = daylight_time with the times exactly as stated; nothing is converted to standard time. One instance per schedule. | `test_time_stated_in_daylight_time` |
-| `price_status_unverified` | Regulatory status of an AER-hosted document not stated | 28 | source_document.price_status = unverified (no status is asserted without evidence); its listings carry no proposed_price flag. One instance per document. | `test_price_status_unverified` |
+| `price_status_unverified` | Regulatory status of an AER-hosted document not stated | 43 | source_document.price_status = unverified (no status is asserted without evidence); its listings carry no proposed_price flag. One instance per document. | `test_price_status_unverified` |
 | `medium_business_demand_assignment` | CitiPower CMG assignment rules | 61 | eligibility_rule rows (consumption_min/max, demand_max, assignment, opt_out_to, meter_type) with operator, value and unit; demand_rule + tou_window for the measurement window; each with its quote. | `test_medium_business_demand_assignment` |
-| `component_repeated_in_document` | Same component printed twice in one document | 223 | Both values are kept as separate charge rows with their own locator; instances list the repeats so a consumer can choose. | `test_component_repeated_in_document` |
+| `source_ambiguous` | Source can be read more than one way | 43 | The database keeps one reading and records the other: one instance per case from scripts/tariffdb/ambiguities.py, with the verbatim quote at its locator (re-read on every build). | `test_source_ambiguous` |
+| `component_repeated_in_document` | Same component printed twice in one document | 899 | Both values are kept as separate charge rows with their own locator; instances list the repeats so a consumer can choose. | `test_component_repeated_in_document` |
 
 ## Documented AER-to-distributor adjustments
 
@@ -166,59 +167,59 @@ In the reconciliation (`discrepancies.csv`, REPORT.md) 371 compared components d
 | Distributor | Year | Documents | AER charges | Distributor charges | TOU schedules | Demand rules | Eligibility rules | Tariffs with TOU prices missing matching windows |
 |---|---|---|---|---|---|---|---|---|
 | Ausgrid | 2023-24 | 2 | 0 | 480 | 2 | 5 | 95 | 22 |
-| Ausgrid | 2024-25 | 2 | 256 | 99 | 1 | 7 | 139 | 24 |
-| Ausgrid | 2025-26 | 1 | 171 | 98 | 0 | 7 | 121 | 25 |
-| Ausgrid | 2026-27 | 1 | 85 | 112 | 0 | 8 | 140 | 27 |
-| AusNet Services | 2023-24 | 2 | 0 | 1674 | 14 | 3 | 572 | 7 |
-| AusNet Services | 2024-25 | 3 | 767 | 886 | 16 | 5 | 703 | 11 |
-| AusNet Services | 2025-26 | 1 | 420 | 705 | 14 | 3 | 152 | 0 |
-| AusNet Services | 2026-27 | 1 | 172 | 598 | 15 | 3 | 122 | 0 |
+| Ausgrid | 2024-25 | 2 | 280 | 198 | 1 | 7 | 139 | 24 |
+| Ausgrid | 2025-26 | 1 | 171 | 196 | 0 | 7 | 121 | 25 |
+| Ausgrid | 2026-27 | 1 | 85 | 224 | 0 | 8 | 140 | 27 |
+| AusNet Services | 2023-24 | 2 | 0 | 1734 | 14 | 3 | 572 | 7 |
+| AusNet Services | 2024-25 | 3 | 821 | 916 | 16 | 5 | 703 | 11 |
+| AusNet Services | 2025-26 | 1 | 420 | 719 | 14 | 3 | 152 | 0 |
+| AusNet Services | 2026-27 | 1 | 172 | 614 | 15 | 3 | 122 | 0 |
 | CitiPower | 2023-24 | 2 | 0 | 389 | 18 | 9 | 152 | 1 |
-| CitiPower | 2024-25 | 3 | 141 | 263 | 14 | 9 | 146 | 3 |
-| CitiPower | 2025-26 | 1 | 94 | 0 | 7 | 8 | 79 | 0 |
-| CitiPower | 2026-27 | 2 | 49 | 189 | 10 | 9 | 108 | 8 |
+| CitiPower | 2024-25 | 3 | 177 | 263 | 14 | 9 | 146 | 3 |
+| CitiPower | 2025-26 | 1 | 94 | 0 | 13 | 8 | 79 | 0 |
+| CitiPower | 2026-27 | 2 | 49 | 189 | 20 | 9 | 108 | 1 |
 | Endeavour Energy | 2023-24 | 2 | 0 | 372 | 3 | 2 | 95 | 0 |
-| Endeavour Energy | 2024-25 | 2 | 250 | 167 | 3 | 3 | 183 | 0 |
-| Endeavour Energy | 2025-26 | 1 | 162 | 91 | 3 | 2 | 104 | 0 |
-| Endeavour Energy | 2026-27 | 1 | 81 | 91 | 3 | 2 | 104 | 0 |
-| Energex | 2023-24 | 2 | 0 | 744 | 0 | 0 | 118 | 12 |
-| Energex | 2024-25 | 3 | 245 | 818 | 0 | 0 | 156 | 17 |
-| Energex | 2025-26 | 1 | 85 | 330 | 0 | 0 | 51 | 16 |
-| Energex | 2026-27 | 1 | 72 | 338 | 0 | 0 | 51 | 15 |
-| Ergon Energy | 2023-24 | 2 | 0 | 6704 | 0 | 0 | 802 | 62 |
-| Ergon Energy | 2024-25 | 3 | 2715 | 6592 | 0 | 0 | 951 | 65 |
-| Ergon Energy | 2025-26 | 1 | 344 | 1028 | 0 | 0 | 172 | 37 |
-| Ergon Energy | 2026-27 | 1 | 242 | 1012 | 0 | 0 | 144 | 35 |
-| Essential Energy | 2023-24 | 2 | 0 | 862 | 0 | 5 | 76 | 23 |
-| Essential Energy | 2024-25 | 3 | 415 | 367 | 14 | 6 | 162 | 0 |
-| Essential Energy | 2025-26 | 1 | 230 | 110 | 7 | 6 | 67 | 0 |
-| Essential Energy | 2026-27 | 1 | 115 | 110 | 7 | 6 | 67 | 0 |
+| Endeavour Energy | 2024-25 | 2 | 278 | 402 | 3 | 3 | 183 | 0 |
+| Endeavour Energy | 2025-26 | 1 | 162 | 204 | 3 | 2 | 104 | 0 |
+| Endeavour Energy | 2026-27 | 1 | 81 | 204 | 3 | 2 | 104 | 0 |
+| Energex | 2023-24 | 2 | 0 | 760 | 0 | 0 | 118 | 12 |
+| Energex | 2024-25 | 3 | 269 | 832 | 0 | 0 | 156 | 17 |
+| Energex | 2025-26 | 1 | 85 | 336 | 0 | 0 | 51 | 17 |
+| Energex | 2026-27 | 1 | 72 | 346 | 0 | 0 | 51 | 15 |
+| Ergon Energy | 2023-24 | 2 | 0 | 6816 | 0 | 0 | 802 | 62 |
+| Ergon Energy | 2024-25 | 3 | 2715 | 6704 | 0 | 0 | 951 | 65 |
+| Ergon Energy | 2025-26 | 1 | 344 | 1052 | 0 | 0 | 172 | 37 |
+| Ergon Energy | 2026-27 | 1 | 242 | 1036 | 0 | 0 | 144 | 35 |
+| Essential Energy | 2023-24 | 2 | 0 | 1007 | 0 | 5 | 76 | 23 |
+| Essential Energy | 2024-25 | 3 | 443 | 435 | 14 | 6 | 162 | 0 |
+| Essential Energy | 2025-26 | 1 | 230 | 110 | 7 | 6 | 67 | 1 |
+| Essential Energy | 2026-27 | 1 | 115 | 110 | 7 | 6 | 67 | 1 |
 | Evoenergy | 2023-24 | 2 | 0 | 1038 | 10 | 11 | 123 | 6 |
 | Evoenergy | 2024-25 | 2 | 424 | 138 | 42 | 34 | 75 | 4 |
 | Evoenergy | 2025-26 | 1 | 260 | 138 | 42 | 34 | 75 | 4 |
 | Evoenergy | 2026-27 | 2 | 130 | 300 | 94 | 80 | 156 | 4 |
 | Jemena | 2023-24 | 2 | 0 | 1680 | 22 | 22 | 542 | 0 |
-| Jemena | 2024-25 | 3 | 406 | 420 | 22 | 22 | 588 | 0 |
+| Jemena | 2024-25 | 3 | 482 | 420 | 22 | 22 | 588 | 0 |
 | Jemena | 2025-26 | 1 | 190 | 177 | 11 | 11 | 205 | 0 |
 | Jemena | 2026-27 | 1 | 58 | 102 | 11 | 9 | 108 | 0 |
 | Powercor | 2023-24 | 2 | 0 | 189 | 0 | 4 | 24 | 14 |
-| Powercor | 2024-25 | 3 | 141 | 267 | 15 | 9 | 163 | 3 |
-| Powercor | 2025-26 | 2 | 94 | 204 | 15 | 9 | 168 | 3 |
-| Powercor | 2026-27 | 2 | 49 | 189 | 19 | 8 | 105 | 1 |
+| Powercor | 2024-25 | 3 | 177 | 267 | 15 | 9 | 163 | 5 |
+| Powercor | 2025-26 | 2 | 94 | 204 | 15 | 9 | 168 | 5 |
+| Powercor | 2026-27 | 2 | 49 | 189 | 19 | 8 | 105 | 2 |
 | Power and Water Corporation | 2023-24 | 2 | 0 | 51 | 4 | 4 | 37 | 0 |
 | Power and Water Corporation | 2024-25 | 3 | 44 | 50 | 6 | 4 | 82 | 0 |
 | Power and Water Corporation | 2025-26 | 2 | 44 | 44 | 6 | 4 | 56 | 0 |
 | Power and Water Corporation | 2026-27 | 2 | 22 | 22 | 3 | 2 | 36 | 0 |
-| SA Power Networks | 2023-24 | 2 | 0 | 2224 | 14 | 25 | 435 | 51 |
-| SA Power Networks | 2024-25 | 4 | 875 | 2356 | 14 | 25 | 506 | 57 |
-| SA Power Networks | 2025-26 | 2 | 121 | 2272 | 28 | 62 | 500 | 57 |
+| SA Power Networks | 2023-24 | 2 | 0 | 2226 | 14 | 25 | 435 | 51 |
+| SA Power Networks | 2024-25 | 4 | 897 | 2358 | 14 | 25 | 506 | 59 |
+| SA Power Networks | 2025-26 | 2 | 121 | 2280 | 28 | 62 | 500 | 57 |
 | SA Power Networks | 2026-27 | 1 | 121 | 973 | 0 | 5 | 204 | 73 |
 | TasNetworks | 2023-24 | 2 | 0 | 346 | 5 | 13 | 144 | 0 |
 | TasNetworks | 2024-25 | 2 | 198 | 233 | 0 | 0 | 111 | 16 |
 | TasNetworks | 2025-26 | 1 | 152 | 233 | 0 | 0 | 52 | 16 |
 | TasNetworks | 2026-27 | 1 | 76 | 233 | 0 | 0 | 52 | 16 |
 | United Energy | 2023-24 | 2 | 0 | 250 | 15 | 11 | 113 | 2 |
-| United Energy | 2024-25 | 3 | 92 | 128 | 3 | 2 | 33 | 11 |
+| United Energy | 2024-25 | 3 | 124 | 128 | 3 | 2 | 33 | 13 |
 | United Energy | 2025-26 | 2 | 66 | 0 | 10 | 7 | 65 | 0 |
 | United Energy | 2026-27 | 2 | 49 | 180 | 17 | 10 | 145 | 1 |
 
@@ -369,7 +370,7 @@ Check: `charge_count >= 0 AND listing_count >= 0 AND eligibility_count >= 0 AND 
 
 ### Listings and prices
 
-#### `tariff_listing` (5277 rows)
+#### `tariff_listing` (5301 rows)
 
 A tariff as listed in one document version (code, name and class as printed there).
 
@@ -389,11 +390,11 @@ A tariff as listed in one document version (code, name and class as printed ther
 | `effective_to` | date |  |  |  | last day (inclusive) |
 | `price_availability` | text |  |  | priced, placeholder, rules_only | Whether this document prints prices, a zero/blank placeholder, or only rules |
 | `locator` | text |  |  |  | first price cell/page of the listing |
-| `note` | text |  | yes |  | parser notes for the listing |
+| `note` | text |  | yes |  | Derived. what the notes of the listing's charges all say ('; '-separated parts common to every charge, leaving out repeated printings and GST-inclusive copies); for a rules-only listing, the quote that lists it (derived from the charge notes on every build) |
 
 Check: `effective_from <= effective_to`
 
-#### `listing_flag` (4455 rows)
+#### `listing_flag` (4568 rows)
 
 Status flags of a listing: trial, closed to new customers, withdrawn, site-specific, placeholder, proposed price, LFiT/metering inclusion (derived from listing text, parser notes, curated flags and price adjustments). Derived: recomputed from the source-fact tables on every build, not append-only.
 
@@ -402,11 +403,11 @@ Status flags of a listing: trial, closed to new customers, withdrawn, site-speci
 | Column | Type | Key | Null | Values / unit | Description |
 |---|---|---|---|---|---|
 | `listing_id` | text | PK FK tariff_listing.listing_id |  |  | listing |
-| `flag` | text | PK |  | trial, closed_to_new, withdrawn, obsolete, grandfathered, site_specific, zero_priced_placeholder, transitional, indicative, proposed_price, includes_lfit, excludes_lfit, includes_metering, excludes_metering, joint_label_member, regional_variant | status |
+| `flag` | text | PK |  | trial, closed_to_new, withdrawn, obsolete, grandfathered, site_specific, zero_priced_placeholder, transitional, indicative, proposed_price, includes_lfit, excludes_lfit, includes_metering, excludes_metering, joint_label_member, regional_variant, dmo_vdo_tariff | status |
 | `evidence_kind` | text |  |  | published_text, parser_note, document, curated | where the flag comes from |
 | `evidence` | text |  |  |  | the wording that establishes it |
 
-#### `charge` (50389 rows)
+#### `charge` (52180 rows)
 
 One published price component of one listing in one price basis (NUoS/DUoS/TUoS/...).
 
@@ -421,8 +422,8 @@ One published price component of one listing in one price basis (NUoS/DUoS/TUoS/
 | `price_basis` | text |  |  | NUoS, DUoS, TUoS, DPPC, JSA, unknown | NUoS = total network price; DUoS/TUoS/DPPC/JSA components; metering |
 | `component_label` | text |  |  |  | component label as published (header hierarchy joined with ' - ') |
 | `charge_type` | text |  |  | fixed, energy, demand, capacity, export, other | normalised component kind |
-| `time_band` | text |  | yes |  | normalised band (peak, off_peak, shoulder, block1, ...) |
-| `season` | text |  | yes |  | normalised season (summer, non_summer, high, low, winter) |
+| `time_band` | text |  | yes | anytime, peak, shoulder, offpeak, super_offpeak, critical_peak, solar_soak, block1, block2, block3, peak_block1, peak_block2, capacity_minimum, capacity_remaining, critical_minimum, dynamic_maximum, dynamic_minimum | normalised band |
+| `season` | text |  | yes | summer, non_summer, high, low, winter | normalised season |
 | `value_published` | text |  |  |  | number exactly as displayed in the document |
 | `unit_published` | text |  | yes |  | unit exactly as published |
 | `unit_interpreted` | text |  | yes |  | Unit used for conversion; differs only where the source parser supplies a period or repairs a source typo |
@@ -435,7 +436,7 @@ One published price component of one listing in one price basis (NUoS/DUoS/TUoS/
 | `period` | text |  |  | day, month, year, none, unstated | billing period of the unit |
 | `period_inferred` | boolean |  |  |  | 1 when the period comes from the component label, not the published unit |
 | `gst` | text |  |  | excl, incl | GST basis |
-| `includes_metering` | text |  |  | yes, no, unknown | Derived. whether the value contains a metering charge (derived: 'yes' where a metering_adder price_adjustment reproduces the value from the AER price plus metering) |
+| `includes_metering` | text |  |  | yes, no, unknown | Derived. whether the value contains a metering charge (derived: 'yes' where a metering_adder price_adjustment reproduces the value from the AER price plus metering; 'no' where a distributor daily charge equals the AER's, which excludes metering) |
 | `includes_lfit` | text |  |  | yes, no, unknown, not_applicable | Derived. whether the value contains the ACT large-scale feed-in tariff amount (derived from the Evoenergy LFiT statements and price adjustments) |
 | `effective_from` | date |  |  |  | first day the value applies; today always the listing's first day (tested), kept per charge so a source that changes some prices part-way through a year needs no new listing |
 | `effective_to` | date |  |  |  | last day (inclusive); same rule as effective_from |
@@ -451,7 +452,7 @@ Check: `effective_from <= effective_to`
 
 Check: `(locator_kind = 'xlsx' AND sheet IS NOT NULL AND cell IS NOT NULL AND page IS NULL) OR (locator_kind <> 'xlsx' AND page IS NOT NULL AND sheet IS NULL AND cell IS NULL)`
 
-#### `charge_step` (90 rows)
+#### `charge_step` (196 rows)
 
 Quantity blocks or export allowances, separate from tariff eligibility thresholds.
 
@@ -474,7 +475,7 @@ Quantity blocks or export allowances, separate from tariff eligibility threshold
 | `lower_inclusive` | boolean |  |  |  | Whether lower boundary belongs to the block |
 | `upper_inclusive` | boolean |  |  |  | Whether upper boundary belongs to the block |
 | `quantity_unit` | text |  |  | kWh | Unit of the boundaries |
-| `reset_period` | text |  |  | day, billing_period_per_day, unstated | Period over which quantity accumulates: day (each day stands alone); billing_period_per_day (the bounds are per day and are multiplied by the days in the billing period, so an unused allowance rolls over within that period); unstated |
+| `reset_period` | text |  |  | day, billing_period_per_day, quarter, unstated | Period over which quantity accumulates: day (each day stands alone); billing_period_per_day (the bounds are per day and are multiplied by the days in the billing period, so an unused allowance rolls over within that period); quarter (the bounds accumulate per calendar quarter, e.g. AusNet '1020 kWh/qtr'); unstated |
 | `locator` | text |  |  |  | Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py) |
 | `quote` | text |  |  |  | Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does) |
 
@@ -484,9 +485,9 @@ Check: `effective_from <= effective_to`
 
 Check: `lower_bound IS NULL OR upper_bound IS NULL OR lower_bound < upper_bound`
 
-#### `metering_price` (350 rows)
+#### `metering_price` (643 rows)
 
-Metering prices: the AER Metering worksheet (2025-26 on), the AER 2024-25 'Tariff schedule 1', and the per-tariff Metering block of the Energex/Ergon price lists.
+Metering prices: the AER Metering worksheet (2025-26 on), the AER 2024-25 'Tariff schedule 1', the per-tariff Metering block of the Energex/Ergon price lists, and the metering columns of distributor network price tables.
 
 - Why: The AER prints network prices without metering and metering separately; storing both lets the distributor's metering-inclusive daily charge be reproduced exactly ($/yr x 100 / 365).
 - Why: charge_basis keeps 'per year' vs exit fee vs unstated apart: the sheet mixes them in one column.
@@ -497,7 +498,7 @@ Metering prices: the AER Metering worksheet (2025-26 on), the AER 2024-25 'Tarif
 | `document_id` | text | FK source_document.document_id |  |  | where |
 | `distributor_id` | text | FK distributor.distributor_id |  |  | whose metering |
 | `fin_year` | text | FK financial_year.fin_year |  |  | year |
-| `source_block` | text |  |  | aer_metering_sheet, aer_tariff_schedule_1, distributor_metering_block | which table of the document |
+| `source_block` | text |  |  | aer_metering_sheet, aer_tariff_schedule_1, distributor_metering_block, distributor_price_table | which table of the document |
 | `meter_class` | text |  |  |  | customer/meter class label as published |
 | `tariff_codes_published` | text |  | yes |  | content of the sheet's 'Tariff code' column as printed (tariff codes, or metering-service codes such as MP7) |
 | `tariff_id` | text | FK tariff.tariff_id | yes |  | tariff the row belongs to (per-tariff blocks only) |
@@ -505,12 +506,16 @@ Metering prices: the AER Metering worksheet (2025-26 on), the AER 2024-25 'Tarif
 | `charge_basis` | text |  |  | per_year, per_meter, per_day, unstated | what the price is per |
 | `value_published` | text |  |  |  | as displayed |
 | `unit_published` | text |  | yes |  | as published |
-| `value_raw` | text |  |  |  | full-precision cell value |
+| `value_raw` | text |  | yes |  | full-precision cell value (NULL for PDFs) |
 | `value_num` | numeric |  |  |  | number |
+| `gst` | text |  |  | excl, incl | GST basis (the AER sheets are GST exclusive; some distributor tables print both) |
 | `value_c_per_day` | numeric |  | yes | c/day | cents per day: per_year x 100 / 365, per_day x 100 ($) ; NULL otherwise |
-| `locator` | text |  |  |  | cell (re-read by the tests) |
-| `sheet` | text |  |  |  | spreadsheet tab |
-| `cell` | text |  |  |  | spreadsheet cell |
+| `locator` | text |  |  |  | cell or PDF page (re-read by the tests) |
+| `locator_kind` | text |  |  | xlsx, pdf, pdf-ocr | xlsx \| pdf \| pdf-ocr |
+| `sheet` | text |  | yes |  | spreadsheet tab |
+| `cell` | text |  | yes |  | spreadsheet cell |
+| `page` | integer |  | yes |  | PDF page (1-based) |
+| `note` | text |  | yes |  | parser caveats (distributor price tables) |
 
 #### `price_adjustment` (14 rows)
 
@@ -549,7 +554,7 @@ Tariffs an adjustment applies to, with the expected per-tariff difference (deriv
 
 ### Tariff identity
 
-#### `tariff` (925 rows)
+#### `tariff` (918 rows)
 
 Stable identity of a network tariff across years: the distributor's own code.
 
@@ -565,7 +570,7 @@ Stable identity of a network tariff across years: the distributor's own code.
 
 Unique: `distributor_id, tariff_code`
 
-#### `tariff_alias` (983 rows)
+#### `tariff_alias` (985 rows)
 
 Other labels under which a tariff is published: AER code labels, AER tariff IDs, joint labels ('010, 011*'), regional suffixes.
 
@@ -580,7 +585,7 @@ Other labels under which a tariff is published: AER code labels, AER tariff IDs,
 | `document_id` | text | FK source_document.document_id |  |  | document where the label appears |
 | `note` | text |  | yes |  | how the alias was resolved |
 
-#### `tariff_relation` (167 rows)
+#### `tariff_relation` (234 rows)
 
 Relationships between tariffs: renames, replacements, opt-out alternatives, export companions.
 
@@ -591,7 +596,7 @@ Relationships between tariffs: renames, replacements, opt-out alternatives, expo
 |---|---|---|---|---|---|
 | `relation_id` | text | PK |  |  | <from>\|<relation_type>\|<to>\|<document_id> |
 | `from_tariff_id` | text | FK tariff.tariff_id |  |  | subject |
-| `relation_type` | text |  |  | replaced_by, opt_out_alternative, export_companion, same_prices_as, assigned_with, aer_sibling_code | relationship |
+| `relation_type` | text |  |  | replaced_by, opt_out_alternative, export_companion, same_prices_as, assigned_with, aer_sibling_code, aer_combined_label | relationship |
 | `to_tariff_id` | text | FK tariff.tariff_id |  |  | object |
 | `fin_year` | text | FK financial_year.fin_year |  |  | year the relation is stated for |
 | `document_id` | text | FK source_document.document_id |  |  | evidence |
@@ -631,7 +636,7 @@ Check: `effective_from <= effective_to`
 
 Check: `value_num IS NOT NULL OR value_text IS NOT NULL OR target_tariff_id IS NOT NULL`
 
-#### `tariff_tou` (1997 rows)
+#### `tariff_tou` (2025 rows)
 
 Which TOU schedule a tariff uses, for which kind of charge, in which year.
 
@@ -651,7 +656,7 @@ Which TOU schedule a tariff uses, for which kind of charge, in which year.
 
 Check: `effective_from <= effective_to`
 
-#### `tou_schedule` (579 rows)
+#### `tou_schedule` (595 rows)
 
 A named set of time-of-use windows as stated in one document.
 
@@ -673,7 +678,7 @@ A named set of time-of-use windows as stated in one document.
 | `quote` | text |  |  |  | Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does) |
 | `note` | text |  | yes |  | Source qualifications or interpretation notes |
 
-#### `tou_window` (1740 rows)
+#### `tou_window` (1792 rows)
 
 One time window: period, day type, start/end time, months.
 
@@ -699,7 +704,7 @@ Check: `start_time < end_time`
 
 Check: `length(start_time) = 5 AND length(end_time) = 5`
 
-#### `tou_window_month` (18194 rows)
+#### `tou_window_month` (18710 rows)
 
 Relational month membership of each TOU window.
 
@@ -724,7 +729,7 @@ Which demand rule a tariff's demand component uses.
 | `tariff_id` | text | FK tariff.tariff_id |  |  | tariff |
 | `demand_rule_id` | text | FK demand_rule.demand_rule_id |  |  | rule |
 | `time_band` | text |  | yes |  | component band it governs (NULL = all demand components) |
-| `season` | text |  | yes |  | season it governs (NULL = all) |
+| `season` | text |  | yes | summer, non_summer, high, low, winter | season it governs, in the charge.season vocabulary (NULL = all) |
 | `effective_from` | date |  |  |  | first day |
 | `effective_to` | date |  |  |  | last day (inclusive) |
 | `document_id` | text | FK source_document.document_id |  |  | evidence |
@@ -758,7 +763,7 @@ How billed demand is measured: kW or kVA, interval, aggregation, window, months,
 
 ### Exceptions
 
-#### `exception_type` (28 rows)
+#### `exception_type` (29 rows)
 
 Catalogue of irregularities the data must represent, and how it represents each (from scripts/tariffdb/exceptions.py). Derived: recomputed from the source-fact tables on every build, not append-only.
 
@@ -772,7 +777,7 @@ Catalogue of irregularities the data must represent, and how it represents each 
 | `representation` | text |  |  |  | tables/columns that represent it |
 | `test` | text |  |  |  | test that exercises it (tests/test_tariffdb.py) |
 
-#### `exception_instance` (3255 rows)
+#### `exception_instance` (4118 rows)
 
 Each occurrence of a catalogued exception, detected on every build. Derived: recomputed from the source-fact tables on every build, not append-only.
 

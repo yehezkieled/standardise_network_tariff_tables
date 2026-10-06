@@ -38,6 +38,9 @@ Rules
   `customer_class`: tariff class / customer group heading if present.
 - `note`: caveats (e.g. "LFiT included", "site-specific", "closed to new customers", "mid-year variation",
   "page 37 Table 9", "proposed (pre-approval) prices").
+- Metering printed in a network price table (a per-tariff metering charge column) is not a `charge` row: write it
+  with `schema.write_metering(<slug>, rows)` (`schema.METERING_COLUMNS`, one row per printed cell, with locator);
+  the tariff database stores it in `metering_price`.
 - Never fabricate. If a value cannot be extracted, leave it out and record the gap in your summary.
 - Spot-check: for each file pick 3 tariffs and compare your rows against the raw document text; include
   them in your summary.

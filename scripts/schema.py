@@ -27,6 +27,32 @@ COLUMNS = [
     "locator",         # where the value was read: xlsx:<sheet>!<cell> | pdf:p<page> | pdf-ocr:p<page> (scripts/tariffdb/locators.py)
 ]
 
+# Note marker of a row that prints a price a second time in the same document (another sheet or table with the same
+# tariff, component, basis and value). The tariff database keeps every printing; the reconciliation compares one.
+REPEATED_PRINTING = "repeated printing"
+
+# Metering side output: a distributor price list that prints a per-tariff metering charge next to its network prices
+# (alternative control services, so not a `charge` row) writes those cells to out/dnsp_metering/<slug>.csv; the
+# tariff database stores them in metering_price.
+METERING_COLUMNS = [
+    "distributor", "fin_year", "tariff_code", "meter_class", "component", "unit", "value", "gst", "source_file",
+    "locator", "note",
+]
+METERING_OUT_DIR = "out/dnsp_metering"
+
+
+def write_metering(slug, rows):
+    """Write the metering side output of one parser (an empty file when the parser found none)."""
+    import csv
+    import os
+    os.makedirs(METERING_OUT_DIR, exist_ok=True)
+    with open(os.path.join(METERING_OUT_DIR, f"{slug}.csv"), "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=METERING_COLUMNS)
+        w.writeheader()
+        for r in rows:
+            w.writerow({k: r.get(k, "") for k in METERING_COLUMNS})
+
+
 CANON = {
     "ausgrid": "Ausgrid", "ausnet": "AusNet Services", "ausnet services": "AusNet Services",
     "citipower": "CitiPower", "endeavour": "Endeavour Energy", "endeavour energy": "Endeavour Energy",
@@ -46,8 +72,6 @@ def charge_type_from_label(label: str, unit: str = "") -> str:
         return "export"
     if any(k in l for k in ("fixed", "standing", "access charge", "service charge", "supply charge", "connection unit", "general service", "common service", "daily charge", "network access", "system access")) or ("/day" in u and not re.search(r"k(w|va)", u)):
         return "fixed"
-    if "real capacity" in l and re.search(r"/kw(?!h)", u):
-        return "demand"
     if "capacity" in l or re.search(r"\bcap\.", l):
         return "capacity"
     if "demand" in l or re.search(r"/k(w|va)(?!h)", u):
@@ -67,7 +91,7 @@ def time_band_from_label(label: str) -> str:
     if "super off" in l: return "super_offpeak"
     if "off-peak" in l or "off peak" in l or "offpeak" in l or re.search(r"\bopk\b", l): return "offpeak"
     if "peak shoulder" in l: return "peak"
-    if "shoulder" in l: return "shoulder"
+    if "shoulder" in l or re.search(r"\bshld\b", l): return "shoulder"  # SA Power Networks AER label 'Mth Dmnd Shld'
     if "solar soak" in l or "solar sponge" in l or "saver" in l or "daytime" in l or re.search(r"\bss\b", l): return "solar_soak"
     if "critical" in l: return "critical_peak"
     m = re.search(r"\b(?:block|blk)\s*(\d+)\b", l)

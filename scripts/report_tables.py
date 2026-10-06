@@ -3,7 +3,7 @@
 Writes out/report_tables.md with: headline grid, per distributor x year findings, explanation glossary counts,
 source inventory with URLs. scripts/write_report.py embeds these sections in the report.
 """
-import csv, os, re, json, sys
+import csv, os, json, sys
 from collections import Counter, defaultdict
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))

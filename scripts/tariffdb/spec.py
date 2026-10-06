@@ -25,12 +25,21 @@ TRISTATE = ["yes", "no", "unknown"]
 LISTING_FLAGS = [
     "trial", "closed_to_new", "withdrawn", "obsolete", "grandfathered", "site_specific", "zero_priced_placeholder",
     "transitional", "indicative", "proposed_price", "includes_lfit", "excludes_lfit", "includes_metering",
-    "excludes_metering", "joint_label_member", "regional_variant",
+    "excludes_metering", "joint_label_member", "regional_variant", "dmo_vdo_tariff",
 ]
 ALIAS_KINDS = ["aer_tariff_id", "joint_label_member", "regional_suffix", "name_matched", "code_variant"]
+# aer_combined_label: the AER prints one row (from) for distributor tariffs (to) that share its prices and differ only
+# in a non-price term the distributor states (e.g. CitiPower CHV1/CHV2: the summer incentive demand window)
 RELATION_TYPES = [
     "replaced_by", "opt_out_alternative", "export_companion", "same_prices_as", "assigned_with", "aer_sibling_code",
+    "aer_combined_label",
 ]
+# charge.time_band vocabulary (scripts/schema.py time_band_from_label and the parsers); one word per band, no '_' inside
+# 'offpeak' (kept as stored since the first release)
+TIME_BANDS = ["anytime", "peak", "shoulder", "offpeak", "super_offpeak", "critical_peak", "solar_soak", "block1",
+              "block2", "block3", "peak_block1", "peak_block2", "capacity_minimum", "capacity_remaining",
+              "critical_minimum", "dynamic_maximum", "dynamic_minimum"]
+SEASONS = ["summer", "non_summer", "high", "low", "winter"]  # charge.season and tariff_demand_rule.season
 DAY_TYPES = ["weekday", "weekend", "all_days", "business_day", "non_business_day"]
 TOU_PERIODS = ["peak", "shoulder", "off_peak", "solar_soak", "critical_peak", "super_off_peak", "demand_window",
                "export_charge_window", "export_reward_window", "controlled_load_supply", "anytime", "high_season_peak",
@@ -60,7 +69,10 @@ RULE_VALUES = {
                             "storage", "flexible_load", "heat_pump"],
 }
 ADJUSTMENT_KINDS = ["metering_adder", "lfit_adder", "lfit_rebate"]
-METERING_SOURCES = ["aer_metering_sheet", "aer_tariff_schedule_1", "distributor_metering_block"]
+# distributor_price_table: the metering column of a distributor's network price table (Ausgrid 'Metering Service
+# Charge', Evoenergy 'Metering' columns, SA Power Networks 'METERING - Meter Charge')
+METERING_SOURCES = ["aer_metering_sheet", "aer_tariff_schedule_1", "distributor_metering_block",
+                    "distributor_price_table"]
 METERING_BASES = ["per_year", "per_meter", "per_day", "unstated"]
 VERIFICATIONS = ["cell_display", "page_text", "ocr_sum_check"]
 LOCATOR_KINDS = ["xlsx", "pdf", "pdf-ocr"]
@@ -267,7 +279,9 @@ TABLES = [
             col("price_availability", "text", "Whether this document prints prices, a zero/blank placeholder, or only rules",
                 enum=["priced", "placeholder", "rules_only"]),
             col("locator", "text", "first price cell/page of the listing"),
-            col("note", "text", "parser notes for the listing", null=True),
+            col("note", "text", "what the notes of the listing's charges all say ('; '-separated parts common to "
+                "every charge, leaving out repeated printings and GST-inclusive copies); for a rules-only listing, "
+                "the quote that lists it (derived from the charge notes on every build)", null=True, derived=True),
         ],
         "checks": ["effective_from <= effective_to"],
     },
@@ -300,8 +314,8 @@ TABLES = [
                 enum=PRICE_BASES),
             col("component_label", "text", "component label as published (header hierarchy joined with ' - ')"),
             col("charge_type", "text", "normalised component kind", enum=CHARGE_TYPES),
-            col("time_band", "text", "normalised band (peak, off_peak, shoulder, block1, ...)", null=True),
-            col("season", "text", "normalised season (summer, non_summer, high, low, winter)", null=True),
+            col("time_band", "text", "normalised band", null=True, enum=TIME_BANDS),
+            col("season", "text", "normalised season", null=True, enum=SEASONS),
             col("value_published", "text", "number exactly as displayed in the document"),
             col("unit_published", "text", "unit exactly as published", null=True),
             col("unit_interpreted", "text", "Unit used for conversion; differs only where the source parser supplies a period or repairs a source typo", null=True),
@@ -315,7 +329,8 @@ TABLES = [
             col("period_inferred", "boolean", "1 when the period comes from the component label, not the published unit"),
             col("gst", "text", "GST basis", enum=["excl", "incl"]),
             col("includes_metering", "text", "whether the value contains a metering charge (derived: 'yes' where a "
-                "metering_adder price_adjustment reproduces the value from the AER price plus metering)", enum=TRISTATE,
+                "metering_adder price_adjustment reproduces the value from the AER price plus metering; 'no' where a "
+                "distributor daily charge equals the AER's, which excludes metering)", enum=TRISTATE,
                 derived=True),
             col("includes_lfit", "text", "whether the value contains the ACT large-scale feed-in tariff amount "
                 "(derived from the Evoenergy LFiT statements and price adjustments)",
@@ -358,8 +373,9 @@ TABLES = [
             col("quantity_unit", "text", "Unit of the boundaries", enum=["kWh"]),
             col("reset_period", "text", "Period over which quantity accumulates: day (each day stands alone); "
                 "billing_period_per_day (the bounds are per day and are multiplied by the days in the billing period, "
-                "so an unused allowance rolls over within that period); unstated",
-                enum=["day", "billing_period_per_day", "unstated"]),
+                "so an unused allowance rolls over within that period); quarter (the bounds accumulate per calendar "
+                "quarter, e.g. AusNet '1020 kWh/qtr'); unstated",
+                enum=["day", "billing_period_per_day", "quarter", "unstated"]),
             *provenance(),
         ],
         "checks": ["step_index > 0", "effective_from <= effective_to",
@@ -367,8 +383,9 @@ TABLES = [
     },
     {
         "name": "metering_price",
-        "description": "Metering prices: the AER Metering worksheet (2025-26 on), the AER 2024-25 'Tariff schedule 1', and "
-                       "the per-tariff Metering block of the Energex/Ergon price lists.",
+        "description": "Metering prices: the AER Metering worksheet (2025-26 on), the AER 2024-25 'Tariff schedule 1', "
+                       "the per-tariff Metering block of the Energex/Ergon price lists, and the metering columns of "
+                       "distributor network price tables.",
         "why": ["The AER prints network prices without metering and metering separately; storing both lets the "
                 "distributor's metering-inclusive daily charge be reproduced exactly ($/yr x 100 / 365).",
                 "charge_basis keeps 'per year' vs exit fee vs unstated apart: the sheet mixes them in one column."],
@@ -388,13 +405,18 @@ TABLES = [
             col("charge_basis", "text", "what the price is per", enum=METERING_BASES),
             col("value_published", "text", "as displayed"),
             col("unit_published", "text", "as published", null=True),
-            col("value_raw", "text", "full-precision cell value"),
+            col("value_raw", "text", "full-precision cell value (NULL for PDFs)", null=True),
             col("value_num", "numeric", "number"),
+            col("gst", "text", "GST basis (the AER sheets are GST exclusive; some distributor tables print both)",
+                enum=["excl", "incl"]),
             col("value_c_per_day", "numeric", "cents per day: per_year x 100 / 365, per_day x 100 ($) ; NULL otherwise",
                 null=True, unit="c/day"),
-            col("locator", "text", "cell (re-read by the tests)"),
-            col("sheet", "text", "spreadsheet tab"),
-            col("cell", "text", "spreadsheet cell"),
+            col("locator", "text", "cell or PDF page (re-read by the tests)"),
+            col("locator_kind", "text", "xlsx | pdf | pdf-ocr", enum=LOCATOR_KINDS),
+            col("sheet", "text", "spreadsheet tab", null=True),
+            col("cell", "text", "spreadsheet cell", null=True),
+            col("page", "integer", "PDF page (1-based)", null=True),
+            col("note", "text", "parser caveats (distributor price tables)", null=True),
         ],
     },
     {
@@ -500,7 +522,8 @@ TABLES = [
             col("tariff_id", "text", "tariff", fk="tariff.tariff_id"),
             col("demand_rule_id", "text", "rule", fk="demand_rule.demand_rule_id"),
             col("time_band", "text", "component band it governs (NULL = all demand components)", null=True),
-            col("season", "text", "season it governs (NULL = all)", null=True),
+            col("season", "text", "season it governs, in the charge.season vocabulary (NULL = all)", null=True,
+                enum=SEASONS),
             col("effective_from", "date", "first day"),
             col("effective_to", "date", "last day (inclusive)"),
             col("document_id", "text", "evidence", fk="source_document.document_id"),

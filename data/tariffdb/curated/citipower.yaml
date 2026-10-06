@@ -1207,6 +1207,8 @@ tou_schedules:
   - codes:
     - CLLV1
     - CHV1
+    - CLLVT1
+    - CHVT1
     applies_to: demand
 - id: citipower-2526-pdf-large-incentive-2
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
@@ -1231,6 +1233,8 @@ tou_schedules:
   - codes:
     - CLLV2
     - CHV2
+    - CLLVT2
+    - CHVT2
     applies_to: demand
 - id: citipower-2526-pdf-large-energy
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
@@ -1281,6 +1285,18 @@ tou_schedules:
     locator: pdf-ocr:p8
     quote: CHV1 workdays 7am- workdays 7am- High Voltage Default 1kV-22KV N/A. 500 Non-peak times 1-4pm or 4-7pm CHV2 7pm 7pm
   - codes:
+    - CLLVT1
+    - CLLVT2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: CLLVT1 ≥120KVA workdays 7am- workdays 7am- Large Low Voltage transition Closed 1kV 120 Non-peak times 1-4pm or 4-7pm CLLVT2 7pm 7pm
+  - codes:
+    - CHVT1
+    - CHVT2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: CHVT1 workdays 7am- workdays 7am- High Voltage transition Closed 1kV-22KV N/A. 500 CHVT2 Non-peak times 1-4pm or 4-7pm 7pm 7pm
+  - codes:
     - CST2
     applies_to: energy
     locator: pdf-ocr:p8
@@ -1317,6 +1333,18 @@ tou_schedules:
     applies_to: demand
     locator: pdf-ocr:p8
     quote: CHV1 workdays 7am- workdays 7am- High Voltage Default 1kV-22KV N/A. 500 Non-peak times 1-4pm or 4-7pm CHV2 7pm 7pm
+  - codes:
+    - CLLVT1
+    - CLLVT2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: CLLVT1 ≥120KVA workdays 7am- workdays 7am- Large Low Voltage transition Closed 1kV 120 Non-peak times 1-4pm or 4-7pm CLLVT2 7pm 7pm
+  - codes:
+    - CHVT1
+    - CHVT2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: CHVT1 workdays 7am- workdays 7am- High Voltage transition Closed 1kV-22KV N/A. 500 CHVT2 Non-peak times 1-4pm or 4-7pm 7pm 7pm
   - codes:
     - CST2
     applies_to: demand
@@ -1652,6 +1680,579 @@ tou_schedules:
   - codes:
     - CMG
     applies_to: demand
+- id: citipower-2627-pdf-crstou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Residential ToU (CRSTOU) energy peak / off-peak / saver
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p5
+  quote: all days 4pm- all days 9pm- all days 11am- Residential ToU CRSTOU Default 9pm 11am 4pm
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image: peak
+    energy ''all days 4pm-9pm'', off-peak energy ''all days 9pm-11am'', saver energy ''all days 11am-4pm''). Notes (p5): ''All
+    times are local time''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: off-peak all days 9pm-11am
+    days: all_days
+    start: 00:00
+    end: '11:00'
+  - period: solar_soak
+    label: saver all days 11am-4pm
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+  - period: peak
+    label: peak all days 4pm-9pm
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: off-peak all days 9pm-11am
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CRSTOU
+    applies_to: energy
+- id: citipower-2627-pdf-crcer-import
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Residential CER (CRCER) import peak / peak (shoulder) / off-peak / saver
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p5
+  quote: Residential CER CRCER Opt-in 9pm during Dec- 9pm during Dec- May and Sep- 11am 4pm May with 1 kWh Feb and Jun-AugFeb
+    and Jun-Aug Nov per day BEL
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image; OCR interleaves
+    the stacked cell lines). CRCER row: peak energy ''all days 4pm-9pm during Dec-Feb and Jun-Aug''; peak energy (shoulder)
+    ''all days 4pm-9pm during Mar-May and Sep-Nov''; off-peak energy ''all days 9pm-11am''; saver energy ''all days 11am-4pm''.
+    Notes (p5): ''All times are local time''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: off-peak all days 9pm-11am
+    days: all_days
+    start: 00:00
+    end: '11:00'
+  - period: solar_soak
+    label: saver all days 11am-4pm
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+  - period: peak
+    label: peak all days 4pm-9pm during Dec-Feb and Jun-Aug
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 12,1,2,6,7,8
+  - period: shoulder
+    label: peak energy (shoulder) all days 4pm-9pm during Mar-May and Sep-Nov
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 3,4,5,9,10,11
+    locator: pdf-ocr:p5
+    quote: 9pm during Mar-
+  - period: off_peak
+    label: off-peak all days 9pm-11am
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CRCER
+    applies_to: energy
+- id: citipower-2627-pdf-crcer-export-credit
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Residential CER (CRCER) peak export credit window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p5
+  quote: Residential CER CRCER Opt-in 9pm during Dec- 9pm during Dec- May and Sep- 11am 4pm May with 1 kWh Feb and Jun-AugFeb
+    and Jun-Aug Nov per day BEL
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image). CRCER
+    row, ''Peak energy export credit'' column: ''all days 4pm-9pm during Dec-Feb and Jun-Aug''. Notes (p5): ''All times are
+    local time''.'
+  windows:
+  - period: export_reward_window
+    label: peak energy export credit all days 4pm-9pm during Dec-Feb and Jun-Aug
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 12,1,2,6,7,8
+  tariffs:
+  - codes:
+    - CRCER
+    applies_to: export
+- id: citipower-2627-pdf-sb-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Small business ToU (CGTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p6
+  quote: workdays 9am- Small business ToU CGTOU Default 9pm non-peak times
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image: peak
+    energy ''workdays 9am-9pm'', off-peak energy ''non-peak times''). Notes (p6): ''All times are local time, except for C2U
+    which is in AEST''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
+    not stated'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: 09:00
+  - period: peak
+    label: peak workdays 9am-9pm
+    days: business_day
+    start: 09:00
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CGTOU
+    applies_to: energy
+- id: citipower-2627-pdf-cg-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Small business demand (CG) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p6
+  quote: Small business demand workdays 10am-workdays 10am- CG Opt-in 6pm 6pm
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image): summer
+    and non-summer demand columns both read ''workdays 10am-6pm'' on the CG row. Notes (p6): ''All times are local time, except
+    for C2U which is in AEST''; p7: ''Summer period covers December to March, non-summer is April to November''. ''workdays''
+    is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - CG
+    applies_to: demand
+- id: citipower-2627-pdf-cmgo21-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Medium business opt-out (CMGO21) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p6
+  quote: Medium business opt-out workdays 10am- CMG021 Opt-out <1kV non-peak times ≤160MWh 6pm
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image; the table
+    prints the code as CMGO21, OCR reads ''CMG021''): peak energy ''workdays 10am-6pm'', off-peak energy ''non-peak times''.
+    Notes (p6): ''All times are local time, except for C2U which is in AEST''. ''workdays'' is not defined in the document;
+    mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: peak
+    label: peak workdays 10am-6pm
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '18:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMGO21
+    applies_to: energy
+- id: citipower-2627-pdf-c2u-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Type 7 or 9 metering (C2U) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p6
+  quote: weekdays 7am- Type 7 or 9 metering C2U Default non-peak times
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image: peak
+    energy ''weekdays 7am-11pm'', off-peak energy ''non-peak times''). Notes (p6): ''All times are local time, except for
+    C2U which is in AEST''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak weekdays 7am-11pm
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2U
+    applies_to: energy
+- id: citipower-2627-pdf-cfs-import
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Flexible small (CFS) import peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p6
+  quote: all days 11am- ≤240kVAimport all days 4pm- all days 4pm- Flexible small Default outside of peak 4pm during Sep- CFS
+    9pm during Dec- 9pm during Dec- capacity Feb and Jun-Aug Feb and Jun-Aug import times May with 1 kWh per day BEL
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image; OCR interleaves
+    the stacked cell lines). CFS row: peak energy ''all days 4pm-9pm during Dec-Feb and Jun-Aug''; off-peak energy ''outside
+    of peak import times'' (so all times in Mar-May and Sep-Nov). Notes (p6): ''All times are local time, except for C2U which
+    is in AEST''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: outside of peak import times
+    days: all_days
+    start: 00:00
+    end: '16:00'
+    months: 12,1,2,6,7,8
+  - period: peak
+    label: peak all days 4pm-9pm during Dec-Feb and Jun-Aug
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 12,1,2,6,7,8
+  - period: off_peak
+    label: outside of peak import times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    months: 12,1,2,6,7,8
+  - period: off_peak
+    label: outside of peak import times
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,9,10,11
+  tariffs:
+  - codes:
+    - CFS
+    applies_to: energy
+- id: citipower-2627-pdf-cfs-export-credit
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Flexible small (CFS) peak export credit window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p6
+  quote: all days 11am- ≤240kVAimport all days 4pm- all days 4pm- Flexible small Default outside of peak 4pm during Sep- CFS
+    9pm during Dec- 9pm during Dec- capacity Feb and Jun-Aug Feb and Jun-Aug import times May with 1 kWh per day BEL
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image; OCR interleaves
+    the stacked cell lines). CFS row, ''Peak energy export credit'' column: ''all days 4pm-9pm during Dec-Feb and Jun-Aug''
+    (the second ''all days 4pm-'' and second ''9pm during Dec-'' in the quote). Notes (p6): ''All times are local time, except
+    for C2U which is in AEST''.'
+  windows:
+  - period: export_reward_window
+    label: peak energy export credit all days 4pm-9pm during Dec-Feb and Jun-Aug
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 12,1,2,6,7,8
+  tariffs:
+  - codes:
+    - CFS
+    applies_to: export
+- id: citipower-2627-pdf-cfl
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  name: Flexible large (CFL) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p8
+  quote: all days 4pm- >240kVA& Flexible large CFL Default N/A 9pm during Dec- non-peak times Not applicable 30MVA Feb and
+    Jun-Aug
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 6 is an image). CFL
+    row: peak energy ''all days 4pm-9pm during Dec-Feb and Jun-Aug'', off-peak energy ''non-peak times'', incentive demand
+    ''Not applicable''. Notes on Table 6 (p9): ''All times are local time''. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '16:00'
+    months: 12,1,2,6,7,8
+  - period: peak
+    label: peak all days 4pm-9pm during Dec-Feb and Jun-Aug
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 12,1,2,6,7,8
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    months: 12,1,2,6,7,8
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,9,10,11
+  tariffs:
+  - codes:
+    - CFL
+    applies_to: energy
+- id: citipower-2526-pdf-crtou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Residential ToU (CRTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p5
+  quote: all days 3pm- ToU CRTOU Default non-peak times 9pm
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image: peak
+    energy ''all days 3pm-9pm'', off-peak energy ''non-peak times''). Notes (p6): ''All times are local time''. Public holiday
+    treatment not stated.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '15:00'
+  - period: peak
+    label: peak all days 3pm-9pm
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CRTOU
+    applies_to: energy
+- id: citipower-2526-pdf-cr-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Residential demand (CR) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p5
+  quote: Demand CR Opt-in workdays 3pm- workdays 3pm- 9pm 9pm
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image): summer
+    and non-summer demand columns both read ''workdays 3pm-9pm'' on the CR row. Notes (p6): ''All times are local time'';
+    ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document;
+    mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: workdays 3pm-9pm (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 3pm-9pm (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - CR
+    applies_to: demand
+- id: citipower-2526-pdf-sb-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Small business ToU (CGTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p7
+  quote: ToU CGTOU Default workdays 9am- Non-peak times 9pm
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image: peak
+    energy ''workdays 9am-9pm'', off-peak energy ''Non-peak times''). Notes (p7): ''All times are local time, except for C2U''.
+    ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: 09:00
+  - period: peak
+    label: peak workdays 9am-9pm
+    days: business_day
+    start: 09:00
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CGTOU
+    applies_to: energy
+- id: citipower-2526-pdf-cg-demand
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Small business demand (CG) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf-ocr:p7
+  quote: Demand CG Opt-in workdays 10am- workdays 10am- 6pm 6pm
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image): summer
+    and non-summer demand columns both read ''workdays 10am-6pm'' on the CG row. Notes (p7): ''All times are local time, except
+    for C2U''; ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in
+    the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: demand_window
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+  - period: demand_window
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non-summer
+  tariffs:
+  - codes:
+    - CG
+    applies_to: demand
+- id: citipower-2526-pdf-cmgo21-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Medium business opt-out (CMGO21) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p7
+  quote: workdays 10am- Medium business opt-out Opt-in Non-peak times 6pm
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image; the CMGO21
+    row, OCR ''CMG021 × 160MWh pa workdays 10am- Medium business opt-out Opt-in Non-peak times 6pm''): peak energy ''workdays
+    10am-6pm'', off-peak energy ''Non-peak times''. Notes (p7): ''All times are local time, except for C2U''. ''workdays''
+    is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: peak
+    label: peak workdays 10am-6pm
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '18:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMGO21
+    applies_to: energy
+- id: citipower-2526-pdf-c2u-tou
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  name: Unmetered supply (C2U) energy peak / off-peak
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p7
+  quote: weekdays 7am- Unmetered supply C2U Default unmetered Non-peak times 11pm
+  note: 'Table cells are printed as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image: peak
+    energy ''weekdays 7am-11pm'', off-peak energy ''Non-peak times''). Notes (p7): ''All times are local time, except for
+    C2U'' - this document does not say which time C2U uses (the 2024-25 and 2026-27 documents say AEST), so time_basis is
+    not_stated. Public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak weekdays 7am-11pm
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2U
+    applies_to: energy
 demand_rules:
 - id: citipower-2324-pdf-cr-demand
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
@@ -1671,7 +2272,7 @@ demand_rules:
     season: summer
   - codes:
     - CR
-    season: non-summer
+    season: non_summer
 - id: citipower-2324-pdf-cg-cmg-demand
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -1693,7 +2294,7 @@ demand_rules:
   - codes:
     - CG
     - CMG
-    season: non-summer
+    season: non_summer
 - id: citipower-2324-pdf-large-rolling-lv
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -1843,7 +2444,7 @@ demand_rules:
     season: summer
   - codes:
     - CR
-    season: non-summer
+    season: non_summer
 - id: citipower-2425-pdf-cg-cmg-demand
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
@@ -1864,7 +2465,7 @@ demand_rules:
   - codes:
     - CG
     - CMG
-    season: non-summer
+    season: non_summer
 - id: citipower-2425-pdf-large-rolling-lv
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
@@ -2008,7 +2609,7 @@ demand_rules:
     season: summer
   - codes:
     - CR
-    season: non-summer
+    season: non_summer
 - id: citipower-2526-pdf-cg-cmg-demand
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
   fin_year: 2025-26
@@ -2029,7 +2630,7 @@ demand_rules:
   - codes:
     - CG
     - CMG
-    season: non-summer
+    season: non_summer
 - id: citipower-2526-pdf-large-rolling-lv
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
   fin_year: 2025-26
@@ -2141,7 +2742,7 @@ demand_rules:
   - codes:
     - CG
     - CMG
-    season: non-summer
+    season: non_summer
 - id: citipower-2627-pdf-cfs-capacity
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -5166,6 +5767,210 @@ relations:
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
   locator: pdf:p7
   quote: CMG customers consuming less than 160MWh pa can opt out of the demand tariff to CMGO21
+- from: CHV
+  type: aer_combined_label
+  to: CHV1
+  fin_year: 2024-25
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CHV' ('High Voltage (opt-in)') for CHV1, CHV2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CHV
+  type: aer_combined_label
+  to: CHV2
+  fin_year: 2024-25
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CHV' ('High Voltage (opt-in)') for CHV1, CHV2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CHV
+  type: aer_combined_label
+  to: CHV1
+  fin_year: 2025-26
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CHV' ('High Voltage (opt-in)') for CHV1, CHV2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CHV
+  type: aer_combined_label
+  to: CHV2
+  fin_year: 2025-26
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CHV' ('High Voltage (opt-in)') for CHV1, CHV2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CHV
+  type: aer_combined_label
+  to: CHV1
+  fin_year: 2026-27
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'CHV' ('High Voltage') for CHV1, CHV2, CHV3, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CHV
+  type: aer_combined_label
+  to: CHV2
+  fin_year: 2026-27
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'CHV' ('High Voltage') for CHV1, CHV2, CHV3, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CHV
+  type: aer_combined_label
+  to: CHV3
+  fin_year: 2026-27
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'CHV' ('High Voltage') for CHV1, CHV2, CHV3, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CHVT
+  type: aer_combined_label
+  to: CHVT1
+  fin_year: 2024-25
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CHVT' ('High Voltage') for CHVT1, CHVT2, which this document prints as separate tariffs that
+    differ only in the incentive demand period; their prices equal the AER row's.
+- from: CHVT
+  type: aer_combined_label
+  to: CHVT2
+  fin_year: 2024-25
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CHVT' ('High Voltage') for CHVT1, CHVT2, which this document prints as separate tariffs that
+    differ only in the incentive demand period; their prices equal the AER row's.
+- from: CHVT
+  type: aer_combined_label
+  to: CHVT1
+  fin_year: 2025-26
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CHVT' ('High Voltage') for CHVT1, CHVT2, which this document prints as separate tariffs that
+    differ only in the incentive demand period; their prices equal the AER row's.
+- from: CHVT
+  type: aer_combined_label
+  to: CHVT2
+  fin_year: 2025-26
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CHVT' ('High Voltage') for CHVT1, CHVT2, which this document prints as separate tariffs that
+    differ only in the incentive demand period; their prices equal the AER row's.
+- from: CLLV
+  type: aer_combined_label
+  to: CLLV1
+  fin_year: 2024-25
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CLLV' ('Large low Voltage (opt-in)') for CLLV1, CLLV2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CLLV
+  type: aer_combined_label
+  to: CLLV2
+  fin_year: 2024-25
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CLLV' ('Large low Voltage (opt-in)') for CLLV1, CLLV2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CLLV
+  type: aer_combined_label
+  to: CLLV1
+  fin_year: 2025-26
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CLLV' ('Large low Voltage (opt-in)') for CLLV1, CLLV2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CLLV
+  type: aer_combined_label
+  to: CLLV2
+  fin_year: 2025-26
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CLLV' ('Large low Voltage (opt-in)') for CLLV1, CLLV2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CLLV
+  type: aer_combined_label
+  to: CLLV1
+  fin_year: 2026-27
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'CLLV' ('Large low Voltage') for CLLV1, CLLV2, CLLV3, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CLLV
+  type: aer_combined_label
+  to: CLLV2
+  fin_year: 2026-27
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'CLLV' ('Large low Voltage') for CLLV1, CLLV2, CLLV3, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CLLV
+  type: aer_combined_label
+  to: CLLV3
+  fin_year: 2026-27
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'CLLV' ('Large low Voltage') for CLLV1, CLLV2, CLLV3, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CLLVT
+  type: aer_combined_label
+  to: CLLVT1
+  fin_year: 2024-25
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CLLVT' ('Large low Voltage') for CLLVT1, CLLVT2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CLLVT
+  type: aer_combined_label
+  to: CLLVT2
+  fin_year: 2024-25
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CLLVT' ('Large low Voltage') for CLLVT1, CLLVT2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CLLVT
+  type: aer_combined_label
+  to: CLLVT1
+  fin_year: 2025-26
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CLLVT' ('Large low Voltage') for CLLVT1, CLLVT2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: CLLVT
+  type: aer_combined_label
+  to: CLLVT2
+  fin_year: 2025-26
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'CLLVT' ('Large low Voltage') for CLLVT1, CLLVT2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
 flags:
 - codes:
   - CLLVT1
@@ -5317,3 +6122,68 @@ flags:
   flag: transitional
   locator: xlsx:CP_2024_25_NUOS!B22
   quote: High Voltage Transitional
+steps:
+- doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  codes:
+  - CRCER
+  locator: pdf:p6
+  quote: CRCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
+  step_group: Saver energy export
+  component_label: Saver energy export - BEL (exempt), 1 kWh per day x days in billing period, unused allowance rolls over within the billing period
+  step_index: 1
+  lower_bound: 0
+  upper_bound: 1
+  lower_inclusive: true
+  upper_inclusive: true
+  quantity_unit: kWh
+  reset_period: billing_period_per_day
+  note: "Saver energy export column (Table 4, an image): 'all days 11am-4pm during Sep-May with 1 kWh per day BEL'. Mirrors the United Energy URCER/UFS steps."
+- doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  codes:
+  - CRCER
+  locator: pdf:p6
+  quote: CRCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
+  step_group: Saver energy export
+  component_label: Saver energy export - above BEL (charged)
+  step_index: 2
+  lower_bound: 1
+  upper_bound: null
+  lower_inclusive: false
+  upper_inclusive: false
+  quantity_unit: kWh
+  reset_period: billing_period_per_day
+  note: "Saver energy export column (Table 4, an image): 'all days 11am-4pm during Sep-May with 1 kWh per day BEL'. Mirrors the United Energy URCER/UFS steps."
+- doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  codes:
+  - CFS
+  locator: pdf:p7
+  quote: CFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
+  step_group: Saver energy export
+  component_label: Saver energy export - BEL (exempt), 1 kWh per day x days in billing period, unused allowance rolls over within the billing period
+  step_index: 1
+  lower_bound: 0
+  upper_bound: 1
+  lower_inclusive: true
+  upper_inclusive: true
+  quantity_unit: kWh
+  reset_period: billing_period_per_day
+  note: "Saver energy export column (Table 5, an image): 'all days 11am-4pm during Sep-May with 1 kWh per day BEL'. Mirrors the United Energy URCER/UFS steps."
+- doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  codes:
+  - CFS
+  locator: pdf:p7
+  quote: CFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
+  step_group: Saver energy export
+  component_label: Saver energy export - above BEL (charged)
+  step_index: 2
+  lower_bound: 1
+  upper_bound: null
+  lower_inclusive: false
+  upper_inclusive: false
+  quantity_unit: kWh
+  reset_period: billing_period_per_day
+  note: "Saver energy export column (Table 5, an image): 'all days 11am-4pm during Sep-May with 1 kWh per day BEL'. Mirrors the United Energy URCER/UFS steps."

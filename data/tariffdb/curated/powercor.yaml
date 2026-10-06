@@ -1727,7 +1727,7 @@ demand_rules:
     - DD
     - NDD
     - NDM
-    season: non-summer
+    season: non_summer
 - id: powercor-2425-pdf-dd-demand
   doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
@@ -1745,7 +1745,7 @@ demand_rules:
     season: summer
   - codes:
     - DD
-    season: non-summer
+    season: non_summer
 - id: powercor-2425-pdf-ndd-ndm-demand
   doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
@@ -1764,7 +1764,7 @@ demand_rules:
   - codes:
     - NDD
     - NDM
-    season: non-summer
+    season: non_summer
 - id: powercor-2425-pdf-large-rolling-lv
   doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
@@ -1908,7 +1908,7 @@ demand_rules:
     season: summer
   - codes:
     - DD
-    season: non-summer
+    season: non_summer
 - id: powercor-2526-pdf-ndd-ndm-demand
   doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
   fin_year: 2025-26
@@ -1928,7 +1928,7 @@ demand_rules:
   - codes:
     - NDD
     - NDM
-    season: non-summer
+    season: non_summer
 - id: powercor-2526-pdf-large-rolling-lv
   doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
   fin_year: 2025-26
@@ -2074,7 +2074,7 @@ demand_rules:
   - codes:
     - NDD
     - NDM
-    season: non-summer
+    season: non_summer
 - id: powercor-2627-pdf-pfs-capacity
   doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -5075,6 +5075,210 @@ relations:
   locator: pdf:p8
   quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
   note: the 2026-27 Tariff Summary lists the medium business opt-out tariff as NDMO
+- from: HV
+  type: aer_combined_label
+  to: HV1
+  fin_year: 2024-25
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'HV' ('High Voltage') for HV1, HV2, which this document prints as separate tariffs that differ
+    only in the incentive demand period; their prices equal the AER row's.
+- from: HV
+  type: aer_combined_label
+  to: HV2
+  fin_year: 2024-25
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'HV' ('High Voltage') for HV1, HV2, which this document prints as separate tariffs that differ
+    only in the incentive demand period; their prices equal the AER row's.
+- from: HV
+  type: aer_combined_label
+  to: HV1
+  fin_year: 2025-26
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'HV' ('High Voltage') for HV1, HV2, which this document prints as separate tariffs that differ
+    only in the incentive demand period; their prices equal the AER row's.
+- from: HV
+  type: aer_combined_label
+  to: HV2
+  fin_year: 2025-26
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'HV' ('High Voltage') for HV1, HV2, which this document prints as separate tariffs that differ
+    only in the incentive demand period; their prices equal the AER row's.
+- from: HV
+  type: aer_combined_label
+  to: HV1
+  fin_year: 2026-27
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'HV' ('High Voltage') for HV1, HV2, HV3, which this document prints as separate tariffs that
+    differ only in the incentive demand period; their prices equal the AER row's.
+- from: HV
+  type: aer_combined_label
+  to: HV2
+  fin_year: 2026-27
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'HV' ('High Voltage') for HV1, HV2, HV3, which this document prints as separate tariffs that
+    differ only in the incentive demand period; their prices equal the AER row's.
+- from: HV
+  type: aer_combined_label
+  to: HV3
+  fin_year: 2026-27
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'HV' ('High Voltage') for HV1, HV2, HV3, which this document prints as separate tariffs that
+    differ only in the incentive demand period; their prices equal the AER row's.
+- from: HVT
+  type: aer_combined_label
+  to: HVT1
+  fin_year: 2024-25
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'HVT' ('High Voltage transitional') for HVT1, HVT2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: HVT
+  type: aer_combined_label
+  to: HVT2
+  fin_year: 2024-25
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'HVT' ('High Voltage transitional') for HVT1, HVT2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: HVT
+  type: aer_combined_label
+  to: HVT1
+  fin_year: 2025-26
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'HVT' ('High Voltage transitional') for HVT1, HVT2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: HVT
+  type: aer_combined_label
+  to: HVT2
+  fin_year: 2025-26
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'HVT' ('High Voltage transitional') for HVT1, HVT2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LLV
+  type: aer_combined_label
+  to: LLV1
+  fin_year: 2024-25
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'LLV' ('Large Low Voltage') for LLV1, LLV2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LLV
+  type: aer_combined_label
+  to: LLV2
+  fin_year: 2024-25
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'LLV' ('Large Low Voltage') for LLV1, LLV2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LLV
+  type: aer_combined_label
+  to: LLV1
+  fin_year: 2025-26
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'LLV' ('Large Low Voltage') for LLV1, LLV2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LLV
+  type: aer_combined_label
+  to: LLV2
+  fin_year: 2025-26
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'LLV' ('Large Low Voltage') for LLV1, LLV2, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LLV
+  type: aer_combined_label
+  to: LLV1
+  fin_year: 2026-27
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'LLV' ('Large low Voltage') for LLV1, LLV2, LLV3, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LLV
+  type: aer_combined_label
+  to: LLV2
+  fin_year: 2026-27
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'LLV' ('Large low Voltage') for LLV1, LLV2, LLV3, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LLV
+  type: aer_combined_label
+  to: LLV3
+  fin_year: 2026-27
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer
+    incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: The AER prints one row 'LLV' ('Large low Voltage') for LLV1, LLV2, LLV3, which this document prints as separate tariffs
+    that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LLVT
+  type: aer_combined_label
+  to: LLVT1
+  fin_year: 2024-25
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'LLVT' ('Large Low Voltage transitional') for LLVT1, LLVT2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LLVT
+  type: aer_combined_label
+  to: LLVT2
+  fin_year: 2024-25
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  locator: pdf:p11
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'LLVT' ('Large Low Voltage transitional') for LLVT1, LLVT2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LLVT
+  type: aer_combined_label
+  to: LLVT1
+  fin_year: 2025-26
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'LLVT' ('Large Low Voltage transitional') for LLVT1, LLVT2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
+- from: LLVT
+  type: aer_combined_label
+  to: LLVT2
+  fin_year: 2025-26
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  locator: pdf:p8
+  quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
+  note: The AER prints one row 'LLVT' ('Large Low Voltage transitional') for LLVT1, LLVT2, which this document prints as separate
+    tariffs that differ only in the incentive demand period; their prices equal the AER row's.
 flags:
 - codes:
   - PRDS
@@ -5258,3 +5462,68 @@ flags:
   flag: transitional
   locator: xlsx:Tariff schedule!C102
   quote: High Voltage transitional
+steps:
+- doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  codes:
+  - PRCER
+  locator: pdf:p6
+  quote: PRCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
+  step_group: Saver energy export
+  component_label: Saver energy export - BEL (exempt), 1 kWh per day x days in billing period, unused allowance rolls over within the billing period
+  step_index: 1
+  lower_bound: 0
+  upper_bound: 1
+  lower_inclusive: true
+  upper_inclusive: true
+  quantity_unit: kWh
+  reset_period: billing_period_per_day
+  note: "Saver energy export column (Table 4, an image): 'all days 11am-4pm during Sep-May with 1 kWh per day BEL'. Mirrors the United Energy URCER/UFS steps."
+- doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  codes:
+  - PRCER
+  locator: pdf:p6
+  quote: PRCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
+  step_group: Saver energy export
+  component_label: Saver energy export - above BEL (charged)
+  step_index: 2
+  lower_bound: 1
+  upper_bound: null
+  lower_inclusive: false
+  upper_inclusive: false
+  quantity_unit: kWh
+  reset_period: billing_period_per_day
+  note: "Saver energy export column (Table 4, an image): 'all days 11am-4pm during Sep-May with 1 kWh per day BEL'. Mirrors the United Energy URCER/UFS steps."
+- doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  codes:
+  - PFS
+  locator: pdf:p8
+  quote: PFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
+  step_group: Saver energy export
+  component_label: Saver energy export - BEL (exempt), 1 kWh per day x days in billing period, unused allowance rolls over within the billing period
+  step_index: 1
+  lower_bound: 0
+  upper_bound: 1
+  lower_inclusive: true
+  upper_inclusive: true
+  quantity_unit: kWh
+  reset_period: billing_period_per_day
+  note: "Saver energy export column (Table 5, an image): 'all days 11am-4pm during Sep-May with 1 kWh per day BEL'. Mirrors the United Energy URCER/UFS steps."
+- doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  codes:
+  - PFS
+  locator: pdf:p8
+  quote: PFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
+  step_group: Saver energy export
+  component_label: Saver energy export - above BEL (charged)
+  step_index: 2
+  lower_bound: 1
+  upper_bound: null
+  lower_inclusive: false
+  upper_inclusive: false
+  quantity_unit: kWh
+  reset_period: billing_period_per_day
+  note: "Saver energy export column (Table 5, an image): 'all days 11am-4pm during Sep-May with 1 kWh per day BEL'. Mirrors the United Energy URCER/UFS steps."

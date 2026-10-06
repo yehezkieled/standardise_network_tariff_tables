@@ -19,7 +19,8 @@ import adjustments
 from published import cell_value, display
 from schema import COLUMNS
 from units import to_std
-from dnsp import essential_evoenergy, ausgrid_endeavour, cp_pc_ue, tasnetworks, sapn_pwc, energex_ergon
+from dnsp import essential_evoenergy, ausgrid_endeavour, cp_pc_ue, tasnetworks, sapn_pwc, energex_ergon, jemena_ausnet
+import schema
 import fetch_sources
 
 
@@ -234,9 +235,10 @@ class ReconciliationRegression(unittest.TestCase):
         for year, side, path, parser in tasnetworks.FILES[2:]:
             rows = parser(path, year, side, '')
             for code, measure in tasnetworks.DEMAND_MEASURE_2023_24.items():
-                demand = [r for r in rows if r['tariff_code'] == code and '/k' in r['unit'] and 'Wh' not in r['unit']]
+                demand = [r for r in rows if r['tariff_code'] == code and '/k' in r['unit_std'] and 'Wh' not in r['unit']]
                 self.assertTrue(demand, (year, code))
-                self.assertTrue(all('/'+measure+'/' in r['unit'] for r in demand), (year, code))
+                # the unit is stored as the header prints it; the measure read for the tariff is in unit_std
+                self.assertTrue(all(r['unit_std'].startswith('c/'+measure+'/') for r in demand), (year, code))
 
     @needs_tasnetworks_documents
     def test_tasnetworks_unestablished_measures_follow_header(self):
@@ -259,7 +261,8 @@ class ReconciliationRegression(unittest.TestCase):
                                              ('SDIC', 'cents/kVA/Summer', 'Summer Demand Incentive Charge', 'summer')]:
             with self.subTest(unit=unit):
                 a = parse_aer.row('Endeavour Energy', '2025-26', 'TEST', '', '', alabel, unit, '42.7800', 'NUoS', 'aer.xlsx', '')
-                self.assertEqual((a['unit_std'], a['season']), ('c/kVA/day', season))
+                # the unit names a season, not a period: the price is per day, and that period is inferred
+                self.assertEqual((a['unit_std'], a['season']), ('c/kVA/day?', season))
                 d = ausgrid_endeavour.make_row('Endeavour Energy', '2025-26', 'DNSP', 'dnsp.pdf', '', 'TEST', '', '',
                                              dlabel, 'c/kVA/day', '42.7800', 'NUoS', 'excl', '', locator='pdf:p1')
                 detail, grid = self.compare([a, d])
@@ -321,7 +324,7 @@ class ReconciliationRegression(unittest.TestCase):
             ('Ausgrid', 'EA974', 'Dynamic maximum energy', 'Network Energy Prices - Dynamic (maximum)', 'c/kWh', '2.0000'),
             ('Ausgrid', 'EA029', 'Energy (charge)', 'Network Energy Prices - Opt in export charge', 'c/kWh', '1.2029'),
             ('Ausgrid', 'EA029', 'Energy (reward)', 'Network Energy Prices - Opt in export reward', 'c/kWh', '-2.3951'),
-            ('Ausgrid', 'EA302', 'Real Capacity', 'Network Demand Prices - Peak', 'c/kW/day', '40.7528'),
+            ('Ausgrid', 'EA302', 'Real Capacity', 'Network Capacity Prices - Peak', 'c/kW/day', '40.7528'),
             ('CitiPower', 'SUMMER', 'Peak capacity Dec-Mar', 'Capacity charge - Peak summer', 'c/kVA/month', '1.0000'),
             ('Powercor', 'NONSUMMER', 'Peak capacity Apr-Nov', 'Capacity charge - Peak non-summer', 'c/kVA/month', '1.0000'),
             ('CitiPower', 'CRSTOU', 'Saver energy', 'Usage Charges - Saver', 'c/kWh', '1.0000'),
@@ -616,6 +619,42 @@ class ReconciliationRegression(unittest.TestCase):
     def test_removed_hash_mode_is_rejected(self):
         with self.assertRaises(SystemExit):
             fetch_sources.main(['--hash'])
+
+    # ---- regressions for the independent verification (data/verification/) ----------------------------------------
+
+    def test_unit_without_a_printed_period_is_inferred(self):
+        """verifier B L5/M4: a period taken from anything but the printed unit is marked inferred ('?')."""
+        self.assertEqual(to_std('7.0000', 'cents/kVA/Summer')[1], 'c/kVA/day?')
+        self.assertEqual(to_std('0.3348', '$/kVA', 'Ann Dmnd Pk', 'day'), (33.48, 'c/kVA/day?'))
+        self.assertEqual(to_std('0.3348', '$/kVA/day', 'Ann Dmnd Pk', 'year')[1], 'c/kVA/day')
+        self.assertEqual(to_std('1.5', '$/kVA/month')[1], 'c/kVA/month')
+
+    def test_sapn_aer_demand_takes_the_per_day_period(self):
+        """verifier B M4: 'Ann'/'Mth' in the AER's SAPN label is the measurement window; SAPN prices per day."""
+        r = parse_aer.row('SA Power Networks', '2025-26', 'HVAD', 'HV Business Annual demand', '', 'Ann Dmnd Pk',
+                          '$dollars/kVA', '0.3348', 'NUoS', 'x.xlsx', '', '', locator='xlsx:Tariff schedule!N1')
+        self.assertEqual(r['unit_std'], 'c/kVA/day?')
+        self.assertIn("'$/kVA/day'", r['note'])
+
+    def test_shoulder_abbreviation_is_a_band(self):
+        """verifier B L4: 'Mth Dmnd Shld' is the monthly shoulder demand."""
+        self.assertEqual(schema.time_band_from_label('Mth Dmnd Shld'), 'shoulder')
+
+    def test_sapn_last_row_values_join_their_line(self):
+        """verifier B L3: a stray space between rows must not split the last row of a page from its values."""
+        def ch(text, top, x):
+            return {'text': text, 'top': top, 'bottom': top + 7, 'x0': x, 'x1': x + 4, 'size': 7, 'fontname': 'Arial'}
+        page = SimpleNamespace(chars=[ch('A', 443.07, 10), ch(' ', 446.59, 786), ch(' ', 448.12, 932),
+                                      ch('S', 449.36, 10), ch('T', 449.36, 14), ch('0', 449.71, 500)])
+        lines = sapn_pwc.build_lines(page)
+        self.assertEqual([''.join(c['text'] for c in ln.chars).strip() for ln in lines][-1].replace(' ', ''), 'ST0')
+
+    def test_ausnet_two_letter_suffix_codes(self):
+        """verifier B H1/L2: NASN2S/NASN2P and four-letter STSS are tariff codes."""
+        self.assertTrue(jemena_ausnet.AUS_CODE_RE.match('NASN2S'))
+        self.assertTrue(jemena_ausnet.AUS_CODE_RE.match('NASN2P'))
+        self.assertTrue(jemena_ausnet.AUS_XLSX_CODE_RE.match('STSS'))
+        self.assertFalse(jemena_ausnet.AUS_XLSX_CODE_RE.match('Code'))
 
 
 if __name__ == '__main__':

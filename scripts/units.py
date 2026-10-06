@@ -13,6 +13,20 @@ DAYS_PER_YEAR = 365.0
 DAYS_PER_MONTH = 365.0 / 12.0
 
 
+SEASON_SUFFIX_RE = r"highsn|lowsn|/sn\b|summer|winter|smmr|/sum|/hs\b|/ls\b"
+
+
+def _stated_period(s):
+    """Billing period named in a lower-cased, whitespace-free unit string, or ''."""
+    if re.search(r"/day|perday|/d\b|daily|pd\b", s):
+        return "day"
+    if re.search(r"/month|/mth|mths|permonth|/mo\b|monthly|pm\b", s):
+        return "month"
+    if re.search(r"/year|/yr|/annum|p\.?a\.?|perannum|annual|/a\b", s):
+        return "year"
+    return ""
+
+
 def parse_unit(u: str):
     """Return (money, quantity, period) from a unit string.
     money: 'c' | '$'; quantity: 'kWh', 'kVAh', 'MWh', 'kW', 'kVA', 'k?'
@@ -29,15 +43,9 @@ def parse_unit(u: str):
             break
         if re.search(pat, s):
             quantity = {"kwh": "kWh", "kvah": "kVAh", "kva": "kVA", "kw": "kW", "lamp": "lamp", "mwh": "MWh"}[q]
-    period = ""
-    if re.search(r"/day|perday|/d\b|daily|pd\b", s):
-        period = "day"
-    elif re.search(r"/month|/mth|mths|permonth|/mo\b|monthly|pm\b", s):
-        period = "month"
-    elif re.search(r"/year|/yr|/annum|p\.?a\.?|perannum|annual|/a\b", s):
-        period = "year"
-    elif re.search(r"highsn|lowsn|/sn\b|summer|winter|smmr|/sum|/hs\b|/ls\b", s):
-        period = "day"
+    period = _stated_period(s)
+    if not period and re.search(SEASON_SUFFIX_RE, s):
+        period = "day"  # 'cents/kVA/Summer': a season, not a billing period (see period_stated)
     elif "season" in s:
         period = "season"
     if quantity == "" and period == "" and re.search(r"customer|connection|site|nmi", s):
@@ -45,13 +53,22 @@ def parse_unit(u: str):
     return money, quantity, period
 
 
-def to_std(value, unit: str, label: str = ""):
+def period_stated(unit: str) -> bool:
+    """True when the unit text itself names a billing period (day, month or year). A season suffix
+    ('cents/kVA/Summer', read as per day) or a bare quantity ('$/kVA') leaves the period to interpretation."""
+    return bool(_stated_period(re.sub(r"\s+", "", (unit or "").lower())))
+
+
+def to_std(value, unit: str, label: str = "", period_hint: str = ""):
     """Convert published value+unit to (value_std, unit_std).
 
     - money to cents
     - fixed/daily charges (no kW/kVA/kWh quantity) to per-day
     - kWh charges: c/kWh
     - demand charges: cents per kW/kVA per published period (day|month|year|season)
+
+    period_hint: billing period of a demand price whose unit states none, taken from the distributor's own price list
+    (it then outranks a period inferred from the label, which may name the measurement window instead).
     """
     if value is None or value == "":
         return None, ""
@@ -60,8 +77,11 @@ def to_std(value, unit: str, label: str = ""):
     except ValueError:
         return None, ""
     money, quantity, period = parse_unit(unit)
-    inferred = False
-    if not period and label:
+    # a period read from a season suffix is not printed in the unit: soft, like a label-inferred period
+    inferred = period == "day" and not period_stated(unit)
+    if not period and period_hint and quantity in ("kW", "kVA", "k?"):
+        period, inferred = period_hint, True  # not printed in this unit: soft, like a label-inferred period
+    elif not period and label:
         ll = label.lower()
         if "annual" in ll or "per annum" in ll or "p.a" in ll or "/year" in ll or "yearly" in ll or re.match(r"ann\b", ll) or "ann dmnd" in ll:
             period = "year"

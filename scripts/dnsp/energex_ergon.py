@@ -288,11 +288,12 @@ def rows_for_sheet(sheet: Sheet, sheet_name, distributor, fin_year, side, source
     def ck(r):
         return (tid(r), comp_key(r["comp"]))
 
-    # Prefer the NUoS block's component spelling, class label and unit for a tariff/component.
+    # Prefer the NUoS block's class label and unit for a tariff/component (each row keeps its own component label as
+    # printed in its block: the 2023-24 Energex TUoS block prints 'Band1 Charge' where the NUoS block prints
+    # 'Band 1 Charge').
     nuos_first = sorted(sheet.records, key=lambda r: 0 if r["basis"] == "NUoS" else 1)
-    label_for, cls_for, unit_for = {}, {}, {}
+    cls_for, unit_for = {}, {}
     for r in nuos_first:
-        label_for.setdefault(comp_key(r["comp"]), r["comp"])
         cls_for.setdefault(tid(r), r["cls"])
         unit_for.setdefault(ck(r), r["unit"])
 
@@ -324,7 +325,7 @@ def rows_for_sheet(sheet: Sheet, sheet_name, distributor, fin_year, side, source
     for r in sheet.records:
         if ck(r) not in priced:
             continue
-        label = label_for[comp_key(r["comp"])]
+        label = r["comp"]
         unit = r["unit"]
         cls_unit = unit_for.get(ck(r)) or unit
         band = schema.time_band_from_label(label)
@@ -380,7 +381,8 @@ def rows_for_sheet(sheet: Sheet, sheet_name, distributor, fin_year, side, source
 
 def dedupe_across_sheets(rows):
     """Controlled-load tariffs are repeated on the Residential and Business sheets with identical
-    prices: keep the first listing, note the other sheet. Differing values are kept and flagged."""
+    prices: both printings are kept (each with its own cell), the later one marked as a repeated printing
+    (schema.REPEATED_PRINTING) so the reconciliation compares it once. Differing values are kept and flagged."""
     seen = {}
     kept = []
     for r in rows:
@@ -391,6 +393,8 @@ def dedupe_across_sheets(rows):
             kept.append(r)
         elif prev["value"] == r["value"] and prev["unit"] == r["unit"]:
             prev["note"] += f"; also listed on sheet '{r['_sheet']}' (identical)"
+            r["note"] += f"; {schema.REPEATED_PRINTING} of sheet '{prev['_sheet']}' {prev['locator']} (identical)"
+            kept.append(r)
         else:
             prev["note"] += f"; also listed on sheet '{r['_sheet']}' with a different value ({r['value']})"
             r["note"] += f"; also listed on sheet '{prev['_sheet']}' with a different value ({prev['value']})"

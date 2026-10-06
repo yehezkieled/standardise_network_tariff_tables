@@ -170,11 +170,12 @@ def resolve_a(db, r):
         if rid.startswith("ausgrid:"):
             # the printed Metering Service Charge of the code, in the document and year the verifier names
             code, value = rid.split(":")[1], number_in(src)
+            page = re.match(r"pdf:p(\d+)", r["source_locator"]).group(1)
             hit = [m for m in db.metering if m["document_id"] == r["document_id"] and m["fin_year"] == r["fin_year"]
-                   and m["source_block"] == "distributor_price_table" and same_number(m["value_published"], value)
+                   and m["page"] == page and m["source_block"] == "distributor_price_table" and same_number(m["value_published"], value)
                    and (code == "?" or code_key(code) in [code_key(x) for x in m["tariff_codes_published"].split(",")])]
             return need(hit, f"metering_price {hit[0]['metering_price_id']} = {value}" if hit else "",
-                        f"no metering_price of {value} for {code} in {r['document_id']}")
+                        f"no metering_price of {value} for {code} on p{page} of {r['document_id']}")
         if rid.startswith("endeavour:"):
             code, value = rid.split(":")[1], number_in(src)
             hit = [c for c in db.charge if c["_tid"] == f"endeavour:{code}" and c["_doc"] == r["document_id"]
@@ -191,16 +192,20 @@ def resolve_a(db, r):
             return need(len(counted) == n, f"{len(counted)} metering cells in {r['document_id']} ({len(cells)} printed)",
                         f"{len(counted)} metering cells in {r['document_id']}, the source prints {n}")
         if "GST-incl" in rid:
-            # GST-inclusive charges in every document of the series and year the verifier names
+            # GST-inclusive charges on every page the verifier names, in the series document of each named year
             did = rid.split()[0]
             series = re.match(r"(.+?)-(?:20\d\d|\*)", r["document_id"]).group(1)
             first, last = r["fin_year"].split("..")
             years = [y for y in sorted({d["fin_year"] for d in db.doc.values()}) if first <= y <= last]
-            missing = [y for y in years if not any(c["gst"] == "incl" and c["_did"] == did
-                                                   and c["_doc"].startswith(series) and db.doc[c["_doc"]]["fin_year"] == y
-                                                   for c in db.charge)]
-            return need(years and not missing, f"gst=incl charges in {series} for {', '.join(years)}",
-                        f"no gst=incl charges in {series} for {missing}")
+            pages = []
+            for part in r["source_locator"].split(";"):
+                year = re.search(r"20\d\d-\d\d", part)
+                pages += [(y, p) for y in ([year.group(0)] if year else years) for p in re.findall(r"\bp(\d+)\b", part)]
+            missing = [f"{y} p{p}" for y, p in pages if not any(
+                c["gst"] == "incl" and c["_did"] == did and c["page"] == p and c["_doc"].startswith(series)
+                and db.doc[c["_doc"]]["fin_year"] == y for c in db.charge)]
+            return need(pages and not missing, f"gst=incl charges in {series} on {', '.join(f'{y} p{p}' for y, p in pages)}",
+                        f"no gst=incl charges in {series} on {missing}")
         if rid == "repeated printings":
             hit = [c for c in db.charge if REPEATED_PRINTING in (c["note"] or "")]
             dists = Counter(c["_did"] for c in hit)

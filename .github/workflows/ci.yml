@@ -34,7 +34,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install the packages the suite imports
-        run: python -m pip install openpyxl pdfplumber pyyaml pgserver
+        run: python -m pip install openpyxl pdfplumber pyyaml pgserver rapidocr_onnxruntime
       - name: Tariff database suite
         run: |
           export TARIFFDB_PG_BIN="$(python -c 'import os, pgserver; print(os.path.join(os.path.dirname(pgserver.__file__), "pginstall", "bin"))')"

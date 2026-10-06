@@ -563,11 +563,15 @@ def parse_essential_pdf(path, fin_year, side, url):
                     rows_out.append(make_row("Essential Energy", fin_year, side, path, url, code, name, cls,
                                              label.replace("*", "").strip(), unit, str(raw).replace("^", "").replace("*", "").replace(",", "").strip(), gst, "NUoS",
                                              "; ".join(notes + cnote), locators.pdf(pno)))
-                if len(rows_out) == emitted and any(t[j] == "-" for j in labels if j < len(t)):
-                    # a printed tariff whose every price cell is '-' (e.g. BLNE0AU): a placeholder listing
+                if len(rows_out) == emitted:
+                    # a printed tariff with no price in any cell (e.g. BLNE0AU, every cell '-' or blank): a
+                    # placeholder listing
+                    dashes = any(t[j] == "-" for j in labels if j < len(t))
                     rows_out.append(make_row("Essential Energy", fin_year, side, path, url, code, name, cls,
                                              "(no non-zero components)", "", "0", gst, "NUoS",
-                                             "; ".join(notes + ["every price cell printed '-'"]), locators.pdf(pno)))
+                                             "; ".join(notes + ["no price printed: every price cell is "
+                                                                + ("'-' or blank" if dashes else "blank")]),
+                                             locators.pdf(pno)))
     return rows_out
 
 

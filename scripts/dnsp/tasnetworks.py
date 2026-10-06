@@ -38,20 +38,28 @@ DEMAND_MEASURE_2023_24 = {"TAS87": "kW", "TAS97": "kW", "TAS88": "kW", "TAS98": 
                           "TAS82": "kVA", "TAS89": "kVA", "TASSDM": "kVA", "TAS15": "kVA"}
 
 
-def tariff_unit(code, group, options):
-    """(unit, note) for a header cell: Table 36 fixes a tariff's demand measure; a header listing both kW and kVA
-    leaves other tariffs unresolved; a single-unit header keeps its published unit."""
+def tariff_unit(code, group, options, printed=None):
+    """(published, interpreted, note) for a header cell. `published` is the unit text as printed (`printed`, else the
+    header's parenthesised unit(s)); `interpreted` is the unit used for conversion: Table 36 fixes a tariff's demand
+    measure; a header listing both kW and kVA leaves other tariffs unresolved; a single-unit header keeps its unit."""
     unit = options[0] if options else ""
+    listed = printed is None  # options are the header's printed '(unit)' groups
+    if listed:
+        printed = unit if len(options) <= 1 else group[group.index("("):]
+
+    def out(interpreted, note):
+        # a unit printed as such among the header's '(unit)' groups is its own published text
+        return (interpreted if listed and len(options) > 1 and interpreted in options else printed, interpreted, note)
     if not re.search(r"/k(?:VA|W)/", unit, re.I):
-        return unit, ""
+        return out(unit, "")
     measure = DEMAND_MEASURE_2023_24.get(code)
     if measure is not None:
-        return (re.sub(r"/k(?:VA|W)/", f"/{measure}/", unit, flags=re.I),
-                f"header '{group}'; {measure} for {code} per 2023-24 price guide Table 36")
+        return out(re.sub(r"/k(?:VA|W)/", f"/{measure}/", unit, flags=re.I),
+                   f"header '{group}'; {measure} for {code} per 2023-24 price guide Table 36")
     if {m.upper() for o in options for m in re.findall(r"/(k(?:VA|W))/", o, re.I)} == {"KVA", "KW"}:
-        return (re.sub(r"/k(?:VA|W)/", "/kVA or kW/", unit, flags=re.I),
-                f"[UNSURE] header '{group}' lists both kVA and kW and no table fixes the measure for {code}; demand quantity unverified")
-    return unit, f"unit as published in header '{group}'"
+        return out(re.sub(r"/k(?:VA|W)/", "/kVA or kW/", unit, flags=re.I),
+                   f"[UNSURE] header '{group}' lists both kVA and kW and no table fixes the measure for {code}; demand quantity unverified")
+    return out(unit, f"unit as published in header '{group}'")
 
 
 # ----------------------------------------------------------------------------- helpers
@@ -120,18 +128,25 @@ class Emitter:
         self.rows = []
         self.ctx = dict(fin_year=fin_year, side=side, path=path, url=url, gst=gst, file_note=file_note)
 
-    def add(self, code, name, cls, component, unit, value, basis, note="", charge_type=None, time_band=None, locator=""):
+    def add(self, code, name, cls, component, unit, value, basis, note="", charge_type=None, time_band=None, locator="",
+            interpreted=None):
+        """unit: as printed; interpreted: the unit used for conversion when it is not printed as such (the build
+        records it as unit_interpreted with a normalisation note)."""
         if value is None or value == "":
             return
         if not locator:
             raise ValueError(f"no locator for {code} {component!r} = {value!r}")
-        v_std, u_std = units.to_std(value, unit, component)
+        if interpreted == unit:
+            interpreted = None
+        if interpreted:
+            note = "; ".join(x for x in (note, f"unit printed as '{unit}', read as '{interpreted}'") if x)
+        v_std, u_std = units.to_std(value, interpreted or unit, component)
         notes = [n for n in (self.ctx["file_note"], note) if n]
         self.rows.append({
             "side": self.ctx["side"], "distributor": DIST, "fin_year": self.ctx["fin_year"],
             "tariff_code": code.strip(), "tariff_name": squash(name), "customer_class": squash(cls),
             "component": squash(component),
-            "charge_type": charge_type or schema.charge_type_from_label(component, unit),
+            "charge_type": charge_type or schema.charge_type_from_label(component, interpreted or unit),
             "time_band": time_band if time_band is not None else schema.time_band_from_label(component),
             "season": schema.season_from_label(component),
             "unit": unit, "value": value, "value_std": "" if v_std is None else v_std, "unit_std": u_std,
@@ -214,10 +229,10 @@ def parse_xlsx(path, fin_year, side, url):
                     float(val)
                 except ValueError:
                     continue
-                unit, unote = tariff_unit(code, c["group"], c["units"])
+                unit, interp, unote = tariff_unit(code, c["group"], c["units"])
                 # grid is read from min_row=1, col 1: grid[ri][ci] is the cell at row ri + 1, column ci + 1
                 em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(notes + [unote] if unote else notes),
-                       locator=locators.xlsx(sheet, f"{get_column_letter(ci + 1)}{ri + 1}"))
+                       locator=locators.xlsx(sheet, f"{get_column_letter(ci + 1)}{ri + 1}"), interpreted=interp)
         r = rr
     # locational TUoS sheet
     loc = f"Locational TUoS {fin_year}"
@@ -289,9 +304,9 @@ def parse_pdf_2024_25(path, fin_year, side, url):
                     val = num_text(" ".join(by_col.get(ci, [])))
                     if val is None:
                         continue
-                    unit, unote = tariff_unit(code, c["group"], c["units"])
+                    unit, interp, unote = tariff_unit(code, c["group"], c["units"])
                     em.add(code, name, cls, c["sub"], unit, val, basis, note="; ".join(notes + [unote] if unote else notes),
-                           locator=locators.pdf(pno))
+                           locator=locators.pdf(pno), interpreted=interp)
     return em.rows
 
 
@@ -420,11 +435,13 @@ def parse_pdf_2023_24_schedule(path, fin_year, side, url):
                                note="; ".join(notes), locator=locators.pdf(pno))
                     elif c["group"] == "Demand rates":
                         if code == "TASUMSSL":
-                            unit, un = "c/lamp watt/day", "unit per footnote 'Public lighting is charged on the basis of c/lamp watt/day'"
+                            unit, interp, un = ("c/lamp watt/day", None,
+                                                "unit per footnote 'Public lighting is charged on the basis of c/lamp watt/day'")
                         else:
-                            unit, un = tariff_unit(code, "c/kVA, kW, lamp watt/day", ["c/kVA/day", "c/kW/day"])
+                            unit, interp, un = tariff_unit(code, "c/kVA, kW, lamp watt/day", ["c/kVA/day", "c/kW/day"],
+                                                           printed="c/kVA, kW, lamp watt/day")
                         em.add(code, name, cls, f"{c['group']} - {c['sub']}", unit, num_text(nums[0]["text"]), basis,
-                               note="; ".join(notes + [un]), locator=locators.pdf(pno))
+                               note="; ".join(notes + [un]), locator=locators.pdf(pno), interpreted=interp)
                     else:  # Capacity/connection charges: 'a / b' = demand charge / connection charge
                         labels = [f"{c['group']} - {c['sub']}", f"{c['group']} - {c['sub']} connection"]
                         for k, w in enumerate(nums[:2]):
@@ -434,6 +451,14 @@ def parse_pdf_2023_24_schedule(path, fin_year, side, url):
                                           f"{'specified/excess daily demand charge' if k == 0 else 'specified/excess daily demand connection charge'})")
                             em.add(code, name, cls, labels[k], "c/kVA/day", num_text(w["text"]), basis,
                                    note="; ".join(n2), charge_type="demand", time_band="", locator=locators.pdf(pno))
+    # Table 1 (NUoS) groups the residential tariffs under 'Residential', Tables 2-3 under 'Residential low voltage':
+    # one tariff, one listing -> keep the first table's class and note the other heading
+    first_cls = {}
+    for r in em.rows:
+        cls = first_cls.setdefault(r["tariff_code"], r["customer_class"])
+        if r["customer_class"] != cls:
+            r["note"] += f"; this table prints the tariff under '{r['customer_class']}'"
+            r["customer_class"] = cls
     return em.rows
 
 

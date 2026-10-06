@@ -37,6 +37,7 @@ OUT_PATH = os.path.join("out", "dnsp", "sapn_pwc.csv")
 DEBUG = "--debug" in sys.argv
 
 SAPN = "SA Power Networks"
+METERING = []  # per-tariff metering cells (schema.METERING_COLUMNS), written to the metering side output
 PWC = "Power and Water Corporation"
 
 # --------------------------------------------------------------------------------------------
@@ -191,7 +192,10 @@ def build_lines(page, ytol=1.5):
     chars = sorted(page.chars, key=lambda c: (round(c["top"]), c["x0"]))
     groups = []
     for c in chars:
-        if groups and abs(groups[-1][0]["top"] - c["top"]) <= ytol:
+        # anchor a line on its first visible glyph: stray spaces between rows (e.g. 1.5pt above the last row of a
+        # page) would otherwise start a line that the row's text joins and its values, 0.35pt lower, miss
+        anchor = next((x for x in groups[-1] if x["text"].strip()), groups[-1][0]) if groups else None
+        if anchor is not None and abs(anchor["top"] - c["top"]) <= ytol:
             groups[-1].append(c)
         else:
             groups.append([c])
@@ -616,7 +620,12 @@ def sapn_parse_page(lines, hdr, basis, ctx, state):
                 print(f"   WARN value {v} at x={xc:.0f} is {d:.0f}pt from column {k} ({ctx['file']} p{ctx['page']} {code})")
                 continue
             if hdr.groups[k].upper().startswith("METERING"):
-                state["metering_skipped"] = state.get("metering_skipped", 0) + 1
+                # metering charge column of the network table (alternative control): metering side output
+                for published_code in published_codes:
+                    METERING.append({"distributor": SAPN, "fin_year": ctx["fin_year"], "tariff_code": published_code,
+                                     "meter_class": name, "component": hdr.component(k, residential),
+                                     "unit": hdr.units[k], "value": v, "gst": "excl", "source_file": ctx["file"],
+                                     "locator": locators.pdf(ctx["page"]), "note": ctx["table_note"]})
                 continue
             comp = hdr.component(k, residential)
             extra = []
@@ -812,7 +821,7 @@ def pwc_emit(cur, cols, centres, gst, fin_year, side, path, url, extra, title, f
             print(f"   WARN PWC value {v} far from any column ({path} {cur['code']})")
             continue
         col = cols[k]
-        unit = col["unit"]
+        unit = published = col["unit"]  # published stays empty when the column prints no unit
         note = [f"'{title}'", PWC_BASIS_NOTE]
         if not unit:
             unit = pwc_default_unit(col["label"])
@@ -820,11 +829,11 @@ def pwc_emit(cur, cols, centres, gst, fin_year, side, path, url, extra, title, f
         label = col["label"].rstrip("*")
         if col["label"].endswith("*") and footnotes:
             note.append("footnote: " + footnotes[0].lstrip("* ").strip())
-        std_unit = None
+        std_unit = None if unit == published else unit
         if unit == "$/kVA" and extra.get("demand_period_note"):
             std_unit = "$/kVA/month"
             note.append(extra["demand_period_note"])
-        out.append(make_row(PWC, fin_year, side, cur["code"], " ".join(cur["name"]), "", label, unit, v,
+        out.append(make_row(PWC, fin_year, side, cur["code"], " ".join(cur["name"]), "", label, published, v,
                             gst, "unknown", path, url, note, charge_type=pwc_charge_type(label), std_unit=std_unit,
                             locator=locators.pdf(1)))  # one-pager: only pdf.pages[0] is parsed
     cur["vals"] = []
@@ -887,14 +896,15 @@ def parse_pwc_7col(path, fin_year, side, url, extra):
                     if tok == "-":
                         continue
                     v = tok.replace(",", "")
-                    unit_pub = unit if units_printed else unit
+                    # a column whose unit is not printed has no published unit; the unit is assumed for conversion
+                    unit_pub = unit if units_printed or label == "SAC" else ""
                     note = [f"'{title}' p{pno}", extra.get("doc_note", ""), PWC_BASIS_NOTE, extra.get("gst_note", "")]
                     if not units_printed and label != "SAC":
                         note.append(unit_note)
                     note.append("'-' placeholders in other columns omitted")
                     rows.append(make_row(PWC, fin_year, side, cur["code"], " ".join(cur["name"]), "", label, unit_pub, v,
                                          "excl", "unknown", path, url, note, charge_type=pwc_charge_type(label),
-                                         locator=locators.pdf(pno)))
+                                         std_unit=None if unit_pub else unit, locator=locators.pdf(pno)))
             break
     return rows
 
@@ -1002,6 +1012,8 @@ def main():
         for r in all_rows:
             w.writerow({k: r.get(k, "") for k in schema.COLUMNS})
     print(f"wrote {len(all_rows)} rows -> {OUT_PATH}")
+    schema.write_metering("sapn_pwc", METERING)
+    print(f"wrote {len(METERING)} metering cells -> {schema.METERING_OUT_DIR}/sapn_pwc.csv")
 
 
 if __name__ == "__main__":

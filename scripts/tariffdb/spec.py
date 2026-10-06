@@ -28,8 +28,11 @@ LISTING_FLAGS = [
     "excludes_metering", "joint_label_member", "regional_variant",
 ]
 ALIAS_KINDS = ["aer_tariff_id", "joint_label_member", "regional_suffix", "name_matched", "code_variant"]
+# aer_combined_label: the AER prints one row (from) for distributor tariffs (to) that share its prices and differ only
+# in a non-price term the distributor states (e.g. CitiPower CHV1/CHV2: the summer incentive demand window)
 RELATION_TYPES = [
     "replaced_by", "opt_out_alternative", "export_companion", "same_prices_as", "assigned_with", "aer_sibling_code",
+    "aer_combined_label",
 ]
 DAY_TYPES = ["weekday", "weekend", "all_days", "business_day", "non_business_day"]
 TOU_PERIODS = ["peak", "shoulder", "off_peak", "solar_soak", "critical_peak", "super_off_peak", "demand_window",

@@ -7,7 +7,7 @@ import io
 import sys
 import unittest
 from collections import Counter
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -314,6 +314,11 @@ class TestCommittedTables(unittest.TestCase):
             rates.main(["changes", "--distributor", "ergon", "--year", "2025-26", "--detail"])
         self.assertIn("withheld", out.getvalue())
         self.assertIn("EDSTT1", out.getvalue())
+        err = io.StringIO()
+        with redirect_stderr(err), self.assertRaises(SystemExit) as cm:
+            rates.main(["rate", "--distributor", "jemena", "--date", "2025-13-40"])
+        self.assertEqual(cm.exception.code, 2)
+        self.assertIn("not a YYYY-MM-DD date", err.getvalue())
 
 
 if __name__ == "__main__":

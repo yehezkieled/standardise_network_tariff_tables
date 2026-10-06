@@ -634,7 +634,10 @@ def main(argv=None):
     sub.add_parser("report", help=f"rewrite {os.path.relpath(REPORT_PATH, ROOT)}")
     a = ap.parse_args(argv)
     if getattr(a, "date", None):
-        date.fromisoformat(a.date)
+        try:
+            date.fromisoformat(a.date)
+        except ValueError:
+            ap.error(f"--date {a.date!r} is not a YYYY-MM-DD date")
     db = Db()
     if a.cmd == "report":
         with open(REPORT_PATH, "w", encoding="utf-8") as f:

@@ -4,7 +4,8 @@
 
 Schema, load, key, history, TOU and exception tests read the committed CSVs. The source re-read tests open every
 retrieved source document and FAIL when one is missing (./run.sh or scripts/fetch_sources.py fetches them). Set
-TARIFFDB_SOURCES=committed to re-read only the documents committed to the repository (the Wayback copies), as CI does:
+TARIFFDB_SOURCES=committed to re-read only the documents committed to the repository (AER files and Wayback copies), as CI
+does:
 tests then say which documents they leave out. The parser-count and rebuild tests also need the parser outputs (out/,
 built by ./run.sh).
 """
@@ -235,6 +236,16 @@ class TestHistory(unittest.TestCase):
             l = listings[c["listing_id"]]
             self.assertEqual((c["effective_from"], c["effective_to"]), (l["effective_from"], l["effective_to"]))
 
+    def test_every_held_aer_version_is_committed(self):
+        """The AER takes superseded versions private, so every AER-authored file that was retrieved is committed."""
+        docs = rows("source_document")
+        consolidated = [d for d in docs if d["series_id"] == f"aer-all-{d['fin_year']}-consolidated"]
+        self.assertEqual(Counter(d["fin_year"] for d in consolidated), Counter({"2025-26": 5, "2026-27": 5}))
+        for d in docs:
+            if d["author"] == "AER" and d["retrieval_status"] == "retrieved":
+                self.assertEqual(d["committed_in_repo"], "1", d["document_id"])
+                self.assertTrue((ROOT / d["local_path"]).exists(), d["local_path"])
+
     def test_no_duplicate_effective_ranges(self):
         """Within one document version a component has one value per (basis, GST, metering, LFiT) for a date range;
         every exception is a catalogued 'component_repeated_in_document' instance."""
@@ -300,6 +311,16 @@ class TestHistory(unittest.TestCase):
         self.assertEqual(build.append_only_violations(c, text(includes_metering="unknown"),
                                                       text(includes_metering="yes")), [])
         self.assertEqual(len(build.append_only_violations(c, text(value_published="1"), text(value_published="2"))), 1)
+        # a listed transcription fix is accepted for exactly its old and new value
+        key = ("x",) * len([x for x in c["columns"] if x["primary_key"]])
+        fixes = {("charge", key, "value_published"): ("1", "2", "why")}
+        self.assertEqual(build.append_only_violations(c, text(value_published="1"), text(value_published="2"), fixes), [])
+        self.assertEqual(len(build.append_only_violations(c, text(value_published="1"), text(value_published="3"),
+                                                          fixes)), 1)
+        for (table, k, col), (before, after, why) in build.TRANSCRIPTION_FIXES.items():
+            pk = [x["name"] for x in spec.BY_NAME[table]["columns"] if x["primary_key"]]
+            (r,) = [r for r in rows(table) if tuple(r[n] for n in pk) == k]
+            self.assertEqual(r[col], after, why)
 
     def test_append_only_check_against_git(self):
         """Run against this commit: an unknown ref fails loudly; derived tables are skipped, fact tables compared."""
@@ -856,13 +877,18 @@ class TestExceptions(unittest.TestCase):
                and m["distributor_id"] == "endeavour"}
         self.assertEqual(end["N70,N71,N72,N73"]["value_raw"], "13.293665")
 
-    def test_tool_rounding_artefact(self):
+    def test_display_rounds_half_way(self):
         c = by("charge", "charge_id")
-        hits = {i["charge_id"] for i in instances("tool_rounding_artefact")}
-        sapn = [c[h] for h in hits if "/STR/" in h and "2025-26-v5" in h]
+        ins = {i["charge_id"]: i for i in instances("display_rounds_half_way")}
+        sapn = [h for h in ins if "/STR/" in h and "2025-26-v5" in h]
         self.assertTrue(sapn)
-        self.assertEqual((sapn[0]["value_published"], sapn[0]["value_raw"]), ("0.0222", "0.02215"))
-        self.assertEqual(len(hits), 84)
+        self.assertEqual((c[sapn[0]]["value_published"], c[sapn[0]]["value_raw"]), ("0.0222", "0.02215"))
+        self.assertIn("formatting the binary float gives 0.0221", ins[sapn[0]]["detail"])
+        self.assertEqual(len(ins), 84)
+        for h, i in ins.items():  # Excel's display is one unit above the binary float's at the last digit
+            shown = re.search(r"gives (\S+)$", i["detail"]).group(1)
+            step = Decimal(1).scaleb(Decimal(shown).as_tuple().exponent)
+            self.assertEqual(abs(Decimal(c[h]["value_published"]) - Decimal(shown)), step, i)
 
     def test_parser_note_page_offset(self):
         c = by("charge", "charge_id")

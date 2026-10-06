@@ -89,6 +89,37 @@ AER_CONSOLIDATED_FILES = {
     ("2026-27", 5): "sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx",
 }
 
+def version_date_text(fy, seq):
+    """Publication date of an AER consolidated version as '8 Apr 2025' (from the changelog)."""
+    y, m, d = (int(x) for x in dict((v[0], v[1]) for v in AER_VERSIONS[fy])[seq].split("-"))
+    return f"{d} {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m - 1]} {y}"
+
+
+def version_status_text(fy, seq):
+    """'proposed' / 'approved' when every distributor the version carries has that status, else 'mixed'."""
+    statuses = set(dict((v[0], v[3]) for v in AER_VERSIONS[fy])[seq].values())
+    return statuses.pop() if len(statuses) == 1 else "mixed"
+
+
+def version_coverage_status(fy, seq):
+    """{distributor_id: price status} of the distributors an AER consolidated version carries."""
+    cov = dict((v[0], v[3]) for v in AER_VERSIONS[fy])[seq]
+    return {did: status for state, status in cov.items() for did in BY_STATE[state]}
+
+
+def unheld_aer_documents(source_documents):
+    """(fin_year, document, publication_date, price_status, reason) of every AER-authored version that is not held,
+    each with the reason its own source_document row records."""
+    name = {d["distributor_id"]: d["name"] for d in DISTRIBUTORS}
+    return [(d["fin_year"],
+             " ".join(x for x in ("AER", d["document_type"].removeprefix("aer_").replace("_", " "),
+                                  name.get(d["distributor_id"]), d["fin_year"], d["version_label"]) if x),
+             d["publication_date"], d["price_status"],
+             d["access_note"] + ("; no archived copy exists" if "no archived copy exists" in d["title"] else ""))
+            for d in sorted(source_documents, key=lambda d: (d["fin_year"], d["publication_date"] or ""))
+            if d["author"] == "AER" and d["retrieval_status"] == "not_retrievable"]
+
+
 DOC_TYPE_RULES = [
     (r"consolidated stakeholder report", "aer_consolidated_stakeholder_report"),
     (r"per-DNSP stakeholder report", "aer_stakeholder_report"),
@@ -252,7 +283,7 @@ def documents():
             "sha256": r["sha256"] or None,
             "retrieved_on": (wb or INVENTORY_COMMIT_DATE) if path else None,
             "retrieved_on_basis": ("wayback_capture" if wb else "inventory_commit") if path else None,
-            "committed_in_repo": 1 if (path and wb) else 0,
+            "committed_in_repo": 1 if (path and (wb or r["side"] == "AER")) else 0,
         })
     out += [dict(d) for d in EXTRA_DOCUMENTS]
     for d in out:

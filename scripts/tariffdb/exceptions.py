@@ -109,13 +109,16 @@ EXCEPTIONS = [
       "metering_price.charge_basis (per_year / per_meter / unstated) separates them; tariff_codes_published is NULL for "
       "'Exit fee'; blank prices produce no row.",
       "test_metering_sheet_quirk"),
-    e("tool_rounding_artefact", "Parser display rounding differs from Excel",
-      "The parsers format a spreadsheet number from its binary float (scripts/published.py), so a value exactly half-way "
-      "(0.02215 in a 4-dp format) shows one digit lower ('0.0221') than Excel displays ('0.0222'). This was the SAPN "
-      "+0.01 c/kWh 'difference'; the same happens in Energex, Ergon and TasNetworks cells.",
-      "charge.value_published is the value as Excel displays it (15 significant digits, half-up) and value_raw the full "
-      "cell value; value_std is recomputed from it. Each affected cell is an instance (parser value in the detail).",
-      "test_tool_rounding_artefact"),
+    e("display_rounds_half_way", "Cell value exactly half-way at its display precision",
+      "Some spreadsheet cells hold a value exactly half-way between two displayed digits (0.02215 in a 4-dp format). "
+      "Excel displays it from its 15-significant-digit decimal, rounded half away from zero ('0.0222'); formatting the "
+      "binary float (0.022149999...) gives one digit lower ('0.0221'). Until scripts/published.py rounded like Excel, "
+      "the tooling did the latter: that was the SA Power Networks +0.01 c/kWh 'difference'. Energex, Ergon and "
+      "TasNetworks cells are affected the same way.",
+      "charge.value_published is the value as Excel displays it and value_raw the full cell value; the parsers and the "
+      "build use the same Excel rounding (the build fails if they disagree). Each affected cell is an instance (binary "
+      "float formatting in the detail).",
+      "test_display_rounds_half_way"),
     e("parser_note_page_offset", "Parser note names the wrong page",
       "For the Evoenergy 2024-25 schedule, rows printed at the foot of a page carry a parser note naming the next page.",
       "charge.page / charge.locator hold the verified page; the note is kept verbatim and the offset recorded here.",

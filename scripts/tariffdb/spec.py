@@ -160,7 +160,9 @@ TABLES = [
             col("sha256", "text", "SHA-256 of the file used", null=True),
             col("retrieved_on", "date", "date the file was retrieved (or the Wayback capture date)", null=True),
             col("retrieved_on_basis", "text", "wayback_capture | inventory_commit", null=True),
-            col("committed_in_repo", "boolean", "1 when the file itself is committed (Wayback copies)"),
+            col("committed_in_repo", "boolean", "1 when the file itself is committed: Wayback copies, and every "
+                "AER-authored file because the AER takes superseded versions private (derived from that rule)",
+                derived=True),
         ],
         "unique": [["series_id", "version_seq"], ["local_path"]],
         "checks": ["retrieval_status <> 'retrieved' OR (local_path IS NOT NULL AND sha256 IS NOT NULL)"],

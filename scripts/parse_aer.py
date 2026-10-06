@@ -14,24 +14,25 @@ sys.path.insert(0, os.path.dirname(__file__))
 from schema import COLUMNS, charge_type_from_label, time_band_from_label, season_from_label
 from units import to_std
 from published import cell_value
-from tariffdb import locators
+from tariffdb import build_support, locators
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-CONSOLIDATED = [
-    ("2025-26", "sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx",
-     "https://www.aer.gov.au/system/files/2025-05/AER%20-%20Consolidated%20stakeholder%20report%202025%E2%80%9326%20v5%C2%A0.xlsx"),
-    ("2026-27", "sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx",
-     "https://www.aer.gov.au/system/files/2026-08/AER%20%E2%80%93%202026%E2%80%9327%20%E2%80%93%20Consolidated%20stakeholder%20report%20%E2%80%93%2026%20August%202026.xlsx"),
-]
+def consolidated_versions():
+    """Every held AER consolidated report version, from the version registry (scripts/tariffdb/build_support.py):
+    [(fin_year, version_seq, path, url)], URLs from sources/inventory.csv."""
+    urls = {r["local_path"]: r["source_url"] for r in build_support.read_inventory()}
+    return [(fy, seq, path, urls[path]) for (fy, seq), path in sorted(build_support.AER_CONSOLIDATED_FILES.items())]
 
-# Superseded versions: not used by the reconciliation (which compares the final AER version), written to
-# out/aer_versions_long.csv for the tariff database (scripts/tariffdb/build.py) so proposed and approved prices coexist.
-SUPERSEDED = [
-    ("2025-26", "sources/aer/AER_Consolidated_stakeholder_report_2025-26_v1_wayback.xlsx",
-     "https://web.archive.org/web/20250409020106id_/https://www.aer.gov.au/system/files/2025-04/Consolidated%C2%A0stakeholder%20report%202025%E2%80%9326.xlsx",
-     "AER consolidated stakeholder report v1 (8 Apr 2025): proposed prices"),
-]
+
+# The latest held version of each year is the AER side of the reconciliation (out/aer_long.csv). Every earlier held
+# version goes to out/aer_versions_long.csv: the tariff database keeps proposed and approved prices side by side, and
+# `scripts/reconcile.py --aer-version` reconciles any of them.
+LATEST = {fy: seq for fy, seq, _, _ in consolidated_versions()}
+CONSOLIDATED = [(fy, path, url) for fy, seq, path, url in consolidated_versions() if seq == LATEST[fy]]
+SUPERSEDED = [(fy, path, url, f"AER consolidated stakeholder report v{seq} ({build_support.version_date_text(fy, seq)}): "
+               f"{build_support.version_status_text(fy, seq)} prices")
+              for fy, seq, path, url in consolidated_versions() if seq != LATEST[fy]]
 
 STAKEHOLDER_2024_25 = {
     "Ausgrid": ("AER_Stakeholder_report_Ausgrid_2024-25.xlsx", "https://www.aer.gov.au/system/files/2024-05/AER%20-%20Stakeholder%20report%20-%20Ausgrid%20-%202024%E2%80%9325%20Annual%20Pricing%20Proposal.xlsx"),

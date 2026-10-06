@@ -86,6 +86,7 @@ erDiagram
 | Files, not a database: one CSV per table + generated SQLite and PostgreSQL DDL + a JSON table spec | No database to run, yet any database can import the CSVs as they are; CSVs diff and review in git | data/tariffdb/tables/*.csv, schema.sqlite.sql, schema.postgres.sql, load.postgres.sql, schema.json | TestLoad imports every CSV into SQLite with foreign keys and every CHECK enforced; test_postgres_load does the same in a real PostgreSQL when TARIFFDB_PG_BIN is set |
 | One source of truth for the schema | DDL, JSON spec and this document are generated from scripts/tariffdb/spec.py, so they cannot disagree | scripts/tariffdb/spec.py, scripts/tariffdb/docs.py | TestSchemaFiles fails when a generated file is stale |
 | A document version is the unit of provenance | Proposed vs approved and AER vs distributor values coexist: each value hangs off the exact version it was read from (URL, SHA-256, retrieval date, version label/sequence) | source_document, document_series; document_id on every value table | test_versions_are_kept_side_by_side, test_document_checksums |
+| Every AER version is archived and reconcilable, held or not | The AER reissues its consolidated report several times a year (v1..v5) and takes each superseded file private. Every AER-authored file is committed under sources/; a version whose file is gone keeps a source_document row and is listed under Known gaps, so the history has no silent gaps; scripts/reconcile.py --aer-version reconciles any held version | source_document, document_coverage; sources/aer/; out/version_grid.csv | test_document_not_retrievable |
 | Every value row carries a locator and every rule a verbatim quote | Anyone can re-check a number by hand: xlsx sheet!cell or PDF page, plus the exact wording | charge.locator/sheet/cell/page, *.locator + *.quote | test_every_charge_value_is_in_its_source, test_every_quote_is_in_its_source re-read the files |
 | Source facts are append-only; derived tables are recomputed; keys come from content | Nothing read from a source is updated in place: a re-issued document adds rows, so earlier answers stay reproducible. Tables and columns computed from those facts (ingestion counts, flags, adjustments, exception rows, metering/LFiT inclusion) are marked derived and rebuilt every time, so they can never drift from the facts | ids built from document, code and component, never row order; spec 'derived'; build.py --check-append-only <git ref> | test_append_only_check, test_append_only_check_against_git, test_ids_come_from_content_not_row_order, test_rebuild_reproduces_every_table |
 | Every value has a financial year AND explicit effective_from / effective_to dates | The yearly grain is how prices are published, the dates let a mid-year change fit without schema change | effective_from/effective_to on charge, listing, rules, links | test_every_value_is_tied_to_a_year_dates_and_a_document_version, test_no_duplicate_effective_ranges |
@@ -125,7 +126,7 @@ erDiagram
 | `document_not_retrievable` | Documents that could not be retrieved | 15 | source_document rows with retrieval_status = not_retrievable (no local_path, no sha256) so version history has no silent gaps; document_coverage still records what each AER version carried. | `test_document_not_retrievable` |
 | `proposed_distributor_document` | Distributor document is a proposal | 1 | source_document.price_status = proposed; its listings carry listing_flag proposed_price. | `test_proposed_distributor_document` |
 | `metering_sheet_quirk` | AER Metering sheet quirks | 75 | metering_price.charge_basis (per_year / per_meter / unstated) separates them; tariff_codes_published is NULL for 'Exit fee'; blank prices produce no row. | `test_metering_sheet_quirk` |
-| `tool_rounding_artefact` | Parser display rounding differs from Excel | 84 | charge.value_published is the value as Excel displays it (15 significant digits, half-up) and value_raw the full cell value; value_std is recomputed from it. Each affected cell is an instance (parser value in the detail). | `test_tool_rounding_artefact` |
+| `display_rounds_half_way` | Cell value exactly half-way at its display precision | 84 | charge.value_published is the value as Excel displays it and value_raw the full cell value; the parsers and the build use the same Excel rounding (the build fails if they disagree). Each affected cell is an instance (binary float formatting in the detail). | `test_display_rounds_half_way` |
 | `parser_note_page_offset` | Parser note names the wrong page | 47 | charge.page / charge.locator hold the verified page; the note is kept verbatim and the offset recorded here. | `test_parser_note_page_offset` |
 | `gst_inclusive_prices` | GST-inclusive prices | 1 | charge.gst = incl on those rows; the GST basis is part of the charge key. | `test_gst_inclusive_prices` |
 | `demand_period_unstated` | Demand unit without a billing period | 31 | charge.period = unstated, or the label's period with period_inferred = 1; value_std is then not comparable across periods without the demand rule. | `test_demand_period_unstated` |
@@ -136,6 +137,29 @@ erDiagram
 | `price_status_unverified` | Regulatory status of an AER-hosted document not stated | 28 | source_document.price_status = unverified (no status is asserted without evidence); its listings carry no proposed_price flag. One instance per document. | `test_price_status_unverified` |
 | `medium_business_demand_assignment` | CitiPower CMG assignment rules | 61 | eligibility_rule rows (consumption_min/max, demand_max, assignment, opt_out_to, meter_type) with operator, value and unit; demand_rule + tou_window for the measurement window; each with its quote. | `test_medium_business_demand_assignment` |
 | `component_repeated_in_document` | Same component printed twice in one document | 223 | Both values are kept as separate charge rows with their own locator; instances list the repeats so a consumer can choose. | `test_component_repeated_in_document` |
+
+## Documented AER-to-distributor adjustments
+
+The only differences between an AER price and the distributor's price for the same tariff that the sources explain. `scripts/adjustments.py` holds the verified scope; the build stores each adjustment with the document and verbatim quote that state it, and the reconciliation uses the same module, so a difference outside that scope stays unexplained. `lfit_rebate` records Evoenergy's 2023-24 LFiT rebate, which the source states only as an average across tariffs, so it explains no individual difference.
+
+| Adjustment | Amount | Formula | Tariffs | Evidence |
+|---|---|---|---|---|
+| `lfit_adder/evoenergy/2024-25` | 0.258 c/kWh | distributor c/kWh = AER c/kWh + 0.258 c/kWh on every consumption charge; fixed and demand charges unchanged | 34 | evoenergy-schedule-of-charges-2024-25-lfit-adjusted `pdf:p3` |
+| `lfit_adder/evoenergy/2025-26` | 1.593 c/kWh | distributor c/kWh = AER c/kWh + 1.593 c/kWh on every consumption charge; fixed and demand charges unchanged | 34 | evoenergy-schedule-of-charges-2025-26-incl-lfit-may2025 `xlsx:Network tariffs!B6` |
+| `lfit_adder/evoenergy/2026-27` | 3.035 c/kWh | distributor c/kWh = AER c/kWh + 3.035 c/kWh on every consumption charge; fixed and demand charges unchanged | 34 | evoenergy-schedule-of-charges-2026-27-incl-lfit-june2026 `xlsx:Network tariffs!B6` |
+| `lfit_rebate/evoenergy/2023-24` | per tariff | distributor c/kWh = c/kWh of the AER-hosted pricing proposal (status unverified) - tariff-specific LFiT rebate (2.27 c/kWh on average; not uniform; applied to consumption charges where possible); the quoted statement applies the rebate to the AER's approved charges, which no held document lists | 18 | evoenergy-statement-of-tariff-classes-and-tariffs-2023-24 `pdf:p4` |
+| `metering_adder/endeavour/2024-25` | 3.4025 c/day | distributor fixed c/day = AER fixed c/day + 100 x 12.419125 $/yr / 365 | 11 | aer-stakeholder-report-endeavour-2024-25 `xlsx:Tariff schedule!I7` |
+| `metering_adder/endeavour/2025-26` | 3.467 c/day | distributor fixed c/day = AER fixed c/day + 100 x 12.65455 $/yr / 365 | 11 | aer-consolidated-2025-26-v5 `xlsx:Metering!L114` |
+| `metering_adder/endeavour/2026-27` | 3.6421 c/day | distributor fixed c/day = AER fixed c/day + 100 x 13.293665 $/yr / 365 | 11 | aer-consolidated-2026-27-v5 `xlsx:Metering!L114` |
+| `metering_adder/energex/2025-26` | 12.0940565395438 c/day | distributor fixed c/day = AER fixed c/day + 100 x 44.1433063693349 $/yr / 365; per tariff, 100 x the $/day of the distributor's Metering block for that tariff (price_adjustment_tariff.expected_delta_std) | 13 | aer-consolidated-2025-26-v5 `xlsx:Metering!L147` |
+| `metering_adder/energex/2026-27` | 12.3 c/day | distributor fixed c/day = AER fixed c/day + 100 x 44.895 $/yr / 365; per tariff, 100 x the $/day of the distributor's Metering block for that tariff (price_adjustment_tariff.expected_delta_std) | 13 | aer-consolidated-2026-27-v5 `xlsx:Metering!L147` |
+| `metering_adder/ergon/2025-26` | 11.4915796772047 c/day | distributor fixed c/day = AER fixed c/day + 100 x 41.9442658217972 $/yr / 365; per tariff, 100 x the $/day of the distributor's Metering block for that tariff (price_adjustment_tariff.expected_delta_std) | 36 | aer-consolidated-2025-26-v5 `xlsx:Metering!L180` |
+| `metering_adder/ergon/2026-27` | 11.6 c/day | distributor fixed c/day = AER fixed c/day + 100 x 42.34 $/yr / 365; per tariff, 100 x the $/day of the distributor's Metering block for that tariff (price_adjustment_tariff.expected_delta_std) | 39 | aer-consolidated-2026-27-v5 `xlsx:Metering!L180` |
+| `metering_adder/essential/2024-25` | 16.60515136119 c/day | distributor fixed c/day = AER fixed c/day + 100 x 60.6088024683435 $/yr / 365 | 17 | aer-stakeholder-report-essential-2024-25 `xlsx:Tariff schedule!I7` |
+| `metering_adder/essential/2025-26` | 17.0210419772881 c/day | distributor fixed c/day = AER fixed c/day + 100 x 62.1268032171016 $/yr / 365 | 16 | essential-price-list-and-explanatory-notes-2025-26 `pdf:p1` |
+| `metering_adder/essential/2026-27` | 17.3530073236359 c/day | distributor fixed c/day = AER fixed c/day + 100 x 63.3384767312709 $/yr / 365 | 16 | essential-price-list-and-explanatory-notes-2026-27 `pdf:p1` |
+
+In the reconciliation (`discrepancies.csv`, REPORT.md) 371 compared components differ beyond published rounding: metering_adder 186, lfit_adder 132, unexplained 53.
 
 ## Coverage by distributor and year
 
@@ -213,6 +237,14 @@ erDiagram
 | Evoenergy 2024-25 to 2026-27 | the months of 'winter' and similar seasons | the schedules name the season but never list its months (season_months_not_stated) |
 | AusNet, all years | the standard-time hours of windows stated in 'ADST' | the documents state daylight-saving times only; stored as stated (time_stated_in_daylight_time) |
 | All distributors 2023-24 (AER-hosted copies) | whether the hosted prices are proposed, approved or final | aer.gov.au hosts the distributor's document without stating its status (price_status_unverified) |
+| AER stakeholder report SA Power Networks 2024-25 original (3 May 2024) | the file (published 2024-05-03) | superseded version, login-gated on aer.gov.au (document_not_retrievable) |
+| AER consolidated stakeholder report 2025-26 v2 | the file (published 2025-04-10) | superseded version, login-gated on aer.gov.au; no archived copy exists (document_not_retrievable) |
+| AER consolidated stakeholder report 2025-26 v3 | the file (published 2025-05-14) | superseded version, login-gated on aer.gov.au; no archived copy exists (document_not_retrievable) |
+| AER consolidated stakeholder report 2025-26 v4 | the file (published 2025-05-16) | superseded version, login-gated on aer.gov.au; no archived copy exists (document_not_retrievable) |
+| AER consolidated stakeholder report 2026-27 v1 | the file (published 2026-04-02) | superseded version, login-gated on aer.gov.au; no archived copy exists (document_not_retrievable) |
+| AER consolidated stakeholder report 2026-27 v2 | the file (published 2026-04-24) | superseded version, login-gated on aer.gov.au; no archived copy exists (document_not_retrievable) |
+| AER consolidated stakeholder report 2026-27 v3 | the file (published 2026-05-08) | superseded version, login-gated on aer.gov.au; no archived copy exists (document_not_retrievable) |
+| AER consolidated stakeholder report 2026-27 v4 | the file (published 2026-05-20) | superseded version, login-gated on aer.gov.au; no archived copy exists (document_not_retrievable) |
 
 ## Tables
 
@@ -293,7 +325,7 @@ One version of one document: the unit of provenance. Every value row points here
 | `sha256` | text |  | yes |  | SHA-256 of the file used |
 | `retrieved_on` | date |  | yes |  | date the file was retrieved (or the Wayback capture date) |
 | `retrieved_on_basis` | text |  | yes |  | wayback_capture \| inventory_commit |
-| `committed_in_repo` | boolean |  |  |  | 1 when the file itself is committed (Wayback copies) |
+| `committed_in_repo` | boolean |  |  |  | Derived. 1 when the file itself is committed: Wayback copies, and every AER-authored file because the AER takes superseded versions private (derived from that rule) |
 
 Unique: `series_id, version_seq`
 

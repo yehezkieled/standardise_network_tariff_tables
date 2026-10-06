@@ -76,16 +76,17 @@ def read_cell(path, sheet, cell):
 
 
 def excel_display(cell):
-    """The number as Excel shows it: Excel keeps 15 significant digits and rounds half away from zero, so 0.02215 in a
-    4-dp format shows 0.0222. (published.cell_value formats the binary float, 0.022149999..., and gives 0.0221.)"""
-    from decimal import ROUND_HALF_UP, Decimal
-    shown = cell_value(cell)
-    value = cell.value
-    if not isinstance(value, (int, float)) or isinstance(value, bool) or not isinstance(shown, str) \
-            or not re.fullmatch(r"-?\d+(\.\d+)?", shown):
-        return shown
-    digits = len(shown.partition(".")[2])
-    return str(Decimal(format(value, ".15g")).quantize(Decimal(1).scaleb(-digits), rounding=ROUND_HALF_UP))
+    """The number as Excel shows it (published.cell_value: 15 significant digits rounded half away from zero, so
+    0.02215 in a 4-dp format shows 0.0222)."""
+    return cell_value(cell)
+
+
+def binary_float_display(value, shown):
+    """How formatting the binary float would show `value` at the decimals of `shown` (0.02215 is stored as
+    0.022149999..., so '0.0221' where Excel shows '0.0222'); None when `shown` is not a plain decimal."""
+    if not isinstance(value, float) or not isinstance(shown, str) or not re.fullmatch(r"-?\d+(\.\d+)?", shown):
+        return None
+    return f"{value:.{len(shown.partition('.')[2])}f}"
 
 
 def read_cell_excel(path, sheet, cell):

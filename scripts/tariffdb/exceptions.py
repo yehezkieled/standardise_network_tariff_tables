@@ -32,7 +32,8 @@ EXCEPTIONS = [
       "the metering charge that the AER prints separately on its Metering sheet ($/yr).",
       "metering_price holds the AER metering amounts; price_adjustment (kind metering_adder) gives formula and evidence; "
       "price_adjustment_tariff lists each tariff and the expected c/day difference; charge.includes_metering is 'no' on "
-      "the AER side and 'yes' on the distributor side.",
+      "the AER side and 'yes' on every distributor document (own site or AER-hosted) whose daily charge reproduces "
+      "AER + metering.",
       "test_metering_excluded_by_aer"),
     e("act_lfit", "Evoenergy prices include the ACT LFiT",
       "Evoenergy's final schedules add the ACT Large-scale Feed-in Tariff to every consumption charge (+0.258 / +1.593 / "
@@ -43,7 +44,8 @@ EXCEPTIONS = [
       "test_act_lfit"),
     e("zero_priced_placeholder", "Zero-priced placeholder tariffs",
       "AER files list tariffs (TBA codes, new trials) with every price zero or blank.",
-      "tariff_listing.is_priced = 0 with no charge rows, and listing_flag zero_priced_placeholder; nothing is invented.",
+      "tariff_listing.price_availability = placeholder with no charge rows, and listing_flag zero_priced_placeholder; "
+      "nothing is invented.",
       "test_zero_priced_placeholder"),
     e("withdrawn_tariff_listed", "Withdrawn / closed tariffs still listed",
       "Documents keep pricing tariffs they mark withdrawn, closed to new customers, obsolete or grandfathered.",
@@ -138,6 +140,18 @@ EXCEPTIONS = [
       "tou_window.months is NULL and season holds the name as published; tou_window_month has no rows for the window. "
       "One instance per window.",
       "test_season_months_not_stated"),
+    e("time_stated_in_daylight_time", "Window stated in daylight-saving time",
+      "AusNet states its monthly and critical-peak demand windows as e.g. '3:00pm to 9:00pm ADST' for every month, "
+      "including months when daylight saving is off, without saying what applies then.",
+      "tou_schedule.time_basis = daylight_time with the times exactly as stated; nothing is converted to standard time. "
+      "One instance per schedule.",
+      "test_time_stated_in_daylight_time"),
+    e("price_status_unverified", "Regulatory status of an AER-hosted document not stated",
+      "The AER hosts distributors' pricing documents (proposals, price lists, tariff summaries); none of the held "
+      "sources says whether the prices in a given hosted file were the proposed, approved or final ones.",
+      "source_document.price_status = unverified (no status is asserted without evidence); its listings carry no "
+      "proposed_price flag. One instance per document.",
+      "test_price_status_unverified"),
     e("medium_business_demand_assignment", "CitiPower CMG assignment rules",
       "CitiPower's medium-business demand tariff CMG applies by annual consumption band (2025-26: >40 MWh and <120 kVA; "
       "2026-27: >=40 and <=160 MWh), with opt-out to CMGO21 below 160 MWh, an interval meter, and demand measured as "

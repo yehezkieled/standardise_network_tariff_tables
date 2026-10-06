@@ -9,8 +9,9 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   with `scripts/tariffdb/build.py`.
 - Schema changes go in `scripts/tariffdb/spec.py`. Then rebuild and regenerate `docs/tariffdb.md` with
   `scripts/tariffdb/docs.py`; `test_docs_are_current` fails otherwise.
-- The data is append-only across commits: `build.py --check-append-only <git ref>` rejects edits to existing
-  rows. A correction is a new source document version, not an in-place change.
+- Source-fact tables are append-only across commits: `build.py --check-append-only <git ref>` rejects edits to
+  existing rows (tables and columns marked `derived` in `spec.py` are recomputed and exempt). A correction is a new
+  source document version, not an in-place change.
 - `tests/test_tariffdb.py` re-reads every value and quote from `sources/` and takes about 5 minutes. Set
   `TARIFFDB_PG_BIN` (e.g. the bin dir of the `pgserver` pip wheel) to also run the real PostgreSQL load test.
 

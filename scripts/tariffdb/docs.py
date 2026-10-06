@@ -55,10 +55,14 @@ DECISIONS = [
      "Anyone can re-check a number by hand: xlsx sheet!cell or PDF page, plus the exact wording",
      "charge.locator/sheet/cell/page, *.locator + *.quote",
      "test_every_charge_value_is_in_its_source, test_every_quote_is_in_its_source re-read the files"),
-    ("History is append-only; keys are derived from content",
-     "Nothing is updated in place: a re-issued document adds rows, so earlier answers stay reproducible",
-     "deterministic ids; build.py --check-append-only <git ref>",
-     "test_append_only_check"),
+    ("Source facts are append-only; derived tables are recomputed; keys come from content",
+     "Nothing read from a source is updated in place: a re-issued document adds rows, so earlier answers stay "
+     "reproducible. Tables and columns computed from those facts (ingestion counts, flags, adjustments, exception "
+     "rows, metering/LFiT inclusion) are marked derived and rebuilt every time, so they can never drift from the facts",
+     "ids built from document, code and component, never row order; spec 'derived'; "
+     "build.py --check-append-only <git ref>",
+     "test_append_only_check, test_append_only_check_against_git, test_ids_come_from_content_not_row_order, "
+     "test_rebuild_reproduces_every_table"),
     ("Every value has a financial year AND explicit effective_from / effective_to dates",
      "The yearly grain is how prices are published, the dates let a mid-year change fit without schema change",
      "effective_from/effective_to on charge, listing, rules, links",
@@ -88,9 +92,11 @@ DECISIONS = [
      "tou_schedule, tou_window, tou_window_month, tariff_tou",
      "test_full_day_schedules_tile_24_hours_without_overlap, test_windows_of_one_period_never_overlap"),
     ("Clock basis and public holidays are stated per schedule; time zone and DST per distributor",
-     "Distributors state windows in local or standard time and treat holidays differently; QLD and NT have no DST",
+     "Distributors state windows in local, standard or daylight time and treat holidays differently; QLD and NT "
+     "have no DST. Times are stored exactly as stated and never converted: AusNet's 'ADST' windows are kept with "
+     "time_basis daylight_time and an exception, because the standard-time hours are not stated",
      "tou_schedule.time_basis/public_holidays, distributor.iana_timezone/observes_dst",
-     "enum CHECKs; curated.py validation"),
+     "test_time_stated_in_daylight_time; enum CHECKs; curated.py validation"),
     ("Demand measurement is its own rule linked per band and season",
      "A demand price means nothing without kW vs kVA, interval, aggregation, window and months",
      "demand_rule, tariff_demand_rule",
@@ -101,7 +107,7 @@ DECISIONS = [
     ("Nothing is invented",
      "Placeholders stay unpriced; missing TOU definitions, missing price attachments and seasons whose months are "
      "never listed are recorded as exceptions instead of guessed",
-     "tariff_listing.is_priced/price_availability, document_ingestion, tou_window.months NULL, exception_instance",
+     "tariff_listing.price_availability, document_ingestion, tou_window.months NULL, exception_instance",
      "test_zero_priced_placeholder, test_tou_definition_missing, test_price_attachment_not_held, "
      "test_season_months_not_stated"),
     ("Exceptions are first-class data",
@@ -118,14 +124,15 @@ DECISIONS = [
      "test_constraints_reject_bad_rows"),
     ("An empty CSV field means NULL", "CSV cannot tell '' from NULL, so no column stores an empty string",
      "all tables", "test_empty_field_means_null"),
-    ("Price status is per (document, distributor)",
-     "One AER version mixes approved and proposed prices by jurisdiction (2025-26 v3)",
-     "document_coverage", "test_aer_version_differs"),
+    ("Price status is per (document, distributor), and never asserted without a source",
+     "One AER version mixes approved and proposed prices by jurisdiction (2025-26 v3). A document whose status no "
+     "held source states (every distributor document hosted on aer.gov.au) is 'unverified', not assumed approved",
+     "source_document.price_status, document_coverage", "test_aer_version_differs, test_price_status_unverified"),
 ]
 
 # Gaps the held sources cannot fill: (distributor-years, what is missing, where it would come from)
 KNOWN_GAPS = [
-    ("Ausgrid, all years", "energy TOU hours and high-season months",
+    ("Ausgrid, all years", "energy TOU hours and the months of the high and low seasons",
      "the documents point to the Tariff Structure Statement and the ES7 Network Price Guide, which are not held"),
     ("Energex and Ergon, all years", "TOU windows and demand measurement",
      "the Schedule 8 price lists and AER reports state none; no tariff structure document is held"),
@@ -140,6 +147,10 @@ KNOWN_GAPS = [
      "the pricing proposals put prices in Tariff Summary attachments that are not held (price_attachment_not_held)"),
     ("Evoenergy 2024-25 to 2026-27", "the months of 'winter' and similar seasons",
      "the schedules name the season but never list its months (season_months_not_stated)"),
+    ("AusNet, all years", "the standard-time hours of windows stated in 'ADST'",
+     "the documents state daylight-saving times only; stored as stated (time_stated_in_daylight_time)"),
+    ("All distributors 2023-24 (AER-hosted copies)", "whether the hosted prices are proposed, approved or final",
+     "aer.gov.au hosts the distributor's document without stating its status (price_status_unverified)"),
 ]
 
 
@@ -246,7 +257,9 @@ def markdown(data):
         out += [f"### {group}", ""]
         for name in names:
             t = spec.BY_NAME[name]
-            out += [f"#### `{name}` ({data.counts[name]} rows)", "", t["description"], ""]
+            derived = " Derived: recomputed from the source-fact tables on every build, not append-only." \
+                if t.get("derived") else ""
+            out += [f"#### `{name}` ({data.counts[name]} rows)", "", t["description"] + derived, ""]
             out += [f"- Why: {w}" for w in t["why"]]
             out += ["", "| Column | Type | Key | Null | Values / unit | Description |", "|---|---|---|---|---|---|"]
             for c in t["columns"]:
@@ -254,8 +267,9 @@ def markdown(data):
                 if c["references"]:
                     key = (key + " " if key else "") + f"FK {c['references']}"
                 values = ", ".join(c["enum"]) if c["enum"] else (c["unit"] or "")
+                desc = ("Derived. " if c.get("derived") else "") + c["description"]
                 out.append(f"| `{c['name']}` | {c['type']} | {md_cell(key)} | {'yes' if c['nullable'] else ''} | "
-                           f"{md_cell(values)} | {md_cell(c['description'])} |")
+                           f"{md_cell(values)} | {md_cell(desc)} |")
             for k in t.get("unique", []):
                 out.append(f"\nUnique: `{', '.join(k)}`")
             for ch in t.get("checks", []):
@@ -475,8 +489,12 @@ def html_page(data):
             t = spec.BY_NAME[name]
             h += [f'<div id="table-{name}" class="card card-border bg-base-200"><div class="card-body gap-3">',
                   f'<h4 class="card-title font-mono">{esc(name)} <span class="badge badge-soft badge-primary">'
-                  f'{data.counts[name]:,} rows</span></h4>',
+                  f'{data.counts[name]:,} rows</span>'
+                  + ('<span class="badge badge-outline badge-sm">derived</span>' if t.get("derived") else "")
+                  + '</h4>',
                   f'<ul class="list-disc pl-6"><li>{esc(t["description"])}</li>'
+                  + ('<li>Derived: recomputed from the source-fact tables on every build, not append-only.</li>'
+                     if t.get("derived") else "")
                   + "".join(f'<li><span class="font-medium">Why:</span> {esc(w)}</li>' for w in t["why"]) + '</ul>',
                   '<div class="overflow-x-auto rounded-box border border-base-content/10 bg-base-100"><table '
                   'class="table table-xs"><thead><tr><th>Column</th><th>Type</th><th>Key</th><th>Null</th>'
@@ -491,7 +509,8 @@ def html_page(data):
                 values = ", ".join(c["enum"]) if c["enum"] else (c["unit"] or "")
                 h.append(f'<tr><td><code>{esc(c["name"])}</code></td><td>{esc(c["type"])}</td>'
                          f'<td>{" ".join(key)}</td><td>{"yes" if c["nullable"] else ""}</td>'
-                         f'<td class="text-xs">{esc(values)}</td><td>{esc(c["description"])}</td></tr>')
+                         f'<td class="text-xs">{esc(values)}</td><td>{"<em>Derived.</em> " if c.get("derived") else ""}'
+                         f'{esc(c["description"])}</td></tr>')
             h.append('</tbody></table></div>')
             extra = [f'Unique: <code>{esc(", ".join(k))}</code>' for k in t.get("unique", [])]
             extra += [f'Check: <code>{esc(ch)}</code>' for ch in t.get("checks", [])]
@@ -515,7 +534,8 @@ def html_page(data):
           '<code>source_document.sha256</code>)</li>',
           '<li>One rule by hand: the <code>quote</code> column is verbatim text at its <code>locator</code></li>',
           '<li>History guard: <code>build.py --check-append-only &lt;git ref&gt;</code> fails if a committed row '
-          'changed</li></ul></section>',
+          'of a source-fact table changed or vanished (derived tables are recomputed and not compared)</li></ul>'
+          '</section>',
           '</main></body></html>']
     return "\n".join(h) + "\n"
 

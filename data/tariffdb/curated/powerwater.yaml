@@ -53,6 +53,12 @@ tou_schedules:
     - Tariff 6
     - Tariff 7
     applies_to: demand
+    locator: pdf:p1
+    quote: 'Tariff 5: LV Majors Tariff 80.000000 0.011458 14.000000 Tariff 6: HV Minors Tariff 100.000000 0.013000 11.000000
+      Tariff 7: HV Majors Tariff 100.000000 0.013000 11.000000'
+    note: Price-table rows with a price in the 'Demand Charge*' ($/kVA) column; the '*' footnote gives the 12pm-9pm weekday
+      peak period and 'For all other customers annual peak charges apply', i.e. other than Tariff 3; Tariffs 3, 5, 6 and 7 are
+      the only rows with a Demand Charge* price.
 - id: pwc-2324-np-t3-demand
   doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
   fin_year: 2023-24
@@ -143,7 +149,8 @@ tou_schedules:
     months: 10,11,12,1,2,3
     season: 1 October – 31 March
     locator: pdf:p2
-    quote: 3pm to 9pm Monday to Friday (including public holidays) from
+    quote: High Period (Peak) Consumer are charged for the highest recorded demand during the peak period • 3pm to 9pm Monday
+      to Friday (including public holidays) from (regardless of season) each month 01 October to 31 March
   - period: off_peak
     label: Mid Period (Off Peak)
     days: weekday
@@ -214,8 +221,12 @@ tou_schedules:
     - Tariff 3c
     applies_to: energy
     locator: pdf:p1
-    quote: Super Off -Peak Off -Peak Peak
-    note: Only Tariffs 3a, 3b and 3c carry Low/Mid/High period energy prices in the price table.
+    quote: 'Tariff 3a: LV Smart Meter Tariff $2.000000 $0.000000 $0.050000 $0.190000 (Residential 0-160MWh pa) Tariff 3b:
+      LV Smart Meter Tariff $2.500000 $0.000000 $0.057500 $0.250000 (Non-Residential 0-160MWh pa) Tariff 3c: LV Smart Meter
+      Tariff $8.500000 $0.000000 $0.080000 $0.320255'
+    note: Price-table rows (pdf:p1); after the SAC their three prices sit in the 'Super Off-Peak (Low Period)', 'Off-Peak
+      (Mid Period)' and 'Peak (High Period)' columns, the only rows priced there. The table footnote says the times are on
+      page 2.
 - id: pwc-2425-sc-anytime-energy
   doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
   fin_year: 2024-25
@@ -235,11 +246,26 @@ tou_schedules:
   - codes:
     - Tariff 1
     - Tariff 2
+    applies_to: energy
+    locator: pdf:p1
+    quote: 'Tariff 1: Residential Tariff $2.000000 $0.060375 Tariff 2: Non-residential Tariff $2.000000 $0.070000'
+    note: Price-table rows (pdf:p1); the price after the SAC is in the 'Anytime Energy Charge' column, whose period is 'Anytime
+      Energy' on pdf:p2.
+  - codes:
     - Tariff 4
+    applies_to: energy
+    locator: pdf:p1
+    quote: 'Tariff 4: Unmetered Tariff $0.098346'
+    note: Price-table row (pdf:p1); Tariff 4 has no SAC, so its one price is in the 'Anytime Energy Charge' column.
+  - codes:
     - Tariff 5
     - Tariff 6
     applies_to: energy
-    note: Tariffs priced in the Anytime Energy Charge column.
+    locator: pdf:p1
+    quote: 'Tariff 5: LV Majors Tariff $95.000000 $0.025000 $15.000000 $2.200000 (Above 750MWh pa) Tariff 6: HV Smart
+      Meter Tariff $110.000000 $0.030000 $6.500000 $1.829185'
+    note: Price-table rows (pdf:p1); the price after the SAC is in the 'Anytime Energy Charge' column, followed by the On Season
+      and Off Season demand charges.
 - id: pwc-2425-sc-seasonal-demand
   doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
   fin_year: 2024-25
@@ -278,8 +304,10 @@ tou_schedules:
     - Tariff 6
     applies_to: demand
     locator: pdf:p1
-    quote: On Season Off Season
-    note: Only Tariffs 5 and 6 carry On Season / Off Season demand prices in the price table.
+    quote: 'Tariff 5: LV Majors Tariff $95.000000 $0.025000 $15.000000 $2.200000 (Above 750MWh pa) Tariff 6: HV Smart
+      Meter Tariff $110.000000 $0.030000 $6.500000 $1.829185'
+    note: Price-table rows (pdf:p1); the last two prices are in the 'On Season' and 'Off Season' demand ($/kVA) columns, priced
+      only for Tariffs 5 and 6.
 - id: pwc-2526-sc-tou-energy
   doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
   fin_year: 2025-26
@@ -318,7 +346,8 @@ tou_schedules:
     months: 10,11,12,1,2,3
     season: 1 October – 31 March
     locator: pdf:p2
-    quote: 3pm to 9pm Monday to Friday (including public holidays) from
+    quote: High Period (Peak) Consumer are charged for the highest recorded demand during the peak period • 3pm to 9pm Monday
+      to Friday (including public holidays) from (regardless of season) each month 01 October to 31 March
   - period: off_peak
     label: Mid Period (Off Peak)
     days: weekday
@@ -389,8 +418,11 @@ tou_schedules:
     - Tariff 3c
     applies_to: energy
     locator: pdf:p1
-    quote: Mid Period (Off High Period
-    note: Only Tariffs 3a, 3b and 3c carry Low/Mid/High period energy prices in the price table.
+    quote: 'Tariff 3a: LV Smart Meter Tariff (Residential 0-160MWh pa) 1.604937 - - 0.036022 0.139095 - - Tariff 3b: LV Smart
+      Meter Tariff (Non-Residential 0-160MWh pa) 2.962992 - - 0.064647 0.280137 - - Tariff 3c: LV Smart Meter Tariff (160-750MWh
+      pa) 7.163350 - - 0.079593 0.262123'
+    note: Price-table rows (pdf:p1, columns SAC, Anytime (24/7), Low Period, Mid Period, High Period, On Season, Off Season);
+      only these rows carry Mid and High Period prices. The table footnote says the times are on page 2.
 - id: pwc-2526-sc-anytime-energy
   doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
   fin_year: 2025-26
@@ -410,11 +442,25 @@ tou_schedules:
   - codes:
     - Tariff 1
     - Tariff 2
+    applies_to: energy
+    locator: pdf:p1
+    quote: 'Tariff 1: Residential Tariff 3.204743 0.085460 - - - - - Tariff 2: Non-residential Tariff 0.517221 0.016850'
+    note: Price-table rows (pdf:p1); the price after the SAC is in the 'Anytime (24/7)' column, whose period is 'Anytime Energy'
+      on pdf:p2.
+  - codes:
     - Tariff 4
+    applies_to: energy
+    locator: pdf:p1
+    quote: 'Tariff 4: Unmetered Tariff - 0.157983'
+    note: Price-table row (pdf:p1); '-' under SAC, then the 'Anytime (24/7)' price.
+  - codes:
     - Tariff 5
     - Tariff 6
     applies_to: energy
-    note: Tariffs priced in the Anytime Energy Charge column.
+    locator: pdf:p1
+    quote: 'Tariff 5: LV Majors Tariff (Above 750MWh pa) 93.081026 0.025597 - - - 14.892964 2.792431 Tariff 6: HV Smart
+      Meter Tariff 105.071737 0.029694 - - - 7.309338 1.999506'
+    note: Price-table rows (pdf:p1); the price after the SAC is in the 'Anytime (24/7)' column.
 - id: pwc-2526-sc-seasonal-demand
   doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
   fin_year: 2025-26
@@ -453,8 +499,10 @@ tou_schedules:
     - Tariff 6
     applies_to: demand
     locator: pdf:p1
-    quote: On Season Off Season
-    note: Only Tariffs 5 and 6 carry On Season / Off Season demand prices in the price table.
+    quote: 'Tariff 5: LV Majors Tariff (Above 750MWh pa) 93.081026 0.025597 - - - 14.892964 2.792431 Tariff 6: HV Smart
+      Meter Tariff 105.071737 0.029694 - - - 7.309338 1.999506'
+    note: Price-table rows (pdf:p1); the last two prices are in the 'On Season' and 'Off Season' demand ($/kVA) columns, priced
+      only for Tariffs 5 and 6.
 - id: pwc-2425-np-tou-energy
   doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
   fin_year: 2024-25
@@ -464,8 +512,8 @@ tou_schedules:
   covers_full_day: true
   locator: pdf:p14
   quote: 'The different periods for charging energy in the 2024-29 regulatory control period are:'
-  note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)'). Windows also
-    tabulated on pdf:p17.
+  note: Public holidays as weekdays from Table 2.5 (pdf:p17), which gives the High Period as '3pm to 9pm Monday to Friday (including
+    public Holidays) from 01 October to 31 March'; the text list of periods says only 'weekdays'.
   windows:
   - period: off_peak
     label: Mid Period (Off Peak)
@@ -638,8 +686,8 @@ tou_schedules:
   covers_full_day: true
   locator: pdf:p12
   quote: 'The different periods for charging energy in the 2024-29 regulatory control period are:'
-  note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)'). Windows also
-    tabulated on pdf:p13.
+  note: Public holidays as weekdays from Table 4 (pdf:p13), which gives the High Period as '3pm to 9pm Monday to Friday (including
+    public Holidays) from 01 October to 31 March'; the text list of periods says only 'weekdays'.
   windows:
   - period: off_peak
     label: Mid Period (Off Peak)
@@ -801,9 +849,12 @@ tou_schedules:
     - Tariff 5
     - Tariff 6
     applies_to: demand
-    locator: pdf:p13
-    quote: For our major customers, i.e. LV customers consuming above 750MWh annually and all customers connected to the HV
-      network, an annual peak demand charge will continue to apply.
+    locator: pdf:p12
+    quote: Tariffs 5 and 6 customers are our major customers, either connected to our HV network or consuming above 750MWh
+      annually on our LV network. These tariffs are assigned an anytime energy tariff as these are also charged a time-of-use
+      demand (KVA) charge.
+    note: 'pdf:p13: for the major customers (LV above 750MWh and all HV) the annual peak demand charge is applied as an ''On''
+      season, 1 October to 31 March, and an ''Off'' season, 1 April to 30 September.'
 - id: pwc-2627-np-tou-energy
   doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
   fin_year: 2026-27
@@ -813,8 +864,8 @@ tou_schedules:
   covers_full_day: true
   locator: pdf:p14
   quote: 'The different periods for charging energy in the 2024-29 regulatory control period are:'
-  note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)'). Windows also
-    tabulated on pdf:p15.
+  note: Public holidays as weekdays from Table 2.3 (pdf:p15), which gives the High Period as '3pm to 9pm Monday to Friday (including
+    public Holidays) from 01 October to 31 March'; the text list of periods says only 'weekdays'.
   windows:
   - period: off_peak
     label: Mid Period (Off Peak)
@@ -976,9 +1027,12 @@ tou_schedules:
     - Tariff 5
     - Tariff 6
     applies_to: demand
-    locator: pdf:p15
-    quote: For our major customers, i.e. LV customers consuming above 750MWh annually and all customers connected to the HV
-      network, an annual peak demand charge will continue to apply.
+    locator: pdf:p14
+    quote: Tariffs 5 and 6 customers are our major customers, either connected to our HV network or consuming above 750MWh
+      annually on our LV network. These tariffs are assigned an anytime energy tariff as these are also charged a time-of-use
+      demand (KVA) charge.
+    note: 'pdf:p15: for the major customers (LV above 750MWh and all HV) the annual peak demand charge is applied as an ''On''
+      season, 1 October to 31 March, and an ''Off'' season, 1 April to 30 September.'
 demand_rules:
 - id: pwc-2324-sc-t3-demand
   doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2023-24_wayback.pdf
@@ -1003,7 +1057,8 @@ demand_rules:
   window_period: demand_window
   locator: pdf:p1
   quote: For all other customers annual peak charges apply.
-  note: Demand Charge* priced in $/kVA; the aggregation is not stated here.
+  note: Demand Charge* priced in $/kVA; 'all other customers' are those other than Tariff 3, and the Demand Charge* column
+    is priced only for Tariffs 3, 5, 6 and 7. The aggregation is not stated here.
   tariffs:
   - codes:
     - Tariff 5
@@ -1425,10 +1480,13 @@ eligibility:
   fin_year: 2023-24
   rule_type: voltage_level
   value_text: LV
-  locator: pdf:p11
-  quote: The Unmetered Tariff (Tariff 4) applies to connection points that with the agreement of Power and Water are unmetered
-    (type 7 metering).
-  note: Tariff 4 sits in the 'Low Voltage less than 750MWh Tariff Class' (section 2.1.1).
+  locator: pdf:p10
+  quote: 'LV <750MWh Tariff 1: Residential Tariff Residential customers consuming less than 750MWh p.a. per National Meter
+    Identifier with standard accumulation meters Tariff 2: Non-residential Tariff Non‐residential customers consuming less
+    than 750MWh p.a. per National Metering Identifier (NMI) with standard accumulation meters Tariff 3: LV Smart Meter Tariff
+    Customers consuming less than 750MWh p.a. per NMI with smart meters Tariff 4: Unmetered Tariff'
+  note: Table 2.1 lists Tariff 4 under tariff class 'LV <750MWh'; section 2.1.1 (pdf:p11) places it in the 'Low Voltage less
+    than 750MWh Tariff Class'.
 - codes:
   - Tariff 5
   doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
@@ -1508,7 +1566,7 @@ eligibility:
   rule_type: assignment
   value_text: assigned_by_distributor
   locator: pdf:p13
-  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and
+  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and tariff.
   note: Power and Water assigns tariffs by connection voltage, consumption, meter type and end use; reassignment can follow
     an annual review, a smart meter install, a new connection or a retailer/customer request.
 - codes:
@@ -2081,11 +2139,10 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: any
-  locator: pdf:p13
-  quote: • Total electricity consumption is greater than 160MWh but less than 750MWh annually per NMI. • Electricity is supplied
-    at a voltage defined as low voltage – nominally 230 to 400V. • The customer is connected to the low voltage network via
-    a smart meter. • The premises is intended to be used for either residential or non-residential purposes.
-  note: 'Continuation of the Table 2.2 row headed ''Tariff 3c Applies to customers where: LV Smart Meter'' (pdf:p12).'
+  locator: pdf:p11
+  quote: 3c. LV Smart Meter Residential and non-residential customers connected to the low voltage network with a smart meter
+    consuming above 160MWh and less than 750MWh annually, per NMI
+  note: Table 2.1 row for Tariff 3c; Table 2.2 (pdf:p12-13) gives the same conditions.
 - codes:
   - Tariff 3c
   doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
@@ -2094,11 +2151,10 @@ eligibility:
   operator: gt
   value_num: 160
   value_unit: MWh/yr
-  locator: pdf:p13
-  quote: • Total electricity consumption is greater than 160MWh but less than 750MWh annually per NMI. • Electricity is supplied
-    at a voltage defined as low voltage – nominally 230 to 400V. • The customer is connected to the low voltage network via
-    a smart meter. • The premises is intended to be used for either residential or non-residential purposes.
-  note: 'Continuation of the Table 2.2 row headed ''Tariff 3c Applies to customers where: LV Smart Meter'' (pdf:p12).'
+  locator: pdf:p11
+  quote: 3c. LV Smart Meter Residential and non-residential customers connected to the low voltage network with a smart meter
+    consuming above 160MWh and less than 750MWh annually, per NMI
+  note: Table 2.1 row for Tariff 3c; Table 2.2 (pdf:p12-13) gives the same conditions.
 - codes:
   - Tariff 3c
   doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
@@ -2107,33 +2163,30 @@ eligibility:
   operator: lt
   value_num: 750
   value_unit: MWh/yr
-  locator: pdf:p13
-  quote: • Total electricity consumption is greater than 160MWh but less than 750MWh annually per NMI. • Electricity is supplied
-    at a voltage defined as low voltage – nominally 230 to 400V. • The customer is connected to the low voltage network via
-    a smart meter. • The premises is intended to be used for either residential or non-residential purposes.
-  note: 'Continuation of the Table 2.2 row headed ''Tariff 3c Applies to customers where: LV Smart Meter'' (pdf:p12).'
+  locator: pdf:p11
+  quote: 3c. LV Smart Meter Residential and non-residential customers connected to the low voltage network with a smart meter
+    consuming above 160MWh and less than 750MWh annually, per NMI
+  note: Table 2.1 row for Tariff 3c; Table 2.2 (pdf:p12-13) gives the same conditions.
 - codes:
   - Tariff 3c
   doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
   fin_year: 2024-25
   rule_type: voltage_level
   value_text: LV
-  locator: pdf:p13
-  quote: • Total electricity consumption is greater than 160MWh but less than 750MWh annually per NMI. • Electricity is supplied
-    at a voltage defined as low voltage – nominally 230 to 400V. • The customer is connected to the low voltage network via
-    a smart meter. • The premises is intended to be used for either residential or non-residential purposes.
-  note: 'Continuation of the Table 2.2 row headed ''Tariff 3c Applies to customers where: LV Smart Meter'' (pdf:p12).'
+  locator: pdf:p11
+  quote: 3c. LV Smart Meter Residential and non-residential customers connected to the low voltage network with a smart meter
+    consuming above 160MWh and less than 750MWh annually, per NMI
+  note: Table 2.1 row for Tariff 3c; Table 2.2 (pdf:p12-13) gives the same conditions.
 - codes:
   - Tariff 3c
   doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
   fin_year: 2024-25
   rule_type: meter_type
   value_text: smart
-  locator: pdf:p13
-  quote: • Total electricity consumption is greater than 160MWh but less than 750MWh annually per NMI. • Electricity is supplied
-    at a voltage defined as low voltage – nominally 230 to 400V. • The customer is connected to the low voltage network via
-    a smart meter. • The premises is intended to be used for either residential or non-residential purposes.
-  note: 'Continuation of the Table 2.2 row headed ''Tariff 3c Applies to customers where: LV Smart Meter'' (pdf:p12).'
+  locator: pdf:p11
+  quote: 3c. LV Smart Meter Residential and non-residential customers connected to the low voltage network with a smart meter
+    consuming above 160MWh and less than 750MWh annually, per NMI
+  note: Table 2.1 row for Tariff 3c; Table 2.2 (pdf:p12-13) gives the same conditions.
 - codes:
   - Tariff 4
   doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
@@ -2219,7 +2272,7 @@ eligibility:
   rule_type: assignment
   value_text: assigned_by_distributor
   locator: pdf:p20
-  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and
+  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and tariff.
   note: Power and Water assigns tariffs by connection voltage, consumption, meter type and end use.
 - codes:
   - Tariff 1
@@ -2528,7 +2581,7 @@ eligibility:
   rule_type: assignment
   value_text: assigned_by_distributor
   locator: pdf:p15
-  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and
+  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and tariff.
   note: Power and Water assigns tariffs by connection voltage, consumption, meter type and end use.
 - codes:
   - Tariff 1
@@ -2843,7 +2896,7 @@ eligibility:
   rule_type: assignment
   value_text: assigned_by_distributor
   locator: pdf:p17
-  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and
+  quote: Power and Water has a two-step process to assign or reassign customers to an appropriate tariff class and tariff.
   note: Power and Water assigns tariffs by connection voltage, consumption, meter type and end use.
 - codes:
   - Tariff 1
@@ -2853,7 +2906,7 @@ eligibility:
   value_text: LV
   locator: xlsx:Tariff schedule!D86
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 86, whose Code cell E86 is ''Tariff 1''.'
 - codes:
   - Tariff 1
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2864,7 +2917,7 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!D86
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 86, whose Code cell E86 is ''Tariff 1''.'
 - codes:
   - Tariff 1
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2873,7 +2926,7 @@ eligibility:
   value_text: residential
   locator: xlsx:Tariff schedule!C86
   quote: Residential Accumulation
-  note: From the tariff name.
+  note: 'tariff name column of row 86, whose Code cell E86 is ''Tariff 1''.'
 - codes:
   - Tariff 1
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2882,7 +2935,7 @@ eligibility:
   value_text: accumulation
   locator: xlsx:Tariff schedule!C86
   quote: Residential Accumulation
-  note: From the tariff name.
+  note: 'tariff name column of row 86, whose Code cell E86 is ''Tariff 1''.'
 - codes:
   - Tariff 2
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2891,7 +2944,7 @@ eligibility:
   value_text: LV
   locator: xlsx:Tariff schedule!D87
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 87, whose Code cell E87 is ''Tariff 2''.'
 - codes:
   - Tariff 2
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2902,7 +2955,7 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!D87
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 87, whose Code cell E87 is ''Tariff 2''.'
 - codes:
   - Tariff 2
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2911,7 +2964,7 @@ eligibility:
   value_text: business
   locator: xlsx:Tariff schedule!C87
   quote: Non-Residential Accumulation
-  note: From the tariff name.
+  note: 'tariff name column of row 87, whose Code cell E87 is ''Tariff 2''.'
 - codes:
   - Tariff 2
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2920,7 +2973,7 @@ eligibility:
   value_text: accumulation
   locator: xlsx:Tariff schedule!C87
   quote: Non-Residential Accumulation
-  note: From the tariff name.
+  note: 'tariff name column of row 87, whose Code cell E87 is ''Tariff 2''.'
 - codes:
   - Tariff 3a
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2929,7 +2982,7 @@ eligibility:
   value_text: LV
   locator: xlsx:Tariff schedule!D88
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 88, whose Code cell E88 is ''Tariff 3a''.'
 - codes:
   - Tariff 3a
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2940,7 +2993,7 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!D88
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 88, whose Code cell E88 is ''Tariff 3a''.'
 - codes:
   - Tariff 3a
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2949,7 +3002,7 @@ eligibility:
   value_text: residential
   locator: xlsx:Tariff schedule!C88
   quote: LV Smart Meter - Residential
-  note: From the tariff name.
+  note: 'tariff name column of row 88, whose Code cell E88 is ''Tariff 3a''.'
 - codes:
   - Tariff 3a
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2958,7 +3011,7 @@ eligibility:
   value_text: smart
   locator: xlsx:Tariff schedule!C88
   quote: LV Smart Meter - Residential
-  note: From the tariff name.
+  note: 'tariff name column of row 88, whose Code cell E88 is ''Tariff 3a''.'
 - codes:
   - Tariff 3b
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2967,7 +3020,7 @@ eligibility:
   value_text: LV
   locator: xlsx:Tariff schedule!D89
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 89, whose Code cell E89 is ''Tariff 3b''.'
 - codes:
   - Tariff 3b
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2978,7 +3031,7 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!D89
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 89, whose Code cell E89 is ''Tariff 3b''.'
 - codes:
   - Tariff 3b
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2987,7 +3040,7 @@ eligibility:
   value_text: smart
   locator: xlsx:Tariff schedule!C89
   quote: LV Smart Meter - Small Commercial
-  note: From the tariff name.
+  note: 'tariff name column of row 89, whose Code cell E89 is ''Tariff 3b''.'
 - codes:
   - Tariff 3c
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -2996,7 +3049,7 @@ eligibility:
   value_text: LV
   locator: xlsx:Tariff schedule!D90
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 90, whose Code cell E90 is ''Tariff 3c''.'
 - codes:
   - Tariff 3c
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -3007,7 +3060,7 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!D90
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 90, whose Code cell E90 is ''Tariff 3c''.'
 - codes:
   - Tariff 3c
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -3016,7 +3069,7 @@ eligibility:
   value_text: smart
   locator: xlsx:Tariff schedule!C90
   quote: LV Smart Meter - Large Commercial
-  note: From the tariff name.
+  note: 'tariff name column of row 90, whose Code cell E90 is ''Tariff 3c''.'
 - codes:
   - Tariff 4
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -3025,7 +3078,7 @@ eligibility:
   value_text: LV
   locator: xlsx:Tariff schedule!D91
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 91, whose Code cell E91 is ''Tariff 4''.'
 - codes:
   - Tariff 4
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -3036,7 +3089,7 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!D91
   quote: LV <750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 91, whose Code cell E91 is ''Tariff 4''.'
 - codes:
   - Tariff 4
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -3045,7 +3098,7 @@ eligibility:
   value_text: unmetered
   locator: xlsx:Tariff schedule!C91
   quote: Unmetered
-  note: From the tariff name.
+  note: 'tariff name column of row 91, whose Code cell E91 is ''Tariff 4''.'
 - codes:
   - Tariff 4
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -3054,7 +3107,7 @@ eligibility:
   value_text: unmetered
   locator: xlsx:Tariff schedule!C91
   quote: Unmetered
-  note: From the tariff name.
+  note: 'tariff name column of row 91, whose Code cell E91 is ''Tariff 4''.'
 - codes:
   - Tariff 5
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -3063,7 +3116,7 @@ eligibility:
   value_text: LV
   locator: xlsx:Tariff schedule!D93
   quote: LV >750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 93, whose Code cell E93 is ''Tariff 5''.'
 - codes:
   - Tariff 5
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -3074,7 +3127,7 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!D93
   quote: LV >750MWh
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 93, whose Code cell E93 is ''Tariff 5''.'
 - codes:
   - Tariff 6
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -3083,7 +3136,7 @@ eligibility:
   value_text: HV
   locator: xlsx:Tariff schedule!D95
   quote: HV
-  note: Tariff class column.
+  note: '''Tariff class'' column (header D83) of row 95, whose Code cell E95 is ''Tariff 6''.'
 - codes:
   - Tariff 6
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_PWC_2024-25.xlsx
@@ -3092,39 +3145,43 @@ eligibility:
   value_text: smart
   locator: xlsx:Tariff schedule!C95
   quote: HV Smart Meters
-  note: From the tariff name.
+  note: 'tariff name column of row 95, whose Code cell E95 is ''Tariff 6''.'
 relations:
 - from: Tariff 3
   type: replaced_by
   to: Tariff 3a
   fin_year: 2024-25
   doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
-  locator: pdf:p5
-  quote: Tariff 3 is segmented into three individual tariffs to better reflect the NT’s customer base and cost-to-
-  note: The three tariffs are Tariffs 3a, 3b and 3c (LV Smart Meter Residential / Non-Residential 0-160MWh, 160-750MWh).
+  locator: pdf:p14
+  quote: The time of use energy charge only applies to our tariff 3 customers, covering tariffs 3a, 3b and 3c
+  note: 'pdf:p5 (executive summary): ''Tariff 3 is segmented into three individual tariffs to better reflect the NT’s customer
+    base and cost-to-serve for these cohorts.'''
 - from: Tariff 3
   type: replaced_by
   to: Tariff 3b
   fin_year: 2024-25
   doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
-  locator: pdf:p5
-  quote: Tariff 3 is segmented into three individual tariffs to better reflect the NT’s customer base and cost-to-
-  note: The three tariffs are Tariffs 3a, 3b and 3c (LV Smart Meter Residential / Non-Residential 0-160MWh, 160-750MWh).
+  locator: pdf:p14
+  quote: The time of use energy charge only applies to our tariff 3 customers, covering tariffs 3a, 3b and 3c
+  note: 'pdf:p5 (executive summary): ''Tariff 3 is segmented into three individual tariffs to better reflect the NT’s customer
+    base and cost-to-serve for these cohorts.'''
 - from: Tariff 3
   type: replaced_by
   to: Tariff 3c
   fin_year: 2024-25
   doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
-  locator: pdf:p5
-  quote: Tariff 3 is segmented into three individual tariffs to better reflect the NT’s customer base and cost-to-
-  note: The three tariffs are Tariffs 3a, 3b and 3c (LV Smart Meter Residential / Non-Residential 0-160MWh, 160-750MWh).
+  locator: pdf:p14
+  quote: The time of use energy charge only applies to our tariff 3 customers, covering tariffs 3a, 3b and 3c
+  note: 'pdf:p5 (executive summary): ''Tariff 3 is segmented into three individual tariffs to better reflect the NT’s customer
+    base and cost-to-serve for these cohorts.'''
 - from: Tariff 7
   type: replaced_by
   to: Tariff 6
   fin_year: 2024-25
   doc: sources/aer/dnsp_copies/PWC_2024-25_Pricing_Proposal_8May2024.pdf
-  locator: pdf:p5
-  quote: Combined our two high voltage (HV) tariffs into one
-  note: The two 2023-24 HV tariffs were Tariff 6 (HV Minors) and Tariff 7 (HV Majors); from 2024-25 the only HV tariff is
-    Tariff 6 (HV Smart Meters). The code mapping is read from the two years' tariff tables.
+  locator: pdf:p6
+  quote: the proposed alignment of the two HV tariffs, tariff 6 (HV consuming less than 750MWh’s annually) and tariff 7 (HV
+    consuming above 750MWh’s annually)
+  note: 'pdf:p5: ''Combined our two high voltage (HV) tariffs into one''; pdf:p13: ''Customers connected to the High Voltage
+    network (at a voltage of 11 kilovolts (kV) or higher) will be assigned to Tariff 6.'''
 flags: []

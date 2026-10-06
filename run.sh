@@ -9,7 +9,7 @@ cd "$(dirname "$0")"
 if [ ! -x .venv/bin/python ]; then
   uv venv --python 3.12 .venv
 fi
-uv pip install --python .venv/bin/python openpyxl pandas pdfplumber xlrd rapidocr_onnxruntime markdown
+uv pip install --python .venv/bin/python openpyxl pandas pdfplumber xlrd rapidocr_onnxruntime markdown pyyaml
 PY=.venv/bin/python
 mkdir -p out/dnsp
 if [ "${1:-}" != "--no-fetch" ]; then echo "== sources"; $PY scripts/fetch_sources.py; fi

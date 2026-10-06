@@ -71,55 +71,82 @@ tou_schedules:
   - codes: [N71]
     applies_to: energy
     locator: pdf:p7
-    quote: High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption are calculated using the time of
-      day definitions outlined in section 6.1.
+    quote: Residential Seasonal TOU Tariff – N71
+    note: Heading of the N71 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
   - codes: [N91]
     applies_to: energy
     locator: pdf:p10
-    quote: High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption are calculated using the time of
-      day definitions outlined in section 6.1.
+    quote: General Supply Seasonal TOU Tariff – N91
+    note: Heading of the N91 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
   - codes: [N72]
     applies_to: energy
     locator: pdf:p7
-    quote: Solar Soak and Energy consumption, High-season and Low-season demand values are calculated using the time of day
-      definitions outlined in section 6.1.
-    note: N72 has a Solar Soak energy rate and one energy rate for all other times.
-  - codes: [N72, N73, N92, N93]
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section states 'Solar Soak and Energy consumption, High-season and Low-season demand
+      values are calculated using the time of day definitions outlined in section 6.1.' N72 has a Solar Soak energy rate and one
+      energy rate for all other times.
+  - codes: [N72]
     applies_to: demand
     locator: pdf:p7
-    quote: High-season and Low-season demand charges (¢/kW/day)
-    note: Each of N72, N73, N92 and N93 states 'Demand charges apply to Peak periods only.'
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N73]
+    applies_to: demand
+    locator: pdf:p7
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N92]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N93]
+    applies_to: demand
+    locator: pdf:p11
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
   - codes: [N73]
     applies_to: energy
     locator: pdf:p7
-    quote: High-season, Low-season demand and Solar Soak and Energy consumption are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: N73 has a Solar Soak energy rate and one energy rate for all other times.
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N73 has a Solar Soak energy rate and one energy
+      rate for all other times.
   - codes: [N92]
     applies_to: energy
     locator: pdf:p10
-    quote: High-season, Low-season demand and Solar Soak and Energy consumption are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: N92 has a Solar Soak energy rate and one energy rate for all other times.
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N92 has a Solar Soak energy rate and one energy
+      rate for all other times.
   - codes: [N93]
     applies_to: energy
     locator: pdf:p11
-    quote: High-season, Low-season demand and Solar Soak and Energy consumption are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: N93 has a Solar Soak energy rate and one energy rate for all other times.
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N93 has a Solar Soak energy rate and one energy
+      rate for all other times.
   - codes: [N61]
     applies_to: export
     locator: pdf:p8
-    quote: High-season Peak, Low-season Peak and Solar Soak energy exports are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: Export charge (block 2) in the Solar Soak period; export rewards in High-season and Low-season Peak.
+    quote: Prosumer – N61
+    note: Heading of the N61 section under 4.1.1 Residential; the section states 'High-season Peak, Low-season Peak and Solar
+      Soak energy exports are calculated using the time of day definitions outlined in section 6.1.' Export charge (block 2) in
+      the Solar Soak period; export rewards in High-season and Low-season Peak.
   - codes: [N95]
     applies_to: all
     locator: pdf:p11
-    quote: High-season Peak, Low-season Peak and Solar Soak energy exports are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: N95 imports use Peak/Solar Soak/Off Peak energy rates; exports are charged in Solar Soak (block 2) and rewarded
-      in High-/Low-season Peak.
+    quote: Low Voltage Grid Connected Storage – N95
+    note: Heading of the N95 section; the section lists 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      charges (¢/kWh)' for energy consumed from the network and states 'High-season Peak, Low-season Peak and Solar Soak energy
+      exports are calculated using the time of day definitions outlined in section 6.1.' Exports are charged in Solar Soak (block
+      2) and rewarded in High-/Low-season Peak.
 - id: endeavour-2024-25-large-tou
   doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
   fin_year: 2024-25
@@ -166,23 +193,45 @@ tou_schedules:
     start: 00:00
     end: '24:00'
   tariffs:
-  - codes: [N19, N20, N29, N39]
+  - codes: [N19]
     applies_to: all
     locator: pdf:p12
-    quote: Energy consumption and demand charges are calculated using the time of day definitions outlined in section 6.1.
-      Demand charges apply to Peak periods only.
-    note: The same sentence is repeated for N20, N29 and N39 and for the Site Specific tariffs (section 4.3).
+    quote: 4.1.4. Large Demand Low Voltage Seasonal Time of Use Demand Tariff – N19
+    note: Section 4.1.4 Large Demand; the N19 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page). Section 6.1 gives these
+      periods for 'Large Demand and Site Specific Pricing Options'.
+  - codes: [N20]
+    applies_to: all
+    locator: pdf:p12
+    quote: Low Voltage Seasonal Time of Use Demand Tariff (Embedded Network) – N20
+    note: Section 4.1.4 Large Demand; the N20 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p13
+    quote: High Voltage Seasonal Time of Use Demand Tariff – N29
+    note: Section 4.1.4 Large Demand; the N29 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p14
+    quote: Sub-transmission Seasonal Time of Use Demand Tariff – N39
+    note: Section 4.1.4 Large Demand; the N39 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page).
   - codes: [N89]
     applies_to: energy
     locator: pdf:p13
-    quote: High-season Peak, Low-season Peak and Off Peak energy consumption is calculated under the time of day definitions
-      outlined in section 6.1.
+    quote: Low Voltage Seasonal Time of Use Transitional Tariff – N89
+    note: Section 4.1.4 Large Demand; the N89 section states 'High-season Peak, Low-season Peak and Off Peak energy consumption
+      is calculated under the time of day definitions outlined in section 6.1.' (same page).
   - codes: [NS19, NS29, NS39]
     applies_to: all
-    locator: pdf:p16
-    quote: The energy consumption and demand charges for these Pricing Options are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: Section 4.4 Obsolete Pricing Options; Table 7 maps NS19/NS29/NS39 to N19/N29/N39 (Large Demand pricing options).
+    locator: pdf:p33
+    quote: NS19 LV Demand TOU Solar (Net) N19 NESN NS29 HV Demand TOU Solar (Net) N29 NESN NS39 ST Demand TOU Solar (Net) N39
+      NESN
+    note: 'Table 7 maps the obsolete codes NS19/NS29/NS39 to the Large Demand tariffs N19/N29/N39. Section 4.4 Obsolete Pricing
+      Options (p16): ''The energy consumption and demand charges for these Pricing Options are calculated using the time of day
+      definitions outlined in section 6.1.'''
 - id: endeavour-2024-25-cl1-supply
   doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
   fin_year: 2024-25
@@ -193,8 +242,9 @@ tou_schedules:
   locator: pdf:p26
   quote: so that supply may not be available between 7:00am and 10:00pm during Eastern Standard Time (EST) and Daylight Saving
     Time (DST). Supply will be made available for selected periods between 10:00pm and 7:00am (EST and DST).
-  note: 'Supply is given for selected periods within the window, not necessarily all of it. Controlled Load 2 (N54) has no
-    stated window: ''available for restricted periods not exceeding 17 hours in any period of 24 hours''.'
+  note: 'Supply is given for selected periods within the window, not necessarily all of it. Controlled Load 2 (N54) has no stated
+    window: ''electricity is available for restricted periods not exceeding a total of 17 hours in any period of 24 hours''
+    (section 4.1.2).'
   windows:
   - period: controlled_load_supply
     label: selected periods between 10:00pm and 7:00am
@@ -209,6 +259,10 @@ tou_schedules:
   tariffs:
   - codes: [N50]
     applies_to: controlled_load
+    locator: pdf:p8
+    quote: Controlled Load 1 (N50) applies where supply to approved specified appliances is controlled such that supply may not
+      be available between 7:00am and 10:00pm
+    note: Section 4.1.2 Controlled Load; section 8.1 (the schedule quote) gives the supply hours.
   - codes: [NC01]
     applies_to: controlled_load
     locator: pdf:p32
@@ -300,55 +354,81 @@ tou_schedules:
   - codes: [N71]
     applies_to: energy
     locator: pdf:p6
-    quote: High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption are calculated using the time of
-      day definitions outlined in section 6.1.
+    quote: Residential Seasonal TOU Tariff – N71
+    note: Heading of the N71 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
   - codes: [N91]
     applies_to: energy
     locator: pdf:p9
-    quote: High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption are calculated using the time of
-      day definitions outlined in section 6.1.
+    quote: General Supply Seasonal TOU Tariff – N91
+    note: Heading of the N91 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
   - codes: [N72]
     applies_to: energy
     locator: pdf:p6
-    quote: Solar Soak and Energy consumption, High-season and Low-season demand values are calculated using the time of day
-      definitions outlined in section 6.1.
-    note: N72 has a Solar Soak energy rate and one energy rate for all other times.
-  - codes: [N72, N73, N92, N93]
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section states 'Solar Soak and Energy consumption, High-season and Low-season demand
+      values are calculated using the time of day definitions outlined in section 6.1.' N72 has a Solar Soak energy rate and one
+      energy rate for all other times.
+  - codes: [N72]
     applies_to: demand
     locator: pdf:p6
-    quote: High-season and Low-season demand charges (¢/kW/day)
-    note: Each of N72, N73, N92 and N93 states 'Demand charges apply to Peak periods only.'
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N73]
+    applies_to: demand
+    locator: pdf:p6
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N92]
+    applies_to: demand
+    locator: pdf:p9
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N93]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
   - codes: [N73]
     applies_to: energy
     locator: pdf:p6
-    quote: High-season, Low-season demand and Solar Soak and Energy consumption are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: N73 has a Solar Soak energy rate and one energy rate for all other times.
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N73 has a Solar Soak energy rate and one energy
+      rate for all other times.
   - codes: [N92]
     applies_to: energy
     locator: pdf:p9
-    quote: High-season, Low-season demand and Solar Soak and Energy consumption are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: N92 has a Solar Soak energy rate and one energy rate for all other times.
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N92 has a Solar Soak energy rate and one energy
+      rate for all other times.
   - codes: [N93]
     applies_to: energy
     locator: pdf:p10
-    quote: High-season, Low-season demand and Solar Soak and Energy consumption are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: N93 has a Solar Soak energy rate and one energy rate for all other times.
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N93 has a Solar Soak energy rate and one energy
+      rate for all other times.
   - codes: [N61]
     applies_to: export
     locator: pdf:p7
-    quote: High-season Peak, Low-season Peak and Solar Soak energy exports are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: Export charge (block 2) in the Solar Soak period; export rewards in High-season and Low-season Peak.
+    quote: Prosumer – N61
+    note: Heading of the N61 section under 4.1.1 Residential; the section states 'High-season Peak, Low-season Peak and Solar
+      Soak energy exports are calculated using the time of day definitions outlined in section 6.1.' Export charge (block 2) in
+      the Solar Soak period; export rewards in High-season and Low-season Peak.
   - codes: [N95]
     applies_to: all
     locator: pdf:p10
-    quote: High-season Peak, Low-season Peak and Solar Soak energy imports and exports are calculated using the time of day
-      definitions outlined in section 6.1.
-    note: N95 imports use Peak/Solar Soak/Off Peak energy rates; exports are charged in Solar Soak (block 2) and rewarded
-      in High-/Low-season Peak.
+    quote: Low Voltage Grid Connected Storage – N95
+    note: Heading of the N95 section; the section states 'High-season Peak, Low-season Peak and Solar Soak energy imports and
+      exports are calculated using the time of day definitions outlined in section 6.1.' Exports are charged in Solar Soak (block
+      2) and rewarded in High-/Low-season Peak.
 - id: endeavour-2025-26-large-tou
   doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
   fin_year: 2025-26
@@ -395,17 +475,37 @@ tou_schedules:
     start: 00:00
     end: '24:00'
   tariffs:
-  - codes: [N19, N20, N29, N39]
+  - codes: [N19]
     applies_to: all
     locator: pdf:p11
-    quote: Energy consumption and demand charges are calculated using the time of day definitions outlined in section 6.1.
-      Demand charges apply to Peak periods only.
-    note: The same sentence is repeated for N20, N29 and N39 and for the Site Specific tariffs (section 4.3).
+    quote: 4.1.4. Large Demand Low Voltage Seasonal Time of Use Demand Tariff – N19
+    note: Section 4.1.4 Large Demand; the N19 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page). Section 6.1 gives these
+      periods for 'Large Demand and Site Specific Pricing Options'.
+  - codes: [N20]
+    applies_to: all
+    locator: pdf:p11
+    quote: Low Voltage Seasonal Time of Use Demand Tariff (Embedded Network) – N20
+    note: Section 4.1.4 Large Demand; the N20 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p12
+    quote: High Voltage Seasonal Time of Use Demand Tariff – N29
+    note: Section 4.1.4 Large Demand; the N29 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p13
+    quote: Sub-transmission Seasonal Time of Use Demand Tariff – N39
+    note: Section 4.1.4 Large Demand; the N39 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page).
   - codes: [N89]
     applies_to: energy
     locator: pdf:p12
-    quote: High-season Peak, Low-season Peak and Off Peak energy consumption is calculated under the time of day definitions
-      outlined in section 6.1.
+    quote: Low Voltage Seasonal Time of Use Transitional Tariff – N89
+    note: Section 4.1.4 Large Demand; the N89 section states 'High-season Peak, Low-season Peak and Off Peak energy consumption
+      is calculated under the time of day definitions outlined in section 6.1.' (same page).
 - id: endeavour-2025-26-cl1-supply
   doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
   fin_year: 2025-26
@@ -416,8 +516,9 @@ tou_schedules:
   locator: pdf:p25
   quote: so that supply may not be available between 7:00am and 10:00pm during Eastern Standard Time (EST) and Daylight Saving
     Time (DST). Supply will be made available for selected periods between 10:00pm and 7:00am (EST and DST).
-  note: 'Supply is given for selected periods within the window, not necessarily all of it. Controlled Load 2 (N54) has no
-    stated window: ''available for restricted periods not exceeding 17 hours in any period of 24 hours''.'
+  note: 'Supply is given for selected periods within the window, not necessarily all of it. Controlled Load 2 (N54) has no stated
+    window: ''electricity is available for restricted periods not exceeding a total of 17 hours in any period of 24 hours''
+    (section 4.1.2).'
   windows:
   - period: controlled_load_supply
     label: selected periods between 10:00pm and 7:00am
@@ -432,6 +533,10 @@ tou_schedules:
   tariffs:
   - codes: [N50]
     applies_to: controlled_load
+    locator: pdf:p7
+    quote: Controlled Load 1 (N50) applies where supply to approved specified appliances is controlled such that supply may not
+      be available between 7:00am and 10:00pm
+    note: Section 4.1.2 Controlled Load; section 8.1 (the schedule quote) gives the supply hours.
 - id: endeavour-2026-27-res-gs-tou
   doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
   fin_year: 2026-27
@@ -503,55 +608,81 @@ tou_schedules:
   - codes: [N71]
     applies_to: energy
     locator: pdf:p6
-    quote: High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption are calculated using the time of
-      day definitions outlined in section 6.1.
+    quote: Residential Seasonal TOU Tariff – N71
+    note: Heading of the N71 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
   - codes: [N91]
     applies_to: energy
     locator: pdf:p9
-    quote: High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption are calculated using the time of
-      day definitions outlined in section 6.1.
+    quote: General Supply Seasonal TOU Tariff – N91
+    note: Heading of the N91 section; the section states 'High-season Peak, Low-season Peak, Solar Soak and Off Peak energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.'
   - codes: [N72]
     applies_to: energy
     locator: pdf:p6
-    quote: Solar Soak and Energy consumption, High-season and Low-season demand values are calculated using the time of day
-      definitions outlined in section 6.1.
-    note: N72 has a Solar Soak energy rate and one energy rate for all other times.
-  - codes: [N72, N73, N92, N93]
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section states 'Solar Soak and Energy consumption, High-season and Low-season demand
+      values are calculated using the time of day definitions outlined in section 6.1.' N72 has a Solar Soak energy rate and one
+      energy rate for all other times.
+  - codes: [N72]
     applies_to: demand
     locator: pdf:p6
-    quote: High-season and Low-season demand charges (¢/kW/day)
-    note: Each of N72, N73, N92 and N93 states 'Demand charges apply to Peak periods only.'
+    quote: Residential Demand Tariff – N72
+    note: Heading of the N72 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N73]
+    applies_to: demand
+    locator: pdf:p6
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N92]
+    applies_to: demand
+    locator: pdf:p9
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
+  - codes: [N93]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section lists 'High-season and Low-season demand charges (¢/kW/day)' and 'Demand charges
+      apply to Peak periods only.'
   - codes: [N73]
     applies_to: energy
     locator: pdf:p6
-    quote: High-season, Low-season demand and Solar Soak and Energy consumption are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: N73 has a Solar Soak energy rate and one energy rate for all other times.
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the N73 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N73 has a Solar Soak energy rate and one energy
+      rate for all other times.
   - codes: [N92]
     applies_to: energy
     locator: pdf:p9
-    quote: High-season, Low-season demand and Solar Soak and Energy consumption are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: N92 has a Solar Soak energy rate and one energy rate for all other times.
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the N92 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N92 has a Solar Soak energy rate and one energy
+      rate for all other times.
   - codes: [N93]
     applies_to: energy
     locator: pdf:p10
-    quote: High-season, Low-season demand and Solar Soak and Energy consumption are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: N93 has a Solar Soak energy rate and one energy rate for all other times.
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the N93 section; the section states 'High-season, Low-season demand and Solar Soak and Energy consumption
+      are calculated using the time of day definitions outlined in section 6.1.' N93 has a Solar Soak energy rate and one energy
+      rate for all other times.
   - codes: [N61]
     applies_to: export
     locator: pdf:p7
-    quote: High-season Peak, Low-season Peak and Solar Soak energy exports are calculated using the time of day definitions
-      outlined in section 6.1.
-    note: Export charge (block 2) in the Solar Soak period; export rewards in High-season and Low-season Peak.
+    quote: Prosumer – N61
+    note: Heading of the N61 section under 4.1.1 Residential; the section states 'High-season Peak, Low-season Peak and Solar
+      Soak energy exports are calculated using the time of day definitions outlined in section 6.1.' Export charge (block 2) in
+      the Solar Soak period; export rewards in High-season and Low-season Peak.
   - codes: [N95]
     applies_to: all
     locator: pdf:p10
-    quote: High-season Peak, Low-season Peak and Solar Soak energy imports and exports are calculated using the time of day
-      definitions outlined in section 6.1.
-    note: N95 imports use Peak/Solar Soak/Off Peak energy rates; exports are charged in Solar Soak (block 2) and rewarded
-      in High-/Low-season Peak.
+    quote: Low Voltage Grid Connected Storage – N95
+    note: Heading of the N95 section; the section states 'High-season Peak, Low-season Peak and Solar Soak energy imports and
+      exports are calculated using the time of day definitions outlined in section 6.1.' Exports are charged in Solar Soak (block
+      2) and rewarded in High-/Low-season Peak.
 - id: endeavour-2026-27-large-tou
   doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
   fin_year: 2026-27
@@ -598,17 +729,37 @@ tou_schedules:
     start: 00:00
     end: '24:00'
   tariffs:
-  - codes: [N19, N20, N29, N39]
+  - codes: [N19]
     applies_to: all
     locator: pdf:p11
-    quote: Energy consumption and demand charges are calculated using the time of day definitions outlined in section 6.1.
-      Demand charges apply to Peak periods only.
-    note: The same sentence is repeated for N20, N29 and N39 and for the Site Specific tariffs (section 4.3).
+    quote: 4.1.4. Large Demand Low Voltage Seasonal Time of Use Demand Tariff – N19
+    note: Section 4.1.4 Large Demand; the N19 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page). Section 6.1 gives these
+      periods for 'Large Demand and Site Specific Pricing Options'.
+  - codes: [N20]
+    applies_to: all
+    locator: pdf:p11
+    quote: Low Voltage Seasonal Time of Use Demand Tariff (Embedded Network) – N20
+    note: Section 4.1.4 Large Demand; the N20 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p12
+    quote: High Voltage Seasonal Time of Use Demand Tariff – N29
+    note: Section 4.1.4 Large Demand; the N29 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (next page).
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p13
+    quote: Sub-transmission Seasonal Time of Use Demand Tariff – N39
+    note: Section 4.1.4 Large Demand; the N39 section states 'Energy consumption and demand charges are calculated using the time
+      of day definitions outlined in section 6.1. Demand charges apply to Peak periods only.' (same page).
   - codes: [N89]
     applies_to: energy
     locator: pdf:p12
-    quote: High-season Peak, Low-season Peak and Off Peak energy consumption is calculated under the time of day definitions
-      outlined in section 6.1.
+    quote: Low Voltage Seasonal Time of Use Transitional Tariff – N89
+    note: Section 4.1.4 Large Demand; the N89 section states 'High-season Peak, Low-season Peak and Off Peak energy consumption
+      is calculated under the time of day definitions outlined in section 6.1.' (same page).
 - id: endeavour-2026-27-cl1-supply
   doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
   fin_year: 2026-27
@@ -619,8 +770,9 @@ tou_schedules:
   locator: pdf:p25
   quote: so that supply may not be available between 7:00am and 10:00pm during Eastern Standard Time (EST) and Daylight Saving
     Time (DST). Supply will be made available for selected periods between 10:00pm and 7:00am (EST and DST).
-  note: 'Supply is given for selected periods within the window, not necessarily all of it. Controlled Load 2 (N54) has no
-    stated window: ''available for restricted periods not exceeding 17 hours in any period of 24 hours''.'
+  note: 'Supply is given for selected periods within the window, not necessarily all of it. Controlled Load 2 (N54) has no stated
+    window: ''electricity is available for restricted periods not exceeding a total of 17 hours in any period of 24 hours''
+    (section 4.1.2).'
   windows:
   - period: controlled_load_supply
     label: selected periods between 10:00pm and 7:00am
@@ -635,6 +787,10 @@ tou_schedules:
   tariffs:
   - codes: [N50]
     applies_to: controlled_load
+    locator: pdf:p7
+    quote: Controlled Load 1 (N50) applies where supply to approved specified appliances is controlled such that supply may not
+      be available between 7:00am and 10:00pm
+    note: Section 4.1.2 Controlled Load; section 8.1 (the schedule quote) gives the supply hours.
 - id: endeavour-2023-24-stou
   doc: sources/aer/2023-24_price_lists/Endeavour_2023-24_Pricing_Proposal_31Mar2023.pdf
   fin_year: 2023-24
@@ -739,8 +895,10 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p25
-  quote: 13:00 and 20:00 on business days. Shoulder Energy c/kWh Charge applied to energy consumed between 07:00 to 13:00
-    and 20:00 to 22:00 on business days Off Peak Energy c/kWh Charge applied to energy consumed at all other times.
+  quote: Obsolete Fixed c/day Access charge reflecting a fixed amount per day. Residential TOU (closed to new Peak Energy c/kWh
+    Charge applied to energy consumed between entrants) 13:00 and 20:00 on business days. Shoulder Energy c/kWh Charge applied
+    to energy consumed between 07:00 to 13:00 and 20:00 to 22:00 on business days Off Peak Energy c/kWh Charge applied to energy
+    consumed at all other times.
   note: Table 4.1 'Obsolete Residential TOU (closed to new entrants)'; the same windows are stated for 'Obsolete General Supply
     TOU (closed to new entrants)'.
   windows:
@@ -853,9 +1011,26 @@ demand_rules:
     interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
   note: 'Section 5.3.2: ''Endeavour Energy bills on a 30-minute demand interval. If data is received as 5-minute or 15-minute
     intervals, the data will be aggregated to 30-minute.'' Rates differ by season (High-season Nov-Mar, Low-season Apr-Oct).
-    Units c/kVA/day per Table 1a and Table 3a.'
+    Units c/kVA/day per Table 1a.'
   tariffs:
-  - codes: [N19, N20, N29, N39, NS19, NS29, NS39]
+  - codes: [N19, N20, N29, N39]
+- id: endeavour-2024-25-demand-kw-obsolete-large
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  measure: kW
+  interval_minutes: 30
+  aggregation: monthly_max
+  window_schedule: endeavour-2024-25-large-tou
+  window_period: peak
+  locator: pdf:p20
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: 'Section 5.3.2: ''Endeavour Energy bills on a 30-minute demand interval. If data is received as 5-minute or 15-minute
+    intervals, the data will be aggregated to 30-minute.'' Table 3a (p42) and Table 3b (p43) print the NS19, NS29 and NS39
+    demand prices in the c/kW/day columns (High/Low Season Demand), although Table 7 (p33) maps these codes to N19/N29/N39,
+    whose demand prices Table 1a prints in c/kVA/day.'
+  tariffs:
+  - codes: [NS19, NS29, NS39]
 - id: endeavour-2025-26-demand-kw
   doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
   fin_year: 2025-26
@@ -1233,7 +1408,7 @@ eligibility:
   value_unit: MWh/yr
   locator: pdf:p37
   quote: Total electricity consumption, per financial year, is greater than 160MWh;
-  note: Section 9.6 Tariff Requests for Embedded Networks.
+  note: Section 9.7 Tariff Requests for Embedded Networks.
 - codes: [N20]
   doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
   fin_year: 2024-25
@@ -3139,9 +3314,9 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: unmetered
-  locator: xlsx:Tariff schedule!C113
-  quote: Traffic Control Signal Lights
-  note: Tariff name for TL.
+  locator: xlsx:Tariff schedule!D113
+  quote: Unmetered
+  note: Tariff class column ('Tariff class' header, D83) for TL (Traffic Control Signal Lights).
 - codes: [NW]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Endeavour_2024-25.xlsx
   fin_year: 2024-25
@@ -3155,9 +3330,9 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: unmetered
-  locator: xlsx:Tariff schedule!C114
-  quote: Nightwatch
-  note: Tariff name for NW.
+  locator: xlsx:Tariff schedule!D114
+  quote: Unmetered
+  note: Tariff class column ('Tariff class' header, D83) for NW (Nightwatch).
 - codes: [N70]
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
@@ -3270,22 +3445,6 @@ eligibility:
   locator: xlsx:Tariff schedule!C279
   quote: Streetlighting
   note: Tariff name for SL in the Endeavour Energy section of the consolidated report.
-- codes: [TL]
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
-  fin_year: 2025-26
-  rule_type: customer_type
-  value_text: unmetered
-  locator: xlsx:Tariff schedule!C280
-  quote: Traffic Control Signal Lights
-  note: Tariff name for TL in the Endeavour Energy section of the consolidated report.
-- codes: [NW]
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
-  fin_year: 2025-26
-  rule_type: customer_type
-  value_text: unmetered
-  locator: xlsx:Tariff schedule!C281
-  quote: Nightwatch
-  note: Tariff name for NW in the Endeavour Energy section of the consolidated report.
 - codes: [N70]
   doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
   fin_year: 2026-27
@@ -3398,22 +3557,6 @@ eligibility:
   locator: xlsx:Tariff schedule!C283
   quote: Streetlighting
   note: Tariff name for ENSL in the Endeavour Energy section of the consolidated report.
-- codes: [ENTL]
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
-  fin_year: 2026-27
-  rule_type: customer_type
-  value_text: unmetered
-  locator: xlsx:Tariff schedule!C284
-  quote: Traffic Control Signal Lights
-  note: Tariff name for ENTL in the Endeavour Energy section of the consolidated report.
-- codes: [ENNW]
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
-  fin_year: 2026-27
-  rule_type: customer_type
-  value_text: unmetered
-  locator: xlsx:Tariff schedule!C285
-  quote: Nightwatch
-  note: Tariff name for ENNW in the Endeavour Energy section of the consolidated report.
 relations:
 - from: N61
   type: export_companion

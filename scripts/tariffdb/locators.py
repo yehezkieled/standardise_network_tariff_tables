@@ -138,6 +138,42 @@ def renderings(value: str):
     return out
 
 
+@functools.lru_cache(maxsize=256)
+def _page_glyphs(path, page_no):
+    import pdfplumber
+    with pdfplumber.open(path) as doc:
+        return tuple((c["text"], c["x0"], c["x1"], c["top"], c["bottom"]) for c in doc.pages[page_no - 1].chars
+                     if c["text"].strip())
+
+
+def _glyph_run(path, page_no, form, gap=1.5):
+    """Is `form` printed as one run of adjacent glyphs (left to right on a line, or top to bottom), with no digit
+    glyph adjacent before or after it?"""
+    glyphs = _page_glyphs(path, page_no)
+    by_text = {}
+    for g in glyphs:
+        by_text.setdefault(g[0], []).append(g)
+
+    def nxt(g, h, horizontal):
+        if horizontal:
+            return abs(h[3] - g[3]) <= 1 and -0.5 <= h[1] - g[2] <= gap
+        return abs(h[1] - g[1]) <= 1 and -0.5 <= h[3] - g[4] <= gap
+
+    for horizontal in (True, False):
+        for g in by_text.get(form[0], []):
+            run = [g]
+            for ch in form[1:]:
+                h = next((h for h in by_text.get(ch, []) if nxt(run[-1], h, horizontal)), None)
+                if h is None:
+                    break
+                run.append(h)
+            else:
+                if not any(d[0].isdigit() and (nxt(d, run[0], horizontal) or nxt(run[-1], d, horizontal))
+                           for d in glyphs):
+                    return True
+    return False
+
+
 def verify(path: str, locator: str, value) -> tuple[bool, str]:
     """Re-read `value` at `locator` in the file at `path`. Returns (ok, evidence)."""
     loc = parse(locator)
@@ -160,25 +196,89 @@ def verify(path: str, locator: str, value) -> tuple[bool, str]:
         return False, f"page {loc['page']} beyond end of {path}"
     forms = sorted(renderings(value), key=len, reverse=True)
     negative = str(value).strip().startswith("-")
+    # a unit, footnote mark or label may be glued to the value, but never another digit; a positive value must not
+    # carry a minus sign or opening parenthesis anywhere before it, glued or as the previous token
+    pre = r"[^\d.]*" if negative else r"[^\d.\-(\u2013\u2212]*"
     for tokens in streams:
         for i in range(len(tokens)):
-            joined = ""
+            if not negative and i and re.fullmatch(r"[^\w.]*[\-(\u2013\u2212][^\w.]*", tokens[i - 1]):
+                # a lone '-' or '(' token is a sign only when its glyph touches the number; tables also print '-'
+                # in empty cells next to a value
+                if loc["kind"] != "pdf" or any(_glyph_run(path, loc["page"], tokens[i - 1][-1] + f) for f in forms):
+                    continue
+            joined, cuts = "", []
             for j in range(i, min(i + 4, len(tokens))):
+                if joined:
+                    cuts.append(len(joined))
                 joined += tokens[j]
                 for form in forms:
-                    # the value may carry a unit, footnote mark or label glued to it, but never another digit, and a
-                    # positive value must not be preceded by a minus sign or opening parenthesis
-                    pre = r"[^\d.]*" if negative else r"(?:[^\d.\-(\u2013\u2212][^\d.]*)?"
-                    if re.fullmatch(pre + re.escape(form) + r"(?:[^\d][^\d]*)?", joined):
-                        return True, f"'{form}' on page {loc['page']}"
+                    m = re.fullmatch("(" + pre + ")" + re.escape(form) + r"(?:[^\d][^\d]*)?", joined)
+                    if not m:
+                        continue
+                    a, b = m.end(1), m.end(1) + len(form)
+                    # extraction can split one printed number over glyph runs ('4 1.10'), but two separate numbers
+                    # ('12' and '3.4') must not be read as one: a token break between two digits of the value is
+                    # accepted only when the glyphs themselves are adjacent on the page
+                    if any(a < c < b and joined[c - 1].isdigit() and joined[c].isdigit() for c in cuts) and not (
+                            loc["kind"] == "pdf" and _glyph_run(path, loc["page"], form)):
+                        continue
+                    return True, f"'{form}' on page {loc['page']}"
     return False, f"{value!r} not found on page {loc['page']}"
 
 
 def normalise_text(s: str) -> str:
     """Whitespace- and dash-insensitive form used to find quoted wording in a source."""
+    return re.sub(r"\s+", "", _spaced(s))
+
+
+def _spaced(s: str) -> str:
+    """Lower-case text with quotes and dashes unified and each whitespace run reduced to one space."""
     s = (s or "").replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
     s = re.sub(r"[‐-―−]", "-", s)
-    return re.sub(r"\s+", "", s).lower()
+    return re.sub(r"\s+", " ", s).strip().lower()
+
+
+def _kind(ch):
+    return "d" if ch.isdigit() else "a" if ch.isalpha() else "p"
+
+
+class _Text:
+    """Text with its whitespace removed plus where its words and numbers end. In a spreadsheet cell (words=True) a
+    boundary is a space or a change between digits, letters and punctuation. PDF and OCR text runs neighbouring words
+    and table cells together ('residentialcustomers', 'TAS1013 56.440'), so there only numbers are delimited: every
+    position is a boundary except inside a run of digits that the text does not split."""
+
+    def __init__(self, s, words=False):
+        chars, spaced = [], set()
+        for ch in _spaced(s):
+            if ch == " ":
+                spaced.add(len(chars))
+            else:
+                chars.append(ch)
+        self.s = "".join(chars)
+        self.spaces = spaced - {0, len(chars)}
+        if words:
+            inner = {i for i in range(1, len(chars)) if _kind(chars[i - 1]) != _kind(chars[i]) or _kind(chars[i]) == "p"}
+        else:
+            inner = {i for i in range(1, len(chars)) if not (chars[i - 1].isdigit() and chars[i].isdigit())}
+        self.boundaries = {0, len(chars)} | spaced | inner
+
+    def digit_gaps(self, lo, hi):
+        """Spaces strictly inside [lo, hi) that separate two digits."""
+        return {p for p in self.spaces if lo < p < hi and self.s[p - 1].isdigit() and self.s[p].isdigit()}
+
+    def contains(self, quote: "_Text") -> bool:
+        """The quote occurs starting and ending on boundaries, and splits numbers exactly where the text does ('1' is
+        not in '14', 'NEE2 44' is not 'NEE24 4'; in a cell a cut-off word does not match either). Other spaces are
+        ignored."""
+        q = quote.s
+        k = self.s.find(q)
+        while k >= 0:
+            if k in self.boundaries and k + len(q) in self.boundaries and \
+                    {p - k for p in self.digit_gaps(k, k + len(q))} == quote.digit_gaps(0, len(q)):
+                return True
+            k = self.s.find(q, k + 1)
+        return False
 
 
 @functools.lru_cache(maxsize=16)
@@ -187,48 +287,57 @@ def _html_text(path):
     with open(path, encoding="utf-8", errors="replace") as f:
         s = f.read()
     s = re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", s)
-    return normalise_text(html.unescape(re.sub(r"<[^>]+>", " ", s)))
+    return (_Text(html.unescape(re.sub(r"<[^>]+>", " ", s))),)
 
 
 @functools.lru_cache(maxsize=2048)
 def _page_text(path, page_no):
+    """The page's text as laid out and with every glyph treated as upright, each also as its word boxes: layout text
+    can run neighbouring table cells together, the word boxes often keep them apart."""
     import pdfplumber
     with pdfplumber.open(path) as doc:
         if page_no > len(doc.pages):
             return None
         page = doc.pages[page_no - 1]
-        original = page.extract_text() or ""
+        out = [_Text(page.extract_text() or ""), _Text(" ".join(w["text"] for w in page.extract_words()))]
         for char in page.chars:
             char["upright"] = True
-        upright = page.extract_text() or ""
-        return normalise_text(original) + "\n" + normalise_text(upright)
+        out += [_Text(page.extract_text() or ""), _Text(" ".join(w["text"] for w in page.extract_words()))]
+        return tuple(out)
 
 
 @functools.lru_cache(maxsize=64)
 def _sheet_text(path, sheet):
     ws = _workbook(path)[sheet]
-    return {c.coordinate: normalise_text(str(c.value)) for row in ws.iter_rows() for c in row if c.value is not None}
+    return {c.coordinate: _Text(str(c.value), words=True) for row in ws.iter_rows() for c in row if c.value is not None}
+
+
+@functools.lru_cache(maxsize=32)
+def _ocr_page_text(path, page_no):
+    return (_Text(ocr_text(path, page_no)),)
 
 
 def verify_quote(path: str, locator: str, quote: str) -> tuple[bool, str]:
-    """Is the verbatim `quote` present at `locator`? For xlsx the locator cell must contain it; for a PDF the page."""
+    """Is the verbatim `quote` present at `locator`, on word boundaries? For xlsx the locator cell must contain it;
+    for a PDF the page."""
     loc = parse(locator)
-    q = normalise_text(quote)
-    if not q:
+    q = _Text(quote, words=True)
+    if not q.s:
         return False, "empty quote"
     if not os.path.exists(path):
         return False, f"missing file {path}"
     if loc["kind"] == "xlsx":
-        cells = _sheet_text(path, loc["sheet"])
-        if q in cells.get(loc["cell"], ""):
+        cell = _sheet_text(path, loc["sheet"]).get(loc["cell"])
+        if cell is not None and cell.contains(q):
             return True, "quote in cell"
         return False, f"quote not in {loc['sheet']}!{loc['cell']}"
     if loc["kind"] == "pdf-ocr":
-        present = q in normalise_text(ocr_text(path, loc["page"]))
-        return present, "quote in rendered-page OCR" if present else "quote not in rendered-page OCR"
-    if loc["kind"] == "html":
-        return (q in _html_text(path)), ("quote in page text" if q in _html_text(path) else "quote not in page text")
-    text = _page_text(path, loc["page"])
-    if text is None:
-        return False, f"page {loc['page']} beyond end"
-    return (q in text), ("quote on page" if q in text else f"quote not on page {loc['page']}")
+        texts, where = _ocr_page_text(path, loc["page"]), "rendered-page OCR"
+    elif loc["kind"] == "html":
+        texts, where = _html_text(path), "page text"
+    else:
+        texts, where = _page_text(path, loc["page"]), f"page {loc['page']}"
+        if texts is None:
+            return False, f"page {loc['page']} beyond end"
+    present = any(t.contains(q) for t in texts)
+    return present, (f"quote in {where}" if present else f"quote not in {where}")

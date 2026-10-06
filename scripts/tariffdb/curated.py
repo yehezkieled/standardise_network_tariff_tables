@@ -1,9 +1,10 @@
 """Hand-curated facts that no price table carries: TOU windows, demand measurement rules, eligibility and assignment
 rules, tariff relations and status flags. One YAML file per distributor under data/tariffdb/curated/.
 
-Every fact quotes its source verbatim at a locator; `validate()` re-reads each quote from the source file, checks
-enums, times, months and tariff codes, and checks that schedules marked covers_full_day tile 24 hours per day type
-without overlap. Run:  .venv/bin/python scripts/tariffdb/curated.py data/tariffdb/curated/<distributor>.yaml
+Every fact quotes its source verbatim at a locator; `validate()` re-reads each quote from the source file (on word
+boundaries), checks enums, times and months, and checks that schedules marked covers_full_day tile 24 hours per day
+type without overlap. Tariff codes are checked by build.py, which runs this validation with quotes and fails on any
+code that is neither a parsed tariff, an alias, nor printed at the fact's locator in a distributor document. Run:  .venv/bin/python scripts/tariffdb/curated.py data/tariffdb/curated/<distributor>.yaml
 
 File format (keys in [] are optional):
 
@@ -13,8 +14,8 @@ tou_schedules:
     doc: <repo-relative source path, as in sources/inventory.csv>
     fin_year: 2025-26
     name: <what the windows are for>
-    time_basis: local_time | standard_time | not_stated
-    public_holidays: as_weekend | as_weekday | as_non_business_day | unchanged | not_stated
+    time_basis: local_time | standard_time | daylight_time | not_stated   (daylight_time: stated as e.g. 'ADST')
+    public_holidays: as_weekday | as_non_business_day | unchanged | not_stated
     covers_full_day: true | false        # true only when the windows partition each listed day type over 24h
     locator: pdf:p7 | xlsx:<sheet>!<cell>
     quote: <verbatim wording at the locator that states the windows>
@@ -64,8 +65,7 @@ TIME_RE = re.compile(r"^(?:[01]\d|2[0-3]):[0-5]\d$|^24:00$")
 DAYS = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
 # concrete days each day type covers, for the 24-hour coverage test (public holidays are checked as their own day)
 DAY_TYPE_DAYS = {"weekday": DAYS[:5], "business_day": DAYS[:5], "weekend": DAYS[5:], "non_business_day": DAYS[5:],
-                 "weekend_and_public_holiday": DAYS[5:], "saturday": ("sat",), "sunday": ("sun",), "all_days": DAYS,
-                 "public_holiday": ("public_holiday",)}
+                 "all_days": DAYS}
 
 
 def minutes(t):
@@ -92,23 +92,6 @@ def load(path):
 
 def load_all():
     return {os.path.basename(p)[:-5]: load(p) for p in sorted(glob.glob(os.path.join(CURATED_DIR, "*.yaml")))}
-
-
-def known_codes(distributor_name):
-    """Tariff codes the parsers saw for a distributor (any year, any side), split on joint-label separators."""
-    codes = set()
-    paths = [os.path.join(ROOT, "out", "aer_long.csv"), os.path.join(ROOT, "out", "aer_versions_long.csv")]
-    paths += glob.glob(os.path.join(ROOT, "out", "dnsp", "*.csv"))
-    for p in paths:
-        if not os.path.exists(p):
-            continue
-        with open(p, newline="") as f:
-            for r in csv.DictReader(f):
-                if r["distributor"] == distributor_name:
-                    c = r["tariff_code"].strip()
-                    codes.add(c)
-                    codes.update(x.strip().rstrip("*") for x in re.split(r"[/,]", c) if x.strip())
-    return codes
 
 
 def _req(errors, where, obj, keys):
@@ -165,7 +148,7 @@ def coverage_errors(windows):
     return errs
 
 
-def validate(data, check_quotes=True, codes=None):
+def validate(data, check_quotes=True):
     errors = []
     did = data.get("distributor")
     if did is None:
@@ -186,13 +169,6 @@ def validate(data, check_quotes=True, codes=None):
             errors.append(f"{where}: doc {obj.get('doc')!r} is not a retrieved document in sources/inventory.csv")
         if obj.get("fin_year") not in spec.FIN_YEARS:
             errors.append(f"{where}: fin_year {obj.get('fin_year')!r}")
-
-    def check_codes(where, cs):
-        if codes is None:
-            return
-        for c in cs:
-            if re.sub(r"[^A-Z0-9]", "", str(c).upper()) not in {re.sub(r"[^A-Z0-9]", "", str(x).upper()) for x in codes}:
-                errors.append(f"{where}: tariff code {c!r} not seen in any parsed document of this distributor")
 
     for i, s in enumerate(data.get("tou_schedules") or []):
         where = f"tou_schedules[{i}] {s.get('id')}"
@@ -218,6 +194,8 @@ def validate(data, check_quotes=True, codes=None):
             try:
                 if months_of(w.get("months")) is None and not w.get("season"):
                     errors.append(f"{ww}: months not_stated needs the season name as published")
+                if w.get("season") and "months" not in w:
+                    errors.append(f"{ww}: a window with a season needs months (the months listed, or not_stated)")
             except ValueError as e:
                 errors.append(f"{ww}: {e}")
             if check_quotes and w.get("quote"):
@@ -229,7 +207,6 @@ def validate(data, check_quotes=True, codes=None):
             tw = f"{where} tariffs[{j}]"
             _req(errors, tw, t, ["codes", "applies_to"])
             _enum(errors, tw, t.get("applies_to"), spec.TOU_APPLIES, "applies_to")
-            check_codes(tw, t.get("codes") or [])
             if check_quotes and t.get("quote"):
                 _quote(errors, tw, t, s.get("doc"))
     for i, r in enumerate(data.get("demand_rules") or []):
@@ -252,8 +229,6 @@ def validate(data, check_quotes=True, codes=None):
                 errors.append(f"{where}: {e}")
         if check_quotes:
             _quote(errors, where, r, r.get("doc"))
-        for t in r.get("tariffs") or []:
-            check_codes(where, t.get("codes") or [])
     for i, r in enumerate(data.get("eligibility") or []):
         where = f"eligibility[{i}] {r.get('codes')} {r.get('rule_type')}"
         _req(errors, where, r, ["codes", "doc", "fin_year", "rule_type", "locator", "quote"])
@@ -267,7 +242,6 @@ def validate(data, check_quotes=True, codes=None):
             errors.append(f"{where}: needs value_num, value_text or target_code")
         if r.get("value_num") is not None and not r.get("operator"):
             errors.append(f"{where}: value_num needs an operator")
-        check_codes(where, (r.get("codes") or []) + ([r["target_code"]] if r.get("target_code") else []))
         if check_quotes:
             _quote(errors, where, r, r.get("doc"))
     for i, r in enumerate(data.get("relations") or []):
@@ -275,7 +249,6 @@ def validate(data, check_quotes=True, codes=None):
         _req(errors, where, r, ["from", "type", "to", "doc", "fin_year", "locator", "quote"])
         check_doc(where, r)
         _enum(errors, where, r.get("type"), spec.RELATION_TYPES, "type")
-        check_codes(where, [r.get("from"), r.get("to")])
         if check_quotes:
             _quote(errors, where, r, r.get("doc"))
     for i, r in enumerate(data.get("flags") or []):
@@ -283,7 +256,6 @@ def validate(data, check_quotes=True, codes=None):
         _req(errors, where, r, ["codes", "doc", "fin_year", "flag", "locator", "quote"])
         check_doc(where, r)
         _enum(errors, where, r.get("flag"), spec.LISTING_FLAGS, "flag")
-        check_codes(where, r.get("codes") or [])
         if bool(r.get("column_locator")) != bool(r.get("column_quote")):
             errors.append(f"{where}: column_locator and column_quote go together")
         if check_quotes:
@@ -298,7 +270,6 @@ def validate(data, check_quotes=True, codes=None):
                                 "lower_inclusive", "upper_inclusive", "quantity_unit", "reset_period", "locator",
                                 "quote"])
         check_doc(where, r)
-        check_codes(where, r.get("codes") or [])
         for k in ("quantity_unit", "reset_period"):
             _enum(errors, where, r.get(k), step_cols[k]["enum"], k)
         if not isinstance(r.get("step_index"), int) or r["step_index"] < 1:

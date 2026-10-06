@@ -12,8 +12,11 @@ Output is deterministic (rows sorted by primary key; keys derived from content),
 byte-identical and a changed source shows up as added rows, never as rewritten ones.
 
   .venv/bin/python scripts/tariffdb/build.py                           rebuild data/tariffdb/
-  .venv/bin/python scripts/tariffdb/build.py --check-append-only REF   fail when a row committed at git REF was changed
-                                                                       or removed (history is append-only)
+  .venv/bin/python scripts/tariffdb/build.py --out DIR                 write the same files under DIR instead
+  .venv/bin/python scripts/tariffdb/build.py --check-append-only REF   fail when a row of a source-fact table committed
+                                                                       at git REF was changed or removed (history is
+                                                                       append-only; derived tables/columns, which are
+                                                                       recomputed from the facts, are not compared)
 """
 import argparse
 import csv
@@ -43,7 +46,6 @@ from units import to_std  # noqa: E402
 
 ROOT = bs.ROOT
 OUT_DIR = os.path.join(ROOT, "data", "tariffdb")
-TABLES_DIR = os.path.join(OUT_DIR, "tables")
 PARSER_OUTPUTS = ["out/aer_long.csv", "out/aer_versions_long.csv"]  # + out/dnsp/*.csv
 DNSP_SIDES = ("DNSP", "AER_HOSTED")
 PLACEHOLDER = "(no non-zero components)"
@@ -109,7 +111,7 @@ PRICE_ATTACHMENTS_NOT_HELD = [
 ]
 STATUS_FLAGS = [  # (flag, pattern) matched in published tariff names and parser notes
     ("withdrawn", r"\bwithdrawn\b"), ("closed_to_new", r"closed to new|\bclosed\b|not available (?:on application|for new)"),
-    ("obsolete", r"\bobsolete\b"), ("grandfathered", r"grandfather"), ("trial", r"\btrial\b"),
+    ("obsolete", r"\bobsolete\b"), ("grandfathered", r"grandfather"), ("trial", r"(?<![-\w])trial\b(?![- ]rebate)"),
     ("transitional", r"\btransitional\b"), ("site_specific", r"site[- ]specific"), ("indicative", r"\bindicative\b"),
 ]
 
@@ -129,11 +131,42 @@ def decimals(s):
         return 0
 
 
+def unique_ids(items):
+    """Ids from content, never from row order. items: [(base_id, [disambiguators in order of preference])]. An item
+    keeps its base id when no other item shares it; items sharing a base get the first disambiguator that tells them
+    all apart (as a slug), else a hash of all of them; items whose content is identical are numbered, which is
+    order-free because they are interchangeable."""
+    groups = defaultdict(list)
+    for i, (base, _) in enumerate(items):
+        groups[base].append(i)
+    out = [None] * len(items)
+    for base, idx in groups.items():
+        if len(idx) == 1:
+            out[idx[0]] = base
+            continue
+        for j in range(len(items[idx[0]][1])):
+            vals = [bs.slug(str(items[i][1][j] or ""))[:60] for i in idx]
+            if all(vals) and len(set(vals)) == len(vals):
+                for i, v in zip(idx, vals):
+                    out[i] = f"{base}/{v}"
+                break
+        else:
+            seen = Counter()
+            for h, i in sorted((short_hash(*items[i][1]), i) for i in idx):
+                seen[h] += 1
+                out[i] = f"{base}/{h}" + (f"-{seen[h]}" if seen[h] > 1 else "")
+    return out
+
+
 def num_text(x):
-    """Canonical text for a computed number (no float noise beyond 12 significant digits)."""
+    """Canonical text for a computed number: rounded to 15 significant digits, which drops binary-float noise
+    (205.79000000000002 -> 205.79) while keeping every digit a double carries reliably."""
     if x is None:
         return None
-    return format(Decimal(repr(float(x))).normalize().quantize(Decimal("1e-12")).normalize(), "f")
+    d = Decimal(repr(float(x)))
+    if not d:
+        return "0"
+    return format(d.quantize(Decimal(1).scaleb(d.adjusted() - 14)).normalize(), "f")
 
 
 class Tables:
@@ -202,7 +235,6 @@ def quantity_period(unit_std):
 class Builder:
     def __init__(self):
         self.t = Tables()
-        self.warnings = []
         self.docs = bs.documents()
         self.doc_by_id = {d["document_id"]: d for d in self.docs}
         self.doc_by_path = {d["local_path"]: d for d in self.docs if d["local_path"]}
@@ -319,60 +351,59 @@ class Builder:
             else:
                 resolved[key] = [(self.ensure_tariff(did, code or aid, "aer_label" if code else "aer_tariff_id"), None,
                                   "AER label that no distributor document uses", label)]
-        # listings
-        used_ids = Counter()
+        # listings; a document that prints one label on several rows gets one listing per row, told apart by content
+        entries = []
         for key in sorted(groups, key=lambda k: tuple("" if x is None else x for x in k)):
+            src, code, name, cls, region, aid = key
+            for tid, kind, note, label in resolved[key]:
+                base = f"{groups[key][0]['_doc']['document_id']}/{label or aid}"
+                if len(resolved[key]) > 1:
+                    base += f"/{tid.split(':', 1)[1]}"
+                entries.append((key, (tid, kind, note, label), base, [aid, region, cls, name]))
+        lids = unique_ids([(base, opts) for _, _, base, opts in entries])
+        for (key, member, _, _), lid in zip(entries, lids):
             rs = groups[key]
             src, code, name, cls, region, aid = key
             d = rs[0]["_doc"]
             fy = rs[0]["fin_year"]
-            members = resolved[key]
-            joint = len(members) > 1
-            for tid, kind, note, label in members:
-                base = f"{d['document_id']}/{label or aid}"
-                if joint:
-                    base += f"/{tid.split(':', 1)[1]}"
-                used_ids[base] += 1
-                lid = base if used_ids[base] == 1 else f"{base}/{used_ids[base]}"
-                start, end = bs.FIN_YEAR_DATES[fy]
-                priced = [r for r in rs if not r["component"].startswith(PLACEHOLDER)]
-                notes = sorted({r["note"] for r in rs if r["note"]})
-                self.t.add("tariff_listing", {
-                    "listing_id": lid, "document_id": d["document_id"], "tariff_id": tid, "code_published": code or None,
-                    "name_published": name or None, "class_published": cls or None, "region": region,
-                    "effective_from": start, "effective_to": end,
-                    "price_availability": "priced" if priced else "placeholder",
-                    "is_priced": 1 if priced else 0,
-                    "locator": rs[0]["locator"], "note": notes[0] if len(notes) == 1 else None,
-                })
-                self.listing_rows[lid] = priced
-                self.listings_by_doc_tariff[(d["document_id"], tid)].append(lid)
-                if kind and kind != "aer_label_identity":
-                    alias_label = label or aid
-                    akind = "joint_label_member" if joint else kind
-                    if akind == "aer_tariff_id_by_name":
-                        akind = "aer_tariff_id"
-                    self.t.add("tariff_alias", {
-                        "alias_id": f"{d['document_id']}/{akind}/{alias_label}/{tid}", "tariff_id": tid,
-                        "alias_label": alias_label, "alias_kind": akind, "document_id": d["document_id"], "note": note,
-                    }, same_ok=True)
-                    self.alias_to_tariff[(rs[0]["_did"], code_key(alias_label))].add(tid)
-                if aid and d["author"] == "AER" and aid != (label or aid):
-                    self.t.add("tariff_alias", {
-                        "alias_id": f"{d['document_id']}/aer_tariff_id/{aid}/{tid}", "tariff_id": tid, "alias_label": aid,
-                        "alias_kind": "aer_tariff_id", "document_id": d["document_id"],
-                        "note": "AER tariff ID (column B of the AER Tariff schedule)"}, same_ok=True)
-                if joint:
-                    self.flag(lid, "joint_label_member", "document",
-                              f"the AER row is labelled {label!r}, which names several distributor tariffs")
-                    self.instance("joint_code_label", did=rs[0]["_did"], fy=fy, tariff=tid, listing=lid,
-                                  doc=d["document_id"], detail=f"AER label {label!r} -> {tid}; one listing per member, "
-                                  f"charges repeated from the same cells")
-                elif kind in ("code_variant", "regional_suffix", "name_matched"):
-                    self.instance("code_label_quirk", did=rs[0]["_did"], fy=fy, tariff=tid, listing=lid,
-                                  doc=d["document_id"], detail=f"{kind}: {note or label}")
-                if via == "aer_tariff_id_by_name" or (kind == "aer_tariff_id" and note and "absent" in note):
-                    pass
+            joint = len(resolved[key]) > 1
+            tid, kind, note, label = member
+            start, end = bs.FIN_YEAR_DATES[fy]
+            priced = [r for r in rs if not r["component"].startswith(PLACEHOLDER)]
+            notes = sorted({r["note"] for r in rs if r["note"]})
+            self.t.add("tariff_listing", {
+                "listing_id": lid, "document_id": d["document_id"], "tariff_id": tid, "code_published": code or None,
+                "name_published": name or None, "class_published": cls or None, "region": region,
+                "effective_from": start, "effective_to": end,
+                "price_availability": "priced" if priced else "placeholder",
+                "locator": rs[0]["locator"], "note": notes[0] if len(notes) == 1 else None,
+            })
+            self.listing_rows[lid] = priced
+            self.listings_by_doc_tariff[(d["document_id"], tid)].append(lid)
+            if kind and kind != "aer_label_identity":
+                alias_label = label or aid
+                akind = "joint_label_member" if joint else kind
+                if akind == "aer_tariff_id_by_name":
+                    akind = "aer_tariff_id"
+                self.t.add("tariff_alias", {
+                    "alias_id": f"{d['document_id']}/{akind}/{alias_label}/{tid}", "tariff_id": tid,
+                    "alias_label": alias_label, "alias_kind": akind, "document_id": d["document_id"], "note": note,
+                }, same_ok=True)
+                self.alias_to_tariff[(rs[0]["_did"], code_key(alias_label))].add(tid)
+            if aid and d["author"] == "AER" and aid != (label or aid):
+                self.t.add("tariff_alias", {
+                    "alias_id": f"{d['document_id']}/aer_tariff_id/{aid}/{tid}", "tariff_id": tid, "alias_label": aid,
+                    "alias_kind": "aer_tariff_id", "document_id": d["document_id"],
+                    "note": "AER tariff ID (column B of the AER Tariff schedule)"}, same_ok=True)
+            if joint:
+                self.flag(lid, "joint_label_member", "document",
+                          f"the AER row is labelled {label!r}, which names several distributor tariffs")
+                self.instance("joint_code_label", did=rs[0]["_did"], fy=fy, tariff=tid, listing=lid,
+                              doc=d["document_id"], detail=f"AER label {label!r} -> {tid}; one listing per member, "
+                              f"charges repeated from the same cells")
+            elif kind in ("code_variant", "regional_suffix", "name_matched"):
+                self.instance("code_label_quirk", did=rs[0]["_did"], fy=fy, tariff=tid, listing=lid,
+                              doc=d["document_id"], detail=f"{kind}: {note or label}")
         for (src, code, name, cls, region, aid), members in resolved.items():
             if any(m[2] and "absent from the approved version" in m[2] for m in members):
                 d = groups[(src, code, name, cls, region, aid)][0]["_doc"]
@@ -414,12 +445,12 @@ class Builder:
             listing = self.t.get("tariff_listing", lid)
             d = self.doc_by_id[listing["document_id"]]
             did = d["distributor_id"] or self.t.get("tariff", listing["tariff_id"])["distributor_id"]
-            seen = Counter()
-            for r in rs:
+            cids = unique_ids([(f"{lid}/{r['basis']}/{r['gst']}/{r['locator']}",
+                                [r["component"], f"{r['component']} {r['unit']}",
+                                 f"{r['component']} {r['unit']} {r['time_band']} {r['season']}",
+                                 f"{r['component']} {r['unit']} {r['value']}"]) for r in rs])
+            for r, cid in zip(rs, cids):
                 loc = locators.parse(r["locator"])
-                base = f"{lid}/{r['basis']}/{r['gst']}/{r['locator']}"
-                seen[base] += 1
-                cid = base if seen[base] == 1 else f"{base}/{seen[base]}"
                 q, period, inferred = quantity_period(r["unit_std"])
                 input_unit = r["unit"]
                 _, direct_unit = to_std(r["value"], input_unit, r["component"])
@@ -428,7 +459,7 @@ class Builder:
                     input_unit = r["unit_std"].replace('c/', '$/', 1) if '$' in r["unit"] else r["unit_std"]
                     normalisation_note = f"Source parser interprets {r['unit']!r} as {input_unit!r}; see parser note and original unit."
                     inferred = 1
-                raw, value, value_std = None, r["value"], r["value_std"] or None
+                raw, value, value_std = None, r["value"], num_text(r["value_std"]) if r["value_std"] else None
                 if loc["kind"] == "xlsx":
                     raw_v, excel = locators.read_cell_excel(os.path.join(ROOT, r["source_file"]), loc["sheet"],
                                                             loc["cell"])
@@ -471,6 +502,8 @@ class Builder:
             return "yes"
         if r["charge_type"] != "fixed":
             return "no"  # metering is priced per meter per year/day in every source, never per kWh or kW
+        if re.search(r"column as published = [^;]*\+ metering", note, re.I):
+            return "yes"  # the column is defined as including metering (Evoenergy statement 2023-24 p25-26)
         return "unknown"  # set to 'yes' below where the metering adjustment reproduces the value
 
     @staticmethod
@@ -679,8 +712,7 @@ class Builder:
             block = {m["tariff_id"]: m for m in mp if m["source_block"] == "distributor_metering_block"
                      and m["distributor_id"] == did and m["fin_year"] == fy and m["tariff_id"]
                      and m["charge_basis"] == "per_day"}
-            best = None
-            for dd in self.dnsp_docs(did, fy):
+            def metering_hits(dd):
                 hits = []
                 for tid, a, dch in self.tariff_pairs(ad, dd, "fixed", "c/day"):
                     if len(a) != 1 or len({c["value_std"] for c in dch}) != 1:
@@ -689,11 +721,20 @@ class Builder:
                     delta = float(dch[0]["value_std"]) - float(a[0]["value_std"])
                     if abs(delta - exp) <= self.half_unit(a[0]) + self.half_unit(dch[0]) + 1e-9:
                         hits.append((tid, exp, dch))
+                return hits
+
+            best = None
+            for dd in self.dnsp_docs(did, fy):
+                hits = metering_hits(dd)
                 if hits and (best is None or len(hits) > len(best[1])):
                     best = (dd, hits)
             if best is None:
                 raise SystemExit(f"metering adder {did} {fy}: no tariff reproduces it")
-            dd, hits = best
+            dd, _ = best
+            # every distributor document of the year whose daily charge reproduces AER + metering includes metering
+            # (the AER-hosted copy and the distributor's own list alike), not only the adjustment's reference document
+            hits_by_doc = [(d2, metering_hits(d2)) for d2 in self.distributor_docs(did, fy)]
+            hits = sorted({(tid, exp): dch for _, hs in hits_by_doc for tid, exp, dch in hs}.items())
             src = rows[0]
             if did == "essential" and fy in ESSENTIAL_NOTE_DOCS:
                 ev_doc, ev_loc, ev_quote = self.doc_by_path[ESSENTIAL_NOTE_DOCS[fy]]["document_id"], "pdf:p1", \
@@ -709,25 +750,28 @@ class Builder:
                 "aer_document_id": ad["document_id"], "distributor_document_id": dd["document_id"],
                 "evidence_document_id": ev_doc, "locator": ev_loc, "quote": ev_quote,
             })
-            for tid, exp, dch in hits:
+            for (tid, exp), _ in hits:
                 m = block.get(tid) or next((x for x in rows if x["tariff_codes_published"] and
                                             tid.split(":", 1)[1] in [c.strip() for c in x["tariff_codes_published"].split(",")]),
                                            src)
                 self.t.add("price_adjustment_tariff", {
                     "adjustment_id": adj, "tariff_id": tid, "metering_price_id": m["metering_price_id"],
                     "expected_delta_std": num_text(exp), "delta_unit": "c/day"})
-                for c in dch:
-                    if c["includes_metering"] == "unknown":
-                        c["includes_metering"] = "yes"
-                for lid in self.listings_by_doc_tariff[(dd["document_id"], tid)]:
-                    self.flag(lid, "includes_metering", "document",
-                              f"daily charge = AER daily charge + metering ({adj}), reproduced to the published digit")
-            for lid in {l for t in [h[0] for h in hits] for l in self.listings_by_doc_tariff[(ad["document_id"], t)]}:
+            for d2, hs in hits_by_doc:
+                for tid, _, dch in hs:
+                    for c in dch:
+                        if c["includes_metering"] == "unknown":
+                            c["includes_metering"] = "yes"
+                    for lid in self.listings_by_doc_tariff[(d2["document_id"], tid)]:
+                        self.flag(lid, "includes_metering", "document", f"daily charge = AER daily charge + metering "
+                                  f"({adj}), reproduced to the published digit")
+            for lid in sorted({l for (t, _), _ in hits for l in self.listings_by_doc_tariff[(ad["document_id"], t)]}):
                 self.flag(lid, "excludes_metering", "document",
                           f"AER prices metering separately ({src['metering_price_id']})")
             self.instance("metering_excluded_by_aer", did=did, fy=fy, doc=ad["document_id"],
                           related=dd["document_id"], quantity=num_text(amount), unit="c/day",
-                          detail=f"{len(hits)} tariffs: distributor daily charge = AER + {num_text(amount)} c/day")
+                          detail=f"{len({t for (t, _), _ in hits})} tariffs: distributor daily charge = AER + "
+                                 f"{num_text(amount)} c/day")
         for fy, amount, dpath in LFIT_ADDERS:
             ad, dd = self.aer_doc("evoenergy", fy), self.doc_by_path[dpath]
             path, loc, quote, _ = EVO_LFIT_DOCS[dpath]
@@ -737,8 +781,9 @@ class Builder:
         ad = self.doc_by_path["sources/aer/2023-24_price_lists/Evoenergy_2023-24_Electricity_network_pricing_proposal_5May2023.pdf"]
         dd = self.doc_by_path["sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf"]
         self.lfit("lfit_rebate/evoenergy/2023-24", "lfit_rebate", "2023-24", ad, dd, None, "pdf:p4", LFIT_REBATE_QUOTE,
-                  "distributor c/kWh = AER-approved c/kWh - tariff-specific LFiT rebate (2.27 c/kWh on average; not "
-                  "uniform; applied to consumption charges where possible)")
+                  "distributor c/kWh = c/kWh of the AER-hosted pricing proposal (status unverified) - tariff-specific "
+                  "LFiT rebate (2.27 c/kWh on average; not uniform; applied to consumption charges where possible); "
+                  "the quoted statement applies the rebate to the AER's approved charges, which no held document lists")
 
     def lfit(self, adj, kind, fy, ad, dd, amount, loc, quote, formula):
         hits = []
@@ -770,10 +815,14 @@ class Builder:
                       quantity=None if amount is None else num_text(amount), unit=None if amount is None else "c/kWh",
                       detail=f"{kind}: {len(hits)} tariffs; {formula}")
 
+    def distributor_docs(self, did, fy):
+        return sorted((d for d in self.docs if d["distributor_id"] == did and d["fin_year"] == fy
+                       and d["author"] == "distributor" and d["retrieval_status"] == "retrieved"),
+                      key=lambda d: d["document_id"])
+
     def dnsp_docs(self, did, fy):
-        own = [d for d in self.docs if d["distributor_id"] == did and d["fin_year"] == fy and d["author"] == "distributor"
-               and d["retrieval_status"] == "retrieved"]
-        return sorted([d for d in own if d["recon_side"] == "DNSP"] or own, key=lambda d: d["document_id"])
+        own = self.distributor_docs(did, fy)
+        return [d for d in own if d["recon_side"] == "DNSP"] or own
 
     # ------------------------------------------------------------------ curated facts
     def tariff_for_code(self, did, code, where):
@@ -817,7 +866,7 @@ class Builder:
             where = f"data/tariffdb/curated/{name}.yaml"
             if did != name:
                 raise SystemExit(f"{where}: distributor {did!r} does not match the file name")
-            errs = curated.validate(data, check_quotes=False)
+            errs = curated.validate(data, check_quotes=True)
             if errs:
                 raise SystemExit(f"{where}: " + "; ".join(errs[:10]))
             self.curated_file(did, data, where)
@@ -921,7 +970,7 @@ class Builder:
                     lid = f"{doc}/{code}/rules"
                     self.t.add("tariff_listing", {
                         "listing_id": lid, "document_id": doc, "tariff_id": tid, "code_published": code,
-                        "effective_from": start, "effective_to": end, "is_priced": 0,
+                        "effective_from": start, "effective_to": end,
                         "price_availability": "rules_only", "locator": r["locator"], "note": str(r["quote"])})
                     self.listings_by_doc_tariff[(doc, tid)].append(lid)
                     lids = [lid]
@@ -1031,16 +1080,19 @@ class Builder:
                               fy=self.doc_by_id[l["document_id"]]["fin_year"], tariff=l["tariff_id"],
                               listing=l["listing_id"], doc=l["document_id"],
                               detail=f"{l['code_published'] or l['listing_id']} {l['name_published'] or ''}: no non-zero "
-                                     f"price; is_priced = 0, no charge rows")
+                                     f"price; price_availability = placeholder, no charge rows")
             fl = flags[l["listing_id"]] & {"withdrawn", "closed_to_new", "obsolete", "grandfathered"}
-            if fl:
+            if fl and l["price_availability"] != "rules_only":  # a tariff named only in rules text is not listed
                 self.instance("withdrawn_tariff_listed", did=self.t.get("tariff", l["tariff_id"])["distributor_id"],
                               fy=self.doc_by_id[l["document_id"]]["fin_year"], tariff=l["tariff_id"],
                               listing=l["listing_id"], doc=l["document_id"], detail="flags: " + ", ".join(sorted(fl)))
         # tariffs missing from the AER side / only on the AER side, per distributor-year with an AER-authored file
+        # (listings a document names only in its rules text do not count as published tariffs on either side)
         aer_t, dn_t = defaultdict(set), defaultdict(set)
         first = {}
         for l in listings:
+            if l["price_availability"] == "rules_only":
+                continue
             d = self.doc_by_id[l["document_id"]]
             did = self.t.get("tariff", l["tariff_id"])["distributor_id"]
             k = (did, d["fin_year"])
@@ -1055,8 +1107,10 @@ class Builder:
                 l = first[(k, tid)]
                 fl = sorted(flags[l["listing_id"]] & {"site_specific", "withdrawn", "closed_to_new", "obsolete", "trial"})
                 self.instance("aer_missing_tariff", did=k[0], fy=k[1], tariff=tid, listing=l["listing_id"],
-                              doc=l["document_id"], detail=f"{l['name_published'] or ''} [{l['class_published'] or ''}]"
-                              + (f" flags: {', '.join(fl)}" if fl else ""))
+                              doc=l["document_id"], detail=" ".join(filter(None, [
+                                  l["name_published"] or l["code_published"],
+                                  f"[{l['class_published']}]" if l["class_published"] else None,
+                                  f"flags: {', '.join(fl)}" if fl else None])))
             for tid in sorted(aer_t[k] - dn_t[k]):
                 if dn_t[k]:
                     self.instance("aer_only_tariff", did=k[0], fy=k[1], tariff=tid,
@@ -1097,6 +1151,10 @@ class Builder:
                 self.instance("proposed_distributor_document", did=d["distributor_id"], fy=d["fin_year"],
                               doc=d["document_id"], detail=f"{d['title']}: the distributor's own published document is a "
                               f"proposal; price_status = proposed")
+            if d["price_status"] == "unverified":
+                self.instance("price_status_unverified", did=d["distributor_id"], fy=d["fin_year"],
+                              doc=d["document_id"], detail=f"{d['title']}: no held source states whether these prices "
+                              f"were proposed, approved or final")
         # Evoenergy 2024-25 schedule: parser notes name the next page for rows printed at the foot of a page
         for c in self.t.all("charge"):
             m = re.search(r"\bpage (\d+)\b", c["note"] or "")
@@ -1148,6 +1206,12 @@ class Builder:
                 self.instance("season_months_not_stated", did=s["distributor_id"], fy=s["fin_year"], doc=s["document_id"],
                               detail=f"{w['window_id']} ({w['locator']}): window {w['start_time']}-{w['end_time']} in season "
                                      f"'{w['season']}'; the document does not list that season's months")
+        for s in self.t.all("tou_schedule"):
+            if s["time_basis"] == "daylight_time":
+                self.instance("time_stated_in_daylight_time", did=s["distributor_id"], fy=s["fin_year"],
+                              doc=s["document_id"], detail=f"{s['tou_schedule_id']} ({s['locator']}): {s['quote']!r}; "
+                              f"the times are kept as stated, and the document does not say which times apply while "
+                              f"daylight saving is off")
         # CitiPower CMG assignment rules
         for r in self.t.all("eligibility_rule"):
             if r["tariff_id"] in ("citipower:CMG", "citipower:CMGO21"):
@@ -1233,20 +1297,20 @@ def sort_key(row, pk):
     return tuple(str(row[c]) for c in pk)
 
 
-def write_all(b):
-    os.makedirs(TABLES_DIR, exist_ok=True)
+def write_all(b, out_dir=OUT_DIR):
+    os.makedirs(os.path.join(out_dir, "tables"), exist_ok=True)
     for t in spec.TABLES:
         name = t["name"]
         cols = b.t.cols[name]
         rows = sorted(b.t.all(name), key=lambda r: sort_key(r, b.t.pk[name]))
-        write_csv(os.path.join(TABLES_DIR, f"{name}.csv"), cols, rows)
+        write_csv(os.path.join(out_dir, "tables", f"{name}.csv"), cols, rows)
     for dialect in ("sqlite", "postgres"):
-        with open(os.path.join(OUT_DIR, f"schema.{dialect}.sql"), "w", encoding="utf-8") as f:
+        with open(os.path.join(out_dir, f"schema.{dialect}.sql"), "w", encoding="utf-8") as f:
             f.write(spec.ddl(dialect))
-    with open(os.path.join(OUT_DIR, "schema.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(out_dir, "schema.json"), "w", encoding="utf-8") as f:
         json.dump(spec.json_spec(), f, indent=2, ensure_ascii=False)
         f.write("\n")
-    with open(os.path.join(OUT_DIR, "load.postgres.sql"), "w", encoding="utf-8") as f:
+    with open(os.path.join(out_dir, "load.postgres.sql"), "w", encoding="utf-8") as f:
         f.write(spec.postgres_load())
 
 
@@ -1256,52 +1320,71 @@ def read_table_text(text):
 
 
 def check_append_only(ref):
-    """Every row of every table committed at `ref` must still exist, unchanged, in the working tree."""
+    """Every row of every source-fact table committed at `ref` must still exist, unchanged, in the working tree.
+    Derived tables and columns (spec: derived) are recomputed from the facts on every build and are not compared."""
+    def git(*args):
+        return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
+
+    if git("rev-parse", "--verify", "--quiet", f"{ref}^{{commit}}").returncode:
+        raise SystemExit(f"--check-append-only: {ref!r} is not a commit in this repository")
+    listed = git("ls-tree", "--name-only", f"{ref}:data/tariffdb/tables")
+    if listed.returncode:
+        raise SystemExit(f"--check-append-only: {ref} has no data/tariffdb/tables")
     bad = []
-    for t in spec.TABLES:
-        rp = f"data/tariffdb/tables/{t['name']}.csv"
-        try:
-            old = subprocess.run(["git", "show", f"{ref}:{rp}"], cwd=ROOT, capture_output=True, text=True, check=True).stdout
-        except subprocess.CalledProcessError:
+    for name in sorted(n[:-4] for n in listed.stdout.split() if n.endswith(".csv")):
+        if name not in spec.BY_NAME:
+            bad.append(f"{name}: table removed")
             continue
+        table = spec.BY_NAME[name]
+        if table.get("derived"):
+            continue
+        rp = f"data/tariffdb/tables/{name}.csv"
+        old = git("show", f"{ref}:{rp}")
+        if old.returncode:
+            raise SystemExit(f"--check-append-only: cannot read {rp} at {ref}: {old.stderr.strip()}")
         with open(os.path.join(ROOT, rp), newline="", encoding="utf-8") as f:
-            new = f.read()
-        bad += append_only_violations(t, old, new)
+            bad += append_only_violations(table, old.stdout, f.read())
     return bad
 
 
 def append_only_violations(table, old_text, new_text):
     pk = [c["name"] for c in table["columns"] if c["primary_key"]]
+    derived = {c["name"] for c in table["columns"] if c.get("derived")}
     oh, orows = read_table_text(old_text)
     nh, nrows = read_table_text(new_text)
-    newmap = {tuple(dict(zip(nh, r))[c] for c in pk): dict(zip(nh, r)) for r in nrows}
-    out = []
+    out, newmap = [], {}
+    for r in nrows:
+        n = dict(zip(nh, r))
+        k = tuple(n[c] for c in pk)
+        if k in newmap:
+            out.append(f"{table['name']} {k}: duplicate key")
+        newmap[k] = n
     for r in orows:
         o = dict(zip(oh, r))
         k = tuple(o[c] for c in pk)
         n = newmap.get(k)
         if n is None:
             out.append(f"{table['name']} {k}: removed")
-        elif any(n.get(c, "") != v for c, v in o.items()):
-            out.append(f"{table['name']} {k}: changed " + ", ".join(f"{c}: {v!r} -> {n.get(c)!r}" for c, v in o.items()
-                                                                  if n.get(c, "") != v))
+            continue
+        diff = [f"{c}: {v!r} -> {n.get(c)!r}" for c, v in o.items() if c not in derived and n.get(c, "") != v]
+        if diff:
+            out.append(f"{table['name']} {k}: changed " + ", ".join(diff))
     return out
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check-append-only", metavar="REF")
+    ap.add_argument("--out", metavar="DIR", default=OUT_DIR, help="write the database here instead of data/tariffdb")
     a = ap.parse_args()
     if a.check_append_only:
         bad = check_append_only(a.check_append_only)
         for x in bad:
             print(x)
-        print(f"{len(bad)} rows changed or removed since {a.check_append_only}")
+        print(f"{len(bad)} source-fact rows changed or removed since {a.check_append_only}")
         sys.exit(1 if bad else 0)
     b = Builder().build()
-    write_all(b)
-    for w in b.warnings:
-        print("warning:", w)
+    write_all(b, a.out)
     for t in spec.TABLE_ORDER:
         print(f"{t:24s} {len(b.t.rows[t]):7d}")
 

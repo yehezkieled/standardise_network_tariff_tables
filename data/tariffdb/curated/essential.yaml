@@ -53,13 +53,17 @@ tou_schedules:
   - codes:
     - BLNRSS2
     applies_to: energy
-    locator: xlsx:Network Tariffs_excl GST!D8
-    quote: SS
+    locator: xlsx:Network Tariffs_excl GST!B8
+    quote: BLNRSS2
+    note: D8 (column 'Time Period', header D5) on this row is 'SS', the time period code defined at
+      Time periods!B5.
   - codes:
     - BLNBSS1
     applies_to: energy
-    locator: xlsx:Network Tariffs_excl GST!D14
-    quote: SS
+    locator: xlsx:Network Tariffs_excl GST!B14
+    quote: BLNBSS1
+    note: D14 (column 'Time Period', header D5) on this row is 'SS', the time period code defined at
+      Time periods!B5.
 - id: essential-2024-25-nuos-pso-int
   doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
   fin_year: 2024-25
@@ -120,63 +124,87 @@ tou_schedules:
   - codes:
     - BLND1AR
     applies_to: all
-    locator: xlsx:Network Tariffs_excl GST!D9
-    quote: PSO-Int
+    locator: xlsx:Network Tariffs_excl GST!B9
+    quote: BLND1AR
+    note: D9 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
   - codes:
     - BLND1AB
     applies_to: all
-    locator: xlsx:Network Tariffs_excl GST!D15
-    quote: PSO-Int
+    locator: xlsx:Network Tariffs_excl GST!B15
+    quote: BLND1AB
+    note: D15 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
   - codes:
     - BLND3AO
     applies_to: all
-    locator: xlsx:Network Tariffs_excl GST!D17
-    quote: PSO-Int
+    locator: xlsx:Network Tariffs_excl GST!B17
+    quote: BLND3AO
+    note: D17 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
   - codes:
     - BLND3TO
     applies_to: all
-    locator: xlsx:Network Tariffs_excl GST!D18
-    quote: PSO-Int
+    locator: xlsx:Network Tariffs_excl GST!B18
+    quote: BLND3TO
+    note: D18 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
   - codes:
     - BHND3AO
     applies_to: all
-    locator: xlsx:Network Tariffs_excl GST!D20
-    quote: PSO-Int
+    locator: xlsx:Network Tariffs_excl GST!B20
+    quote: BHND3AO
+    note: D20 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
   - codes:
     - BSSD3AO
     applies_to: all
-    locator: xlsx:Network Tariffs_excl GST!D22
-    quote: PSO-Int
+    locator: xlsx:Network Tariffs_excl GST!B22
+    quote: BSSD3AO
+    note: D22 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
   - codes:
     - BLNT3AL
     applies_to: all
-    locator: xlsx:Obsolete tariffs_excl GST!D10
-    quote: PSO-Int
+    locator: xlsx:Obsolete tariffs_excl GST!B10
+    quote: BLNT3AL
+    note: D10 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
   - codes:
     - BLNT2AL
     applies_to: all
-    locator: xlsx:Obsolete tariffs_excl GST!D14
-    quote: PSO-Int
+    locator: xlsx:Obsolete tariffs_excl GST!B14
+    quote: BLNT2AL
+    note: D14 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
   - codes:
     - BLNT1AO
     applies_to: all
-    locator: xlsx:Obsolete tariffs_excl GST!D15
-    quote: PSO-Int
+    locator: xlsx:Obsolete tariffs_excl GST!B15
+    quote: BLNT1AO
+    note: D15 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
   - codes:
     - BLNDTRS
     applies_to: all
-    locator: xlsx:Obsolete tariffs_excl GST!D16
-    quote: PSO-Int
+    locator: xlsx:Obsolete tariffs_excl GST!B16
+    quote: BLNDTRS
+    note: D16 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
   - codes:
     - BLNS1AO
     applies_to: all
-    locator: xlsx:Obsolete tariffs_excl GST!D17
-    quote: PSO-Int
+    locator: xlsx:Obsolete tariffs_excl GST!B17
+    quote: BLNS1AO
+    note: D17 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
   - codes:
     - BHNS1AO
     applies_to: all
-    locator: xlsx:Obsolete tariffs_excl GST!D18
-    quote: PSO-Int
+    locator: xlsx:Obsolete tariffs_excl GST!B18
+    quote: BHNS1AO
+    note: D18 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
+      Time periods!B7.
 - id: essential-2024-25-nuos-pso-b
   doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
   fin_year: 2024-25
@@ -244,18 +272,24 @@ tou_schedules:
   - codes:
     - BLNP3AO
     applies_to: energy
-    locator: xlsx:Network Tariffs_excl GST!D30
-    quote: PSO-B
+    locator: xlsx:Network Tariffs_excl GST!B30
+    quote: BLNP3AO
+    note: D30 (column 'Time Period', header D5) on this row is 'PSO-B', the time period code defined at
+      Time periods!B10.
   - codes:
     - BLNT3AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D9
-    quote: PSO-B
+    locator: xlsx:Obsolete tariffs_excl GST!B9
+    quote: BLNT3AU
+    note: D9 (column 'Time Period', header D5) on this row is 'PSO-B', the time period code defined at
+      Time periods!B10.
   - codes:
     - BLNT2AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D13
-    quote: PSO-B
+    locator: xlsx:Obsolete tariffs_excl GST!B13
+    quote: BLNT2AU
+    note: D13 (column 'Time Period', header D5) on this row is 'PSO-B', the time period code defined at
+      Time periods!B10.
 - id: essential-2024-25-nuos-exp
   doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
   fin_year: 2024-25
@@ -288,13 +322,17 @@ tou_schedules:
   - codes:
     - BLNREX2
     applies_to: export
-    locator: xlsx:Network Tariffs_excl GST!D24
-    quote: EXP
+    locator: xlsx:Network Tariffs_excl GST!B24
+    quote: BLNREX2
+    note: D24 (column 'Time Period', header D5) on this row is 'EXP', the time period code defined at
+      Time periods!B13.
   - codes:
     - BLNBEX1
     applies_to: export
-    locator: xlsx:Network Tariffs_excl GST!D25
-    quote: EXP
+    locator: xlsx:Network Tariffs_excl GST!B25
+    quote: BLNBEX1
+    note: D25 (column 'Time Period', header D5) on this row is 'EXP', the time period code defined at
+      Time periods!B13.
 - id: essential-2024-25-nuos-any
   doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
   fin_year: 2024-25
@@ -320,103 +358,143 @@ tou_schedules:
   - codes:
     - BLNE22AU
     applies_to: energy
-    locator: xlsx:Network Tariffs_excl GST!D26
-    quote: Any
+    locator: xlsx:Network Tariffs_excl GST!B26
+    quote: BLNE22AU
+    note: D26 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE0AU
     applies_to: energy
-    locator: xlsx:Network Tariffs_excl GST!D27
-    quote: Any
+    locator: xlsx:Network Tariffs_excl GST!B27
+    quote: BLNE0AU
+    note: D27 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNP1AO
     applies_to: energy
-    locator: xlsx:Network Tariffs_excl GST!D29
-    quote: Any
+    locator: xlsx:Network Tariffs_excl GST!B29
+    quote: BLNP1AO
+    note: D29 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNN2AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D8
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B8
+    quote: BLNN2AU
+    note: D8 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNN1AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D12
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B12
+    quote: BLNN1AU
+    note: D12 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE21AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D20
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B20
+    quote: BLNE21AU
+    note: D20 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE23AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D21
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B21
+    quote: BLNE23AU
+    note: D21 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE20AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D22
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B22
+    quote: BLNE20AU
+    note: D22 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE26AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D23
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B23
+    quote: BLNE26AU
+    note: D23 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE27AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D24
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B24
+    quote: BLNE27AU
+    note: D24 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE2AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D25
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B25
+    quote: BLNE2AU
+    note: D25 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE4AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D26
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B26
+    quote: BLNE4AU
+    note: D26 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE1AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D27
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B27
+    quote: BLNE1AU
+    note: D27 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE3AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D28
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B28
+    quote: BLNE3AU
+    note: D28 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE11AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D29
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B29
+    quote: BLNE11AU
+    note: D29 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE13AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D30
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B30
+    quote: BLNE13AU
+    note: D30 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE12AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D31
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B31
+    quote: BLNE12AU
+    note: D31 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE14AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D32
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B32
+    quote: BLNE14AU
+    note: D32 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE24AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D33
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B33
+    quote: BLNE24AU
+    note: D33 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
   - codes:
     - BLNE25AU
     applies_to: energy
-    locator: xlsx:Obsolete tariffs_excl GST!D34
-    quote: Any
+    locator: xlsx:Obsolete tariffs_excl GST!B34
+    quote: BLNE25AU
+    note: D34 (column 'Time Period', header D5) on this row is 'Any', the time period code defined at
+      Time periods!B15.
 - id: essential-2024-25-nuos-sto-e
   doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
   fin_year: 2024-25
@@ -483,19 +561,46 @@ tou_schedules:
   tariffs:
   - codes:
     - BLND4SB
-    applies_to: all
-    locator: xlsx:Network Tariffs_excl GST!D16
-    quote: STO
+    applies_to: energy
+    locator: xlsx:Network Tariffs_excl GST!B16
+    quote: BLND4SB
+    note: D16 (column 'Time Period', header D5) on this row is 'STO', the time period code defined at
+      Time periods!B17.
+  - codes:
+    - BLND4SB
+    applies_to: demand
+    locator: xlsx:Network Tariffs_excl GST!B16
+    quote: BLND4SB
+    note: D16 (column 'Time Period', header D5) on this row is 'STO', the time period code defined at
+      Time periods!B17.
   - codes:
     - BLND4LS
-    applies_to: all
-    locator: xlsx:Network Tariffs_excl GST!D19
-    quote: STO
+    applies_to: energy
+    locator: xlsx:Network Tariffs_excl GST!B19
+    quote: BLND4LS
+    note: D19 (column 'Time Period', header D5) on this row is 'STO', the time period code defined at
+      Time periods!B17.
+  - codes:
+    - BLND4LS
+    applies_to: demand
+    locator: xlsx:Network Tariffs_excl GST!B19
+    quote: BLND4LS
+    note: D19 (column 'Time Period', header D5) on this row is 'STO', the time period code defined at
+      Time periods!B17.
   - codes:
     - BHND4LS
-    applies_to: all
-    locator: xlsx:Network Tariffs_excl GST!D21
-    quote: STO
+    applies_to: energy
+    locator: xlsx:Network Tariffs_excl GST!B21
+    quote: BHND4LS
+    note: D21 (column 'Time Period', header D5) on this row is 'STO', the time period code defined at
+      Time periods!B17.
+  - codes:
+    - BHND4LS
+    applies_to: demand
+    locator: xlsx:Network Tariffs_excl GST!B21
+    quote: BHND4LS
+    note: D21 (column 'Time Period', header D5) on this row is 'STO', the time period code defined at
+      Time periods!B17.
 - id: essential-2024-25-nuos-sto-b
   doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
   fin_year: 2024-25
@@ -528,18 +633,24 @@ tou_schedules:
   - codes:
     - BLND4SB
     applies_to: export
-    locator: xlsx:Network Tariffs_excl GST!D16
-    quote: STO
+    locator: xlsx:Network Tariffs_excl GST!B16
+    quote: BLND4SB
+    note: D16 (column 'Time Period', header D5) on this row is 'STO', the time period code defined at
+      Time periods!B17.
   - codes:
     - BLND4LS
     applies_to: export
-    locator: xlsx:Network Tariffs_excl GST!D19
-    quote: STO
+    locator: xlsx:Network Tariffs_excl GST!B19
+    quote: BLND4LS
+    note: D19 (column 'Time Period', header D5) on this row is 'STO', the time period code defined at
+      Time periods!B17.
   - codes:
     - BHND4LS
     applies_to: export
-    locator: xlsx:Network Tariffs_excl GST!D21
-    quote: STO
+    locator: xlsx:Network Tariffs_excl GST!B21
+    quote: BHND4LS
+    note: D21 (column 'Time Period', header D5) on this row is 'STO', the time period code defined at
+      Time periods!B17.
 - id: essential-2024-25-pl-ss
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
   fin_year: 2024-25
@@ -916,17 +1027,17 @@ tou_schedules:
   tariffs:
   - codes:
     - BLND4SB
-    applies_to: all
+    applies_to: demand
     locator: pdf:p1
     quote: BLND4SB LV Small Scale Storage STO
   - codes:
     - BLND4LS
-    applies_to: all
+    applies_to: demand
     locator: pdf:p1
     quote: BLND4LS LV Large Storage/Hybrid STO
   - codes:
     - BHND4LS
-    applies_to: all
+    applies_to: demand
     locator: pdf:p1
     quote: BHND4LS HV Storage/Hybrid STO
 - id: essential-2024-25-pl-sto-b
@@ -937,7 +1048,8 @@ tou_schedules:
   public_holidays: unchanged
   covers_full_day: false
   locator: pdf:p6
-  quote: STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
+  quote: 12pm 7am 10am 3pm 5pm 8pm 10pm Storage – Interval meter Everyday Off-peak Shoulder Sun Soaker Shoulder Peak Shoulder
+    Off-peak Consumption (E Channel) STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
   note: 'Time-of-day column headings are the left edge of each band; the band ends at the next heading (table read from the
     rendered page). The first heading ''12pm'' denotes midnight (00:00). Page states: ''All times are Eastern Standard Time
     (which includes Daylight Saving Time or Summer Time). These times are unchanged when a public holiday falls on a weekday.''
@@ -1389,17 +1501,17 @@ tou_schedules:
   tariffs:
   - codes:
     - BLND4SB
-    applies_to: all
+    applies_to: demand
     locator: pdf:p1
     quote: BLND4SB LV Small Scale Storage STO
   - codes:
     - BLND4LS
-    applies_to: all
+    applies_to: demand
     locator: pdf:p1
     quote: BLND4LS LV Large Storage/Hybrid STO
   - codes:
     - BHND4LS
-    applies_to: all
+    applies_to: demand
     locator: pdf:p1
     quote: BHND4LS HV Storage/Hybrid STO
 - id: essential-2025-26-pl-sto-b
@@ -1410,7 +1522,8 @@ tou_schedules:
   public_holidays: unchanged
   covers_full_day: false
   locator: pdf:p7
-  quote: STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
+  quote: 12am 7am 10am 3pm 5pm 8pm 10pm Storage – Interval meter Everyday Off-peak Shoulder Sun Saver Shoulder Peak Shoulder
+    Off-peak Consumption (E Channel) STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
   note: Time-of-day column headings are the left edge of each band; the band ends at the next heading (table read from the
     rendered page). Page states 'These times are unchanged when a public holiday falls on a weekday.' and 'DAYLIGHT SAVINGS
     TIME will be applied to all customers with interval read meters and unmetered supplies'; basic meters get Summer Time
@@ -1862,17 +1975,17 @@ tou_schedules:
   tariffs:
   - codes:
     - BLND4SB
-    applies_to: all
+    applies_to: demand
     locator: pdf:p1
     quote: BLND4SB LV Small Scale Storage STO
   - codes:
     - BLND4LS
-    applies_to: all
+    applies_to: demand
     locator: pdf:p1
     quote: BLND4LS LV Large Storage/Hybrid STO
   - codes:
     - BHND4LS
-    applies_to: all
+    applies_to: demand
     locator: pdf:p1
     quote: BHND4LS HV Storage/Hybrid STO
 - id: essential-2026-27-pl-sto-b
@@ -1883,7 +1996,8 @@ tou_schedules:
   public_holidays: unchanged
   covers_full_day: false
   locator: pdf:p6
-  quote: STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
+  quote: 12am 7am 10am 3pm 5pm 8pm 10pm Storage – Interval meter Everyday Off-peak Shoulder Sun Saver Shoulder Peak Shoulder
+    Off-peak Consumption (E Channel) STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
   note: Time-of-day column headings are the left edge of each band; the band ends at the next heading (table read from the
     rendered page). Page states 'These times are unchanged when a public holiday falls on a weekday.' and 'DAYLIGHT SAVINGS
     TIME will be applied to all customers with interval read meters and unmetered supplies'; basic meters get Summer Time
@@ -1937,6 +2051,8 @@ demand_rules:
   locator: xlsx:Explanatory Notes!B27
   quote: The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided
     by the number of days in the month when the load occurs.
+  note: Step 2 of the numbered demand calculation under the BLNS1AO row (A25 'BLNS1AO ... Avg daily Demand'); B26
+    (step 1) meters the daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods.
   tariffs:
   - codes:
     - BLNS1AO
@@ -1955,6 +2071,8 @@ demand_rules:
   locator: xlsx:Explanatory Notes!B34
   quote: The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided
     by the number of days in the month when the load occurs.
+  note: Step 2 of the numbered demand calculation under the BHNS1AO row (A32 'BHNS1AO ... Avg daily Demand'); B33
+    (step 1) meters the daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods.
   tariffs:
   - codes:
     - BHNS1AO
@@ -5841,14 +5959,17 @@ relations:
   fin_year: 2024-25
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
   locator: pdf:p4
-  quote: Only available when the primary tariff is the Residential Demand - Opt in (BLND1AR)
+  quote: BLNE23AU Residential Anytime Export Opt in Export tariff for Residential premises with a net meter. Only available
+    when the primary tariff is the Residential Demand - Opt in (BLND1AR)
 - from: BLND1AB
   type: export_companion
   to: BLNE22AU
   fin_year: 2024-25
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
   locator: pdf:p4
-  quote: Only available when the primary tariff is the Small Business Demand - Opt in (BLND1AB)
+  quote: BLNE22AU Business Anytime Export Default Export tariff for Business premises that are greater than 160 MWh. Opt in
+    Export tariff for Small Business premises with a net meter. Only available when the primary tariff is the Small Business
+    Demand - Opt in (BLND1AB)
   note: BLNE22AU is opt-in for small business only with BLND1AB; it is the default export tariff for business premises > 160
     MWh.
 - from: BLNRSS2
@@ -5885,14 +6006,17 @@ relations:
   fin_year: 2025-26
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
   locator: pdf:p4
-  quote: Only available when the primary tariff is the Residential Demand - Opt in (BLND1AR)
+  quote: BLNE23AU Residential Anytime Export Opt in Export tariff for Residential premises with a net meter. Only available
+    when the primary tariff is the Residential Demand - Opt in (BLND1AR)
 - from: BLND1AB
   type: export_companion
   to: BLNE22AU
   fin_year: 2025-26
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
   locator: pdf:p4
-  quote: Only available when the primary tariff is the Small Business Demand - Opt in (BLND1AB)
+  quote: BLNE22AU Business Anytime Export Default Export tariff for Business premises that are greater than 160 MWh. Opt in
+    Export tariff for Small Business premises with a net meter. Only available when the primary tariff is the Small Business
+    Demand - Opt in (BLND1AB)
   note: BLNE22AU is opt-in for small business only with BLND1AB; it is the default export tariff for business premises > 160
     MWh.
 - from: BLNRSS2
@@ -5929,14 +6053,17 @@ relations:
   fin_year: 2026-27
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
   locator: pdf:p4
-  quote: Only available when the primary tariff is the Residential Demand - Opt in (BLND1AR)
+  quote: BLNE23AU Residential Anytime Export Opt in Export tariff for Residential premises with a net meter. Only available
+    when the primary tariff is the Residential Demand - Opt in (BLND1AR)
 - from: BLND1AB
   type: export_companion
   to: BLNE22AU
   fin_year: 2026-27
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
   locator: pdf:p4
-  quote: Only available when the primary tariff is the Small Business Demand - Opt in (BLND1AB)
+  quote: BLNE22AU Business Anytime Export Default Export tariff for Business premises that are greater than 160 MWh. Opt in
+    Export tariff for Small Business premises with a net meter. Only available when the primary tariff is the Small Business
+    Demand - Opt in (BLND1AB)
   note: BLNE22AU is opt-in for small business only with BLND1AB; it is the default export tariff for business premises > 160
     MWh.
 flags:
@@ -5963,37 +6090,193 @@ flags:
   quote: Not available to new customers.
 - codes:
   - BLNS1AO
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B48
+  quote: BLNS1AO
+  column_locator: xlsx:Price List_Excl GST!B47
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BHNS1AO
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B49
+  quote: BHNS1AO
+  column_locator: xlsx:Price List_Excl GST!B47
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLNT1SU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B50
+  quote: BLNT1SU
+  column_locator: xlsx:Price List_Excl GST!B47
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLND1CO
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B51
+  quote: BLND1CO
+  column_locator: xlsx:Price List_Excl GST!B47
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLND1NO
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B51
+  quote: BLND1NO
+  column_locator: xlsx:Price List_Excl GST!B47
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLND1SR
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B52
+  quote: BLND1SR
+  column_locator: xlsx:Price List_Excl GST!B47
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLND1SU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B53
+  quote: BLND1SU
+  column_locator: xlsx:Price List_Excl GST!B47
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BHND1CO
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B54
+  quote: BHND1CO
+  column_locator: xlsx:Price List_Excl GST!B47
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BHND1SO
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B55
+  quote: BHND1SO
+  column_locator: xlsx:Price List_Excl GST!B47
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BHTD1SO
   doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
   flag: closed_to_new
-  locator: xlsx:Price List_Excl GST!B47
-  quote: Obsolete Tariffs - Not applicable to new connections
+  locator: xlsx:Price List_Excl GST!B55
+  quote: BHTD1SO
+  column_locator: xlsx:Price List_Excl GST!B47
+  column_quote: Obsolete Tariffs - Not applicable to new connections
 - codes:
   - BLNE2AU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B64
+  quote: BLNE2AU
+  column_locator: xlsx:Price List_Excl GST!B63
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLNE4AU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B65
+  quote: BLNE4AU
+  column_locator: xlsx:Price List_Excl GST!B63
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLNE1AU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B66
+  quote: BLNE1AU
+  column_locator: xlsx:Price List_Excl GST!B63
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLNE3AU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B67
+  quote: BLNE3AU
+  column_locator: xlsx:Price List_Excl GST!B63
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLNE11AU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B68
+  quote: BLNE11AU
+  column_locator: xlsx:Price List_Excl GST!B63
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLNE13AU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B69
+  quote: BLNE13AU
+  column_locator: xlsx:Price List_Excl GST!B63
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLNE12AU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B70
+  quote: BLNE12AU
+  column_locator: xlsx:Price List_Excl GST!B63
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLNE14AU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B71
+  quote: BLNE14AU
+  column_locator: xlsx:Price List_Excl GST!B63
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLNE30AU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B72
+  quote: BLNE30AU
+  column_locator: xlsx:Price List_Excl GST!B63
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLNE24AU
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: closed_to_new
+  locator: xlsx:Price List_Excl GST!B73
+  quote: BLNE24AU
+  column_locator: xlsx:Price List_Excl GST!B63
+  column_quote: Obsolete Tariffs - Not applicable to new connections
+- codes:
   - BLNE25AU
   doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
   flag: closed_to_new
-  locator: xlsx:Price List_Excl GST!B63
-  quote: Obsolete Tariffs - Not applicable to new connections
+  locator: xlsx:Price List_Excl GST!B74
+  quote: BLNE25AU
+  column_locator: xlsx:Price List_Excl GST!B63
+  column_quote: Obsolete Tariffs - Not applicable to new connections
 - codes:
   - BLNE11AU
   doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
@@ -6041,8 +6324,10 @@ flags:
   doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
   flag: obsolete
-  locator: xlsx:Price List_Excl GST!C5
-  quote: Obsolete tariffs on same rate
+  locator: xlsx:Price List_Excl GST!C36
+  quote: BLNN3AO
+  column_locator: xlsx:Price List_Excl GST!C5
+  column_quote: Obsolete tariffs on same rate
 - codes:
   - BLNN2AU
   doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
@@ -6118,41 +6403,229 @@ flags:
   quote: Obsolete tariff, this tariff has now completed the 5 year transition to the rates of BLND3AO.
 - codes:
   - BLNN2AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: xlsx:Tariff Details!B36
+  quote: BLNN2AU
+  column_locator: xlsx:Tariff Details!B34
+  column_quote: Obsolete Tariffs – not available for New Connects or Tariff Changes
+- codes:
   - BLNT3AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: xlsx:Tariff Details!B37
+  quote: BLNT3AU
+  column_locator: xlsx:Tariff Details!B34
+  column_quote: Obsolete Tariffs – not available for New Connects or Tariff Changes
+- codes:
   - BLNT3AL
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: xlsx:Tariff Details!B38
+  quote: BLNT3AL
+  column_locator: xlsx:Tariff Details!B34
+  column_quote: Obsolete Tariffs – not available for New Connects or Tariff Changes
+- codes:
   - BLNN1AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: xlsx:Tariff Details!B40
+  quote: BLNN1AU
+  column_locator: xlsx:Tariff Details!B34
+  column_quote: Obsolete Tariffs – not available for New Connects or Tariff Changes
+- codes:
   - BLNT2AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: xlsx:Tariff Details!B41
+  quote: BLNT2AU
+  column_locator: xlsx:Tariff Details!B34
+  column_quote: Obsolete Tariffs – not available for New Connects or Tariff Changes
+- codes:
   - BLNT2AL
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: xlsx:Tariff Details!B43
+  quote: BLNT2AL
+  column_locator: xlsx:Tariff Details!B34
+  column_quote: Obsolete Tariffs – not available for New Connects or Tariff Changes
+- codes:
   - BLNT1AO
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: xlsx:Tariff Details!B44
+  quote: BLNT1AO
+  column_locator: xlsx:Tariff Details!B34
+  column_quote: Obsolete Tariffs – not available for New Connects or Tariff Changes
+- codes:
   - BLNDTRS
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: xlsx:Tariff Details!B45
+  quote: BLNDTRS
+  column_locator: xlsx:Tariff Details!B34
+  column_quote: Obsolete Tariffs – not available for New Connects or Tariff Changes
+- codes:
   - BLNS1AO
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: xlsx:Tariff Details!B46
+  quote: BLNS1AO
+  column_locator: xlsx:Tariff Details!B34
+  column_quote: Obsolete Tariffs – not available for New Connects or Tariff Changes
+- codes:
   - BHNS1AO
   doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
   fin_year: 2024-25
   flag: closed_to_new
-  locator: xlsx:Tariff Details!B34
-  quote: Obsolete Tariffs – not available for New Connects or Tariff Changes
+  locator: xlsx:Tariff Details!B51
+  quote: BHNS1AO
+  column_locator: xlsx:Tariff Details!B34
+  column_quote: Obsolete Tariffs – not available for New Connects or Tariff Changes
 - codes:
   - BLNE21AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B57
+  quote: BLNE21AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE23AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B58
+  quote: BLNE23AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE20AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B59
+  quote: BLNE20AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE26AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B60
+  quote: BLNE26AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE27AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B61
+  quote: BLNE27AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE2AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B62
+  quote: BLNE2AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE4AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B63
+  quote: BLNE4AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE1AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B64
+  quote: BLNE1AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE3AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B65
+  quote: BLNE3AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE11AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B66
+  quote: BLNE11AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE13AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B67
+  quote: BLNE13AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE12AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B68
+  quote: BLNE12AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE14AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B69
+  quote: BLNE14AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE24AU
+  doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
+  fin_year: 2024-25
+  flag: obsolete
+  locator: xlsx:Tariff Details!B70
+  quote: BLNE24AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
+- codes:
   - BLNE25AU
   doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
   fin_year: 2024-25
   flag: obsolete
-  locator: xlsx:Tariff Details!B56
-  quote: Export Tariffs - Obsolete
+  locator: xlsx:Tariff Details!B71
+  quote: BLNE25AU
+  column_locator: xlsx:Tariff Details!B56
+  column_quote: Export Tariffs - Obsolete
 - codes:
   - BLNE2AU
   doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
@@ -6283,37 +6756,139 @@ flags:
   quote: Obsolete tariff. This tariff has now completed the 5 year transition to align rates with BLND3AO.
 - codes:
   - BLNN2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNN2AU LV Residential Anytime Any
+  column_locator: pdf:p2
+  column_quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT3AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT3AU LV Residential ToU - Basic meter PSO-B
+  column_locator: pdf:p2
+  column_quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT3AL
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p2
-  quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
+  quote: BLNT3AL LV Residential ToU - Interval meter PSO-Int
+  column_locator: pdf:p2
+  column_quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
 - codes:
   - BLNN1AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNN1AU LV Small Business Anytime Any
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT2AU LV Small Business TOU - Basic Meter PSO-B
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT2AL
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT2AL LV Small Business TOU - Interval meter PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT1AO LV Small Business TOU PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNP1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNP1AO LV Unmetered NUOS Any
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNDTRS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNDTRS Transitional Demand PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNS1AO LV TOU Avg Daily Demand PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BHNS1AO
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p2
-  quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+  quote: BHNS1AO HV TOU Avg Daily Demand PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
 - codes:
   - BLNE21AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE21AU Residential Anytime Export gross metered Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE27AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE27AU QLD Government Solar Bonus Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE26AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE26AU QLD Government Solar Bonus Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE20AU
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p2
-  quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+  quote: BLNE20AU Business Anytime Export gross metered Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
 - codes:
   - BLNP1AO
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
@@ -6391,14 +6966,14 @@ flags:
   fin_year: 2024-25
   flag: withdrawn
   locator: pdf:p5
-  quote: Discontinued 9 July 2012.
+  quote: BLNE24AU QLD Government Solar Bonus Scheme Discontinued 9 July 2012.
 - codes:
   - BLNE25AU
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
   fin_year: 2024-25
   flag: withdrawn
   locator: pdf:p5
-  quote: Discontinued 9 July 2012.
+  quote: BLNE25AU QLD Government Solar Bonus Scheme Discontinued 9 July 2012.
 - codes:
   - BLNN2AU
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
@@ -6466,45 +7041,211 @@ flags:
   quote: BHNS1AO HV ToU Avg daily Demand Obsolete tariff, not available for new connects.
 - codes:
   - BLNN2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNN2AU LV Residential Anytime Any
+  column_locator: pdf:p2
+  column_quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT3AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT3AU LV Residential ToU - Basic meter PSO-B
+  column_locator: pdf:p2
+  column_quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT3AL
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
   fin_year: 2025-26
   flag: closed_to_new
   locator: pdf:p2
-  quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
+  quote: BLNT3AL LV Residential ToU - Interval meter PSO-Int
+  column_locator: pdf:p2
+  column_quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
 - codes:
   - BLNN1AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNN1AU LV Small Business Anytime Any
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT2AU LV Small Business TOU - Basic Meter PSO-B
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT2AL
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT2AL LV Small Business TOU - Interval meter PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT1AO LV Small Business TOU PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNS1AO LV TOU Avg Daily Demand PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BHNS1AO
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
   fin_year: 2025-26
   flag: closed_to_new
   locator: pdf:p2
-  quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+  quote: BHNS1AO HV TOU Avg Daily Demand PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
 - codes:
   - BLNE26AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE26AU QLD Government Solar Bonus Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE2AU NSW Solar Bonus Scheme Net Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE20AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE20AU Business Anytime Export gross metered Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE4AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE4AU NSW Solar Bonus Scheme Gross Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE3AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE3AU NSW Solar Bonus Scheme Gross Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE21AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE21AU Residential Anytime Export gross metered Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE27AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE27AU QLD Government Solar Bonus Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE11AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE11AU NSW Solar Bonus Scheme Net Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE1AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE1AU NSW Solar Bonus Scheme Net Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE24AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE24AU QLD Government Solar Bonus Scheme Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE13AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE13AU NSW Solar Bonus Scheme Gross Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE12AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE12AU NSW Solar Bonus Scheme Net Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE25AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE25AU QLD Government Solar Bonus Scheme Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE14AU
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
   fin_year: 2025-26
   flag: closed_to_new
   locator: pdf:p2
-  quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+  quote: BLNE14AU NSW Solar Bonus Scheme Gross Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
 - codes:
   - BLNE2AU
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
@@ -6575,42 +7316,158 @@ flags:
   fin_year: 2025-26
   flag: withdrawn
   locator: pdf:p6
-  quote: Discontinued 9 July 2012.
+  quote: BLNE24AU QLD Government Solar Bonus Scheme Discontinued 9 July 2012.
 - codes:
   - BLNE25AU
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
   fin_year: 2025-26
   flag: withdrawn
   locator: pdf:p6
-  quote: Discontinued 9 July 2012.
+  quote: BLNE25AU QLD Government Solar Bonus Scheme Discontinued 9 July 2012.
 - codes:
   - BLNRSS2
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLNRSS2 LV Residential ToU - Sun Soaker SS 1.3776^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND1AR
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLND1AR LV Residential ToU Demand - Opt in PSO-Int 1.3776^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNBSS1
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLNBSS1 LV Small Business ToU - Sun Soaker SS 2.2229^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND1AB
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLND1AB LV Small Business ToU Demand - Opt in PSO-Int 2.2229^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND4SB
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLND4SB LV Small Scale Storage STO 2.2229^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND3AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLND3AO LV Large Business Demand PSO-Int 20.8017^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND3TO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLND3TO LV Demand - Alternative tariff PSO-Int 20.8017^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND4LS
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
   fin_year: 2025-26
   flag: includes_metering
   locator: pdf:p1
-  quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+  quote: BLND4LS LV Large Storage/Hybrid STO 20.8017^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
 - codes:
   - BLNN2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNN2AU LV Residential Anytime Any 1.3776^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNT3AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNT3AU LV Residential ToU - Basic meter PSO-B 1.3776^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNT3AL
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNT3AL LV Residential ToU - Interval meter PSO-Int 1.3776^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNN1AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNN1AU LV Small Business Anytime Any 2.2229^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNT2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNT2AU LV Small Business TOU - Basic Meter PSO-B 2.2229^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNT2AL
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNT2AL LV Small Business TOU - Interval meter PSO-Int 2.2229^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNT1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNT1AO LV Small Business TOU PSO-Int 2.2229^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNS1AO
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
   fin_year: 2025-26
   flag: includes_metering
   locator: pdf:p2
-  quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+  quote: BLNS1AO LV TOU Avg Daily Demand PSO-Int 24.6436^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
 - codes:
   - BLNN2AU
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
@@ -6678,84 +7535,366 @@ flags:
   quote: BHNS1AO HV ToU Avg daily Demand Obsolete tariff, not available for new connects.
 - codes:
   - BLNN2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNN2AU LV Residential Anytime Any
+  column_locator: pdf:p2
+  column_quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT3AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT3AU LV Residential ToU - Basic meter PSO-B
+  column_locator: pdf:p2
+  column_quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT3AL
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
   fin_year: 2026-27
   flag: closed_to_new
   locator: pdf:p2
-  quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
+  quote: BLNT3AL LV Residential ToU - Interval meter PSO-Int
+  column_locator: pdf:p2
+  column_quote: Residential Tariffs – Obsolete (not available for New connects or Tariff changes)
 - codes:
   - BLNN1AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNN1AU LV Small Business Anytime Any
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT2AU LV Small Business TOU - Basic Meter PSO-B
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT2AL
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT2AL LV Small Business TOU - Interval meter PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNT1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNT1AO LV Small Business TOU PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNS1AO LV TOU Avg Daily Demand PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BHNS1AO
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
   fin_year: 2026-27
   flag: closed_to_new
   locator: pdf:p2
-  quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
+  quote: BHNS1AO HV TOU Avg Daily Demand PSO-Int
+  column_locator: pdf:p2
+  column_quote: Business Tariffs – Obsolete (not available for New connects or Tariff changes)
 - codes:
   - BLNE26AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE26AU QLD Government Solar Bonus Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE2AU NSW Solar Bonus Scheme Net Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE20AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE20AU Business Anytime Export gross metered Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE4AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE4AU NSW Solar Bonus Scheme Gross Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE3AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE3AU NSW Solar Bonus Scheme Gross Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE21AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE21AU Residential Anytime Export gross metered Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE27AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE27AU QLD Government Solar Bonus Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE11AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE11AU NSW Solar Bonus Scheme Net Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE1AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE1AU NSW Solar Bonus Scheme Net Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE24AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE24AU QLD Government Solar Bonus Scheme Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE13AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE13AU NSW Solar Bonus Scheme Gross Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE12AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE12AU NSW Solar Bonus Scheme Net Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE25AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: closed_to_new
+  locator: pdf:p2
+  quote: BLNE25AU QLD Government Solar Bonus Scheme Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+- codes:
   - BLNE14AU
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
   fin_year: 2026-27
   flag: closed_to_new
   locator: pdf:p2
-  quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
+  quote: BLNE14AU NSW Solar Bonus Scheme Gross Any
+  column_locator: pdf:p2
+  column_quote: Export Tariffs – Obsolete (not available for New connects or Tariff changes)
 - codes:
   - BLNE24AU
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
   fin_year: 2026-27
   flag: withdrawn
   locator: pdf:p5
-  quote: Discontinued 9 July 2012.
+  quote: BLNE24AU QLD Government Solar Bonus Scheme Discontinued 9 July 2012.
 - codes:
   - BLNE25AU
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
   fin_year: 2026-27
   flag: withdrawn
   locator: pdf:p5
-  quote: Discontinued 9 July 2012.
+  quote: BLNE25AU QLD Government Solar Bonus Scheme Discontinued 9 July 2012.
 - codes:
   - BLNRSS2
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLNRSS2 LV Residential ToU - Sun Soaker SS 1.4704^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND1AR
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLND1AR LV Residential ToU Demand - Opt in PSO-Int 1.4704^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNBSS1
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLNBSS1 LV Small Business ToU - Sun Soaker SS 2.3784^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND1AB
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLND1AB LV Small Business ToU Demand - Opt in PSO-Int 2.3784^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND4SB
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLND4SB LV Small Scale Storage STO 2.3784^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND3AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLND3AO LV Large Business Demand PSO-Int 22.3346^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND3TO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p1
+  quote: BLND3TO LV Demand - Alternative tariff PSO-Int 22.3346^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLND4LS
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
   fin_year: 2026-27
   flag: includes_metering
   locator: pdf:p1
-  quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+  quote: BLND4LS LV Large Storage/Hybrid STO 22.3346^
+  column_locator: pdf:p1
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
 - codes:
   - BLNN2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNN2AU LV Residential Anytime Any 1.4704^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNT3AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNT3AU LV Residential ToU - Basic meter PSO-B 1.4704^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNT3AL
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNT3AL LV Residential ToU - Interval meter PSO-Int 1.4704^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNN1AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNN1AU LV Small Business Anytime Any 2.3784^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNT2AU
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNT2AU LV Small Business TOU - Basic Meter PSO-B 2.3784^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNT2AL
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNT2AL LV Small Business TOU - Interval meter PSO-Int 2.3784^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNT1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  flag: includes_metering
+  locator: pdf:p2
+  quote: BLNT1AO LV Small Business TOU PSO-Int 2.3784^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+- codes:
   - BLNS1AO
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
   fin_year: 2026-27
   flag: includes_metering
   locator: pdf:p2
-  quote: Please note this metering cost is included in the relevant LV tariffs daily charge
+  quote: BLNS1AO LV TOU Avg Daily Demand PSO-Int 26.4612^
+  column_locator: pdf:p2
+  column_quote: Please note this metering cost is included in the relevant LV tariffs daily charge

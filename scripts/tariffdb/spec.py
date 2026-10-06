@@ -14,38 +14,39 @@ DOCUMENT_TYPES = [
     "price_list", "tariff_summary", "tariff_schedule", "schedule_of_charges", "statement_of_tariff_classes",
     "price_guide", "pricing_schedule",
 ]
-PRICE_STATUS = ["proposed", "approved", "mixed", "published", "indicative"]
+# unverified: a distributor document hosted by the AER whose regulatory status no held source states
+PRICE_STATUS = ["proposed", "approved", "mixed", "published", "unverified"]
 RECON_SIDES = ["AER", "AER_HOSTED", "DNSP"]
-PRICE_BASES = ["NUoS", "DUoS", "TUoS", "DPPC", "JSA", "metering", "unknown"]
+PRICE_BASES = ["NUoS", "DUoS", "TUoS", "DPPC", "JSA", "unknown"]
 CHARGE_TYPES = ["fixed", "energy", "demand", "capacity", "export", "other"]
 QUANTITIES = ["kWh", "kVAh", "kW", "kVA", "kW_or_kVA", "lamp", "none"]
-PERIODS = ["day", "month", "year", "season", "none", "unstated"]
+PERIODS = ["day", "month", "year", "none", "unstated"]
 TRISTATE = ["yes", "no", "unknown"]
 LISTING_FLAGS = [
     "trial", "closed_to_new", "withdrawn", "obsolete", "grandfathered", "site_specific", "zero_priced_placeholder",
     "transitional", "indicative", "proposed_price", "includes_lfit", "excludes_lfit", "includes_metering",
-    "excludes_metering", "duplicate_listing", "joint_label_member", "regional_variant",
+    "excludes_metering", "joint_label_member", "regional_variant",
 ]
-ALIAS_KINDS = ["aer_code_label", "aer_tariff_id", "joint_label_member", "regional_suffix", "name_matched", "code_variant"]
+ALIAS_KINDS = ["aer_tariff_id", "joint_label_member", "regional_suffix", "name_matched", "code_variant"]
 RELATION_TYPES = [
-    "renamed_to", "replaced_by", "opt_out_alternative", "export_companion", "xmc_variant", "same_prices_as",
-    "assigned_with", "aer_sibling_code",
+    "replaced_by", "opt_out_alternative", "export_companion", "same_prices_as", "assigned_with", "aer_sibling_code",
 ]
-DAY_TYPES = ["weekday", "weekend", "all_days", "business_day", "non_business_day", "saturday", "sunday",
-             "public_holiday", "weekend_and_public_holiday"]
-TOU_PERIODS = ["peak", "shoulder", "off_peak", "solar_soak", "critical_peak", "critical_minimum", "super_off_peak",
-               "demand_window", "export_charge_window", "export_reward_window", "controlled_load_supply", "anytime",
-               "high_season_peak", "low_season_peak", "overnight", "evening", "day"]
-TIME_BASES = ["local_time", "standard_time", "not_stated"]
-HOLIDAY_RULES = ["as_weekend", "as_weekday", "as_non_business_day", "not_stated", "unchanged"]
+DAY_TYPES = ["weekday", "weekend", "all_days", "business_day", "non_business_day"]
+TOU_PERIODS = ["peak", "shoulder", "off_peak", "solar_soak", "critical_peak", "super_off_peak", "demand_window",
+               "export_charge_window", "export_reward_window", "controlled_load_supply", "anytime", "high_season_peak",
+               "low_season_peak"]
+# daylight_time: the source states the times in daylight-saving time (e.g. 'ADST') without saying what applies when
+# daylight saving is off (exception time_stated_in_daylight_time); the times are stored exactly as stated
+TIME_BASES = ["local_time", "standard_time", "daylight_time", "not_stated"]
+HOLIDAY_RULES = ["as_weekday", "as_non_business_day", "not_stated", "unchanged"]
 TOU_APPLIES = ["energy", "demand", "export", "controlled_load", "all"]
-AGGREGATIONS = ["monthly_max", "billing_period_max", "rolling_12_month_max", "annual_max", "seasonal_max", "daily_average_of_monthly_max",
-                "average_of_highest_days", "contracted", "agreed", "not_stated"]
+AGGREGATIONS = ["monthly_max", "billing_period_max", "rolling_12_month_max", "daily_average_of_monthly_max",
+                "average_of_highest_days", "agreed", "not_stated"]
 RULE_TYPES = [
     "customer_type", "voltage_level", "consumption_min", "consumption_max", "demand_min", "demand_max",
     "meter_type", "assignment", "availability", "requires_technology", "opt_out_to", "minimum_demand_charge", "other",
 ]
-OPERATORS = ["eq", "lt", "le", "gt", "ge", "in"]
+OPERATORS = ["eq", "lt", "le", "gt", "ge"]
 # value_text vocabulary for the categorical rule types (rule types not listed take free text)
 RULE_VALUES = {
     "customer_type": ["residential", "small_business", "medium_business", "large_business", "business",
@@ -53,8 +54,7 @@ RULE_VALUES = {
                       "any"],
     "voltage_level": ["LV", "HV", "subtransmission", "transmission", "zone_substation"],
     "meter_type": ["interval", "smart", "basic", "accumulation", "unmetered", "any"],
-    "assignment": ["default", "opt_in", "opt_out", "mandatory", "assigned_by_distributor", "retailer_request",
-                   "site_specific_assessment"],
+    "assignment": ["default", "opt_in", "opt_out", "mandatory", "assigned_by_distributor", "retailer_request"],
     "availability": ["open", "closed_to_new", "withdrawn", "obsolete", "trial", "grandfathered", "transitional"],
     "requires_technology": ["solar", "battery", "ev", "controlled_load_device", "dedicated_circuit", "export_capable",
                             "storage", "flexible_load", "heat_pump"],
@@ -67,17 +67,19 @@ LOCATOR_KINDS = ["xlsx", "pdf", "pdf-ocr"]
 IDENTITY_BASES = ["distributor_code", "aer_label", "aer_tariff_id"]
 
 
-def col(name, type_, desc, *, null=False, pk=False, fk=None, enum=None, unit=None):
+def col(name, type_, desc, *, null=False, pk=False, fk=None, enum=None, unit=None, derived=False):
+    """derived: the value is computed from other rows on every build (not read from one source cell), so it may change
+    when new data arrives; the append-only check skips it."""
     return {"name": name, "type": type_, "nullable": null, "primary_key": pk, "references": fk, "enum": enum,
-            "unit": unit, "description": desc}
+            "unit": unit, "derived": derived, "description": desc}
 
 
 def provenance(null=False):
     return [
         col("locator", "text", "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text "
             "(grammar in scripts/tariffdb/locators.py)", null=null),
-        col("quote", "text", "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)",
-            null=null),
+        col("quote", "text", "Verbatim wording from the document at the locator (tests re-read it: it must start and "
+            "end on a word or number boundary and split numbers where the source does)", null=null),
     ]
 
 
@@ -142,8 +144,9 @@ TABLES = [
                 fk="distributor.distributor_id"),
             col("fin_year", "text", "pricing year", fk="financial_year.fin_year"),
             col("document_type", "text", "kind of publication", enum=DOCUMENT_TYPES),
-            col("price_status", "text", "regulatory status of the prices in this version (mixed: differs by distributor, "
-                "see document_coverage)", enum=PRICE_STATUS),
+            col("price_status", "text", "regulatory status of the prices in this version, only as a held source "
+                "states it (mixed: differs by distributor, see document_coverage; unverified: AER-hosted distributor "
+                "document whose status no held source states)", enum=PRICE_STATUS),
             col("recon_side", "text", "role in the reconciliation: AER = AER-authored, AER_HOSTED = distributor document "
                 "hosted on aer.gov.au, DNSP = distributor's own site", enum=RECON_SIDES),
             col("title", "text", "description from sources/inventory.csv"),
@@ -181,7 +184,9 @@ TABLES = [
     },
     {
         "name": "document_ingestion",
-        "description": "Explicit extraction coverage for every held or unavailable source document.",
+        "description": "Explicit extraction coverage for every held or unavailable source document (derived: counts of "
+                       "the fact rows read from each document).",
+        "derived": True,  # recomputed from the source-fact tables on every build; outside the append-only check
         "why": ["A source inventory entry is not evidence that its prices were extracted; independent row counts expose empty or rules-only documents."],
         "columns": [
             col("document_id", "text", "Source version", pk=True, fk="source_document.document_id"),
@@ -225,8 +230,8 @@ TABLES = [
     {
         "name": "tariff_relation",
         "description": "Relationships between tariffs: renames, replacements, opt-out alternatives, export companions.",
-        "why": ["Renames across years (e.g. SAPN RELE -> RESELE) keep both identities and link them, so history is "
-                "never rewritten."],
+        "why": ["Replacements across years keep both identities and link them, so history is never rewritten.",
+                "Every relation quotes the sentence that states it."],
         "columns": [
             col("relation_id", "text", "<from>|<relation_type>|<to>|<document_id>", pk=True),
             col("from_tariff_id", "text", "subject", fk="tariff.tariff_id"),
@@ -244,7 +249,8 @@ TABLES = [
         "description": "A tariff as listed in one document version (code, name and class as printed there).",
         "why": ["The historical grain: one row per (document version, tariff); attributes are never updated, a new "
                 "version adds a new listing.",
-                "is_priced = 0 represents AER zero-priced placeholder rows without inventing charges."],
+                "price_availability = placeholder represents AER zero-priced placeholder rows without inventing "
+                "charges; rules_only marks a tariff a document names only in its rules text."],
         "columns": [
             col("listing_id", "text", "<document_id>/<code_published>[/<n>]", pk=True),
             col("document_id", "text", "where", fk="source_document.document_id"),
@@ -258,7 +264,6 @@ TABLES = [
             col("effective_to", "date", "last day (inclusive)"),
             col("price_availability", "text", "Whether this document prints prices, a zero/blank placeholder, or only rules",
                 enum=["priced", "placeholder", "rules_only"]),
-            col("is_priced", "boolean", "0 when the source has no priced components (placeholder); explicit zero charges remain prices"),
             col("locator", "text", "first price cell/page of the listing"),
             col("note", "text", "parser notes for the listing", null=True),
         ],
@@ -267,7 +272,9 @@ TABLES = [
     {
         "name": "listing_flag",
         "description": "Status flags of a listing: trial, closed to new customers, withdrawn, site-specific, "
-                       "placeholder, proposed price, LFiT/metering inclusion.",
+                       "placeholder, proposed price, LFiT/metering inclusion (derived from listing text, parser notes, "
+                       "curated flags and price adjustments).",
+        "derived": True,  # recomputed from the source-fact tables on every build; outside the append-only check
         "why": ["A tariff can be several of these at once and they change by year, so they are rows, not columns."],
         "columns": [
             col("listing_id", "text", "listing", pk=True, fk="tariff_listing.listing_id"),
@@ -305,11 +312,15 @@ TABLES = [
             col("period", "text", "billing period of the unit", enum=PERIODS),
             col("period_inferred", "boolean", "1 when the period comes from the component label, not the published unit"),
             col("gst", "text", "GST basis", enum=["excl", "incl"]),
-            col("includes_metering", "text", "whether the value contains a metering charge", enum=TRISTATE),
-            col("includes_lfit", "text", "whether the value contains the ACT large-scale feed-in tariff amount",
-                enum=TRISTATE + ["not_applicable"]),
-            col("effective_from", "date", "first day"),
-            col("effective_to", "date", "last day (inclusive)"),
+            col("includes_metering", "text", "whether the value contains a metering charge (derived: 'yes' where a "
+                "metering_adder price_adjustment reproduces the value from the AER price plus metering)", enum=TRISTATE,
+                derived=True),
+            col("includes_lfit", "text", "whether the value contains the ACT large-scale feed-in tariff amount "
+                "(derived from the Evoenergy LFiT statements and price adjustments)",
+                enum=TRISTATE + ["not_applicable"], derived=True),
+            col("effective_from", "date", "first day the value applies; today always the listing's first day (tested), "
+                "kept per charge so a source that changes some prices part-way through a year needs no new listing"),
+            col("effective_to", "date", "last day (inclusive); same rule as effective_from"),
             col("locator", "text", "where the value is (re-read by the tests)"),
             col("locator_kind", "text", "xlsx | pdf | pdf-ocr", enum=LOCATOR_KINDS),
             col("sheet", "text", "spreadsheet tab", null=True),
@@ -342,8 +353,11 @@ TABLES = [
             col("upper_bound", "numeric", "Upper quantity boundary, NULL means unbounded", null=True),
             col("lower_inclusive", "boolean", "Whether lower boundary belongs to the block"),
             col("upper_inclusive", "boolean", "Whether upper boundary belongs to the block"),
-            col("quantity_unit", "text", "Unit of the boundaries", enum=["kWh", "kW", "kVA"]),
-            col("reset_period", "text", "Period over which quantity accumulates", enum=["day", "month", "billing_period", "year", "unstated"]),
+            col("quantity_unit", "text", "Unit of the boundaries", enum=["kWh"]),
+            col("reset_period", "text", "Period over which quantity accumulates: day (each day stands alone); "
+                "billing_period_per_day (the bounds are per day and are multiplied by the days in the billing period, "
+                "so an unused allowance rolls over within that period); unstated",
+                enum=["day", "billing_period_per_day", "unstated"]),
             *provenance(),
         ],
         "checks": ["step_index > 0", "effective_from <= effective_to",
@@ -387,14 +401,17 @@ TABLES = [
         "why": ["Windows are shared by many tariffs and change by year, so they are versioned per document and linked "
                 "to tariffs through tariff_tou.",
                 "time_basis and public-holiday treatment are explicit because distributors differ (local vs standard "
-                "time; holidays as weekends or not)."],
+                "time; holidays as weekends or not).",
+                "Times are stored exactly as the source states them; a schedule stated in daylight time keeps that "
+                "basis rather than being converted to a guess for standard-time months."],
         "columns": [
             col("tou_schedule_id", "text", "slug", pk=True),
             col("distributor_id", "text", "owner", fk="distributor.distributor_id"),
             col("document_id", "text", "where stated", fk="source_document.document_id"),
             col("fin_year", "text", "year", fk="financial_year.fin_year"),
             col("name", "text", "what the windows are for"),
-            col("time_basis", "text", "clock the times refer to", enum=TIME_BASES),
+            col("time_basis", "text", "clock the times refer to, as the source states it (daylight_time: stated in "
+                "daylight-saving time, e.g. 'ADST'; never converted)", enum=TIME_BASES),
             col("public_holidays", "text", "how public holidays are treated", enum=HOLIDAY_RULES),
             col("covers_full_day", "boolean", "1 when the document's windows partition every day (tested: 24h, no "
                 "overlap)"),
@@ -517,7 +534,8 @@ TABLES = [
     {
         "name": "price_adjustment",
         "description": "A documented difference between AER and distributor prices for one distributor-year "
-                       "(metering adder, ACT LFiT adder or rebate, rounding artefact).",
+                       "(metering adder, ACT LFiT adder or rebate); derived by comparing the two documents' charges.",
+        "derived": True,  # recomputed from the source-fact tables on every build; outside the append-only check
         "why": ["The known AER-vs-distributor offsets are explained by data with a formula and evidence, so a consumer "
                 "can derive the distributor price from the AER price."],
         "columns": [
@@ -537,7 +555,8 @@ TABLES = [
     },
     {
         "name": "price_adjustment_tariff",
-        "description": "Tariffs an adjustment applies to, with the expected per-tariff difference.",
+        "description": "Tariffs an adjustment applies to, with the expected per-tariff difference (derived).",
+        "derived": True,  # recomputed from the source-fact tables on every build; outside the append-only check
         "why": ["Metering adders differ by tariff (only small-customer tariffs carry them); listing the tariffs makes "
                 "the rule testable."],
         "columns": [
@@ -551,7 +570,9 @@ TABLES = [
     },
     {
         "name": "exception_type",
-        "description": "Catalogue of irregularities the data must represent, and how it represents each.",
+        "description": "Catalogue of irregularities the data must represent, and how it represents each (from "
+                       "scripts/tariffdb/exceptions.py).",
+        "derived": True,  # regenerated from the catalogue in code on every build; outside the append-only check
         "why": ["Exceptions are first-class data with a stated representation and a test, so new years can be checked "
                 "against the same catalogue."],
         "columns": [
@@ -564,7 +585,8 @@ TABLES = [
     },
     {
         "name": "exception_instance",
-        "description": "Each occurrence of a catalogued exception.",
+        "description": "Each occurrence of a catalogued exception, detected on every build.",
+        "derived": True,  # recomputed from the source-fact tables on every build; outside the append-only check
         "why": ["Occurrences point at the exact tariff/listing/charge/document affected."],
         "columns": [
             col("instance_id", "text", "<exception_code>/<n>", pk=True),
@@ -587,6 +609,7 @@ TABLES = [
 
 
 TABLE_ORDER = [t["name"] for t in TABLES]
+DERIVED_TABLES = [t["name"] for t in TABLES if t.get("derived")]
 BY_NAME = {t["name"]: t for t in TABLES}
 
 SQL_TYPES = {
@@ -598,7 +621,7 @@ SQL_TYPES = {
 
 
 def ddl(dialect="sqlite"):
-    out = [f"-- Generated from scripts/tariffdb/spec.py by scripts/tariffdb/build.py; do not edit by hand.",
+    out = ["-- Generated from scripts/tariffdb/spec.py by scripts/tariffdb/build.py; do not edit by hand.",
            f"-- Dialect: {dialect}. Load order follows foreign keys."]
     for t in TABLES:
         lines = []
@@ -654,5 +677,5 @@ def json_spec():
     return {"generated_from": "scripts/tariffdb/spec.py", "tables": [
         {"name": t["name"], "description": t["description"], "why": t["why"], "file": f"tables/{t['name']}.csv",
          "primary_key": [c["name"] for c in t["columns"] if c["primary_key"]],
-         "unique": t.get("unique", []), "checks": t.get("checks", []),
+         "derived": bool(t.get("derived")), "unique": t.get("unique", []), "checks": t.get("checks", []),
          "columns": t["columns"]} for t in TABLES]}

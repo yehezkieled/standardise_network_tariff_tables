@@ -235,7 +235,7 @@ def documents():
         if r["side"] == "AER":
             status = "approved"
         elif r["side"] == "AER_HOSTED":
-            status = "proposed"
+            status = "unverified"  # hosting says nothing about whether these prices were proposed or approved
         else:
             status = "published"
         status = PRICE_STATUS_OVERRIDES.get(path, status)

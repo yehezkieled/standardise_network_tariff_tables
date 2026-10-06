@@ -60,13 +60,17 @@ tou_schedules:
   - codes:
     - '015'
     applies_to: energy
-    locator: pdf:p22
-    quote: 015 Residential TOU Network
+    locator: pdf:p8
+    quote: '(cents/kWh): (015) 7 am to 9 am and 5 pm'
+    note: 'Table 2.1 row ''Residential time-of-use (TOU) network (015)'': the code label sits beside the ''Energy at max times''
+      window in the PDF text layer.'
   - codes:
     - '016'
     applies_to: energy
     locator: pdf:p12
     quote: the residential time of use tariff (tariff codes 015, 016)
+    note: p12 names 015 and 016 as the residential time of use tariff, whose max, mid and economy times Table 2.1 (p8) gives;
+      Table 2.6 (p22) prices '016 Residential TOU Network XMC*' at max, mid and economy times.
 - id: evo-2023-24-025-demand-window
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
   fin_year: 2023-24
@@ -95,11 +99,15 @@ tou_schedules:
     applies_to: demand
     locator: pdf:p22
     quote: 025 Residential Demand Network
+    note: Table 2.6 (p22) row '025 Residential Demand Network' includes 'Peak period maximum demand'; Table 2.1 (p9) gives the
+      Residential kW demand (025) maximum demand charge time '5 pm to 8 pm every day'.
   - codes:
     - '026'
     applies_to: demand
     locator: pdf:p12
     quote: the residential demand tariff (tariff codes 025, 026)
+    note: p12 names 025 and 026 as the residential demand tariff; Table 2.6 (p22) prices '026 Residential Demand Network XMC*'
+      with 'Peak period maximum demand'.
 - id: evo-2023-24-027-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
   fin_year: 2023-24
@@ -175,13 +183,17 @@ tou_schedules:
   - codes:
     - '027'
     applies_to: energy
-    locator: pdf:p22
-    quote: 027 Residential Battery Network
+    locator: pdf:p10
+    quote: (027)  Energy at max times
+    note: 'Table 2.1 row ''Residential battery (027)'': the code label sits beside the ''Energy at max times'' parameter in the
+      PDF text layer; the row lists the max, mid, economy and solar sponge times.'
   - codes:
     - 028
     applies_to: energy
     locator: pdf:p23
     quote: 028 Residential Battery Network XMC*
+    note: Table 2.6 (p23) prices '028 Residential Battery Network XMC*' at max, mid, economy and solar sponge times, as for 027;
+      '* XMC tariffs exclude metering capital charges' (p26).
 - id: evo-2023-24-027-export-window
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
   fin_year: 2023-24
@@ -206,11 +218,17 @@ tou_schedules:
   - codes:
     - '027'
     applies_to: export
+    locator: pdf:p10
+    quote: (027)  Energy at max times
+    note: Table 2.1 row label 'Residential battery (027)'; the same row's explanation (p10) states the seasonal export charge
+      window.
   - codes:
     - 028
     applies_to: export
     locator: pdf:p23
     quote: 028 Residential Battery Network XMC*
+    note: 'Table 2.6 (p23) prices ''028 Residential Battery Network XMC*'' with ''Export Threshold Charge : high season'' and
+      ''... low season'', as for 027.'
 - id: evo-2023-24-060-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
   fin_year: 2023-24
@@ -241,6 +259,9 @@ tou_schedules:
   - codes:
     - '060'
     applies_to: controlled_load
+    locator: pdf:p11
+    quote: The off-peak tariffs (codes 060 and 070) apply to controlled loads to encourage electricity usage at off-peak times.
+    note: 060 is the Off-peak (1) night network of Table 2.1 (p9), whose controlled times this schedule records.
 - id: evo-2023-24-070-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
   fin_year: 2023-24
@@ -278,6 +299,9 @@ tou_schedules:
   - codes:
     - '070'
     applies_to: controlled_load
+    locator: pdf:p11
+    quote: The off-peak tariffs (codes 060 and 070) apply to controlled loads to encourage electricity usage at off-peak times.
+    note: 070 is the Off-peak (3) day and night network of Table 2.1 (p9-10), whose controlled times this schedule records.
 - id: evo-2023-24-lv-tou-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
   fin_year: 2023-24
@@ -333,31 +357,43 @@ tou_schedules:
     applies_to: energy
     locator: pdf:p24
     quote: 090 General TOU Network
+    note: Table 2.6 (p24) prices 090 at 'business times', 'evening times' and 'off-peak times', which the Table 2.3 footnote (p16)
+      defines.
   - codes:
     - 091
     applies_to: energy
     locator: pdf:p24
     quote: 091 General TOU Network XMC*
+    note: Table 2.6 (p24) prices 091 at 'business times', 'evening times' and 'off-peak times', which the Table 2.3 footnote (p16)
+      defines.
   - codes:
     - '101'
     applies_to: energy
     locator: pdf:p24
     quote: 101 LV TOU kVA Demand Network
+    note: Table 2.6 (p24) prices 101 at 'business times', 'evening times' and 'off-peak times', which the Table 2.3 footnote (p16)
+      defines.
   - codes:
     - '104'
     applies_to: energy
     locator: pdf:p24
     quote: 104 LV TOU kVA Demand Network XMC*
+    note: Table 2.6 (p24) prices 104 at 'business times', 'evening times' and 'off-peak times', which the Table 2.3 footnote (p16)
+      defines.
   - codes:
     - '103'
     applies_to: energy
     locator: pdf:p24
     quote: 103 LV TOU Capacity Network
+    note: Table 2.6 (p24) prices 103 at 'business times', 'evening times' and 'off-peak times', which the Table 2.3 footnote (p16)
+      defines.
   - codes:
     - '105'
     applies_to: energy
     locator: pdf:p24
     quote: 105 LV TOU Capacity Network XMC*
+    note: Table 2.6 (p24-25) prices 105 at 'business times', 'evening times' and 'off-peak times', which the Table 2.3 footnote
+      (p16) defines.
 - id: evo-2023-24-hv-tou-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
   fin_year: 2023-24
@@ -413,16 +449,22 @@ tou_schedules:
     applies_to: energy
     locator: pdf:p25
     quote: 111 HV TOU Demand Network
+    note: Table 2.6 (p25) prices 111 at 'business times', 'evening times' and 'off-peak times', which the Table 2.5 footnote (p20)
+      defines.
   - codes:
     - '121'
     applies_to: energy
     locator: pdf:p25
     quote: 121 HV TOU Demand Network – Customer LV
+    note: Table 2.6 (p25-26) prices 121 at 'business times', 'evening times' and 'off-peak times', which the Table 2.5 footnote
+      (p20) defines.
   - codes:
     - '122'
     applies_to: energy
     locator: pdf:p26
     quote: 122 HV TOU Demand Network – Customer HV and LV
+    note: Table 2.6 (p26) prices 122 at 'business times', 'evening times' and 'off-peak times', which the Table 2.5 footnote (p20)
+      defines.
 - id: evo-2023-24-lv-demand-window
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
   fin_year: 2023-24
@@ -448,29 +490,47 @@ tou_schedules:
   - codes:
     - '101'
     applies_to: demand
+    locator: pdf:p24
+    quote: 101 LV TOU kVA Demand Network
+    note: Table 2.6 (p24) row has a 'Maximum demand charge'; p13 states that the maximum demand of the LV TOU kVA Demand and LV
+      TOU Capacity tariffs is 'peak-period' maximum demand in the Business Time, 7:00am to 5:00pm (AEST) on weekdays.
   - codes:
     - '103'
     applies_to: demand
+    locator: pdf:p24
+    quote: 103 LV TOU Capacity Network
+    note: Table 2.6 (p24) row has a 'Maximum demand charge'; p13 states that the maximum demand of the LV TOU kVA Demand and LV
+      TOU Capacity tariffs is 'peak-period' maximum demand in the Business Time, 7:00am to 5:00pm (AEST) on weekdays.
   - codes:
     - '104'
     applies_to: demand
     locator: pdf:p24
     quote: 104 LV TOU kVA Demand Network XMC*
+    note: Table 2.6 (p24) row has a 'Maximum demand charge'; p13 states that the maximum demand of the LV TOU kVA Demand and LV
+      TOU Capacity tariffs is 'peak-period' maximum demand in the Business Time, 7:00am to 5:00pm (AEST) on weekdays.
   - codes:
     - '105'
     applies_to: demand
     locator: pdf:p24
     quote: 105 LV TOU Capacity Network XMC*
+    note: Table 2.6 (p24-25) row has a 'Maximum demand charge'; p13 states that the maximum demand of the LV TOU kVA Demand and
+      LV TOU Capacity tariffs is 'peak-period' maximum demand in the Business Time, 7:00am to 5:00pm (AEST) on weekdays.
   - codes:
     - '106'
     applies_to: demand
-    locator: pdf:p12
-    quote: The LV kW Demand tariff includes the following three components
+    locator: pdf:p25
+    quote: 106 LV Demand Network
+    note: Table 2.6 (p25) row has 'Peak period maximum demand'; Table 2.3 (p14) measures the LV kW Demand (106) maximum demand
+      'during the specified business times (i.e. 7:00am**, 7:30am, 8:00am, 8:30am, etc. up to 5:00pm)', and the footnote (p16)
+      defines business times as 7 am to 5 pm on weekdays.
   - codes:
     - '107'
     applies_to: demand
     locator: pdf:p25
     quote: 107 LV Demand Network XMC*
+    note: Table 2.6 (p25) row has 'Peak period maximum demand'; Table 2.3 (p14) measures the LV kW Demand (106; XMC variant 107)
+      maximum demand 'during the specified business times (i.e. 7:00am**, 7:30am, 8:00am, 8:30am, etc. up to 5:00pm)', and the
+      footnote (p16) defines business times as 7 am to 5 pm on weekdays.
 - id: evo-2023-24-hv-demand-window
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
   fin_year: 2023-24
@@ -479,7 +539,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p17
-  quote: The peak period for these HV Commercial tariffs is the Business Time
+  quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am30 to 5:00pm on weekdays.
   note: 'Section 2.3 continues ''specified as 7:00am30 to 5:00pm on weekdays'' (30 is a footnote marker: ''The first period
     starts at 07:00:01 and ends at 07:30:00 AEST''). Table 2.5 footnote (p20): ''All times refer to Australian Eastern Standard
     Time (AEST).'''
@@ -490,23 +550,29 @@ tou_schedules:
     start: 07:00
     end: '17:00'
     locator: pdf:p17
-    quote: to 5:00pm on weekdays
+    quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am30 to 5:00pm on weekdays.
   tariffs:
   - codes:
     - '111'
     applies_to: demand
     locator: pdf:p25
     quote: 111 HV TOU Demand Network
+    note: Table 2.6 (p25) row has a 'Maximum demand charge'; p17 states that the maximum demand charge of the HV tariffs is 'peak-period'
+      maximum demand in the Business Time, 7:00am to 5:00pm on weekdays.
   - codes:
     - '121'
     applies_to: demand
     locator: pdf:p25
     quote: 121 HV TOU Demand Network – Customer LV
+    note: Table 2.6 (p25-26) row has a 'Maximum demand charge'; p17 states that the maximum demand charge of the HV tariffs is
+      'peak-period' maximum demand in the Business Time, 7:00am to 5:00pm on weekdays.
   - codes:
     - '122'
     applies_to: demand
     locator: pdf:p26
     quote: 122 HV TOU Demand Network – Customer HV and LV
+    note: Table 2.6 (p26) row has a 'Maximum demand charge'; p17 states that the maximum demand charge of the HV tariffs is 'peak-period'
+      maximum demand in the Business Time, 7:00am to 5:00pm on weekdays.
 - id: evo-2024-25-015-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -564,6 +630,10 @@ tou_schedules:
   - codes:
     - '015'
     applies_to: energy
+    locator: pdf:p4
+    quote: 015 Residential TOU Network (closed)
+    note: Heading of the tariff block on p4; the block's Peak Energy, Shoulder Energy and Off-peak Energy rows (p4) hold these
+      windows.
 - id: evo-2024-25-016-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -621,6 +691,10 @@ tou_schedules:
   - codes:
     - '016'
     applies_to: energy
+    locator: pdf:p5
+    quote: 016 Residential TOU Network (closed) XMC*
+    note: Heading of the tariff block on p5; the block's Peak Energy, Shoulder Energy and Off-peak Energy rows (p5) hold these
+      windows.
 - id: evo-2024-25-017-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -685,6 +759,10 @@ tou_schedules:
   - codes:
     - '017'
     applies_to: energy
+    locator: pdf:p5
+    quote: 017 New Residential TOU Network
+    note: Heading of the tariff block on p5; the block's Peak Energy, Solar Soak Energy and Off-peak Energy rows (p5) hold these
+      windows.
 - id: evo-2024-25-018-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -749,6 +827,10 @@ tou_schedules:
   - codes:
     - 018
     applies_to: energy
+    locator: pdf:p5
+    quote: 018 New Residential TOU Network XMC*
+    note: Heading of the tariff block on p5; the block's Peak Energy, Solar Soak Energy and Off-peak Energy rows (p5) hold these
+      windows.
 - id: evo-2024-25-023-dem-76-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -757,7 +839,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p6
-  quote: 5pm-9pm every day during winter months
+  quote: 5pm-9pm every day during winter months Seasonal kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''winter
     months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -769,11 +851,14 @@ tou_schedules:
     months: not_stated
     season: winter months
     locator: pdf:p6
-    quote: 5pm-9pm every day during winter months
+    quote: 5pm-9pm every day during winter months Seasonal kW Demand
   tariffs:
   - codes:
     - '023'
     applies_to: demand
+    locator: pdf:p6
+    quote: 023 New Residential Demand Network
+    note: Heading of the tariff block on p6; the block's Seasonal kW Demand (High) row (p6) holds these windows.
 - id: evo-2024-25-023-dem-81-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -782,7 +867,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p6
-  quote: 5pm-9pm every day during non-winter months
+  quote: 5pm-9pm every day during non-winter months Seasonal kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''non-winter
     months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -794,11 +879,14 @@ tou_schedules:
     months: not_stated
     season: non-winter months
     locator: pdf:p6
-    quote: 5pm-9pm every day during non-winter months
+    quote: 5pm-9pm every day during non-winter months Seasonal kW Demand
   tariffs:
   - codes:
     - '023'
     applies_to: demand
+    locator: pdf:p6
+    quote: 023 New Residential Demand Network
+    note: Heading of the tariff block on p6; the block's Seasonal kW Demand (Low) row (p6) holds these windows.
 - id: evo-2024-25-023-dem-86-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -807,7 +895,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p6
-  quote: 9pm-9am every day
+  quote: 9pm-9am every day Off-peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -816,18 +904,21 @@ tou_schedules:
     start: '21:00'
     end: '24:00'
     locator: pdf:p6
-    quote: 9pm-9am every day
+    quote: 9pm-9am every day Off-peak kW Demand
   - period: demand_window
     label: Off-peak kW Demand
     days: all_days
     start: 00:00
     end: 09:00
     locator: pdf:p6
-    quote: 9pm-9am every day
+    quote: 9pm-9am every day Off-peak kW Demand
   tariffs:
   - codes:
     - '023'
     applies_to: demand
+    locator: pdf:p6
+    quote: 023 New Residential Demand Network
+    note: Heading of the tariff block on p6; the block's Off-peak kW Demand row (p6) holds these windows.
 - id: evo-2024-25-023-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -864,6 +955,9 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: energy
+    locator: pdf:p6
+    quote: 023 New Residential Demand Network
+    note: Heading of the tariff block on p6; the block's Off-peak Energy and Solar Soak Energy rows (p6) hold these windows.
 - id: evo-2024-25-024-dem-97-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -872,7 +966,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p7
-  quote: 5pm-9pm every day during winter months
+  quote: 5pm-9pm every day during winter months Seasonal kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''winter
     months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -884,11 +978,14 @@ tou_schedules:
     months: not_stated
     season: winter months
     locator: pdf:p7
-    quote: 5pm-9pm every day during winter months
+    quote: 5pm-9pm every day during winter months Seasonal kW Demand
   tariffs:
   - codes:
     - '024'
     applies_to: demand
+    locator: pdf:p6
+    quote: 024 New Residential Demand Network XMC*
+    note: Heading of the tariff block on p6; the block's Seasonal kW Demand (High) row (p7) holds these windows.
 - id: evo-2024-25-024-dem-102-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -897,7 +994,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p7
-  quote: 5pm-9pm every day during non-winter months
+  quote: 5pm-9pm every day during non-winter months Seasonal kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''non-winter
     months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -909,11 +1006,14 @@ tou_schedules:
     months: not_stated
     season: non-winter months
     locator: pdf:p7
-    quote: 5pm-9pm every day during non-winter months
+    quote: 5pm-9pm every day during non-winter months Seasonal kW Demand
   tariffs:
   - codes:
     - '024'
     applies_to: demand
+    locator: pdf:p6
+    quote: 024 New Residential Demand Network XMC*
+    note: Heading of the tariff block on p6; the block's Seasonal kW Demand (Low) row (p7) holds these windows.
 - id: evo-2024-25-024-dem-107-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -922,7 +1022,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p7
-  quote: 9pm-9am every day
+  quote: 9pm-9am every day Off-peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -931,18 +1031,21 @@ tou_schedules:
     start: '21:00'
     end: '24:00'
     locator: pdf:p7
-    quote: 9pm-9am every day
+    quote: 9pm-9am every day Off-peak kW Demand
   - period: demand_window
     label: Off-peak kW Demand
     days: all_days
     start: 00:00
     end: 09:00
     locator: pdf:p7
-    quote: 9pm-9am every day
+    quote: 9pm-9am every day Off-peak kW Demand
   tariffs:
   - codes:
     - '024'
     applies_to: demand
+    locator: pdf:p6
+    quote: 024 New Residential Demand Network XMC*
+    note: Heading of the tariff block on p6; the block's Off-peak kW Demand row (p7) holds these windows.
 - id: evo-2024-25-024-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -979,6 +1082,9 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: energy
+    locator: pdf:p6
+    quote: 024 New Residential Demand Network XMC*
+    note: Heading of the tariff block on p6; the block's Off-peak Energy and Solar Soak Energy rows (p6) hold these windows.
 - id: evo-2024-25-025-dem-117-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -987,7 +1093,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p7
-  quote: 5pm-8pm every day
+  quote: 5pm-8pm every day Peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -996,11 +1102,14 @@ tou_schedules:
     start: '17:00'
     end: '20:00'
     locator: pdf:p7
-    quote: 5pm-8pm every day
+    quote: 5pm-8pm every day Peak kW Demand
   tariffs:
   - codes:
     - '025'
     applies_to: demand
+    locator: pdf:p7
+    quote: 025 Residential Demand Network (closed)
+    note: Heading of the tariff block on p7; the block's Peak kW Demand row (p7) holds these windows.
 - id: evo-2024-25-026-dem-127-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1009,7 +1118,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p7
-  quote: 5pm-8pm every day
+  quote: 5pm-8pm every day Peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -1018,11 +1127,14 @@ tou_schedules:
     start: '17:00'
     end: '20:00'
     locator: pdf:p7
-    quote: 5pm-8pm every day
+    quote: 5pm-8pm every day Peak kW Demand
   tariffs:
   - codes:
     - '026'
     applies_to: demand
+    locator: pdf:p7
+    quote: 026 Residential Demand Network (closed) XMC*
+    note: Heading of the tariff block on p7; the block's Peak kW Demand row (p7) holds these windows.
 - id: evo-2024-25-060-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1053,6 +1165,9 @@ tou_schedules:
   - codes:
     - '060'
     applies_to: controlled_load
+    locator: pdf:p8
+    quote: 060 Off-Peak (1) Night Network
+    note: Heading of the tariff block on p8; the block's Off-peak row (p8) holds these windows.
 - id: evo-2024-25-070-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1061,7 +1176,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p8
-  quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm
+  quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm Off-peak c/kWh 2.885 2.885 every day
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The table gives the hours of supply
     within these windows (''8 hours between 10pm-7am and 5 hours between 9am-5pm every day''). The applicability text continues
     on the next line (''every day'').'
@@ -1072,25 +1187,28 @@ tou_schedules:
     start: '22:00'
     end: '24:00'
     locator: pdf:p8
-    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm Off-peak c/kWh 2.885 2.885 every day
   - period: controlled_load_supply
     label: Off-peak
     days: all_days
     start: 00:00
     end: 07:00
     locator: pdf:p8
-    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm Off-peak c/kWh 2.885 2.885 every day
   - period: controlled_load_supply
     label: Off-peak
     days: all_days
     start: 09:00
     end: '17:00'
     locator: pdf:p8
-    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm Off-peak c/kWh 2.885 2.885 every day
   tariffs:
   - codes:
     - '070'
     applies_to: controlled_load
+    locator: pdf:p8
+    quote: 070 Off-Peak (3) Day & Night Network
+    note: Heading of the tariff block on p8; the block's Off-peak row (p8) holds these windows.
 - id: evo-2024-25-090-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1142,6 +1260,10 @@ tou_schedules:
   - codes:
     - 090
     applies_to: energy
+    locator: pdf:p9
+    quote: 090 General TOU Network
+    note: Heading of the tariff block on p9; the block's Peak Energy, Shoulder Energy and Off-peak Energy rows (p9) hold these
+      windows.
 - id: evo-2024-25-091-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1193,6 +1315,10 @@ tou_schedules:
   - codes:
     - 091
     applies_to: energy
+    locator: pdf:p10
+    quote: 091 General TOU Network XMC*
+    note: Heading of the tariff block on p10; the block's Peak Energy, Shoulder Energy and Off-peak Energy rows (p10) hold these
+      windows.
 - id: evo-2024-25-101-dem-203-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1201,7 +1327,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p10
-  quote: 7am-5pm weekdays
+  quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -1210,11 +1336,14 @@ tou_schedules:
     start: 07:00
     end: '17:00'
     locator: pdf:p10
-    quote: 7am-5pm weekdays
+    quote: 7am-5pm weekdays Peak kVA Demand
   tariffs:
   - codes:
     - '101'
     applies_to: demand
+    locator: pdf:p10
+    quote: 101 LV TOU kVA Demand Network
+    note: Heading of the tariff block on p10; the block's Peak kVA Demand row (p10) holds these windows.
 - id: evo-2024-25-101-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1266,6 +1395,10 @@ tou_schedules:
   - codes:
     - '101'
     applies_to: energy
+    locator: pdf:p10
+    quote: 101 LV TOU kVA Demand Network
+    note: Heading of the tariff block on p10; the block's Peak Energy, Shoulder Energy and Off-peak Energy rows (p10) hold these
+      windows.
 - id: evo-2024-25-104-dem-214-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1274,7 +1407,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p10
-  quote: 7am-5pm weekdays
+  quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -1283,11 +1416,14 @@ tou_schedules:
     start: 07:00
     end: '17:00'
     locator: pdf:p10
-    quote: 7am-5pm weekdays
+    quote: 7am-5pm weekdays Peak kVA Demand
   tariffs:
   - codes:
     - '104'
     applies_to: demand
+    locator: pdf:p10
+    quote: 104 LV TOU kVA Demand Network XMC*
+    note: Heading of the tariff block on p10; the block's Peak kVA Demand row (p10) holds these windows.
 - id: evo-2024-25-104-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1339,6 +1475,10 @@ tou_schedules:
   - codes:
     - '104'
     applies_to: energy
+    locator: pdf:p10
+    quote: 104 LV TOU kVA Demand Network XMC*
+    note: Heading of the tariff block on p10; the block's Peak Energy, Shoulder Energy and Off-peak Energy rows (p10) hold these
+      windows.
 - id: evo-2024-25-103-dem-226-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1347,7 +1487,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p11
-  quote: 7am-5pm weekdays
+  quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -1356,11 +1496,14 @@ tou_schedules:
     start: 07:00
     end: '17:00'
     locator: pdf:p11
-    quote: 7am-5pm weekdays
+    quote: 7am-5pm weekdays Peak kVA Demand
   tariffs:
   - codes:
     - '103'
     applies_to: demand
+    locator: pdf:p11
+    quote: 103 LV TOU Capacity Network
+    note: Heading of the tariff block on p11; the block's Peak kVA Demand row (p11) holds these windows.
 - id: evo-2024-25-103-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1412,6 +1555,10 @@ tou_schedules:
   - codes:
     - '103'
     applies_to: energy
+    locator: pdf:p11
+    quote: 103 LV TOU Capacity Network
+    note: Heading of the tariff block on p11; the block's Peak Energy, Shoulder Energy and Off-peak Energy rows (p11) hold these
+      windows.
 - id: evo-2024-25-105-dem-240-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1420,7 +1567,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p11
-  quote: 7am-5pm weekdays
+  quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -1429,11 +1576,14 @@ tou_schedules:
     start: 07:00
     end: '17:00'
     locator: pdf:p11
-    quote: 7am-5pm weekdays
+    quote: 7am-5pm weekdays Peak kVA Demand
   tariffs:
   - codes:
     - '105'
     applies_to: demand
+    locator: pdf:p11
+    quote: 105 LV TOU Capacity Network XMC*
+    note: Heading of the tariff block on p11; the block's Peak kVA Demand row (p11) holds these windows.
 - id: evo-2024-25-105-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1485,6 +1635,10 @@ tou_schedules:
   - codes:
     - '105'
     applies_to: energy
+    locator: pdf:p11
+    quote: 105 LV TOU Capacity Network XMC*
+    note: Heading of the tariff block on p11; the block's Peak Energy, Shoulder Energy and Off-peak Energy rows (p11) hold these
+      windows.
 - id: evo-2024-25-106-dem-256-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1493,7 +1647,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p12
-  quote: 7am-5pm weekdays
+  quote: 7am-5pm weekdays Peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -1502,11 +1656,14 @@ tou_schedules:
     start: 07:00
     end: '17:00'
     locator: pdf:p12
-    quote: 7am-5pm weekdays
+    quote: 7am-5pm weekdays Peak kW Demand
   tariffs:
   - codes:
     - '106'
     applies_to: demand
+    locator: pdf:p12
+    quote: 106 LV Demand Network
+    note: Heading of the tariff block on p12; the block's Peak kW Demand row (p12) holds these windows.
 - id: evo-2024-25-107-dem-265-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1515,7 +1672,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p12
-  quote: 7am-5pm weekdays
+  quote: 7am-5pm weekdays Peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -1524,11 +1681,14 @@ tou_schedules:
     start: 07:00
     end: '17:00'
     locator: pdf:p12
-    quote: 7am-5pm weekdays
+    quote: 7am-5pm weekdays Peak kW Demand
   tariffs:
   - codes:
     - '107'
     applies_to: demand
+    locator: pdf:p12
+    quote: 107 LV Demand Network XMC*
+    note: Heading of the tariff block on p12; the block's Peak kW Demand row (p12) holds these windows.
 - id: evo-2024-25-108-dem-278-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1537,7 +1697,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p12
-  quote: 5pm-8pm every day during summer and spring months
+  quote: 5pm-8pm every day during summer and spring months Seasonal kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''summer
     and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -1549,11 +1709,14 @@ tou_schedules:
     months: not_stated
     season: summer and spring months
     locator: pdf:p12
-    quote: 5pm-8pm every day during summer and spring months
+    quote: 5pm-8pm every day during summer and spring months Seasonal kVA Demand
   tariffs:
   - codes:
     - '108'
     applies_to: demand
+    locator: pdf:p12
+    quote: 108 LV large-scale battery tariff (residential area)
+    note: Heading of the tariff block on p12; the block's Seasonal kVA Demand (High) row (p12) holds these windows.
 - id: evo-2024-25-108-dem-283-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1562,7 +1725,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p12
-  quote: 5pm-8pm every day during winter and autumn months
+  quote: 5pm-8pm every day during winter and autumn months Seasonal kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''winter
     and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -1574,11 +1737,14 @@ tou_schedules:
     months: not_stated
     season: winter and autumn months
     locator: pdf:p12
-    quote: 5pm-8pm every day during winter and autumn months
+    quote: 5pm-8pm every day during winter and autumn months Seasonal kVA Demand
   tariffs:
   - codes:
     - '108'
     applies_to: demand
+    locator: pdf:p12
+    quote: 108 LV large-scale battery tariff (residential area)
+    note: Heading of the tariff block on p12; the block's Seasonal kVA Demand (Low) row (p12) holds these windows.
 - id: evo-2024-25-109-dem-305-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1587,7 +1753,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p13
-  quote: 7am-5pm weekdays during summer and spring months
+  quote: 7am-5pm weekdays during summer and spring months Seasonal kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''summer
     and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -1599,11 +1765,14 @@ tou_schedules:
     months: not_stated
     season: summer and spring months
     locator: pdf:p13
-    quote: 7am-5pm weekdays during summer and spring months
+    quote: 7am-5pm weekdays during summer and spring months Seasonal kVA Demand
   tariffs:
   - codes:
     - '109'
     applies_to: demand
+    locator: pdf:p13
+    quote: 109 LV large-scale battery tariff (commercial area)
+    note: Heading of the tariff block on p13; the block's Seasonal kVA Demand (High) row (p13) holds these windows.
 - id: evo-2024-25-109-dem-310-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1612,7 +1781,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p13
-  quote: 7am-5pm weekdays during winter and autumn months
+  quote: 7am-5pm weekdays during winter and autumn months Seasonal kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''winter
     and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -1624,11 +1793,14 @@ tou_schedules:
     months: not_stated
     season: winter and autumn months
     locator: pdf:p13
-    quote: 7am-5pm weekdays during winter and autumn months
+    quote: 7am-5pm weekdays during winter and autumn months Seasonal kVA Demand
   tariffs:
   - codes:
     - '109'
     applies_to: demand
+    locator: pdf:p13
+    quote: 109 LV large-scale battery tariff (commercial area)
+    note: Heading of the tariff block on p13; the block's Seasonal kVA Demand (Low) row (p13) holds these windows.
 - id: evo-2024-25-111-dem-345-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1637,7 +1809,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p15
-  quote: 7am-5pm weekdays
+  quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -1646,11 +1818,14 @@ tou_schedules:
     start: 07:00
     end: '17:00'
     locator: pdf:p15
-    quote: 7am-5pm weekdays
+    quote: 7am-5pm weekdays Peak kVA Demand
   tariffs:
   - codes:
     - '111'
     applies_to: demand
+    locator: pdf:p15
+    quote: 111 HV TOU Demand Network (closed)
+    note: Heading of the tariff block on p15; the block's Peak kVA Demand row (p15) holds these windows.
 - id: evo-2024-25-111-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1702,6 +1877,10 @@ tou_schedules:
   - codes:
     - '111'
     applies_to: energy
+    locator: pdf:p15
+    quote: 111 HV TOU Demand Network (closed)
+    note: Heading of the tariff block on p15; the block's Peak Energy, Shoulder Energy and Off-peak Energy rows (p15) hold these
+      windows.
 - id: evo-2024-25-121-dem-360-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1710,7 +1889,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p15
-  quote: 7am-5pm weekdays
+  quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -1719,11 +1898,14 @@ tou_schedules:
     start: 07:00
     end: '17:00'
     locator: pdf:p15
-    quote: 7am-5pm weekdays
+    quote: 7am-5pm weekdays Peak kVA Demand
   tariffs:
   - codes:
     - '121'
     applies_to: demand
+    locator: pdf:p15
+    quote: 121 HV TOU Demand Network – Customer LV (closed)
+    note: Heading of the tariff block on p15; the block's Peak kVA Demand row (p15) holds these windows.
 - id: evo-2024-25-121-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1775,6 +1957,10 @@ tou_schedules:
   - codes:
     - '121'
     applies_to: energy
+    locator: pdf:p15
+    quote: 121 HV TOU Demand Network – Customer LV (closed)
+    note: Heading of the tariff block on p15; the block's Peak Energy, Shoulder Energy and Off-peak Energy rows (p15, p16) hold
+      these windows.
 - id: evo-2024-25-122-dem-375-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1783,7 +1969,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p16
-  quote: 7am-5pm weekdays
+  quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
   - period: demand_window
@@ -1792,11 +1978,14 @@ tou_schedules:
     start: 07:00
     end: '17:00'
     locator: pdf:p16
-    quote: 7am-5pm weekdays
+    quote: 7am-5pm weekdays Peak kVA Demand
   tariffs:
   - codes:
     - '122'
     applies_to: demand
+    locator: pdf:p16
+    quote: 122 HV TOU Demand Network – Customer HV and LV
+    note: Heading of the tariff block on p16; the block's Peak kVA Demand row (p16) holds these windows.
 - id: evo-2024-25-122-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1848,6 +2037,10 @@ tou_schedules:
   - codes:
     - '122'
     applies_to: energy
+    locator: pdf:p16
+    quote: 122 HV TOU Demand Network – Customer HV and LV
+    note: Heading of the tariff block on p16; the block's Peak Energy, Shoulder Energy and Off-peak Energy rows (p16) hold these
+      windows.
 - id: evo-2024-25-123-dem-394-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1856,7 +2049,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p16
-  quote: 5pm-8pm every day during summer and spring months
+  quote: 5pm-8pm every day during summer and spring months Seasonal kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''summer
     and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -1868,11 +2061,14 @@ tou_schedules:
     months: not_stated
     season: summer and spring months
     locator: pdf:p16
-    quote: 5pm-8pm every day during summer and spring months
+    quote: 5pm-8pm every day during summer and spring months Seasonal kVA Demand
   tariffs:
   - codes:
     - '123'
     applies_to: demand
+    locator: pdf:p16
+    quote: 123 HV large-scale battery tariff (residential area)
+    note: Heading of the tariff block on p16; the block's Seasonal kVA Demand (High) row (p16) holds these windows.
 - id: evo-2024-25-123-dem-399-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1881,7 +2077,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p16
-  quote: 5pm-8pm every day during winter and autumn months
+  quote: 5pm-8pm every day during winter and autumn months Seasonal kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''winter
     and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -1893,11 +2089,14 @@ tou_schedules:
     months: not_stated
     season: winter and autumn months
     locator: pdf:p16
-    quote: 5pm-8pm every day during winter and autumn months
+    quote: 5pm-8pm every day during winter and autumn months Seasonal kVA Demand
   tariffs:
   - codes:
     - '123'
     applies_to: demand
+    locator: pdf:p16
+    quote: 123 HV large-scale battery tariff (residential area)
+    note: Heading of the tariff block on p16; the block's Seasonal kVA Demand (Low) row (p16) holds these windows.
 - id: evo-2024-25-124-dem-421-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1906,7 +2105,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p17
-  quote: 7am-5pm weekdays during spring and summer months
+  quote: 7am-5pm weekdays during spring and summer months Seasonal kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''spring
     and summer months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -1918,11 +2117,14 @@ tou_schedules:
     months: not_stated
     season: spring and summer months
     locator: pdf:p17
-    quote: 7am-5pm weekdays during spring and summer months
+    quote: 7am-5pm weekdays during spring and summer months Seasonal kVA Demand
   tariffs:
   - codes:
     - '124'
     applies_to: demand
+    locator: pdf:p17
+    quote: 124 HV large-scale battery tariff (commercial area)
+    note: Heading of the tariff block on p17; the block's Seasonal kVA Demand (High) row (p17) holds these windows.
 - id: evo-2024-25-124-dem-426-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
@@ -1931,7 +2133,7 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p17
-  quote: 7am-5pm weekdays during autumn and winter months
+  quote: 7am-5pm weekdays during autumn and winter months Seasonal kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''autumn
     and winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
@@ -1943,11 +2145,14 @@ tou_schedules:
     months: not_stated
     season: autumn and winter months
     locator: pdf:p17
-    quote: 7am-5pm weekdays during autumn and winter months
+    quote: 7am-5pm weekdays during autumn and winter months Seasonal kVA Demand
   tariffs:
   - codes:
     - '124'
     applies_to: demand
+    locator: pdf:p17
+    quote: 124 HV large-scale battery tariff (commercial area)
+    note: Heading of the tariff block on p17; the block's Seasonal kVA Demand (Low) row (p17) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-015-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2005,6 +2210,10 @@ tou_schedules:
   - codes:
     - '015'
     applies_to: energy
+    locator: xlsx:Network tariffs!B35
+    quote: '015'
+    note: B35 ('015') heads the tariff block for 'Residential TOU Network (closed)' (C35); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D40, D41, D42) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-016-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2062,6 +2271,10 @@ tou_schedules:
   - codes:
     - '016'
     applies_to: energy
+    locator: xlsx:Network tariffs!B45
+    quote: '016'
+    note: B45 ('016') heads the tariff block for 'Residential TOU Network (closed) XMC*' (C45); the block's Peak Energy, Shoulder
+      Energy and Off-peak Energy rows (D50, D51, D52) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-017-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2126,6 +2339,10 @@ tou_schedules:
   - codes:
     - '017'
     applies_to: energy
+    locator: xlsx:Network tariffs!B55
+    quote: '017'
+    note: B55 ('017') heads the tariff block for 'New Residential TOU Network' (C55); the block's Peak Energy, Solar Soak Energy
+      and Off-peak Energy rows (D60, D61, D62) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-018-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2190,6 +2407,10 @@ tou_schedules:
   - codes:
     - 018
     applies_to: energy
+    locator: xlsx:Network tariffs!B65
+    quote: 018
+    note: B65 ('018') heads the tariff block for 'New Residential TOU Network XMC*' (C65); the block's Peak Energy, Solar Soak
+      Energy and Off-peak Energy rows (D70, D71, D72) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-023-dem-100-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2215,6 +2436,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: demand
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Seasonal kW Demand (High)
+      row (D100) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-023-dem-101-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2240,6 +2465,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: demand
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Seasonal kW Demand (Low)
+      row (D101) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-023-dem-102-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2269,6 +2498,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: demand
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Off-peak kW Demand row (D102)
+      holds these windows.
 - id: evo-2025-26-soc-incl-lfit-023-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2305,6 +2538,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: energy
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Off-peak Energy and Solar
+      Soak Energy rows (D98, D99) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-024-dem-112-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2330,6 +2567,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: demand
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Seasonal kW Demand
+      (High) row (D112) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-024-dem-113-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2355,6 +2596,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: demand
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Seasonal kW Demand
+      (Low) row (D113) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-024-dem-114-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2384,6 +2629,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: demand
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Off-peak kW Demand
+      row (D114) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-024-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2420,6 +2669,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: energy
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Off-peak Energy and
+      Solar Soak Energy rows (D110, D111) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-025-dem-123-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2442,6 +2695,10 @@ tou_schedules:
   - codes:
     - '025'
     applies_to: demand
+    locator: xlsx:Network tariffs!B117
+    quote: '025'
+    note: B117 ('025') heads the tariff block for 'Residential Demand Network (closed)' (C117); the block's Peak kW Demand row
+      (D123) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-026-dem-132-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2464,6 +2721,10 @@ tou_schedules:
   - codes:
     - '026'
     applies_to: demand
+    locator: xlsx:Network tariffs!B126
+    quote: '026'
+    note: B126 ('026') heads the tariff block for 'Residential Demand Network (closed) XMC*' (C126); the block's Peak kW Demand
+      row (D132) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-060-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2494,6 +2755,10 @@ tou_schedules:
   - codes:
     - '060'
     applies_to: controlled_load
+    locator: xlsx:Network tariffs!B153
+    quote: '060'
+    note: B153 ('060') heads the tariff block for 'Off-Peak (1) Night Network' (C153); the block's Off-peak row (D157) holds these
+      windows.
 - id: evo-2025-26-soc-incl-lfit-070-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2531,6 +2796,10 @@ tou_schedules:
   - codes:
     - '070'
     applies_to: controlled_load
+    locator: xlsx:Network tariffs!B160
+    quote: '070'
+    note: B160 ('070') heads the tariff block for 'Off-Peak (3) Day & Night Network' (C160); the block's Off-peak row (D164) holds
+      these windows.
 - id: evo-2025-26-soc-incl-lfit-090-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2582,6 +2851,10 @@ tou_schedules:
   - codes:
     - 090
     applies_to: energy
+    locator: xlsx:Network tariffs!B188
+    quote: 090
+    note: B188 ('090') heads the tariff block for 'General TOU Network' (C188); the block's Peak Energy, Shoulder Energy and Off-peak
+      Energy rows (D193, D194, D195) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-091-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2633,6 +2906,10 @@ tou_schedules:
   - codes:
     - 091
     applies_to: energy
+    locator: xlsx:Network tariffs!B198
+    quote: 091
+    note: B198 ('091') heads the tariff block for 'General TOU Network XMC*' (C198); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D203, D204, D205) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-101-dem-213-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2655,6 +2932,10 @@ tou_schedules:
   - codes:
     - '101'
     applies_to: demand
+    locator: xlsx:Network tariffs!B208
+    quote: '101'
+    note: B208 ('101') heads the tariff block for 'LV TOU kVA Demand Network' (C208); the block's Peak kVA Demand row (D213) holds
+      these windows.
 - id: evo-2025-26-soc-incl-lfit-101-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2706,6 +2987,10 @@ tou_schedules:
   - codes:
     - '101'
     applies_to: energy
+    locator: xlsx:Network tariffs!B208
+    quote: '101'
+    note: B208 ('101') heads the tariff block for 'LV TOU kVA Demand Network' (C208); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D214, D215, D216) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-104-dem-224-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2728,6 +3013,10 @@ tou_schedules:
   - codes:
     - '104'
     applies_to: demand
+    locator: xlsx:Network tariffs!B219
+    quote: '104'
+    note: B219 ('104') heads the tariff block for 'LV TOU kVA Demand Network XMC*' (C219); the block's Peak kVA Demand row (D224)
+      holds these windows.
 - id: evo-2025-26-soc-incl-lfit-104-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2779,6 +3068,10 @@ tou_schedules:
   - codes:
     - '104'
     applies_to: energy
+    locator: xlsx:Network tariffs!B219
+    quote: '104'
+    note: B219 ('104') heads the tariff block for 'LV TOU kVA Demand Network XMC*' (C219); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D225, D226, D227) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-103-dem-235-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2801,6 +3094,10 @@ tou_schedules:
   - codes:
     - '103'
     applies_to: demand
+    locator: xlsx:Network tariffs!B230
+    quote: '103'
+    note: B230 ('103') heads the tariff block for 'LV TOU Capacity Network' (C230); the block's Peak kVA Demand row (D235) holds
+      these windows.
 - id: evo-2025-26-soc-incl-lfit-103-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2852,6 +3149,10 @@ tou_schedules:
   - codes:
     - '103'
     applies_to: energy
+    locator: xlsx:Network tariffs!B230
+    quote: '103'
+    note: B230 ('103') heads the tariff block for 'LV TOU Capacity Network' (C230); the block's Peak Energy, Shoulder Energy and
+      Off-peak Energy rows (D237, D238, D239) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-105-dem-247-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2874,6 +3175,10 @@ tou_schedules:
   - codes:
     - '105'
     applies_to: demand
+    locator: xlsx:Network tariffs!B242
+    quote: '105'
+    note: B242 ('105') heads the tariff block for 'LV TOU Capacity Network XMC*' (C242); the block's Peak kVA Demand row (D247)
+      holds these windows.
 - id: evo-2025-26-soc-incl-lfit-105-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2925,6 +3230,10 @@ tou_schedules:
   - codes:
     - '105'
     applies_to: energy
+    locator: xlsx:Network tariffs!B242
+    quote: '105'
+    note: B242 ('105') heads the tariff block for 'LV TOU Capacity Network XMC*' (C242); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D249, D250, D251) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-106-dem-260-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2947,6 +3256,10 @@ tou_schedules:
   - codes:
     - '106'
     applies_to: demand
+    locator: xlsx:Network tariffs!B254
+    quote: '106'
+    note: B254 ('106') heads the tariff block for 'LV Demand Network' (C254); the block's Peak kW Demand row (D260) holds these
+      windows.
 - id: evo-2025-26-soc-incl-lfit-107-dem-269-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2969,6 +3282,10 @@ tou_schedules:
   - codes:
     - '107'
     applies_to: demand
+    locator: xlsx:Network tariffs!B263
+    quote: '107'
+    note: B263 ('107') heads the tariff block for 'LV Demand Network XMC*' (C263); the block's Peak kW Demand row (D269) holds
+      these windows.
 - id: evo-2025-26-soc-incl-lfit-108-dem-278-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -2994,6 +3311,10 @@ tou_schedules:
   - codes:
     - '108'
     applies_to: demand
+    locator: xlsx:Network tariffs!B272
+    quote: '108'
+    note: B272 ('108') heads the tariff block for 'LV large-scale battery tariff (residential area)' (C272); the block's Seasonal
+      kVA Demand (High) row (D278) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-108-dem-279-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3019,6 +3340,10 @@ tou_schedules:
   - codes:
     - '108'
     applies_to: demand
+    locator: xlsx:Network tariffs!B272
+    quote: '108'
+    note: B272 ('108') heads the tariff block for 'LV large-scale battery tariff (residential area)' (C272); the block's Seasonal
+      kVA Demand (Low) row (D279) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-109-dem-290-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3044,6 +3369,10 @@ tou_schedules:
   - codes:
     - '109'
     applies_to: demand
+    locator: xlsx:Network tariffs!B284
+    quote: '109'
+    note: B284 ('109') heads the tariff block for 'LV large-scale battery tariff (commercial area)' (C284); the block's Seasonal
+      kVA Demand (High) row (D290) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-109-dem-291-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3069,6 +3398,10 @@ tou_schedules:
   - codes:
     - '109'
     applies_to: demand
+    locator: xlsx:Network tariffs!B284
+    quote: '109'
+    note: B284 ('109') heads the tariff block for 'LV large-scale battery tariff (commercial area)' (C284); the block's Seasonal
+      kVA Demand (Low) row (D291) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-111-dem-325-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3091,6 +3424,10 @@ tou_schedules:
   - codes:
     - '111'
     applies_to: demand
+    locator: xlsx:Network tariffs!B320
+    quote: '111'
+    note: B320 ('111') heads the tariff block for 'HV TOU Demand Network (closed)' (C320); the block's Peak kVA Demand row (D325)
+      holds these windows.
 - id: evo-2025-26-soc-incl-lfit-111-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3142,6 +3479,10 @@ tou_schedules:
   - codes:
     - '111'
     applies_to: energy
+    locator: xlsx:Network tariffs!B320
+    quote: '111'
+    note: B320 ('111') heads the tariff block for 'HV TOU Demand Network (closed)' (C320); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D327, D328, D329) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-121-dem-337-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3164,6 +3505,10 @@ tou_schedules:
   - codes:
     - '121'
     applies_to: demand
+    locator: xlsx:Network tariffs!B332
+    quote: '121'
+    note: B332 ('121') heads the tariff block for 'HV TOU Demand Network – Customer LV (closed)' (C332); the block's Peak kVA
+      Demand row (D337) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-121-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3215,6 +3560,10 @@ tou_schedules:
   - codes:
     - '121'
     applies_to: energy
+    locator: xlsx:Network tariffs!B332
+    quote: '121'
+    note: B332 ('121') heads the tariff block for 'HV TOU Demand Network – Customer LV (closed)' (C332); the block's Peak Energy,
+      Shoulder Energy and Off-peak Energy rows (D339, D340, D341) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-122-dem-349-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3237,6 +3586,10 @@ tou_schedules:
   - codes:
     - '122'
     applies_to: demand
+    locator: xlsx:Network tariffs!B344
+    quote: '122'
+    note: B344 ('122') heads the tariff block for 'HV TOU Demand Network – Customer HV and LV' (C344); the block's Peak kVA Demand
+      row (D349) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-122-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3288,6 +3641,10 @@ tou_schedules:
   - codes:
     - '122'
     applies_to: energy
+    locator: xlsx:Network tariffs!B344
+    quote: '122'
+    note: B344 ('122') heads the tariff block for 'HV TOU Demand Network – Customer HV and LV' (C344); the block's Peak Energy,
+      Shoulder Energy and Off-peak Energy rows (D351, D352, D353) hold these windows.
 - id: evo-2025-26-soc-incl-lfit-123-dem-362-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3313,6 +3670,10 @@ tou_schedules:
   - codes:
     - '123'
     applies_to: demand
+    locator: xlsx:Network tariffs!B356
+    quote: '123'
+    note: B356 ('123') heads the tariff block for 'HV large-scale battery tariff (residential area)' (C356); the block's Seasonal
+      kVA Demand (High) row (D362) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-123-dem-363-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3338,6 +3699,10 @@ tou_schedules:
   - codes:
     - '123'
     applies_to: demand
+    locator: xlsx:Network tariffs!B356
+    quote: '123'
+    note: B356 ('123') heads the tariff block for 'HV large-scale battery tariff (residential area)' (C356); the block's Seasonal
+      kVA Demand (Low) row (D363) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-124-dem-374-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3363,6 +3728,10 @@ tou_schedules:
   - codes:
     - '124'
     applies_to: demand
+    locator: xlsx:Network tariffs!B368
+    quote: '124'
+    note: B368 ('124') heads the tariff block for 'HV large-scale battery tariff (commercial area)' (C368); the block's Seasonal
+      kVA Demand (High) row (D374) holds these windows.
 - id: evo-2025-26-soc-incl-lfit-124-dem-375-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
   fin_year: 2025-26
@@ -3388,6 +3757,10 @@ tou_schedules:
   - codes:
     - '124'
     applies_to: demand
+    locator: xlsx:Network tariffs!B368
+    quote: '124'
+    note: B368 ('124') heads the tariff block for 'HV large-scale battery tariff (commercial area)' (C368); the block's Seasonal
+      kVA Demand (Low) row (D375) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-015-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3445,6 +3818,10 @@ tou_schedules:
   - codes:
     - '015'
     applies_to: energy
+    locator: xlsx:Network tariffs!B35
+    quote: '015'
+    note: B35 ('015') heads the tariff block for 'Residential TOU Network (closed)' (C35); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D40, D41, D42) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-016-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3502,6 +3879,10 @@ tou_schedules:
   - codes:
     - '016'
     applies_to: energy
+    locator: xlsx:Network tariffs!B45
+    quote: '016'
+    note: B45 ('016') heads the tariff block for 'Residential TOU Network (closed) XMC*' (C45); the block's Peak Energy, Shoulder
+      Energy and Off-peak Energy rows (D50, D51, D52) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-017-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3566,6 +3947,10 @@ tou_schedules:
   - codes:
     - '017'
     applies_to: energy
+    locator: xlsx:Network tariffs!B55
+    quote: '017'
+    note: B55 ('017') heads the tariff block for 'New Residential TOU Network' (C55); the block's Peak Energy, Solar Soak Energy
+      and Off-peak Energy rows (D60, D61, D62) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-018-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3630,6 +4015,10 @@ tou_schedules:
   - codes:
     - 018
     applies_to: energy
+    locator: xlsx:Network tariffs!B65
+    quote: 018
+    note: B65 ('018') heads the tariff block for 'New Residential TOU Network XMC*' (C65); the block's Peak Energy, Solar Soak
+      Energy and Off-peak Energy rows (D70, D71, D72) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-023-dem-100-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3655,6 +4044,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: demand
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Seasonal kW Demand (High)
+      row (D100) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-023-dem-101-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3680,6 +4073,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: demand
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Seasonal kW Demand (Low)
+      row (D101) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-023-dem-102-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3709,6 +4106,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: demand
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Off-peak kW Demand row (D102)
+      holds these windows.
 - id: evo-2026-27-soc-incl-lfit-023-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3745,6 +4146,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: energy
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Off-peak Energy and Solar
+      Soak Energy rows (D98, D99) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-024-dem-112-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3770,6 +4175,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: demand
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Seasonal kW Demand
+      (High) row (D112) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-024-dem-113-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3795,6 +4204,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: demand
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Seasonal kW Demand
+      (Low) row (D113) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-024-dem-114-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3824,6 +4237,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: demand
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Off-peak kW Demand
+      row (D114) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-024-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3860,6 +4277,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: energy
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Off-peak Energy and
+      Solar Soak Energy rows (D110, D111) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-025-dem-123-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3882,6 +4303,10 @@ tou_schedules:
   - codes:
     - '025'
     applies_to: demand
+    locator: xlsx:Network tariffs!B117
+    quote: '025'
+    note: B117 ('025') heads the tariff block for 'Residential Demand Network (closed)' (C117); the block's Peak kW Demand row
+      (D123) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-026-dem-132-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3904,6 +4329,10 @@ tou_schedules:
   - codes:
     - '026'
     applies_to: demand
+    locator: xlsx:Network tariffs!B126
+    quote: '026'
+    note: B126 ('026') heads the tariff block for 'Residential Demand Network (closed) XMC*' (C126); the block's Peak kW Demand
+      row (D132) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-060-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3934,6 +4363,10 @@ tou_schedules:
   - codes:
     - '060'
     applies_to: controlled_load
+    locator: xlsx:Network tariffs!B153
+    quote: '060'
+    note: B153 ('060') heads the tariff block for 'Off-Peak (1) Night Network' (C153); the block's Off-peak row (D157) holds these
+      windows.
 - id: evo-2026-27-soc-incl-lfit-070-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -3971,6 +4404,10 @@ tou_schedules:
   - codes:
     - '070'
     applies_to: controlled_load
+    locator: xlsx:Network tariffs!B160
+    quote: '070'
+    note: B160 ('070') heads the tariff block for 'Off-Peak (3) Day & Night Network' (C160); the block's Off-peak row (D164) holds
+      these windows.
 - id: evo-2026-27-soc-incl-lfit-065-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4008,6 +4445,10 @@ tou_schedules:
   - codes:
     - '065'
     applies_to: controlled_load
+    locator: xlsx:Network tariffs!B167
+    quote: '065'
+    note: B167 ('065') heads the tariff block for 'Flexible Controlled Load' (C167); the block's Off-peak row (D171) holds these
+      windows.
 - id: evo-2026-27-soc-incl-lfit-090-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4059,6 +4500,10 @@ tou_schedules:
   - codes:
     - 090
     applies_to: energy
+    locator: xlsx:Network tariffs!B195
+    quote: 090
+    note: B195 ('090') heads the tariff block for 'General TOU Network' (C195); the block's Peak Energy, Shoulder Energy and Off-peak
+      Energy rows (D200, D201, D202) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-091-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4110,6 +4555,10 @@ tou_schedules:
   - codes:
     - 091
     applies_to: energy
+    locator: xlsx:Network tariffs!B205
+    quote: 091
+    note: B205 ('091') heads the tariff block for 'General TOU Network XMC*' (C205); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D210, D211, D212) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-101-dem-220-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4132,6 +4581,10 @@ tou_schedules:
   - codes:
     - '101'
     applies_to: demand
+    locator: xlsx:Network tariffs!B215
+    quote: '101'
+    note: B215 ('101') heads the tariff block for 'LV TOU kVA Demand Network' (C215); the block's Peak kVA Demand row (D220) holds
+      these windows.
 - id: evo-2026-27-soc-incl-lfit-101-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4183,6 +4636,10 @@ tou_schedules:
   - codes:
     - '101'
     applies_to: energy
+    locator: xlsx:Network tariffs!B215
+    quote: '101'
+    note: B215 ('101') heads the tariff block for 'LV TOU kVA Demand Network' (C215); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D221, D222, D223) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-104-dem-231-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4205,6 +4662,10 @@ tou_schedules:
   - codes:
     - '104'
     applies_to: demand
+    locator: xlsx:Network tariffs!B226
+    quote: '104'
+    note: B226 ('104') heads the tariff block for 'LV TOU kVA Demand Network XMC*' (C226); the block's Peak kVA Demand row (D231)
+      holds these windows.
 - id: evo-2026-27-soc-incl-lfit-104-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4256,6 +4717,10 @@ tou_schedules:
   - codes:
     - '104'
     applies_to: energy
+    locator: xlsx:Network tariffs!B226
+    quote: '104'
+    note: B226 ('104') heads the tariff block for 'LV TOU kVA Demand Network XMC*' (C226); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D232, D233, D234) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-103-dem-242-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4278,6 +4743,10 @@ tou_schedules:
   - codes:
     - '103'
     applies_to: demand
+    locator: xlsx:Network tariffs!B237
+    quote: '103'
+    note: B237 ('103') heads the tariff block for 'LV TOU Capacity Network' (C237); the block's Peak kVA Demand row (D242) holds
+      these windows.
 - id: evo-2026-27-soc-incl-lfit-103-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4329,6 +4798,10 @@ tou_schedules:
   - codes:
     - '103'
     applies_to: energy
+    locator: xlsx:Network tariffs!B237
+    quote: '103'
+    note: B237 ('103') heads the tariff block for 'LV TOU Capacity Network' (C237); the block's Peak Energy, Shoulder Energy and
+      Off-peak Energy rows (D244, D245, D246) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-105-dem-254-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4351,6 +4824,10 @@ tou_schedules:
   - codes:
     - '105'
     applies_to: demand
+    locator: xlsx:Network tariffs!B249
+    quote: '105'
+    note: B249 ('105') heads the tariff block for 'LV TOU Capacity Network XMC*' (C249); the block's Peak kVA Demand row (D254)
+      holds these windows.
 - id: evo-2026-27-soc-incl-lfit-105-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4402,6 +4879,10 @@ tou_schedules:
   - codes:
     - '105'
     applies_to: energy
+    locator: xlsx:Network tariffs!B249
+    quote: '105'
+    note: B249 ('105') heads the tariff block for 'LV TOU Capacity Network XMC*' (C249); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D256, D257, D258) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-106-dem-267-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4424,6 +4905,10 @@ tou_schedules:
   - codes:
     - '106'
     applies_to: demand
+    locator: xlsx:Network tariffs!B261
+    quote: '106'
+    note: B261 ('106') heads the tariff block for 'LV Demand Network' (C261); the block's Peak kW Demand row (D267) holds these
+      windows.
 - id: evo-2026-27-soc-incl-lfit-107-dem-276-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4446,6 +4931,10 @@ tou_schedules:
   - codes:
     - '107'
     applies_to: demand
+    locator: xlsx:Network tariffs!B270
+    quote: '107'
+    note: B270 ('107') heads the tariff block for 'LV Demand Network XMC*' (C270); the block's Peak kW Demand row (D276) holds
+      these windows.
 - id: evo-2026-27-soc-incl-lfit-108-dem-285-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4471,6 +4960,10 @@ tou_schedules:
   - codes:
     - '108'
     applies_to: demand
+    locator: xlsx:Network tariffs!B279
+    quote: '108'
+    note: B279 ('108') heads the tariff block for 'LV large-scale battery tariff (residential area)' (C279); the block's Seasonal
+      kVA Demand (High) row (D285) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-108-dem-286-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4496,6 +4989,10 @@ tou_schedules:
   - codes:
     - '108'
     applies_to: demand
+    locator: xlsx:Network tariffs!B279
+    quote: '108'
+    note: B279 ('108') heads the tariff block for 'LV large-scale battery tariff (residential area)' (C279); the block's Seasonal
+      kVA Demand (Low) row (D286) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-109-dem-297-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4521,6 +5018,10 @@ tou_schedules:
   - codes:
     - '109'
     applies_to: demand
+    locator: xlsx:Network tariffs!B291
+    quote: '109'
+    note: B291 ('109') heads the tariff block for 'LV large-scale battery tariff (commercial area)' (C291); the block's Seasonal
+      kVA Demand (High) row (D297) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-109-dem-298-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4546,6 +5047,10 @@ tou_schedules:
   - codes:
     - '109'
     applies_to: demand
+    locator: xlsx:Network tariffs!B291
+    quote: '109'
+    note: B291 ('109') heads the tariff block for 'LV large-scale battery tariff (commercial area)' (C291); the block's Seasonal
+      kVA Demand (Low) row (D298) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-108-r302-dem-308-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4572,6 +5077,10 @@ tou_schedules:
   - codes:
     - '108'
     applies_to: demand
+    locator: xlsx:Network tariffs!B302
+    quote: '108'
+    note: B302 ('108') heads the tariff block for 'LV Stand-Alone Small Battery Network (residential area)' (C302); the block's
+      Seasonal kVA Demand (High) row (D308) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-108-r302-dem-309-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4598,6 +5107,10 @@ tou_schedules:
   - codes:
     - '108'
     applies_to: demand
+    locator: xlsx:Network tariffs!B302
+    quote: '108'
+    note: B302 ('108') heads the tariff block for 'LV Stand-Alone Small Battery Network (residential area)' (C302); the block's
+      Seasonal kVA Demand (Low) row (D309) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-109-r314-dem-320-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4624,6 +5137,10 @@ tou_schedules:
   - codes:
     - '109'
     applies_to: demand
+    locator: xlsx:Network tariffs!B314
+    quote: '109'
+    note: B314 ('109') heads the tariff block for 'LV Stand-Alone Small Battery Network (commercial area)' (C314); the block's
+      Seasonal kVA Demand (High) row (D320) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-109-r314-dem-321-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4650,6 +5167,10 @@ tou_schedules:
   - codes:
     - '109'
     applies_to: demand
+    locator: xlsx:Network tariffs!B314
+    quote: '109'
+    note: B314 ('109') heads the tariff block for 'LV Stand-Alone Small Battery Network (commercial area)' (C314); the block's
+      Seasonal kVA Demand (Low) row (D321) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-111-dem-355-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4672,6 +5193,10 @@ tou_schedules:
   - codes:
     - '111'
     applies_to: demand
+    locator: xlsx:Network tariffs!B350
+    quote: '111'
+    note: B350 ('111') heads the tariff block for 'HV TOU Demand Network (closed)' (C350); the block's Peak kVA Demand row (D355)
+      holds these windows.
 - id: evo-2026-27-soc-incl-lfit-111-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4723,6 +5248,10 @@ tou_schedules:
   - codes:
     - '111'
     applies_to: energy
+    locator: xlsx:Network tariffs!B350
+    quote: '111'
+    note: B350 ('111') heads the tariff block for 'HV TOU Demand Network (closed)' (C350); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D357, D358, D359) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-121-dem-367-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4745,6 +5274,10 @@ tou_schedules:
   - codes:
     - '121'
     applies_to: demand
+    locator: xlsx:Network tariffs!B362
+    quote: '121'
+    note: B362 ('121') heads the tariff block for 'HV TOU Demand Network – Customer LV (closed)' (C362); the block's Peak kVA
+      Demand row (D367) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-121-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4796,6 +5329,10 @@ tou_schedules:
   - codes:
     - '121'
     applies_to: energy
+    locator: xlsx:Network tariffs!B362
+    quote: '121'
+    note: B362 ('121') heads the tariff block for 'HV TOU Demand Network – Customer LV (closed)' (C362); the block's Peak Energy,
+      Shoulder Energy and Off-peak Energy rows (D369, D370, D371) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-122-dem-379-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4818,6 +5355,10 @@ tou_schedules:
   - codes:
     - '122'
     applies_to: demand
+    locator: xlsx:Network tariffs!B374
+    quote: '122'
+    note: B374 ('122') heads the tariff block for 'HV TOU Demand Network – Customer HV and LV' (C374); the block's Peak kVA Demand
+      row (D379) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-122-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4869,6 +5410,10 @@ tou_schedules:
   - codes:
     - '122'
     applies_to: energy
+    locator: xlsx:Network tariffs!B374
+    quote: '122'
+    note: B374 ('122') heads the tariff block for 'HV TOU Demand Network – Customer HV and LV' (C374); the block's Peak Energy,
+      Shoulder Energy and Off-peak Energy rows (D381, D382, D383) hold these windows.
 - id: evo-2026-27-soc-incl-lfit-123-dem-392-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4894,6 +5439,10 @@ tou_schedules:
   - codes:
     - '123'
     applies_to: demand
+    locator: xlsx:Network tariffs!B386
+    quote: '123'
+    note: B386 ('123') heads the tariff block for 'HV large-scale battery tariff (residential area)' (C386); the block's Seasonal
+      kVA Demand (High) row (D392) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-123-dem-393-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4919,6 +5468,10 @@ tou_schedules:
   - codes:
     - '123'
     applies_to: demand
+    locator: xlsx:Network tariffs!B386
+    quote: '123'
+    note: B386 ('123') heads the tariff block for 'HV large-scale battery tariff (residential area)' (C386); the block's Seasonal
+      kVA Demand (Low) row (D393) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-124-dem-404-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4944,6 +5497,10 @@ tou_schedules:
   - codes:
     - '124'
     applies_to: demand
+    locator: xlsx:Network tariffs!B398
+    quote: '124'
+    note: B398 ('124') heads the tariff block for 'HV large-scale battery tariff (commercial area)' (C398); the block's Seasonal
+      kVA Demand (High) row (D404) holds these windows.
 - id: evo-2026-27-soc-incl-lfit-124-dem-405-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
   fin_year: 2026-27
@@ -4969,6 +5526,10 @@ tou_schedules:
   - codes:
     - '124'
     applies_to: demand
+    locator: xlsx:Network tariffs!B398
+    quote: '124'
+    note: B398 ('124') heads the tariff block for 'HV large-scale battery tariff (commercial area)' (C398); the block's Seasonal
+      kVA Demand (Low) row (D405) holds these windows.
 - id: evo-2026-27-soc-aer-approved-015-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5026,6 +5587,10 @@ tou_schedules:
   - codes:
     - '015'
     applies_to: energy
+    locator: xlsx:Network tariffs!B35
+    quote: '015'
+    note: B35 ('015') heads the tariff block for 'Residential TOU Network (closed)' (C35); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D40, D41, D42) hold these windows.
 - id: evo-2026-27-soc-aer-approved-016-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5083,6 +5648,10 @@ tou_schedules:
   - codes:
     - '016'
     applies_to: energy
+    locator: xlsx:Network tariffs!B45
+    quote: '016'
+    note: B45 ('016') heads the tariff block for 'Residential TOU Network (closed) XMC*' (C45); the block's Peak Energy, Shoulder
+      Energy and Off-peak Energy rows (D50, D51, D52) hold these windows.
 - id: evo-2026-27-soc-aer-approved-017-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5147,6 +5716,10 @@ tou_schedules:
   - codes:
     - '017'
     applies_to: energy
+    locator: xlsx:Network tariffs!B55
+    quote: '017'
+    note: B55 ('017') heads the tariff block for 'New Residential TOU Network' (C55); the block's Peak Energy, Solar Soak Energy
+      and Off-peak Energy rows (D60, D61, D62) hold these windows.
 - id: evo-2026-27-soc-aer-approved-018-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5211,6 +5784,10 @@ tou_schedules:
   - codes:
     - 018
     applies_to: energy
+    locator: xlsx:Network tariffs!B65
+    quote: 018
+    note: B65 ('018') heads the tariff block for 'New Residential TOU Network XMC*' (C65); the block's Peak Energy, Solar Soak
+      Energy and Off-peak Energy rows (D70, D71, D72) hold these windows.
 - id: evo-2026-27-soc-aer-approved-023-dem-100-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5236,6 +5813,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: demand
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Seasonal kW Demand (High)
+      row (D100) holds these windows.
 - id: evo-2026-27-soc-aer-approved-023-dem-101-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5261,6 +5842,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: demand
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Seasonal kW Demand (Low)
+      row (D101) holds these windows.
 - id: evo-2026-27-soc-aer-approved-023-dem-102-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5290,6 +5875,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: demand
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Off-peak kW Demand row (D102)
+      holds these windows.
 - id: evo-2026-27-soc-aer-approved-023-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5326,6 +5915,10 @@ tou_schedules:
   - codes:
     - '023'
     applies_to: energy
+    locator: xlsx:Network tariffs!B93
+    quote: '023'
+    note: B93 ('023') heads the tariff block for 'New Residential Demand Network' (C93); the block's Off-peak Energy and Solar
+      Soak Energy rows (D98, D99) hold these windows.
 - id: evo-2026-27-soc-aer-approved-024-dem-112-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5351,6 +5944,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: demand
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Seasonal kW Demand
+      (High) row (D112) holds these windows.
 - id: evo-2026-27-soc-aer-approved-024-dem-113-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5376,6 +5973,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: demand
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Seasonal kW Demand
+      (Low) row (D113) holds these windows.
 - id: evo-2026-27-soc-aer-approved-024-dem-114-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5405,6 +6006,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: demand
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Off-peak kW Demand
+      row (D114) holds these windows.
 - id: evo-2026-27-soc-aer-approved-024-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5441,6 +6046,10 @@ tou_schedules:
   - codes:
     - '024'
     applies_to: energy
+    locator: xlsx:Network tariffs!B105
+    quote: '024'
+    note: B105 ('024') heads the tariff block for 'New Residential Demand Network XMC*' (C105); the block's Off-peak Energy and
+      Solar Soak Energy rows (D110, D111) hold these windows.
 - id: evo-2026-27-soc-aer-approved-025-dem-123-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5463,6 +6072,10 @@ tou_schedules:
   - codes:
     - '025'
     applies_to: demand
+    locator: xlsx:Network tariffs!B117
+    quote: '025'
+    note: B117 ('025') heads the tariff block for 'Residential Demand Network (closed)' (C117); the block's Peak kW Demand row
+      (D123) holds these windows.
 - id: evo-2026-27-soc-aer-approved-026-dem-132-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5485,6 +6098,10 @@ tou_schedules:
   - codes:
     - '026'
     applies_to: demand
+    locator: xlsx:Network tariffs!B126
+    quote: '026'
+    note: B126 ('026') heads the tariff block for 'Residential Demand Network (closed) XMC*' (C126); the block's Peak kW Demand
+      row (D132) holds these windows.
 - id: evo-2026-27-soc-aer-approved-060-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5515,6 +6132,10 @@ tou_schedules:
   - codes:
     - '060'
     applies_to: controlled_load
+    locator: xlsx:Network tariffs!B153
+    quote: '060'
+    note: B153 ('060') heads the tariff block for 'Off-Peak (1) Night Network' (C153); the block's Off-peak row (D157) holds these
+      windows.
 - id: evo-2026-27-soc-aer-approved-070-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5552,6 +6173,10 @@ tou_schedules:
   - codes:
     - '070'
     applies_to: controlled_load
+    locator: xlsx:Network tariffs!B160
+    quote: '070'
+    note: B160 ('070') heads the tariff block for 'Off-Peak (3) Day & Night Network' (C160); the block's Off-peak row (D164) holds
+      these windows.
 - id: evo-2026-27-soc-aer-approved-065-controlled-load
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5589,6 +6214,10 @@ tou_schedules:
   - codes:
     - '065'
     applies_to: controlled_load
+    locator: xlsx:Network tariffs!B167
+    quote: '065'
+    note: B167 ('065') heads the tariff block for 'Flexible Controlled Load' (C167); the block's Off-peak row (D171) holds these
+      windows.
 - id: evo-2026-27-soc-aer-approved-090-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5640,6 +6269,10 @@ tou_schedules:
   - codes:
     - 090
     applies_to: energy
+    locator: xlsx:Network tariffs!B195
+    quote: 090
+    note: B195 ('090') heads the tariff block for 'General TOU Network' (C195); the block's Peak Energy, Shoulder Energy and Off-peak
+      Energy rows (D200, D201, D202) hold these windows.
 - id: evo-2026-27-soc-aer-approved-091-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5691,6 +6324,10 @@ tou_schedules:
   - codes:
     - 091
     applies_to: energy
+    locator: xlsx:Network tariffs!B205
+    quote: 091
+    note: B205 ('091') heads the tariff block for 'General TOU Network XMC*' (C205); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D210, D211, D212) hold these windows.
 - id: evo-2026-27-soc-aer-approved-101-dem-220-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5713,6 +6350,10 @@ tou_schedules:
   - codes:
     - '101'
     applies_to: demand
+    locator: xlsx:Network tariffs!B215
+    quote: '101'
+    note: B215 ('101') heads the tariff block for 'LV TOU kVA Demand Network' (C215); the block's Peak kVA Demand row (D220) holds
+      these windows.
 - id: evo-2026-27-soc-aer-approved-101-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5764,6 +6405,10 @@ tou_schedules:
   - codes:
     - '101'
     applies_to: energy
+    locator: xlsx:Network tariffs!B215
+    quote: '101'
+    note: B215 ('101') heads the tariff block for 'LV TOU kVA Demand Network' (C215); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D221, D222, D223) hold these windows.
 - id: evo-2026-27-soc-aer-approved-104-dem-231-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5786,6 +6431,10 @@ tou_schedules:
   - codes:
     - '104'
     applies_to: demand
+    locator: xlsx:Network tariffs!B226
+    quote: '104'
+    note: B226 ('104') heads the tariff block for 'LV TOU kVA Demand Network XMC*' (C226); the block's Peak kVA Demand row (D231)
+      holds these windows.
 - id: evo-2026-27-soc-aer-approved-104-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5837,6 +6486,10 @@ tou_schedules:
   - codes:
     - '104'
     applies_to: energy
+    locator: xlsx:Network tariffs!B226
+    quote: '104'
+    note: B226 ('104') heads the tariff block for 'LV TOU kVA Demand Network XMC*' (C226); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D232, D233, D234) hold these windows.
 - id: evo-2026-27-soc-aer-approved-103-dem-242-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5859,6 +6512,10 @@ tou_schedules:
   - codes:
     - '103'
     applies_to: demand
+    locator: xlsx:Network tariffs!B237
+    quote: '103'
+    note: B237 ('103') heads the tariff block for 'LV TOU Capacity Network' (C237); the block's Peak kVA Demand row (D242) holds
+      these windows.
 - id: evo-2026-27-soc-aer-approved-103-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5910,6 +6567,10 @@ tou_schedules:
   - codes:
     - '103'
     applies_to: energy
+    locator: xlsx:Network tariffs!B237
+    quote: '103'
+    note: B237 ('103') heads the tariff block for 'LV TOU Capacity Network' (C237); the block's Peak Energy, Shoulder Energy and
+      Off-peak Energy rows (D244, D245, D246) hold these windows.
 - id: evo-2026-27-soc-aer-approved-105-dem-254-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5932,6 +6593,10 @@ tou_schedules:
   - codes:
     - '105'
     applies_to: demand
+    locator: xlsx:Network tariffs!B249
+    quote: '105'
+    note: B249 ('105') heads the tariff block for 'LV TOU Capacity Network XMC*' (C249); the block's Peak kVA Demand row (D254)
+      holds these windows.
 - id: evo-2026-27-soc-aer-approved-105-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -5983,6 +6648,10 @@ tou_schedules:
   - codes:
     - '105'
     applies_to: energy
+    locator: xlsx:Network tariffs!B249
+    quote: '105'
+    note: B249 ('105') heads the tariff block for 'LV TOU Capacity Network XMC*' (C249); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D256, D257, D258) hold these windows.
 - id: evo-2026-27-soc-aer-approved-106-dem-267-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6005,6 +6674,10 @@ tou_schedules:
   - codes:
     - '106'
     applies_to: demand
+    locator: xlsx:Network tariffs!B261
+    quote: '106'
+    note: B261 ('106') heads the tariff block for 'LV Demand Network' (C261); the block's Peak kW Demand row (D267) holds these
+      windows.
 - id: evo-2026-27-soc-aer-approved-107-dem-276-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6027,6 +6700,10 @@ tou_schedules:
   - codes:
     - '107'
     applies_to: demand
+    locator: xlsx:Network tariffs!B270
+    quote: '107'
+    note: B270 ('107') heads the tariff block for 'LV Demand Network XMC*' (C270); the block's Peak kW Demand row (D276) holds
+      these windows.
 - id: evo-2026-27-soc-aer-approved-108-dem-285-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6052,6 +6729,10 @@ tou_schedules:
   - codes:
     - '108'
     applies_to: demand
+    locator: xlsx:Network tariffs!B279
+    quote: '108'
+    note: B279 ('108') heads the tariff block for 'LV large-scale battery tariff (residential area)' (C279); the block's Seasonal
+      kVA Demand (High) row (D285) holds these windows.
 - id: evo-2026-27-soc-aer-approved-108-dem-286-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6077,6 +6758,10 @@ tou_schedules:
   - codes:
     - '108'
     applies_to: demand
+    locator: xlsx:Network tariffs!B279
+    quote: '108'
+    note: B279 ('108') heads the tariff block for 'LV large-scale battery tariff (residential area)' (C279); the block's Seasonal
+      kVA Demand (Low) row (D286) holds these windows.
 - id: evo-2026-27-soc-aer-approved-109-dem-297-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6102,6 +6787,10 @@ tou_schedules:
   - codes:
     - '109'
     applies_to: demand
+    locator: xlsx:Network tariffs!B291
+    quote: '109'
+    note: B291 ('109') heads the tariff block for 'LV large-scale battery tariff (commercial area)' (C291); the block's Seasonal
+      kVA Demand (High) row (D297) holds these windows.
 - id: evo-2026-27-soc-aer-approved-109-dem-298-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6127,6 +6816,10 @@ tou_schedules:
   - codes:
     - '109'
     applies_to: demand
+    locator: xlsx:Network tariffs!B291
+    quote: '109'
+    note: B291 ('109') heads the tariff block for 'LV large-scale battery tariff (commercial area)' (C291); the block's Seasonal
+      kVA Demand (Low) row (D298) holds these windows.
 - id: evo-2026-27-soc-aer-approved-108-r302-dem-308-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6153,6 +6846,10 @@ tou_schedules:
   - codes:
     - '108'
     applies_to: demand
+    locator: xlsx:Network tariffs!B302
+    quote: '108'
+    note: B302 ('108') heads the tariff block for 'LV Stand-Alone Small Battery Network (residential area)' (C302); the block's
+      Seasonal kVA Demand (High) row (D308) holds these windows.
 - id: evo-2026-27-soc-aer-approved-108-r302-dem-309-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6179,6 +6876,10 @@ tou_schedules:
   - codes:
     - '108'
     applies_to: demand
+    locator: xlsx:Network tariffs!B302
+    quote: '108'
+    note: B302 ('108') heads the tariff block for 'LV Stand-Alone Small Battery Network (residential area)' (C302); the block's
+      Seasonal kVA Demand (Low) row (D309) holds these windows.
 - id: evo-2026-27-soc-aer-approved-109-r314-dem-320-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6205,6 +6906,10 @@ tou_schedules:
   - codes:
     - '109'
     applies_to: demand
+    locator: xlsx:Network tariffs!B314
+    quote: '109'
+    note: B314 ('109') heads the tariff block for 'LV Stand-Alone Small Battery Network (commercial area)' (C314); the block's
+      Seasonal kVA Demand (High) row (D320) holds these windows.
 - id: evo-2026-27-soc-aer-approved-109-r314-dem-321-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6231,6 +6936,10 @@ tou_schedules:
   - codes:
     - '109'
     applies_to: demand
+    locator: xlsx:Network tariffs!B314
+    quote: '109'
+    note: B314 ('109') heads the tariff block for 'LV Stand-Alone Small Battery Network (commercial area)' (C314); the block's
+      Seasonal kVA Demand (Low) row (D321) holds these windows.
 - id: evo-2026-27-soc-aer-approved-111-dem-355-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6253,6 +6962,10 @@ tou_schedules:
   - codes:
     - '111'
     applies_to: demand
+    locator: xlsx:Network tariffs!B350
+    quote: '111'
+    note: B350 ('111') heads the tariff block for 'HV TOU Demand Network (closed)' (C350); the block's Peak kVA Demand row (D355)
+      holds these windows.
 - id: evo-2026-27-soc-aer-approved-111-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6304,6 +7017,10 @@ tou_schedules:
   - codes:
     - '111'
     applies_to: energy
+    locator: xlsx:Network tariffs!B350
+    quote: '111'
+    note: B350 ('111') heads the tariff block for 'HV TOU Demand Network (closed)' (C350); the block's Peak Energy, Shoulder Energy
+      and Off-peak Energy rows (D357, D358, D359) hold these windows.
 - id: evo-2026-27-soc-aer-approved-121-dem-367-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6326,6 +7043,10 @@ tou_schedules:
   - codes:
     - '121'
     applies_to: demand
+    locator: xlsx:Network tariffs!B362
+    quote: '121'
+    note: B362 ('121') heads the tariff block for 'HV TOU Demand Network – Customer LV (closed)' (C362); the block's Peak kVA
+      Demand row (D367) holds these windows.
 - id: evo-2026-27-soc-aer-approved-121-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6377,6 +7098,10 @@ tou_schedules:
   - codes:
     - '121'
     applies_to: energy
+    locator: xlsx:Network tariffs!B362
+    quote: '121'
+    note: B362 ('121') heads the tariff block for 'HV TOU Demand Network – Customer LV (closed)' (C362); the block's Peak Energy,
+      Shoulder Energy and Off-peak Energy rows (D369, D370, D371) hold these windows.
 - id: evo-2026-27-soc-aer-approved-122-dem-379-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6399,6 +7124,10 @@ tou_schedules:
   - codes:
     - '122'
     applies_to: demand
+    locator: xlsx:Network tariffs!B374
+    quote: '122'
+    note: B374 ('122') heads the tariff block for 'HV TOU Demand Network – Customer HV and LV' (C374); the block's Peak kVA Demand
+      row (D379) holds these windows.
 - id: evo-2026-27-soc-aer-approved-122-energy
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6450,6 +7179,10 @@ tou_schedules:
   - codes:
     - '122'
     applies_to: energy
+    locator: xlsx:Network tariffs!B374
+    quote: '122'
+    note: B374 ('122') heads the tariff block for 'HV TOU Demand Network – Customer HV and LV' (C374); the block's Peak Energy,
+      Shoulder Energy and Off-peak Energy rows (D381, D382, D383) hold these windows.
 - id: evo-2026-27-soc-aer-approved-123-dem-392-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6475,6 +7208,10 @@ tou_schedules:
   - codes:
     - '123'
     applies_to: demand
+    locator: xlsx:Network tariffs!B386
+    quote: '123'
+    note: B386 ('123') heads the tariff block for 'HV large-scale battery tariff (residential area)' (C386); the block's Seasonal
+      kVA Demand (High) row (D392) holds these windows.
 - id: evo-2026-27-soc-aer-approved-123-dem-393-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6500,6 +7237,10 @@ tou_schedules:
   - codes:
     - '123'
     applies_to: demand
+    locator: xlsx:Network tariffs!B386
+    quote: '123'
+    note: B386 ('123') heads the tariff block for 'HV large-scale battery tariff (residential area)' (C386); the block's Seasonal
+      kVA Demand (Low) row (D393) holds these windows.
 - id: evo-2026-27-soc-aer-approved-124-dem-404-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6525,6 +7266,10 @@ tou_schedules:
   - codes:
     - '124'
     applies_to: demand
+    locator: xlsx:Network tariffs!B398
+    quote: '124'
+    note: B398 ('124') heads the tariff block for 'HV large-scale battery tariff (commercial area)' (C398); the block's Seasonal
+      kVA Demand (High) row (D404) holds these windows.
 - id: evo-2026-27-soc-aer-approved-124-dem-405-window
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
   fin_year: 2026-27
@@ -6550,6 +7295,10 @@ tou_schedules:
   - codes:
     - '124'
     applies_to: demand
+    locator: xlsx:Network tariffs!B398
+    quote: '124'
+    note: B398 ('124') heads the tariff block for 'HV large-scale battery tariff (commercial area)' (C398); the block's Seasonal
+      kVA Demand (Low) row (D405) holds these windows.
 demand_rules:
 - id: evo-2023-24-025-peak-kw
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
@@ -6560,8 +7309,9 @@ demand_rules:
   window_schedule: evo-2023-24-025-demand-window
   window_period: demand_window
   locator: pdf:p9
-  quote: calculated over a 30-minute clocked interval, starting on the full or half hour, during the specified Peak time (i.e.
-    5:00pm*, 5:30pm, 6:00pm, 6:30pm, 7:00pm, 7:30pm and 8:00pm) within the billing period (a calendar month)
+  quote: The demand charge is based on a customer’s highest demand (measured in kilowatts) calculated over a 30-minute clocked
+    interval, starting on the full or half hour, during the specified Peak time (i.e. 5:00pm*, 5:30pm, 6:00pm, 6:30pm, 7:00pm,
+    7:30pm and 8:00pm) within the billing period (a calendar month)
   note: 'Residential kW demand (025; XMC variant 026 in Table 2.6, p22): highest demand measured in kilowatts.'
   tariffs:
   - codes:
@@ -6575,7 +7325,9 @@ demand_rules:
   interval_minutes: 30
   aggregation: billing_period_max
   locator: pdf:p10
-  quote: over a 30-minute clocked interval, starting on the full or half hour,
+  quote: 'customer’s highest demand (measured in kilowatts) calculated  Energy at solar sponge over a 30-minute clocked interval,
+    starting on the full or half hour, times (cents/kWh): during the specified peak time (i.e. 5:00pm, 5:30pm, 6:00pm, 6:30pm,
+    7:00pm, 7:30pm and 8:00pm) within the billing period'
   note: 'Table text is interleaved with the neighbouring column in the PDF text layer; the explanation reads ''The seasonal
     maximum demand charge is based on a customer''s highest demand (measured in kilowatts) calculated over a 30-minute clocked
     interval, starting on the full or half hour, during the specified peak time (i.e. 5:00pm, 5:30pm, 6:00pm, 6:30pm, 7:00pm,
@@ -6603,8 +7355,8 @@ demand_rules:
   window_schedule: evo-2023-24-lv-demand-window
   window_period: demand_window
   locator: pdf:p14
-  quote: highest demand (measured in kW) calculated over a 30-minute clocked interval, starting on the full or half hour,
-    during the specified business times
+  quote: highest demand (measured in kW) calculated over a 30-minute clocked interval, starting on the full or half hour, during
+    the specified business times (i.e. 7:00am**, 7:30am, 8:00am, 8:30am, etc. up to 5:00pm), within the billing period
   note: 'LV kW Demand (106; XMC variant 107 in Table 2.6, p25): ''... (i.e. 7:00am**, 7:30am, 8:00am, 8:30am, etc. up to 5:00pm),
     within the billing period (generally a calendar month).'''
   tariffs:
@@ -6621,7 +7373,8 @@ demand_rules:
   window_schedule: evo-2023-24-lv-demand-window
   window_period: demand_window
   locator: pdf:p13
-  quote: highest demand (measured in kVA) calculated over a 30-
+  quote: highest demand (measured in kVA) calculated over a 30- (cents/kWh) minute clocked interval, starting on the full or
+    half hour,
   note: Table text is interleaved with the neighbouring column in the PDF text layer; the LV TOU kVA Demand (101) explanation
     reads 'The maximum demand charge is based on the customer's highest demand (measured in kVA) calculated over a 30-minute
     clocked interval, starting on the full or half hour, during the specified business times (i.e. 7:00am**, 7:30am, 8:00am,
@@ -6678,8 +7431,8 @@ demand_rules:
   interval_minutes: 30
   aggregation: rolling_12_month_max
   locator: pdf:p6
-  quote: The maximum demand is the highest demand recorded over a 30-minute clocked interval during the previous 13 months
-    inclusive of the current billing month.
+  quote: Capacity charges—these are a charge per unit of maximum demand (in c/kVA/day). The maximum demand is the highest demand
+    recorded over a 30-minute clocked interval during the previous 13 months inclusive of the current billing month.
   note: Capacity charges (c/kVA/day) of tariffs 103/105, 111, 121, 122 and the large-scale battery tariffs 108, 109, 123,
     124 ('Capacity (max demand in last year)' / 'Capacity (maximum demand in past year)'); the previous 13 months inclusive
     of the current billing month is recorded as rolling_12_month_max.
@@ -6723,7 +7476,9 @@ demand_rules:
   interval_minutes: 30
   aggregation: billing_period_max
   locator: pdf:p15
-  quote: minute clocked interval, starting on the full or half hour,
+  quote: highest demand (measured in kVA) calculated over a 30-  Critical peak export minute clocked interval, starting on
+    the full or half hour, charge (cents/kVAh) during the specified commercial area peak demand period (i.e. 7:00am**, 7:30am,
+    8:00am, 8:30am, etc. up to 5:00pm), within the billing period
   note: 'Table text is interleaved with the neighbouring column in the PDF text layer; LV large-scale battery (commercial
     area, 109): ''The maximum demand charge will be based on the highest demand (measured in kVA) calculated over a 30-minute
     clocked interval, starting on the full or half hour, during the specified commercial area peak demand period (i.e. 7:00am**,
@@ -6746,7 +7501,9 @@ demand_rules:
   interval_minutes: 30
   aggregation: billing_period_max
   locator: pdf:p19
-  quote: residential area peak demand period (i.e. 5:00pm, 5:30pm,
+  quote: demand (measured in kVA) calculated over a 30-minute clocked interval, starting on the full or half hour, during the
+    specified  Critical peak export residential area peak demand period (i.e. 5:00pm, 5:30pm, charge (cents/kVAh) 6:00pm, 6:30pm,
+    7:00pm, 7:30pm, 8:00pm), within the billing period
   note: 'Table text is interleaved with the neighbouring column in the PDF text layer; HV large-scale battery (residential
     area, 123): ''The maximum demand charge will be based on the highest demand (measured in kVA) calculated over a 30-minute
     clocked interval, starting on the full or half hour, during the specified residential area peak demand period (i.e. 5:00pm,
@@ -6769,7 +7526,9 @@ demand_rules:
   interval_minutes: 30
   aggregation: billing_period_max
   locator: pdf:p20
-  quote: commercial area peak demand period (i.e. 7:00am**, 7:30am,
+  quote: demand (measured in kVA) calculated over a 30-minute clocked interval, starting on the full or half hour, during the
+    specified  Critical peak export commercial area peak demand period (i.e. 7:00am**, 7:30am, charge (cents/kVAh) 8:00am,
+    8:30am, etc. up to 5:00pm), within the billing period
   note: 'Table text is interleaved with the neighbouring column in the PDF text layer; HV large-scale battery (commercial
     area, 124): ''The maximum demand charge will be based on the highest demand (measured in kVA) calculated over a 30-minute
     clocked interval, starting on the full or half hour, during the specified commercial area peak demand period (i.e. 7:00am**,
@@ -6794,7 +7553,8 @@ demand_rules:
   window_schedule: evo-2024-25-023-dem-76-window
   window_period: demand_window
   locator: pdf:p6
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 18.525 18.525 (High) full or
+    half hour, within bill period
   note: Seasonal kW Demand (High) (c/kW/day), window '5pm-9pm every day during winter months'. The cell text continues on
     the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer. The document
     names the season ('winter months') but does not list its months; its months are not stated, so none are recorded.
@@ -6812,7 +7572,8 @@ demand_rules:
   window_schedule: evo-2024-25-023-dem-81-window
   window_period: demand_window
   locator: pdf:p6
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 11.115 11.115 (Low) full or
+    half hour, within bill period
   note: Seasonal kW Demand (Low) (c/kW/day), window '5pm-9pm every day during non-winter months'. The cell text continues
     on the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer. The document
     names the season ('non-winter months') but does not list its months; its months are not stated, so none are recorded.
@@ -6830,7 +7591,8 @@ demand_rules:
   window_schedule: evo-2024-25-023-dem-86-window
   window_period: demand_window
   locator: pdf:p6
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Off-peak kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 1.760 1.760 full or half hour,
+    within bill period
   note: Off-peak kW Demand (c/kW/day), window '9pm-9am every day'. The cell text continues on the next lines ('full or half
     hour, within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -6846,7 +7608,8 @@ demand_rules:
   window_schedule: evo-2024-25-024-dem-97-window
   window_period: demand_window
   locator: pdf:p7
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 18.525 18.525 (High) full or
+    half hour, within bill period
   note: Seasonal kW Demand (High) (c/kW/day), window '5pm-9pm every day during winter months'. The cell text continues on
     the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer. The document
     names the season ('winter months') but does not list its months; its months are not stated, so none are recorded.
@@ -6864,7 +7627,8 @@ demand_rules:
   window_schedule: evo-2024-25-024-dem-102-window
   window_period: demand_window
   locator: pdf:p7
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 11.115 11.115 (Low) full or
+    half hour, within bill period
   note: Seasonal kW Demand (Low) (c/kW/day), window '5pm-9pm every day during non-winter months'. The cell text continues
     on the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer. The document
     names the season ('non-winter months') but does not list its months; its months are not stated, so none are recorded.
@@ -6882,7 +7646,8 @@ demand_rules:
   window_schedule: evo-2024-25-024-dem-107-window
   window_period: demand_window
   locator: pdf:p7
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Off-peak kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 1.760 1.760 full or half hour,
+    within bill period
   note: Off-peak kW Demand (c/kW/day), window '9pm-9am every day'. The cell text continues on the next lines ('full or half
     hour, within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -6898,7 +7663,8 @@ demand_rules:
   window_schedule: evo-2024-25-025-dem-117-window
   window_period: demand_window
   locator: pdf:p7
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Peak kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 15.881 15.881 full or half hour,
+    within bill period
   note: Peak kW Demand (c/kW/day), window '5pm-8pm every day'. The cell text continues on the next lines ('full or half hour,
     within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -6914,7 +7680,8 @@ demand_rules:
   window_schedule: evo-2024-25-026-dem-127-window
   window_period: demand_window
   locator: pdf:p7
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Peak kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 15.881 15.881 full or half hour,
+    within bill period
   note: Peak kW Demand (c/kW/day), window '5pm-8pm every day'. The cell text continues on the next lines ('full or half hour,
     within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -6930,7 +7697,8 @@ demand_rules:
   window_schedule: evo-2024-25-101-dem-203-window
   window_period: demand_window
   locator: pdf:p10
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 37.118 37.118 full or half hour,
+    within bill period
   note: Peak kVA Demand (c/kVA/day), window '7am-5pm weekdays'. The cell text continues on the next lines ('full or half hour,
     within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -6946,7 +7714,8 @@ demand_rules:
   window_schedule: evo-2024-25-104-dem-214-window
   window_period: demand_window
   locator: pdf:p10
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 37.118 37.118 full or half hour,
+    within bill period
   note: Peak kVA Demand (c/kVA/day), window '7am-5pm weekdays'. The cell text continues on the next lines ('full or half hour,
     within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -6962,7 +7731,8 @@ demand_rules:
   window_schedule: evo-2024-25-103-dem-226-window
   window_period: demand_window
   locator: pdf:p11
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 17.975 17.975 full or half hour,
+    within bill period
   note: Peak kVA Demand (c/kVA/day), window '7am-5pm weekdays'. The cell text continues on the next lines ('full or half hour,
     within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -6976,7 +7746,8 @@ demand_rules:
   interval_minutes: 30
   aggregation: rolling_12_month_max
   locator: pdf:p11
-  quote: full or half hour, within 13 month period, including current bill
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 17.975 17.975 period
   note: 'Capacity charge (c/kVA/day). Full cell text: ''Highest demand in a clocked 30-minute interval, starting on full or
     half hour, within 13 month period, including current bill period'' (split over three lines by the rate column), i.e. the
     current bill period plus the previous 12 months; recorded as rolling_12_month_max.'
@@ -6993,7 +7764,8 @@ demand_rules:
   window_schedule: evo-2024-25-105-dem-240-window
   window_period: demand_window
   locator: pdf:p11
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 17.975 17.975 full or half hour,
+    within bill period
   note: Peak kVA Demand (c/kVA/day), window '7am-5pm weekdays'. The cell text continues on the next lines ('full or half hour,
     within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -7007,7 +7779,8 @@ demand_rules:
   interval_minutes: 30
   aggregation: rolling_12_month_max
   locator: pdf:p11
-  quote: full or half hour, within 13 month period, including current bill
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 17.975 17.975 period
   note: 'Capacity charge (c/kVA/day). Full cell text: ''Highest demand in a clocked 30-minute interval, starting on full or
     half hour, within 13 month period, including current bill period'' (split over three lines by the rate column), i.e. the
     current bill period plus the previous 12 months; recorded as rolling_12_month_max.'
@@ -7024,7 +7797,8 @@ demand_rules:
   window_schedule: evo-2024-25-106-dem-256-window
   window_period: demand_window
   locator: pdf:p12
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Peak kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 36.450 36.450 full or half hour,
+    within bill period
   note: Peak kW Demand (c/kW/day), window '7am-5pm weekdays'. The cell text continues on the next lines ('full or half hour,
     within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -7040,7 +7814,8 @@ demand_rules:
   window_schedule: evo-2024-25-107-dem-265-window
   window_period: demand_window
   locator: pdf:p12
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Peak kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 36.450 36.450 full or half hour,
+    within bill period
   note: Peak kW Demand (c/kW/day), window '7am-5pm weekdays'. The cell text continues on the next lines ('full or half hour,
     within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -7054,7 +7829,8 @@ demand_rules:
   interval_minutes: 30
   aggregation: rolling_12_month_max
   locator: pdf:p12
-  quote: full or half hour, within 13 month period, including current bill
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 3.207 3.207 period
   note: 'Capacity charge (c/kVA/day). Full cell text: ''Highest demand in a clocked 30-minute interval, starting on full or
     half hour, within 13 month period, including current bill period'' (split over three lines by the rate column), i.e. the
     current bill period plus the previous 12 months; recorded as rolling_12_month_max.'
@@ -7071,7 +7847,8 @@ demand_rules:
   window_schedule: evo-2024-25-108-dem-278-window
   window_period: demand_window
   locator: pdf:p12
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 33.845 33.845 (High) full
+    or half hour, within bill period
   note: Seasonal kVA Demand (High) (c/kVA/day), window '5pm-8pm every day during summer and spring months'. The cell text
     continues on the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer.
     The document names the season ('summer and spring months') but does not list its months; its months are not stated, so none are recorded.
@@ -7089,7 +7866,8 @@ demand_rules:
   window_schedule: evo-2024-25-108-dem-283-window
   window_period: demand_window
   locator: pdf:p12
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 29.507 29.507 (Low) full
+    or half hour, within bill period
   note: Seasonal kVA Demand (Low) (c/kVA/day), window '5pm-8pm every day during winter and autumn months'. The cell text continues
     on the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer. The document
     names the season ('winter and autumn months') but does not list its months; its months are not stated, so none are recorded.
@@ -7105,7 +7883,8 @@ demand_rules:
   interval_minutes: 30
   aggregation: rolling_12_month_max
   locator: pdf:p13
-  quote: full or half hour, within 13 month period, including current bill
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 21.132 21.132 period
   note: 'Capacity charge (c/kVA/day). Full cell text: ''Highest demand in a clocked 30-minute interval, starting on full or
     half hour, within 13 month period, including current bill period'' (split over three lines by the rate column), i.e. the
     current bill period plus the previous 12 months; recorded as rolling_12_month_max.'
@@ -7122,7 +7901,8 @@ demand_rules:
   window_schedule: evo-2024-25-109-dem-305-window
   window_period: demand_window
   locator: pdf:p13
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 19.231 19.231 (High) full
+    or half hour, within bill period
   note: Seasonal kVA Demand (High) (c/kVA/day), window '7am-5pm weekdays during summer and spring months'. The cell text continues
     on the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer. The document
     names the season ('summer and spring months') but does not list its months; its months are not stated, so none are recorded.
@@ -7140,7 +7920,8 @@ demand_rules:
   window_schedule: evo-2024-25-109-dem-310-window
   window_period: demand_window
   locator: pdf:p13
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 16.026 16.026 (Low) full
+    or half hour, within bill period
   note: Seasonal kVA Demand (Low) (c/kVA/day), window '7am-5pm weekdays during winter and autumn months'. The cell text continues
     on the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer. The document
     names the season ('winter and autumn months') but does not list its months; its months are not stated, so none are recorded.
@@ -7158,7 +7939,8 @@ demand_rules:
   window_schedule: evo-2024-25-111-dem-345-window
   window_period: demand_window
   locator: pdf:p15
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 17.554 17.554 full or half hour,
+    within bill period
   note: Peak kVA Demand (c/kVA/day), window '7am-5pm weekdays'. The cell text continues on the next lines ('full or half hour,
     within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -7172,7 +7954,8 @@ demand_rules:
   interval_minutes: 30
   aggregation: rolling_12_month_max
   locator: pdf:p15
-  quote: full or half hour, within 13 month period, including current bill
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 17.554 17.554 period
   note: 'Capacity charge (c/kVA/day). Full cell text: ''Highest demand in a clocked 30-minute interval, starting on full or
     half hour, within 13 month period, including current bill period'' (split over three lines by the rate column), i.e. the
     current bill period plus the previous 12 months; recorded as rolling_12_month_max.'
@@ -7189,7 +7972,8 @@ demand_rules:
   window_schedule: evo-2024-25-121-dem-360-window
   window_period: demand_window
   locator: pdf:p15
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 17.554 17.554 full or half hour,
+    within bill period
   note: Peak kVA Demand (c/kVA/day), window '7am-5pm weekdays'. The cell text continues on the next lines ('full or half hour,
     within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -7203,7 +7987,8 @@ demand_rules:
   interval_minutes: 30
   aggregation: rolling_12_month_max
   locator: pdf:p15
-  quote: full or half hour, within 13 month period, including current bill
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 17.554 17.554 period
   note: 'Capacity charge (c/kVA/day). Full cell text: ''Highest demand in a clocked 30-minute interval, starting on full or
     half hour, within 13 month period, including current bill period'' (split over three lines by the rate column), i.e. the
     current bill period plus the previous 12 months; recorded as rolling_12_month_max.'
@@ -7220,7 +8005,8 @@ demand_rules:
   window_schedule: evo-2024-25-122-dem-375-window
   window_period: demand_window
   locator: pdf:p16
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 15.917 15.917 full or half hour,
+    within bill period
   note: Peak kVA Demand (c/kVA/day), window '7am-5pm weekdays'. The cell text continues on the next lines ('full or half hour,
     within bill period'); the rate column interrupts it in the text layer.
   tariffs:
@@ -7234,7 +8020,8 @@ demand_rules:
   interval_minutes: 30
   aggregation: rolling_12_month_max
   locator: pdf:p16
-  quote: full or half hour, within 13 month period, including current bill
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 15.917 15.917 period
   note: 'Capacity charge (c/kVA/day). Full cell text: ''Highest demand in a clocked 30-minute interval, starting on full or
     half hour, within 13 month period, including current bill period'' (split over three lines by the rate column), i.e. the
     current bill period plus the previous 12 months; recorded as rolling_12_month_max.'
@@ -7249,7 +8036,8 @@ demand_rules:
   interval_minutes: 30
   aggregation: rolling_12_month_max
   locator: pdf:p16
-  quote: full or half hour, within 13 month period, including current bill
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 3.234 3.234 period
   note: 'Capacity charge (c/kVA/day). Full cell text: ''Highest demand in a clocked 30-minute interval, starting on full or
     half hour, within 13 month period, including current bill period'' (split over three lines by the rate column), i.e. the
     current bill period plus the previous 12 months; recorded as rolling_12_month_max.'
@@ -7266,7 +8054,8 @@ demand_rules:
   window_schedule: evo-2024-25-123-dem-394-window
   window_period: demand_window
   locator: pdf:p16
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 23.170 23.170 (High) full
+    or half hour, within bill period
   note: Seasonal kVA Demand (High) (c/kVA/day), window '5pm-8pm every day during summer and spring months'. The cell text
     continues on the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer.
     The document names the season ('summer and spring months') but does not list its months; its months are not stated, so none are recorded.
@@ -7284,7 +8073,8 @@ demand_rules:
   window_schedule: evo-2024-25-123-dem-399-window
   window_period: demand_window
   locator: pdf:p16
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 19.730 19.730 (Low) full
+    or half hour, within bill period
   note: Seasonal kVA Demand (Low) (c/kVA/day), window '5pm-8pm every day during winter and autumn months'. The cell text continues
     on the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer. The document
     names the season ('winter and autumn months') but does not list its months; its months are not stated, so none are recorded.
@@ -7300,7 +8090,8 @@ demand_rules:
   interval_minutes: 30
   aggregation: rolling_12_month_max
   locator: pdf:p17
-  quote: full or half hour, within 13 month period, including current bill
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 10.851 10.851 period
   note: 'Capacity charge (c/kVA/day). Full cell text: ''Highest demand in a clocked 30-minute interval, starting on full or
     half hour, within 13 month period, including current bill period'' (split over three lines by the rate column), i.e. the
     current bill period plus the previous 12 months; recorded as rolling_12_month_max.'
@@ -7317,7 +8108,8 @@ demand_rules:
   window_schedule: evo-2024-25-124-dem-421-window
   window_period: demand_window
   locator: pdf:p17
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 15.361 15.361 (High) full
+    or half hour, within bill period
   note: Seasonal kVA Demand (High) (c/kVA/day), window '7am-5pm weekdays during spring and summer months'. The cell text continues
     on the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer. The document
     names the season ('spring and summer months') but does not list its months; its months are not stated, so none are recorded.
@@ -7335,7 +8127,8 @@ demand_rules:
   window_schedule: evo-2024-25-124-dem-426-window
   window_period: demand_window
   locator: pdf:p17
-  quote: Highest demand in a clocked 30-minute interval, starting on
+  quote: Seasonal kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 12.801 12.801 (Low) full
+    or half hour, within bill period
   note: Seasonal kVA Demand (Low) (c/kVA/day), window '7am-5pm weekdays during autumn and winter months'. The cell text continues
     on the next lines ('full or half hour, within bill period'); the rate column interrupts it in the text layer. The document
     names the season ('autumn and winter months') but does not list its months; its months are not stated, so none are recorded.
@@ -9203,12 +9996,12 @@ eligibility:
   fin_year: 2023-24
   rule_type: availability
   value_text: closed_to_new
-  locator: pdf:p8
-  quote: This tariff was closed to new customers from 1 December 2017
-  note: 'Stated for Residential basic (010) on p8 and for Residential 5000 (020) and Residential with heat pump (030) on p9;
-    p11: ''From 1 December 2017, the Residential Basic, Residential 5000, and Residential with Heat Pump tariffs were closed
-    to new Evoenergy customers''. XMC variants are included: Table 2.6 lists each as ''<tariff> XMC*'' (''XMC tariffs exclude
-    metering capital charges'').'
+  locator: pdf:p11
+  quote: From 1 December 2017, the Residential Basic, Residential 5000, and Residential with Heat Pump tariffs were closed to
+    new Evoenergy customers
+  note: 'Residential Basic is 010, Residential 5000 is 020 and Residential with heat pump is 030 (Table 2.1, p8-9); each row
+    also says ''This tariff was closed to new customers from 1 December 2017'' (p8, p9). XMC variants are included: Table 2.6
+    lists each as ''<tariff> XMC*'' (''XMC tariffs exclude metering capital charges'').'
 - codes:
   - '015'
   - '016'
@@ -9217,7 +10010,8 @@ eligibility:
   rule_type: other
   value_text: meter able to record energy in the three TOU intervals
   locator: pdf:p8
-  quote: This tariff is available to residential customers who have a meter
+  quote: This tariff is available to residential customers who have a meter time-of-use (cents/day/customer) capable of recording
+    energy consumption in each of the three
   note: Table text is interleaved with the neighbouring column in the PDF text layer; continues 'capable of recording energy
     consumption in each of the three time of use intervals ('max', 'mid', and 'economy')'.
 - codes:
@@ -9239,7 +10033,7 @@ eligibility:
   value_num: 5000
   value_unit: kWh/yr
   locator: pdf:p8
-  quote: continuous (rather than time controlled) loads, and consume over
+  quote: continuous (rather than time controlled) loads, and consume over network  Energy for the first 60 5,000 kWh per annum.
   note: Table text is interleaved with the neighbouring column in the PDF text layer; the sentence reads 'This tariff is designed
     for residential customers who have large continuous (rather than time controlled) loads, and consume over 5,000 kWh per
     annum.'
@@ -9251,7 +10045,7 @@ eligibility:
   rule_type: requires_technology
   value_text: heat_pump
   locator: pdf:p9
-  quote: This tariff is only available to residential customers with a reverse
+  quote: This tariff is only available to residential customers with a reverse with heat (cents/day/customer) cycle air conditioner.
   note: Table text is interleaved with the neighbouring column in the PDF text layer; continues 'cycle air conditioner.'
 - codes:
   - '025'
@@ -9358,7 +10152,8 @@ eligibility:
   rule_type: other
   value_text: secondary tariff; all other energy on 025, 015, 010, 040, 090 or 106
   locator: pdf:p9
-  quote: taking all other energy on the Residential kW Demand,
+  quote: taking all other energy on the Residential kW Demand, (060) 7am Residential TOU, Residential Basic, General Network,
+    General TOU or LV commercial kW Demand network tariff.
   note: Table text is interleaved with the neighbouring column in the PDF text layer; 060 is 'a supplementary tariff available
     only to consumers utilising a controlled load element, and (from 1 July 2019) taking all other energy on the Residential
     kW Demand, Residential TOU, Residential Basic, General Network, General TOU or LV commercial kW Demand network tariff.'
@@ -9369,7 +10164,8 @@ eligibility:
   rule_type: other
   value_text: secondary tariff; all other energy on 025, 015 or 010
   locator: pdf:p9
-  quote: and taking all other energy on the Residential kW Demand,
+  quote: and taking all other energy on the Residential kW Demand, network am and 9 am and 5 pm Residential TOU or Residential
+    Basic network tariff.
   note: Table text is interleaved with the neighbouring column in the PDF text layer; 070 is 'a supplementary tariff available
     only to consumers utilising a controlled load element, and taking all other energy on the Residential kW Demand, Residential
     TOU or Residential Basic network tariff.'
@@ -9462,7 +10258,7 @@ eligibility:
   rule_type: other
   value_text: Type 4 meter and current transformer (CT) meter
   locator: pdf:p13
-  quote: customers who have a Type 4 meter installed as well as a
+  quote: customers who have a Type 4 meter installed as well as a network point) current transformer (CT) meter.
   note: 'Table text is interleaved with the neighbouring column in the PDF text layer; the sentence reads ''This tariff is
     the default tariff available to LV commercial customers who have a Type 4 meter installed as well as a current transformer
     (CT) meter.'' XMC variants are included: Table 2.6 lists each as ''<tariff> XMC*'' (''XMC tariffs exclude metering capital
@@ -9566,9 +10362,9 @@ eligibility:
   fin_year: 2023-24
   rule_type: customer_type
   value_text: business
-  locator: pdf:p17
-  quote: HV commercial HV TOU Demand (code 122) Not applicable
-  note: 'Table 2.4 row for HV commercial customers; section 2.3 tariffs are in Table 2.5 ''Network tariff structure: HV commercial''.'
+  locator: pdf:p18
+  quote: 'Table 2.5 Network tariff structure: HV commercial'
+  note: Tariffs 111 and 121 (p18) and 122 (p19) are rows of Table 2.5.
 - codes:
   - '111'
   - '121'
@@ -9616,9 +10412,10 @@ eligibility:
   fin_year: 2023-24
   rule_type: assignment
   value_text: mandatory
-  locator: pdf:p20
-  quote: commercial customers are assigned by default to tariff 122
-  note: Table 2.4 (p17) shows HV TOU Demand (code 122) as the '(mandatory default)' for HV commercial customers.
+  locator: pdf:p17
+  quote: HV commercial HV TOU Demand (code 122) Not applicable (mandatory default)
+  note: 'Table 2.4 (Commercial tariff assignment policy). p20: ''all new HV commercial customers are assigned by default to
+    tariff 122''.'
 - codes:
   - '123'
   - '124'
@@ -9669,9 +10466,11 @@ eligibility:
   value_text: business
   locator: pdf:p21
   quote: be an LV or HV commercial customer;
-  note: 2023-24 pricing proposal section 3.1.1 'To be eligible for the large-scale battery tariff, a customer must:'; the
-    statement (p14-15) only says 108/109 are 'available to commercial customers who meet the eligibility requirements set
-    by Evoenergy'.
+  note: 2023-24 pricing proposal section 3.1.1 'To be eligible for the large-scale battery tariff, a customer must:'; the statement
+    (p14-15) only says 108/109 are 'available to commercial customers who meet the eligibility requirements set by Evoenergy'.
+    The pricing proposal's tariff table marks 108 and 109 'available to commercial customers who meet the eligibility requirements
+    set by Evoenergy.***' (p31), and the footnote reads '*** See Section 3.1.1 for eligibility requirements for the large-scale
+    battery tariff trial.' (p32).
 - codes:
   - '108'
   - '109'
@@ -9681,7 +10480,9 @@ eligibility:
   value_text: battery
   locator: pdf:p21
   quote: have a stand-alone grid-connected battery; and
-  note: 2023-24 pricing proposal section 3.1.1.
+  note: 2023-24 pricing proposal section 3.1.1. The pricing proposal's tariff table marks 108 and 109 'available to commercial
+    customers who meet the eligibility requirements set by Evoenergy.***' (p31), and the footnote reads '*** See Section 3.1.1
+    for eligibility requirements for the large-scale battery tariff trial.' (p32).
 - codes:
   - '108'
   - '109'
@@ -9694,7 +10495,9 @@ eligibility:
   value_text: minimum battery size
   locator: pdf:p21
   quote: have a minimum battery size of 200 kVA.
-  note: 2023-24 pricing proposal section 3.1.1.
+  note: 2023-24 pricing proposal section 3.1.1. The pricing proposal's tariff table marks 108 and 109 'available to commercial
+    customers who meet the eligibility requirements set by Evoenergy.***' (p31), and the footnote reads '*** See Section 3.1.1
+    for eligibility requirements for the large-scale battery tariff trial.' (p32).
 - codes:
   - '108'
   - '109'
@@ -9724,7 +10527,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p4
-  quote: This tariff is closed to new customers.
+  quote: 010 Residential Basic Network (closed) This tariff is closed to new customers.
 - codes:
   - '010'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9741,7 +10544,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p4
-  quote: This tariff is closed to new customers.
+  quote: 011 Residential Basic Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '011'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9758,7 +10561,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p4
-  quote: This tariff is closed to new customers.
+  quote: 015 Residential TOU Network (closed) This tariff is closed to new customers.
 - codes:
   - '015'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9775,7 +10578,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p5
-  quote: This tariff is closed to new customers.
+  quote: 016 Residential TOU Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '016'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9810,7 +10613,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p5
-  quote: This tariff is closed to new customers.
+  quote: 020 Residential 5000 Network (closed) This tariff is closed to new customers.
 - codes:
   - '020'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9827,7 +10630,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p6
-  quote: This tariff is closed to new customers.
+  quote: 021 Residential 5000 Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '021'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9862,7 +10665,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p7
-  quote: This tariff is closed to new customers.
+  quote: 025 Residential Demand Network (closed) This tariff is closed to new customers.
 - codes:
   - '025'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9879,7 +10682,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p7
-  quote: This tariff is closed to new customers.
+  quote: 026 Residential Demand Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '026'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9896,7 +10699,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p8
-  quote: This tariff is closed to new customers.
+  quote: 030 Residential with Heat Pump Network (closed) This tariff is closed to new customers.
 - codes:
   - '030'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9913,7 +10716,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p8
-  quote: This tariff is closed to new customers.
+  quote: 031 Residential with Heat Pump Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '031'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9930,7 +10733,7 @@ eligibility:
   rule_type: requires_technology
   value_text: controlled_load_device
   locator: pdf:p8
-  quote: This tariff is a secondary tariff available to customers using a controlled load
+  quote: 060 Off-Peak (1) Night Network This tariff is a secondary tariff available to customers using a controlled load
 - codes:
   - '070'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9938,7 +10741,7 @@ eligibility:
   rule_type: requires_technology
   value_text: controlled_load_device
   locator: pdf:p8
-  quote: This tariff is a secondary tariff available to customers using a controlled load
+  quote: 070 Off-Peak (3) Day & Night Network This tariff is a secondary tariff available to customers using a controlled load
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9946,7 +10749,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p9
-  quote: This tariff is closed to new customers.
+  quote: 040 General Network (closed) This tariff is closed to new customers.
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -9972,7 +10775,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p9
-  quote: This tariff is closed to new customers.
+  quote: 041 General Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '041'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -10255,7 +11058,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p15
-  quote: This tariff is closed to new customers.
+  quote: 111 HV TOU Demand Network (closed) This tariff is closed to new customers.
 - codes:
   - '111'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -10281,7 +11084,7 @@ eligibility:
   rule_type: availability
   value_text: closed_to_new
   locator: pdf:p15
-  quote: This tariff is closed to new customers.
+  quote: 121 HV TOU Demand Network – Customer LV (closed) This tariff is closed to new customers.
 - codes:
   - '121'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
@@ -10380,6 +11183,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B20
   quote: This tariff is closed to new customers.
+  note: B20 is the line under the tariff block heading B19 ('010', 'Residential Basic Network (closed)' in C19).
 - codes:
   - '010'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10397,6 +11201,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B28
   quote: This tariff is closed to new customers.
+  note: B28 is the line under the tariff block heading B27 ('011', 'Residential Basic Network (closed) XMC*' in C27).
 - codes:
   - '011'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10414,6 +11219,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B36
   quote: This tariff is closed to new customers.
+  note: B36 is the line under the tariff block heading B35 ('015', 'Residential TOU Network (closed)' in C35).
 - codes:
   - '015'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10431,6 +11237,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B46
   quote: This tariff is closed to new customers.
+  note: B46 is the line under the tariff block heading B45 ('016', 'Residential TOU Network (closed) XMC*' in C45).
 - codes:
   - '016'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10466,6 +11273,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B76
   quote: This tariff is closed to new customers.
+  note: B76 is the line under the tariff block heading B75 ('020', 'Residential 5000 Network (closed)' in C75).
 - codes:
   - '020'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10483,6 +11291,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B85
   quote: This tariff is closed to new customers.
+  note: B85 is the line under the tariff block heading B84 ('021', 'Residential 5000 Network (closed) XMC*' in C84).
 - codes:
   - '021'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10518,6 +11327,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B118
   quote: This tariff is closed to new customers.
+  note: B118 is the line under the tariff block heading B117 ('025', 'Residential Demand Network (closed)' in C117).
 - codes:
   - '025'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10535,6 +11345,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B127
   quote: This tariff is closed to new customers.
+  note: B127 is the line under the tariff block heading B126 ('026', 'Residential Demand Network (closed) XMC*' in C126).
 - codes:
   - '026'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10552,6 +11363,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B136
   quote: This tariff is closed to new customers.
+  note: B136 is the line under the tariff block heading B135 ('030', 'Residential with Heat Pump Network (closed)' in C135).
 - codes:
   - '030'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10569,6 +11381,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B145
   quote: This tariff is closed to new customers.
+  note: B145 is the line under the tariff block heading B144 ('031', 'Residential with Heat Pump Network (closed) XMC*' in C144).
 - codes:
   - '031'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10586,6 +11399,7 @@ eligibility:
   value_text: controlled_load_device
   locator: xlsx:Network tariffs!B154
   quote: This tariff is a secondary tariff available to customers using a controlled load
+  note: B154 is the line under the tariff block heading B153 ('060', 'Off-Peak (1) Night Network' in C153).
 - codes:
   - '070'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10594,6 +11408,7 @@ eligibility:
   value_text: controlled_load_device
   locator: xlsx:Network tariffs!B161
   quote: This tariff is a secondary tariff available to customers using a controlled load
+  note: B161 is the line under the tariff block heading B160 ('070', 'Off-Peak (3) Day & Night Network' in C160).
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10602,6 +11417,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B171
   quote: This tariff is closed to new customers.
+  note: B171 is the line under the tariff block heading B170 ('040', 'General Network (closed)' in C170).
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10628,6 +11444,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B180
   quote: This tariff is closed to new customers.
+  note: B180 is the line under the tariff block heading B179 ('041', 'General Network (closed) XMC*' in C179).
 - codes:
   - '041'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10911,6 +11728,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B321
   quote: This tariff is closed to new customers.
+  note: B321 is the line under the tariff block heading B320 ('111', 'HV TOU Demand Network (closed)' in C320).
 - codes:
   - '111'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -10937,6 +11755,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B333
   quote: This tariff is closed to new customers.
+  note: B333 is the line under the tariff block heading B332 ('121', 'HV TOU Demand Network – Customer LV (closed)' in C332).
 - codes:
   - '121'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -11035,6 +11854,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B20
   quote: This tariff is closed to new customers.
+  note: B20 is the line under the tariff block heading B19 ('010', 'Residential Basic Network (closed)' in C19).
 - codes:
   - '010'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11052,6 +11872,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B28
   quote: This tariff is closed to new customers.
+  note: B28 is the line under the tariff block heading B27 ('011', 'Residential Basic Network (closed) XMC*' in C27).
 - codes:
   - '011'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11069,6 +11890,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B36
   quote: This tariff is closed to new customers.
+  note: B36 is the line under the tariff block heading B35 ('015', 'Residential TOU Network (closed)' in C35).
 - codes:
   - '015'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11086,6 +11908,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B46
   quote: This tariff is closed to new customers.
+  note: B46 is the line under the tariff block heading B45 ('016', 'Residential TOU Network (closed) XMC*' in C45).
 - codes:
   - '016'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11121,6 +11944,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B76
   quote: This tariff is closed to new customers.
+  note: B76 is the line under the tariff block heading B75 ('020', 'Residential 5000 Network (closed)' in C75).
 - codes:
   - '020'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11138,6 +11962,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B85
   quote: This tariff is closed to new customers.
+  note: B85 is the line under the tariff block heading B84 ('021', 'Residential 5000 Network (closed) XMC*' in C84).
 - codes:
   - '021'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11173,6 +11998,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B118
   quote: This tariff is closed to new customers.
+  note: B118 is the line under the tariff block heading B117 ('025', 'Residential Demand Network (closed)' in C117).
 - codes:
   - '025'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11190,6 +12016,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B127
   quote: This tariff is closed to new customers.
+  note: B127 is the line under the tariff block heading B126 ('026', 'Residential Demand Network (closed) XMC*' in C126).
 - codes:
   - '026'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11207,6 +12034,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B136
   quote: This tariff is closed to new customers.
+  note: B136 is the line under the tariff block heading B135 ('030', 'Residential with Heat Pump Network (closed)' in C135).
 - codes:
   - '030'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11224,6 +12052,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B145
   quote: This tariff is closed to new customers.
+  note: B145 is the line under the tariff block heading B144 ('031', 'Residential with Heat Pump Network (closed) XMC*' in C144).
 - codes:
   - '031'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11241,6 +12070,7 @@ eligibility:
   value_text: controlled_load_device
   locator: xlsx:Network tariffs!B154
   quote: This tariff is a secondary tariff available to customers using a controlled load
+  note: B154 is the line under the tariff block heading B153 ('060', 'Off-Peak (1) Night Network' in C153).
 - codes:
   - '070'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11249,6 +12079,7 @@ eligibility:
   value_text: controlled_load_device
   locator: xlsx:Network tariffs!B161
   quote: This tariff is a secondary tariff available to customers using a controlled load
+  note: B161 is the line under the tariff block heading B160 ('070', 'Off-Peak (3) Day & Night Network' in C160).
 - codes:
   - '065'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11257,6 +12088,7 @@ eligibility:
   value_text: controlled_load_device
   locator: xlsx:Network tariffs!B168
   quote: This tariff is a secondary tariff available to customers using a controlled load
+  note: B168 is the line under the tariff block heading B167 ('065', 'Flexible Controlled Load' in C167).
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11265,6 +12097,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B178
   quote: This tariff is closed to new customers.
+  note: B178 is the line under the tariff block heading B177 ('040', 'General Network (closed)' in C177).
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11291,6 +12124,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B187
   quote: This tariff is closed to new customers.
+  note: B187 is the line under the tariff block heading B186 ('041', 'General Network (closed) XMC*' in C186).
 - codes:
   - '041'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11596,6 +12430,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B351
   quote: This tariff is closed to new customers.
+  note: B351 is the line under the tariff block heading B350 ('111', 'HV TOU Demand Network (closed)' in C350).
 - codes:
   - '111'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11622,6 +12457,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B363
   quote: This tariff is closed to new customers.
+  note: B363 is the line under the tariff block heading B362 ('121', 'HV TOU Demand Network – Customer LV (closed)' in C362).
 - codes:
   - '121'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -11720,6 +12556,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B20
   quote: This tariff is closed to new customers.
+  note: B20 is the line under the tariff block heading B19 ('010', 'Residential Basic Network (closed)' in C19).
 - codes:
   - '010'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11737,6 +12574,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B28
   quote: This tariff is closed to new customers.
+  note: B28 is the line under the tariff block heading B27 ('011', 'Residential Basic Network (closed) XMC*' in C27).
 - codes:
   - '011'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11754,6 +12592,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B36
   quote: This tariff is closed to new customers.
+  note: B36 is the line under the tariff block heading B35 ('015', 'Residential TOU Network (closed)' in C35).
 - codes:
   - '015'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11771,6 +12610,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B46
   quote: This tariff is closed to new customers.
+  note: B46 is the line under the tariff block heading B45 ('016', 'Residential TOU Network (closed) XMC*' in C45).
 - codes:
   - '016'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11806,6 +12646,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B76
   quote: This tariff is closed to new customers.
+  note: B76 is the line under the tariff block heading B75 ('020', 'Residential 5000 Network (closed)' in C75).
 - codes:
   - '020'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11823,6 +12664,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B85
   quote: This tariff is closed to new customers.
+  note: B85 is the line under the tariff block heading B84 ('021', 'Residential 5000 Network (closed) XMC*' in C84).
 - codes:
   - '021'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11858,6 +12700,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B118
   quote: This tariff is closed to new customers.
+  note: B118 is the line under the tariff block heading B117 ('025', 'Residential Demand Network (closed)' in C117).
 - codes:
   - '025'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11875,6 +12718,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B127
   quote: This tariff is closed to new customers.
+  note: B127 is the line under the tariff block heading B126 ('026', 'Residential Demand Network (closed) XMC*' in C126).
 - codes:
   - '026'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11892,6 +12736,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B136
   quote: This tariff is closed to new customers.
+  note: B136 is the line under the tariff block heading B135 ('030', 'Residential with Heat Pump Network (closed)' in C135).
 - codes:
   - '030'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11909,6 +12754,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B145
   quote: This tariff is closed to new customers.
+  note: B145 is the line under the tariff block heading B144 ('031', 'Residential with Heat Pump Network (closed) XMC*' in C144).
 - codes:
   - '031'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11926,6 +12772,7 @@ eligibility:
   value_text: controlled_load_device
   locator: xlsx:Network tariffs!B154
   quote: This tariff is a secondary tariff available to customers using a controlled load
+  note: B154 is the line under the tariff block heading B153 ('060', 'Off-Peak (1) Night Network' in C153).
 - codes:
   - '070'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11934,6 +12781,7 @@ eligibility:
   value_text: controlled_load_device
   locator: xlsx:Network tariffs!B161
   quote: This tariff is a secondary tariff available to customers using a controlled load
+  note: B161 is the line under the tariff block heading B160 ('070', 'Off-Peak (3) Day & Night Network' in C160).
 - codes:
   - '065'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11942,6 +12790,7 @@ eligibility:
   value_text: controlled_load_device
   locator: xlsx:Network tariffs!B168
   quote: This tariff is a secondary tariff available to customers using a controlled load
+  note: B168 is the line under the tariff block heading B167 ('065', 'Flexible Controlled Load' in C167).
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11950,6 +12799,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B178
   quote: This tariff is closed to new customers.
+  note: B178 is the line under the tariff block heading B177 ('040', 'General Network (closed)' in C177).
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -11976,6 +12826,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B187
   quote: This tariff is closed to new customers.
+  note: B187 is the line under the tariff block heading B186 ('041', 'General Network (closed) XMC*' in C186).
 - codes:
   - '041'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12281,6 +13132,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B351
   quote: This tariff is closed to new customers.
+  note: B351 is the line under the tariff block heading B350 ('111', 'HV TOU Demand Network (closed)' in C350).
 - codes:
   - '111'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12307,6 +13159,7 @@ eligibility:
   value_text: closed_to_new
   locator: xlsx:Network tariffs!B363
   quote: This tariff is closed to new customers.
+  note: B363 is the line under the tariff block heading B362 ('121', 'HV TOU Demand Network – Customer LV (closed)' in C362).
 - codes:
   - '121'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12483,98 +13336,98 @@ flags:
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p4
-  quote: This tariff is closed to new customers.
+  quote: 010 Residential Basic Network (closed) This tariff is closed to new customers.
 - codes:
   - '011'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p4
-  quote: This tariff is closed to new customers.
+  quote: 011 Residential Basic Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '015'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p4
-  quote: This tariff is closed to new customers.
+  quote: 015 Residential TOU Network (closed) This tariff is closed to new customers.
 - codes:
   - '016'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p5
-  quote: This tariff is closed to new customers.
+  quote: 016 Residential TOU Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '020'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p5
-  quote: This tariff is closed to new customers.
+  quote: 020 Residential 5000 Network (closed) This tariff is closed to new customers.
 - codes:
   - '021'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p6
-  quote: This tariff is closed to new customers.
+  quote: 021 Residential 5000 Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '025'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p7
-  quote: This tariff is closed to new customers.
+  quote: 025 Residential Demand Network (closed) This tariff is closed to new customers.
 - codes:
   - '026'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p7
-  quote: This tariff is closed to new customers.
+  quote: 026 Residential Demand Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '030'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p8
-  quote: This tariff is closed to new customers.
+  quote: 030 Residential with Heat Pump Network (closed) This tariff is closed to new customers.
 - codes:
   - '031'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p8
-  quote: This tariff is closed to new customers.
+  quote: 031 Residential with Heat Pump Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p9
-  quote: This tariff is closed to new customers.
+  quote: 040 General Network (closed) This tariff is closed to new customers.
 - codes:
   - '041'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p9
-  quote: This tariff is closed to new customers.
+  quote: 041 General Network (closed) XMC* This tariff is closed to new customers.
 - codes:
   - '111'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p15
-  quote: This tariff is closed to new customers.
+  quote: 111 HV TOU Demand Network (closed) This tariff is closed to new customers.
 - codes:
   - '121'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
   fin_year: 2024-25
   flag: closed_to_new
   locator: pdf:p15
-  quote: This tariff is closed to new customers.
+  quote: 121 HV TOU Demand Network – Customer LV (closed) This tariff is closed to new customers.
 - codes:
   - '010'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12582,6 +13435,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B20
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B19
+  column_quote: '010'
 - codes:
   - '011'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12589,6 +13444,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B28
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B27
+  column_quote: '011'
 - codes:
   - '015'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12596,6 +13453,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B36
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B35
+  column_quote: '015'
 - codes:
   - '016'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12603,6 +13462,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B46
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B45
+  column_quote: '016'
 - codes:
   - '020'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12610,6 +13471,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B76
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B75
+  column_quote: '020'
 - codes:
   - '021'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12617,6 +13480,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B85
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B84
+  column_quote: '021'
 - codes:
   - '025'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12624,6 +13489,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B118
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B117
+  column_quote: '025'
 - codes:
   - '026'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12631,6 +13498,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B127
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B126
+  column_quote: '026'
 - codes:
   - '030'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12638,6 +13507,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B136
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B135
+  column_quote: '030'
 - codes:
   - '031'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12645,6 +13516,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B145
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B144
+  column_quote: '031'
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12652,6 +13525,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B171
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B170
+  column_quote: '040'
 - codes:
   - '041'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12659,6 +13534,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B180
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B179
+  column_quote: '041'
 - codes:
   - '111'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12666,6 +13543,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B321
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B320
+  column_quote: '111'
 - codes:
   - '121'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
@@ -12673,6 +13552,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B333
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B332
+  column_quote: '121'
 - codes:
   - '010'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12680,6 +13561,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B20
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B19
+  column_quote: '010'
 - codes:
   - '011'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12687,6 +13570,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B28
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B27
+  column_quote: '011'
 - codes:
   - '015'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12694,6 +13579,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B36
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B35
+  column_quote: '015'
 - codes:
   - '016'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12701,6 +13588,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B46
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B45
+  column_quote: '016'
 - codes:
   - '020'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12708,6 +13597,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B76
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B75
+  column_quote: '020'
 - codes:
   - '021'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12715,6 +13606,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B85
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B84
+  column_quote: '021'
 - codes:
   - '025'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12722,6 +13615,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B118
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B117
+  column_quote: '025'
 - codes:
   - '026'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12729,6 +13624,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B127
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B126
+  column_quote: '026'
 - codes:
   - '030'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12736,6 +13633,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B136
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B135
+  column_quote: '030'
 - codes:
   - '031'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12743,6 +13642,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B145
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B144
+  column_quote: '031'
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12750,6 +13651,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B178
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B177
+  column_quote: '040'
 - codes:
   - '041'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12757,6 +13660,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B187
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B186
+  column_quote: '041'
 - codes:
   - '111'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12764,6 +13669,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B351
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B350
+  column_quote: '111'
 - codes:
   - '121'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
@@ -12771,6 +13678,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B363
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B362
+  column_quote: '121'
 - codes:
   - '010'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12778,6 +13687,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B20
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B19
+  column_quote: '010'
 - codes:
   - '011'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12785,6 +13696,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B28
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B27
+  column_quote: '011'
 - codes:
   - '015'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12792,6 +13705,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B36
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B35
+  column_quote: '015'
 - codes:
   - '016'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12799,6 +13714,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B46
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B45
+  column_quote: '016'
 - codes:
   - '020'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12806,6 +13723,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B76
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B75
+  column_quote: '020'
 - codes:
   - '021'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12813,6 +13732,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B85
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B84
+  column_quote: '021'
 - codes:
   - '025'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12820,6 +13741,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B118
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B117
+  column_quote: '025'
 - codes:
   - '026'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12827,6 +13750,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B127
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B126
+  column_quote: '026'
 - codes:
   - '030'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12834,6 +13759,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B136
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B135
+  column_quote: '030'
 - codes:
   - '031'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12841,6 +13768,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B145
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B144
+  column_quote: '031'
 - codes:
   - '040'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12848,6 +13777,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B178
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B177
+  column_quote: '040'
 - codes:
   - '041'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12855,6 +13786,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B187
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B186
+  column_quote: '041'
 - codes:
   - '111'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12862,6 +13795,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B351
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B350
+  column_quote: '111'
 - codes:
   - '121'
   doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx
@@ -12869,6 +13804,8 @@ flags:
   flag: closed_to_new
   locator: xlsx:Network tariffs!B363
   quote: This tariff is closed to new customers.
+  column_locator: xlsx:Network tariffs!B362
+  column_quote: '121'
 steps:
 - doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
   fin_year: 2023-24

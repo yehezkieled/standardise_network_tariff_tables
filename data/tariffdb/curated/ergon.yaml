@@ -95,7 +95,7 @@ eligibility:
   value_text: Minimum Capacity Charge ($/kW) applies
   locator: xlsx:SACS Business!V5
   quote: Minimum Capacity Charge
-  note: column has a value only for these tariffs; the rate itself is in the parsed prices
+  note: the column is nonzero only in the rows of these codes (V48, V49, V50, V119, V120, V121); the rate itself is in the parsed prices
 - codes: [EBIBT1, EBIBT2, EBIBT3, MBIBT4, WBIBT1, WBIBT2, WBIBT3]
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
@@ -154,15 +154,14 @@ eligibility:
   value_text: residential
   locator: xlsx:SAC Large!B42
   quote: Large Residential Energy
-- codes: [EBESTT1, EBESTT2, EBESTT3, EDLTT1, EDLTT2, EDLTT3, EDMTT1, EDMTT2, EDMTT3, EDSTT1, EDSTT2, EDSTT3, ELTOUDT1, ELTOUDT2, ELTOUDT3, ESTOUDT1, ESTOUDT2, ESTOUDT3, MBESTT4, MDLTT4, MDMTT4, MDSTT4,
-    MLTOUDT4, MSTOUDT4, WBESTT1, WBESTT2, WBESTT3, WDLTT1, WDLTT2, WDLTT3, WDMTT1, WDMTT2, WDMTT3, WDSTT1, WDSTT2, WDSTT3, WLTOUDT1, WLTOUDT2, WLTOUDT3, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+- codes: [EBESTT1, EBESTT2, EBESTT3, MBESTT4, WBESTT1, WBESTT2, WBESTT3]
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:SAC Large!B6
-  quote: Large (>100MWh pa)
-  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+  locator: xlsx:SAC Large!B49
+  quote: Large Business Energy
+  note: label of the row block of these codes (SAC Large!B49) under 'Large (>100MWh pa)'; the table's other tariffs (Demand Small/Medium/Large, ToU Demand, Seasonal TOU Demand) are not stated to be business tariffs
 - codes: [ELPLCT1, ELPLCT2, ELPLCT3, ELSLCT1, ELSLCT2, ELSLCT3, MLPLCT4, MLSLCT4, WLPLCT1, WLPLCT2, WLPLCT3, WLSLCT1, WLSLCT2, WLSLCT3]
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
@@ -216,40 +215,6 @@ eligibility:
   value_text: subtransmission
   locator: xlsx:CAC!B31
   quote: Sub Transmission
-- codes: [EC22BT1, EC22BT2, EC22BT3, EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, EC22LT1, EC22LT2, EC22LT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, EC33T1, EC33T2, EC33T3, EC66T1, EC66T2, EC66T3, EC66TOUT1, EC66TOUT2,
-    EC66TOUT3, WC22BT1, WC22BT2, WC22BT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, WC22LT1, WC22LT2, WC22LT3, WC22LTOUT1, WC22LTOUT2, WC22LTOUT3, WC33T1, WC33T2, WC33T3, WC66T1, WC66T2, WC66T3, WC66TOUT1, WC66TOUT2,
-    WC66TOUT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC!B2
-  quote: Connection Asset Customers (CACs) - Ergon Energy Network
-  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC Trial!B2
-  quote: Connection Asset Customers (CACs) - Ergon Energy Network
-  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC Trial!B7
-  quote: CAC 22/11kV Time of Use Export
-  note: CAC = Connection Asset Customer
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC Trial!B14
-  quote: CAC 33/66kV Time of Use Export
-  note: CAC = Connection Asset Customer
 - codes: [ERDEMT1, ERDEMT2, ERDEMT3, ERIBT1, ERIBT2, ERIBT3, ERTDEMT1, ERTDEMT2, ERTDEMT3, ERTOUET1, ERTOUET2, ERTOUET3, MRDEMT4, MRIBT4, MRTDEMT4, MRTOUET4, WRDEMT1, WRDEMT2, WRDEMT3, WRIBT1, WRIBT2, WRIBT3,
     WRTDEMT1, WRTDEMT2, WRTDEMT3, WRTOUET1, WRTOUET2, WRTOUET3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
@@ -335,7 +300,7 @@ eligibility:
   value_text: Minimum Capacity Charge ($/kW) applies
   locator: xlsx:SACS Business!V5
   quote: Minimum Capacity Charge
-  note: column has a value only for these tariffs; the rate itself is in the parsed prices
+  note: the column is nonzero only in the rows of these codes (V48, V49, V50, V119, V120, V121); the rate itself is in the parsed prices
 - codes: [EBIBT1, EBIBT2, EBIBT3, MBIBT4, WBIBT1, WBIBT2, WBIBT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
@@ -394,15 +359,14 @@ eligibility:
   value_text: residential
   locator: xlsx:SAC Large!B42
   quote: Large Residential Energy
-- codes: [EBESTT1, EBESTT2, EBESTT3, EDLTT1, EDLTT2, EDLTT3, EDMTT1, EDMTT2, EDMTT3, EDSTT1, EDSTT2, EDSTT3, ELTOUDT1, ELTOUDT2, ELTOUDT3, ESTOUDT1, ESTOUDT2, ESTOUDT3, MBESTT4, MDLTT4, MDMTT4, MDSTT4,
-    MLTOUDT4, MSTOUDT4, WBESTT1, WBESTT2, WBESTT3, WDLTT1, WDLTT2, WDLTT3, WDMTT1, WDMTT2, WDMTT3, WDSTT1, WDSTT2, WDSTT3, WLTOUDT1, WLTOUDT2, WLTOUDT3, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+- codes: [EBESTT1, EBESTT2, EBESTT3, MBESTT4, WBESTT1, WBESTT2, WBESTT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:SAC Large!B6
-  quote: Large (>100MWh pa)
-  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+  locator: xlsx:SAC Large!B49
+  quote: Large Business Energy
+  note: label of the row block of these codes (SAC Large!B49) under 'Large (>100MWh pa)'; the table's other tariffs (Demand Small/Medium/Large, ToU Demand, Seasonal TOU Demand) are not stated to be business tariffs
 - codes: [ELPLCT1, ELPLCT2, ELPLCT3, ELSLCT1, ELSLCT2, ELSLCT3, MLPLCT4, MLSLCT4, WLPLCT1, WLPLCT2, WLPLCT3, WLSLCT1, WLSLCT2, WLSLCT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
@@ -456,40 +420,6 @@ eligibility:
   value_text: subtransmission
   locator: xlsx:CAC!B31
   quote: Sub Transmission
-- codes: [EC22BT1, EC22BT2, EC22BT3, EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, EC22LT1, EC22LT2, EC22LT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, EC33T1, EC33T2, EC33T3, EC66T1, EC66T2, EC66T3, EC66TOUT1, EC66TOUT2,
-    EC66TOUT3, WC22BT1, WC22BT2, WC22BT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, WC22LT1, WC22LT2, WC22LT3, WC22LTOUT1, WC22LTOUT2, WC22LTOUT3, WC33T1, WC33T2, WC33T3, WC66T1, WC66T2, WC66T3, WC66TOUT1, WC66TOUT2,
-    WC66TOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC!B2
-  quote: Connection Asset Customers (CACs) - Ergon Energy Network
-  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC Trial!B2
-  quote: Connection Asset Customers (CACs) - Ergon Energy Network
-  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC Trial!B7
-  quote: CAC 22/11kV Time of Use Export
-  note: CAC = Connection Asset Customer
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC Trial!B14
-  quote: CAC 33/66kV Time of Use Export
-  note: CAC = Connection Asset Customer
 - codes: [ERDEMT1, ERDEMT2, ERDEMT3, ERIBT1, ERIBT2, ERIBT3, ERTDEMT1, ERTDEMT2, ERTDEMT3, ERTOUET1, ERTOUET2, ERTOUET3, MRDEMT4, MRIBT4, MRTDEMT4, MRTOUET4, WRDEMT1, WRDEMT2, WRDEMT3, WRIBT1, WRIBT2, WRIBT3,
     WRTDEMT1, WRTDEMT2, WRTDEMT3, WRTOUET1, WRTOUET2, WRTOUET3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
@@ -575,7 +505,7 @@ eligibility:
   value_text: Minimum Capacity Charge ($/kW) applies
   locator: xlsx:SACS Business!V5
   quote: Minimum Capacity Charge
-  note: column has a value only for these tariffs; the rate itself is in the parsed prices
+  note: the column is nonzero only in the rows of these codes (V48, V49, V50, V119, V120, V121); the rate itself is in the parsed prices
 - codes: [EBIBT1, EBIBT2, EBIBT3, MBIBT4, WBIBT1, WBIBT2, WBIBT3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
@@ -634,15 +564,14 @@ eligibility:
   value_text: residential
   locator: xlsx:SAC Large!B42
   quote: Large Residential Energy
-- codes: [EBESTT1, EBESTT2, EBESTT3, EDLTT1, EDLTT2, EDLTT3, EDMTT1, EDMTT2, EDMTT3, EDSTT1, EDSTT2, EDSTT3, ELTOUDT1, ELTOUDT2, ELTOUDT3, ESTOUDT1, ESTOUDT2, ESTOUDT3, MBESTT4, MDLTT4, MDMTT4, MDSTT4,
-    MLTOUDT4, MSTOUDT4, WBESTT1, WBESTT2, WBESTT3, WDLTT1, WDLTT2, WDLTT3, WDMTT1, WDMTT2, WDMTT3, WDSTT1, WDSTT2, WDSTT3, WLTOUDT1, WLTOUDT2, WLTOUDT3, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+- codes: [EBESTT1, EBESTT2, EBESTT3, MBESTT4, WBESTT1, WBESTT2, WBESTT3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:SAC Large!B6
-  quote: Large (>100MWh pa)
-  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+  locator: xlsx:SAC Large!B49
+  quote: Large Business Energy
+  note: label of the row block of these codes (SAC Large!B49) under 'Large (>100MWh pa)'; the table's other tariffs (Demand Small/Medium/Large, ToU Demand, Seasonal TOU Demand) are not stated to be business tariffs
 - codes: [ELPLCT1, ELPLCT2, ELPLCT3, ELSLCT1, ELSLCT2, ELSLCT3, MLPLCT4, MLSLCT4, WLPLCT1, WLPLCT2, WLPLCT3, WLSLCT1, WLSLCT2, WLSLCT3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
@@ -698,13 +627,6 @@ eligibility:
 - codes: [TBA T1, TBA T2, TBA T3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff Trials!B7
-  quote: Large Dynamic Flex Storage
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
   rule_type: requires_technology
   value_text: storage
   locator: xlsx:Tariff Trials!B11
@@ -712,26 +634,10 @@ eligibility:
 - codes: [TBA T1, TBA T2, TBA T3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff Trials!B11
-  quote: CAC Dynamic Flex Storage
-  note: CAC = Connection Asset Customer
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
   rule_type: requires_technology
   value_text: storage
   locator: xlsx:Tariff Trials!B14
   quote: CAC Dynamic Price Storage
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff Trials!B14
-  quote: CAC Dynamic Price Storage
-  note: CAC = Connection Asset Customer
 - codes: [EC22BT1, EC22BT2, EC22BT3, EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, EC22LT1, EC22LT2, EC22LT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22BT1, WC22BT2, WC22BT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, WC22LT1,
     WC22LT2, WC22LT3, WC22LTOUT1, WC22LTOUT2, WC22LTOUT3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
@@ -747,16 +653,6 @@ eligibility:
   value_text: subtransmission
   locator: xlsx:CAC!B31
   quote: Sub Transmission
-- codes: [EC22BT1, EC22BT2, EC22BT3, EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, EC22LT1, EC22LT2, EC22LT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, EC33T1, EC33T2, EC33T3, EC66T1, EC66T2, EC66T3, EC66TOUT1, EC66TOUT2,
-    EC66TOUT3, WC22BT1, WC22BT2, WC22BT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, WC22LT1, WC22LT2, WC22LT3, WC22LTOUT1, WC22LTOUT2, WC22LTOUT3, WC33T1, WC33T2, WC33T3, WC66T1, WC66T2, WC66T3, WC66TOUT1, WC66TOUT2,
-    WC66TOUT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC!B2
-  quote: Connection Asset Customers (CACs) - Ergon Energy Network
-  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
 - codes: [ERDEMT1, ERDEMT2, ERDEMT3, ERIBT1, ERIBT2, ERIBT3, ERTDEMT1, ERTDEMT2, ERTDEMT3, ERTOUET1, ERTOUET2, ERTOUET3, MRDEMT4, MRIBT4, MRTDEMT4, MRTOUET4, WRDEMT1, WRDEMT2, WRDEMT3, WRIBT1, WRIBT2, WRIBT3,
     WRTDEMT1, WRTDEMT2, WRTDEMT3, WRTOUET1, WRTOUET2, WRTOUET3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
@@ -842,7 +738,7 @@ eligibility:
   value_text: Minimum Capacity Charge ($/kW) applies
   locator: xlsx:SACS Business!V5
   quote: Minimum Capacity Charge
-  note: column has a value only for these tariffs; the rate itself is in the parsed prices
+  note: the column is nonzero only in the rows of these codes (V48, V49, V50, V119, V120, V121); the rate itself is in the parsed prices
 - codes: [EBIBT1, EBIBT2, EBIBT3, MBIBT4, WBIBT1, WBIBT2, WBIBT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
@@ -901,15 +797,14 @@ eligibility:
   value_text: residential
   locator: xlsx:SAC Large!B42
   quote: Large Residential Energy
-- codes: [EBESTT1, EBESTT2, EBESTT3, EDLTT1, EDLTT2, EDLTT3, EDMTT1, EDMTT2, EDMTT3, EDSTT1, EDSTT2, EDSTT3, ELTOUDT1, ELTOUDT2, ELTOUDT3, ESTOUDT1, ESTOUDT2, ESTOUDT3, MBESTT4, MDLTT4, MDMTT4, MDSTT4,
-    MLTOUDT4, MSTOUDT4, WBESTT1, WBESTT2, WBESTT3, WDLTT1, WDLTT2, WDLTT3, WDMTT1, WDMTT2, WDMTT3, WDSTT1, WDSTT2, WDSTT3, WLTOUDT1, WLTOUDT2, WLTOUDT3, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+- codes: [EBESTT1, EBESTT2, EBESTT3, MBESTT4, WBESTT1, WBESTT2, WBESTT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:SAC Large!B6
-  quote: Large (>100MWh pa)
-  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+  locator: xlsx:SAC Large!B49
+  quote: Large Business Energy
+  note: label of the row block of these codes (SAC Large!B49) under 'Large (>100MWh pa)'; the table's other tariffs (Demand Small/Medium/Large, ToU Demand, Seasonal TOU Demand) are not stated to be business tariffs
 - codes: [ELPLCT1, ELPLCT2, ELPLCT3, ELSLCT1, ELSLCT2, ELSLCT3, MLPLCT4, MLSLCT4, WLPLCT1, WLPLCT2, WLPLCT3, WLSLCT1, WLSLCT2, WLSLCT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
@@ -976,13 +871,6 @@ eligibility:
   value_text: storage
   locator: xlsx:Tariff Trials!B7
   quote: Large Dynamic Flex Storage
-- codes: [ELFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff Trials!B7
-  quote: Large Dynamic Flex Storage
 - codes: [ECFLEXT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
@@ -990,14 +878,6 @@ eligibility:
   value_text: storage
   locator: xlsx:Tariff Trials!B9
   quote: CAC Dynamic Flex Storage
-- codes: [ECFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff Trials!B9
-  quote: CAC Dynamic Flex Storage
-  note: CAC = Connection Asset Customer
 - codes: [ECPRCET1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
@@ -1005,14 +885,6 @@ eligibility:
   value_text: storage
   locator: xlsx:Tariff Trials!B10
   quote: CAC Dynamic Price Storage
-- codes: [ECPRCET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff Trials!B10
-  quote: CAC Dynamic Price Storage
-  note: CAC = Connection Asset Customer
 - codes: [EC22BT1, EC22BT2, EC22BT3, EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, EC22LT1, EC22LT2, EC22LT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22BT1, WC22BT2, WC22BT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, WC22LT1,
     WC22LT2, WC22LT3, WC22LTOUT1, WC22LTOUT2, WC22LTOUT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
@@ -1028,16 +900,6 @@ eligibility:
   value_text: subtransmission
   locator: xlsx:CAC!B31
   quote: Sub Transmission
-- codes: [EC22BT1, EC22BT2, EC22BT3, EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, EC22LT1, EC22LT2, EC22LT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, EC33T1, EC33T2, EC33T3, EC66T1, EC66T2, EC66T3, EC66TOUT1, EC66TOUT2,
-    EC66TOUT3, WC22BT1, WC22BT2, WC22BT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, WC22LT1, WC22LT2, WC22LT3, WC22LTOUT1, WC22LTOUT2, WC22LTOUT3, WC33T1, WC33T2, WC33T3, WC66T1, WC66T2, WC66T3, WC66TOUT1, WC66TOUT2,
-    WC66TOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC!B2
-  quote: Connection Asset Customers (CACs) - Ergon Energy Network
-  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
 - codes: [ERIBT1, ERTDEMT1, ERTOUET1, MRIBT4, MRTDEMT4, MRTOUET4, WRIBT1, WRTDEMT1, WRTOUET1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
@@ -1140,7 +1002,7 @@ eligibility:
   value_text: Minimum Capacity Charge ($/kW) applies
   locator: xlsx:SACS Business!L6
   quote: Minimum Capacity Charge
-  note: column has a value only for these tariffs; the rate itself is in the parsed prices
+  note: the column is nonzero only in the rows of these codes (L19, L50); the rate itself is in the parsed prices
 - codes: [EBIBT1, MBIBT4, WBIBT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
@@ -1182,14 +1044,14 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:SAC Large!B7
   quote: Large (>100MWh pa)
-- codes: [EBESTT1, EDSTT1, ELTOUDT1, ELTOUET1, MBESTT4, MDSTT4, MLTOUDT4, MLTOUET4, WBESTT1, WDSTT1, WLTOUDT1, WLTOUET1]
+- codes: [EBESTT1, MBESTT4, WBESTT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:SAC Large!B7
-  quote: Large (>100MWh pa)
-  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+  locator: xlsx:SAC Large!B14
+  quote: Large Business Energy
+  note: label of the row block of these codes (SAC Large!B14) under 'Large (>100MWh pa)'; the table's other tariffs (Large ToU Demand&Energy, Demand Small, Large TOU Energy) are not stated to be business tariffs
 - codes: [ELFLEXT1, MLFLEXT4, WLFLEXT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
@@ -1222,14 +1084,6 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:SAC Large!B3
   quote: Standard Asset Customers (SAC) - Large (>100MWh pa) - Ergon Energy Network
-- codes: [ELFLEXT1, MLFLEXT4, WLFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:SAC Large!B3
-  quote: Standard Asset Customers (SAC) - Large (>100MWh pa) - Ergon Energy Network
-  note: sheet title 'Large (>100MWh pa)'; tariff label names a large (non-residential) tariff
 - codes: [EC22BT1, EC22LT1, ECHBTOUDT1, ECHLTOUDT1, WC22BT1, WC22LT1, WCHBTOUDT1, WCHLTOUDT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
@@ -1251,14 +1105,6 @@ eligibility:
   value_text: storage
   locator: xlsx:CAC!B25
   quote: Storage
-- codes: [EC22BT1, EC22LT1, EC33T1, EC33TOUDT1, EC66T1, EC66TOUDT1, ECFLEXT1, ECHBTOUDT1, ECHLTOUDT1, WC22BT1, WC22LT1, WC33T1, WC33TOUDT1, WC66T1, WC66TOUDT1, WCFLEXT1, WCHBTOUDT1, WCHLTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC!B3
-  quote: Connection Asset Customers (CACs) - Ergon Energy Network
-  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
 - codes: [ECPRCET1, ESCPRCET1, ESPRCET1, ESSPRCET1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
@@ -1273,14 +1119,6 @@ eligibility:
   value_text: storage
   locator: xlsx:Tariff Trials!B8
   quote: CAC Dynamic Price Storage
-- codes: [ECPRCET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff Trials!B8
-  quote: CAC Dynamic Price Storage
-  note: CAC = Connection Asset Customer
 - codes: [ESPRCET1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
@@ -1295,14 +1133,6 @@ eligibility:
   value_text: storage
   locator: xlsx:Tariff Trials!B11
   quote: CAC Secondary Dynamic Price Storage
-- codes: [ESCPRCET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff Trials!B11
-  quote: CAC Secondary Dynamic Price Storage
-  note: CAC = Connection Asset Customer
 - codes: [ESSPRCET1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
@@ -1422,14 +1252,14 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:SAC Large!B7
   quote: Large (>100MWh pa)
-- codes: [EBESTT1, EDSTT1, ELTOUDT1, ELTOUET1, MBESTT4, MDSTT4, MLTOUDT4, MLTOUET4, WBESTT1, WDSTT1, WLTOUDT1, WLTOUET1]
+- codes: [EBESTT1, MBESTT4, WBESTT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
   fin_year: 2026-27
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:SAC Large!B7
-  quote: Large (>100MWh pa)
-  note: sheet heading 'Large (>100MWh pa)'; tariff labels name business/demand tariffs
+  locator: xlsx:SAC Large!B14
+  quote: Large Business Energy
+  note: label of the row block of these codes (SAC Large!B14) under 'Large (>100MWh pa)'; the table's other tariffs (Large ToU Demand&Energy, Demand Small, Large TOU Energy) are not stated to be business tariffs
 - codes: [ELFLEXT1, MLFLEXT4, WLFLEXT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
   fin_year: 2026-27
@@ -1462,14 +1292,6 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:SAC Large!B3
   quote: Standard Asset Customers (SAC) - Large (>100MWh pa) - Ergon Energy Network
-- codes: [ELFLEXT1, MLFLEXT4, WLFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:SAC Large!B3
-  quote: Standard Asset Customers (SAC) - Large (>100MWh pa) - Ergon Energy Network
-  note: sheet title 'Large (>100MWh pa)'; tariff label names a large (non-residential) tariff
 - codes: [EC22BT1, EC22LT1, ECHBTOUDT1, ECHLTOUDT1, WC22BT1, WC22LT1, WCHBTOUDT1, WCHLTOUDT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
   fin_year: 2026-27
@@ -1491,14 +1313,6 @@ eligibility:
   value_text: storage
   locator: xlsx:CAC!B25
   quote: Storage
-- codes: [EC22BT1, EC22LT1, EC33T1, EC33TOUDT1, EC66T1, EC66TOUDT1, ECFLEXT1, ECHBTOUDT1, ECHLTOUDT1, WC22BT1, WC22LT1, WC33T1, WC33TOUDT1, WC66T1, WC66TOUDT1, WCFLEXT1, WCHBTOUDT1, WCHLTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:CAC!B3
-  quote: Connection Asset Customers (CACs) - Ergon Energy Network
-  note: tariff class Connection Asset Customers (CAC); customer_type large_business is the closest schema value
 - codes: [ECHVDBT1, ESLVDBT1, WCHVDBT1, WSLVDBT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
   fin_year: 2026-27
@@ -1567,9 +1381,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F86
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C86
+  quote: East SAC<100MWhpa Residential IBT T1
 - codes: [ERIB]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -1584,9 +1397,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F89
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C89
+  quote: West SAC<100MWhpa Residential IBT T1
 - codes: [WRIB]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -1601,9 +1413,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F92
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C92
+  quote: MtIsa SAC<100MWhpa Residential IBT T4
 - codes: [MRIB]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -1618,9 +1429,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F93
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C93
+  quote: East SAC<100MWhpa Residential TOU Energy T1
 - codes: [ERTOUE]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -1635,9 +1445,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F96
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C96
+  quote: West SAC<100MWhpa Residential TOU Energy T1
 - codes: [WRTOUE]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -1652,9 +1461,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F99
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C99
+  quote: MtIsa SAC<100MWhpa Residential TOU Energy T4
 - codes: [MRTOUE]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -1669,9 +1477,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F100
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C100
+  quote: East SAC<100MWhpa Residential TOU Transitional Demand T1
 - codes: [ERTDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -1686,9 +1493,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F103
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C103
+  quote: West SAC<100MWhpa Residential TOU Transitional Demand T1
 - codes: [WRTDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -1703,9 +1509,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F106
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C106
+  quote: MtIsa SAC<100MWhpa Residential TOU Transitional Demand T4
 - codes: [MRTDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -1720,9 +1525,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F107
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C107
+  quote: East SAC<100MWhpa Residential TOU Demand T1
 - codes: [ERDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -1737,9 +1541,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F110
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C110
+  quote: West SAC<100MWhpa Residential TOU Demand T1
 - codes: [WRDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -1754,9 +1557,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: residential
-  locator: xlsx:Tariff schedule!F113
-  quote: SACS Res
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C113
+  quote: MtIsa SAC<100MWhpa Residential TOU Demand T4
 - codes: [MRDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2101,9 +1903,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: small_business
-  locator: xlsx:Tariff schedule!F165
-  quote: SACS Bus
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C165
+  quote: East SAC<100MWhpa Small Business Primary Load Control T1
 - codes: [EBPLC]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2118,9 +1919,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: small_business
-  locator: xlsx:Tariff schedule!F168
-  quote: SACS Bus
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C168
+  quote: West SAC<100MWhpa Small Business Primary Load Control T1
 - codes: [WBPLC]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2135,9 +1935,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: small_business
-  locator: xlsx:Tariff schedule!F171
-  quote: SACS Bus
-  note: AER secondary tariff class
+  locator: xlsx:Tariff schedule!C171
+  quote: Mt Isa SAC<100MWhpa Small Business Primary Load Control T4
 - codes: [MBPLC]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2248,9 +2047,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:Tariff schedule!F190
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
+  locator: xlsx:Tariff schedule!C190
+  quote: Large Business Energy
 - codes: [EBEST]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2265,9 +2063,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:Tariff schedule!F193
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
+  locator: xlsx:Tariff schedule!C193
+  quote: Large Business Energy
 - codes: [WBEST]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2282,9 +2079,8 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:Tariff schedule!F196
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
+  locator: xlsx:Tariff schedule!C196
+  quote: Large Business Energy
 - codes: [MBEST]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2345,28 +2141,12 @@ eligibility:
 - codes: [EDLT]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F205
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
-- codes: [EDLT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: consumption_min
   operator: gt
   value_num: 100
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!C205
   quote: SAC>100MWhpa
-- codes: [EDMT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F208
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
 - codes: [EDMT]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2379,28 +2159,12 @@ eligibility:
 - codes: [EDST]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F211
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
-- codes: [EDST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: consumption_min
   operator: gt
   value_num: 100
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!C211
   quote: SAC>100MWhpa
-- codes: [WDLT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F214
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
 - codes: [WDLT]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2413,28 +2177,12 @@ eligibility:
 - codes: [WDMT]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F217
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
-- codes: [WDMT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: consumption_min
   operator: gt
   value_num: 100
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!C217
   quote: SAC>100MWhpa
-- codes: [WDST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F220
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
 - codes: [WDST]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2447,28 +2195,12 @@ eligibility:
 - codes: [MDLT]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F223
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
-- codes: [MDLT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: consumption_min
   operator: gt
   value_num: 100
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!C223
   quote: SAC>100MWhpa
-- codes: [MDMT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F224
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
 - codes: [MDMT]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2481,28 +2213,12 @@ eligibility:
 - codes: [MDST]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F225
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
-- codes: [MDST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: consumption_min
   operator: gt
   value_num: 100
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!C225
   quote: SAC>100MWhpa
-- codes: [ESTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F226
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
 - codes: [ESTOUD]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2515,28 +2231,12 @@ eligibility:
 - codes: [WSTOUD]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F229
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
-- codes: [WSTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: consumption_min
   operator: gt
   value_num: 100
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!C229
   quote: SAC>100MWhpa
-- codes: [MSTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F232
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
 - codes: [MSTOUD]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2549,14 +2249,6 @@ eligibility:
 - codes: [ELTOUD]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F233
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
-- codes: [ELTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: consumption_min
   operator: gt
   value_num: 100
@@ -2566,28 +2258,12 @@ eligibility:
 - codes: [WLTOUD]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F236
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
-- codes: [WLTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: consumption_min
   operator: gt
   value_num: 100
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!C236
   quote: SAC>100MWhpa
-- codes: [MLTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!F239
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
 - codes: [MLTOUD]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2602,9 +2278,9 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:Tariff schedule!F240
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
+  locator: xlsx:Tariff schedule!C240
+  quote: SAC>100MWhpa Business Primary LC
+  note: a business tariff in the SAC>100MWhpa class (the class read as large business)
 - codes: [ELPLC]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2619,9 +2295,9 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:Tariff schedule!F243
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
+  locator: xlsx:Tariff schedule!C243
+  quote: SAC>100MWhpa Business Primary LC
+  note: a business tariff in the SAC>100MWhpa class (the class read as large business)
 - codes: [WLPLC]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2636,9 +2312,9 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:Tariff schedule!F246
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
+  locator: xlsx:Tariff schedule!C246
+  quote: SAC>100MWhpa Business Primary LC
+  note: a business tariff in the SAC>100MWhpa class (the class read as large business)
 - codes: [MLPLC]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2653,9 +2329,9 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:Tariff schedule!F247
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
+  locator: xlsx:Tariff schedule!C247
+  quote: SAC>100MWhpa Business Secondary LC
+  note: a business tariff in the SAC>100MWhpa class (the class read as large business)
 - codes: [ELSLC]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2670,9 +2346,9 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:Tariff schedule!F250
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
+  locator: xlsx:Tariff schedule!C250
+  quote: SAC>100MWhpa Business Secondary LC
+  note: a business tariff in the SAC>100MWhpa class (the class read as large business)
 - codes: [WLSLC]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2687,9 +2363,9 @@ eligibility:
   fin_year: 2024-25
   rule_type: customer_type
   value_text: large_business
-  locator: xlsx:Tariff schedule!F253
-  quote: SACL
-  note: AER secondary tariff class SACL (SAC Large)
+  locator: xlsx:Tariff schedule!C253
+  quote: SAC>100MWhpa Business Secondary LC
+  note: a business tariff in the SAC>100MWhpa class (the class read as large business)
 - codes: [MLSLC]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2699,44 +2375,6 @@ eligibility:
   value_unit: MWh/yr
   locator: xlsx:Tariff schedule!C253
   quote: SAC>100MWhpa
-- codes: [EC66]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D255
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
-- codes: [EC66]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: voltage_level
-  value_text: subtransmission
-  locator: xlsx:Tariff schedule!C255
-  quote: East CAC66kV Anytime
-- codes: [EC33]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D258
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
-- codes: [EC33]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: voltage_level
-  value_text: subtransmission
-  locator: xlsx:Tariff schedule!C258
-  quote: East CAC33kV Anytime
-- codes: [EC22B]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D261
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
 - codes: [EC22B]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2747,34 +2385,10 @@ eligibility:
 - codes: [EC22L]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D264
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
-- codes: [EC22L]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: voltage_level
   value_text: HV
   locator: xlsx:Tariff schedule!C264
   quote: East CAC22/11kVLine Anytime
-- codes: [EC66TOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D267
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
-- codes: [EC22BTOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D270
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
 - codes: [EC22BTOU]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2785,56 +2399,10 @@ eligibility:
 - codes: [EC22LTOU]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D273
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
-- codes: [EC22LTOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: voltage_level
   value_text: HV
   locator: xlsx:Tariff schedule!C273
   quote: East CAC22/11kVLine STOUD
-- codes: [WC66]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D276
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
-- codes: [WC66]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: voltage_level
-  value_text: subtransmission
-  locator: xlsx:Tariff schedule!C276
-  quote: West CAC66kV Anytime
-- codes: [WC33]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D279
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
-- codes: [WC33]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: voltage_level
-  value_text: subtransmission
-  locator: xlsx:Tariff schedule!C279
-  quote: West CAC33kV Anytime
-- codes: [WC22B]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D282
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
 - codes: [WC22B]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2845,34 +2413,10 @@ eligibility:
 - codes: [WC22L]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D285
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
-- codes: [WC22L]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: voltage_level
   value_text: HV
   locator: xlsx:Tariff schedule!C285
   quote: West CAC22/11kVLine Anytime
-- codes: [WC66TOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D288
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
-- codes: [WC22BTOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D291
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
 - codes: [WC22BTOU]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
@@ -2883,26 +2427,10 @@ eligibility:
 - codes: [WC22LTOU]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D294
-  quote: CAC
-  note: AER tariff class CAC; large_business is the closest schema value
-- codes: [WC22LTOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
   rule_type: voltage_level
   value_text: HV
   locator: xlsx:Tariff schedule!C294
   quote: West CAC22/11kVLine STOUD
-- codes: [ICC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  rule_type: customer_type
-  value_text: large_business
-  locator: xlsx:Tariff schedule!D298
-  quote: ICC
-  note: AER tariff class ICC; large_business is the closest schema value
 - codes:
   - EBWIFT1
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx

@@ -40,9 +40,7 @@ tou_schedules:
   covers_full_day: false
   locator: pdf:p23
   quote: workdays workdays Demand RESKW1R3 Opt-in ✓ ✓ 3pm-9pm 3pm-9pm
-  note: Table A.7 summer demand and non-summer demand columns (superscript 3 on the code is a footnote). Summer is 1 Dec-31
-    Mar; non-summer months are not listed, taken as the remaining months April to November. 'workdays' is not defined in the
-    document, so mapped to weekday (Mon-Fri); public holiday treatment not stated
+  note: 'Table A.7 summer demand and non-summer demand columns (superscript 3 on the code is a footnote). Footnote 2: summer is 1 December to 31 March; the document does not list the non-summer months, so they are recorded as not_stated. ''workdays'' is not defined in the document, so mapped to weekday (Mon-Fri); public holiday treatment not stated'
   windows:
   - period: demand_window
     label: workdays 3pm-9pm (summer)
@@ -58,7 +56,7 @@ tou_schedules:
     days: weekday
     start: '15:00'
     end: '21:00'
-    months: 4,5,6,7,8,9,10,11
+    months: not_stated
     season: non-summer
   tariffs:
   - codes:
@@ -109,8 +107,7 @@ tou_schedules:
   covers_full_day: false
   locator: pdf:p24
   quote: workdays workdays Demand LVMKW1R3 < 120kVA ✓ ✓ (otherwise 10am-6pm 10am-6pm
-  note: Table A.8 summer / non-summer demand columns. Non-summer months not listed; taken as April to November. 'workdays'
-    is not defined in the document, so mapped to weekday (Mon-Fri); public holiday treatment not stated
+  note: 'Table A.8 summer / non-summer demand columns. Footnote 2: summer is 1 December to 31 March; the document does not list the non-summer months, so they are recorded as not_stated. ''workdays'' is not defined in the document, so mapped to weekday (Mon-Fri); public holiday treatment not stated'
   windows:
   - period: demand_window
     label: workdays 10am-6pm (summer)
@@ -126,7 +123,7 @@ tou_schedules:
     days: weekday
     start: '10:00'
     end: '18:00'
-    months: 4,5,6,7,8,9,10,11
+    months: not_stated
     season: non-summer
   tariffs:
   - codes:
@@ -136,14 +133,12 @@ tou_schedules:
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
   name: Unmetered supplies (UnMet) energy peak / non-peak
-  time_basis: standard_time
+  time_basis: not_stated
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p24
   quote: Unmetered weekdays non-peak UnMet5 Open N/A supplies 7am-11pm times
-  note: 'Table A.8 notes: ''All times are local times except for UnMet.'' The document does not name UnMet''s time basis;
-    recorded as standard_time on that exception (the 2026-27 document states AEST for UNMET). Weekend windows are the ''non-peak
-    times'' complement.'
+  note: 'Table A.8 notes: ''All times are local times except for UnMet.'' The document does not say what time basis UnMet uses, so it is recorded as not_stated. Weekend windows are the ''non-peak times'' complement.'
   windows:
   - period: off_peak
     label: non-peak times
@@ -210,14 +205,34 @@ tou_schedules:
   tariffs:
   - codes:
     - LVkVATOU1
+    applies_to: energy
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays LVkVATOU1 Default < 1 kV 120 large ≥ 200amps per 7am-7pm times 1pm-4pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Peak energy ''workdays 7am-7pm'', Off peak energy ''non-peak times''.'
+  - codes:
     - LVkVATOU2
+    applies_to: energy
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays LVkVATOU2 Default < 1 kV 120 large ≥ 200amps per 7am-7pm times 4pm-7pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Peak energy ''workdays 7am-7pm'', Off peak energy ''non-peak times''.'
+  - codes:
     - HVkVATOU1
+    applies_to: energy
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays High voltage HVkVATOU1 Default 1 kV – 66 kV N/A 500 7am-7pm times 1pm-4pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Peak energy ''workdays 7am-7pm'', Off peak energy ''non-peak times''.'
+  - codes:
     - HVkVATOU2
+    applies_to: energy
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays High voltage HVkVATOU2 Default 1 kV – 66 kV N/A 500 7am-7pm times 4pm-7pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Peak energy ''workdays 7am-7pm'', Off peak energy ''non-peak times''.'
+  - codes:
     - SUBTkVATOU
     applies_to: energy
-    locator: pdf:p27
-    quote: The following section outlines the kVA tariff policy which involves the calculation of 12-month rolling maximum
-      demand, which applies to large low voltage, high voltage and sub-transmission customers.
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays Subtransmission SUBTkVATOU Default > 66 kV N/A 5,000 7am-7pm times 4pm-7pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Peak energy ''workdays 7am-7pm'', Off peak energy ''non-peak times''.'
 - id: ue-2324-pdf-kva-rolling
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -238,11 +253,34 @@ tou_schedules:
   tariffs:
   - codes:
     - LVkVATOU1
+    applies_to: demand
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays LVkVATOU1 Default < 1 kV 120 large ≥ 200amps per 7am-7pm times 1pm-4pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Rolling demand column ''workdays 7am-7pm''.'
+  - codes:
     - LVkVATOU2
+    applies_to: demand
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays LVkVATOU2 Default < 1 kV 120 large ≥ 200amps per 7am-7pm times 4pm-7pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Rolling demand column ''workdays 7am-7pm''.'
+  - codes:
     - HVkVATOU1
+    applies_to: demand
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays High voltage HVkVATOU1 Default 1 kV – 66 kV N/A 500 7am-7pm times 1pm-4pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Rolling demand column ''workdays 7am-7pm''.'
+  - codes:
     - HVkVATOU2
+    applies_to: demand
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays High voltage HVkVATOU2 Default 1 kV – 66 kV N/A 500 7am-7pm times 4pm-7pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Rolling demand column ''workdays 7am-7pm''.'
+  - codes:
     - SUBTkVATOU
     applies_to: demand
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays Subtransmission SUBTkVATOU Default > 66 kV N/A 5,000 7am-7pm times 4pm-7pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Rolling demand column ''workdays 7am-7pm''.'
 - id: ue-2324-pdf-kva-summer-incentive-1-4pm
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -269,10 +307,16 @@ tou_schedules:
   tariffs:
   - codes:
     - LVkVATOU1
+    applies_to: demand
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays LVkVATOU1 Default < 1 kV 120 large ≥ 200amps per 7am-7pm times 1pm-4pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Summer incentive demand column ''workdays 1pm-4pm''.'
+  - codes:
     - HVkVATOU1
     applies_to: demand
     locator: pdf:p25
-    quote: workdays non-peak workdays workdays High voltage HVkVATOU1 Default 1 kV – 66 kV N/A 500 7am-7pm times 1pm-4pm
+    quote: workdays non-peak workdays workdays High voltage HVkVATOU1 Default 1 kV – 66 kV N/A 500 7am-7pm times 1pm-4pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Summer incentive demand column ''workdays 1pm-4pm''.'
 - id: ue-2324-pdf-kva-summer-incentive-4-7pm
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -299,11 +343,22 @@ tou_schedules:
   tariffs:
   - codes:
     - LVkVATOU2
+    applies_to: demand
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays LVkVATOU2 Default < 1 kV 120 large ≥ 200amps per 7am-7pm times 4pm-7pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Summer incentive demand column ''workdays 4pm-7pm''.'
+  - codes:
     - HVkVATOU2
+    applies_to: demand
+    locator: pdf:p25
+    quote: workdays non-peak workdays workdays High voltage HVkVATOU2 Default 1 kV – 66 kV N/A 500 7am-7pm times 4pm-7pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Summer incentive demand column ''workdays 4pm-7pm''.'
+  - codes:
     - SUBTkVATOU
     applies_to: demand
     locator: pdf:p25
-    quote: workdays non-peak workdays workdays Subtransmission SUBTkVATOU Default > 66 kV N/A 5,000 7am-7pm times 4pm-7pm
+    quote: workdays non-peak workdays workdays Subtransmission SUBTkVATOU Default > 66 kV N/A 5,000 7am-7pm times 4pm-7pm 7am-7pm
+    note: 'Table A.9 (p25) row for the code: Summer incentive demand column ''workdays 4pm-7pm''.'
 - id: ue-2324-pdf-trial-saver
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -347,18 +402,21 @@ tou_schedules:
   - codes:
     - URDS
     applies_to: energy
+    locator: pdf-ocr:p12
+    quote: Residential daytime saver URDS FURDS Yes 24.65 16.40 5.84
+    note: Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Row 'Residential daytime saver' URDS with import Peak 16.40 and Off-peak 5.84; the Table 6 note gives the 'Residential daytime saver' periods.
   - codes:
     - LVNDBB
     applies_to: energy
-    locator: pdf:p12
-    quote: Community battery peak period is 4pm-9pm, saver period is 10am- 3pm, off-peak is all other times, from Monday to
-      Sunday.
+    locator: pdf-ocr:p12
+    quote: Communitybattery time of use LVNDBB na Yes 45.00 25.00 (1.50) (1.00)
+    note: Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Row 'Community battery time of use' LVNDBB with import Peak 25.00 and Saver (1.50); the Table 6 note gives the community battery periods.
   - codes:
     - LVNDBB
     applies_to: export
-    locator: pdf:p12
-    quote: Community battery peak period is 4pm-9pm, saver period is 10am- 3pm, off-peak is all other times, from Monday to
-      Sunday.
+    locator: pdf-ocr:p12
+    quote: Communitybattery time of use LVNDBB na Yes 45.00 25.00 (1.50) (1.00)
+    note: Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Row 'Community battery time of use' LVNDBB with export Peak (1.00); the Table 6 note gives the community battery periods.
 - id: ue-2324-pdf-gt-demand-4-9pm
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -381,6 +439,9 @@ tou_schedules:
   - codes:
     - GT
     applies_to: demand
+    locator: pdf-ocr:p12
+    quote: Generatorstorage GT Opt-in 2.00 2.00 8.00
+    note: Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Row 'Generator storage' GT with Demand Jul-Jun 8.00 ($/kW/month); the Table 6 note gives the 'Generator storage tariff' demand windows.
 - id: ue-2324-pdf-gt-demand-11am-4pm
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -403,6 +464,9 @@ tou_schedules:
   - codes:
     - GT
     applies_to: demand
+    locator: pdf-ocr:p12
+    quote: Generatorstorage GT Opt-in 2.00 2.00 8.00
+    note: Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Row 'Generator storage' GT with Demand Jul-Jun 8.00 ($/kW/month); the Table 6 note gives the 'Generator storage tariff' demand windows.
 - id: ue-2324-xlsx-trial-saver
   doc: sources/aer/2023-24_price_lists/UnitedEnergy_2023-24_Tariff_Summary_31Mar2023.xlsx
   fin_year: 2023-24
@@ -445,12 +509,21 @@ tou_schedules:
   - codes:
     - URDS
     applies_to: energy
+    locator: xlsx:UE_2023-24_TRIAL_NUOS!C7
+    quote: URDS
+    note: 'Row 7: B7 ''Residential daytime saver'', import Peak H7 and Off-peak I7; note B15 gives the ''Residential daytime saver'' periods.'
   - codes:
     - LVNDBB
     applies_to: energy
+    locator: xlsx:UE_2023-24_TRIAL_NUOS!C8
+    quote: LVNDBB
+    note: 'Row 8: B8 ''Community battery time of use'', import Peak H8 and Saver J8; note B15 gives the community battery periods.'
   - codes:
     - LVNDBB
     applies_to: export
+    locator: xlsx:UE_2023-24_TRIAL_NUOS!C8
+    quote: LVNDBB
+    note: 'Row 8: B8 ''Community battery time of use'', export Peak K8 (K4 ''Usage - EXPORT'', K5 ''Peak''); note B15 gives the community battery periods.'
 - id: ue-2324-xlsx-gt-demand-4-9pm
   doc: sources/aer/2023-24_price_lists/UnitedEnergy_2023-24_Tariff_Summary_31Mar2023.xlsx
   fin_year: 2023-24
@@ -472,6 +545,9 @@ tou_schedules:
   - codes:
     - GT
     applies_to: demand
+    locator: xlsx:UE_2023-24_TRIAL_NUOS!C10
+    quote: GT
+    note: 'Row 10: B10 ''Generator storage'', Demand Jul-Jun N10; note B17 gives the ''Generator storage tariff'' demand windows.'
 - id: ue-2324-xlsx-gt-demand-11am-4pm
   doc: sources/aer/2023-24_price_lists/UnitedEnergy_2023-24_Tariff_Summary_31Mar2023.xlsx
   fin_year: 2023-24
@@ -493,6 +569,9 @@ tou_schedules:
   - codes:
     - GT
     applies_to: demand
+    locator: xlsx:UE_2023-24_TRIAL_NUOS!C10
+    quote: GT
+    note: 'Row 10: B10 ''Generator storage'', Demand Jul-Jun N10; note B17 gives the ''Generator storage tariff'' demand windows.'
 - id: ue-2425-xlsx-trial-saver
   doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
   fin_year: 2024-25
@@ -535,12 +614,21 @@ tou_schedules:
   - codes:
     - URDS
     applies_to: energy
+    locator: xlsx:UE_2024-25_TRIAL_NUOS!C7
+    quote: URDS
+    note: 'Row 7: B7 ''Residential daytime saver'', import Peak H7 and Off-peak I7; note B15 gives the ''Residential daytime saver'' periods.'
   - codes:
     - LVNDBB
     applies_to: energy
+    locator: xlsx:UE_2024-25_TRIAL_NUOS!C8
+    quote: LVNDBB
+    note: 'Row 8: B8 ''Community battery time of use'', import Peak H8 and Saver J8; note B15 gives the community battery periods.'
   - codes:
     - LVNDBB
     applies_to: export
+    locator: xlsx:UE_2024-25_TRIAL_NUOS!C8
+    quote: LVNDBB
+    note: 'Row 8: B8 ''Community battery time of use'', export Peak K8 (K4 ''Usage - EXPORT'', K5 ''Peak''); note B15 gives the community battery periods.'
 - id: ue-2425-xlsx-gt-demand-4-9pm
   doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
   fin_year: 2024-25
@@ -562,6 +650,9 @@ tou_schedules:
   - codes:
     - GT
     applies_to: demand
+    locator: xlsx:UE_2024-25_TRIAL_NUOS!C11
+    quote: GT
+    note: 'Row 11: B11 ''Generator storage'', Demand Jul-Jun N11; note B17 gives the ''Generator storage tariff'' demand windows.'
 - id: ue-2425-xlsx-gt-demand-11am-4pm
   doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
   fin_year: 2024-25
@@ -583,6 +674,9 @@ tou_schedules:
   - codes:
     - GT
     applies_to: demand
+    locator: xlsx:UE_2024-25_TRIAL_NUOS!C11
+    quote: GT
+    note: 'Row 11: B11 ''Generator storage'', Demand Jul-Jun N11; note B17 gives the ''Generator storage tariff'' demand windows.'
 - id: ue-2526-pdf-urtou
   doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
   fin_year: 2025-26
@@ -670,6 +764,9 @@ tou_schedules:
   - codes:
     - LVDED
     applies_to: controlled_load
+    locator: pdf:p6
+    quote: LVDED is available to customers with a dedicated circuit connected to a time-switch
+    note: 'p6 notes: this LVDED bullet is followed by the ''Hot water'' and ''Slab heating'' sub-notes; the slab heating sub-note gives the switching times.'
 - id: ue-2526-pdf-lvtou
   doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
   fin_year: 2025-26
@@ -747,15 +844,12 @@ tou_schedules:
   doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
   fin_year: 2025-26
   name: Unmetered supplies (UNMET) energy peak / non-peak
-  time_basis: standard_time
+  time_basis: not_stated
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf-ocr:p7
   quote: Weekdays 7am- Unmetered supllies UNMET Open N/A 11pm Non-peak times
-  note: 'pdf-ocr locator: Tables 5 and 6 are rotated on the page and the text layer extracts them one glyph column at a time,
-    so the quote is checked against OCR of the rendered page. Table 5 notes: ''All times are local time, except for UNMET'';
-    recorded as standard_time on that exception (the document does not name the basis; the 2026-27 document states AEST).
-    Weekend windows are the ''Non-peak times'' complement.'
+  note: 'pdf-ocr locator: Tables 5 and 6 are rotated on the page and the text layer extracts them one glyph column at a time, so the quote is checked against OCR of the rendered page. Table 5 notes: ''All times are local time, except for UNMET''; the document does not say what time basis UNMET uses, so it is recorded as not_stated. Weekend windows are the ''Non-peak times'' complement.'
   windows:
   - period: off_peak
     label: Non-peak times
@@ -822,14 +916,34 @@ tou_schedules:
   tariffs:
   - codes:
     - LVkVATOU1
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- Low Voltage large LVKVATOU1 Default <1kV or ≥200amps per 120 Non-peak times Workdays 1-4pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: Peak energy ''Workdays 7am-7pm'', Off-peak energy ''Non-peak times''.'
+  - codes:
     - LVkVATOU2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- Low Voltage large LVKVATOU2 Default <1kV or≥200ampsper 120 Non-peak times Workdays 4-7pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: Peak energy ''Workdays 7am-7pm'', Off-peak energy ''Non-peak times''.'
+  - codes:
     - HVkVATOU1
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- HVkVATOU1 Default 1kV-66KV N/A 500 Non-peak times Workdays 1-4pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: Peak energy ''Workdays 7am-7pm'', Off-peak energy ''Non-peak times''.'
+  - codes:
     - HVkVATOU2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- High Voltage HVKVATOU2 Default 1kV-66KV N/A 500 Non-peak times Workdays 4-7pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: Peak energy ''Workdays 7am-7pm'', Off-peak energy ''Non-peak times''.'
+  - codes:
     - SUBTkVATOU
     applies_to: energy
-    locator: pdf:p10
-    quote: The following section outlines the kVA tariff policy which involves the calculation of maximum demand charges which
-      applies to large low voltage, high voltage and sub-transmission customers.
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- Sub-transmission SUBTKVATOU Default ≥66kV N/A 5,000 Non-peak times Workdays 4-7pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: Peak energy ''Workdays 7am-7pm'', Off-peak energy ''Non-peak times''.'
 - id: ue-2526-pdf-kva-rolling
   doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
   fin_year: 2025-26
@@ -850,11 +964,34 @@ tou_schedules:
   tariffs:
   - codes:
     - LVkVATOU1
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- Low Voltage large LVKVATOU1 Default <1kV or ≥200amps per 120 Non-peak times Workdays 1-4pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: 12-month rolling demand ''Workdays 7am-7pm''.'
+  - codes:
     - LVkVATOU2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- Low Voltage large LVKVATOU2 Default <1kV or≥200ampsper 120 Non-peak times Workdays 4-7pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: 12-month rolling demand ''Workdays 7am-7pm''.'
+  - codes:
     - HVkVATOU1
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- HVkVATOU1 Default 1kV-66KV N/A 500 Non-peak times Workdays 1-4pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: 12-month rolling demand ''Workdays 7am-7pm''.'
+  - codes:
     - HVkVATOU2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- High Voltage HVKVATOU2 Default 1kV-66KV N/A 500 Non-peak times Workdays 4-7pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: 12-month rolling demand ''Workdays 7am-7pm''.'
+  - codes:
     - SUBTkVATOU
     applies_to: demand
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- Sub-transmission SUBTKVATOU Default ≥66kV N/A 5,000 Non-peak times Workdays 4-7pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: 12-month rolling demand ''Workdays 7am-7pm''.'
 - id: ue-2526-pdf-kva-summer-incentive-1-4pm
   doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
   fin_year: 2025-26
@@ -881,10 +1018,16 @@ tou_schedules:
   tariffs:
   - codes:
     - LVkVATOU1
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- Low Voltage large LVKVATOU1 Default <1kV or ≥200amps per 120 Non-peak times Workdays 1-4pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: Summer incentive demand ''Workdays 1-4pm''.'
+  - codes:
     - HVkVATOU1
     applies_to: demand
     locator: pdf-ocr:p8
-    quote: HVkVATOU1 Default 1kV-66KV N/A 500 Non-peak times Workdays 1-4pm
+    quote: Workdays 7am- Workdays 7am- HVkVATOU1 Default 1kV-66KV N/A 500 Non-peak times Workdays 1-4pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: Summer incentive demand ''Workdays 1-4pm''.'
 - id: ue-2526-pdf-kva-summer-incentive-4-7pm
   doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
   fin_year: 2025-26
@@ -911,11 +1054,22 @@ tou_schedules:
   tariffs:
   - codes:
     - LVkVATOU2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- Low Voltage large LVKVATOU2 Default <1kV or≥200ampsper 120 Non-peak times Workdays 4-7pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: Summer incentive demand ''Workdays 4-7pm''.'
+  - codes:
     - HVkVATOU2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: Workdays 7am- Workdays 7am- High Voltage HVKVATOU2 Default 1kV-66KV N/A 500 Non-peak times Workdays 4-7pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: Summer incentive demand ''Workdays 4-7pm''.'
+  - codes:
     - SUBTkVATOU
     applies_to: demand
     locator: pdf-ocr:p8
-    quote: Sub-transmission SUBTkVATOU Default ≥ 66kV N/A 5,000 Non-peak times Workdays 4-7pm
+    quote: Workdays 7am- Workdays 7am- Sub-transmission SUBTKVATOU Default ≥66kV N/A 5,000 Non-peak times Workdays 4-7pm 7pm 7pm
+    note: 'Table 6 is rotated on the page, so the row is checked against OCR of the rendered page. Table 6 row for the code: Summer incentive demand ''Workdays 4-7pm''.'
 - id: ue-2627-pdf-urstou
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -1054,6 +1208,9 @@ tou_schedules:
   - codes:
     - LVDED
     applies_to: controlled_load
+    locator: pdf:p6
+    quote: LVDED is available to customers with a dedicated circuit connected to a time-switch
+    note: 'p6 notes: this LVDED bullet is followed by the ''Hot water'' and ''Slab heating'' sub-notes; the slab heating sub-note gives the switching times.'
 - id: ue-2627-pdf-lvtou
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -1363,14 +1520,24 @@ tou_schedules:
     - LVKVATOU1
     - LVKVATOU2
     - LVKVATOU3
+    applies_to: energy
+    locator: pdf:p8
+    quote: LVKVATOU1 (Dec-Mar) workdays 7am- workdays 7am- 4-7pm summer Large low voltage LVKVATOU2 Default < 1kV >160MWh - - non-peak times 7pm 7pm (Dec-Mar) 4-7pm winter LVKVATOU3
+    note: 'Table 6 (p8) ''Large low voltage'' rows: Peak energy ''workdays 7am-7pm'' is one merged cell for LVKVATOU1/2/3 (checked on the rendered page).'
+  - codes:
     - HVKVATOU1
     - HVKVATOU2
     - HVKVATOU3
+    applies_to: energy
+    locator: pdf:p8
+    quote: HVKVATOU1 (Dec-Mar) workdays 7am- workdays 7am- 4-7pm summer High voltage HVKVATOU2 Default 1kV-66KV N/A 500 - non-peak times 7pm 7pm (Dec-Mar) 4-7pm winter HVKVATOU3
+    note: 'Table 6 (p8) ''High voltage'' rows: Peak energy ''workdays 7am-7pm'' is one merged cell for HVKVATOU1/2/3 (checked on the rendered page).'
+  - codes:
     - SUBTKVATOU
     applies_to: energy
-    locator: pdf:p11
-    quote: The following section outlines the kVA tariff policy which involves the calculation of maximum demand charges which
-      applies to large low voltage, high voltage and sub-transmission customers.
+    locator: pdf:p8
+    quote: workdays 7am- workdays 7am- Sub-transmission SUBTKVATOU2 Default ≥ 66kV N/A 5000 - non-peak times not applicable 7pm 7pm
+    note: 'Table 6 (p8) ''Sub-transmission'' row: Peak energy ''workdays 7am-7pm''. The PDF prints the sub-transmission code as ''SUBTKVATOU2''; the 2026-27 tariff summary workbook and the parsed price tables use ''SUBTKVATOU''.'
 - id: ue-2627-pdf-kva-rolling
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -1394,11 +1561,24 @@ tou_schedules:
     - LVKVATOU1
     - LVKVATOU2
     - LVKVATOU3
+    applies_to: demand
+    locator: pdf:p8
+    quote: LVKVATOU1 (Dec-Mar) workdays 7am- workdays 7am- 4-7pm summer Large low voltage LVKVATOU2 Default < 1kV >160MWh - - non-peak times 7pm 7pm (Dec-Mar) 4-7pm winter LVKVATOU3
+    note: 'Table 6 (p8) ''Large low voltage'' rows: 12-month rolling demand ''workdays 7am-7pm'' is one merged cell for LVKVATOU1/2/3 (checked on the rendered page).'
+  - codes:
     - HVKVATOU1
     - HVKVATOU2
     - HVKVATOU3
+    applies_to: demand
+    locator: pdf:p8
+    quote: HVKVATOU1 (Dec-Mar) workdays 7am- workdays 7am- 4-7pm summer High voltage HVKVATOU2 Default 1kV-66KV N/A 500 - non-peak times 7pm 7pm (Dec-Mar) 4-7pm winter HVKVATOU3
+    note: 'Table 6 (p8) ''High voltage'' rows: 12-month rolling demand ''workdays 7am-7pm'' is one merged cell for HVKVATOU1/2/3 (checked on the rendered page).'
+  - codes:
     - SUBTKVATOU
     applies_to: demand
+    locator: pdf:p8
+    quote: workdays 7am- workdays 7am- Sub-transmission SUBTKVATOU2 Default ≥ 66kV N/A 5000 - non-peak times not applicable 7pm 7pm
+    note: 'Table 6 (p8) ''Sub-transmission'' row: 12-month rolling demand ''workdays 7am-7pm''. The PDF prints the sub-transmission code as ''SUBTKVATOU2''; the 2026-27 tariff summary workbook and the parsed price tables use ''SUBTKVATOU''.'
 - id: ue-2627-pdf-kva-incentive-1-4pm-summer
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -1421,10 +1601,16 @@ tou_schedules:
   tariffs:
   - codes:
     - LVKVATOU1
+    applies_to: demand
+    locator: pdf:p8
+    quote: 1-4pm summer LVKVATOU1 (Dec-Mar)
+    note: 'Table 6 (p8) Incentive demand cell for the code; Table 6 notes (p9): ''Tariffs ending with "1" represent 1-4pm summer incentive demand period''.'
+  - codes:
     - HVKVATOU1
     applies_to: demand
-    locator: pdf:p9
-    quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period
+    locator: pdf:p8
+    quote: 1-4pm summer HVKVATOU1 (Dec-Mar)
+    note: 'Table 6 (p8) Incentive demand cell for the code; Table 6 notes (p9): ''Tariffs ending with "1" represent 1-4pm summer incentive demand period''.'
 - id: ue-2627-pdf-kva-incentive-4-7pm-summer
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -1447,10 +1633,16 @@ tou_schedules:
   tariffs:
   - codes:
     - LVKVATOU2
+    applies_to: demand
+    locator: pdf:p8
+    quote: 4-7pm summer Large low voltage LVKVATOU2
+    note: 'Table 6 (p8) Incentive demand cell for the code; Table 6 notes (p9): ''tariffs ending with "2" represent 4-7pm summer incentive demand period''.'
+  - codes:
     - HVKVATOU2
     applies_to: demand
-    locator: pdf:p9
-    quote: tariffs ending with "2" represent 4-7pm summer incentive demand period
+    locator: pdf:p8
+    quote: 4-7pm summer High voltage HVKVATOU2
+    note: 'Table 6 (p8) Incentive demand cell for the code; Table 6 notes (p9): ''tariffs ending with "2" represent 4-7pm summer incentive demand period''.'
 - id: ue-2627-pdf-kva-incentive-4-7pm-winter
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -1473,10 +1665,16 @@ tou_schedules:
   tariffs:
   - codes:
     - LVKVATOU3
+    applies_to: demand
+    locator: pdf:p8
+    quote: 4-7pm winter LVKVATOU3 (May-Aug)
+    note: 'Table 6 (p8) Incentive demand cell for the code; Table 6 notes (p9): ''"3" represent 4-7pm winter incentive demand period''.'
+  - codes:
     - HVKVATOU3
     applies_to: demand
-    locator: pdf:p9
-    quote: '"3" represent 4-7pm winter incentive demand period'
+    locator: pdf:p8
+    quote: 4-7pm winter HVKVATOU3 (May-Aug)
+    note: 'Table 6 (p8) Incentive demand cell for the code; Table 6 notes (p9): ''"3" represent 4-7pm winter incentive demand period''.'
 - id: ue-2627-pdf-evutou
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -1486,10 +1684,7 @@ tou_schedules:
   covers_full_day: false
   locator: pdf-ocr:p14
   quote: All days import c/kWh Off-peak Saver Peak charge
-  note: 'Figure 4 ''KEVC trial network tariff structure'' is an image: time axis 12am / 11am / 4pm / 9pm; OCR reads ''12am
-    11am 4pm'' but not the ''9pm'' label, so the 4pm-9pm peak and export-credit end was read visually from the figure. The
-    9pm-12am segment is shaded like off-peak but unlabelled, so it is not encoded. The PDF does not print the code; the 2026-27
-    tariff summary trial sheet lists ''Residential kerbside EV charger'' as EVUTOU. Time basis not stated for the trial.'
+  note: 'Figure 4 ''KEVC trial network tariff structure'' is an image: time axis 12am / 11am / 4pm / 9pm; OCR reads ''12am 11am 4pm'' but not the ''9pm'' label, so the 4pm-9pm peak and export-credit end was read visually from the figure. The 9pm-12am segment is shaded like off-peak but unlabelled, so it is not encoded. The PDF does not print a tariff code for the KEVC trial, so no tariff is linked to this schedule (the 2026-27 tariff summary trial sheet lists ''Residential kerbside EV charger'' as EVUTOU). Time basis not stated for the trial.'
   windows:
   - period: off_peak
     label: Off-peak
@@ -1521,13 +1716,6 @@ tou_schedules:
     season: Dec, Jan, Feb, Jun, Jul, Aug
     locator: pdf-ocr:p14
     quote: Dec, Jan, Feb Seasonal c/kWh credit Jun, Jul, Aug
-  tariffs:
-  - codes:
-    - EVUTOU
-    applies_to: energy
-  - codes:
-    - EVUTOU
-    applies_to: export
 demand_rules:
 - id: ue-2324-pdf-reskw1r-demand
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -1574,7 +1762,7 @@ demand_rules:
   minimum_chargeable: 120
   minimum_unit: kVA
   locator: pdf:p27
-  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months.
+  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
   note: 'Same page: ''Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers
     and 5,000kVA for sub-transmission customers.'' kVA = sqrt(kW^2 + kVAr^2) with kW = maximum kWh in a 30-minute period x
     2. Table A.9 prices rolling demand in c/kW/day; Table A.1 (p17) in c/kVA/day.'
@@ -1594,7 +1782,7 @@ demand_rules:
   minimum_chargeable: 500
   minimum_unit: kVA
   locator: pdf:p27
-  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months.
+  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
   note: 'Same page: ''Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers
     and 5,000kVA for sub-transmission customers.'' kVA = sqrt(kW^2 + kVAr^2) with kW = maximum kWh in a 30-minute period x
     2. Table A.9 prices rolling demand in c/kW/day; Table A.1 (p17) in c/kVA/day.'
@@ -1614,7 +1802,7 @@ demand_rules:
   minimum_chargeable: 5000
   minimum_unit: kVA
   locator: pdf:p27
-  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months.
+  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
   note: 'Same page: ''Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers
     and 5,000kVA for sub-transmission customers.'' kVA = sqrt(kW^2 + kVAr^2) with kW = maximum kWh in a 30-minute period x
     2. Table A.9 prices rolling demand in c/kW/day; Table A.1 (p17) in c/kVA/day.'
@@ -1804,7 +1992,7 @@ demand_rules:
   minimum_chargeable: 120
   minimum_unit: kVA
   locator: pdf:p10
-  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months.
+  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
   note: 'Same page: ''Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers
     and 5,000kVA for sub-transmission customers.'' Table 6 notes (p8): ''If measured 12-month rolling demand is less than
     minimum chargeable demand, then minimum chargeable demand is used to calculate the 12-month rolling demand charge''. kVA
@@ -1825,7 +2013,7 @@ demand_rules:
   minimum_chargeable: 500
   minimum_unit: kVA
   locator: pdf:p10
-  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months.
+  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
   note: 'Same page: ''Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers
     and 5,000kVA for sub-transmission customers.'' Table 6 notes (p8): ''If measured 12-month rolling demand is less than
     minimum chargeable demand, then minimum chargeable demand is used to calculate the 12-month rolling demand charge''. kVA
@@ -1846,7 +2034,7 @@ demand_rules:
   minimum_chargeable: 5000
   minimum_unit: kVA
   locator: pdf:p10
-  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months.
+  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
   note: 'Same page: ''Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers
     and 5,000kVA for sub-transmission customers.'' Table 6 notes (p8): ''If measured 12-month rolling demand is less than
     minimum chargeable demand, then minimum chargeable demand is used to calculate the 12-month rolling demand charge''. kVA
@@ -1971,7 +2159,7 @@ demand_rules:
   minimum_chargeable: 500
   minimum_unit: kVA
   locator: pdf:p11
-  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the most recent 12 months.
+  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the most recent 12 months. Minimum chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
   note: 'kVA = SQRT(kW² + kVAr²), kW = maximum kWh in a 30-minute period x 2. Table 6 notes (p9): ''Minimum demand value will
     only apply to high voltage and sub-transmission tariff rolling demand. Minimum chargeable demand is 500kVA for high voltage
     and 5,000kVA for sub-transmission''. Section 2.5.2: ''Minimum chargeable demand of 500kVA for high voltage customers and
@@ -1993,7 +2181,7 @@ demand_rules:
   minimum_chargeable: 5000
   minimum_unit: kVA
   locator: pdf:p11
-  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the most recent 12 months.
+  quote: Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the most recent 12 months. Minimum chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
   note: 'kVA = SQRT(kW² + kVAr²), kW = maximum kWh in a 30-minute period x 2. Table 6 notes (p9): ''Minimum demand value will
     only apply to high voltage and sub-transmission tariff rolling demand. Minimum chargeable demand is 500kVA for high voltage
     and 5,000kVA for sub-transmission''. The 2026-27 PDF prints the sub-transmission code as ''SUBTKVATOU2''; the 2026-27
@@ -2012,7 +2200,7 @@ demand_rules:
   window_period: demand_window
   months: 12,1,2,3
   locator: pdf:p11
-  quote: Incentive kVA is the maximum monthly 30-minute kVA for each of four months of the year
+  quote: 'Incentive kVA is the maximum monthly 30-minute kVA for each of four months of the year (measured as kVA at maximum kW per billing period). There is no charge for the other eight months of the year. Each customer will be assigned to one of the following measurement periods: • 1-4pm local time workdays in summer (Dec-Mar), or'
   note: 'Same page: ''There is no charge for the other eight months of the year.'' Table 6 notes (p9): ''Summer incentive
     demand period is December to March and winter incentive demand period is May to August''.'
   tariffs:
@@ -2030,7 +2218,7 @@ demand_rules:
   window_period: demand_window
   months: 12,1,2,3
   locator: pdf:p11
-  quote: Incentive kVA is the maximum monthly 30-minute kVA for each of four months of the year
+  quote: 'Incentive kVA is the maximum monthly 30-minute kVA for each of four months of the year (measured as kVA at maximum kW per billing period). There is no charge for the other eight months of the year. Each customer will be assigned to one of the following measurement periods: • 1-4pm local time workdays in summer (Dec-Mar), or • 4-7pm local time workdays in summer (Dec-Mar), or'
   note: 'Same page: ''There is no charge for the other eight months of the year.'' Table 6 notes (p9): ''Summer incentive
     demand period is December to March and winter incentive demand period is May to August''.'
   tariffs:
@@ -2048,7 +2236,7 @@ demand_rules:
   window_period: demand_window
   months: 5,6,7,8
   locator: pdf:p11
-  quote: Incentive kVA is the maximum monthly 30-minute kVA for each of four months of the year
+  quote: 'Incentive kVA is the maximum monthly 30-minute kVA for each of four months of the year (measured as kVA at maximum kW per billing period). There is no charge for the other eight months of the year. Each customer will be assigned to one of the following measurement periods: • 1-4pm local time workdays in summer (Dec-Mar), or • 4-7pm local time workdays in summer (Dec-Mar), or • 4-7pm local time workdays in winter (May-Aug).'
   note: 'Same page: ''There is no charge for the other eight months of the year.'' Table 6 notes (p9): ''Summer incentive
     demand period is December to March and winter incentive demand period is May to August''.'
   tariffs:
@@ -2082,6 +2270,7 @@ eligibility:
   value_text: residential
   locator: pdf:p23
   quote: Customers must be residential
+  note: Table A.7 notes (p23); URTOU, LVS1R, RESKW1R and LVDed are the Table A.7 rows on the same page
 - codes:
   - URTOU
   - LVS1R
@@ -2185,7 +2374,7 @@ eligibility:
   value_text: business
   locator: pdf:p24
   quote: Customers must not be residential
-  note: Table A.8 is 'Tariffs available to new and existing small and medium commercial customers'
+  note: Table A.8 notes (p24); Table A.8 is 'Tariffs available to new and existing small and medium commercial customers' and these codes are its rows on the same page
 - codes:
   - LVTOU
   - LVM1R
@@ -2330,6 +2519,7 @@ eligibility:
   value_text: large_business
   locator: pdf:p25
   quote: Table A. 9 Tariffs available to new and existing large commercial customers in 2023/24
+  note: Table title; these codes are the Table A.9 rows on the same page
 - codes:
   - LVkVATOU1
   - LVkVATOU2
@@ -2342,7 +2532,7 @@ eligibility:
   value_text: interval
   locator: pdf:p25
   quote: Tariffs available to customers with Type 1-4 meters measuring kW and kVar
-  note: Type 1-4 meters measuring kW and kVar
+  note: 'Table A.9 notes: Type 1-4 meters measuring kW and kVar; these codes are the Table A.9 rows on the same page'
 - codes:
   - LVkVATOU1
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2457,7 +2647,8 @@ eligibility:
   rule_type: customer_type
   value_text: residential
   locator: pdf:p12
-  quote: available to any residential customer with an AMI meter
+  quote: 'Residential daytime saver: • available to any residential customer with an AMI meter'
+  note: Bullet under the 'Residential daytime saver:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Residential daytime saver' as URDS.
 - codes:
   - URDS
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2465,8 +2656,8 @@ eligibility:
   rule_type: meter_type
   value_text: smart
   locator: pdf:p12
-  quote: available to any residential customer with an AMI meter
-  note: AMI meter
+  quote: 'Residential daytime saver: • available to any residential customer with an AMI meter'
+  note: AMI meter. Bullet under the 'Residential daytime saver:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Residential daytime saver' as URDS.
 - codes:
   - URDS
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2474,7 +2665,8 @@ eligibility:
   rule_type: assignment
   value_text: opt_in
   locator: pdf:p12
-  quote: retailer can opt a residential customer in and out of the trial tariff at any time
+  quote: 'Residential daytime saver: • available to any residential customer with an AMI meter • retailer can opt a residential customer in and out of the trial tariff at any time'
+  note: Bullets under the 'Residential daytime saver:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Residential daytime saver' as URDS.
 - codes:
   - URDS
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2482,7 +2674,8 @@ eligibility:
   rule_type: other
   value_text: customer numbers capped at 1% of distribution revenue (about 14,000 customers)
   locator: pdf:p12
-  quote: customer numbers will be capped at 1% of distribution revenue which is approximately 14,000 customers
+  quote: 'Residential daytime saver: • available to any residential customer with an AMI meter • retailer can opt a residential customer in and out of the trial tariff at any time • customer numbers will be capped at 1% of distribution revenue which is approximately 14,000 customers'
+  note: Bullets under the 'Residential daytime saver:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Residential daytime saver' as URDS.
 - codes:
   - LVNDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2490,9 +2683,8 @@ eligibility:
   rule_type: customer_type
   value_text: storage
   locator: pdf:p12
-  quote: applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where
-    the battery is not owned by the distributor
-  note: battery-only site
+  quote: 'Community battery time of use: • applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is not owned by the distributor'
+  note: battery-only site. Bullet under the 'Community battery time of use:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Community battery time of use' as LVNDBB.
 - codes:
   - LVNDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2502,9 +2694,8 @@ eligibility:
   value_num: 240
   value_unit: kVA
   locator: pdf:p12
-  quote: applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where
-    the battery is not owned by the distributor
-  note: battery capacity no more than 240 kVA
+  quote: 'Community battery time of use: • applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is not owned by the distributor'
+  note: battery capacity no more than 240 kVA. Bullet under the 'Community battery time of use:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Community battery time of use' as LVNDBB.
 - codes:
   - LVNDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2512,8 +2703,8 @@ eligibility:
   rule_type: voltage_level
   value_text: LV
   locator: pdf:p12
-  quote: applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where
-    the battery is not owned by the distributor
+  quote: 'Community battery time of use: • applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is not owned by the distributor'
+  note: Bullet under the 'Community battery time of use:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Community battery time of use' as LVNDBB.
 - codes:
   - LVNDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2521,8 +2712,8 @@ eligibility:
   rule_type: other
   value_text: battery not owned by the distributor
   locator: pdf:p12
-  quote: applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where
-    the battery is not owned by the distributor
+  quote: 'Community battery time of use: • applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is not owned by the distributor'
+  note: Bullet under the 'Community battery time of use:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Community battery time of use' as LVNDBB.
 - codes:
   - LVNDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2531,7 +2722,7 @@ eligibility:
   value_text: interval
   locator: pdf:p12
   quote: required to be metered by an AMI or COMMS (type 1-4) meter depending on the size of the battery
-  note: AMI or COMMS (type 1-4) meter depending on battery size; the same bullet appears under both community battery tariffs
+  note: AMI or COMMS (type 1-4) meter depending on battery size. This bullet appears verbatim under both the 'Community battery time of use:' heading (Table 6 code LVNDBB, OCR of p12) and the 'Distributor owned community battery:' heading (Table 6 code LVDBB).
 - codes:
   - LVNDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2540,7 +2731,7 @@ eligibility:
   value_text: assigned sites remain on the tariff until 30 June 2026
   locator: pdf:p12
   quote: any community battery that is assigned to this tariff will remain on this tariff until 30 June 2026.
-  note: the same bullet appears under both community battery tariffs
+  note: This bullet appears verbatim under both the 'Community battery time of use:' heading (Table 6 code LVNDBB, OCR of p12) and the 'Distributor owned community battery:' heading (Table 6 code LVDBB).
 - codes:
   - LVDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2548,9 +2739,8 @@ eligibility:
   rule_type: customer_type
   value_text: storage
   locator: pdf:p12
-  quote: applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is owned by United Energy
-  note: battery-only site
+  quote: 'Distributor owned community battery: • applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is owned by United Energy'
+  note: battery-only site. Bullet under the 'Distributor owned community battery:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Distributor-owned community battery' as LVDBB.
 - codes:
   - LVDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2560,9 +2750,8 @@ eligibility:
   value_num: 240
   value_unit: kVA
   locator: pdf:p12
-  quote: applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is owned by United Energy
-  note: battery capacity no more than 240 kVA
+  quote: 'Distributor owned community battery: • applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is owned by United Energy'
+  note: battery capacity no more than 240 kVA. Bullet under the 'Distributor owned community battery:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Distributor-owned community battery' as LVDBB.
 - codes:
   - LVDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2570,8 +2759,8 @@ eligibility:
   rule_type: voltage_level
   value_text: LV
   locator: pdf:p12
-  quote: applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is owned by United Energy
+  quote: 'Distributor owned community battery: • applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is owned by United Energy'
+  note: Bullet under the 'Distributor owned community battery:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Distributor-owned community battery' as LVDBB.
 - codes:
   - LVDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2579,8 +2768,8 @@ eligibility:
   rule_type: other
   value_text: new battery-only site; battery owned by United Energy
   locator: pdf:p12
-  quote: applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is owned by United Energy
+  quote: 'Distributor owned community battery: • applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is owned by United Energy'
+  note: Bullet under the 'Distributor owned community battery:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Distributor-owned community battery' as LVDBB.
 - codes:
   - LVDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2589,7 +2778,7 @@ eligibility:
   value_text: interval
   locator: pdf:p12
   quote: required to be metered by an AMI or COMMS (type 1-4) meter depending on the size of the battery
-  note: AMI or COMMS (type 1-4) meter depending on battery size; the same bullet appears under both community battery tariffs
+  note: AMI or COMMS (type 1-4) meter depending on battery size. This bullet appears verbatim under both the 'Community battery time of use:' heading (Table 6 code LVNDBB, OCR of p12) and the 'Distributor owned community battery:' heading (Table 6 code LVDBB).
 - codes:
   - LVDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2598,7 +2787,7 @@ eligibility:
   value_text: assigned sites remain on the tariff until 30 June 2026
   locator: pdf:p12
   quote: any community battery that is assigned to this tariff will remain on this tariff until 30 June 2026.
-  note: the same bullet appears under both community battery tariffs
+  note: This bullet appears verbatim under both the 'Community battery time of use:' heading (Table 6 code LVNDBB, OCR of p12) and the 'Distributor owned community battery:' heading (Table 6 code LVDBB).
 - codes:
   - GT
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2606,8 +2795,8 @@ eligibility:
   rule_type: customer_type
   value_text: embedded_generation
   locator: pdf:p11
-  quote: available to generation site which only uses ancillary power (such as a solar or wind farm) or generation and storage
-    site (such as a battery or battery and solar farm)
+  quote: 'Generator tariff: • available to generation site which only uses ancillary power (such as a solar or wind farm) or generation and storage site (such as a battery or battery and solar farm)'
+  note: 'Bullet under ''The following trial tariff will commence in 2023/24: Generator tariff:'' (p11); the only new 2023/24 trial, listed in Table 6 (OCR of p12) as ''Generator storage'' GT.'
 - codes:
   - GT
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2617,6 +2806,7 @@ eligibility:
   locator: pdf:p11
   quote: not intended to be used for loads which are co-located with generation or storage, for instance an EV charging station
     with a battery
+  note: 'Bullet under ''The following trial tariff will commence in 2023/24: Generator tariff:'' (p11); the only new 2023/24 trial, listed in Table 6 (OCR of p12) as ''Generator storage'' GT.'
 - codes:
   - GT
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
@@ -2625,6 +2815,7 @@ eligibility:
   value_text: any voltage level
   locator: pdf:p11
   quote: can be connected to any voltage level in the distribution network
+  note: 'Bullet under ''The following trial tariff will commence in 2023/24: Generator tariff:'' (p11); the only new 2023/24 trial, listed in Table 6 (OCR of p12) as ''Generator storage'' GT.'
 - codes:
   - LVS1R
   doc: sources/aer/2023-24_price_lists/UnitedEnergy_2023-24_Tariff_Summary_31Mar2023.xlsx
@@ -3212,6 +3403,7 @@ eligibility:
   value_text: residential
   locator: pdf:p5
   quote: TABLE 4 TARIFFS AVAILABLE TO NEW AND EXISTING RESIDENTIAL CUSTOMERS IN 2025/26
+  note: Table title; URTOU, LVS1R, RESKW1R and LVDED are the Table 4 rows on the same page
 - codes:
   - URTOU
   - LVS1R
@@ -3300,7 +3492,8 @@ eligibility:
   rule_type: other
   value_text: 'hot water: 1-phase electric hot water service with total load < 30 amps'
   locator: pdf:p6
-  quote: Available to 1-phase electric hot water service with a total load of <30 amps
+  quote: LVDED is available to customers with a dedicated circuit connected to a time-switch Hot water • Available to 1-phase electric hot water service with a total load of <30 amps
+  note: '''Hot water'' sub-note under the LVDED bullet in the Table 4 notes (p6)'
 - codes:
   - LVTOU
   - LVM1R
@@ -3312,6 +3505,7 @@ eligibility:
   value_text: business
   locator: pdf:p7
   quote: TABLE 5 TARIFFS AVAILABLE TO NEW AND EXISTING SMALL AND MEDIUM COMMERCIAL CUSTOMERS IN 2025/26
+  note: Table title; LVTOU, LVM1R, LVMKW1R and UNMET are the Table 5 rows on the same page (rotated table, read via OCR of p7)
 - codes:
   - LVTOU
   - LVM1R
@@ -3464,6 +3658,7 @@ eligibility:
   value_text: large_business
   locator: pdf:p8
   quote: TABLE 6 TARIFFS AVAILABLE TO NEW AND EXISTING LARGE COMMERCIAL CUSTOMERS IN 2025/26
+  note: Table title; these codes are the Table 6 rows on the same page (rotated table, read via OCR of p8)
 - codes:
   - LVkVATOU1
   - LVkVATOU2
@@ -3613,7 +3808,7 @@ eligibility:
   value_unit: MWh/yr
   target_code: LVTOU
   locator: pdf:p11
-  quote: Option 2 – “opt out” of Network Demand Tariff (Tariff code LVTOU)
+  quote: 'Option 2 – “opt out” of Network Demand Tariff (Tariff code LVTOU) To opt a customer out of a network demand tariff, the following criteria must be satisfied: • A customer’s aggregate consumption must be less than 160MWh per annum'
   note: 'Section 2.5.8 ''Criteria to move away from kVA demand tariff'': ''A customer’s aggregate consumption must be less
     than 160MWh per annum''; the customer applies to a retailer, which must supply an invoice showing a demand component.
     The section does not name which kVA tariffs; applied to the low voltage ones because LVTOU is a < 1kV tariff.'
@@ -3640,6 +3835,7 @@ eligibility:
   value_text: residential
   locator: pdf:p5
   quote: TABLE 4 TARIFFS AVAILABLE TO NEW AND EXISTING RESIDENTIAL CUSTOMERS IN 2026/27
+  note: Table title; URSTOU, LVS1R, URCER and LVDED are the Table 4 rows on the same page
 - codes:
   - URSTOU
   - LVS1R
@@ -3727,7 +3923,8 @@ eligibility:
   rule_type: other
   value_text: 'hot water: 1-phase electric hot water service with total load < 30 amps'
   locator: pdf:p6
-  quote: Available to 1-phase electric hot water service with a total load of <30 amps
+  quote: LVDED is available to customers with a dedicated circuit connected to a time-switch Hot water • Available to 1-phase electric hot water service with a total load of <30 amps
+  note: '''Hot water'' sub-note under the LVDED bullet in the Table 4 notes (p6)'
 - codes:
   - LVTOU
   - LVM1R
@@ -3742,6 +3939,7 @@ eligibility:
   value_text: business
   locator: pdf:p7
   quote: TABLE 5 TARIFFS AVAILABLE TO NEW AND EXISTING SMALL AND MEDIUM COMMERCIAL CUSTOMERS IN 2026/27
+  note: Table title; these codes are the Table 5 rows on the same page
 - codes:
   - LVTOU
   - LVM1R
@@ -4025,8 +4223,7 @@ eligibility:
   value_text: large_business
   locator: pdf:p8
   quote: TABLE 6 TARIFFS AVAILABLE TO NEW AND EXISTING LARGE COMMERCIAL CUSTOMERS IN 2026/27
-  note: UFTUOS is in the continuation of Table 6 on p9. The 2026-27 PDF prints the sub-transmission code as 'SUBTKVATOU2';
-    the 2026-27 tariff summary workbook and the parsed price tables use 'SUBTKVATOU', so that code is used here.
+  note: Table title; these codes are the Table 6 rows on p8, UFTUOS in the continuation of Table 6 on p9. The 2026-27 PDF prints the sub-transmission code as 'SUBTKVATOU2'; the 2026-27 tariff summary workbook and the parsed price tables use 'SUBTKVATOU', so that code is used here.
 - codes:
   - LVKVATOU1
   - LVKVATOU2
@@ -4196,42 +4393,6 @@ eligibility:
     for a minimum period of 3 months prior to submitting a request to move away from a large business tariff.
   note: 'Section 2.5.6 ''Criteria to move away from kVA demand tariff''; same paragraph: ''Sites must have a minimum of 15
     months of consumption data available.'' The 160 MWh threshold is the large low voltage threshold, so applied to LVKVATOU1/2/3.'
-- codes:
-  - EVUTOU
-  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: requires_technology
-  value_text: ev
-  locator: pdf:p14
-  quote: Dedicated charger with supply capacity up to 44 kW with its own NMI
-  note: The PDF names the KEVC trial tariff without a code; EVUTOU per the 2026-27 tariff summary trial sheet
-- codes:
-  - EVUTOU
-  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: demand_max
-  operator: le
-  value_num: 44
-  value_unit: kW
-  locator: pdf:p14
-  quote: Dedicated charger with supply capacity up to 44 kW with its own NMI
-  note: supply capacity of the dedicated charger
-- codes:
-  - EVUTOU
-  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: meter_type
-  value_text: any
-  locator: pdf:p14
-  quote: The trial tariff will be available irrespective of KEVC ownership or meter type
-- codes:
-  - EVUTOU
-  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: customer_type
-  value_text: ev_charging
-  locator: pdf:p14
-  quote: We are introducing a kerbside electric vehicle charging (KEVC) trial tariff on 1 July 2026.
 - codes:
   - URSTOU
   doc: sources/dnsp/unitedenergy/UE_Tariff_Summary_2026-27_07May2026.xlsx
@@ -4588,36 +4749,102 @@ flags:
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
   flag: trial
-  locator: pdf:p12
-  quote: 'Additionally, following existing trial tariffs will continue to run:'
+  locator: pdf-ocr:p12
+  quote: Residential daytime saver URDS FURDS Yes 24.65 16.40 5.84 Communitybattery time of use LVNDBB na Yes 45.00 25.00 (1.50) (1.00) Distributor-ownedcommunitybattery LVDBB
+  column_locator: pdf:p12
+  column_quote: Table 6 Trial tariffs 2023/24
+  note: 'Rows of Table 6 ''Trial tariffs 2023/24'' (rotated table, rows checked against OCR of the rendered page). p12 also: ''Additionally, following existing trial tariffs will continue to run:'''
 - codes:
   - GT
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
   flag: trial
-  locator: pdf:p11
-  quote: 'The following trial tariff will commence in 2023/24: Generator tariff:'
+  locator: pdf-ocr:p12
+  quote: Generatorstorage GT Opt-in
+  column_locator: pdf:p12
+  column_quote: Table 6 Trial tariffs 2023/24
+  note: 'Row of Table 6 ''Trial tariffs 2023/24'' (rotated table, row checked against OCR of the rendered page). p11: ''The following trial tariff will commence in 2023/24: Generator tariff:'''
 - codes:
   - URDS
+  doc: sources/aer/2023-24_price_lists/UnitedEnergy_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: trial
+  locator: xlsx:UE_2023-24_TRIAL_NUOS!C7
+  quote: URDS
+  column_locator: xlsx:UE_2023-24_TRIAL_NUOS!B1
+  column_quote: 2023/24 UNITED ENERGY TRIAL TARIFF SCHEDULE
+- codes:
   - LVNDBB
+  doc: sources/aer/2023-24_price_lists/UnitedEnergy_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: trial
+  locator: xlsx:UE_2023-24_TRIAL_NUOS!C8
+  quote: LVNDBB
+  column_locator: xlsx:UE_2023-24_TRIAL_NUOS!B1
+  column_quote: 2023/24 UNITED ENERGY TRIAL TARIFF SCHEDULE
+- codes:
   - LVDBB
+  doc: sources/aer/2023-24_price_lists/UnitedEnergy_2023-24_Tariff_Summary_31Mar2023.xlsx
+  fin_year: 2023-24
+  flag: trial
+  locator: xlsx:UE_2023-24_TRIAL_NUOS!C9
+  quote: LVDBB
+  column_locator: xlsx:UE_2023-24_TRIAL_NUOS!B1
+  column_quote: 2023/24 UNITED ENERGY TRIAL TARIFF SCHEDULE
+- codes:
   - GT
   doc: sources/aer/2023-24_price_lists/UnitedEnergy_2023-24_Tariff_Summary_31Mar2023.xlsx
   fin_year: 2023-24
   flag: trial
-  locator: xlsx:UE_2023-24_TRIAL_NUOS!B1
-  quote: 2023/24 UNITED ENERGY TRIAL TARIFF SCHEDULE
+  locator: xlsx:UE_2023-24_TRIAL_NUOS!C10
+  quote: GT
+  column_locator: xlsx:UE_2023-24_TRIAL_NUOS!B1
+  column_quote: 2023/24 UNITED ENERGY TRIAL TARIFF SCHEDULE
 - codes:
   - URDS
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: trial
+  locator: xlsx:UE_2024-25_TRIAL_NUOS!C7
+  quote: URDS
+  column_locator: xlsx:UE_2024-25_TRIAL_NUOS!B1
+  column_quote: 2024/25 UNITED ENERGY TRIAL TARIFF SCHEDULE
+- codes:
   - LVNDBB
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: trial
+  locator: xlsx:UE_2024-25_TRIAL_NUOS!C8
+  quote: LVNDBB
+  column_locator: xlsx:UE_2024-25_TRIAL_NUOS!B1
+  column_quote: 2024/25 UNITED ENERGY TRIAL TARIFF SCHEDULE
+- codes:
   - LVDBB
-  - GT
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: trial
+  locator: xlsx:UE_2024-25_TRIAL_NUOS!C9
+  quote: LVDBB
+  column_locator: xlsx:UE_2024-25_TRIAL_NUOS!B1
+  column_quote: 2024/25 UNITED ENERGY TRIAL TARIFF SCHEDULE
+- codes:
   - LVPTBB
   doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
   fin_year: 2024-25
   flag: trial
-  locator: xlsx:UE_2024-25_TRIAL_NUOS!B1
-  quote: 2024/25 UNITED ENERGY TRIAL TARIFF SCHEDULE
+  locator: xlsx:UE_2024-25_TRIAL_NUOS!C10
+  quote: LVPTBB
+  column_locator: xlsx:UE_2024-25_TRIAL_NUOS!B1
+  column_quote: 2024/25 UNITED ENERGY TRIAL TARIFF SCHEDULE
+- codes:
+  - GT
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
+  fin_year: 2024-25
+  flag: trial
+  locator: xlsx:UE_2024-25_TRIAL_NUOS!C11
+  quote: GT
+  column_locator: xlsx:UE_2024-25_TRIAL_NUOS!B1
+  column_quote: 2024/25 UNITED ENERGY TRIAL TARIFF SCHEDULE
 - codes:
   - LVPTBB
   doc: sources/aer/dnsp_copies/UnitedEnergy_2024-25_Tariff_Summary_28Mar2024.xlsx
@@ -4627,13 +4854,6 @@ flags:
   quote: 'No'
   column_locator: "xlsx:UE_2024-25_TRIAL_NUOS!E4"
   column_quote: Available to new customers
-- codes:
-  - EVUTOU
-  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  flag: trial
-  locator: pdf:p14
-  quote: We are introducing a kerbside electric vehicle charging (KEVC) trial tariff on 1 July 2026.
 - codes:
   - UFTUOS
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
@@ -4646,23 +4866,26 @@ flags:
   doc: sources/dnsp/unitedenergy/UE_Tariff_Summary_2026-27_07May2026.xlsx
   fin_year: 2026-27
   flag: trial
-  locator: xlsx:UE_2026-27_TRIAL_NUOS!B1
-  quote: 2026-27 UNITED ENERGY TRIAL TARIFF SCHEDULE
+  locator: xlsx:UE_2026-27_TRIAL_NUOS!C7
+  quote: EVUTOU
+  column_locator: xlsx:UE_2026-27_TRIAL_NUOS!B1
+  column_quote: 2026-27 UNITED ENERGY TRIAL TARIFF SCHEDULE
 - codes:
   - UFTUOS
   doc: sources/dnsp/unitedenergy/UE_Tariff_Summary_2026-27_07May2026.xlsx
   fin_year: 2026-27
   flag: site_specific
-  locator: xlsx:UE_2026-27_INDIVIDUALLY_CALC!B1
-  quote: 2026-27 UNITED ENERGY INDIVIDUALLY CALCULATED TARIFF SCHEDULE
+  locator: xlsx:UE_2026-27_INDIVIDUALLY_CALC!C6
+  quote: UFTUOS
+  column_locator: xlsx:UE_2026-27_INDIVIDUALLY_CALC!B1
+  column_quote: 2026-27 UNITED ENERGY INDIVIDUALLY CALCULATED TARIFF SCHEDULE
 steps:
 - doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
   codes:
   - URCER
   locator: pdf:p6
-  quote: URCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of
-    days in the billing period.
+  quote: URCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
   step_group: Saver energy export
   component_label: Saver energy export - BEL (exempt), 1 kWh per day x days in billing period, unused allowance rolls over
     within the billing period
@@ -4672,14 +4895,13 @@ steps:
   lower_inclusive: true
   upper_inclusive: true
   quantity_unit: kWh
-  reset_period: day
+  reset_period: billing_period_per_day
 - doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
   codes:
   - URCER
   locator: pdf:p6
-  quote: URCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of
-    days in the billing period.
+  quote: URCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
   step_group: Saver energy export
   component_label: Saver energy export - above BEL (charged)
   step_index: 2
@@ -4688,14 +4910,13 @@ steps:
   lower_inclusive: false
   upper_inclusive: false
   quantity_unit: kWh
-  reset_period: day
+  reset_period: billing_period_per_day
 - doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
   codes:
   - UFS
   locator: pdf:p8
-  quote: UFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of
-    days in the billing period.
+  quote: UFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
   step_group: Saver energy export
   component_label: Saver energy export - BEL (exempt), 1 kWh per day x days in billing period, unused allowance rolls over
     within the billing period
@@ -4705,14 +4926,13 @@ steps:
   lower_inclusive: true
   upper_inclusive: true
   quantity_unit: kWh
-  reset_period: day
+  reset_period: billing_period_per_day
 - doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
   codes:
   - UFS
   locator: pdf:p8
-  quote: UFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of
-    days in the billing period.
+  quote: UFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh, the remainder of the free export allowance would roll over to the next day, within a single billing period.
   step_group: Saver energy export
   component_label: Saver energy export - above BEL (charged)
   step_index: 2
@@ -4721,4 +4941,4 @@ steps:
   lower_inclusive: false
   upper_inclusive: false
   quantity_unit: kWh
-  reset_period: day
+  reset_period: billing_period_per_day

@@ -71,7 +71,8 @@ tou_schedules:
   locator: pdf:p25
   quote: 'Switching Times: Typically switching times will occur between 9.30pm and 7am. These times may vary depending
     on localised demand'
-  note: Typical times only; they may vary with localised demand management. Days not stated (taken as every day).
+  note: 'Typical times only; they may vary with localised demand management. Days not stated (taken as every day). Link quote:
+    the CDS note on p25 is followed by its ''Hot water'' sub-bullets, which give these switching times.'
   windows:
   - period: controlled_load_supply
     label: typical switching 9.30pm-7am
@@ -87,6 +88,8 @@ tou_schedules:
   - codes:
     - CDS
     applies_to: controlled_load
+    locator: pdf:p25
+    quote: CDS is available to customers with a dedicated circuit connected to time-switch
 - id: citipower-2324-pdf-slab-heating
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -97,8 +100,9 @@ tou_schedules:
   locator: pdf:p25
   quote: Typically switching times may vary depending on localised demand management activities normally between 12am
     and 7am.
-  note: 'Typical times only. Same page: ''An afternoon boost between 1pm and 4pm may occur during winter'' (winter months
-    not defined, so not encoded as a window).'
+  note: 'Typical times only. Same page: ''An afternoon boost between 1pm and 4pm may occur during winter'' (winter months not
+    defined, so not encoded as a window). Link quote: the CDS note on p25 is followed by its ''Slab heating'' sub-bullets, which
+    give these times.'
   windows:
   - period: controlled_load_supply
     label: normally 12am-7am
@@ -109,6 +113,8 @@ tou_schedules:
   - codes:
     - CDS
     applies_to: controlled_load
+    locator: pdf:p25
+    quote: CDS is available to customers with a dedicated circuit connected to time-switch
 - id: citipower-2324-pdf-sb-tou
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -382,8 +388,9 @@ tou_schedules:
   locator: pdf:p29
   quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other
     times.
-  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
-    stated'
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each link quotes the code''s Table A.9 row (p27), whose peak energy and 12-month rolling demand columns read ''workdays
+    7am-7pm''.'
   windows:
   - period: off_peak
     label: off-peak all other times
@@ -408,15 +415,36 @@ tou_schedules:
   tariffs:
   - codes:
     - CLLVT1
-    - CLLV1
-    - CHVT1
-    - CHV1
     - CLLVT2
-    - CLLV2
+    applies_to: energy
+    locator: pdf:p27
+    quote: CLLVT1 workdays workdays 1-4pm or 4- Large Low Voltage transition Default < 1kV ≥ 120kVA 120 Non-peak times CLLVT2
+      7am-7pm 7am-7pm 7pm
+  - codes:
+    - CHVT1
     - CHVT2
+    applies_to: energy
+    locator: pdf:p27
+    quote: CHVT1 workdays workdays 1-4pm or 4- High Voltage transition Default 1kV-22KV N/A 500 Non-peak times CHVT2 7am-7pm
+      7am-7pm 7pm
+  - codes:
+    - CLLV1
+    - CLLV2
+    applies_to: energy
+    locator: pdf:p27
+    quote: CLLV1 workdays workdays 1-4pm or 4- Large Low Voltage opt-in < 1kV ≥ 120kVA 120 Non-peak times CLLV2 7am-7pm 7am-7pm
+      7pm
+  - codes:
+    - CHV1
     - CHV2
+    applies_to: energy
+    locator: pdf:p27
+    quote: CHV1 workdays workdays 1-4pm or 4- High Voltage opt-in 1kV-22KV N/A 500 Non-peak times CHV2 7am-7pm 7am-7pm 7pm
+  - codes:
     - CST2
     applies_to: energy
+    locator: pdf:p27
+    quote: workdays workdays Sub-transmission CST2 Default ≥ 22kV N/A 5,000 Non-peak times 4-7pm 7am-7pm 7am-7pm
 - id: citipower-2324-pdf-large-rolling
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -426,8 +454,9 @@ tou_schedules:
   covers_full_day: false
   locator: pdf:p29
   quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
-  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
-    stated'
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each link quotes the code''s Table A.9 row (p27), whose peak energy and 12-month rolling demand columns read ''workdays
+    7am-7pm''.'
   windows:
   - period: demand_window
     label: rolling demand 7am-7pm workdays
@@ -437,15 +466,36 @@ tou_schedules:
   tariffs:
   - codes:
     - CLLVT1
-    - CLLV1
-    - CHVT1
-    - CHV1
     - CLLVT2
-    - CLLV2
+    applies_to: demand
+    locator: pdf:p27
+    quote: CLLVT1 workdays workdays 1-4pm or 4- Large Low Voltage transition Default < 1kV ≥ 120kVA 120 Non-peak times CLLVT2
+      7am-7pm 7am-7pm 7pm
+  - codes:
+    - CHVT1
     - CHVT2
+    applies_to: demand
+    locator: pdf:p27
+    quote: CHVT1 workdays workdays 1-4pm or 4- High Voltage transition Default 1kV-22KV N/A 500 Non-peak times CHVT2 7am-7pm
+      7am-7pm 7pm
+  - codes:
+    - CLLV1
+    - CLLV2
+    applies_to: demand
+    locator: pdf:p27
+    quote: CLLV1 workdays workdays 1-4pm or 4- Large Low Voltage opt-in < 1kV ≥ 120kVA 120 Non-peak times CLLV2 7am-7pm 7am-7pm
+      7pm
+  - codes:
+    - CHV1
     - CHV2
+    applies_to: demand
+    locator: pdf:p27
+    quote: CHV1 workdays workdays 1-4pm or 4- High Voltage opt-in 1kV-22KV N/A 500 Non-peak times CHV2 7am-7pm 7am-7pm 7pm
+  - codes:
     - CST2
     applies_to: demand
+    locator: pdf:p27
+    quote: workdays workdays Sub-transmission CST2 Default ≥ 22kV N/A 5,000 Non-peak times 4-7pm 7am-7pm 7am-7pm
 - id: citipower-2324-pdf-crds
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -456,7 +506,8 @@ tou_schedules:
   locator: pdf:p13
   quote: Residential daytime saver peak period is 4pm-9pm, saver period is 10am-3pm, and off-peak is all other times,
     from Monday to Sunday. Time band from 3pm to 4pm is considered as off-peak
-  note: 'p14: ''all trial tariffs are in local time.'''
+  note: 'p14: ''all trial tariffs are in local time.''. Link quote: Table 6 (p13) row naming CRDS as ''Residential daytime saver'';
+    the note under the table gives these windows.'
   windows:
   - period: off_peak
     label: off-peak
@@ -487,6 +538,8 @@ tou_schedules:
   - codes:
     - CRDS
     applies_to: all
+    locator: pdf:p13
+    quote: Residential daytime saver CRDS Opt-in
 - id: citipower-2324-pdf-cndb
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -497,8 +550,9 @@ tou_schedules:
   locator: pdf:p14
   quote: The peak period is 4pm-9pm, saver period is 10am-3pm, and off- peak is all other times, from Monday to Sunday.
     Time band from 3pm to 4pm is considered as off-peak
-  note: Community battery note; applies to import and export (negative values are a rebate). 'all trial tariffs are in
-    local time.'
+  note: 'Community battery note; applies to import and export (negative values are a rebate). ''all trial tariffs are in local
+    time.''. Link quote: Table 6 (p13) row naming CNDB as ''Community battery time of use''; the p14 community battery note
+    gives these windows.'
   windows:
   - period: off_peak
     label: off-peak
@@ -529,6 +583,8 @@ tou_schedules:
   - codes:
     - CNDB
     applies_to: all
+    locator: pdf:p13
+    quote: Community battery time of use CNDB Default
 - id: citipower-2324-pdf-gt-demand-a
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -539,7 +595,8 @@ tou_schedules:
   locator: pdf:p14
   quote: Generator tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for
     only 4-9pm or only 11am-4pm, every day of year, local time
-  note: Each site is measured over one of the two windows (4-9pm or 11am-4pm).
+  note: 'Each site is measured over one of the two windows (4-9pm or 11am-4pm). Link quote: Table 6 (p13) row naming GT as ''Generator
+    storage''; the p14 ''Generator tariff'' note gives this window.'
   windows:
   - period: demand_window
     label: only 4-9pm every day
@@ -550,6 +607,8 @@ tou_schedules:
   - codes:
     - GT
     applies_to: demand
+    locator: pdf:p13
+    quote: Generator storage GT Opt-in
 - id: citipower-2324-pdf-gt-demand-b
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
@@ -560,7 +619,8 @@ tou_schedules:
   locator: pdf:p14
   quote: Generator tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for
     only 4-9pm or only 11am-4pm, every day of year, local time
-  note: Each site is measured over one of the two windows (4-9pm or 11am-4pm).
+  note: 'Each site is measured over one of the two windows (4-9pm or 11am-4pm). Link quote: Table 6 (p13) row naming GT as ''Generator
+    storage''; the p14 ''Generator tariff'' note gives this window.'
   windows:
   - period: demand_window
     label: only 11am-4pm every day
@@ -571,6 +631,8 @@ tou_schedules:
   - codes:
     - GT
     applies_to: demand
+    locator: pdf:p13
+    quote: Generator storage GT Opt-in
 - id: citipower-2425-pdf-slab-heating
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
@@ -582,7 +644,8 @@ tou_schedules:
   quote: Typically switching times may vary depending on localised demand management activities normally between 12am
     and 7am.
   note: 'Typical times only. ''An afternoon boost between 1pm and 4pm may occur during winter'' (winter months not defined).
-    Hot water: ''Switching times will vary depending on localised demand management activities'' (no times).'
+    Hot water: ''Switching times will vary depending on localised demand management activities'' (no times). Link quote: the
+    CDS note on p9 is followed by its ''Hot water'' and ''Slab heating'' sub-bullets (p9-p10).'
   windows:
   - period: controlled_load_supply
     label: normally 12am-7am
@@ -593,6 +656,8 @@ tou_schedules:
   - codes:
     - CDS
     applies_to: controlled_load
+    locator: pdf:p9
+    quote: CDS is available to customers with a dedicated circuit connected to a time-switch
 - id: citipower-2425-pdf-sb-tou
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
@@ -860,8 +925,8 @@ tou_schedules:
   locator: pdf:p13
   quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other
     times.
-  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
-    stated'
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each link quotes the code''s Table 6 row (p11), whose peak energy and 12-month rolling demand columns read ''workdays 7am-7pm''.'
   windows:
   - period: off_peak
     label: off-peak all other times
@@ -886,15 +951,36 @@ tou_schedules:
   tariffs:
   - codes:
     - CLLVT1
-    - CLLV1
-    - CHVT1
-    - CHV1
     - CLLVT2
-    - CLLV2
+    applies_to: energy
+    locator: pdf:p11
+    quote: CLLVT1 workdays 7am- workdays 7am- Large Low Voltage transition Closed < 1kV ≥ 120 kVA 120 Non-peak times 1-4pm or
+      4-7pm CLLVT2 7pm 7pm
+  - codes:
+    - CHVT1
     - CHVT2
+    applies_to: energy
+    locator: pdf:p11
+    quote: CHVT1 workdays 7am- workdays 7am- High Voltage transition Closed 1kV-22KV N/A 500 Non-peak times 1-4pm or 4-7pm CHVT2
+      7pm 7pm
+  - codes:
+    - CLLV1
+    - CLLV2
+    applies_to: energy
+    locator: pdf:p11
+    quote: CLLV1 workdays 7am- workdays 7am- Large Low Voltage Default < 1kV ≥ 120 kVA 120 Non-peak times 1-4pm or 4-7pm CLLV2
+      7pm 7pm
+  - codes:
+    - CHV1
     - CHV2
+    applies_to: energy
+    locator: pdf:p11
+    quote: CHV1 workdays 7am- workdays 7am- High Voltage Default 1kV-22KV N/A 500 Non-peak times 1-4pm or 4-7pm CHV2 7pm 7pm
+  - codes:
     - CST2
     applies_to: energy
+    locator: pdf:p11
+    quote: workdays 7am- workdays 7am- Sub-transmission CST2 Default ≥ 22kV N/A 5,000 Non-peak times 4-7pm 7pm 7pm
 - id: citipower-2425-pdf-large-rolling
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
@@ -904,8 +990,8 @@ tou_schedules:
   covers_full_day: false
   locator: pdf:p13
   quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
-  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
-    stated'
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each link quotes the code''s Table 6 row (p11), whose peak energy and 12-month rolling demand columns read ''workdays 7am-7pm''.'
   windows:
   - period: demand_window
     label: rolling demand 7am-7pm workdays
@@ -915,15 +1001,36 @@ tou_schedules:
   tariffs:
   - codes:
     - CLLVT1
-    - CLLV1
-    - CHVT1
-    - CHV1
     - CLLVT2
-    - CLLV2
+    applies_to: demand
+    locator: pdf:p11
+    quote: CLLVT1 workdays 7am- workdays 7am- Large Low Voltage transition Closed < 1kV ≥ 120 kVA 120 Non-peak times 1-4pm or
+      4-7pm CLLVT2 7pm 7pm
+  - codes:
+    - CHVT1
     - CHVT2
+    applies_to: demand
+    locator: pdf:p11
+    quote: CHVT1 workdays 7am- workdays 7am- High Voltage transition Closed 1kV-22KV N/A 500 Non-peak times 1-4pm or 4-7pm CHVT2
+      7pm 7pm
+  - codes:
+    - CLLV1
+    - CLLV2
+    applies_to: demand
+    locator: pdf:p11
+    quote: CLLV1 workdays 7am- workdays 7am- Large Low Voltage Default < 1kV ≥ 120 kVA 120 Non-peak times 1-4pm or 4-7pm CLLV2
+      7pm 7pm
+  - codes:
+    - CHV1
     - CHV2
+    applies_to: demand
+    locator: pdf:p11
+    quote: CHV1 workdays 7am- workdays 7am- High Voltage Default 1kV-22KV N/A 500 Non-peak times 1-4pm or 4-7pm CHV2 7pm 7pm
+  - codes:
     - CST2
     applies_to: demand
+    locator: pdf:p11
+    quote: workdays 7am- workdays 7am- Sub-transmission CST2 Default ≥ 22kV N/A 5,000 Non-peak times 4-7pm 7pm 7pm
 - id: citipower-2425-pdf-crds
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
@@ -964,6 +1071,10 @@ tou_schedules:
   - codes:
     - CRDS
     applies_to: all
+    locator: pdf:p6
+    quote: Residential daytime saver CRDS
+  note: 'Link quote: Table 2 (p6) row naming CRDS as ''Residential daytime saver''; the quoted windows are under the ''Residential
+    daytime saver:'' notes on the same page.'
 - id: citipower-2425-pdf-gt-demand-a
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
@@ -974,7 +1085,8 @@ tou_schedules:
   locator: pdf:p6
   quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or
     over 11am-4pm depending on location, every day of the year, local time
-  note: Window depends on location (one of the two).
+  note: 'Window depends on location (one of the two). Link quote: Table 2 (p6) row naming GT as ''Generator storage''; the quoted
+    window is under the ''Generator storage:'' notes on the same page.'
   windows:
   - period: demand_window
     label: over 4-9pm every day
@@ -985,6 +1097,8 @@ tou_schedules:
   - codes:
     - GT
     applies_to: demand
+    locator: pdf:p6
+    quote: Generator storage GT
 - id: citipower-2425-pdf-gt-demand-b
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
@@ -995,7 +1109,8 @@ tou_schedules:
   locator: pdf:p6
   quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or
     over 11am-4pm depending on location, every day of the year, local time
-  note: Window depends on location (one of the two).
+  note: 'Window depends on location (one of the two). Link quote: Table 2 (p6) row naming GT as ''Generator storage''; the quoted
+    window is under the ''Generator storage:'' notes on the same page.'
   windows:
   - period: demand_window
     label: over 11am-4pm every day
@@ -1006,6 +1121,8 @@ tou_schedules:
   - codes:
     - GT
     applies_to: demand
+    locator: pdf:p6
+    quote: Generator storage GT
 - id: citipower-2526-pdf-slab-heating
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
   fin_year: 2025-26
@@ -1016,8 +1133,8 @@ tou_schedules:
   locator: pdf:p6
   quote: Typically switching times may vary depending on localised demand management activities normally between 12am
     and 7am.
-  note: Typical times only; 'An afternoon boost between 1pm and 4pm may occur during winter'. Hot water switching times
-    vary (no times).
+  note: 'Typical times only; ''An afternoon boost between 1pm and 4pm may occur during winter''. Hot water switching times vary
+    (no times). Link quote: the CDS note on p6 is followed by its ''Hot water'' and ''Slab heating'' sub-bullets.'
   windows:
   - period: controlled_load_supply
     label: normally 12am-7am
@@ -1028,6 +1145,8 @@ tou_schedules:
   - codes:
     - CDS
     applies_to: controlled_load
+    locator: pdf:p6
+    quote: CDS is available to customers with a dedicated circuit connected to a time-switch
 - id: citipower-2526-pdf-cmg-energy-bill
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
   fin_year: 2025-26
@@ -1123,8 +1242,9 @@ tou_schedules:
   locator: pdf:p10
   quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other
     times.
-  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
-    stated'
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each link quotes the code''s Table 6 row (p8, an image, read by OCR), whose peak energy and 12-month rolling demand columns
+    read ''workdays 7am-7pm''.'
   windows:
   - period: off_peak
     label: off-peak all other times
@@ -1150,10 +1270,21 @@ tou_schedules:
   - codes:
     - CLLV1
     - CLLV2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: CLLV1 workdays 7am- workdays 7am- Large Low Voltage Default 1kV ≥120kVA 120 Non-peaktimes 1-4pm or 4-7pm CLLV2 7pm
+      7pm
+  - codes:
     - CHV1
     - CHV2
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: CHV1 workdays 7am- workdays 7am- High Voltage Default 1kV-22KV N/A. 500 Non-peak times 1-4pm or 4-7pm CHV2 7pm 7pm
+  - codes:
     - CST2
     applies_to: energy
+    locator: pdf-ocr:p8
+    quote: Default workdays 7am- workdays 7am- Sub-transmission CST2 ≥ 22KV N/A. 5,000 Non-peaktimes 4-7pm 7pm
 - id: citipower-2526-pdf-large-rolling
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
   fin_year: 2025-26
@@ -1163,8 +1294,9 @@ tou_schedules:
   covers_full_day: false
   locator: pdf:p10
   quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
-  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
-    stated'
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each link quotes the code''s Table 6 row (p8, an image, read by OCR), whose peak energy and 12-month rolling demand columns
+    read ''workdays 7am-7pm''.'
   windows:
   - period: demand_window
     label: rolling demand 7am-7pm workdays
@@ -1175,10 +1307,21 @@ tou_schedules:
   - codes:
     - CLLV1
     - CLLV2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: CLLV1 workdays 7am- workdays 7am- Large Low Voltage Default 1kV ≥120kVA 120 Non-peaktimes 1-4pm or 4-7pm CLLV2 7pm
+      7pm
+  - codes:
     - CHV1
     - CHV2
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: CHV1 workdays 7am- workdays 7am- High Voltage Default 1kV-22KV N/A. 500 Non-peak times 1-4pm or 4-7pm CHV2 7pm 7pm
+  - codes:
     - CST2
     applies_to: demand
+    locator: pdf-ocr:p8
+    quote: Default workdays 7am- workdays 7am- Sub-transmission CST2 ≥ 22KV N/A. 5,000 Non-peaktimes 4-7pm 7pm
 - id: citipower-2627-pdf-crcer-bel
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -1189,14 +1332,16 @@ tou_schedules:
   locator: pdf:p6
   quote: CRCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number
     of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh
-  note: Months not stated on this page; the 2026-27 Tariff Summary heads the export charge column 'Saver Export Sep-May'.
-    Import windows of CRSTOU / CRCER are in Table 4, an image in this document.
+  note: 'Months: Table 4 (p5, an image) gives the CRCER saver energy export column as ''all days 11am-4pm during Sep-May with
+    1 kWh per day BEL'' (read on the rendered page; OCR text is out of order). Import windows of CRSTOU / CRCER are in the same
+    image table.'
   windows:
   - period: export_charge_window
     label: exports between 11:00am - 4:00pm (1 kWh/day basic export level free)
     days: all_days
     start: '11:00'
     end: '16:00'
+    months: 9,10,11,12,1,2,3,4,5
   tariffs:
   - codes:
     - CRCER
@@ -1210,8 +1355,8 @@ tou_schedules:
   covers_full_day: false
   locator: pdf:p6
   quote: Typically switching times are between 12am and 7am but may vary depending on localised demand management activities.
-  note: Typical times only; 'An afternoon boost between 1pm and 4pm may occur during winter'. Hot water switching times
-    vary (no times).
+  note: 'Typical times only; ''An afternoon boost between 1pm and 4pm may occur during winter''. Hot water switching times vary
+    (no times). Link quote: the CDS note on p6 is followed by its ''Hot water'' and ''Slab heating'' sub-bullets.'
   windows:
   - period: controlled_load_supply
     label: typically 12am-7am
@@ -1222,6 +1367,8 @@ tou_schedules:
   - codes:
     - CDS
     applies_to: controlled_load
+    locator: pdf:p6
+    quote: CDS is available to customers with a dedicated circuit connected to a time-switch
 - id: citipower-2627-pdf-cmg-energy-bill
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -1269,13 +1416,15 @@ tou_schedules:
   locator: pdf:p7
   quote: CFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number
     of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh
-  note: Months not stated on this page; CFS import windows are in Table 5, an image in this document.
+  note: 'Months: Table 5 (p6, an image) gives the CFS saver energy export column as ''all days 11am-4pm during Sep-May with
+    1 kWh per day BEL'' (read on the rendered page; OCR text is out of order). CFS import windows are in the same image table.'
   windows:
   - period: export_charge_window
     label: exports between 11:00am - 4:00pm (1 kWh/day basic export level free)
     days: all_days
     start: '11:00'
     end: '16:00'
+    months: 9,10,11,12,1,2,3,4,5
   tariffs:
   - codes:
     - CFS
@@ -1373,8 +1522,10 @@ tou_schedules:
   covers_full_day: false
   locator: pdf:p11
   quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months.
-  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
-    stated'
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each link quotes the codes'' Table 6 rows (p8, an image, read by OCR), whose peak energy and 12-month rolling demand columns
+    read ''workdays 7am-7pm''. OCR reads the CHV3 code cell as ''AHO''; the rendered page shows CHV3 in the third high voltage
+    row.'
   windows:
   - period: demand_window
     label: rolling demand 7am-7pm workdays
@@ -1386,11 +1537,23 @@ tou_schedules:
     - CLLV1
     - CLLV2
     - CLLV3
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: CLLV1 1-4pm summer Large low voltage (Dec-Mar) CLLV2 workdays 7am- workdays 7am- 4-7pm summer Large low voltage Default
+      1kv >160MWh non-peak times 7pm 7pm (Dec-Mar) CLLV3
+  - codes:
     - CHV1
     - CHV2
     - CHV3
+    applies_to: demand
+    locator: pdf-ocr:p8
+    quote: High voltage CHV1 (Dec-Mar) workdays 7am- workdays 7am- 4-7pm summer High voltage CHV2 Default 1kV-22KV N/A 500 non-peak
+      times 7pm 7pm (Dec-Mar) 4-7pm winter High voltage
+  - codes:
     - CST2
     applies_to: demand
+    locator: pdf-ocr:p8
+    quote: workdays 7am- workdays 7am- Sub-transmission CST2 Default 2 22kV N/A 5000 non-peak times Not applicable 7pm 7pm
 - id: citipower-2627-pdf-large-energy
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
   fin_year: 2026-27
@@ -1401,8 +1564,10 @@ tou_schedules:
   locator: pdf:p12
   quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other
     times.
-  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
-    stated'
+  note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+    Each link quotes the codes'' Table 6 rows (p8, an image, read by OCR), whose peak energy and 12-month rolling demand columns
+    read ''workdays 7am-7pm''. OCR reads the CHV3 code cell as ''AHO''; the rendered page shows CHV3 in the third high voltage
+    row.'
   windows:
   - period: off_peak
     label: off-peak all other times
@@ -1429,11 +1594,23 @@ tou_schedules:
     - CLLV1
     - CLLV2
     - CLLV3
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: CLLV1 1-4pm summer Large low voltage (Dec-Mar) CLLV2 workdays 7am- workdays 7am- 4-7pm summer Large low voltage Default
+      1kv >160MWh non-peak times 7pm 7pm (Dec-Mar) CLLV3
+  - codes:
     - CHV1
     - CHV2
     - CHV3
+    applies_to: energy
+    locator: pdf-ocr:p8
+    quote: High voltage CHV1 (Dec-Mar) workdays 7am- workdays 7am- 4-7pm summer High voltage CHV2 Default 1kV-22KV N/A 500 non-peak
+      times 7pm 7pm (Dec-Mar) 4-7pm winter High voltage
+  - codes:
     - CST2
     applies_to: energy
+    locator: pdf-ocr:p8
+    quote: workdays 7am- workdays 7am- Sub-transmission CST2 Default 2 22kV N/A 5000 non-peak times Not applicable 7pm 7pm
 - id: citipower-2025-26-cmg-demand-table
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
   fin_year: 2025-26
@@ -1442,16 +1619,15 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf-ocr:p7
-  quote: 10am
-  note: 'Table 5 CMG row: workdays 10am–6pm, both summer and non-summer columns; visually checked.'
+  quote: CMG Default workdays 10am- workdays 10am- Medium business demand ≤120KVA 6pm 6pm
+  note: 'Table 5 (p7, an image) CMG row read by OCR: ''workdays 10am-6pm'' in both the summer and non-summer demand columns
+    (OCR prints ''<'' as ''≤'').'
   windows:
   - period: demand_window
     label: Summer and non-summer demand
     days: business_day
     start: '10:00'
     end: '18:00'
-    locator: pdf-ocr:p7
-    quote: 6pm
   tariffs:
   - codes:
     - CMG
@@ -1464,16 +1640,14 @@ tou_schedules:
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf-ocr:p6
-  quote: 10am
-  note: 'Table 5 CMG row: workdays 10am–6pm, both summer and non-summer columns; visually checked.'
+  quote: Default workdays 10am-workdays 10am- Medium business demand CMG 160MWh 6pm 6pm
+  note: 'Table 5 (p6, an image) CMG row read by OCR: ''workdays 10am-6pm'' in both the summer and non-summer demand columns.'
   windows:
   - period: demand_window
     label: Summer and non-summer demand
     days: business_day
     start: '10:00'
     end: '18:00'
-    locator: pdf-ocr:p6
-    quote: 6pm
   tariffs:
   - codes:
     - CMG
@@ -1487,9 +1661,10 @@ demand_rules:
   window_schedule: citipower-2324-pdf-res-demand
   window_period: demand_window
   locator: pdf:p25
-  quote: c/day c/kWh c/kWh c/kWh $/kW/month $/kW/month
-  note: Table A.7 prices summer and non-summer demand in $/kW/month; the 2023-24 document does not state the interval
-    or aggregation for CR
+  quote: Off-peak Summer Non- voltage Demand energy energy demand summer threshold demand c/day c/kWh c/kWh c/kWh $/kW/month
+    $/kW/month
+  note: 'Table A.7 (p25) header: summer and non-summer demand are priced in $/kW/month; CR is the only row with entries in those
+    columns (''workdays 3pm-9pm''). The 2023-24 document does not state the interval or aggregation for CR'
   tariffs:
   - codes:
     - CR
@@ -1505,9 +1680,11 @@ demand_rules:
   window_schedule: citipower-2324-pdf-cmg-demand
   window_period: demand_window
   locator: pdf:p26
-  quote: c/day c/kWh c/kWh c/kWh $/kW/month $/kW/month
-  note: Table A.8 prices summer and non-summer demand in $/kW/month (CG uses the identical window citipower-2324-pdf-cg-demand);
-    the 2023-24 document does not state interval or aggregation
+  quote: Off-peak Summer Non- voltage Demand energy energy demand summer threshold demand < 40MWh pa c/day c/kWh c/kWh c/kWh
+    $/kW/month $/kW/month
+  note: 'Table A.8 (p26) header: summer and non-summer demand are priced in $/kW/month; CG and CMG are the rows with entries
+    in those columns (''workdays 10am-6pm''; CG uses the identical window citipower-2324-pdf-cg-demand). The 2023-24 document
+    does not state interval or aggregation'
   tariffs:
   - codes:
     - CG
@@ -1528,9 +1705,9 @@ demand_rules:
   minimum_chargeable: 120
   minimum_unit: kVA
   locator: pdf:p29
-  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
-  note: 'Same page: ''Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers
-    and 5,000 kVA for sub-transmission customers.'''
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
   tariffs:
   - codes:
     - CLLVT1
@@ -1549,10 +1726,9 @@ demand_rules:
   minimum_chargeable: 500
   minimum_unit: kVA
   locator: pdf:p29
-  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and
-    5,000 kVA for sub-transmission customers.
-  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
-    12 months.'''
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
   tariffs:
   - codes:
     - CHVT1
@@ -1571,10 +1747,9 @@ demand_rules:
   minimum_chargeable: 5000
   minimum_unit: kVA
   locator: pdf:p29
-  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and
-    5,000 kVA for sub-transmission customers.
-  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
-    12 months.'''
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
   tariffs:
   - codes:
     - CST2
@@ -1701,10 +1876,9 @@ demand_rules:
   minimum_chargeable: 120
   minimum_unit: kVA
   locator: pdf:p13
-  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and
-    5,000 kVA for sub-transmission customers.
-  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
-    12 months.'''
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
   tariffs:
   - codes:
     - CLLVT1
@@ -1723,10 +1897,9 @@ demand_rules:
   minimum_chargeable: 500
   minimum_unit: kVA
   locator: pdf:p13
-  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and
-    5,000 kVA for sub-transmission customers.
-  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
-    12 months.'''
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
   tariffs:
   - codes:
     - CHVT1
@@ -1745,10 +1918,9 @@ demand_rules:
   minimum_chargeable: 5000
   minimum_unit: kVA
   locator: pdf:p13
-  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and
-    5,000 kVA for sub-transmission customers.
-  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
-    12 months.'''
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
   tariffs:
   - codes:
     - CST2
@@ -1869,10 +2041,9 @@ demand_rules:
   minimum_chargeable: 120
   minimum_unit: kVA
   locator: pdf:p10
-  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA
-    for sub-transmission customers.
-  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
-    12 months.'''
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
   tariffs:
   - codes:
     - CLLV1
@@ -1889,10 +2060,9 @@ demand_rules:
   minimum_chargeable: 500
   minimum_unit: kVA
   locator: pdf:p10
-  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA
-    for sub-transmission customers.
-  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
-    12 months.'''
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
   tariffs:
   - codes:
     - CHV1
@@ -1909,10 +2079,9 @@ demand_rules:
   minimum_chargeable: 5000
   minimum_unit: kVA
   locator: pdf:p10
-  quote: Minimum chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA
-    for sub-transmission customers.
-  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior
-    12 months.'''
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
   tariffs:
   - codes:
     - CST2
@@ -2016,9 +2185,8 @@ demand_rules:
   minimum_chargeable: 500
   minimum_unit: kVA
   locator: pdf:p11
-  quote: Minimum chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
-  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most
-    recent 12 months.'''
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months. Minimum
+    chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
   tariffs:
   - codes:
     - CHV1
@@ -2036,9 +2204,8 @@ demand_rules:
   minimum_chargeable: 5000
   minimum_unit: kVA
   locator: pdf:p11
-  quote: Minimum chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
-  note: 'Measurement: ''Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most
-    recent 12 months.'''
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months. Minimum
+    chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
   tariffs:
   - codes:
     - CST2
@@ -2169,6 +2336,7 @@ eligibility:
   value_text: residential
   locator: pdf:p25
   quote: Table A. 7 Residential tariff class
+  note: tariff class heading; Table A.7 on this page lists CRTOU, C1R, CR and CDS
 - codes:
   - CRTOU
   - C1R
@@ -2179,8 +2347,8 @@ eligibility:
   rule_type: voltage_level
   value_text: LV
   locator: pdf:p25
-  quote: < 1kV N/A
-  note: Supply voltage column '< 1kV' (merged cell for all residential tariffs)
+  quote: Single rate C1R Opt-in ✓ ✓ < 1kV N/A
+  note: Supply voltage column '< 1kV' (merged cell for all residential tariffs, printed beside the C1R row)
 - codes:
   - CRTOU
   - CR
@@ -2287,7 +2455,7 @@ eligibility:
   value_text: business
   locator: pdf:p26
   quote: Table A. 8 Small and medium business tariff class
-  note: tariff class heading
+  note: tariff class heading; Table A.8 on this page lists CGTOU, C1G, CG, CMG, CMGO21 and C2U
 - codes:
   - CMG
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
@@ -2433,8 +2601,8 @@ eligibility:
   rule_type: voltage_level
   value_text: LV
   locator: pdf:p26
-  quote: < 1kV
-  note: Supply voltage column '< 1kV' (merged cell for the class)
+  quote: Demand CG Opt-in ✓ ✓ 10am-6pm 10am-6pm < 1kV
+  note: Supply voltage column '< 1kV' (merged cell for the class, printed beside the CG row)
 - codes:
   - CLLVT1
   - CLLVT2
@@ -2443,7 +2611,8 @@ eligibility:
   rule_type: assignment
   value_text: default
   locator: pdf:p27
-  quote: Large Low Voltage transition Default < 1kV ≥ 120kVA 120
+  quote: CLLVT1 workdays workdays 1-4pm or 4- Large Low Voltage transition Default < 1kV ≥ 120kVA 120 Non-peak times CLLVT2
+    7am-7pm 7am-7pm 7pm
 - codes:
   - CLLVT1
   - CLLVT2
@@ -2452,7 +2621,8 @@ eligibility:
   rule_type: voltage_level
   value_text: LV
   locator: pdf:p27
-  quote: Large Low Voltage transition Default < 1kV ≥ 120kVA 120
+  quote: CLLVT1 workdays workdays 1-4pm or 4- Large Low Voltage transition Default < 1kV ≥ 120kVA 120 Non-peak times CLLVT2
+    7am-7pm 7am-7pm 7pm
 - codes:
   - CLLVT1
   - CLLVT2
@@ -2463,7 +2633,8 @@ eligibility:
   value_num: 120
   value_unit: kVA
   locator: pdf:p27
-  quote: Large Low Voltage transition Default < 1kV ≥ 120kVA 120
+  quote: CLLVT1 workdays workdays 1-4pm or 4- Large Low Voltage transition Default < 1kV ≥ 120kVA 120 Non-peak times CLLVT2
+    7am-7pm 7am-7pm 7pm
 - codes:
   - CHVT1
   - CHVT2
@@ -2472,7 +2643,8 @@ eligibility:
   rule_type: assignment
   value_text: default
   locator: pdf:p27
-  quote: High Voltage transition Default 1kV-22KV N/A 500
+  quote: CHVT1 workdays workdays 1-4pm or 4- High Voltage transition Default 1kV-22KV N/A 500 Non-peak times CHVT2 7am-7pm 7am-7pm
+    7pm
 - codes:
   - CHVT1
   - CHVT2
@@ -2481,7 +2653,8 @@ eligibility:
   rule_type: voltage_level
   value_text: HV
   locator: pdf:p27
-  quote: High Voltage transition Default 1kV-22KV N/A 500
+  quote: CHVT1 workdays workdays 1-4pm or 4- High Voltage transition Default 1kV-22KV N/A 500 Non-peak times CHVT2 7am-7pm 7am-7pm
+    7pm
 - codes:
   - CLLV1
   - CLLV2
@@ -2490,7 +2663,8 @@ eligibility:
   rule_type: voltage_level
   value_text: LV
   locator: pdf:p27
-  quote: Large Low Voltage opt-in < 1kV ≥ 120kVA 120
+  quote: CLLV1 workdays workdays 1-4pm or 4- Large Low Voltage opt-in < 1kV ≥ 120kVA 120 Non-peak times CLLV2 7am-7pm 7am-7pm
+    7pm
 - codes:
   - CLLV1
   - CLLV2
@@ -2501,7 +2675,8 @@ eligibility:
   value_num: 120
   value_unit: kVA
   locator: pdf:p27
-  quote: Large Low Voltage opt-in < 1kV ≥ 120kVA 120
+  quote: CLLV1 workdays workdays 1-4pm or 4- Large Low Voltage opt-in < 1kV ≥ 120kVA 120 Non-peak times CLLV2 7am-7pm 7am-7pm
+    7pm
 - codes:
   - CHV1
   - CHV2
@@ -2510,7 +2685,7 @@ eligibility:
   rule_type: voltage_level
   value_text: HV
   locator: pdf:p27
-  quote: High Voltage opt-in 1kV-22KV N/A 500
+  quote: CHV1 workdays workdays 1-4pm or 4- High Voltage opt-in 1kV-22KV N/A 500 Non-peak times CHV2 7am-7pm 7am-7pm 7pm
 - codes:
   - CLLV1
   - CLLV2
@@ -2576,7 +2751,7 @@ eligibility:
   value_text: large_business
   locator: pdf:p27
   quote: Table A. 9 Large low voltage, high voltage and sub-transmission tariff classes
-  note: tariff class heading (large low voltage)
+  note: tariff class heading; Table A.9 on this page lists CLLVT1, CLLVT2, CLLV1 and CLLV2 as Large Low Voltage
 - codes:
   - CLLVT1
   - CLLVT2
@@ -2589,8 +2764,9 @@ eligibility:
   value_num: 120
   value_unit: kVA
   locator: pdf:p27
-  quote: Large Low Voltage transition Default < 1kV ≥ 120kVA 120
-  note: Minimum chargeable rolling demand column (kVA); same value on the opt-in row
+  quote: CLLVT1 workdays workdays 1-4pm or 4- Large Low Voltage transition Default < 1kV ≥ 120kVA 120 Non-peak times CLLVT2
+    7am-7pm 7am-7pm 7pm
+  note: Minimum chargeable rolling demand column (kVA) on the CLLVT1/CLLVT2 row; the CLLV1/CLLV2 row shows the same 120
 - codes:
   - CHVT1
   - CHVT2
@@ -2603,8 +2779,9 @@ eligibility:
   value_num: 500
   value_unit: kVA
   locator: pdf:p27
-  quote: High Voltage transition Default 1kV-22KV N/A 500
-  note: Minimum chargeable rolling demand column (kVA); same value on the opt-in row
+  quote: CHVT1 workdays workdays 1-4pm or 4- High Voltage transition Default 1kV-22KV N/A 500 Non-peak times CHVT2 7am-7pm 7am-7pm
+    7pm
+  note: Minimum chargeable rolling demand column (kVA) on the CHVT1/CHVT2 row; the CHV1/CHV2 row shows the same 500
 - codes:
   - CST2
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
@@ -2672,6 +2849,7 @@ eligibility:
   value_text: trial
   locator: pdf:p13
   quote: 3.4 Trial tariffs
+  note: section heading; Table 6 (Trial tariffs) on this page lists CRDS, CNDB, CDBB and GT
 - codes:
   - CNDB
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
@@ -2679,8 +2857,8 @@ eligibility:
   rule_type: requires_technology
   value_text: battery
   locator: pdf:p13
-  quote: applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is not owned by the distributor
+  quote: 'Community battery time of use: • applies to any battery-only site with a capacity of no more than 240 kVA connected
+    to the low voltage network where the battery is not owned by the distributor'
 - codes:
   - CNDB
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
@@ -2690,8 +2868,8 @@ eligibility:
   value_num: 240
   value_unit: kVA
   locator: pdf:p13
-  quote: applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is not owned by the distributor
+  quote: 'Community battery time of use: • applies to any battery-only site with a capacity of no more than 240 kVA connected
+    to the low voltage network where the battery is not owned by the distributor'
 - codes:
   - CNDB
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
@@ -2699,8 +2877,8 @@ eligibility:
   rule_type: voltage_level
   value_text: LV
   locator: pdf:p13
-  quote: applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is not owned by the distributor
+  quote: 'Community battery time of use: • applies to any battery-only site with a capacity of no more than 240 kVA connected
+    to the low voltage network where the battery is not owned by the distributor'
 - codes:
   - CDBB
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
@@ -2708,8 +2886,8 @@ eligibility:
   rule_type: requires_technology
   value_text: battery
   locator: pdf:p13
-  quote: applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is owned by CitiPower
+  quote: 'Distributor owned community battery: • applies to any new battery-only site with a capacity of no more than 240 kVA
+    connected to the low voltage network where the battery is owned by CitiPower'
 - codes:
   - CDBB
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
@@ -2719,8 +2897,8 @@ eligibility:
   value_num: 240
   value_unit: kVA
   locator: pdf:p13
-  quote: applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is owned by CitiPower
+  quote: 'Distributor owned community battery: • applies to any new battery-only site with a capacity of no more than 240 kVA
+    connected to the low voltage network where the battery is owned by CitiPower'
 - codes:
   - CDBB
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
@@ -2728,8 +2906,8 @@ eligibility:
   rule_type: voltage_level
   value_text: LV
   locator: pdf:p13
-  quote: applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is owned by CitiPower
+  quote: 'Distributor owned community battery: • applies to any new battery-only site with a capacity of no more than 240 kVA
+    connected to the low voltage network where the battery is owned by CitiPower'
 - codes:
   - CNDB
   - CDBB
@@ -2755,8 +2933,8 @@ eligibility:
   rule_type: customer_type
   value_text: embedded_generation
   locator: pdf:p13
-  quote: available to generation site which only uses ancillary power (such as a solar or wind farm) or generation and
-    storage site (such as a battery or battery and solar farm)
+  quote: 'Generator tariff: • available to generation site which only uses ancillary power (such as a solar or wind farm) or
+    generation and storage site (such as a battery or battery and solar farm)'
 - codes:
   - GT
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
@@ -2902,7 +3080,7 @@ eligibility:
   value_text: business
   locator: pdf:p10
   quote: TABLE 5 SMALL AND MEDIUM BUSINESS TARIFF CLASS
-  note: tariff class heading
+  note: tariff class heading; Table 5 on this page lists CGTOU, C1G, CG, CMG, CMGO21 and C2U
 - codes:
   - CMG
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
@@ -2963,8 +3141,8 @@ eligibility:
   rule_type: voltage_level
   value_text: LV
   locator: pdf:p10
-  quote: < 1kV
-  note: Supply voltage column '< 1kV' (merged cell for the class)
+  quote: Demand CG Opt-in ✓ ✓ 6pm 6pm < 1kV
+  note: Supply voltage column '< 1kV' (merged cell for the class, printed beside the CG row)
 - codes:
   - CGTOU
   - C1G
@@ -3069,14 +3247,26 @@ eligibility:
 - codes:
   - CLLV1
   - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  rule_type: assignment
+  value_text: default
+  locator: pdf:p11
+  quote: CLLV1 workdays 7am- workdays 7am- Large Low Voltage Default < 1kV ≥ 120 kVA 120 Non-peak times 1-4pm or 4-7pm CLLV2
+    7pm 7pm
+  note: 'Table 6 (p11) Status column: ''Default'' (the transition tariffs are ''Closed''); the Notes still say ''Customers
+    who opt in to CLLV1, CLLV2, CHV1 and CHV2 cannot later opt out'''
+- codes:
   - CHV1
   - CHV2
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
   fin_year: 2024-25
   rule_type: assignment
-  value_text: opt_in
+  value_text: default
   locator: pdf:p11
-  quote: Customers who opt in to CLLV1, CLLV2, CHV1 and CHV2 cannot later opt out of these tariffs
+  quote: CHV1 workdays 7am- workdays 7am- High Voltage Default 1kV-22KV N/A 500 Non-peak times 1-4pm or 4-7pm CHV2 7pm 7pm
+  note: 'Table 6 (p11) Status column: ''Default'' (the transition tariffs are ''Closed''); the Notes still say ''Customers
+    who opt in to CLLV1, CLLV2, CHV1 and CHV2 cannot later opt out'''
 - codes:
   - CLLV1
   - CLLV2
@@ -3104,7 +3294,7 @@ eligibility:
   value_text: large_business
   locator: pdf:p11
   quote: TABLE 6 LARGE LOW VOLTAGE, HIGH VOLTAGE AND SUB-TRANSMISSION TARIFF CLASSES
-  note: tariff class heading; the per-class columns of Table 6 do not extract cleanly
+  note: tariff class heading; Table 6 on this page lists CLLVT1/2, CHVT1/2, CLLV1/2, CHV1/2 and CST2
 - codes:
   - CLLVT1
   - CLLVT2
@@ -3153,6 +3343,7 @@ eligibility:
   value_text: trial
   locator: pdf:p6
   quote: 2.2 Trial tariffs
+  note: section heading; Table 2 on this page lists CRDS, CNDB, CDBB and GT
 - codes:
   - CRDS
   - CNDB
@@ -3171,7 +3362,7 @@ eligibility:
   rule_type: customer_type
   value_text: residential
   locator: pdf:p6
-  quote: Available to any residential customer with an AMI meter
+  quote: 'Residential daytime saver: • Available to any residential customer with an AMI meter'
 - codes:
   - CRDS
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
@@ -3179,7 +3370,7 @@ eligibility:
   rule_type: meter_type
   value_text: smart
   locator: pdf:p6
-  quote: Available to any residential customer with an AMI meter
+  quote: 'Residential daytime saver: • Available to any residential customer with an AMI meter'
   note: AMI meter
 - codes:
   - CRDS
@@ -3196,8 +3387,8 @@ eligibility:
   rule_type: customer_type
   value_text: embedded_generation
   locator: pdf:p6
-  quote: Available to generation sites which only use ancillary power (such as a solar or wind farm) or generation and
-    storage sites (such as a battery or battery and solar farm)
+  quote: 'Generator storage: • Available to generation sites which only use ancillary power (such as a solar or wind farm) or
+    generation and storage sites (such as a battery or battery and solar farm)'
 - codes:
   - GT
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
@@ -3213,8 +3404,8 @@ eligibility:
   rule_type: requires_technology
   value_text: battery
   locator: pdf:p7
-  quote: Applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is not owned by the distributor
+  quote: 'Community battery time of use: • Applies to any battery-only site with a capacity of no more than 240 kVA connected
+    to the low voltage network where the battery is not owned by the distributor'
 - codes:
   - CNDB
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
@@ -3224,8 +3415,8 @@ eligibility:
   value_num: 240
   value_unit: kVA
   locator: pdf:p7
-  quote: Applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is not owned by the distributor
+  quote: 'Community battery time of use: • Applies to any battery-only site with a capacity of no more than 240 kVA connected
+    to the low voltage network where the battery is not owned by the distributor'
 - codes:
   - CDBB
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
@@ -3233,8 +3424,8 @@ eligibility:
   rule_type: requires_technology
   value_text: battery
   locator: pdf:p7
-  quote: Applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is owned by CitiPower
+  quote: 'Distributor owned community battery: • Applies to any new battery-only site with a capacity of no more than 240 kVA
+    connected to the low voltage network where the battery is owned by CitiPower'
 - codes:
   - CDBB
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
@@ -3244,8 +3435,8 @@ eligibility:
   value_num: 240
   value_unit: kVA
   locator: pdf:p7
-  quote: Applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network
-    where the battery is owned by CitiPower
+  quote: 'Distributor owned community battery: • Applies to any new battery-only site with a capacity of no more than 240 kVA
+    connected to the low voltage network where the battery is owned by CitiPower'
 - codes:
   - CNDB
   - CDBB
@@ -3531,7 +3722,7 @@ eligibility:
   rule_type: assignment
   value_text: default
   locator: pdf:p9
-  quote: Residential Non-Residential Default Customer choice Time-of-use Single rate Demand
+  quote: Default Customer choice Time-of-use Single rate Demand Low High Sub CRTOU C1R CR
   note: 'decision tree: Residential -> Default: Time-of-use CRTOU; Customer choice: single rate C1R, demand CR'
 - codes:
   - C1R
@@ -3541,7 +3732,7 @@ eligibility:
   rule_type: assignment
   value_text: opt_in
   locator: pdf:p9
-  quote: Residential Non-Residential Default Customer choice Time-of-use Single rate Demand
+  quote: Default Customer choice Time-of-use Single rate Demand Low High Sub CRTOU C1R CR
   note: 'decision tree: ''Customer choice'' branch (C1R, CR)'
 - codes:
   - CMG
@@ -3551,9 +3742,9 @@ eligibility:
   operator: gt
   value_num: 40
   value_unit: MWh/yr
-  locator: pdf:p9
-  quote: <40MWh >40MWh
-  note: 'decision tree: Non-Residential, Low Voltage <120kVA, >40MWh -> Demand CMG (Default)'
+  locator: pdf-ocr:p7
+  quote: '>40MWh pa CMG Default'
+  note: Table 5 (p7, an image) CMG row read by OCR; the decision tree (p9) also branches '>40MWh' to Demand CMG
 - codes:
   - CGTOU
   - C1G
@@ -3565,9 +3756,10 @@ eligibility:
   value_num: 40
   value_unit: MWh/yr
   locator: pdf:p9
-  quote: <40MWh >40MWh
-  note: 'decision tree: Non-Residential, Low Voltage <120kVA, <40MWh -> Time-of-use CGTOU (Default), customer choice
-    C1G / CG'
+  quote: <40MWh >40MWh Demand Demand Demand Time-of-use Demand CLLV1 or CLLV2 CHV1 or CHV2 CST2 CGTOU CMG Customer choice Customer
+    choice <160MWh Single rate Demand Non-dem and C1G CG
+  note: 'decision tree: Non-Residential, Low Voltage <120kVA, ''<40MWh'' -> Time-of-use CGTOU (Default), customer choice C1G
+    / CG; ''>40MWh'' -> Demand CMG'
 - codes:
   - CMGO21
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
@@ -3577,22 +3769,38 @@ eligibility:
   value_num: 160
   value_unit: MWh/yr
   locator: pdf:p9
-  quote: Customer choice Customer choice <160MWh
+  quote: <160MWh Single rate Demand Non-dem and C1G CG CMGO21
   note: 'decision tree: CMG customer choice <160MWh -> Non-demand CMGO21'
 - codes:
   - CLLV1
   - CLLV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf-ocr:p8
+  quote: CLLV1 workdays 7am- workdays 7am- Large Low Voltage Default 1kV ≥120kVA 120 Non-peaktimes 1-4pm or 4-7pm CLLV2 7pm
+    7pm
+  note: Table 6 (p8, an image) Status column, read by OCR
+- codes:
   - CHV1
   - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  rule_type: assignment
+  value_text: default
+  locator: pdf-ocr:p8
+  quote: CHV1 workdays 7am- workdays 7am- High Voltage Default 1kV-22KV N/A. 500 Non-peak times 1-4pm or 4-7pm CHV2 7pm 7pm
+  note: Table 6 (p8, an image) Status column, read by OCR
+- codes:
   - CST2
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
   fin_year: 2025-26
   rule_type: assignment
   value_text: default
-  locator: pdf:p9
-  quote: Default Default <40MWh >40MWh Demand Demand Demand
-  note: 'decision tree: Low Voltage >120kVA -> Demand CLLV1 or CLLV2; High Voltage -> Demand CHV1 or CHV2; Sub transmission
-    -> Demand CST2'
+  locator: pdf-ocr:p8
+  quote: Default workdays 7am- workdays 7am- Sub-transmission CST2 ≥ 22KV N/A. 5,000 Non-peaktimes 4-7pm 7pm
+  note: Table 6 (p8, an image) Status column, read by OCR
 - codes:
   - CMG
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
@@ -3626,7 +3834,7 @@ eligibility:
   value_text: business
   locator: pdf:p4
   quote: Flexible small will be assigned to small and medium business tariff class
-  note: tariff class assignment (small and medium business)
+  note: tariff class assignment (small and medium business); Table 5 (p6, an image) lists Flexible small as CFS
 - codes:
   - CFL
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
@@ -3635,7 +3843,7 @@ eligibility:
   value_text: HV
   locator: pdf:p4
   quote: Flexible large will be assigned to high voltage tariff class
-  note: tariff class assignment
+  note: tariff class assignment; Table 6 (p8, an image) lists Flexible large as CFL
 - codes:
   - CFTUOS
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
@@ -3644,7 +3852,7 @@ eligibility:
   value_text: subtransmission
   locator: pdf:p4
   quote: Flexible TUOS pass-through will be assigned to sub-transmission tariff class
-  note: tariff class assignment
+  note: tariff class assignment; Table 6 (p8, an image) lists Flexible TUOS pass-through as CFTUOS
 - codes:
   - CRSTOU
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
@@ -3712,6 +3920,7 @@ eligibility:
   locator: pdf:p6
   quote: Type 7 and 9 metering assignment criteria apply for all public lighting, all type 7 metered loads, and type
     9 metered loads up to 5 MWh pa
+  note: Table 5 (p6, an image) lists 'Type 7 or 9 metering' as C2U
 - codes:
   - C2U
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
@@ -3722,7 +3931,8 @@ eligibility:
   value_unit: MWh/yr
   locator: pdf:p6
   quote: type 9 metered loads up to 5 MWh pa
-  note: applies to type 9 metered loads; all public lighting and all type 7 metered loads qualify regardless
+  note: applies to type 9 metered loads; all public lighting and all type 7 metered loads qualify regardless; Table 5 (p6, an
+    image) lists 'Type 7 or 9 metering' as C2U
 - codes:
   - C2U
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
@@ -3731,6 +3941,7 @@ eligibility:
   value_text: public_lighting
   locator: pdf:p6
   quote: Type 7 and 9 metering assignment criteria apply for all public lighting
+  note: Table 5 (p6, an image) lists 'Type 7 or 9 metering' as C2U
 - codes:
   - CGTOU
   - C1G
@@ -3891,42 +4102,6 @@ eligibility:
   locator: pdf:p12
   quote: We require that consumption values consistently remain below the average daily load threshold of 160 MWh per
     annum for a minimum period of 3 months prior to submitting a request to move away from a large business tariff.
-- codes:
-  - EVCTOU
-  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: other
-  value_text: 'kerbside EV charging: dedicated charger up to 44 kW with its own NMI'
-  locator: pdf:p14
-  quote: Dedicated charger with supply capacity up to 44 kW with its own NMI
-  note: KEVC trial; the code EVCTOU ('Residential kerbside EV charger') is given in the 2026-27 Tariff Summary trial
-    sheet
-- codes:
-  - EVCTOU
-  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: requires_technology
-  value_text: ev
-  locator: pdf:p14
-  quote: Dedicated charger with supply capacity up to 44 kW with its own NMI
-  note: KEVC trial tariff (code from the Tariff Summary trial sheet)
-- codes:
-  - EVCTOU
-  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: availability
-  value_text: trial
-  locator: pdf:p14
-  quote: We are introducing a kerbside electric vehicle charging (KEVC) trial tariff on 1 July 2026.
-  note: runs three years from 1 July 2026, may be extended two years
-- codes:
-  - EVCTOU
-  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: meter_type
-  value_text: any
-  locator: pdf:p14
-  quote: The trial tariff will be available irrespective of KEVC ownership or meter type
 - codes:
   - CRSTOU
   doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
@@ -4944,9 +5119,10 @@ eligibility:
   value_num: 40
   value_unit: MWh/yr
   locator: pdf-ocr:p6
-  quote: ≥40MWh pa
-  note: 'Table 5 CMG and CMGO21 rows: ≥40 MWh pa and ≤160 MWh; inequalities checked on rendered PDF, OCR drops the ≤
-    sign on the CMG row.'
+  quote: ≥40MWh pa Default workdays 10am-workdays 10am- Medium business demand CMG 160MWh 6pm 6pm ≥40MWh pa Medium business
+    opt-out workdays 10am- CMG021 Opt-out <1kV non-peak times ≤160MWh
+  note: 'Table 5 (p6, an image) CMG and CMGO21 rows read by OCR: ''≥40MWh pa'' and ''≤160MWh'' (OCR drops the ≤ on the CMG row
+    and reads CMGO21 as ''CMG021''; checked on the rendered page)'
 - codes:
   - CMG
   - CMGO21
@@ -4957,9 +5133,10 @@ eligibility:
   value_num: 160
   value_unit: MWh/yr
   locator: pdf-ocr:p6
-  quote: 160MWh
-  note: 'Table 5 CMG and CMGO21 rows: ≥40 MWh pa and ≤160 MWh; inequalities checked on rendered PDF, OCR drops the ≤
-    sign on the CMG row.'
+  quote: ≥40MWh pa Default workdays 10am-workdays 10am- Medium business demand CMG 160MWh 6pm 6pm ≥40MWh pa Medium business
+    opt-out workdays 10am- CMG021 Opt-out <1kV non-peak times ≤160MWh
+  note: 'Table 5 (p6, an image) CMG and CMGO21 rows read by OCR: ''≥40MWh pa'' and ''≤160MWh'' (OCR drops the ≤ on the CMG row
+    and reads CMGO21 as ''CMG021''; checked on the rendered page)'
 relations:
 - from: CMG
   type: opt_out_alternative
@@ -4997,7 +5174,8 @@ flags:
   fin_year: 2023-24
   flag: transitional
   locator: pdf:p27
-  quote: Large Low Voltage transition Default
+  quote: CLLVT1 workdays workdays 1-4pm or 4- Large Low Voltage transition Default < 1kV ≥ 120kVA 120 Non-peak times CLLVT2
+    7am-7pm 7am-7pm 7pm
 - codes:
   - CHVT1
   - CHVT2
@@ -5005,7 +5183,8 @@ flags:
   fin_year: 2023-24
   flag: transitional
   locator: pdf:p27
-  quote: High Voltage transition Default
+  quote: CHVT1 workdays workdays 1-4pm or 4- High Voltage transition Default 1kV-22KV N/A 500 Non-peak times CHVT2 7am-7pm 7am-7pm
+    7pm
 - codes:
   - CRDS
   - CNDB
@@ -5014,14 +5193,19 @@ flags:
   fin_year: 2023-24
   flag: trial
   locator: pdf:p13
-  quote: 'Additionally, following existing trial tariffs will continue to run:'
+  quote: Residential daytime saver CRDS Opt-in 24.66 - 1 5.42 5 .80 - - - - - Community battery time of use CNDB Default 45.00
+    - 2 5.00 - (1.50) (1.00) - - - Distributor-owned community battery CDBB
+  column_locator: pdf:p13
+  column_quote: Table 6 Trial tariffs 2023/24 Proposed Tariffs
 - codes:
   - GT
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
   flag: trial
   locator: pdf:p13
-  quote: 'The following trial tariff will commence in 2023/24: Generator tariff:'
+  quote: Generator storage GT Opt-in
+  column_locator: pdf:p13
+  column_quote: Table 6 Trial tariffs 2023/24 Proposed Tariffs
 - codes:
   - CLLVT1
   - CLLVT2
@@ -5029,7 +5213,7 @@ flags:
   fin_year: 2024-25
   flag: transitional
   locator: pdf:p5
-  quote: Large low Voltage Transitional CLLVT1
+  quote: Large low Voltage Transitional CLLVT1 - 1 1.25 1 0.95 - - - 3 .68 2 .63 Large low Voltage Transitional CLLVT2
 - codes:
   - CHVT1
   - CHVT2
@@ -5037,7 +5221,7 @@ flags:
   fin_year: 2024-25
   flag: transitional
   locator: pdf:p5
-  quote: High Voltage Transitional CHVT1
+  quote: High Voltage Transitional CHVT1 - 7 .19 6 .57 - - - 2 .52 1 .51 High Voltage Transitional CHVT2
 - codes:
   - CRDS
   - CNDB
@@ -5047,7 +5231,11 @@ flags:
   fin_year: 2024-25
   flag: trial
   locator: pdf:p6
-  quote: TABLE 2 TRIAL TARIFFS 2024/25 TARIFFS
+  quote: Residential daytime saver CRDS 2 6.02 - 1 6.40 6 .14 - - - - - - - - - Community battery time of use CNDB 4 5.00 -
+    2 5.00 - - 1 .50 - 1 .00 - - - - - - - Distributor-owned community battery CDBB 0 .80 - - - - - - - - - - - - Generator
+    storage GT
+  column_locator: pdf:p6
+  column_quote: TABLE 2 TRIAL TARIFFS 2024/25 TARIFFS
 - codes:
   - CFTUOS
   doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
@@ -5060,15 +5248,19 @@ flags:
   doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
   fin_year: 2026-27
   flag: trial
-  locator: xlsx:CP_2026-27_TRIAL_NUOS!B1
-  quote: 2026-27 CITIPOWER TRIAL TARIFF SCHEDULE
+  locator: xlsx:CP_2026-27_TRIAL_NUOS!C7
+  quote: EVCTOU
+  column_locator: xlsx:CP_2026-27_TRIAL_NUOS!B1
+  column_quote: 2026-27 CITIPOWER TRIAL TARIFF SCHEDULE
 - codes:
   - CFTUOS
   doc: sources/dnsp/citipower/CitiPower_Tariff_Summary_2026-27_07May2026.xlsx
   fin_year: 2026-27
   flag: site_specific
-  locator: xlsx:CP_2026-27_INDIVIDUALLY_CALC!B1
-  quote: 2026-27 CITIPOWER INDIVIDUALLY CALCULATED TARIFF SCHEDULE
+  locator: xlsx:CP_2026-27_INDIVIDUALLY_CALC!C6
+  quote: CFTUOS
+  column_locator: xlsx:CP_2026-27_INDIVIDUALLY_CALC!B1
+  column_quote: 2026-27 CITIPOWER INDIVIDUALLY CALCULATED TARIFF SCHEDULE
 - codes:
   - CLLVT1
   doc: sources/aer/2023-24_price_lists/CitiPower_2023-24_Tariff_Summary_31Mar2023.xlsx

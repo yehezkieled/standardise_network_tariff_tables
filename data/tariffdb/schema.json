@@ -11,6 +11,7 @@
       "primary_key": [
         "fin_year"
       ],
+      "derived": false,
       "unique": [],
       "checks": [
         "start_date < end_date"
@@ -24,6 +25,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "e.g. 2025-26"
         },
         {
@@ -34,6 +36,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "1 July"
         },
         {
@@ -44,6 +47,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "30 June (inclusive)"
         }
       ]
@@ -58,6 +62,7 @@
       "primary_key": [
         "distributor_id"
       ],
+      "derived": false,
       "unique": [
         [
           "name"
@@ -73,6 +78,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "slug, e.g. ausgrid"
         },
         {
@@ -83,6 +89,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "canonical name used by the reconciliation (scripts/schema.py CANON)"
         },
         {
@@ -93,6 +100,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "name the AER workbooks use"
         },
         {
@@ -111,6 +119,7 @@
             "NT"
           ],
           "unit": null,
+          "derived": false,
           "description": "jurisdiction"
         },
         {
@@ -121,6 +130,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "IANA zone of the network area, e.g. Australia/Sydney"
         },
         {
@@ -131,6 +141,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "1 when local clocks move for daylight saving"
         }
       ]
@@ -145,6 +156,7 @@
       "primary_key": [
         "series_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [],
       "columns": [
@@ -156,6 +168,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "slug"
         },
         {
@@ -169,6 +182,7 @@
             "distributor"
           ],
           "unit": null,
+          "derived": false,
           "description": "who wrote the prices"
         },
         {
@@ -179,6 +193,7 @@
           "references": "distributor.distributor_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "NULL for multi-distributor AER reports"
         },
         {
@@ -189,6 +204,7 @@
           "references": "financial_year.fin_year",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "pricing year"
         },
         {
@@ -199,6 +215,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "series title"
         }
       ]
@@ -215,6 +232,7 @@
       "primary_key": [
         "document_id"
       ],
+      "derived": false,
       "unique": [
         [
           "series_id",
@@ -236,6 +254,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "slug derived from the file name"
         },
         {
@@ -246,6 +265,7 @@
           "references": "document_series.series_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "publication series"
         },
         {
@@ -256,6 +276,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "as published, e.g. v1, v5, v1.1, 'updated 17 Jul 2024'"
         },
         {
@@ -266,6 +287,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "order within the series (1 = first)"
         },
         {
@@ -279,6 +301,7 @@
             "distributor"
           ],
           "unit": null,
+          "derived": false,
           "description": "who wrote the prices"
         },
         {
@@ -289,6 +312,7 @@
           "references": "distributor.distributor_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "NULL for multi-distributor AER reports"
         },
         {
@@ -299,6 +323,7 @@
           "references": "financial_year.fin_year",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "pricing year"
         },
         {
@@ -321,6 +346,7 @@
             "pricing_schedule"
           ],
           "unit": null,
+          "derived": false,
           "description": "kind of publication"
         },
         {
@@ -334,10 +360,11 @@
             "approved",
             "mixed",
             "published",
-            "indicative"
+            "unverified"
           ],
           "unit": null,
-          "description": "regulatory status of the prices in this version (mixed: differs by distributor, see document_coverage)"
+          "derived": false,
+          "description": "regulatory status of the prices in this version, only as a held source states it (mixed: differs by distributor, see document_coverage; unverified: AER-hosted distributor document whose status no held source states)"
         },
         {
           "name": "recon_side",
@@ -351,6 +378,7 @@
             "DNSP"
           ],
           "unit": null,
+          "derived": false,
           "description": "role in the reconciliation: AER = AER-authored, AER_HOSTED = distributor document hosted on aer.gov.au, DNSP = distributor's own site"
         },
         {
@@ -361,6 +389,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "description from sources/inventory.csv"
         },
         {
@@ -371,6 +400,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "date the version was published, when known"
         },
         {
@@ -381,6 +411,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "how the date is known"
         },
         {
@@ -394,6 +425,7 @@
             "not_retrievable"
           ],
           "unit": null,
+          "derived": false,
           "description": "whether the file is held"
         },
         {
@@ -404,6 +436,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "repo-relative path"
         },
         {
@@ -414,6 +447,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "exact URL the file was retrieved from (or the landing page when not retrievable)"
         },
         {
@@ -424,6 +458,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "access caveats from the inventory"
         },
         {
@@ -434,6 +469,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "SHA-256 of the file used"
         },
         {
@@ -444,6 +480,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "date the file was retrieved (or the Wayback capture date)"
         },
         {
@@ -454,6 +491,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "wayback_capture | inventory_commit"
         },
         {
@@ -464,6 +502,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "1 when the file itself is committed (Wayback copies)"
         }
       ]
@@ -480,6 +519,7 @@
         "document_id",
         "distributor_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [],
       "columns": [
@@ -491,6 +531,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "AER consolidated version"
         },
         {
@@ -501,6 +542,7 @@
           "references": "distributor.distributor_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "distributor"
         },
         {
@@ -514,9 +556,10 @@
             "approved",
             "mixed",
             "published",
-            "indicative"
+            "unverified"
           ],
           "unit": null,
+          "derived": false,
           "description": "status of that distributor's prices in that version"
         },
         {
@@ -527,6 +570,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "saved AER landing page holding the changelog"
         },
         {
@@ -537,6 +581,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
         },
         {
@@ -547,13 +592,14 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+          "derived": false,
+          "description": "Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does)"
         }
       ]
     },
     {
       "name": "document_ingestion",
-      "description": "Explicit extraction coverage for every held or unavailable source document.",
+      "description": "Explicit extraction coverage for every held or unavailable source document (derived: counts of the fact rows read from each document).",
       "why": [
         "A source inventory entry is not evidence that its prices were extracted; independent row counts expose empty or rules-only documents."
       ],
@@ -561,6 +607,7 @@
       "primary_key": [
         "document_id"
       ],
+      "derived": true,
       "unique": [],
       "checks": [
         "charge_count >= 0 AND listing_count >= 0 AND eligibility_count >= 0 AND tou_schedule_count >= 0 AND metering_count >= 0"
@@ -574,6 +621,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Source version"
         },
         {
@@ -584,6 +632,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Number of charge rows read from this source"
         },
         {
@@ -594,6 +643,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Tariff listings from this source"
         },
         {
@@ -604,6 +654,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Structured or quoted requirements from this source"
         },
         {
@@ -614,6 +665,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "TOU schedules from this source"
         },
         {
@@ -624,6 +676,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Separately stored metering rates"
         },
         {
@@ -639,6 +692,7 @@
             "unavailable"
           ],
           "unit": null,
+          "derived": false,
           "description": "Extraction state"
         }
       ]
@@ -654,6 +708,7 @@
       "primary_key": [
         "tariff_id"
       ],
+      "derived": false,
       "unique": [
         [
           "distributor_id",
@@ -670,6 +725,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<distributor_id>:<code>"
         },
         {
@@ -680,6 +736,7 @@
           "references": "distributor.distributor_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "owner"
         },
         {
@@ -690,6 +747,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "canonical code"
         },
         {
@@ -704,6 +762,7 @@
             "aer_tariff_id"
           ],
           "unit": null,
+          "derived": false,
           "description": "where the canonical code comes from"
         }
       ]
@@ -718,6 +777,7 @@
       "primary_key": [
         "alias_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [],
       "columns": [
@@ -729,6 +789,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<document_id>/<alias_kind>/<alias_label>/<tariff_id>"
         },
         {
@@ -739,6 +800,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "tariff the label resolves to"
         },
         {
@@ -749,6 +811,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "label exactly as published"
         },
         {
@@ -758,7 +821,6 @@
           "primary_key": false,
           "references": null,
           "enum": [
-            "aer_code_label",
             "aer_tariff_id",
             "joint_label_member",
             "regional_suffix",
@@ -766,6 +828,7 @@
             "code_variant"
           ],
           "unit": null,
+          "derived": false,
           "description": "kind of alias"
         },
         {
@@ -776,6 +839,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "document where the label appears"
         },
         {
@@ -786,6 +850,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "how the alias was resolved"
         }
       ]
@@ -794,12 +859,14 @@
       "name": "tariff_relation",
       "description": "Relationships between tariffs: renames, replacements, opt-out alternatives, export companions.",
       "why": [
-        "Renames across years (e.g. SAPN RELE -> RESELE) keep both identities and link them, so history is never rewritten."
+        "Replacements across years keep both identities and link them, so history is never rewritten.",
+        "Every relation quotes the sentence that states it."
       ],
       "file": "tables/tariff_relation.csv",
       "primary_key": [
         "relation_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [
         "from_tariff_id <> to_tariff_id"
@@ -813,6 +880,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<from>|<relation_type>|<to>|<document_id>"
         },
         {
@@ -823,6 +891,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "subject"
         },
         {
@@ -832,16 +901,15 @@
           "primary_key": false,
           "references": null,
           "enum": [
-            "renamed_to",
             "replaced_by",
             "opt_out_alternative",
             "export_companion",
-            "xmc_variant",
             "same_prices_as",
             "assigned_with",
             "aer_sibling_code"
           ],
           "unit": null,
+          "derived": false,
           "description": "relationship"
         },
         {
@@ -852,6 +920,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "object"
         },
         {
@@ -862,6 +931,7 @@
           "references": "financial_year.fin_year",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "year the relation is stated for"
         },
         {
@@ -872,6 +942,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "evidence"
         },
         {
@@ -882,6 +953,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
         },
         {
@@ -892,7 +964,8 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+          "derived": false,
+          "description": "Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does)"
         },
         {
           "name": "note",
@@ -902,6 +975,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Source qualifications or interpretation notes"
         }
       ]
@@ -911,12 +985,13 @@
       "description": "A tariff as listed in one document version (code, name and class as printed there).",
       "why": [
         "The historical grain: one row per (document version, tariff); attributes are never updated, a new version adds a new listing.",
-        "is_priced = 0 represents AER zero-priced placeholder rows without inventing charges."
+        "price_availability = placeholder represents AER zero-priced placeholder rows without inventing charges; rules_only marks a tariff a document names only in its rules text."
       ],
       "file": "tables/tariff_listing.csv",
       "primary_key": [
         "listing_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [
         "effective_from <= effective_to"
@@ -930,6 +1005,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<document_id>/<code_published>[/<n>]"
         },
         {
@@ -940,6 +1016,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "where"
         },
         {
@@ -950,6 +1027,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "which tariff"
         },
         {
@@ -960,6 +1038,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "code exactly as printed (joint, starred ...); NULL when the row prints no code (AER 2025-26 v1)"
         },
         {
@@ -970,6 +1049,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "tariff name as printed"
         },
         {
@@ -980,6 +1060,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "tariff class / customer class heading as printed"
         },
         {
@@ -990,6 +1071,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "pricing region or zone when the document splits one code by region"
         },
         {
@@ -1000,6 +1082,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "first day the listed prices apply"
         },
         {
@@ -1010,6 +1093,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "last day (inclusive)"
         },
         {
@@ -1024,17 +1108,8 @@
             "rules_only"
           ],
           "unit": null,
+          "derived": false,
           "description": "Whether this document prints prices, a zero/blank placeholder, or only rules"
-        },
-        {
-          "name": "is_priced",
-          "type": "boolean",
-          "nullable": false,
-          "primary_key": false,
-          "references": null,
-          "enum": null,
-          "unit": null,
-          "description": "0 when the source has no priced components (placeholder); explicit zero charges remain prices"
         },
         {
           "name": "locator",
@@ -1044,6 +1119,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "first price cell/page of the listing"
         },
         {
@@ -1054,13 +1130,14 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "parser notes for the listing"
         }
       ]
     },
     {
       "name": "listing_flag",
-      "description": "Status flags of a listing: trial, closed to new customers, withdrawn, site-specific, placeholder, proposed price, LFiT/metering inclusion.",
+      "description": "Status flags of a listing: trial, closed to new customers, withdrawn, site-specific, placeholder, proposed price, LFiT/metering inclusion (derived from listing text, parser notes, curated flags and price adjustments).",
       "why": [
         "A tariff can be several of these at once and they change by year, so they are rows, not columns."
       ],
@@ -1069,6 +1146,7 @@
         "listing_id",
         "flag"
       ],
+      "derived": true,
       "unique": [],
       "checks": [],
       "columns": [
@@ -1080,6 +1158,7 @@
           "references": "tariff_listing.listing_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "listing"
         },
         {
@@ -1103,11 +1182,11 @@
             "excludes_lfit",
             "includes_metering",
             "excludes_metering",
-            "duplicate_listing",
             "joint_label_member",
             "regional_variant"
           ],
           "unit": null,
+          "derived": false,
           "description": "status"
         },
         {
@@ -1123,6 +1202,7 @@
             "curated"
           ],
           "unit": null,
+          "derived": false,
           "description": "where the flag comes from"
         },
         {
@@ -1133,6 +1213,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "the wording that establishes it"
         }
       ]
@@ -1149,6 +1230,7 @@
       "primary_key": [
         "charge_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [
         "effective_from <= effective_to",
@@ -1163,6 +1245,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<listing_id>/<price_basis>/<gst>/<locator>"
         },
         {
@@ -1173,6 +1256,7 @@
           "references": "tariff_listing.listing_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "listing"
         },
         {
@@ -1187,10 +1271,10 @@
             "TUoS",
             "DPPC",
             "JSA",
-            "metering",
             "unknown"
           ],
           "unit": null,
+          "derived": false,
           "description": "NUoS = total network price; DUoS/TUoS/DPPC/JSA components; metering"
         },
         {
@@ -1201,6 +1285,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "component label as published (header hierarchy joined with ' - ')"
         },
         {
@@ -1218,6 +1303,7 @@
             "other"
           ],
           "unit": null,
+          "derived": false,
           "description": "normalised component kind"
         },
         {
@@ -1228,6 +1314,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "normalised band (peak, off_peak, shoulder, block1, ...)"
         },
         {
@@ -1238,6 +1325,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "normalised season (summer, non_summer, high, low, winter)"
         },
         {
@@ -1248,6 +1336,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "number exactly as displayed in the document"
         },
         {
@@ -1258,6 +1347,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "unit exactly as published"
         },
         {
@@ -1268,6 +1358,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Unit used for conversion; differs only where the source parser supplies a period or repairs a source typo"
         },
         {
@@ -1278,6 +1369,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Reason the conversion unit differs from the printed unit"
         },
         {
@@ -1288,6 +1380,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "full-precision cell value for spreadsheets (NULL for PDFs)"
         },
         {
@@ -1298,6 +1391,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "value_published as a number"
         },
         {
@@ -1308,6 +1402,7 @@
           "references": null,
           "enum": null,
           "unit": "see unit_std",
+          "derived": false,
           "description": "value in standard units"
         },
         {
@@ -1318,6 +1413,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "c/day, c/kWh, c/kVAh, c/kW/<period>, c/kVA/<period>, c/lamp/day ..."
         },
         {
@@ -1336,6 +1432,7 @@
             "none"
           ],
           "unit": null,
+          "derived": false,
           "description": "what the price is per"
         },
         {
@@ -1348,11 +1445,11 @@
             "day",
             "month",
             "year",
-            "season",
             "none",
             "unstated"
           ],
           "unit": null,
+          "derived": false,
           "description": "billing period of the unit"
         },
         {
@@ -1363,6 +1460,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "1 when the period comes from the component label, not the published unit"
         },
         {
@@ -1376,6 +1474,7 @@
             "incl"
           ],
           "unit": null,
+          "derived": false,
           "description": "GST basis"
         },
         {
@@ -1390,7 +1489,8 @@
             "unknown"
           ],
           "unit": null,
-          "description": "whether the value contains a metering charge"
+          "derived": true,
+          "description": "whether the value contains a metering charge (derived: 'yes' where a metering_adder price_adjustment reproduces the value from the AER price plus metering)"
         },
         {
           "name": "includes_lfit",
@@ -1405,7 +1505,8 @@
             "not_applicable"
           ],
           "unit": null,
-          "description": "whether the value contains the ACT large-scale feed-in tariff amount"
+          "derived": true,
+          "description": "whether the value contains the ACT large-scale feed-in tariff amount (derived from the Evoenergy LFiT statements and price adjustments)"
         },
         {
           "name": "effective_from",
@@ -1415,7 +1516,8 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "first day"
+          "derived": false,
+          "description": "first day the value applies; today always the listing's first day (tested), kept per charge so a source that changes some prices part-way through a year needs no new listing"
         },
         {
           "name": "effective_to",
@@ -1425,7 +1527,8 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "last day (inclusive)"
+          "derived": false,
+          "description": "last day (inclusive); same rule as effective_from"
         },
         {
           "name": "locator",
@@ -1435,6 +1538,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "where the value is (re-read by the tests)"
         },
         {
@@ -1449,6 +1553,7 @@
             "pdf-ocr"
           ],
           "unit": null,
+          "derived": false,
           "description": "xlsx | pdf | pdf-ocr"
         },
         {
@@ -1459,6 +1564,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "spreadsheet tab"
         },
         {
@@ -1469,6 +1575,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "spreadsheet cell"
         },
         {
@@ -1479,6 +1586,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "PDF page (1-based)"
         },
         {
@@ -1493,6 +1601,7 @@
             "ocr_sum_check"
           ],
           "unit": null,
+          "derived": false,
           "description": "how the value is re-read"
         },
         {
@@ -1503,6 +1612,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "parser caveats"
         }
       ]
@@ -1518,6 +1628,7 @@
       "primary_key": [
         "step_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [
         "step_index > 0",
@@ -1533,6 +1644,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Stable evidence-derived key"
         },
         {
@@ -1543,6 +1655,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Tariff"
         },
         {
@@ -1553,6 +1666,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Version stating the block"
         },
         {
@@ -1563,6 +1677,7 @@
           "references": "financial_year.fin_year",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Pricing year"
         },
         {
@@ -1573,6 +1688,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "First applicable day"
         },
         {
@@ -1583,6 +1699,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Last applicable day, inclusive"
         },
         {
@@ -1593,6 +1710,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "The quantity divided into blocks, as the source names it (e.g. 'Anytime Energy'); the blocks of one (tariff, document, step_group) form one ladder"
         },
         {
@@ -1603,6 +1721,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Source component or allowance name"
         },
         {
@@ -1613,6 +1732,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "1-based block order"
         },
         {
@@ -1623,6 +1743,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Lower quantity boundary"
         },
         {
@@ -1633,6 +1754,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Upper quantity boundary, NULL means unbounded"
         },
         {
@@ -1643,6 +1765,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Whether lower boundary belongs to the block"
         },
         {
@@ -1653,6 +1776,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Whether upper boundary belongs to the block"
         },
         {
@@ -1662,11 +1786,10 @@
           "primary_key": false,
           "references": null,
           "enum": [
-            "kWh",
-            "kW",
-            "kVA"
+            "kWh"
           ],
           "unit": null,
+          "derived": false,
           "description": "Unit of the boundaries"
         },
         {
@@ -1677,13 +1800,12 @@
           "references": null,
           "enum": [
             "day",
-            "month",
-            "billing_period",
-            "year",
+            "billing_period_per_day",
             "unstated"
           ],
           "unit": null,
-          "description": "Period over which quantity accumulates"
+          "derived": false,
+          "description": "Period over which quantity accumulates: day (each day stands alone); billing_period_per_day (the bounds are per day and are multiplied by the days in the billing period, so an unused allowance rolls over within that period); unstated"
         },
         {
           "name": "locator",
@@ -1693,6 +1815,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
         },
         {
@@ -1703,7 +1826,8 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+          "derived": false,
+          "description": "Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does)"
         }
       ]
     },
@@ -1718,6 +1842,7 @@
       "primary_key": [
         "metering_price_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [],
       "columns": [
@@ -1729,6 +1854,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<document_id>/<locator>"
         },
         {
@@ -1739,6 +1865,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "where"
         },
         {
@@ -1749,6 +1876,7 @@
           "references": "distributor.distributor_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "whose metering"
         },
         {
@@ -1759,6 +1887,7 @@
           "references": "financial_year.fin_year",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "year"
         },
         {
@@ -1773,6 +1902,7 @@
             "distributor_metering_block"
           ],
           "unit": null,
+          "derived": false,
           "description": "which table of the document"
         },
         {
@@ -1783,6 +1913,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "customer/meter class label as published"
         },
         {
@@ -1793,6 +1924,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "content of the sheet's 'Tariff code' column as printed (tariff codes, or metering-service codes such as MP7)"
         },
         {
@@ -1803,6 +1935,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "tariff the row belongs to (per-tariff blocks only)"
         },
         {
@@ -1813,6 +1946,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "price component the block value adds to (per-tariff blocks only)"
         },
         {
@@ -1828,6 +1962,7 @@
             "unstated"
           ],
           "unit": null,
+          "derived": false,
           "description": "what the price is per"
         },
         {
@@ -1838,6 +1973,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "as displayed"
         },
         {
@@ -1848,6 +1984,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "as published"
         },
         {
@@ -1858,6 +1995,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "full-precision cell value"
         },
         {
@@ -1868,6 +2006,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "number"
         },
         {
@@ -1878,6 +2017,7 @@
           "references": null,
           "enum": null,
           "unit": "c/day",
+          "derived": false,
           "description": "cents per day: per_year x 100 / 365, per_day x 100 ($) ; NULL otherwise"
         },
         {
@@ -1888,6 +2028,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "cell (re-read by the tests)"
         },
         {
@@ -1898,6 +2039,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "spreadsheet tab"
         },
         {
@@ -1908,6 +2050,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "spreadsheet cell"
         }
       ]
@@ -1917,12 +2060,14 @@
       "description": "A named set of time-of-use windows as stated in one document.",
       "why": [
         "Windows are shared by many tariffs and change by year, so they are versioned per document and linked to tariffs through tariff_tou.",
-        "time_basis and public-holiday treatment are explicit because distributors differ (local vs standard time; holidays as weekends or not)."
+        "time_basis and public-holiday treatment are explicit because distributors differ (local vs standard time; holidays as weekends or not).",
+        "Times are stored exactly as the source states them; a schedule stated in daylight time keeps that basis rather than being converted to a guess for standard-time months."
       ],
       "file": "tables/tou_schedule.csv",
       "primary_key": [
         "tou_schedule_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [],
       "columns": [
@@ -1934,6 +2079,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "slug"
         },
         {
@@ -1944,6 +2090,7 @@
           "references": "distributor.distributor_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "owner"
         },
         {
@@ -1954,6 +2101,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "where stated"
         },
         {
@@ -1964,6 +2112,7 @@
           "references": "financial_year.fin_year",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "year"
         },
         {
@@ -1974,6 +2123,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "what the windows are for"
         },
         {
@@ -1985,10 +2135,12 @@
           "enum": [
             "local_time",
             "standard_time",
+            "daylight_time",
             "not_stated"
           ],
           "unit": null,
-          "description": "clock the times refer to"
+          "derived": false,
+          "description": "clock the times refer to, as the source states it (daylight_time: stated in daylight-saving time, e.g. 'ADST'; never converted)"
         },
         {
           "name": "public_holidays",
@@ -1997,13 +2149,13 @@
           "primary_key": false,
           "references": null,
           "enum": [
-            "as_weekend",
             "as_weekday",
             "as_non_business_day",
             "not_stated",
             "unchanged"
           ],
           "unit": null,
+          "derived": false,
           "description": "how public holidays are treated"
         },
         {
@@ -2014,6 +2166,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "1 when the document's windows partition every day (tested: 24h, no overlap)"
         },
         {
@@ -2024,6 +2177,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
         },
         {
@@ -2034,7 +2188,8 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+          "derived": false,
+          "description": "Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does)"
         },
         {
           "name": "note",
@@ -2044,6 +2199,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Source qualifications or interpretation notes"
         }
       ]
@@ -2058,6 +2214,7 @@
       "primary_key": [
         "window_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [
         "months IS NOT NULL OR season IS NOT NULL",
@@ -2073,6 +2230,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<tou_schedule_id>/<n>"
         },
         {
@@ -2083,6 +2241,7 @@
           "references": "tou_schedule.tou_schedule_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "schedule"
         },
         {
@@ -2097,7 +2256,6 @@
             "off_peak",
             "solar_soak",
             "critical_peak",
-            "critical_minimum",
             "super_off_peak",
             "demand_window",
             "export_charge_window",
@@ -2105,12 +2263,10 @@
             "controlled_load_supply",
             "anytime",
             "high_season_peak",
-            "low_season_peak",
-            "overnight",
-            "evening",
-            "day"
+            "low_season_peak"
           ],
           "unit": null,
+          "derived": false,
           "description": "period name (normalised)"
         },
         {
@@ -2121,6 +2277,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "period name as published"
         },
         {
@@ -2134,13 +2291,10 @@
             "weekend",
             "all_days",
             "business_day",
-            "non_business_day",
-            "saturday",
-            "sunday",
-            "public_holiday",
-            "weekend_and_public_holiday"
+            "non_business_day"
           ],
           "unit": null,
+          "derived": false,
           "description": "days the window applies to"
         },
         {
@@ -2151,6 +2305,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "inclusive"
         },
         {
@@ -2161,6 +2316,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "exclusive; 24:00 = midnight at the end of the day"
         },
         {
@@ -2171,6 +2327,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "comma-separated month numbers 1-12 the window applies in; NULL when the source names a season without listing its months (exception season_months_not_stated)"
         },
         {
@@ -2181,6 +2338,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "season name as published"
         },
         {
@@ -2191,6 +2349,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
         },
         {
@@ -2201,7 +2360,8 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+          "derived": false,
+          "description": "Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does)"
         }
       ]
     },
@@ -2216,6 +2376,7 @@
         "window_id",
         "month"
       ],
+      "derived": false,
       "unique": [],
       "checks": [
         "month BETWEEN 1 AND 12"
@@ -2229,6 +2390,7 @@
           "references": "tou_window.window_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Window"
         },
         {
@@ -2239,6 +2401,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Calendar month 1–12"
         }
       ]
@@ -2253,6 +2416,7 @@
       "primary_key": [
         "tariff_tou_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [
         "effective_from <= effective_to"
@@ -2266,6 +2430,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<tariff_id>|<tou_schedule_id>|<applies_to>"
         },
         {
@@ -2276,6 +2441,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "tariff"
         },
         {
@@ -2286,6 +2452,7 @@
           "references": "tou_schedule.tou_schedule_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "schedule"
         },
         {
@@ -2302,6 +2469,7 @@
             "all"
           ],
           "unit": null,
+          "derived": false,
           "description": "charge kind the windows price"
         },
         {
@@ -2312,6 +2480,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "first day"
         },
         {
@@ -2322,6 +2491,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "last day (inclusive)"
         },
         {
@@ -2332,6 +2502,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "evidence"
         },
         {
@@ -2342,6 +2513,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
         },
         {
@@ -2352,7 +2524,8 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+          "derived": false,
+          "description": "Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does)"
         }
       ]
     },
@@ -2366,6 +2539,7 @@
       "primary_key": [
         "demand_rule_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [],
       "columns": [
@@ -2377,6 +2551,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "slug"
         },
         {
@@ -2387,6 +2562,7 @@
           "references": "distributor.distributor_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "owner"
         },
         {
@@ -2397,6 +2573,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "where stated"
         },
         {
@@ -2407,6 +2584,7 @@
           "references": "financial_year.fin_year",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "year"
         },
         {
@@ -2420,6 +2598,7 @@
             "kVA"
           ],
           "unit": null,
+          "derived": false,
           "description": "kW or kVA"
         },
         {
@@ -2430,6 +2609,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "metering interval the maximum is taken over"
         },
         {
@@ -2442,15 +2622,13 @@
             "monthly_max",
             "billing_period_max",
             "rolling_12_month_max",
-            "annual_max",
-            "seasonal_max",
             "daily_average_of_monthly_max",
             "average_of_highest_days",
-            "contracted",
             "agreed",
             "not_stated"
           ],
           "unit": null,
+          "derived": false,
           "description": "how the billed figure is derived"
         },
         {
@@ -2461,6 +2639,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "n for average_of_highest_days (e.g. 4 highest days in the month)"
         },
         {
@@ -2471,6 +2650,7 @@
           "references": "tou_schedule.tou_schedule_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "schedule holding the demand window"
         },
         {
@@ -2485,7 +2665,6 @@
             "off_peak",
             "solar_soak",
             "critical_peak",
-            "critical_minimum",
             "super_off_peak",
             "demand_window",
             "export_charge_window",
@@ -2493,12 +2672,10 @@
             "controlled_load_supply",
             "anytime",
             "high_season_peak",
-            "low_season_peak",
-            "overnight",
-            "evening",
-            "day"
+            "low_season_peak"
           ],
           "unit": null,
+          "derived": false,
           "description": "period of that schedule"
         },
         {
@@ -2509,6 +2686,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "months the charge applies; NULL when the rule states none (a linked window carries any season)"
         },
         {
@@ -2519,6 +2697,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "minimum chargeable demand"
         },
         {
@@ -2529,6 +2708,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "unit of the minimum"
         },
         {
@@ -2539,6 +2719,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
         },
         {
@@ -2549,7 +2730,8 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+          "derived": false,
+          "description": "Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does)"
         },
         {
           "name": "note",
@@ -2559,6 +2741,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Source qualifications or interpretation notes"
         }
       ]
@@ -2573,6 +2756,7 @@
       "primary_key": [
         "tariff_demand_rule_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [
         "effective_from <= effective_to"
@@ -2586,6 +2770,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<tariff_id>|<demand_rule_id>|<time_band>|<season>"
         },
         {
@@ -2596,6 +2781,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "tariff"
         },
         {
@@ -2606,6 +2792,7 @@
           "references": "demand_rule.demand_rule_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "rule"
         },
         {
@@ -2616,6 +2803,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "component band it governs (NULL = all demand components)"
         },
         {
@@ -2626,6 +2814,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "season it governs (NULL = all)"
         },
         {
@@ -2636,6 +2825,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "first day"
         },
         {
@@ -2646,6 +2836,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "last day (inclusive)"
         },
         {
@@ -2656,6 +2847,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "evidence"
         }
       ]
@@ -2670,6 +2862,7 @@
       "primary_key": [
         "rule_id"
       ],
+      "derived": false,
       "unique": [],
       "checks": [
         "effective_from <= effective_to",
@@ -2684,6 +2877,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<tariff_id>|<fin_year>|<n>"
         },
         {
@@ -2694,6 +2888,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "tariff"
         },
         {
@@ -2704,6 +2899,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "where stated"
         },
         {
@@ -2714,6 +2910,7 @@
           "references": "financial_year.fin_year",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "year"
         },
         {
@@ -2724,6 +2921,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "first day"
         },
         {
@@ -2734,6 +2932,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "last day (inclusive)"
         },
         {
@@ -2758,6 +2957,7 @@
             "other"
           ],
           "unit": null,
+          "derived": false,
           "description": "what the rule constrains"
         },
         {
@@ -2771,10 +2971,10 @@
             "lt",
             "le",
             "gt",
-            "ge",
-            "in"
+            "ge"
           ],
           "unit": null,
+          "derived": false,
           "description": "comparison for numeric rules"
         },
         {
@@ -2785,6 +2985,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "threshold"
         },
         {
@@ -2795,6 +2996,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "unit of the threshold (MWh/yr, kVA, kW, kV ...)"
         },
         {
@@ -2805,6 +3007,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "categorical value (residential, LV, interval, default, opt_in, ...)"
         },
         {
@@ -2815,6 +3018,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "tariff referred to (opt-out target, required companion)"
         },
         {
@@ -2825,6 +3029,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
         },
         {
@@ -2835,7 +3040,8 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+          "derived": false,
+          "description": "Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does)"
         },
         {
           "name": "note",
@@ -2845,13 +3051,14 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Source qualifications or interpretation notes"
         }
       ]
     },
     {
       "name": "price_adjustment",
-      "description": "A documented difference between AER and distributor prices for one distributor-year (metering adder, ACT LFiT adder or rebate, rounding artefact).",
+      "description": "A documented difference between AER and distributor prices for one distributor-year (metering adder, ACT LFiT adder or rebate); derived by comparing the two documents' charges.",
       "why": [
         "The known AER-vs-distributor offsets are explained by data with a formula and evidence, so a consumer can derive the distributor price from the AER price."
       ],
@@ -2859,6 +3066,7 @@
       "primary_key": [
         "adjustment_id"
       ],
+      "derived": true,
       "unique": [],
       "checks": [],
       "columns": [
@@ -2870,6 +3078,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<kind>/<distributor_id>/<fin_year>"
         },
         {
@@ -2884,6 +3093,7 @@
             "lfit_rebate"
           ],
           "unit": null,
+          "derived": false,
           "description": "kind"
         },
         {
@@ -2894,6 +3104,7 @@
           "references": "distributor.distributor_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "distributor"
         },
         {
@@ -2904,6 +3115,7 @@
           "references": "financial_year.fin_year",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "year"
         },
         {
@@ -2914,6 +3126,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "uniform amount when there is one"
         },
         {
@@ -2924,6 +3137,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "unit of amount"
         },
         {
@@ -2934,6 +3148,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "distributor value = f(AER value)"
         },
         {
@@ -2944,6 +3159,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "AER-side document"
         },
         {
@@ -2954,6 +3170,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "distributor-side document"
         },
         {
@@ -2964,6 +3181,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "document stating or containing the amount"
         },
         {
@@ -2974,6 +3192,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Where in the document: xlsx:<sheet>!<cell>, pdf:p<page>, pdf-ocr:p<page> or html:text (grammar in scripts/tariffdb/locators.py)"
         },
         {
@@ -2984,13 +3203,14 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "Verbatim wording from the document at the locator (whitespace-insensitive match is tested)"
+          "derived": false,
+          "description": "Verbatim wording from the document at the locator (tests re-read it: it must start and end on a word or number boundary and split numbers where the source does)"
         }
       ]
     },
     {
       "name": "price_adjustment_tariff",
-      "description": "Tariffs an adjustment applies to, with the expected per-tariff difference.",
+      "description": "Tariffs an adjustment applies to, with the expected per-tariff difference (derived).",
       "why": [
         "Metering adders differ by tariff (only small-customer tariffs carry them); listing the tariffs makes the rule testable."
       ],
@@ -2999,6 +3219,7 @@
         "adjustment_id",
         "tariff_id"
       ],
+      "derived": true,
       "unique": [],
       "checks": [],
       "columns": [
@@ -3010,6 +3231,7 @@
           "references": "price_adjustment.adjustment_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "adjustment"
         },
         {
@@ -3020,6 +3242,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "tariff"
         },
         {
@@ -3030,6 +3253,7 @@
           "references": "metering_price.metering_price_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "metering row supplying the amount"
         },
         {
@@ -3040,6 +3264,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "distributor minus AER, standard units"
         },
         {
@@ -3050,13 +3275,14 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "unit of expected_delta_std"
         }
       ]
     },
     {
       "name": "exception_type",
-      "description": "Catalogue of irregularities the data must represent, and how it represents each.",
+      "description": "Catalogue of irregularities the data must represent, and how it represents each (from scripts/tariffdb/exceptions.py).",
       "why": [
         "Exceptions are first-class data with a stated representation and a test, so new years can be checked against the same catalogue."
       ],
@@ -3064,6 +3290,7 @@
       "primary_key": [
         "exception_code"
       ],
+      "derived": true,
       "unique": [],
       "checks": [],
       "columns": [
@@ -3075,6 +3302,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "slug"
         },
         {
@@ -3085,6 +3313,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "short name"
         },
         {
@@ -3095,6 +3324,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "what happens in the sources"
         },
         {
@@ -3105,6 +3335,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "tables/columns that represent it"
         },
         {
@@ -3115,13 +3346,14 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "test that exercises it (tests/test_tariffdb.py)"
         }
       ]
     },
     {
       "name": "exception_instance",
-      "description": "Each occurrence of a catalogued exception.",
+      "description": "Each occurrence of a catalogued exception, detected on every build.",
       "why": [
         "Occurrences point at the exact tariff/listing/charge/document affected."
       ],
@@ -3129,6 +3361,7 @@
       "primary_key": [
         "instance_id"
       ],
+      "derived": true,
       "unique": [],
       "checks": [],
       "columns": [
@@ -3140,6 +3373,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "<exception_code>/<n>"
         },
         {
@@ -3150,6 +3384,7 @@
           "references": "exception_type.exception_code",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "type"
         },
         {
@@ -3160,6 +3395,7 @@
           "references": "distributor.distributor_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "distributor affected (NULL for multi-distributor AER documents)"
         },
         {
@@ -3170,6 +3406,7 @@
           "references": "financial_year.fin_year",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "financial year of the occurrence"
         },
         {
@@ -3180,6 +3417,7 @@
           "references": "tariff.tariff_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "tariff affected"
         },
         {
@@ -3190,6 +3428,7 @@
           "references": "tariff_listing.listing_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "listing affected"
         },
         {
@@ -3200,6 +3439,7 @@
           "references": "charge.charge_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "charge affected"
         },
         {
@@ -3210,6 +3450,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "document where it occurs"
         },
         {
@@ -3220,6 +3461,7 @@
           "references": "source_document.document_id",
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "second document (e.g. approved version vs v1)"
         },
         {
@@ -3230,6 +3472,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "size of the effect where numeric"
         },
         {
@@ -3240,6 +3483,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "Unit of the exception quantity"
         },
         {
@@ -3250,6 +3494,7 @@
           "references": null,
           "enum": null,
           "unit": null,
+          "derived": false,
           "description": "what happens here"
         }
       ]

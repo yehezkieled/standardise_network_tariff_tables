@@ -2,9 +2,11 @@
 
   .venv/bin/python -m unittest tests/test_tariffdb.py
 
-Schema, load, key, history, TOU and exception tests read only the committed CSVs. The source re-read tests open each
-source document; a document that is not in the checkout is skipped (./run.sh fetches them; the Wayback copies are
-committed), and the parser-count test runs only where the parser outputs (out/) exist.
+Schema, load, key, history, TOU and exception tests read the committed CSVs. The source re-read tests open every
+retrieved source document and FAIL when one is missing (./run.sh or scripts/fetch_sources.py fetches them). Set
+TARIFFDB_SOURCES=committed to re-read only the documents committed to the repository (the Wayback copies), as CI does:
+tests then say which documents they leave out. The parser-count and rebuild tests also need the parser outputs (out/,
+built by ./run.sh).
 """
 import csv
 import glob
@@ -12,7 +14,6 @@ import json
 import os
 import re
 import sqlite3
-import statistics
 import sys
 import unittest
 from collections import Counter, defaultdict
@@ -27,6 +28,7 @@ import exceptions as catalogue  # noqa: E402
 
 DB_DIR = ROOT / "data" / "tariffdb"
 TABLES = DB_DIR / "tables"
+COMMITTED_ONLY = os.environ.get("TARIFFDB_SOURCES") == "committed"
 
 
 def read(table):
@@ -47,16 +49,24 @@ def by(table, key):
     return {r[key]: r for r in rows(table)}
 
 
-def load_sqlite():
-    con = sqlite3.connect(":memory:")
-    con.execute("PRAGMA foreign_keys = ON")
-    con.executescript((DB_DIR / "schema.sqlite.sql").read_text())
-    for t in spec.TABLES:
-        cols = [c["name"] for c in t["columns"]]
-        data = [[None if r[c] == "" else r[c] for c in cols] for r in rows(t["name"])]
-        con.executemany(f"INSERT INTO {t['name']} ({', '.join(cols)}) VALUES ({', '.join('?' * len(cols))})", data)
-    con.commit()
-    return con
+def source(doc_id):
+    """Path of a document the source tests must re-read, or None when TARIFFDB_SOURCES=committed leaves it out.
+    A required document that is missing fails the test (fetch it with scripts/fetch_sources.py)."""
+    d = by("source_document", "document_id")[doc_id]
+    if not d["local_path"] or (COMMITTED_ONLY and d["committed_in_repo"] != "1"):
+        return None
+    p = ROOT / d["local_path"]
+    if not p.exists():
+        raise AssertionError(f"{d['local_path']} is missing: run .venv/bin/python scripts/fetch_sources.py "
+                             f"(or set TARIFFDB_SOURCES=committed)")
+    return p
+
+
+def required_source(test, doc_id):
+    p = source(doc_id)
+    if p is None:
+        test.skipTest(f"TARIFFDB_SOURCES=committed: needs {by('source_document', 'document_id')[doc_id]['local_path']}")
+    return p
 
 
 def half_unit(c):
@@ -86,11 +96,37 @@ class TestSchemaFiles(unittest.TestCase):
             with open(TABLES / f"{t['name']}.csv", newline="", encoding="utf-8") as f:
                 self.assertEqual(next(csv.reader(f)), [c["name"] for c in t["columns"]], t["name"])
 
-    def test_every_table_documents_its_design(self):
-        for t in spec.TABLES:
-            self.assertTrue(t["description"] and t["why"], t["name"])
-            for c in t["columns"]:
-                self.assertTrue(c["description"] or c["name"].endswith("_id"), f"{t['name']}.{c['name']}")
+    def test_data_dictionary_describes_every_column(self):
+        """schema.json, the published data dictionary, gives every table its reasons and every CSV column a type,
+        nullability and description."""
+        dictionary = {t["name"]: t for t in json.loads((DB_DIR / "schema.json").read_text())["tables"]}
+        self.assertEqual(set(dictionary), {Path(p).stem for p in glob.glob(str(TABLES / "*.csv"))})
+        for name, t in dictionary.items():
+            self.assertTrue(t["description"] and t["why"], name)
+            with open(DB_DIR / t["file"], newline="", encoding="utf-8") as f:
+                header = next(csv.reader(f))
+            cols = {c["name"]: c for c in t["columns"]}
+            self.assertEqual(header, list(cols), name)
+            for c in cols.values():
+                self.assertTrue(c["description"] and c["type"] in spec.SQL_TYPES["sqlite"], f"{name}.{c['name']}")
+
+
+    def test_rebuild_reproduces_every_table(self):
+        """build.py run afresh writes every table byte for byte: the committed data, derived tables included, follows
+        from the parser outputs, the curated files and the sources alone."""
+        if COMMITTED_ONLY:
+            self.skipTest("TARIFFDB_SOURCES=committed: the rebuild needs the parser outputs in out/ and every source")
+        import subprocess
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            subprocess.run([sys.executable, str(ROOT / "scripts" / "tariffdb" / "build.py"), "--out", tmp], cwd=ROOT,
+                           check=True, capture_output=True)
+            for p in sorted(DB_DIR.rglob("*")):
+                if p.is_file():
+                    rel = p.relative_to(DB_DIR)
+                    if rel.parts[0] == "curated":
+                        continue
+                    self.assertEqual((Path(tmp) / rel).read_bytes(), p.read_bytes(), str(rel))
 
 
 class TestLoad(unittest.TestCase):
@@ -98,7 +134,8 @@ class TestLoad(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.con = load_sqlite()
+        import load
+        cls.con = load.load(DB_DIR)
 
     def test_row_counts_survive_the_load(self):
         for t in spec.TABLES:
@@ -152,12 +189,35 @@ class TestLoad(unittest.TestCase):
             finally:
                 run(pg / "pg_ctl", "-D", data, "stop", "-m", "fast")
 
-    def test_postgres_ddl_mirrors_sqlite(self):
-        pg = (DB_DIR / "schema.postgres.sql").read_text()
-        for t in spec.TABLES:
-            self.assertIn(f"CREATE TABLE {t['name']} (", pg)
-        self.assertNotIn("GLOB", pg)
-        self.assertIn("DATE NOT NULL", pg)
+    def test_load_script_saves_a_database(self):
+        """scripts/tariffdb/load.py --out writes a SQLite file holding every row, with no orphan keys."""
+        import subprocess
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "tariffs.sqlite"
+            run = subprocess.run([sys.executable, str(ROOT / "scripts" / "tariffdb" / "load.py"), "--out", str(out)],
+                                 cwd=ROOT, capture_output=True, text=True)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            con = sqlite3.connect(out)
+            try:
+                for t in spec.TABLES:
+                    self.assertEqual(con.execute(f"SELECT count(*) FROM {t['name']}").fetchone()[0], len(rows(t["name"])))
+                con.execute("PRAGMA foreign_keys = ON")
+                self.assertEqual(con.execute("PRAGMA foreign_key_check").fetchall(), [])
+            finally:
+                con.close()
+
+    def test_load_rejects_bad_rows(self):
+        """The loader refuses a CSV row that breaks a key or a CHECK, naming the file and line."""
+        import shutil
+        import tempfile
+        import load
+        with tempfile.TemporaryDirectory() as tmp:
+            shutil.copytree(DB_DIR, Path(tmp) / "db", ignore=shutil.ignore_patterns("curated"))
+            with open(Path(tmp) / "db" / "tables" / "tariff.csv", "a", encoding="utf-8") as f:
+                f.write("nowhere:X,nowhere,X,distributor_code\n")
+            with self.assertRaisesRegex(ValueError, r"tables/tariff\.csv:\d+"):
+                load.load(Path(tmp) / "db")
 
 
 class TestHistory(unittest.TestCase):
@@ -228,6 +288,45 @@ class TestHistory(unittest.TestCase):
         self.assertEqual(len(build.append_only_violations(t, old, changed)), 1)
         removed = "tariff_id,distributor_id,tariff_code,identity_basis\na:1,a,1,distributor_code\n"
         self.assertIn("removed", build.append_only_violations(t, old, removed)[0])
+        dup = old + "a:2,a,2,distributor_code\n"
+        self.assertIn("duplicate key", build.append_only_violations(t, old, dup)[0])
+        # a derived column (recomputed from the facts) may change as data grows; a fact column may not
+        c = spec.BY_NAME["charge"]
+        cols = [x["name"] for x in c["columns"]]
+        row = {k: "x" for k in cols}
+
+        def text(**kw):
+            return ",".join(cols) + "\n" + ",".join({**row, **kw}[k] for k in cols) + "\n"
+        self.assertEqual(build.append_only_violations(c, text(includes_metering="unknown"),
+                                                      text(includes_metering="yes")), [])
+        self.assertEqual(len(build.append_only_violations(c, text(value_published="1"), text(value_published="2"))), 1)
+
+    def test_append_only_check_against_git(self):
+        """Run against this commit: an unknown ref fails loudly; derived tables are skipped, fact tables compared."""
+        import build
+        with self.assertRaises(SystemExit):
+            build.check_append_only("no-such-ref-for-tariffdb")
+        self.assertTrue(spec.DERIVED_TABLES)
+        self.assertNotIn("charge", spec.DERIVED_TABLES)
+
+    def test_ids_come_from_content_not_row_order(self):
+        """Shuffling the rows of a document gives every row the same id."""
+        import random
+        import build
+        items = [("doc/A", ["peak", "c/kWh"]), ("doc/A", ["off peak", "c/kWh"]), ("doc/B", ["x", "y"]),
+                 ("doc/A", ["shoulder", "c/kWh"]), ("doc/C", ["same", "1"]), ("doc/C", ["same", "1"])]
+        first = build.unique_ids(items)
+        ids = dict(zip(map(repr, items), first))
+        self.assertEqual(ids[repr(items[0])], "doc/A/peak")
+        self.assertEqual(ids[repr(items[2])], "doc/B")
+        for seed in range(5):
+            shuffled = items[:]
+            random.Random(seed).shuffle(shuffled)
+            self.assertEqual(sorted(build.unique_ids(shuffled)), sorted(first))
+            for item, i in zip(shuffled, build.unique_ids(shuffled)):
+                if item[0] != "doc/C":  # identical rows are interchangeable
+                    self.assertEqual(i, ids[repr(item)])
+        self.assertEqual(len({c["charge_id"] for c in rows("charge")}), len(rows("charge")))
 
 
 class TestTOU(unittest.TestCase):
@@ -321,7 +420,8 @@ class TestRowCounts(unittest.TestCase):
 
 
 class TestSourceValues(unittest.TestCase):
-    """Every number and every quote is re-read from its source document at its locator."""
+    """Every number and every quote is re-read from its source document at its locator. A missing document fails;
+    TARIFFDB_SOURCES=committed narrows the set to the committed documents, and each test still checks a minimum."""
 
     @classmethod
     def setUpClass(cls):
@@ -330,16 +430,22 @@ class TestSourceValues(unittest.TestCase):
         cls.docs = by("source_document", "document_id")
         cls.listings = by("tariff_listing", "listing_id")
 
-    def present(self, doc_id):
-        d = self.docs[doc_id]
-        return d["local_path"] and (ROOT / d["local_path"]).exists()
+    def checked(self, n, what):
+        """At least the expected number of rows were re-read (all of them unless TARIFFDB_SOURCES=committed)."""
+        print(f"\n  re-read {n} {what}", file=sys.stderr)
+        self.assertGreater(n, 0, what)
 
     def test_document_checksums(self):
         import hashlib
+        n = 0
         for d in rows("source_document"):
-            if d["local_path"] and (ROOT / d["local_path"]).exists() and d["committed_in_repo"] == "1":
-                self.assertEqual(hashlib.sha256((ROOT / d["local_path"]).read_bytes()).hexdigest(), d["sha256"],
-                                 d["document_id"])
+            p = source(d["document_id"])
+            if p:
+                self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(), d["sha256"], d["document_id"])
+                n += 1
+        self.checked(n, "document checksums")
+        if not COMMITTED_ONLY:
+            self.assertEqual(n, sum(d["retrieval_status"] == "retrieved" for d in rows("source_document")))
 
     def test_every_charge_value_is_in_its_source(self):
         bad, n = [], 0
@@ -349,10 +455,10 @@ class TestSourceValues(unittest.TestCase):
             if c["locator_kind"] == "pdf-ocr":
                 ocr_rows[(c["listing_id"], c["component_label"], c["gst"], c["locator"])][c["price_basis"]] = c
         for c in rows("charge"):
-            doc = self.listings[c["listing_id"]]["document_id"]
-            if not self.present(doc):
+            p = source(self.listings[c["listing_id"]]["document_id"])
+            if p is None:
                 continue
-            path = str(ROOT / self.docs[doc]["local_path"])
+            path = str(p)
             n += 1
             if c["locator_kind"] == "xlsx":
                 raw, shown = self.loc.read_cell_excel(path, c["sheet"], c["cell"])
@@ -366,7 +472,11 @@ class TestSourceValues(unittest.TestCase):
             if not ok:
                 bad.append((c["charge_id"], why))
         self.assertEqual(bad, [])
-        print(f"\n  re-read {n} charge values", file=sys.stderr)
+        self.checked(n, "charge values")
+        if COMMITTED_ONLY:
+            self.assertGreater(n, 5000)
+        else:
+            self.assertEqual(n, len(rows("charge")))
 
     def ocr_repair_holds(self, path, c, row):
         """The scan prints some decimal points too faintly to OCR ('2 311' for 2.311; Evoenergy 2023-24 proposal
@@ -386,6 +496,7 @@ class TestSourceValues(unittest.TestCase):
 
     def test_value_num_and_std_follow_the_published_value(self):
         from units import to_std
+        import build
         for c in rows("charge"):
             self.assertEqual(Decimal(c["value_num"]), Decimal(c["value_published"]), c["charge_id"])
             if c["value_std"]:
@@ -394,37 +505,67 @@ class TestSourceValues(unittest.TestCase):
                                 c["component_label"])
                 self.assertAlmostEqual(float(c["value_std"]), vs, places=9, msg=c["charge_id"])
                 self.assertEqual(us, c["unit_std"], c["charge_id"])
+                # canonical text: no binary-float noise such as 205.79000000000002
+                self.assertEqual(c["value_std"], build.num_text(c["value_std"]), c["charge_id"])
 
     def test_metering_prices_are_in_their_source(self):
+        n = 0
         for m in rows("metering_price"):
-            if not self.present(m["document_id"]):
+            p = source(m["document_id"])
+            if p is None:
                 continue
-            raw, shown = self.loc.read_cell_excel(str(ROOT / self.docs[m["document_id"]]["local_path"]), m["sheet"],
-                                                  m["cell"])
+            raw, shown = self.loc.read_cell_excel(str(p), m["sheet"], m["cell"])
             self.assertEqual(repr(raw) if isinstance(raw, float) else str(raw), m["value_raw"], m["metering_price_id"])
+            n += 1
+        self.checked(n, "metering prices")
 
     def test_every_quote_is_in_its_source(self):
-        bad = []
+        bad, n = [], 0
         for table, doc_col in [("tou_schedule", "document_id"), ("tariff_tou", "document_id"),
                                ("demand_rule", "document_id"), ("eligibility_rule", "document_id"),
                                ("tariff_relation", "document_id"), ("price_adjustment", "evidence_document_id"),
-                               ("document_coverage", "evidence_document_id")]:
+                               ("document_coverage", "evidence_document_id"), ("charge_step", "document_id")]:
             for r in rows(table):
-                if r["quote"] and self.present(r[doc_col]):
-                    ok, why = self.loc.verify_quote(str(ROOT / self.docs[r[doc_col]]["local_path"]), r["locator"],
-                                                    r["quote"])
+                p = source(r[doc_col]) if r["quote"] else None
+                if p:
+                    n += 1
+                    ok, why = self.loc.verify_quote(str(p), r["locator"], r["quote"])
                     if not ok:
                         bad.append((table, r["locator"], why, r["quote"][:60]))
         sched = by("tou_schedule", "tou_schedule_id")
         for w in rows("tou_window"):
-            doc = sched[w["tou_schedule_id"]]["document_id"]
-            if self.present(doc):
-                ok, why = self.loc.verify_quote(str(ROOT / self.docs[doc]["local_path"]), w["locator"], w["quote"])
+            p = source(sched[w["tou_schedule_id"]]["document_id"])
+            if p:
+                n += 1
+                ok, why = self.loc.verify_quote(str(p), w["locator"], w["quote"])
                 if not ok:
                     bad.append(("tou_window", w["window_id"], why))
         self.assertEqual(bad, [])
+        self.checked(n, "quotes")
+
+    def test_quote_matching_respects_word_boundaries(self):
+        """A quote must start and end on word boundaries and split numbers where the source does."""
+        import tempfile
+        from openpyxl import Workbook
+        with tempfile.TemporaryDirectory() as tmp:
+            wb = Workbook()
+            wb.active.title = "S"
+            wb.active["A1"], wb.active["A2"], wb.active["A3"] = 14, "Closed to New Entrants", "NEE24 4"
+            path = str(Path(tmp) / "t.xlsx")
+            wb.save(path)
+            self.loc._workbook.cache_clear()
+            self.loc._sheet_text.cache_clear()
+            ok = lambda cell, q: self.loc.verify_quote(path, f"xlsx:S!{cell}", q)[0]  # noqa: E731
+            self.assertTrue(ok("A1", "14"))
+            self.assertFalse(ok("A1", "1"))
+            self.assertFalse(ok("A1", "4"))
+            self.assertTrue(ok("A2", "closed to new  entrants"))
+            self.assertFalse(ok("A2", "Closed to New Entr"))
+            self.assertFalse(ok("A3", "NEE2 44"))
+            self.assertTrue(ok("A3", "NEE24 4"))
 
     def test_curated_files_validate(self):
+        """Structure, enums, times and day coverage (quotes are re-read by test_every_quote_is_in_its_source)."""
         import curated
         for name, data in curated.load_all().items():
             self.assertEqual(curated.validate(data, check_quotes=False), [], name)
@@ -441,12 +582,20 @@ def charges_of(doc_id, tariff_id):
 
 class TestExceptions(unittest.TestCase):
     def test_catalogue_is_complete(self):
-        names = {m for m in dir(self) if m.startswith("test_")}
+        """Every catalogued exception occurs in the data, and the test the catalogue names for it runs and passes."""
         codes = {e["exception_code"] for e in catalogue.EXCEPTIONS}
         self.assertEqual({r["exception_code"] for r in rows("exception_type")}, codes)
         self.assertEqual({i["exception_code"] for i in rows("exception_instance")}, codes)
+        loader = unittest.TestLoader()
         for e in catalogue.EXCEPTIONS:
-            self.assertIn(e["test"].rsplit("::", 1)[1], names, e["exception_code"])
+            path, cls, name = e["test"].split("::")
+            self.assertEqual((path, cls), ("tests/test_tariffdb.py", type(self).__name__), e["exception_code"])
+            self.assertNotEqual(name, self._testMethodName)
+            result = unittest.TestResult()
+            loader.loadTestsFromName(name, type(self)).run(result)
+            self.assertEqual((result.testsRun, result.failures, result.errors), (1, [], []), e["exception_code"])
+            if not COMMITTED_ONLY:
+                self.assertEqual(result.skipped, [], e["exception_code"])
 
     def test_aer_version_differs(self):
         docs = by("source_document", "document_id")
@@ -539,10 +688,8 @@ class TestExceptions(unittest.TestCase):
         placeholders = {l["listing_id"] for l in rows("tariff_listing") if l["price_availability"] == "placeholder"}
         self.assertEqual(placeholders, {i["listing_id"] for i in instances("zero_priced_placeholder")})
         for l in rows("tariff_listing"):
-            # is_priced and price_availability agree; listings that only carry rules have no charges either
-            self.assertEqual(l["is_priced"] == "1", l["price_availability"] == "priced", l["listing_id"])
-            if l["price_availability"] == "rules_only":
-                self.assertNotIn(l["listing_id"], with_charges)
+            # a listing has charges exactly when it is priced
+            self.assertEqual(l["listing_id"] in with_charges, l["price_availability"] == "priced", l["listing_id"])
 
     def test_withdrawn_tariff_listed(self):
         ev = {(f["listing_id"], f["flag"]): f["evidence"] for f in rows("listing_flag")}
@@ -551,7 +698,10 @@ class TestExceptions(unittest.TestCase):
                                   "available to new customers|no longer",
                  "obsolete": "obsolete",
                  "grandfathered": "grandfather"}
+        listings = by("tariff_listing", "listing_id")
         for i in instances("withdrawn_tariff_listed"):
+            self.assertNotEqual(listings[i["listing_id"]]["price_availability"], "rules_only")
+            self.assertNotIn("[]", i["detail"])
             for flag in i["detail"].removeprefix("flags: ").split(", "):
                 self.assertRegex(ev[(i["listing_id"], flag)].lower(), words[flag])
 
@@ -560,11 +710,15 @@ class TestExceptions(unittest.TestCase):
         aer = defaultdict(set)
         for l in rows("tariff_listing"):
             d = docs[l["document_id"]]
-            if d["author"] == "AER" and d["price_status"] != "proposed":
+            # a tariff named only in rules text is not a published listing on either side
+            if d["author"] == "AER" and d["price_status"] != "proposed" and l["price_availability"] != "rules_only":
                 aer[d["fin_year"]].add(l["tariff_id"])
         site = 0
+        listings = by("tariff_listing", "listing_id")
         for i in instances("aer_missing_tariff"):
             self.assertNotIn(i["tariff_id"], aer[i["fin_year"]])
+            self.assertNotEqual(listings[i["listing_id"]]["price_availability"], "rules_only")
+            self.assertNotIn("[]", i["detail"])
             self.assertEqual(docs[i["document_id"]]["author"], "distributor")
             site += "site_specific" in i["detail"]
         self.assertGreater(site, 0)
@@ -573,7 +727,7 @@ class TestExceptions(unittest.TestCase):
         docs = by("source_document", "document_id")
         dn = defaultdict(set)
         for l in rows("tariff_listing"):
-            if docs[l["document_id"]]["author"] == "distributor":
+            if docs[l["document_id"]]["author"] == "distributor" and l["price_availability"] != "rules_only":
                 dn[docs[l["document_id"]]["fin_year"]].add(l["tariff_id"])
         for i in instances("aer_only_tariff"):
             self.assertNotIn(i["tariff_id"], dn[i["fin_year"]])
@@ -614,14 +768,60 @@ class TestExceptions(unittest.TestCase):
         self.assertIn(("TD-AGD26res-Flat", "ausgrid:EA010"), al)
 
     def test_aer_layout_change(self):
-        det = {i["document_id"]: i["detail"] for i in instances("aer_layout_change")}
-        self.assertIn("#REF!", det["aer-consolidated-2025-26-v1"])
-        self.assertIn("code column E", det["aer-consolidated-2025-26-v1"])
-        self.assertIn("code column D labelled 'Tariff code', prices from column H", det["aer-consolidated-2025-26-v5"])
-        self.assertIn("per-distributor layout", det["aer-stakeholder-report-ausgrid-2024-25"])
+        """The column finder follows the header labels of both consolidated layouts, and every listing of a
+        consolidated workbook sits on a row whose code cell (at the found column) holds the published code."""
+        import parse_aer
+        from openpyxl import Workbook
+        from openpyxl.utils.cell import coordinate_from_string, column_index_from_string
+        for labels, expected in [(["Tariff class", "Code", "Top", "Fixed"], (5, 7)),          # 2025-26 v1
+                                 (["Tariff code", "Name", "Class", "Top", "Fixed"], (4, 8))]:  # v5 and 2026-27
+            ws = Workbook().active
+            for i, v in enumerate(labels):
+                ws.cell(3, 4 + i, v)
+            self.assertEqual(parse_aer.consolidated_columns(ws, 3), expected)
+        docs = by("source_document", "document_id")
+        layout = {i["document_id"] for i in instances("aer_layout_change")}
+        self.assertEqual(layout, {d["document_id"] for d in docs.values() if d["author"] == "AER"
+                                  and d["retrieval_status"] == "retrieved" and d["local_path"].endswith(".xlsx")})
+        charges = defaultdict(list)
         for c in rows("charge"):
-            if c["locator_kind"] == "xlsx":
-                self.assertTrue(c["sheet"] and c["cell"])
+            charges[c["listing_id"]].append(c)
+        n, ref = 0, 0
+        for doc_id in sorted(layout):
+            if docs[doc_id]["document_type"] != "aer_consolidated_stakeholder_report":
+                continue
+            p = source(doc_id)
+            if p is None:
+                continue
+            import locators
+            ws = locators._workbook(str(p))["Tariff schedule"]
+            heads = [r for r in range(1, ws.max_row + 1) if isinstance(ws.cell(r, 2).value, str)
+                     and re.search(r"\d{4}.\d{2} network prices$", ws.cell(r, 2).value.strip())]
+            for l in rows("tariff_listing"):
+                if l["document_id"] != doc_id or not l["locator"]:
+                    continue
+                row = coordinate_from_string(l["locator"].split("!")[1])[1]
+                hr = max(h for h in heads if h < row)
+                code_col, first_price = parse_aer.consolidated_columns(ws, hr)
+                code = ws.cell(row, code_col).value
+                if code == "#REF!":
+                    self.assertEqual(l["code_published"], "", l["listing_id"])
+                    ref += 1
+                else:
+                    self.assertEqual(str(code).strip(), l["code_published"], l["listing_id"])
+                for c in charges[l["listing_id"]]:
+                    col = column_index_from_string(coordinate_from_string(c["cell"])[0])
+                    self.assertGreaterEqual(col, first_price, c["charge_id"])
+                n += 1
+        self.checked_at_least(n, 1000, "consolidated listings")
+        if not COMMITTED_ONLY:
+            self.assertGreater(ref, 0)
+
+    def checked_at_least(self, n, minimum, what):
+        if COMMITTED_ONLY:
+            self.assertGreater(n, 0, what)
+        else:
+            self.assertGreaterEqual(n, minimum, what)
 
     def test_no_aer_file_2023_24(self):
         docs = rows("source_document")
@@ -688,7 +888,6 @@ class TestExceptions(unittest.TestCase):
 
     def test_season_months_not_stated(self):
         import locators
-        docs = by("source_document", "document_id")
         months = defaultdict(set)
         for m in rows("tou_window_month"):
             months[m["window_id"]].add(m["month"])
@@ -702,8 +901,10 @@ class TestExceptions(unittest.TestCase):
             self.assertFalse(months[w["window_id"]], w["window_id"])
             s = by("tou_schedule", "tou_schedule_id")[w["tou_schedule_id"]]
             self.assertEqual(s["covers_full_day"], "0", w["window_id"])
-            ok, why = locators.verify_quote(str(ROOT / docs[s["document_id"]]["local_path"]), w["locator"], w["quote"])
-            self.assertTrue(ok, (w["window_id"], why))
+            p = source(s["document_id"])
+            if p:
+                ok, why = locators.verify_quote(str(p), w["locator"], w["quote"])
+                self.assertTrue(ok, (w["window_id"], why))
         for w in rows("tou_window"):
             if w["months"]:
                 self.assertEqual(months[w["window_id"]], set(w["months"].split(",")), w["window_id"])
@@ -764,9 +965,11 @@ class TestExceptions(unittest.TestCase):
         self.assertEqual({docs[i["document_id"]]["local_path"] for i in ins},
                          {p for p, _, _ in build.PRICE_ATTACHMENTS_NOT_HELD})
         ingestion = by("document_ingestion", "document_id")
+        by_path = {d["local_path"]: d["document_id"] for d in docs.values()}
         for path, locator, quote in build.PRICE_ATTACHMENTS_NOT_HELD:
-            if (ROOT / path).exists():
-                self.assertTrue(locators.verify_quote(str(ROOT / path), locator, quote)[0], path)
+            p = source(by_path[path])
+            if p:
+                self.assertTrue(locators.verify_quote(str(p), locator, quote)[0], path)
         for i in ins:
             self.assertEqual(ingestion[i["document_id"]]["charge_count"], "0")
             self.assertEqual(ingestion[i["document_id"]]["status"], "rules_only")
@@ -797,6 +1000,40 @@ class TestExceptions(unittest.TestCase):
                     and x["gst"] == first["gst"]]
             self.assertGreaterEqual(len(same), int(i["quantity"]))
             self.assertEqual(len({x["locator"] + x["charge_id"] for x in same}), len(same))
+
+    def test_time_stated_in_daylight_time(self):
+        """Times the source states in daylight time are stored as stated, flagged, and never converted."""
+        sched = by("tou_schedule", "tou_schedule_id")
+        daylight = {k for k, v in sched.items() if v["time_basis"] == "daylight_time"}
+        self.assertEqual(daylight, {i["detail"].split(" ", 1)[0] for i in instances("time_stated_in_daylight_time")})
+        self.assertEqual({sched[k]["distributor_id"] for k in daylight}, {"ausnet"})
+        for w in rows("tou_window"):
+            if w["tou_schedule_id"] in daylight:
+                self.assertRegex(w["quote"], r"ADST|daylight", w["window_id"])
+                # the stated clock time is kept: the quote shows the same start hour as the stored window
+                hour = int(w["start_time"][:2]) % 12 or 12
+                self.assertRegex(w["quote"].lower(), rf"(?<!\d){hour}(?!\d)", w["window_id"])
+
+    def test_price_status_unverified(self):
+        """No document asserts a regulatory status that no held source supports: every AER-hosted document is
+        'unverified', and every unverified document has an instance."""
+        docs = rows("source_document")
+        unverified = {d["document_id"] for d in docs if d["price_status"] == "unverified"}
+        self.assertEqual(unverified, {i["document_id"] for i in instances("price_status_unverified")})
+        self.assertEqual(unverified, {d["document_id"] for d in docs if d["recon_side"] == "AER_HOSTED"})
+        for a in rows("price_adjustment"):
+            d = by("source_document", "document_id")[a["aer_document_id"]]
+            if d["price_status"] == "unverified":
+                self.assertNotIn("approved charges =", a["formula"])
+
+    def test_trial_flag_needs_a_trial_tariff(self):
+        """'trial' flags a tariff offered as a trial, not a rebate or note that only mentions a trial."""
+        import build
+        pattern = dict(build.STATUS_FLAGS)["trial"]
+        for text, hit in [("Residential trial tariff", True), ("Trial: closes 30 June", True),
+                          ("tariff-trial rebate applies", False), ("pre-trial review", False),
+                          ("Network tariff trial rebate", False)]:
+            self.assertEqual(bool(re.search(pattern, text, re.I)), hit, text)
 
 
 if __name__ == "__main__":

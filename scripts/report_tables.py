@@ -98,12 +98,11 @@ for (fy, seq), held in bs.AER_CONSOLIDATED_FILES.items():
       + " | ".join(str(tot(k)) for k in ("components_compared", "equal", "rounding", "explainable", "unexplained",
                                         "codes_aer_only")) + " |")
 W("")
-W("AER versions not held (the AER takes superseded files private and the Wayback Machine holds no copy), so not "
-  "reconciled:\n")
-W("| Financial year | Document | Published | Prices |")
-W("|---|---|---|---|")
-for fy, doc, date, status in bs.unheld_aer_documents(rd("data/tariffdb/tables/source_document.csv")):
-    W(f"| {fy} | {doc} | {date} | {status} |")
+W("AER versions not held, so not reconciled:\n")
+W("| Financial year | Document | Published | Prices | Why not held |")
+W("|---|---|---|---|---|")
+for fy, doc, date, status, reason in bs.unheld_aer_documents(rd("data/tariffdb/tables/source_document.csv")):
+    W(f"| {fy} | {doc} | {date} | {status} | {reason} |")
 W("")
 W("Proposed (v1) against approved prices: the 2025-26 v1 file carries proposed prices for ACT, NSW, NT, TAS and VIC "
   "only, and prints no tariff codes ('#REF!'), so each v1 row takes its code from the latest version through the AER "

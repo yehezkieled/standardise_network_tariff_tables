@@ -108,9 +108,16 @@ def version_coverage_status(fy, seq):
 
 
 def unheld_aer_documents(source_documents):
-    """(fin_year, document, publication_date, price_status) of every AER-authored version that is not held."""
-    return [(d["fin_year"], d["title"].split(" - superseded")[0], d["publication_date"], d["price_status"])
-            for d in source_documents if d["author"] == "AER" and d["retrieval_status"] == "not_retrievable"]
+    """(fin_year, document, publication_date, price_status, reason) of every AER-authored version that is not held,
+    each with the reason its own source_document row records."""
+    name = {d["distributor_id"]: d["name"] for d in DISTRIBUTORS}
+    return [(d["fin_year"],
+             " ".join(x for x in ("AER", d["document_type"].removeprefix("aer_").replace("_", " "),
+                                  name.get(d["distributor_id"]), d["fin_year"], d["version_label"]) if x),
+             d["publication_date"], d["price_status"],
+             d["access_note"] + ("; no archived copy exists" if "no archived copy exists" in d["title"] else ""))
+            for d in sorted(source_documents, key=lambda d: (d["fin_year"], d["publication_date"] or ""))
+            if d["author"] == "AER" and d["retrieval_status"] == "not_retrievable"]
 
 
 DOC_TYPE_RULES = [

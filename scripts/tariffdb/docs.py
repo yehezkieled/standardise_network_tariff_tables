@@ -286,9 +286,8 @@ def markdown(data):
                        f"{c['tou_schedules']} | {c['demand_rules']} | {c['eligibility_rules']} | {c['tou_gaps']} |")
     out += ["", "## Known gaps", "", "| Where | Missing | Why |", "|---|---|---|"]
     out += [f"| {md_cell(a)} | {md_cell(b)} | {md_cell(c)} |" for a, b, c in KNOWN_GAPS]
-    out += [f"| {md_cell(f'{doc} (published {date})')} | the file | the AER takes superseded files private and the "
-            f"Wayback Machine holds no copy (document_not_retrievable) |"
-            for _, doc, date, _ in bs.unheld_aer_documents(data.t["source_document"])]
+    out += [f"| {md_cell(doc)} | the file (published {date}) | {md_cell(reason)} (document_not_retrievable) |"
+            for _, doc, date, _, reason in bs.unheld_aer_documents(data.t["source_document"])]
     out += ["", "## Tables", ""]
     for group, names in GROUPS:
         out += [f"### {group}", ""]

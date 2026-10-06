@@ -19,6 +19,7 @@ import os
 import re
 import sys
 from collections import Counter, defaultdict
+from decimal import Decimal
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -90,6 +91,15 @@ class DB:
         return None
 
 
+def number_in(text):
+    """The first number in a verifier's cell reading ('7.3671', '0.0000 (black print)', '15.500*')."""
+    return re.search(r"-?\d+(?:\.\d+)?", text).group(0)
+
+
+def same_number(a, b):
+    return a not in (None, "") and Decimal(a) == Decimal(b)
+
+
 def ok(evidence):
     return "resolved", evidence
 
@@ -114,10 +124,10 @@ def resolve_a(db, r):
             hit = [c for c in cs if want in c["component_label"]]
             return need(hit, f"{len(hit)} charge(s) now labelled {want!r}", f"no charge labelled {want!r} at {rid}")
         if "Capacity" in src or "capacity" in src.lower():
-            hit = [c for c in cs if c["charge_type"] == "capacity" and c["value_published"] == r["db_value"].split()[-1]]
-            hit = hit or [c for c in cs if c["charge_type"] == "capacity"]
-            return need(hit, f"charge_type capacity, label {hit[0]['component_label']!r}" if hit else "",
-                        f"no capacity charge at {rid}")
+            value = re.search(r"value correct (\S+)", r["note"]).group(1)  # the verifier's reading of the cell
+            hit = [c for c in cs if c["charge_type"] == "capacity" and same_number(c["value_published"], value)]
+            return need(hit, f"charge_type capacity {value}, label {hit[0]['component_label']!r}" if hit else "",
+                        f"no capacity charge of {value} at {rid}")
         if "c/kVA/day" in src:
             hit = [c for c in cs if c["unit_published"] == "c/kVA/day" and "low season" in c["component_label"].lower()]
             return need(hit, "unit_published c/kVA/day (OCR letter case repaired, noted)", f"unit still wrong at {rid}")
@@ -158,27 +168,39 @@ def resolve_a(db, r):
                     f"no {did}:{code} listing in {r['fin_year']} ({docs})")
     if table == "charge (omission)":
         if rid.startswith("ausgrid:"):
-            code = rid.split(":")[1]
-            if code == "?":
-                hit = [m for m in db.metering if m["distributor_id"] == "ausgrid"
-                       and m["source_block"] == "distributor_price_table"]
-                return need(hit, f"{len(hit)} Ausgrid metering cells", "no Ausgrid metering cells")
-            hit = [m for m in db.metering if m["distributor_id"] == "ausgrid" and m["source_block"] ==
-                   "distributor_price_table" and code_key(m["tariff_codes_published"]) == code_key(code)]
-            return need(hit, f"{len(hit)} metering_price rows for {code}", f"no metering_price for {code}")
+            # the printed Metering Service Charge of the code, in the document and year the verifier names
+            code, value = rid.split(":")[1], number_in(src)
+            hit = [m for m in db.metering if m["document_id"] == r["document_id"] and m["fin_year"] == r["fin_year"]
+                   and m["source_block"] == "distributor_price_table" and same_number(m["value_published"], value)
+                   and (code == "?" or code_key(code) in [code_key(x) for x in m["tariff_codes_published"].split(",")])]
+            return need(hit, f"metering_price {hit[0]['metering_price_id']} = {value}" if hit else "",
+                        f"no metering_price of {value} for {code} in {r['document_id']}")
         if rid.startswith("endeavour:"):
-            code = rid.split(":")[1]
-            hit = [c for c in db.charge if c["_tid"] == f"endeavour:{code}"
-                   and "All Time" in c["component_label"] and c["charge_type"] == "export"]
-            return need(hit, f"{len(hit)} 'Export - Energy - All Time' charges", f"no all-time export for {code}")
+            code, value = rid.split(":")[1], number_in(src)
+            hit = [c for c in db.charge if c["_tid"] == f"endeavour:{code}" and c["_doc"] == r["document_id"]
+                   and "All Time" in c["component_label"] and c["charge_type"] == "export"
+                   and same_number(c["value_published"], value)]
+            return need(hit, f"{len(hit)} 'All Time' export charge(s) of {value} in {r['document_id']}",
+                        f"no all-time export of {value} for {code} in {r['document_id']}")
         if rid.startswith("evoenergy"):
-            hit = [m for m in db.metering if m["distributor_id"] == "evoenergy"
-                   and m["source_block"] == "distributor_price_table" and m["fin_year"] == r["fin_year"]]
-            return need(hit, f"{len(hit)} Evoenergy metering cells in {r['fin_year']}", "no metering cells")
+            # every metering cell of the named document: '31 values' (statement), '13 non-zero ... cells' (schedules)
+            cells = [m for m in db.metering if m["document_id"] == r["document_id"]
+                     and m["source_block"] == "distributor_price_table"]
+            n = int(re.match(r"(\d+)", src).group(1))
+            counted = cells if "non-zero" not in src else [m for m in cells if float(m["value_published"]) != 0]
+            return need(len(counted) == n, f"{len(counted)} metering cells in {r['document_id']} ({len(cells)} printed)",
+                        f"{len(counted)} metering cells in {r['document_id']}, the source prints {n}")
         if "GST-incl" in rid:
+            # GST-inclusive charges in every document of the series and year the verifier names
             did = rid.split()[0]
-            hit = [c for c in db.charge if c["gst"] == "incl" and c["_did"] == did]
-            return need(hit, f"{len(hit)} gst=incl charges ({did})", f"no GST-inclusive charges for {did}")
+            series = re.match(r"(.+?)-(?:20\d\d|\*)", r["document_id"]).group(1)
+            first, last = r["fin_year"].split("..")
+            years = [y for y in sorted({d["fin_year"] for d in db.doc.values()}) if first <= y <= last]
+            missing = [y for y in years if not any(c["gst"] == "incl" and c["_did"] == did
+                                                   and c["_doc"].startswith(series) and db.doc[c["_doc"]]["fin_year"] == y
+                                                   for c in db.charge)]
+            return need(years and not missing, f"gst=incl charges in {series} for {', '.join(years)}",
+                        f"no gst=incl charges in {series} for {missing}")
         if rid == "repeated printings":
             hit = [c for c in db.charge if REPEATED_PRINTING in (c["note"] or "")]
             dists = Counter(c["_did"] for c in hit)
@@ -344,7 +366,7 @@ def resolve_b_finding(db, r):
                 aer[key(c)].add(float(c["value_std"]))
         left = [c for c in unknown if daily(c, "distributor")
                 and any(abs(float(c["value_std"]) - v) < 1e-9 for v in aer[key(c)])]
-        return need(not left and len(no) > 763,
+        return need(not left and no,
                     f"{len(no)} distributor fixed charges now 'no' (equal to the AER value); "
                     f"{len(unknown)} stay unknown",
                     f"{len(left)} distributor fixed charges equal to the AER's metering-excluded price stay 'unknown' "

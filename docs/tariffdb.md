@@ -485,7 +485,7 @@ Check: `effective_from <= effective_to`
 
 Check: `lower_bound IS NULL OR upper_bound IS NULL OR lower_bound < upper_bound`
 
-#### `metering_price` (604 rows)
+#### `metering_price` (643 rows)
 
 Metering prices: the AER Metering worksheet (2025-26 on), the AER 2024-25 'Tariff schedule 1', the per-tariff Metering block of the Energex/Ergon price lists, and the metering columns of distributor network price tables.
 

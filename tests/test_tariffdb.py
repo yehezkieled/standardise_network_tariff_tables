@@ -1193,6 +1193,22 @@ class TestVerification(unittest.TestCase):
                          {("L11", "misread"), ("S6", "observation")})
         self.assertEqual(len(res), 243 + 712)
 
+    def test_resolvers_check_the_claim(self):
+        """A verifier row resolves only on the value, year and document it names: a changed reading does not."""
+        import verification
+        db = verification.DB()
+        with open(ROOT / "data" / "verification" / "aer-verify-a" / "mismatches.csv", newline="", encoding="utf-8") as f:
+            a = list(csv.DictReader(f))
+        meter = next(r for r in a if r["row_id"] == "ausgrid:EA010" and r["fin_year"] == "2024-25")
+        export = next(r for r in a if r["row_id"].startswith("endeavour:"))
+        evo = next(r for r in a if r["row_id"] == "evoenergy schedule 2025-26 xlsx")
+        cap = next(r for r in a if "Capacity charge" in r["source_value"])
+        for r in (meter, export, evo, cap):
+            self.assertEqual(verification.resolve_a(db, r)[0], "resolved", r["row_id"])
+        for r in (dict(meter, source_value="9.9999"), dict(meter, fin_year="2025-26"), dict(export, source_value="1.0"),
+                  dict(evo, source_value="14 non-zero G cells"), dict(cap, note="value correct 99.0000")):
+            self.assertEqual(verification.resolve_a(db, r)[0], "unresolved", r)
+
     def test_transcription_fixes_name_their_finding(self):
         import build
         fixes = list(csv.DictReader(open(build.FIXES_PATH, newline="", encoding="utf-8")))

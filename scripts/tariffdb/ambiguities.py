@@ -34,7 +34,8 @@ EVO_STORED = ("unit as printed, interpreted as c/kVA/day (unit_std c/kVA/day) fo
               "'c/KkA/day' kept as printed")
 EVO_ALT = ("the 2024-25 schedule prints the 'Net Energy' charge in c/kWh, so the 2023-24 'c/kVA/day' (and the 'c/KkA/day' "
            "typo) may stand for c/kWh")
-PWC_STORED = "unit_published holds a unit the column does not print ($/kWh for energy, $/kVA/month for season demand)"
+PWC_STORED = ("unit_published NULL (the column prints no unit); unit_interpreted holds the assumed unit ($/kWh for "
+              "energy, $/kVA/month for season demand), period inferred")
 PWC_ALT = "any other unit: the price list prints no unit for these columns, so the unit is assumed, not published"
 AER_2425_STORED = "source_document.price_status = unverified (price_status_unverified)"
 AER_2425_ALT = ("approved: the 'Stakeholder report' sheet says 'This report is intended to compliment the AER's Statement "

@@ -1134,7 +1134,7 @@ def parse_evo_xlsx(path, fin_year, side, url, lfit_note):
         meter_col = next((j for j, t in hdr.items() if t == "Metering charge"), None)
         total_col = next((j for j, t in hdr.items() if t == "Rate + metering"), None)
         meter = to_num(cells.get(meter_col)) if meter_col else None
-        if meter:
+        if meter is not None:  # every printed cell, a printed 0 included (as the PDF years)
             METERING.append({"distributor": "Evoenergy", "fin_year": fin_year, "tariff_code": code, "meter_class": name,
                              "component": "Metering charge", "unit": unit, "value": cell_value(cell_row[meter_col - 1]),
                              "gst": gst, "source_file": path, "locator": locators.xlsx(ws, cell_row[meter_col - 1]),

@@ -8,7 +8,8 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   Validate with `.venv/bin/python scripts/tariffdb/curated.py data/tariffdb/curated/<file>.yaml`, then rebuild
   with `scripts/tariffdb/build.py`.
 - Schema changes go in `scripts/tariffdb/spec.py`. Then rebuild and regenerate `docs/tariffdb.md` with
-  `scripts/tariffdb/docs.py`; `test_docs_are_current` fails otherwise.
+  `scripts/tariffdb/docs.py`; `test_docs_are_current` fails otherwise. After any rebuild also rewrite
+  `docs/effective_rates.md` with `scripts/tariffdb/rates.py report` (`tests/test_rates.py` checks it).
 - Source-fact tables are append-only across commits: `build.py --check-append-only <git ref>` rejects edits to
   existing rows (tables and columns marked `derived` in `spec.py` are recomputed and exempt). A correction is a new
   source document version, not an in-place change.

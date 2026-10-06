@@ -42,6 +42,7 @@ import adjustments  # noqa: E402
 import build_support as bs  # noqa: E402
 import curated  # noqa: E402
 import locators  # noqa: E402
+import rates  # noqa: E402
 import spec  # noqa: E402
 from published import cell_value  # noqa: E402
 from reconcile import code_alts, code_key, digits, sim  # noqa: E402
@@ -1495,6 +1496,9 @@ class Builder:
                         "listing_count": counts["tariff_listing"][doc], "eligibility_count": counts["eligibility_rule"][doc],
                         "tou_schedule_count": counts["tou_schedule"][doc], "metering_count": counts["metering_price"][doc],
                         "status": status})
+        for table, rows in rates.compute(self.t.all).items():
+            for r in rows:
+                self.t.add(table, r)
         return self
 
 

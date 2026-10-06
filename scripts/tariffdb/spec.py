@@ -69,6 +69,13 @@ RULE_VALUES = {
                             "storage", "flexible_load", "heat_pump"],
 }
 ADJUSTMENT_KINDS = ["metering_adder", "lfit_adder", "lfit_rebate"]
+# effective rates (scripts/tariffdb/rates.py)
+RATE_SIDES = ["aer", "aer_hosted", "distributor"]
+RATE_ROLES = ["provisional", "final", "withheld"]
+RATE_STATUSES = ["final", "provisional", "awaiting_approval", "dropped"]
+VALIDATIONS = ["match", "match_within_rounding", "match_after_adjustment", "mismatch", "aer_only", "distributor_only",
+               "pending"]
+ONLY_IN = ["aer_tariff", "aer_component", "distributor_tariff", "distributor_component"]
 # distributor_price_table: the metering column of a distributor's network price table (Ausgrid 'Metering Service
 # Charge', Evoenergy 'Metering' columns, SA Power Networks 'METERING - Meter Charge')
 METERING_SOURCES = ["aer_metering_sheet", "aer_tariff_schedule_1", "distributor_metering_block",
@@ -592,6 +599,117 @@ TABLES = [
             col("expected_delta_std", "numeric", "distributor minus AER, standard units", null=True),
             col("delta_unit", "text", "unit of expected_delta_std", null=True),
         ],
+    },
+    {
+        "name": "rate_history",
+        "description": "Every published value of every tariff component, in the order the sources replace one another: "
+                       "AER versions as provisional rates, then the distributor's own published price list as the "
+                       "final rate (built by scripts/tariffdb/rates.py).",
+        "derived": True,  # recomputed from the source-fact tables on every build; outside the append-only check
+        "why": ["The flow is: the AER publishes first (v1 proposed, later versions approved), so its rates are "
+                "provisional; the distributor publishes its price list weeks later, every AER rate is validated "
+                "against it, and the distributor's rate becomes final.",
+                "One row per source charge and nothing is overwritten: a new document only adds rows, and a replaced "
+                "row stays with superseded_by pointing at its replacement, so what was provisional before stays "
+                "visible.",
+                "Every AER row records its validation against the final rate of its component, so each difference is "
+                "a row with its size and the documented adjustment (metering, LFiT) that explains it, if any."],
+        "columns": [
+            col("rate_id", "text", "the charge_id this rate was read from", pk=True),
+            col("component_id", "text", "tariff component the rate prices: <tariff_id>|<fin_year>|<label>|<time_band>|"
+                "<season>|<unit_std>, from the AER label (the first source); 'dnsp:' marks a component only the "
+                "distributor prints"),
+            col("charge_id", "text", "source charge", fk="charge.charge_id"),
+            col("document_id", "text", "source document version", fk="source_document.document_id"),
+            col("distributor_id", "text", "distributor", fk="distributor.distributor_id"),
+            col("fin_year", "text", "pricing year", fk="financial_year.fin_year"),
+            col("tariff_id", "text", "tariff", fk="tariff.tariff_id"),
+            col("source_side", "text", "aer = AER-authored file; aer_hosted = distributor document hosted by the AER "
+                "(the AER side where no AER-authored file carries the distributor-year, as in 2023-24); distributor = "
+                "the distributor's own published price list", enum=RATE_SIDES),
+            col("price_status", "text", "status of this distributor's prices in that document (document_coverage, "
+                "else source_document)", enum=PRICE_STATUS),
+            col("role", "text", "provisional = an AER-side rate; final = the distributor's published rate; withheld = "
+                "an AER rate the wait rule keeps out (rates.WAIT_FOR_APPROVED: not approved, for a distributor whose "
+                "proposed prices are not used)", enum=RATE_ROLES),
+            col("precedence", "integer", "rank among the rates of one component; the highest usable rate is current: "
+                "final 100, then AER approved 60, unverified 40, proposed 20, each + version_seq"),
+            col("known_from", "date", "earliest date the sources show the document existed: its publication date, else "
+                "its retrieval date (an upper bound)", null=True),
+            col("known_from_basis", "text", "how known_from is known (publication_date_basis, or retrieved_on_basis "
+                "when only the retrieval date is known)", null=True),
+            col("value_std", "numeric", "value in standard units", unit="see unit_std"),
+            col("unit_std", "text", "standard unit"),
+            col("is_current", "boolean", "1 for the rate effective_rate uses for the component"),
+            col("superseded_by", "text", "the next usable rate of the same component that replaced this one (NULL for "
+                "the current rate, and for a rate whose component a later AER version no longer prints); a rate_id of "
+                "this table", null=True),
+            col("validated_against", "text", "AER-side rows: the final rate of the component; final rows: the "
+                "AER-side rate it replaced (the best provisional one, else the best withheld one); a rate_id of this "
+                "table", null=True),
+            col("validation_status", "text", "match / match_within_rounding (half a unit of either published "
+                "digit) / match_after_adjustment (the documented metering or LFiT amount reproduces the difference) / "
+                "mismatch; aer_only = the distributor's list has no such component; distributor_only = no AER-side "
+                "rate; pending = the distributor has not published", enum=VALIDATIONS),
+            col("delta_std", "numeric", "final minus AER-side value, standard units", null=True),
+            col("expected_delta_std", "numeric",
+                "difference the documented adjustment predicts (price_adjustment_tariff)", null=True),
+            col("adjustment_id", "text", "documented adjustment applied (or, for the LFiT rebate, the documented cause "
+                "without a per-component amount)", null=True, fk="price_adjustment.adjustment_id"),
+            col("validation_note", "text", "why the validation came out as it did", null=True),
+        ],
+        "checks": ["precedence >= 0"],
+    },
+    {
+        "name": "effective_rate",
+        "description": "One answer per tariff component: the distributor's published rate (final) when it has "
+                       "published, otherwise the best AER version (approved over proposed), with its status, source, "
+                       "version and validation (built by scripts/tariffdb/rates.py).",
+        "derived": True,  # recomputed from the source-fact tables on every build; outside the append-only check
+        "why": ["Consumers need one rate per component and date, not a choice between documents: this is the current "
+                "rate_history row of each component, with the rule's outcome spelled out.",
+                "Components that only one source prints are kept and flagged (only_in) instead of dropped."],
+        "columns": [
+            col("component_id", "text", "tariff component (rate_history.component_id)", pk=True),
+            col("distributor_id", "text", "distributor", fk="distributor.distributor_id"),
+            col("fin_year", "text", "pricing year", fk="financial_year.fin_year"),
+            col("tariff_id", "text", "tariff", fk="tariff.tariff_id"),
+            col("effective_from", "date", "first day the rate applies"),
+            col("effective_to", "date", "last day (inclusive)"),
+            col("charge_type", "text", "normalised component kind", enum=CHARGE_TYPES),
+            col("time_band", "text", "time band of the component (the charge.time_band vocabulary)", null=True,
+                enum=TIME_BANDS),
+            col("season", "text", "normalised season", null=True, enum=SEASONS),
+            col("component_label", "text", "label as published in the document the rate comes from"),
+            col("unit_std", "text", "standard unit"),
+            col("status", "text", "final = distributor's published rate; provisional = best usable AER-side rate, the "
+                "distributor has not published it; awaiting_approval = only rates the wait rule withholds; dropped = "
+                "only an earlier AER version prints it, the later one (or the distributor) does not",
+                enum=RATE_STATUSES),
+            col("value_std", "numeric", "effective value in standard units (NULL when awaiting_approval or dropped)",
+                null=True, unit="see unit_std"),
+            col("value_published", "text", "number as displayed in the source", null=True),
+            col("unit_published", "text", "unit as published", null=True),
+            col("rate_id", "text", "current rate (NULL when awaiting_approval or dropped)", null=True,
+                fk="rate_history.rate_id"),
+            col("document_id", "text", "document of the current rate (else of the latest rate)",
+                fk="source_document.document_id"),
+            col("version_label", "text", "version of that document"),
+            col("source_side", "text", "side of that document", enum=RATE_SIDES),
+            col("price_status", "text", "status of the prices there", enum=PRICE_STATUS),
+            col("replaced_rate_id", "text", "final rates: the provisional rate this one replaced", null=True,
+                fk="rate_history.rate_id"),
+            col("validation_status", "text", "final: the replaced rate's validation; provisional: aer_only or pending",
+                enum=VALIDATIONS),
+            col("delta_std", "numeric", "final rates: final minus the AER-side value it was validated against "
+                "(rate_history.validated_against)", null=True),
+            col("adjustment_id", "text", "documented adjustment that explains the difference", null=True,
+                fk="price_adjustment.adjustment_id"),
+            col("only_in", "text", "set when one source alone prints the component: aer_tariff / aer_component (the "
+                "distributor's list has no such tariff / component), distributor_tariff / distributor_component (no "
+                "AER-side rate)", null=True, enum=ONLY_IN),
+        ],
+        "checks": ["effective_from <= effective_to", "(status IN ('final', 'provisional')) = (rate_id IS NOT NULL)"],
     },
     {
         "name": "exception_type",

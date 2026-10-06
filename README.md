@@ -15,6 +15,9 @@ and financial years 2023-24 to 2026-27.
   TOU windows, demand rules, blocks) as one CSV per relational table, with SQLite/PostgreSQL DDL, a JSON table spec
   and provenance (document version, cell or page, verbatim quote) on every row. Schema, design reasons and the
   exceptions catalogue: `docs/tariffdb.md`.
+- `docs/effective_rates.md` - the effective rate per tariff component: the AER's rate as provisional as soon as the
+  AER publishes, validated against and replaced by the distributor's own published rate as final; what changed when
+  each distributor published, per distributor and year, and the components only one side prints.
 
 ## Reproduce
 
@@ -64,4 +67,6 @@ report treats those distributor-years as "no distributor-side data".
   `data/tariffdb/` from the parser outputs and `data/tariffdb/curated/*.yaml`), `curated.py` (validates the curated
   TOU/demand/eligibility facts against their sources), `load.py` (SQLite import check, `--out` to save a database),
   `docs.py` (writes `docs/tariffdb.md`), `fixes.py` (writes `data/tariffdb/transcription_fixes.csv`),
-  `verification.py` (re-checks the independent verifiers' findings in `data/verification/`). Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py`.
+  `verification.py` (re-checks the independent verifiers' findings in `data/verification/`), `rates.py` (effective
+  rates: tables `rate_history` and `effective_rate`, CLI `rate`/`history`/`changes`, writes `docs/effective_rates.md`).
+  Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_rates.py`.

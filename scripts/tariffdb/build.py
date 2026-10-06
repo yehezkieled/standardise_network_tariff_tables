@@ -1185,9 +1185,9 @@ class Builder:
         windows = defaultdict(set)
         for w in self.t.all("tou_window"):
             windows[w["tou_schedule_id"]].add(w["period"].replace("_", ""))
-        # window periods that cover every band of a charge kind
-        any_band = {"demand": {"demandwindow"}, "export": {"exportchargewindow", "exportrewardwindow"},
-                    "controlled_load": {"controlledloadsupply"}}
+        # window periods that cover every band of a charge kind (export windows only bands of their own sign)
+        any_band = {("demand", "demandwindow"): "*", ("controlled_load", "controlledloadsupply"): "*",
+                    ("export", "exportchargewindow"): "*charge", ("export", "exportrewardwindow"): "*credit"}
         for t in self.t.all("tariff_tou"):
             schedule = self.t.get("tou_schedule", t["tou_schedule_id"])
             periods = windows[t["tou_schedule_id"]]
@@ -1195,8 +1195,7 @@ class Builder:
             for kind in kinds:
                 covered = tou[(t["tariff_id"], schedule["fin_year"], "energy" if kind == "controlled_load" else kind)]
                 covered.update(periods)
-                if periods & any_band.get(kind, set()):
-                    covered.add("*")
+                covered.update(any_band[(kind, p)] for p in periods if (kind, p) in any_band)
         gaps = defaultdict(set)
         gap_listing = {}
         for l in listings:
@@ -1210,7 +1209,8 @@ class Builder:
                     continue
                 kind = "demand" if c["charge_type"] == "capacity" else c["charge_type"]
                 covered = tou[(k[0], k[1], kind)]
-                if band not in covered and "*" not in covered:
+                wildcard = "*" if kind != "export" else "*credit" if float(c["value_num"]) < 0 else "*charge"
+                if band not in covered and wildcard not in covered:
                     gaps[k].add(f"{kind}:{c['time_band']}")
                     gap_listing.setdefault(k, l)
         for k, missing in sorted(gaps.items()):

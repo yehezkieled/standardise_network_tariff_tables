@@ -975,6 +975,11 @@ class TestExceptions(unittest.TestCase):
             self.assertNotIn(("jemena:A180", fy), gaps)
         for key in (("unitedenergy:URCER", "2026-27"), ("sapn:RELE2W", "2023-24"), ("sapn:RELE2W", "2024-25")):
             self.assertNotIn("export:", gaps.get(key, ""), key)
+        # an export_charge_window alone does not cover export credits
+        for key in (("citipower:CFS", "2026-27"), ("citipower:CRCER", "2026-27")):
+            self.assertIn("export:peak", gaps[key])
+        for code in ("027", "028"):
+            self.assertIn("export:critical_peak", gaps[(f"evoenergy:{code}", "2023-24")])
         self.assertIn("energex", {i["distributor_id"] for i in ins})
 
     def test_medium_business_demand_assignment(self):

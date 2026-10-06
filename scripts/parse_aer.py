@@ -11,8 +11,8 @@ parsed by the DNSP parsers with side=AER_HOSTED.
 import csv, re, sys, os
 import openpyxl
 sys.path.insert(0, os.path.dirname(__file__))
-from schema import COLUMNS, charge_type_from_label, time_band_from_label, season_from_label
-from units import to_std
+from schema import COLUMNS, REPEATED_PRINTING, charge_type_from_label, time_band_from_label, season_from_label
+from units import period_stated, to_std
 from published import cell_value
 from tariffdb import build_support, locators
 
@@ -63,8 +63,21 @@ def nz(v):
     return v is not None and v != "" and not (isinstance(v, (int, float)) and v == 0)
 
 
+# Billing period of a demand price whose AER unit states none ('$/kVA', '$dollars/kVA'), from the distributor's own
+# price lists. SA Power Networks prints every demand price in '$/kVA/day' (and '$kW/day'), and the AER rows carry the
+# same values (HVAD265 'Ann Dmnd Pk' 0.3348 in the AER 2024-25 report = '0.3348 $/kVA/day' in SAPN's 2024-25 pricing
+# proposal p67): 'Ann'/'Mth' in the AER label name the demand measurement window, not the billing period.
+DEMAND_PERIOD_HINT = {"SA Power Networks": ("day", "billing period per SA Power Networks' own price lists ('$/kVA/day'); "
+                                                    "'Ann'/'Mth' in the AER label is the demand measurement window")}
+
+
 def row(dnsp, fy, code, name, cls, comp, unit, val, basis, src, url, note="", side="AER", locator=""):
-    vs, us = to_std(val, unit, comp)
+    hint, hint_note = DEMAND_PERIOD_HINT.get(dnsp, ("", ""))
+    if hint and not period_stated(unit) and re.search(r"/\s*k(?:VA|W)\b", unit or "", re.I):
+        note = "; ".join(x for x in (note, hint_note) if x)
+    else:
+        hint = ""
+    vs, us = to_std(val, unit, comp, period_hint=hint)
     ct = charge_type_from_label(comp, unit)
     if dnsp == "Ausgrid" and str(code).strip().rstrip("*") == "EA029" and ct == "energy":
         ct = "export"
@@ -140,15 +153,21 @@ def parse_stakeholder_2024_25(dnsp, fname, url):
     wb = openpyxl.load_workbook(os.path.join(ROOT, path), data_only=True)
     ws = wb["Tariff schedule"]
     out = []
+    printed = {}  # (code, component, unit, basis) -> first row printing it (Tariff schedule 3)
     schedules = []
     for rr in range(1, ws.max_row + 1):
         b = ws.cell(rr, 2).value
         if isinstance(b, str) and re.match(r"Tariff schedule \d", b):
             schedules.append((rr, b))
-    for si, (hr, title) in enumerate(schedules):
-        if "Metering" in title or "DMO" in title or "VDO" in title:
-            continue  # metering handled elsewhere; DMO/VDO schedules repeat a subset of schedule 3
-        note_sched = "site-specific" if "Site specific" in title else ""
+    # metering (schedule 1) is read by the tariff database build; the DMO/VDO schedule (2) reprints a subset of the
+    # schedule 3 prices, so it is read after schedule 3 and each identical value is marked as a repeated printing
+    order = sorted(range(len(schedules)), key=lambda i: ("DMO" in schedules[i][1] or "VDO" in schedules[i][1], i))
+    for si in order:
+        hr, title = schedules[si]
+        if "Metering" in title:
+            continue
+        default_offer = "DMO" in title or "VDO" in title
+        note_sched = "site-specific" if "Site specific" in title else title.strip() if default_offer else ""
         comps = {}
         for c in range(9, ws.max_column + 1):
             lab = ws.cell(hr, c).value
@@ -167,16 +186,30 @@ def parse_stakeholder_2024_25(dnsp, fname, url):
                 continue
             name = cval if isinstance(cval, str) else ""
             cls = ws.cell(rr, 4).value or ""
-            other = " / ".join(str(ws.cell(rr, c).value) for c in (6, 7) if nz(ws.cell(rr, c).value))
-            note = "; ".join(x for x in (note_sched, f"other_id={other}" if other else "") if x)
+            others = [str(ws.cell(rr, c).value).strip() for c in (6, 7) if nz(ws.cell(rr, c).value)]
+            other = " / ".join(others)
+            code_note = ""
+            if str(code).strip() in ("-", "–") and others:
+                # SA Power Networks 'Zone Substation kVA Locational': '-' in 'Code SA', the code in 'Other identifier'
+                code_note = f"'Code SA' printed as {str(code).strip()!r}; code taken from 'Other identifier' {others[0]!r}"
+                code, others, other = others[0], others[1:], " / ".join(others[1:])
+            note = "; ".join(x for x in (note_sched, code_note, f"other_id={other}" if other else "") if x)
             any_val = False
             for c, (lab, unit) in comps.items():
                 v = ws.cell(rr, c).value
                 if isinstance(v, (int, float)) and v != 0:
                     any_val = True
-                    out.append(row(dnsp, "2024-25", code, name, cls, lab, unit, cell_value(ws.cell(rr, c)), basis, path, url, note,
-                                   locator=locators.xlsx(ws, ws.cell(rr, c))))
-            if not any_val and basis == "NUoS":
+                    r = row(dnsp, "2024-25", code, name, cls, lab, unit, cell_value(ws.cell(rr, c)), basis, path, url, note,
+                            locator=locators.xlsx(ws, ws.cell(rr, c)))
+                    if default_offer:
+                        first = printed.get((r["tariff_code"], lab, unit, basis))
+                        if first is not None and first["value"] == r["value"]:
+                            r["note"] = "; ".join(x for x in (r["note"], f"{REPEATED_PRINTING} of {first['locator']} "
+                                                                         "(Tariff schedule 3, identical)") if x)
+                    else:
+                        printed.setdefault((r["tariff_code"], lab, unit, basis), r)
+                    out.append(r)
+            if not any_val and basis == "NUoS" and not default_offer:
                 out.append(row(dnsp, "2024-25", code, name, cls, "(no non-zero components)", "", 0, basis, path, url, ("zero-priced row; " + note).strip("; "),
                                locator=locators.xlsx(ws, ws.cell(rr, 5))))
     return out

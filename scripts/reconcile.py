@@ -21,7 +21,7 @@ import argparse, csv, glob, json, os, re, sys, math
 from collections import defaultdict, Counter
 from difflib import SequenceMatcher
 sys.path.insert(0, os.path.dirname(__file__))
-from schema import COLUMNS, season_from_label, export_direction
+from schema import COLUMNS, REPEATED_PRINTING, season_from_label, export_direction
 from units import to_std
 from decimal import Decimal
 import adjustments
@@ -96,6 +96,8 @@ def load_rows():
     for p in sorted(glob.glob(os.path.join(ROOT, "out/dnsp/*.csv"))):
         with open(p) as f:
             rows += list(csv.DictReader(f))
+    # a price printed twice in one document (REPEATED_PRINTING) is compared once
+    rows = [r for r in rows if REPEATED_PRINTING not in (r.get("note") or "")]
     for r in rows:
         r["value_f"] = fnum(r.get("value"))
         r["value_std_f"] = fnum(r.get("value_std"))

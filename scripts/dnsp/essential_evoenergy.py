@@ -49,7 +49,7 @@ FILES = [
     ("2026-27", "DNSP", "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_AER_approved_April2026.xlsx", "evo_xlsx", {"lfit": "AER-approved excl LFiT"}),
 ]
 
-EMIT_INCL_GST = False  # the documents also publish GST-inclusive copies of the same prices; not emitted
+EMIT_INCL_GST = True  # the documents also publish GST-inclusive copies of the same prices: stored with gst=incl
 UNIT_TOKEN = re.compile(r"(\$|c|cents)\s*/\s*(kWh|kVAh|kVA|kW|Day|M\b|month|year)", re.I)
 ESS_CODE = re.compile(r"^B[A-Z]{2,3}\d{0,2}[A-Z]{0,3}\d?$")
 EVO_CODE = re.compile(r"^\d{3}\*?$")
@@ -59,6 +59,9 @@ NUM = re.compile(r"^-?\s?\d[\d,]*(\.\d+)?\^?\*?$")
 # ----------------------------------------------------------------------------------------------
 # helpers
 # ----------------------------------------------------------------------------------------------
+METERING = []  # per-tariff metering cells (schema.METERING_COLUMNS), written to the metering side output
+
+
 def load_inventory():
     m = {}
     with open(INVENTORY, newline="", encoding="utf-8") as fh:
@@ -544,6 +547,7 @@ def parse_essential_pdf(path, fin_year, side, url):
                 if gst == "incl":
                     notes.append("prices including GST as published (Attachment 1)")
                 cls = re.split(r"\s[–-]\s", section)[0] if section else ""
+                emitted = len(rows_out)
                 for j, (label, unit) in labels.items():
                     raw = t[j] if j < len(t) else ""
                     if not raw or not unit:
@@ -559,6 +563,11 @@ def parse_essential_pdf(path, fin_year, side, url):
                     rows_out.append(make_row("Essential Energy", fin_year, side, path, url, code, name, cls,
                                              label.replace("*", "").strip(), unit, str(raw).replace("^", "").replace("*", "").replace(",", "").strip(), gst, "NUoS",
                                              "; ".join(notes + cnote), locators.pdf(pno)))
+                if len(rows_out) == emitted and any(t[j] == "-" for j in labels if j < len(t)):
+                    # a printed tariff whose every price cell is '-' (e.g. BLNE0AU): a placeholder listing
+                    rows_out.append(make_row("Essential Energy", fin_year, side, path, url, code, name, cls,
+                                             "(no non-zero components)", "", "0", gst, "NUoS",
+                                             "; ".join(notes + ["every price cell printed '-'"]), locators.pdf(pno)))
     return rows_out
 
 
@@ -697,7 +706,14 @@ def parse_evo_statement(path, fin_year, side, url):
             elif col.startswith("NUOS"):
                 basis, note = "NUoS", "LFiT included: NUOS price column as published = DUOS + TUOS + JS + metering capital + metering non-capital (LFiT rebate applied via the JS price; metering (ACS) included where published; the excl-metering NUOS is in the 'NUOS 2023/24 column' rows from Table 2-7)"
             else:
-                continue  # metering capital / non-capital columns (alternative control) not emitted
+                # metering capital / non-capital columns (alternative control): metering side output
+                METERING.append({"distributor": "Evoenergy", "fin_year": fin_year, "tariff_code": r["code"],
+                                 "meter_class": name, "unit": r["unit"], "value": val, "gst": "excl",
+                                 "component": {"Metering": "Metering capital price",
+                                               "Metering #1": "Metering non-capital price"}[col],
+                                 "source_file": path, "locator": locators.pdf(r["page"]),
+                                 "note": f"{base}; {r['label']}"})
+                continue
             rows_out.append(make_row("Evoenergy", fin_year, side, path, url, r["code"], name, cls, r["label"], r["unit"], val,
                                      "excl", basis, "; ".join([note] + notes_common), locators.pdf(r["page"])))
     base27 = "Table 2.7 2022/23 and 2023/24 NUOS tariffs, excluding metering (nominal)"
@@ -716,6 +732,12 @@ def parse_evo_statement(path, fin_year, side, url):
 # ----------------------------------------------------------------------------------------------
 # Evoenergy - 2023-24 pricing proposal (AER-hosted): Table 4.2 is image-only -> OCR + validation
 # ----------------------------------------------------------------------------------------------
+# OCR reads the letter case of a unit unreliably ('c/KVA/day' for the printed 'c/kVA/day'); a unit that matches one of
+# the document's unit spellings ignoring case takes that spelling. 'c/KkA/day' (tariffs 123/124, also in the text-based
+# Statement) is a typo in the source and is kept.
+OCR_UNIT_SPELLING = {u.lower(): u for u in ("cents/day", "cents/kWh", "cents/kVAh", "c/kVAh", "c/kW/day", "c/kVA/day", "$/day")}
+
+
 def parse_evo_proposal(path, fin_year, side, url, reference_rows):
     """Table 4.2 'Proposed 2023/24 prices and revenue, excluding metering' (pages 40-45) is image-only.
     Two OCR passes (288 and 400 dpi); a row is emitted only when NUOS == DUOS + TUOS + JS (+-0.0015),
@@ -902,6 +924,10 @@ def parse_evo_proposal(path, fin_year, side, url, reference_rows):
                  "OCR of image-only page (rapidocr); validated NUOS = DUOS + TUOS + JS", xnote]
         if r.get("repair"):
             notes.append(r["repair"])
+        unit = OCR_UNIT_SPELLING.get(r["unit"].lower(), r["unit"])
+        if unit != r["unit"]:
+            notes.append(f"unit letter case as printed (OCR text: '{r['unit']}')")
+            r["unit"] = unit
         if label != r["label"]:
             notes.append(f"component label aligned to Statement wording (OCR text: '{r['label']}')")
         for b, key, note in (("DUoS", "DUOS prices", "DUOS prices column"), ("TUoS", "TUOS prices", "TUOS prices column"),
@@ -970,13 +996,25 @@ def parse_evo_pdf(path, fin_year, side, url, lfit_note):
                     app = clean(" ".join(w["text"] for w in aw))
                     uw = next(w for w in pl[1] if EVO_UNIT.match(w["text"]))
                     nums = [w for w in pl[1] if w["x0"] > uw["x1"] and re.match(r"^-?\d+(\.\d+)?$", w["text"])]
-                    rate = None
+                    rate = meter = total = None
                     for w in nums:
                         col = min(("rate", "meter", "total"), key=lambda k: abs(hdr[k] - w["x1"]))
                         if col == "rate":
                             rate = w["text"]
+                        elif col == "meter":
+                            meter = w["text"]
+                        else:
+                            total = w["text"]
                     if rate is None:
                         continue
+                    if meter is not None:
+                        METERING.append({"distributor": "Evoenergy", "fin_year": fin_year, "tariff_code": code,
+                                         "meter_class": name, "component": "Metering charge", "unit": uw["text"],
+                                         "value": meter, "gst": "excl", "source_file": path,
+                                         "locator": locators.pdf(int(pl[0] // 10000)), "note": f"{comp}; page {pno}"})
+                    if total is not None and abs(float(rate) + float(meter or 0) - float(total)) > 0.0015:
+                        print(f"WARN {path} p{pno} {code} {comp}: Rate {rate} + Metering {meter} != Rate + metering {total}",
+                              file=sys.stderr)
                     notes = [lfit_note + (f" (uniform adder of {adder} c/kWh applied to c/kWh consumption charges per document)" if adder else ""),
                              "Rate column (network charge excluding metering; 'Rate + metering' column not emitted)", f"page {pno}"]
                     if closed:
@@ -1089,6 +1127,17 @@ def parse_evo_xlsx(path, fin_year, side, url, lfit_note):
         rate = to_num(cells.get(rate_col))
         if rate is None:
             continue
+        meter_col = next((j for j, t in hdr.items() if t == "Metering charge"), None)
+        total_col = next((j for j, t in hdr.items() if t == "Rate + metering"), None)
+        meter = to_num(cells.get(meter_col)) if meter_col else None
+        if meter:
+            METERING.append({"distributor": "Evoenergy", "fin_year": fin_year, "tariff_code": code, "meter_class": name,
+                             "component": "Metering charge", "unit": unit, "value": cell_value(cell_row[meter_col - 1]),
+                             "gst": gst, "source_file": path, "locator": locators.xlsx(ws, cell_row[meter_col - 1]),
+                             "note": f"{comp}; sheet 'Network tariffs'"})
+        total = to_num(cells.get(total_col)) if total_col else None
+        if total is not None and abs(rate + (meter or 0) - total) > 0.0015:
+            print(f"WARN {path} {code} {comp}: Rate {rate} + Metering {meter} != Rate + metering {total}", file=sys.stderr)
         notes = [lfit_note + (f" (uniform adder of {adder} c/kWh applied to c/kWh consumption charges per document)" if adder else ""),
                  "Rate column (network charge excluding metering; 'Rate + metering' column not emitted)", "sheet 'Network tariffs'"]
         if closed:
@@ -1154,6 +1203,8 @@ def main():
         for r in all_rows:
             w.writerow({k: r.get(k, "") for k in schema.COLUMNS})
     print(f"wrote {OUT}: {len(all_rows)} rows")
+    schema.write_metering("essential_evoenergy", METERING)
+    print(f"wrote {len(METERING)} metering cells -> {schema.METERING_OUT_DIR}/essential_evoenergy.csv")
 
 
 if __name__ == "__main__":

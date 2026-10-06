@@ -43,6 +43,7 @@ NUM_RE = re.compile(r"^-?[\d,]*\d\.\d+\*?$|^-?\d[\d,]*\*?$")
 UNIT_RE = re.compile(r"^[¢c]/")
 WARNINGS = []
 SKIPPED = []  # published codes deliberately not emitted (reported in the run summary)
+METERING = []  # per-tariff metering cells (schema.METERING_COLUMNS), written to the metering side output
 
 
 def warn(msg):
@@ -112,6 +113,16 @@ def clean_label(t):
     t = re.sub(r"\s+", " ", t).strip()
     t = t.replace("Non- TOU", "Non-TOU").replace("Off- peak", "Off-peak").replace("Sub- transmission", "Sub-transmission")
     return t
+
+
+def header_text(raw_header):
+    """Printed header of a column from its ' | '-joined hierarchy: 'Metering | Service | Charge' and
+    'Metering Service Charge | Metering Service | Charge' (the merged cell read twice) are both 'Metering Service Charge'."""
+    parts = raw_header.split(" | ")
+    for i in range(1, len(parts)):
+        if " ".join(parts[i:]) == " ".join(parts[:i]):
+            return clean_label(" ".join(parts[:i]))
+    return clean_label(" ".join(parts))
 
 
 def x_contains(bbox, x):
@@ -217,6 +228,9 @@ def ausgrid_component(raw_header, unit):
         if "access" in h:
             return "Network Access Charge"
         raise ValueError(f"unmapped c/day column: {raw_header!r}")
+    if "kw/day" in u and "capacity" in h:
+        # 'Network Capacity Prices | Peak' in c/kW/day (EA302): the leaf alone ('Peak') would read as a demand price
+        return "Network Capacity Prices - Peak"
     leaf = raw_header.split(" | ")[-1]
     if leaf.strip().lower() != h.strip():
         try:
@@ -290,6 +304,8 @@ def ausgrid_2324_component(raw_header, unit):
             return "Energy consumption charge - Peak"
         raise ValueError(f"unmapped c/kWh column: {raw_header!r}")
     if "kw/day" in u:
+        if "capacity" in h:
+            return "Capacity charge - Peak"  # 'Capacity charge | Peak' printed in c/kW/day (EA302, EA316)
         if "high" in h:
             return "Demand charge - High season"
         if "low" in h:
@@ -310,7 +326,7 @@ AUSGRID_CODE_RE = re.compile(r"^EA\d{3}\*?$")
 
 def parse_ausgrid_price_list(dist, fy, side, path, url):
     rows = []
-    incl = {}  # (code, component) -> value from GST-inclusive pages, for validation only
+    incl = {}  # (code, component) -> value from GST-inclusive pages, cross-checked against the exclusive pages
     with pdfplumber.open(os.path.join(ROOT, path)) as pdf:
         meta = pdf.metadata or {}
         created = (meta.get("CreationDate") or meta.get("ModDate") or "")
@@ -347,7 +363,7 @@ def parse_ausgrid_price_list(dist, fy, side, path, url):
                     if name.endswith("*"):
                         name = name.rstrip("*").strip()
                         marker = "*"
-                    notes = [f"Network Price List {fy} p{pno}", "GST exclusive",
+                    notes = [f"Network Price List {fy} p{pno}", "GST exclusive" if gst == "excl" else "GST inclusive",
                              "network price = NUOS (list shows no DUOS/TUOS/CCF split; excludes the separate Metering Service Charge column)"]
                     if pdf_date:
                         notes.append(f"PDF dated {pdf_date}")
@@ -363,13 +379,21 @@ def parse_ausgrid_price_list(dist, fy, side, path, url):
                         if mk != "*" and code in fn:
                             notes.append("footnote: " + fn)
                     for (v, raw), comp, col in zip(r["values"], comps, tbl["columns"]):
+                        if v is not None and comp is None and "metering" in col["raw_header"].lower():
+                            METERING.append({
+                                "distributor": dist, "fin_year": fy, "tariff_code": code, "meter_class": name,
+                                "component": header_text(col["raw_header"]), "unit": col["unit"],
+                                "value": raw.replace("\n", "").replace(",", "").rstrip("*").strip(), "gst": gst,
+                                "source_file": path, "locator": locators.pdf(pno),
+                                "note": f"Network Price List {fy} p{pno}"
+                                        + (f"; footnote: {footnotes['*']}" if raw.endswith("*") and footnotes.get("*") else "")})
+                            continue
                         if v is None or comp is None:
                             if raw and comp is not None and raw not in ("", "-"):
                                 warn(f"{path} p{pno} {code} {comp}: unparsed cell {raw!r}")
                             continue
                         if gst == "incl":
                             incl[(code, comp)] = v
-                            continue
                         note = "; ".join(notes)
                         if comp == "TUOS demand":
                             note += "; TUOS demand component of the NUOS storage tariff"
@@ -380,6 +404,8 @@ def parse_ausgrid_price_list(dist, fy, side, path, url):
     # validate GST-inclusive pages against exclusive rows (incl = excl * 1.1, 4dp)
     checked = 0
     for r in rows:
+        if r["gst"] != "excl":
+            continue
         key = (r["tariff_code"], r["component"])
         if key in incl:
             checked += 1
@@ -492,6 +518,68 @@ def endeavour_table_columns(table):
     return urow, cols
 
 
+TABLE_2_COLUMNS = [("Daily Access Charge", "c/day", "excl"), ("Daily Access Charge", "c/day", "incl"),
+                   ("Energy Charge - Flat", "c/kWh", "excl"), ("Energy Charge - Flat", "c/kWh", "incl")]
+
+
+def endeavour_table_2(path, page, pno, tables):
+    """[(code, name, [access excl, access incl, energy excl, energy incl], locator)] of Table 2. The 2026-27 list
+    draws this table with horizontally scaled glyphs that extract as fragments, so the page is read by OCR then."""
+    out = []
+    if tables:
+        table = max(tables, key=len)
+        hdr = next((i for i, r in enumerate(table) if r and r[0] == "NTC"), None)
+        for r in table[hdr + 1:] if hdr is not None else []:
+            if r and r[0] and ENDEAVOUR_CODE_RE.match(r[0].strip()):
+                vals = [num(c) for c in r[2:6]]
+                if None not in vals:
+                    out.append((r[0].strip(), clean_label(r[1] or ""), vals, locators.pdf(pno)))
+        return out
+    text = locators.ocr_text(os.path.join(ROOT, path), pno)
+    n = r"(-?\d+\.\d+)"
+    for m in re.finditer(rf"\b(N99|ENSL|ENTL|ENNW)\s+(.+?)\s+{n}\s+{n}\s+{n}\s+{n}", text):
+        out.append((m.group(1), m.group(2).strip(), [Decimal(m.group(k)) for k in range(3, 7)], locators.pdf(pno, ocr=True)))
+    return out
+
+
+def endeavour_words_table(page, cols):
+    """(grid, grey) for a price table that find_tables() cannot see: row 0 is a stand-in for the unit row, then one
+    row per tariff code with each number placed in the column whose unit word (c/day, c/kWh, ...) it sits under;
+    grey[(row, column)] is True for a light-grey placeholder number."""
+    words = page.extract_words(x_tolerance=1.5, extra_attrs=["non_stroking_color"])
+    units = sorted((w for w in words if UNIT_RE.match(w["text"])), key=lambda w: w["x0"])
+    if not units or len(units) != len(cols):
+        return [], {}
+    unit_top = units[0]["top"]
+    centre = {j: (w["x0"] + w["x1"]) / 2 for (j, _, _), w in zip(sorted(cols), units)}
+    width = max(centre) + 1
+    grid, grey = [[None] * width], {}
+    for code_w in sorted((w for w in words if w["top"] > unit_top + 3 and w["x0"] < 45
+                          and ENDEAVOUR_CODE_RE.match(w["text"])), key=lambda w: w["top"]):
+        line = sorted((w for w in words if abs(w["top"] - code_w["top"]) < 3 and w is not code_w), key=lambda w: w["x0"])
+        row = [None] * width
+        row[0] = code_w["text"]
+        row[1] = " ".join(w["text"] for w in line if w["x1"] < min(centre.values()) - 15)
+        for w in line:
+            if num(w["text"]) is None:
+                continue
+            j, d = min(((j, abs((w["x0"] + w["x1"]) / 2 - c)) for j, c in centre.items()), key=lambda t: t[1])
+            if d <= 18:
+                row[j] = w["text"]
+                grey[(len(grid), j)] = tuple(w["non_stroking_color"] or ()) == (0.949,)
+        grid.append(row)
+    return grid, grey
+
+
+def placeholder_cell(page, bbox):
+    """True when every digit inside a table cell is printed in near-white grey (0.949): the price lists fill
+    non-applicable cells of the dense Table 3 grids with such invisible 0.0000 placeholders."""
+    if bbox is None:
+        return False
+    digits = [c for c in page.within_bbox(bbox).chars if c["text"].isdigit()]
+    return bool(digits) and all(tuple(c["non_stroking_color"] or ()) == (0.949,) for c in digits)
+
+
 def endeavour_version(pdf):
     first = pdf.pages[0].extract_text() or ""
     m = re.search(r"Version\s+(\d+\.\d+)", first)
@@ -511,6 +599,7 @@ def parse_endeavour_price_list(dist, fy, side, path, url):
     incl = {}
     excl_vals = {}
     table2 = []
+    layouts = {}  # "1a"/"3a" -> columns of the GST-exclusive table
     with pdfplumber.open(os.path.join(ROOT, path)) as pdf:
         ver, hist = endeavour_version(pdf)
         vnote = f"NUOS Price List {fy} v{ver}" + (f" ({hist})" if hist else "")
@@ -523,42 +612,65 @@ def parse_endeavour_price_list(dist, fy, side, path, url):
             if not m:
                 continue
             tno, title, gst_word = m.group(1), m.group(2).strip(), m.group(3)
-            tables = page.extract_tables()
-            if not tables:
-                if tno == "2":
-                    warn(f"{path} p{pno}: Table 2 (unmetered) not extractable (rotated/vector text); values duplicate Table 1a")
-                else:
-                    warn(f"{path} p{pno}: Table {tno} not extractable")
+            found = page.find_tables()
+            tables = [t.extract() for t in found]
+            if tno == "2":
+                # unmetered options: the Table 1a prices again, with excl and incl GST columns (repeated printing)
+                t2 = endeavour_table_2(path, page, pno, tables)
+                if not t2:
+                    warn(f"{path} p{pno}: Table 2 (unmetered) not extractable")
+                for code, name, vals, locator in t2:
+                    table2.append((code, vals[0], vals[2]))
+                    for (lab, u, g), v in zip(TABLE_2_COLUMNS, vals):
+                        rows.append(make_row(dist, fy, side, path, url, code, name, "", lab, u, v, "NUoS", g,
+                                             f"{vnote}; Table 2 p{pno} (Unmetered Pricing Options - NUOS); "
+                                             f"{'GST exclusive' if g == 'excl' else 'GST inclusive'}; repeats the "
+                                             f"Table 1a prices", locator))
                 continue
-            table = max(tables, key=len)
+            if tables:
+                ti = max(range(len(tables)), key=lambda i: len(tables[i]))
+                table, cell_boxes = tables[ti], found[ti].rows
+                urow, cols = endeavour_table_columns(table)
+
+                def placeholder(ri, j):
+                    return placeholder_cell(page, cell_boxes[ri].cells[j])
+            elif tno.endswith("b") and tno[0] + "a" in layouts:
+                # the 2026-27 Table 1b has no ruling lines for find_tables(): read its words against the columns of
+                # the matching GST-exclusive table, which the list prints in the same layout
+                cols = layouts[tno[0] + "a"]
+                table, grey = endeavour_words_table(page, cols)
+                urow = 0 if table else None
+
+                def placeholder(ri, j):
+                    return grey.get((ri, j), False)
+            else:
+                table = None
+            if not table:
+                warn(f"{path} p{pno}: Table {tno} not extractable")
+                continue
             notes_text = ""
             for row in table:
                 if row and row[0] and "IMPORTANT NOTES" in row[0]:
                     notes_text = row[0]
-            if tno == "2":
-                # unmetered options with excl/incl columns; same codes/values as Table 1a -> validate only
-                hdr = next((i for i, r in enumerate(table) if r and r[0] == "NTC"), None)
-                if hdr is not None:
-                    for r in table[hdr + 1:]:
-                        if r and r[0] and ENDEAVOUR_CODE_RE.match(r[0]):
-                            table2.append((r[0], num(r[2]), num(r[4])))
-                continue
+            if not notes_text and "IMPORTANT NOTES" in text:
+                notes_text = text[text.index("IMPORTANT NOTES"):]
             gst = "excl" if (gst_word == "exclusive" or "GST exclusive" in (table[0][0] or "")) else (
                 "incl" if (gst_word == "inclusive" or "GST inclusive" in (table[0][0] or "")) else None)
             if gst is None:
                 warn(f"{path} p{pno}: GST basis for Table {tno} not stated; assuming excl")
                 gst = "excl"
-            urow, cols = endeavour_table_columns(table)
             if urow is None:
                 warn(f"{path} p{pno}: no unit row in Table {tno}")
                 continue
+            if tno.endswith("a"):
+                layouts[tno] = cols
             if DEBUG:
                 for j, lab, u in cols:
                     print(f"  [{fy} Table {tno} p{pno} gst={gst}] col{j} {u:<10} {lab}")
             n89 = re.search(r"N89 is a Transitional Network Tariff[^\n]*", notes_text)
             comp_note = re.search(r"Network prices comprise[^\n]*", notes_text)
             comp_quote = comp_note.group(0).strip() if comp_note else ""
-            for r in table[urow + 1:]:
+            for ri, r in enumerate(table[urow + 1:], start=urow + 1):
                 if not r or not r[0] or not ENDEAVOUR_CODE_RE.match(r[0].strip()):
                     continue
                 code, name = r[0].strip(), clean_label(r[1] or "")
@@ -570,17 +682,20 @@ def parse_endeavour_price_list(dist, fy, side, path, url):
                         if raw:
                             warn(f"{path} p{pno} {code} {lab}: unparsed cell {raw!r}")
                         continue
-                    cells.append((lab, u, v))
+                    cells.append((lab, u, v, j))
                 if not cells:
                     continue
-                if all(v == 0 for _, _, v in cells) and all(lab.endswith("All Time") for lab, _, _ in cells):
-                    # NESN/NESG/GENR, NFT3/NFT4/NFIT/NFT2: generation-measurement codes, "no export charge or reward"
-                    if gst == "excl":
-                        SKIPPED.append(f"{fy} {code} {name} (Table {tno}: generation-measurement code, 0.0000 export only)")
-                    continue
                 if tno.startswith("3"):
-                    # dense grid: 0.0000 printed in every non-applicable cell -> keep priced cells + the access charge
-                    cells = [c for c in cells if c[2] != 0 or c[0] == "Daily Access Charge"]
+                    # dense grid: 0.0000 in light grey (non-printing placeholder) in every non-applicable cell -> keep
+                    # priced cells, the access charge and zeros printed in black ('Export - Energy - All Time')
+                    cells = [c for c in cells if c[2] != 0 or c[0] == "Daily Access Charge"
+                             or not placeholder(ri, c[3])]
+                if all(v == 0 for _, _, v, _ in cells) and all(lab.endswith("All Time") for lab, _, _, _ in cells):
+                    # NESN/NESG/GENR, NFT3/NFT4/NFIT/NFT2: generation-measurement codes priced only by a printed
+                    # 0.0000 all-time export rate; footnote (1): no export charge or reward
+                    notes_gen = "generation-measurement code: only a 0.0000 all-time export rate is printed"
+                else:
+                    notes_gen = ""
                 notes = [vnote, f"Table {tno} p{pno}", "GST exclusive"]
                 if tno.startswith("3"):
                     notes.append("OBSOLETE pricing option (Table 3a: legacy combination codes = standard tariff + controlled load "
@@ -592,11 +707,15 @@ def parse_endeavour_price_list(dist, fy, side, path, url):
                     notes.append("transitional tariff")
                 if code in ("ENSL", "ENTL", "ENNW"):
                     notes.append(f"published as {code}; the 2023-24 proposal and AER files list this tariff as {code[2:]}")
-                for lab, u, v in cells:
+                if notes_gen:
+                    notes.append(notes_gen)
+                if gst == "incl":
+                    notes[2] = "GST inclusive"
+                for lab, u, v, _ in cells:
                     if gst == "incl":
                         incl[(code, lab)] = v
-                        continue
-                    excl_vals[(code, lab)] = v
+                    else:
+                        excl_vals[(code, lab)] = v
                     note = "; ".join(notes)
                     if lab == "Daily Access Charge":
                         note += ("; Daily Access Charge is the NUOS network access charge incl. metering - document: \""
@@ -754,6 +873,8 @@ def main():
         for r in all_rows:
             w.writerow({k: r.get(k, "") for k in schema.COLUMNS})
     print(f"wrote {len(all_rows)} rows -> {os.path.relpath(OUT, ROOT)}")
+    schema.write_metering("ausgrid_endeavour", METERING)
+    print(f"wrote {len(METERING)} metering cells -> {schema.METERING_OUT_DIR}/ausgrid_endeavour.csv")
     for sk in SKIPPED:
         print("skipped:", sk)
     if WARNINGS:

@@ -320,28 +320,6 @@ class TestHistory(unittest.TestCase):
         self.assertTrue(spec.DERIVED_TABLES)
         self.assertNotIn("charge", spec.DERIVED_TABLES)
 
-    def test_every_aer_version_has_a_versioned_url(self):
-        """Every AER consolidated version, held or not, has its own publisher URL with a dated server answer; the
-        held ones are committed, the others answer 307 (exists, login-gated)."""
-        docs = by("source_document", "document_id")
-        checks = defaultdict(list)
-        for c in rows("document_url_check"):
-            checks[c["document_id"]].append(c)
-            self.assertEqual(c["outcome"], {"200": "served", "307": "login_gated", "404": "not_found"}[c["http_status"]])
-            self.assertTrue(c["url"].startswith("https://www.aer.gov.au/system/files/"), c)
-        versions = [d for d in docs.values() if d["series_id"].startswith("aer-all-") and d["series_id"].endswith("-consolidated")]
-        self.assertEqual(Counter(d["fin_year"] for d in versions), Counter({"2025-26": 5, "2026-27": 5}))
-        for d in versions + [docs["aer-stakeholder-sapn-2024-25-original"]]:
-            self.assertTrue(checks[d["document_id"]], d["document_id"])
-            if d["retrieval_status"] == "retrieved":
-                self.assertEqual(d["committed_in_repo"], "1", d["document_id"])
-            else:
-                self.assertEqual({c["outcome"] for c in checks[d["document_id"]]}, {"login_gated"}, d["document_id"])
-        latest = {d["document_id"] for d in versions if d["version_seq"] == "5"}
-        self.assertEqual({c["document_id"] for c in rows("document_url_check") if c["outcome"] == "served"}, latest)
-        self.assertTrue(all(d["committed_in_repo"] == "1" for d in docs.values()
-                            if d["author"] == "AER" and d["retrieval_status"] == "retrieved"))
-
     def test_ids_come_from_content_not_row_order(self):
         """Shuffling the rows of a document gives every row the same id."""
         import random

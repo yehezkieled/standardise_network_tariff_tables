@@ -168,29 +168,6 @@ TABLES = [
         "checks": ["retrieval_status <> 'retrieved' OR (local_path IS NOT NULL AND sha256 IS NOT NULL)"],
     },
     {
-        "name": "document_url_check",
-        "description": "Each check of the publisher's own URL for one document version: which URL, how it is known, "
-                       "when it was requested and what the server answered.",
-        "why": ["The AER replaces the file behind its landing page with every version and takes the superseded file "
-                "private (HTTP 307 to its login page; an unknown name answers 404), so the versioned URL is the only "
-                "durable name of a version and proves the version exists even when its file cannot be retrieved.",
-                "Checks are dated rows, never updated: a later check that finds a version gone adds a row."],
-        "columns": [
-            col("check_id", "text", "<document_id>/<checked_on>/<url_sha256 first 8 hex>", pk=True),
-            col("document_id", "text", "version the URL belongs to", fk="source_document.document_id"),
-            col("url", "text", "publisher URL of that version's file"),
-            col("url_basis", "text", "how the URL is known: inventory (the URL the held file came from), "
-                "archived_landing_page (file link on a Wayback capture of the landing page), probed_file_name (a "
-                "file name tried against the server)", enum=["inventory", "archived_landing_page", "probed_file_name"]),
-            col("url_evidence", "text", "where the URL was found (Wayback capture of the landing page) or why it is "
-                "attributed to this version", null=True),
-            col("checked_on", "date", "date of the request"),
-            col("http_status", "integer", "status answered without following redirects"),
-            col("outcome", "text", "served (200), login_gated (307 to /user/login: the file exists but is private), "
-                "not_found (404)", enum=["served", "login_gated", "not_found"]),
-        ],
-    },
-    {
         "name": "document_coverage",
         "description": "Which distributors' prices an AER consolidated version carries, and whether they are proposed or "
                        "approved there (from the AER changelog).",

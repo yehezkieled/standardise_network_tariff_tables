@@ -34,8 +34,8 @@ exact URL it was retrieved from, an access note and the SHA-256 of the file that
 
 - **AER-authored files** (`sources/aer/`, side `AER`): committed, because the AER replaces the file behind its
   landing page with each new version (v1..v5 a year) and takes the superseded file private. Every version, held or
-  not, is a `source_document` row in the tariff database with its versioned URL and the AER server's dated answer
-  (`document_url_check`); `scripts/reconcile.py --aer-version <document_id>` reconciles any held version.
+  not, is a `source_document` row in the tariff database; the versions that are not held are listed as gaps in
+  `REPORT.md` and `docs/tariffdb.md`. `scripts/reconcile.py --aer-version <document_id>` reconciles any held version.
 - **Wayback Machine copies** (URL on `web.archive.org`): documents whose publisher blocks automated access
   (energex.com.au, ergon.com.au, powerwater.com.au) or no longer serves the file. These are committed under
   `sources/` because they cannot be re-fetched reliably.

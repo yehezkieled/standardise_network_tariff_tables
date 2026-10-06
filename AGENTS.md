@@ -17,7 +17,7 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 - Explanations of AER-vs-distributor differences live only in `scripts/adjustments.py` (shared by `reconcile.py` and
   the tariffdb build); spreadsheet numbers are read via `scripts/published.py` (Excel display rounding, never
   `round()` or f-format on the float). Every AER-authored file under `sources/aer/` is committed (the AER takes
-  superseded versions private); register a new version in `build_support.AER_CONSOLIDATED_FILES`/`AER_VERSION_URLS`.
+  superseded versions private); register a new version in `build_support.AER_CONSOLIDATED_FILES`.
 - `tests/test_tariffdb.py` re-reads every value and quote from `sources/` and takes about 5 minutes. Set
   `TARIFFDB_PG_BIN` (e.g. the bin dir of the `pgserver` pip wheel) to also run the real PostgreSQL load test.
 

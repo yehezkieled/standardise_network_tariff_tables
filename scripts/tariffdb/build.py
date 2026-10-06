@@ -237,8 +237,6 @@ class Builder:
             self.t.add("source_document", {k: v for k, v in d.items() if k in cols})
         for c in bs.version_coverage(self.docs):
             self.t.add("document_coverage", c)
-        for c in bs.url_checks():
-            self.t.add("document_url_check", c)
 
     # ------------------------------------------------------------------ tariffs and listings
     def tariffs_and_listings(self):

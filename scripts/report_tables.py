@@ -82,31 +82,34 @@ for d in dict.fromkeys(g["distributor"] for g in grid):
 
 W("## AER consolidated report versions\n")
 W("The AER reissued each consolidated report five times; the landing page only ever links the latest file and the AER "
-  "takes each superseded file private (HTTP 307 to its login page). Every version is listed below with its own "
-  "versioned URL and what the AER server answered on " + bs.URL_CHECK_DATE + ". Every held version is reconciled "
-  "against the distributor documents the same way as the latest (`.venv/bin/python scripts/reconcile.py --aer-version "
-  "<document_id>`, outputs in `out/versions/<document_id>/`; the default run writes all of them to "
-  "`out/version_grid.csv`). Distributors a version does not carry are not compared for it.\n")
-W("| Version | Published | Prices | Held copy | Versioned URL (server answer) | Compared | Equal | Rounding | Explained | Unexplained | AER-only codes |")
-W("|---|---|---|---|---|---|---|---|---|---|---|")
-urls = defaultdict(list)
-for doc, url, basis, evidence, status in bs.AER_VERSION_URLS:
-    unsure = "; [UNSURE] which version this file is: see data/tariffdb document_url_check" \
-        if evidence.startswith("[UNSURE]") else ""
-    urls[doc].append(f"{url} ({status} {bs.OUTCOMES[status]}; {basis.replace('_', ' ')}{unsure})")
+  "takes each superseded file private. Every held version is reconciled against the distributor documents the same "
+  "way as the latest (`.venv/bin/python scripts/reconcile.py --aer-version <document_id>`, outputs in "
+  "`out/versions/<document_id>/`; the default run writes all of them to `out/version_grid.csv`). Distributors a "
+  "version does not carry are not compared for it.\n")
+W("| Version | Published | Prices | Held copy | Compared | Equal | Rounding | Explained | Unexplained | AER-only codes |")
+W("|---|---|---|---|---|---|---|---|---|---|")
 vg = defaultdict(list)
 for g in rd("out/version_grid.csv"):
     vg[g["document_id"]].append(g)
+missing = []
 for fy, versions in bs.AER_VERSIONS.items():
     for seq, date, _, _ in versions:
-        doc = f"aer-consolidated-{fy}-v{seq}"
         held = bs.AER_CONSOLIDATED_FILES.get((fy, seq))
+        if not held:
+            missing.append((fy, seq))
+            continue
+        doc = f"aer-consolidated-{fy}-v{seq}"
         tot = lambda k: sum(int(g[k] or 0) for g in vg[doc])
-        nums = (" | ".join(str(tot(k)) for k in ("components_compared", "equal", "rounding", "explainable", "unexplained",
-                                                 "codes_aer_only")) if held else "not held | | | | |")
-        W(f"| {fy} v{seq} | {bs.version_date_text(fy, seq)} | {bs.version_status_text(fy, seq)} | "
-          f"{'`' + held + '`' if held else 'none (login-gated; not in the Wayback Machine)'} | "
-          f"{'<br>'.join(urls[doc])} | {nums} |")
+        W(f"| {fy} v{seq} | {bs.version_date_text(fy, seq)} | {bs.version_status_text(fy, seq)} | `{held}` | "
+          + " | ".join(str(tot(k)) for k in ("components_compared", "equal", "rounding", "explainable", "unexplained",
+                                            "codes_aer_only")) + " |")
+W("")
+W("Versions not held (the AER takes superseded files private and the Wayback Machine holds no copy), so not "
+  "reconciled:\n")
+W("| Financial year | Version | Published | Prices |")
+W("|---|---|---|---|")
+for fy, seq in missing:
+    W(f"| {fy} | v{seq} | {bs.version_date_text(fy, seq)} | {bs.version_status_text(fy, seq)} |")
 W("")
 W("Proposed (v1) against approved prices: the 2025-26 v1 file carries proposed prices for ACT, NSW, NT, TAS and VIC "
   "only, and prints no tariff codes ('#REF!'), so each v1 row takes its code from the latest version through the AER "

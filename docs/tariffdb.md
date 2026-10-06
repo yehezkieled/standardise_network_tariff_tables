@@ -20,7 +20,6 @@ erDiagram
     document_series ||--o{ source_document : series_id
     distributor ||--o{ source_document : distributor_id
     financial_year ||--o{ source_document : fin_year
-    source_document ||--o{ document_url_check : document_id
     source_document ||--o{ document_coverage : document_id
     distributor ||--o{ document_coverage : distributor_id
     source_document ||--o{ document_coverage : evidence_document_id
@@ -87,7 +86,7 @@ erDiagram
 | Files, not a database: one CSV per table + generated SQLite and PostgreSQL DDL + a JSON table spec | No database to run, yet any database can import the CSVs as they are; CSVs diff and review in git | data/tariffdb/tables/*.csv, schema.sqlite.sql, schema.postgres.sql, load.postgres.sql, schema.json | TestLoad imports every CSV into SQLite with foreign keys and every CHECK enforced; test_postgres_load does the same in a real PostgreSQL when TARIFFDB_PG_BIN is set |
 | One source of truth for the schema | DDL, JSON spec and this document are generated from scripts/tariffdb/spec.py, so they cannot disagree | scripts/tariffdb/spec.py, scripts/tariffdb/docs.py | TestSchemaFiles fails when a generated file is stale |
 | A document version is the unit of provenance | Proposed vs approved and AER vs distributor values coexist: each value hangs off the exact version it was read from (URL, SHA-256, retrieval date, version label/sequence) | source_document, document_series; document_id on every value table | test_versions_are_kept_side_by_side, test_document_checksums |
-| Every AER version is archived and reconcilable, held or not | The AER reissues its consolidated report several times a year (v1..v5) and takes each superseded file private. Every AER-authored file is committed under sources/; a version whose file is gone keeps a source_document row plus its own versioned URL with the dated server answer (307 = exists but private), so the history has no silent gaps; scripts/reconcile.py --aer-version reconciles any held version | source_document, document_url_check, document_coverage; sources/aer/; out/version_grid.csv | test_document_not_retrievable, test_every_aer_version_has_a_versioned_url |
+| Every AER version is archived and reconcilable, held or not | The AER reissues its consolidated report several times a year (v1..v5) and takes each superseded file private. Every AER-authored file is committed under sources/; a version whose file is gone keeps a source_document row and is listed under Known gaps, so the history has no silent gaps; scripts/reconcile.py --aer-version reconciles any held version | source_document, document_coverage; sources/aer/; out/version_grid.csv | test_document_not_retrievable |
 | Every value row carries a locator and every rule a verbatim quote | Anyone can re-check a number by hand: xlsx sheet!cell or PDF page, plus the exact wording | charge.locator/sheet/cell/page, *.locator + *.quote | test_every_charge_value_is_in_its_source, test_every_quote_is_in_its_source re-read the files |
 | Source facts are append-only; derived tables are recomputed; keys come from content | Nothing read from a source is updated in place: a re-issued document adds rows, so earlier answers stay reproducible. Tables and columns computed from those facts (ingestion counts, flags, adjustments, exception rows, metering/LFiT inclusion) are marked derived and rebuilt every time, so they can never drift from the facts | ids built from document, code and component, never row order; spec 'derived'; build.py --check-append-only <git ref> | test_append_only_check, test_append_only_check_against_git, test_ids_come_from_content_not_row_order, test_rebuild_reproduces_every_table |
 | Every value has a financial year AND explicit effective_from / effective_to dates | The yearly grain is how prices are published, the dates let a mid-year change fit without schema change | effective_from/effective_to on charge, listing, rules, links | test_every_value_is_tied_to_a_year_dates_and_a_document_version, test_no_duplicate_effective_ranges |
@@ -238,6 +237,13 @@ In the reconciliation (`discrepancies.csv`, REPORT.md) 371 compared components d
 | Evoenergy 2024-25 to 2026-27 | the months of 'winter' and similar seasons | the schedules name the season but never list its months (season_months_not_stated) |
 | AusNet, all years | the standard-time hours of windows stated in 'ADST' | the documents state daylight-saving times only; stored as stated (time_stated_in_daylight_time) |
 | All distributors 2023-24 (AER-hosted copies) | whether the hosted prices are proposed, approved or final | aer.gov.au hosts the distributor's document without stating its status (price_status_unverified) |
+| AER consolidated report 2025-26 v2 (published 10 Apr 2025) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated report 2025-26 v3 (published 14 May 2025) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated report 2025-26 v4 (published 16 May 2025) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated report 2026-27 v1 (published 2 Apr 2026) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated report 2026-27 v2 (published 24 Apr 2026) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated report 2026-27 v3 (published 8 May 2026) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
+| AER consolidated report 2026-27 v4 (published 20 May 2026) | the file | the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable) |
 
 ## Tables
 
@@ -325,24 +331,6 @@ Unique: `series_id, version_seq`
 Unique: `local_path`
 
 Check: `retrieval_status <> 'retrieved' OR (local_path IS NOT NULL AND sha256 IS NOT NULL)`
-
-#### `document_url_check` (12 rows)
-
-Each check of the publisher's own URL for one document version: which URL, how it is known, when it was requested and what the server answered.
-
-- Why: The AER replaces the file behind its landing page with every version and takes the superseded file private (HTTP 307 to its login page; an unknown name answers 404), so the versioned URL is the only durable name of a version and proves the version exists even when its file cannot be retrieved.
-- Why: Checks are dated rows, never updated: a later check that finds a version gone adds a row.
-
-| Column | Type | Key | Null | Values / unit | Description |
-|---|---|---|---|---|---|
-| `check_id` | text | PK |  |  | <document_id>/<checked_on>/<url_sha256 first 8 hex> |
-| `document_id` | text | FK source_document.document_id |  |  | version the URL belongs to |
-| `url` | text |  |  |  | publisher URL of that version's file |
-| `url_basis` | text |  |  | inventory, archived_landing_page, probed_file_name | how the URL is known: inventory (the URL the held file came from), archived_landing_page (file link on a Wayback capture of the landing page), probed_file_name (a file name tried against the server) |
-| `url_evidence` | text |  | yes |  | where the URL was found (Wayback capture of the landing page) or why it is attributed to this version |
-| `checked_on` | date |  |  |  | date of the request |
-| `http_status` | integer |  |  |  | status answered without following redirects |
-| `outcome` | text |  |  | served, login_gated, not_found | served (200), login_gated (307 to /user/login: the file exists but is private), not_found (404) |
 
 #### `document_coverage` (124 rows)
 

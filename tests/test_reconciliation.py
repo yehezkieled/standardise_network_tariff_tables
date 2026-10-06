@@ -574,6 +574,35 @@ class ReconciliationRegression(unittest.TestCase):
         with self.assertRaises(SystemExit):
             reconcile.main(['--aer-version', 'aer-consolidated-2025-26-v3'])  # not held: login-gated at the AER
 
+    def test_superseded_version_takes_codes_from_latest_and_compares_only_carried_distributors(self):
+        v1 = 'aer-consolidated-2025-26-v1'
+        v1_file = reconcile.held_versions()[v1][2]
+        aer_id = 'aer_id=TD-AGD26res-Flat'
+        latest = [row('AER', '11', code='EA010', note=aer_id, distributor='Ausgrid'),
+                  row('AER', '5', code='NTC8400', distributor='Energex')]
+        proposed = [dict(row('AER', '10', code='', note=aer_id, distributor='Ausgrid'), source_file=v1_file)]
+        dnsp = [row('DNSP', '10', code='EA010', distributor='Ausgrid'),
+                row('DNSP', '5', code='NTC8400', distributor='Energex')]
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder).resolve()
+            (root / 'out/dnsp').mkdir(parents=True)
+            (root / 'sources').mkdir()
+            (root / 'sources/inventory.csv').write_text('local_path\n')
+            for filename, rows in [('out/aer_long.csv', latest), ('out/aer_versions_long.csv', proposed),
+                                   ('out/dnsp/test.csv', dnsp)]:
+                with (root / filename).open('w', newline='') as stream:
+                    writer = csv.DictWriter(stream, fieldnames=COLUMNS)
+                    writer.writeheader()
+                    writer.writerows(rows)
+            with patch.object(reconcile, 'ROOT', str(root)):
+                detail, grid, _ = reconcile.reconcile_version(reconcile.load_rows(), v1)
+        self.assertIn('Ausgrid', {g['distributor'] for g in grid})
+        self.assertNotIn('Energex', {g['distributor'] for g in grid} | {r['distributor'] for r in detail})
+        (compared,) = [r for r in detail if r['distributor'] == 'Ausgrid']
+        self.assertEqual((compared['tariff_code'], compared['status'], compared['aer_value']), ('EA010', 'equal', '10'))
+        self.assertEqual({(g['document_id'], g['version'], g['price_status']) for g in grid},
+                         {(v1, 'v1', 'proposed')})
+
     def test_missing_ocr_fails_explicitly(self):
         original = builtins.__import__
         def missing(name, *args, **kwargs):

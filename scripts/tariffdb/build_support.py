@@ -107,63 +107,6 @@ def version_coverage_status(fy, seq):
     return {did: status for state, status in cov.items() for did in BY_STATE[state]}
 
 
-# Publisher URLs of the AER versions, each requested on URL_CHECK_DATE without following redirects. The AER answers a
-# superseded (private) file with HTTP 307 to /user/login and an unknown file name with 404 (control requests for
-# invented names in the same folders answered 404), so a 307 proves the version's file exists. Wayback CDX holds no
-# capture of any of the 307 files, and the Wayback landing-page captures link only the then-current file.
-# (document_id, url, url_basis, url_evidence, http_status)
-URL_CHECK_DATE = "2026-10-06"
-_AER = "https://www.aer.gov.au/system/files/"
-_C26 = "AER%20%E2%80%93%202026%E2%80%9327%20%E2%80%93%20Consolidated%20stakeholder%20report%20%E2%80%93%20"
-_WB = "https://web.archive.org/web/"
-AER_VERSION_URLS = [
-    ("aer-consolidated-2025-26-v1", _AER + "2025-04/Consolidated%C2%A0stakeholder%20report%202025%E2%80%9326.xlsx",
-     "inventory", "the held copy is the Wayback capture of this URL of 9 Apr 2025 (sources/inventory.csv)", 307),
-    ("aer-consolidated-2025-26-v2", _AER + "2025-04/Consolidated%20stakeholder%20report%202025%E2%80%9326.xlsx",
-     "probed_file_name", "[UNSURE] attributed to v2: the only consolidated-report file besides v1's found in the "
-     "2025-04 folder (it differs from v1's name by a plain space for the non-breaking one), and v2 (10 Apr 2025) is the "
-     "only other April version", 307),
-    ("aer-consolidated-2025-26-v3", _AER + "2025-05/Consolidated%20stakeholder%20report%202025%E2%80%9326%20v3.xlsx",
-     "probed_file_name", "file name carries 'v3'", 307),
-    ("aer-consolidated-2025-26-v4", _AER + "2025-05/Consolidated%20stakeholder%20report%202025%E2%80%9326%20v4.xlsx",
-     "probed_file_name", "file name carries 'v4'", 307),
-    ("aer-consolidated-2025-26-v5", _AER + "2025-05/AER%20-%20Consolidated%20stakeholder%20report%202025%E2%80%9326%20"
-     "v5%C2%A0.xlsx", "inventory", "linked from the landing page (saved 2026-10-06; Wayback capture " + _WB +
-     "20250614195514/https://www.aer.gov.au/documents/aer-consolidated-stakeholder-report-2025-26)", 200),
-    ("aer-consolidated-2026-27-v1", _AER + "2026-04/" + _C26 + "31%20March%202026.xlsx", "probed_file_name",
-     "[UNSURE] attributed to v1 (2 Apr 2026): the only consolidated-report file in the 2026-04 folder besides v2's "
-     "'24 April 2026', named for the 31 Mar 2026 proposal date", 307),
-    ("aer-consolidated-2026-27-v2", _AER + "2026-04/" + _C26 + "24%20April%202026.xlsx", "probed_file_name",
-     "file name carries the v2 publication date (24 Apr 2026)", 307),
-    ("aer-consolidated-2026-27-v3", _AER + "2026-05/" + _C26 + "8%20May%C2%A02026.xlsx", "archived_landing_page",
-     _WB + "20260512222245/https://www.aer.gov.au/documents/aer-2026-27-consolidated-stakeholder-report-8-may-2026",
-     307),
-    ("aer-consolidated-2026-27-v4", _AER + "2026-05/" + _C26 + "20%20May%202026.xlsx", "archived_landing_page",
-     _WB + "20260616060155/https://www.aer.gov.au/documents/aer-2026-27-consolidated-stakeholder-report-20-may-2026",
-     307),
-    ("aer-consolidated-2026-27-v5", _AER + "2026-08/" + _C26 + "26%20August%202026.xlsx", "inventory",
-     "linked from the landing page (saved 2026-10-06)", 200),
-    ("aer-stakeholder-sapn-2024-25-original", _AER + "2024-05/AER%20-%20Stakeholder%20report%20-%20SA%20Power%20"
-     "Networks%20-%202024%E2%80%9325%20Annual%20Pricing%20Proposal.xlsx", "probed_file_name",
-     "[UNSURE] the 3 May 2024 file name of the other 13 distributors' reports; the same name with two spaces before "
-     "'2024-25' (as in the 17 Jul 2024 replacement) also answers 307, so which file was the original is not "
-     "established", 307),
-    ("aer-stakeholder-sapn-2024-25-original", _AER + "2024-05/AER%20-%20Stakeholder%20report%20-%20SA%20Power%20"
-     "Networks%20-%20%202024%E2%80%9325%20Annual%20Pricing%20Proposal.xlsx", "probed_file_name",
-     "[UNSURE] see the single-space name: one of the two is the 3 May 2024 original", 307),
-]
-OUTCOMES = {200: "served", 307: "login_gated", 404: "not_found"}
-
-
-def url_checks():
-    """document_url_check rows."""
-    import hashlib
-    return [{"check_id": f"{doc}/{URL_CHECK_DATE}/{hashlib.sha256(url.encode()).hexdigest()[:8]}", "document_id": doc,
-             "url": url, "url_basis": basis, "url_evidence": evidence, "checked_on": URL_CHECK_DATE,
-             "http_status": status, "outcome": OUTCOMES[status]}
-            for doc, url, basis, evidence, status in AER_VERSION_URLS]
-
-
 DOC_TYPE_RULES = [
     (r"consolidated stakeholder report", "aer_consolidated_stakeholder_report"),
     (r"per-DNSP stakeholder report", "aer_stakeholder_report"),

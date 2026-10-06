@@ -16,6 +16,7 @@ from decimal import Decimal
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import build_support as bs  # noqa: E402
 import exceptions as catalogue  # noqa: E402
 import spec  # noqa: E402
 
@@ -25,8 +26,8 @@ MD_PATH = os.path.join(ROOT, "docs", "tariffdb.md")
 
 # Table groups, in reading order; the ER overview draws one column per group.
 GROUPS = [
-    ("Provenance", ["financial_year", "distributor", "document_series", "source_document", "document_url_check",
-                    "document_coverage", "document_ingestion"]),
+    ("Provenance", ["financial_year", "distributor", "document_series", "source_document", "document_coverage",
+                    "document_ingestion"]),
     ("Listings and prices", ["tariff_listing", "listing_flag", "charge", "charge_step", "metering_price",
                              "price_adjustment", "price_adjustment_tariff"]),
     ("Tariff identity", ["tariff", "tariff_alias", "tariff_relation"]),
@@ -54,10 +55,10 @@ DECISIONS = [
     ("Every AER version is archived and reconcilable, held or not",
      "The AER reissues its consolidated report several times a year (v1..v5) and takes each superseded file private. "
      "Every AER-authored file is committed under sources/; a version whose file is gone keeps a source_document row "
-     "plus its own versioned URL with the dated server answer (307 = exists but private), so the history has no "
-     "silent gaps; scripts/reconcile.py --aer-version reconciles any held version",
-     "source_document, document_url_check, document_coverage; sources/aer/; out/version_grid.csv",
-     "test_document_not_retrievable, test_every_aer_version_has_a_versioned_url"),
+     "and is listed under Known gaps, so the history has no silent gaps; scripts/reconcile.py --aer-version "
+     "reconciles any held version",
+     "source_document, document_coverage; sources/aer/; out/version_grid.csv",
+     "test_document_not_retrievable"),
     ("Every value row carries a locator and every rule a verbatim quote",
      "Anyone can re-check a number by hand: xlsx sheet!cell or PDF page, plus the exact wording",
      "charge.locator/sheet/cell/page, *.locator + *.quote",
@@ -158,7 +159,9 @@ KNOWN_GAPS = [
      "the documents state daylight-saving times only; stored as stated (time_stated_in_daylight_time)"),
     ("All distributors 2023-24 (AER-hosted copies)", "whether the hosted prices are proposed, approved or final",
      "aer.gov.au hosts the distributor's document without stating its status (price_status_unverified)"),
-]
+] + [(f"AER consolidated report {fy} v{seq} (published {bs.version_date_text(fy, seq)})", "the file",
+      "the AER takes superseded files private and the Wayback Machine holds no copy (document_not_retrievable)")
+     for fy, versions in bs.AER_VERSIONS.items() for seq, *_ in versions if (fy, seq) not in bs.AER_CONSOLIDATED_FILES]
 
 
 def read(table):

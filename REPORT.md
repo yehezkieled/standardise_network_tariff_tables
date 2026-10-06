@@ -17,7 +17,7 @@ Conventions: all comparisons are of the **total network price (NUoS)**, GST excl
 - **Content differs.** The AER files list 125 tariff codes the distributors do not publish (mostly zero-priced placeholders for new trial tariffs and withdrawn tariffs still carried by the AER) and omit 354 codes the distributors price (site-specific SA Power Networks variants, Jemena and AusNet large-business tariffs, trial and obsolete codes). The 2024-25 AER file for SA Power Networks has code typos (ZSN/ZSS and STN/STR swapped on five site-specific codes, a blank code "-") and all-zero rows for SAPN's new Electrify/Flexible tariffs. The AER files omit SA Power Networks' Diversify rebate, AusNet's premium feed-in credit, Energex Band 5 and Ergon Excess Demand components.
 - **Format changed on both sides every year** (section 5.3): AER layout, labels and units changed in 2024-25, 2025-26 and 2026-27; nearly every distributor changed document type or table structure at least once in the period.
 - **Coverage gaps**: 6 cells could not be compared because the distributor's own document was not retrievable or has no price table (section 3); 3 further cells use the AER-hosted copy of the distributor's document as the distributor side and are flagged.
-- **Every AER version is archived.** The AER reissued the 2025-26 and 2026-27 consolidated reports five times each and takes superseded files private. All AER-authored files are now committed under `sources/aer/`; each version, held or not, is listed with its versioned URL and the server's answer, and every held version (2025-26 v1 and v5, 2026-27 v5) is reconciled (section 8, "AER consolidated report versions"). The other seven versions are login-gated and absent from the Wayback Machine.
+- **Every AER version is archived.** The AER reissued the 2025-26 and 2026-27 consolidated reports five times each and takes superseded files private. All AER-authored files are now committed under `sources/aer/`; every held version (2025-26 v1 and v5, 2026-27 v5) is reconciled, and the other seven versions, login-gated and absent from the Wayback Machine, are listed as gaps (section 8, "AER consolidated report versions").
 
 ## 2. What the "AER report" actually is, year by year
 
@@ -30,7 +30,7 @@ The captain expected one AER spreadsheet listing every distributor's tariff code
 | 2025-26 | First single "AER - Consolidated stakeholder report 2025-26" xlsx, versions v1 (8 Apr 2025) to v5 (26 May 2025). | **Total network price only** (no DUoS/TUoS/JSA split); adds an AER tariff-ID column (e.g. TD-AGD26res-Flat) and a component-type code row (Fix/Any/Pk/Opk/OthN/Exp); longer component labels; units written "$dollars/kWh". Sheet text: "These prices include distribution, transmission, and jurisdictional scheme components. Metering prices can be found on the metering worksheet." Excludes Evoenergy's ACT large-scale feed-in tariff (LFiT). v5 added tariff codes for standard network tariffs. | https://www.aer.gov.au/system/files/2025-05/AER%20-%20Consolidated%20stakeholder%20report%202025%E2%80%9326%20v5%C2%A0.xlsx (landing page https://www.aer.gov.au/documents/aer-consolidated-stakeholder-report-2025-26) |
 | 2026-27 | "AER - 2026-27 - Consolidated stakeholder report", versions v1 (2 Apr 2026) to v5 (14 Aug 2026; file dated 26 Aug 2026). | Same total-price layout as 2025-26 but **without** the AER tariff-ID column and component-type row; units back to "$/kWh". Still excludes Evoenergy LFiT. AER changelog: Ausgrid EA335 off-peak charging component approved at 0.8856 c/kWh where the correct price is 0; AusNet export reward re-presented as a negative value (v4); AusNet public-lighting codes updated (v5). | https://www.aer.gov.au/system/files/2026-08/AER%20%E2%80%93%202026%E2%80%9327%20%E2%80%93%20Consolidated%20stakeholder%20report%20%E2%80%93%2026%20August%202026.xlsx (landing page https://www.aer.gov.au/documents/aer-2026-27-consolidated-stakeholder-report-20-may-2026) |
 
-Consequences for a reconciliation: 2023-24 can only test whether the distributor's own publication equals what it lodged with the AER; 2024-25 allows a component-basis check (DUoS/TUoS/JSA) but uses AER-shortened labels and period-less demand units; 2025-26 and 2026-27 allow only a total-price check and leave metering on a separate worksheet, which is why the metering-inclusive daily charges of Endeavour, Essential, Energex and Ergon differ from the AER by exactly the metering price (section 5.1). Each consolidated report went through five versions; the AER takes superseded files private, so only 2025-26 v1 (Wayback Machine) and the two v5 files are held. Every version's versioned URL and status is listed in section 8.
+Consequences for a reconciliation: 2023-24 can only test whether the distributor's own publication equals what it lodged with the AER; 2024-25 allows a component-basis check (DUoS/TUoS/JSA) but uses AER-shortened labels and period-less demand units; 2025-26 and 2026-27 allow only a total-price check and leave metering on a separate worksheet, which is why the metering-inclusive daily charges of Endeavour, Essential, Energex and Ergon differ from the AER by exactly the metering price (section 5.1). Each consolidated report went through five versions; the AER takes superseded files private, so only 2025-26 v1 (Wayback Machine) and the two v5 files are held. Section 8 lists every version, held or not.
 
 ## 3. Distributor sources and gaps
 
@@ -115,7 +115,6 @@ Distributor side (full notes per cell in section 8 and on the board's timeline):
 - [UNSURE] Power and Water 2024-25 and 2025-26 one-page tables print no units for some columns; units taken from the matching pricing-proposal tables. Power and Water documents never state NUoS vs DUoS (recorded as basis "unknown"; the AER file is compared as published).
 - [UNSURE] SA Power Networks pricing-proposal schedules (AER-hosted 2023-24/2024-25/2025-26) do not state GST; assumed exclusive like the price lists.
 - [UNSURE] Energex/Ergon "JS" block mapped to the jurisdictional scheme basis; Ergon 2023-24/2024-25 "SAC Unmetered" unit typo preserved as published.
-- [UNSURE] Which superseded file is which AER version where the file name does not say: the 2025-26 file with a plain space in its name is taken to be v2, the 2026-27 '31 March 2026' file v1, and of two 307-answering names for the SA Power Networks 2024-25 original release neither is established. None of these files is retrievable (login-gated), so no prices of those versions are compared.
 
 ## 6. Recommendations
 
@@ -123,7 +122,7 @@ Distributor side (full notes per cell in section 8 and on the board's timeline):
 2. Treat the AER file's zero-priced rows as "not published" rather than "free": the distributor's own list is the only source for new trial/flexible tariffs in the year they start (Energex, Ergon, SA Power Networks 2024-25, AusNet 2025-26).
 3. For large-business and site-specific tariffs (Jemena A34x-A50x, AusNet NSP82/91/94/95, SA Power Networks HVADnnn/ZSSnnn/STRnnn) the consolidated report is incomplete; use the distributor's list.
 4. Use the code matching rules in `scripts/reconcile.py` (joint codes, "-SA", and Ergon-only T-region suffixes). Review unmatched codes and components individually; similarity and price agreement alone do not establish component identity.
-5. The reconciliation is reproducible (`./run.sh`). The AER takes each superseded version private, so archive every new version when it appears (commit the file under `sources/aer/`, add it to `scripts/tariffdb/build_support.py` `AER_CONSOLIDATED_FILES`) and reconcile it with `scripts/reconcile.py --aer-version <document_id>`; record its versioned URL rather than the landing page.
+5. The reconciliation is reproducible (`./run.sh`). The AER takes each superseded version private, so archive every new version when it appears (commit the file under `sources/aer/`, add it to `scripts/tariffdb/build_support.py` `AER_CONSOLIDATED_FILES`) and reconcile it with `scripts/reconcile.py --aer-version <document_id>`.
 
 ## 7. Comparison output
 
@@ -459,20 +458,25 @@ Reconciled = components equal, equal after rounding, or whose difference has a d
 
 ## AER consolidated report versions
 
-The AER reissued each consolidated report five times; the landing page only ever links the latest file and the AER takes each superseded file private (HTTP 307 to its login page). Every version is listed below with its own versioned URL and what the AER server answered on 2026-10-06. Every held version is reconciled against the distributor documents the same way as the latest (`.venv/bin/python scripts/reconcile.py --aer-version <document_id>`, outputs in `out/versions/<document_id>/`; the default run writes all of them to `out/version_grid.csv`). Distributors a version does not carry are not compared for it.
+The AER reissued each consolidated report five times; the landing page only ever links the latest file and the AER takes each superseded file private. Every held version is reconciled against the distributor documents the same way as the latest (`.venv/bin/python scripts/reconcile.py --aer-version <document_id>`, outputs in `out/versions/<document_id>/`; the default run writes all of them to `out/version_grid.csv`). Distributors a version does not carry are not compared for it.
 
-| Version | Published | Prices | Held copy | Versioned URL (server answer) | Compared | Equal | Rounding | Explained | Unexplained | AER-only codes |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 2025-26 v1 | 8 Apr 2025 | proposed | `sources/aer/AER_Consolidated_stakeholder_report_2025-26_v1_wayback.xlsx` | https://www.aer.gov.au/system/files/2025-04/Consolidated%C2%A0stakeholder%20report%202025%E2%80%9326.xlsx (307 login_gated; inventory) | 799 | 412 | 85 | 88 | 214 | 10 |
-| 2025-26 v2 | 10 Apr 2025 | proposed | none (login-gated; not in the Wayback Machine) | https://www.aer.gov.au/system/files/2025-04/Consolidated%20stakeholder%20report%202025%E2%80%9326.xlsx (307 login_gated; probed file name; [UNSURE] which version this file is: see data/tariffdb document_url_check) | not held | | | | | |
-| 2025-26 v3 | 14 May 2025 | mixed | none (login-gated; not in the Wayback Machine) | https://www.aer.gov.au/system/files/2025-05/Consolidated%20stakeholder%20report%202025%E2%80%9326%20v3.xlsx (307 login_gated; probed file name) | not held | | | | | |
-| 2025-26 v4 | 16 May 2025 | mixed | none (login-gated; not in the Wayback Machine) | https://www.aer.gov.au/system/files/2025-05/Consolidated%20stakeholder%20report%202025%E2%80%9326%20v4.xlsx (307 login_gated; probed file name) | not held | | | | | |
-| 2025-26 v5 | 26 May 2025 | approved | `sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx` | https://www.aer.gov.au/system/files/2025-05/AER%20-%20Consolidated%20stakeholder%20report%202025%E2%80%9326%20v5%C2%A0.xlsx (200 served; inventory) | 1235 | 860 | 230 | 145 | 0 | 33 |
-| 2026-27 v1 | 2 Apr 2026 | proposed | none (login-gated; not in the Wayback Machine) | https://www.aer.gov.au/system/files/2026-04/AER%20%E2%80%93%202026%E2%80%9327%20%E2%80%93%20Consolidated%20stakeholder%20report%20%E2%80%93%2031%20March%202026.xlsx (307 login_gated; probed file name; [UNSURE] which version this file is: see data/tariffdb document_url_check) | not held | | | | | |
-| 2026-27 v2 | 24 Apr 2026 | approved | none (login-gated; not in the Wayback Machine) | https://www.aer.gov.au/system/files/2026-04/AER%20%E2%80%93%202026%E2%80%9327%20%E2%80%93%20Consolidated%20stakeholder%20report%20%E2%80%93%2024%20April%202026.xlsx (307 login_gated; probed file name) | not held | | | | | |
-| 2026-27 v3 | 8 May 2026 | mixed | none (login-gated; not in the Wayback Machine) | https://www.aer.gov.au/system/files/2026-05/AER%20%E2%80%93%202026%E2%80%9327%20%E2%80%93%20Consolidated%20stakeholder%20report%20%E2%80%93%208%20May%C2%A02026.xlsx (307 login_gated; archived landing page) | not held | | | | | |
-| 2026-27 v4 | 20 May 2026 | approved | none (login-gated; not in the Wayback Machine) | https://www.aer.gov.au/system/files/2026-05/AER%20%E2%80%93%202026%E2%80%9327%20%E2%80%93%20Consolidated%20stakeholder%20report%20%E2%80%93%2020%20May%202026.xlsx (307 login_gated; archived landing page) | not held | | | | | |
-| 2026-27 v5 | 14 Aug 2026 | approved | `sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx` | https://www.aer.gov.au/system/files/2026-08/AER%20%E2%80%93%202026%E2%80%9327%20%E2%80%93%20Consolidated%20stakeholder%20report%20%E2%80%93%2026%20August%202026.xlsx (200 served; inventory) | 1254 | 940 | 235 | 79 | 0 | 9 |
+| Version | Published | Prices | Held copy | Compared | Equal | Rounding | Explained | Unexplained | AER-only codes |
+|---|---|---|---|---|---|---|---|---|---|
+| 2025-26 v1 | 8 Apr 2025 | proposed | `sources/aer/AER_Consolidated_stakeholder_report_2025-26_v1_wayback.xlsx` | 799 | 412 | 85 | 88 | 214 | 10 |
+| 2025-26 v5 | 26 May 2025 | approved | `sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx` | 1235 | 860 | 230 | 145 | 0 | 33 |
+| 2026-27 v5 | 14 Aug 2026 | approved | `sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx` | 1254 | 940 | 235 | 79 | 0 | 9 |
+
+Versions not held (the AER takes superseded files private and the Wayback Machine holds no copy), so not reconciled:
+
+| Financial year | Version | Published | Prices |
+|---|---|---|---|
+| 2025-26 | v2 | 10 Apr 2025 | proposed |
+| 2025-26 | v3 | 14 May 2025 | mixed |
+| 2025-26 | v4 | 16 May 2025 | mixed |
+| 2026-27 | v1 | 2 Apr 2026 | proposed |
+| 2026-27 | v2 | 24 Apr 2026 | approved |
+| 2026-27 | v3 | 8 May 2026 | mixed |
+| 2026-27 | v4 | 20 May 2026 | approved |
 
 Proposed (v1) against approved prices: the 2025-26 v1 file carries proposed prices for ACT, NSW, NT, TAS and VIC only, and prints no tariff codes ('#REF!'), so each v1 row takes its code from the latest version through the AER tariff ID both print. Per distributor:
 

@@ -8,4 +8,3 @@
 - [UNSURE] Power and Water 2024-25 and 2025-26 one-page tables print no units for some columns; units taken from the matching pricing-proposal tables. Power and Water documents never state NUoS vs DUoS (recorded as basis "unknown"; the AER file is compared as published).
 - [UNSURE] SA Power Networks pricing-proposal schedules (AER-hosted 2023-24/2024-25/2025-26) do not state GST; assumed exclusive like the price lists.
 - [UNSURE] Energex/Ergon "JS" block mapped to the jurisdictional scheme basis; Ergon 2023-24/2024-25 "SAC Unmetered" unit typo preserved as published.
-- [UNSURE] Which superseded file is which AER version where the file name does not say: the 2025-26 file with a plain space in its name is taken to be v2, the 2026-27 '31 March 2026' file v1, and of two 307-answering names for the SA Power Networks 2024-25 original release neither is established. None of these files is retrievable (login-gated), so no prices of those versions are compared.

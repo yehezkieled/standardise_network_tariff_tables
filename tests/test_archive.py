@@ -77,6 +77,8 @@ class ArchiveTest(unittest.TestCase):
     def test_year_keys(self):
         self.assertEqual(A.year_keys("citipower", "2019"), ["2019", "2020", "2021-H1", "2021-22", "2022-23"])
         self.assertEqual(A.year_keys("ausgrid", "2020-21"), ["2020-21", "2021-22", "2022-23"])
+        self.assertEqual(A.year_keys("tasnetworks", "2007")[:3], ["2007", "2008-H1", "2008-09"])
+        self.assertEqual(A.year_keys("powercor", "1999-00")[:3], ["1999-00", "2000-H2", "2001"])
 
 
 if __name__ == "__main__":

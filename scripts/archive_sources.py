@@ -10,6 +10,8 @@ and, where nothing is held, why. The current pipeline (scripts/tariffdb) does no
         [--price-status approved] [--publication-date 2019-05-29 --publication-date-basis aer_page] [--note ...]
     .venv/bin/python scripts/archive_sources.py check     # every registered file exists and matches its sha256
     .venv/bin/python scripts/archive_sources.py coverage  # rewrite sources/archive/coverage.csv
+    .venv/bin/python scripts/archive_sources.py move <local_path> [--year Y] [--name F] [--note ...]  # re-file
+    .venv/bin/python scripts/archive_sources.py remove <local_path> --reason "..."  # wrong scope or broken file
 
 Wayback copies: pass the capture URL with 'id_' after the timestamp
 (https://web.archive.org/web/20140213205358id_/http://www.aer.gov.au/...) so the file comes back unmodified; the
@@ -50,7 +52,8 @@ PRICE_STATUS = ["proposed", "approved", "published", "unverified", "not_applicab
 PRICE_KINDS = ["price_list", "pricing_proposal", "tariff_summary", "tariff_schedule", "price_guide",
                "annual_tariff_report", "pricing_model"]
 STATUS_RANK = ["published", "approved", "proposed", "unverified"]  # best first: the distributor's own list is final
-VIC = {"citipower", "powercor", "unitedenergy", "jemena", "ausnet"}  # calendar years to 2020, then 2021-H1
+VIC = {"citipower", "powercor", "unitedenergy", "jemena", "ausnet"}  # calendar years 2001-2020; see year_keys
+# Tasmania (Aurora Energy) also priced by calendar year until 2007; see year_keys
 DISTRIBUTORS = {  # canonical name (scripts/schema.py CANON) -> distributor_id (scripts/tariffdb/build_support.py)
     "Ausgrid": "ausgrid", "AusNet Services": "ausnet", "CitiPower": "citipower", "Endeavour Energy": "endeavour",
     "Energex": "energex", "Ergon Energy": "ergon", "Essential Energy": "essential", "Evoenergy": "evoenergy",
@@ -60,13 +63,13 @@ DISTRIBUTORS = {  # canonical name (scripts/schema.py CANON) -> distributor_id (
 
 
 def year_kind(key):
-    if re.fullmatch(r"20\d\d-\d\d", key) and int(key[5:]) == (int(key[2:4]) + 1) % 100:
+    if re.fullmatch(r"(19|20)\d\d-\d\d", key) and int(key[5:]) == (int(key[2:4]) + 1) % 100:
         return "financial_year"
-    if re.fullmatch(r"20\d\d", key):
+    if re.fullmatch(r"(19|20)\d\d", key):
         return "calendar_year"
-    if re.fullmatch(r"20\d\d-H1", key):
+    if re.fullmatch(r"(19|20)\d\d-H[12]", key):
         return "half_year"
-    raise SystemExit(f"pricing year {key!r}: use 2014-15 (financial), 2019 (calendar) or 2021-H1 (half year)")
+    raise SystemExit(f"pricing year {key!r}: use 2014-15 (financial), 2019 (calendar), 2021-H1 or 2000-H2 (half year)")
 
 
 def download(url, dest, attempts=5):
@@ -102,10 +105,20 @@ def sha256(path):
     return h.hexdigest()
 
 
-def file_name(url):
-    name = urllib.parse.unquote(url.rstrip("/").rsplit("/", 1)[-1])
+MAGIC = [(b"%PDF", ".pdf"), (b"PK\x03\x04", ".xlsx"), (b"\xd0\xcf\x11\xe0", ".xls")]  # by leading bytes
+KNOWN_EXT = {".pdf", ".xlsx", ".xlsm", ".xlsb", ".xls", ".docx", ".doc", ".csv", ".zip"}
+
+
+def file_name(url, head=b""):
+    """Safe file name from the URL's last path segment (query string dropped); the extension comes from the
+    file's leading bytes when the URL has no document extension (download.jsp, .ashx)."""
+    parts = urllib.parse.urlsplit(url.split("id_/", 1)[-1])
+    name = urllib.parse.unquote(parts.path.rstrip("/").rsplit("/", 1)[-1])
     stem, ext = os.path.splitext(name)
-    stem = re.sub(r"[^A-Za-z0-9._-]+", "_", stem).strip("_")[:120]
+    if ext.lower() not in KNOWN_EXT:  # a script URL: the query names the document (download.jsp?id=11938)
+        query = "_".join(v for _, v in urllib.parse.parse_qsl(parts.query) if v not in ("en", "true"))
+        stem, ext = f"{name}_{query}" if query else name, next((e for m, e in MAGIC if head.startswith(m)), ".bin")
+    stem = re.sub(r"[^A-Za-z0-9._-]+", "_", stem).strip("_.")[:120]
     return stem + ext.lower()
 
 
@@ -118,10 +131,34 @@ def read_rows():
 
 def write_rows(rows):
     rows.sort(key=lambda r: (r["distributor_id"], r["pricing_year"], r["side"], r["document_kind"], r["local_path"]))
-    with open(INVENTORY, "w", newline="", encoding="utf-8") as f:
+    with open(INVENTORY + ".tmp", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=COLUMNS, lineterminator="\n")
         w.writeheader()
         w.writerows(rows)
+    os.replace(INVENTORY + ".tmp", INVENTORY)  # readers never see a half-written inventory
+
+
+def damage(path):
+    """Why the file is not a complete document, or '' (Wayback captures are sometimes cut off at 1 MiB)."""
+    with open(path, "rb") as f:
+        data = f.read()
+    ext = os.path.splitext(path)[1].lower()
+    if ext == ".pdf":
+        if b"%PDF" not in data[:1024]:
+            return "not a PDF"
+        if b"%%EOF" not in data[-2048:]:
+            return "PDF without its %%EOF trailer (cut off)"
+    elif ext in (".xlsx", ".xlsm", ".xlsb", ".docx", ".zip"):
+        if not data.startswith(b"PK\x03\x04"):
+            return "not a zip container"
+        if b"PK\x05\x06" not in data[-66000:]:
+            return "zip without its end record (cut off)"
+    elif ext in (".xls", ".doc"):
+        if not data.startswith(b"\xd0\xcf\x11\xe0"):
+            return "not an OLE document"
+    else:
+        return f"unexpected file type {ext}"
+    return ""
 
 
 def add(a):
@@ -133,6 +170,16 @@ def add(a):
     if m and not m.group(4):
         raise SystemExit("Wayback URL without 'id_': the archive would rewrite the file")
     rel = a.path or f"sources/archive/{did}/{a.year}/{file_name(a.url)}"
+    if not a.path and os.path.splitext(rel)[1] == ".bin":  # extension unknown until the file is here
+        tmp = os.path.join(ARCHIVE, ".download-" + hashlib.sha256(a.url.encode()).hexdigest()[:16])
+        download(a.url, tmp)
+        with open(tmp, "rb") as f:
+            rel = f"sources/archive/{did}/{a.year}/{file_name(a.url, f.read(8))}"
+        if os.path.exists(os.path.join(ROOT, rel)):
+            os.remove(tmp)
+        else:
+            os.makedirs(os.path.dirname(os.path.join(ROOT, rel)), exist_ok=True)
+            os.replace(tmp, os.path.join(ROOT, rel))
     taken = {r["local_path"]: r["source_url"] for r in read_rows()}
     stem, ext = os.path.splitext(rel)
     n = 1
@@ -142,6 +189,10 @@ def add(a):
     dest = os.path.join(ROOT, rel)
     if not os.path.exists(dest):
         download(a.url, dest)
+    bad = damage(dest)
+    if bad:
+        os.remove(dest)
+        raise SystemExit(f"{a.url}: {bad}; try another capture (Wayback CDX) or another copy")
     size = os.path.getsize(dest)
     row = {"distributor_id": did, "distributor": a.distributor, "pricing_year": a.year, "year_kind": kind,
            "side": a.side, "document_kind": a.kind, "title": a.title, "version_label": a.version_label,
@@ -165,8 +216,14 @@ def add(a):
 
 def year_keys(did, first):
     """Every pricing year key for a distributor from `first` to LAST_YEAR, in order."""
-    fy = [f"{y}-{(y + 1) % 100:02d}" for y in range(2000, 2023)]
-    keys = [str(y) for y in range(2000, 2021)] + ["2021-H1"] + fy[21:] if did in VIC else fy
+    fy = {y: f"{y}-{(y + 1) % 100:02d}" for y in range(1990, 2023)}
+    if did in VIC:  # financial years to 1999-00, Jul-Dec 2000, calendar years 2001-2020, Jan-Jun 2021
+        keys = [fy[y] for y in range(1990, 2000)] + ["2000-H2"] + [str(y) for y in range(2001, 2021)] + ["2021-H1"]
+        keys += [fy[y] for y in range(2021, 2023)]
+    elif did == "tasnetworks":  # Aurora: calendar years to 2007, then Jan-Jun 2008 ("Period 1"), then from 2008-09
+        keys = [str(y) for y in range(1990, 2008)] + ["2008-H1"] + [fy[y] for y in range(2008, 2023)]
+    else:
+        keys = list(fy.values())
     start = keys.index(first) if first in keys else 0
     return keys[start:keys.index(LAST_YEAR) + 1]
 
@@ -216,6 +273,46 @@ def coverage(_a):
     print(f"{len(rows)} distributor-years, {len(missing)} without price documents or a gap reason: {missing}")
 
 
+def edit_row(path, change):
+    """Apply change(row) -> row or None (remove) to the row of `path`, under the inventory lock."""
+    with open(INVENTORY + ".lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        rows = read_rows()
+        hit = [r for r in rows if r["local_path"] == path]
+        if not hit:
+            raise SystemExit(f"{path}: not in the inventory")
+        new = change(dict(hit[0]))
+        rows = [r for r in rows if r["local_path"] != path] + ([new] if new else [])
+        write_rows(rows)
+    return new
+
+
+def move(a):
+    def change(r):
+        year = a.year or r["pricing_year"]
+        name = a.name or os.path.basename(r["local_path"])
+        if re.search(r"[^A-Za-z0-9._-]", name):
+            raise SystemExit(f"--name {name!r}: letters, digits, '.', '_' and '-' only")
+        dest = f"sources/archive/{r['distributor_id']}/{year}/{name}"
+        if dest != r["local_path"] and os.path.exists(os.path.join(ROOT, dest)):
+            raise SystemExit(f"{dest} exists")
+        os.makedirs(os.path.dirname(os.path.join(ROOT, dest)), exist_ok=True)
+        os.replace(os.path.join(ROOT, r["local_path"]), os.path.join(ROOT, dest))
+        r.update(pricing_year=year, year_kind=year_kind(year), local_path=dest)
+        if a.note:
+            r["note"] = f"{r['note']}; {a.note}" if r["note"] else a.note
+        return r
+    print(edit_row(a.path, change)["local_path"])
+
+
+def remove(a):
+    def change(r):
+        os.remove(os.path.join(ROOT, r["local_path"]))
+        return None
+    edit_row(a.path, change)
+    print(f"removed {a.path}: {a.reason}")
+
+
 def check(_a):
     bad = 0
     for r in read_rows():
@@ -226,6 +323,8 @@ def check(_a):
             print("DIFFERS ", r["local_path"]); bad += 1
         elif r["pricing_year"] and year_kind(r["pricing_year"]) != r["year_kind"]:
             print("YEARKIND", r["local_path"]); bad += 1
+        elif damage(p):
+            print("DAMAGED ", r["local_path"], damage(p)); bad += 1
     print(f"{len(read_rows())} archived documents, {bad} problems")
     sys.exit(1 if bad else 0)
 
@@ -235,7 +334,7 @@ def main():
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("add", help="download one document and register it")
     p.add_argument("--distributor", required=True)
-    p.add_argument("--year", required=True, help="pricing year: 2014-15, 2019 or 2021-H1")
+    p.add_argument("--year", required=True, help="pricing year: 2014-15, 2019, 2021-H1 or 2000-H2")
     p.add_argument("--side", required=True, choices=SIDES)
     p.add_argument("--kind", required=True, choices=KINDS)
     p.add_argument("--title", required=True, help="document title as published")
@@ -251,6 +350,16 @@ def main():
     p.set_defaults(fn=add)
     sub.add_parser("check", help="verify every registered file").set_defaults(fn=check)
     sub.add_parser("coverage", help="rewrite sources/archive/coverage.csv").set_defaults(fn=coverage)
+    p = sub.add_parser("move", help="re-file a registered document (other pricing year or file name)")
+    p.add_argument("path")
+    p.add_argument("--year", default="")
+    p.add_argument("--name", default="")
+    p.add_argument("--note", default="", help="appended to the row's note (say why it moved)")
+    p.set_defaults(fn=move)
+    p = sub.add_parser("remove", help="delete a registered document and its row")
+    p.add_argument("path")
+    p.add_argument("--reason", required=True)
+    p.set_defaults(fn=remove)
     a = ap.parse_args()
     a.fn(a)
 

@@ -1,6 +1,6 @@
 # standardise_network_tariff_tables
 
-Australian electricity **network tariffs** for all 14 distributors, 2023-24 to 2026-27, as one historical dataset:
+Australian electricity **network tariffs** for all 14 distributors, 1996-97 to 2026-27, as one historical dataset:
 per tariff code, the final rate the customer is charged, with its TOU windows and eligibility.
 
 ![Every table with its keys and the tables they reference](docs/schema-erd.svg)

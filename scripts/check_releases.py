@@ -19,7 +19,7 @@ Run monthly by .github/workflows/release-check.yml; anyone can run it locally or
 Exit status: 0 nothing new, 2 something new or changed, 1 usage error. Pages or files that cannot be reached (some
 publishers block automated access) are listed but do not count as a change.
 """
-import argparse, concurrent.futures, csv, datetime, hashlib, html, os, re, sys, urllib.parse, urllib.request
+import argparse, concurrent.futures, csv, datetime, hashlib, html, os, re, sys, time, urllib.parse, urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tariffdb"))
@@ -39,10 +39,12 @@ CHANGELOG_RE = re.compile(r"On (\d{1,2} [A-Z][a-z]+(?: \d{4})?) we published ver
 FY_RE = re.compile(r"(20\d\d)\D{1,3}(\d\d)(?!\d)")
 
 
-def get(url, attempts=2):
-    """Return the body of url, or raise the last error."""
+def get(url, attempts=3):
+    """Return the body of url, or raise the last error. Some publishers refuse bots now and then, so retry slowly."""
     last = None
-    for _ in range(attempts):
+    for i in range(attempts):
+        if i:
+            time.sleep(5 * i)
         try:
             req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
             with urllib.request.urlopen(req, timeout=60) as r:

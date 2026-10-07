@@ -45,7 +45,7 @@ flowchart LR
 | 4 | Parse | `./run.sh`. A format the parser rejects: fix `scripts/parse_aer.py` or `scripts/dnsp/<group>.py` (contract: `scripts/dnsp/CONTRACT.md`), never the output |
 | 5 | Apply the rule | Automatic in the build: AER versions stay `provisional`, the distributor's list replaces them per code as `final`. TOU windows and eligibility only come from the distributor's documents (curated YAML) |
 | 6 | Validate | "Before you commit" below, every box |
-| 7 | Accept | `.venv/bin/python scripts/check_releases.py --no-files --accept` records the current links in `sources/watch_seen.csv`, so the next check reports only what is newer. Accept irrelevant links the same way |
+| 7 | Accept | `.venv/bin/python scripts/check_releases.py --no-files --accept` records the current links in `sources/watch_seen.csv`, so the next check reports only what is newer. Accept irrelevant links the same way, and a page's links the first time it answers (a page never reached has no baseline) |
 | 8 | PR | One PR per release; the body has the evidence (below). It closes the `source-release` issue |
 
 PR evidence:

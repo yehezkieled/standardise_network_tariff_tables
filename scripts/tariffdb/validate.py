@@ -19,6 +19,8 @@ The checks, in order (docs/update-and-validate.md says what a failure means and 
   blocks        a stepped price numbers its blocks 1..n without gaps, with bounds that rise from block to block
   tou           windows of one tariff, charge group and published period name never overlap on the same day type
                 and month
+  aliases       no provisional tariff is one a final tariff of the same distributor and period prices under its own
+                spelling or code (data/tariffdb/code_alias.csv), so no tariff is stored twice
   files         every held document is at its path with its recorded SHA-256 (--sources)
   values        every rate's published value is at its locator: the cell as Excel displays it, or the PDF page
                 (--sources)
@@ -34,6 +36,7 @@ from collections import defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.dirname(HERE))
+import aliases  # noqa: E402
 import build_support as bs  # noqa: E402
 import load as loader  # noqa: E402
 
@@ -144,6 +147,25 @@ def check_tou(db):
     return sorted(set(bad))
 
 
+def check_aliases(db, rules=None):
+    rules = aliases.load() if rules is None else rules
+    final = defaultdict(list)
+    for t in rows(db, "SELECT distributor_id, tariff_code, effective_from, effective_to FROM tariff "
+                      "WHERE status = 'final'"):
+        final[t["distributor_id"]].append(t)
+    bad = []
+    for p in rows(db, "SELECT distributor_id, tariff_code, effective_from, effective_to FROM tariff "
+                      "WHERE status = 'provisional'"):
+        overlap = [f["tariff_code"] for f in final[p["distributor_id"]]
+                   if f["effective_from"] <= p["effective_to"] and p["effective_from"] <= f["effective_to"]]
+        same = [c for c in overlap if aliases.norm(c) == aliases.norm(p["tariff_code"])]
+        same += aliases.targets(rules, p["distributor_id"], p["tariff_code"], p["effective_from"], overlap)
+        if same:
+            bad.append(f"tariff {p['distributor_id']} {p['tariff_code']} {p['effective_from']}: provisional, but the "
+                       f"final list prices it as {', '.join(sorted(set(same)))}")
+    return bad
+
+
 def check_files(db, committed_only):
     bad, n = [], 0
     for d in rows(db, "SELECT document_id, local_path, sha256 FROM source_document WHERE local_path IS NOT NULL"):
@@ -203,6 +225,12 @@ def check_quotes(db, committed_only):
     return bad, n
 
 
+# the checks main() runs after load, in order: (name, check); SOURCE_CHECKS only with --sources
+CHECKS = (("periods", check_periods), ("status", check_status), ("units", check_units), ("blocks", check_blocks),
+          ("tou", check_tou), ("aliases", check_aliases))
+SOURCE_CHECKS = (("files", check_files), ("values", check_values), ("quotes", check_quotes))
+
+
 def coverage(db):
     """One line per distributor-year and status: tariffs, those pricing a time-of-use period with no TOU window, and
     those with no eligibility criterion (the facts curated from the distributor's documents)."""
@@ -248,11 +276,10 @@ def main(argv=None):
         report("load", [str(e)])
         return 1
     report("load", [])
-    for name, check in (("periods", check_periods), ("status", check_status), ("units", check_units),
-                        ("blocks", check_blocks), ("tou", check_tou)):
+    for name, check in CHECKS:
         report(name, check(db))
     if a.sources:
-        for name, check in (("files", check_files), ("values", check_values), ("quotes", check_quotes)):
+        for name, check in SOURCE_CHECKS:
             bad, n = check(db, a.committed_only)
             report(name, bad, n)
     if a.coverage:

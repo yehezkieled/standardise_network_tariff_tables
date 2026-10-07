@@ -46,6 +46,25 @@ flowchart LR
 | 4 | Two price lists for the same year and day? Name the billed one in `build_support.FINAL_DOCUMENT` (the build fails until you do) |
 | 5 | Rebuild, then validate |
 
+### AER spells a code differently
+
+The distributor's spelling wins; the AER's copy of that tariff is dropped.
+
+| AER prints | Distributor prints | Handled by |
+|---|---|---|
+| `LVDed` | `LVDED` | automatic (case, spaces, trailing `*` ignored) |
+| `HVAD-SA` | `HVAD` | rule in `data/tariffdb/code_alias.csv` |
+| `EBDEM` | `EBDEMT1`, `EBDEMT2`, `EBDEMT3` | rule |
+| `HV` | `HV1`, `HV2`, `HV3` | rule |
+
+| # | Step |
+|---|---|
+| 1 | Add one row to `data/tariffdb/code_alias.csv`: `distributor_id, aer_code, distributor_code, valid_from, valid_to, reason` |
+| 2 | Prefer a pattern: `{code}` = same text both sides, `{n}` = one digit (distributor side). A literal pair also works |
+| 3 | Rebuild, then validate: the `aliases` check fails while a duplicate remains |
+
+A rule only matches codes the distributor's list really prices that day; it never creates a code.
+
 ### Mid-year price change
 
 | # | Step |
@@ -99,6 +118,7 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 | `units` | each unit is a standard unit that fits its charge type | a parser read the wrong column or unit heading; fix the parser (a real misprint goes in `validate.KNOWN_MISPRINTS` with its evidence) |
 | `blocks` | blocks number 1..n and their lower bounds rise | a block ladder in the curated `steps` that does not match the price list |
 | `tou` | windows of one tariff and period name never overlap on a day type and month | a mistyped window in the curated YAML |
+| `aliases` | no provisional tariff is a final tariff of the same distributor and period under another spelling or an alias | the AER spells a code differently: add a rule to `data/tariffdb/code_alias.csv` |
 | `files` | each held document matches its recorded SHA-256 (`--sources`) | the publisher replaced the file: record it as a new version |
 | `values` | each rate's published value is at its cell or PDF page (`--sources`) | the parser or locator is wrong for that row |
 | `quotes` | each eligibility quote is at its locator; each curated YAML validates (`--sources`) | a curated fact does not match its source |
@@ -115,7 +135,7 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 
 | Rule | Why |
 |---|---|
-| CSVs are generated; only `data/tariffdb/curated/*.yaml` is hand-written | a rebuild must reproduce every row |
+| CSVs are generated; only `data/tariffdb/curated/*.yaml` and `data/tariffdb/code_alias.csv` are hand-written | a rebuild must reproduce every row |
 | Every curated fact carries a verbatim `quote` | `validate.py --sources` can prove it |
 | The `.sqlite` is never committed | build it with `load.py --out`; a binary does not diff |
 | Superseded provisional rows are not kept as rows | `git log -p data/tariffdb/tables/rate.csv` has them |

@@ -5,7 +5,7 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 - Python lives in `.venv` (`.venv/bin/python`); the README lists the reconciliation pipeline order.
 - Tariff database (`data/tariffdb/`): generated CSVs, never hand-edited; the only hand-written inputs are
   `data/tariffdb/curated/*.yaml` (TOU windows, eligibility, block bounds), each fact with a verbatim `quote` at its
-  `locator`. Recipes, every check and the pre-commit list: `docs/update-and-validate.md`.
+  `locator`, and `data/tariffdb/code_alias.csv` (AER code spellings → the distributor's codes). Recipes, every check and the pre-commit list: `docs/update-and-validate.md`.
 - Schema changes go in `scripts/tariffdb/spec.py`; then rebuild (`scripts/tariffdb/build.py`) and regenerate
   `docs/schema.md` + `docs/schema-erd.svg` (`scripts/tariffdb/schema_doc.py`). `tests/test_tariffdb.py` fails on stale
   files.

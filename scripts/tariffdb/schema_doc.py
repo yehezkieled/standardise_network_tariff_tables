@@ -242,6 +242,8 @@ def conventions():
                 ("Prices", "total network price, GST exclusive, in cents: c/day, c/kWh, c/kVAh, c/kW/month ... (`?` = "
                            "the source states no billing period); `value_published` / `unit_published` as printed"),
                 ("Negative price", "a reward paid to the customer (export rebates)"),
+                ("`tariff_code`", "as the distributor prints it; AER spellings map onto it (case and spaces, plus the "
+                                  "rules in `data/tariffdb/code_alias.csv`)"),
                 ("Keys", "built from content (distributor, code, period, component), never row order, so a rebuild "
                          "is byte-identical"),
                 ("`locator`", "`xlsx:<sheet>!<cell>`, `pdf:p<page>` (`scripts/tariffdb/locators.py`)"),

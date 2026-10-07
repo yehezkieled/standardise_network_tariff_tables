@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts" / "tariffdb"))
 sys.path.insert(0, str(ROOT / "scripts"))
 import build  # noqa: E402
+import aliases  # noqa: E402
 import build_support as bs  # noqa: E402
 import load  # noqa: E402
 import schema_doc  # noqa: E402
@@ -144,10 +145,15 @@ class TestValidate(unittest.TestCase):
         status, out = quiet(validate.main, ["--sources"] + (["--committed-only"] if COMMITTED_ONLY else []))
         self.assertEqual(status, 0, out)
         checked = {m[0]: int(m[1]) for m in re.findall(r"PASS (\w+) \((\d+) checked\)", out)}
-        self.assertGreater(checked["values"], 4000 if COMMITTED_ONLY else len(rows("rate")) - 1, out)
+        # every row whose source file is in this checkout is re-read (all of them unless TARIFFDB_SOURCES=committed)
+        held = {d["document_id"] for d in rows("source_document")
+                if d["local_path"] and (ROOT / d["local_path"]).exists()}
+        expect = {"values": sum(r["document_id"] in held for r in rows("rate")),
+                  "quotes": sum(e["document_id"] in held for e in rows("eligibility"))}
+        self.assertEqual({k: checked[k] for k in expect}, expect, out)
+        self.assertGreater(expect["values"], 0)
         if not COMMITTED_ONLY:
-            self.assertEqual(checked["values"], len(rows("rate")))
-            self.assertEqual(checked["quotes"], len(rows("eligibility")))
+            self.assertEqual(expect, {"values": len(rows("rate")), "quotes": len(rows("eligibility"))})
 
     def test_coverage_lists_every_distributor_year(self):
         db = load.load()
@@ -176,6 +182,9 @@ class TestValidate(unittest.TestCase):
                                    "(SELECT rowid FROM rate WHERE charge_type = 'daily' LIMIT 1)"),
             (validate.check_blocks, "UPDATE rate SET block = 3 WHERE block = 2 AND rowid IN "
                                     "(SELECT rowid FROM rate WHERE block = 2 LIMIT 1)"),
+            (validate.check_aliases, "INSERT INTO tariff SELECT distributor_id, lower(tariff_code), effective_from, "
+                                     "effective_to, tariff_name, customer_class, 'provisional', document_id FROM "
+                                     "tariff WHERE status = 'final' LIMIT 1"),
             (validate.check_tou, "INSERT INTO tou_window SELECT window_id || '-copy', distributor_id, tariff_code, "
                                  "effective_from, effective_to, applies_to, tou_period, period_label, day_type, "
                                  "start_time, end_time, months, season, time_basis, public_holidays, document_id, "
@@ -203,8 +212,9 @@ def doc(document_id, side, status="published", fin_year="2025-26"):
 class TestBuildRules(unittest.TestCase):
     """The rules that decide which rates a tariff code gets, on synthetic documents."""
 
-    def run_build(self, docs, parsed, starts=None):
-        b = build.Builder(parsed=parsed, metering=[], curated_files={}, docs=docs, starts=starts or {})
+    def run_build(self, docs, parsed, starts=None, code_aliases=()):
+        b = build.Builder(parsed=parsed, metering=[], curated_files={}, docs=docs, starts=starts or {},
+                          code_aliases=list(code_aliases))
         b.tariffs_and_rates()
         return {(k[1], k[2]): v for k, v in b.tables["tariff"].items()}, b
 
@@ -255,10 +265,74 @@ class TestBuildRules(unittest.TestCase):
             parsed_row("AER", aer, "R", "5", name="Name 1"), parsed_row("AER", aer, "R", "5", name="Name 2")])
         self.assertEqual(sorted(c for c, _ in tariffs), ["R", "TBA (Trial A)", "TBA (Trial B)"])
 
-    def test_curated_code_matches_spacing_and_case(self):
-        _, b = self.run_build([doc("dist", "DNSP")], [parsed_row("DNSP", "sources/dist.pdf", "LVKVATOU 1", "1")])
-        self.assertEqual(b.tariff_code("essential", "LVKVATOU1", "2025-26", "test"), "LVKVATOU 1")
-        self.assertIsNone(b.tariff_code("essential", "NOPE", "2025-26", "test"))
+    def test_curated_code_matches_spacing_case_and_aliases(self):
+        _, b = self.run_build([doc("dist", "DNSP")], [
+            parsed_row("DNSP", "sources/dist.pdf", "LVKVATOU 1", "1"),
+            parsed_row("DNSP", "sources/dist.pdf", "EBDEMT1", "1"),
+            parsed_row("DNSP", "sources/dist.pdf", "EBDEMT2", "1")],
+            code_aliases=[alias("{code}", "{code}T{n}")])
+        self.assertEqual(b.tariff_codes("essential", "LVKVATOU1", "2025-26", "test"), ["LVKVATOU 1"])
+        self.assertEqual(b.tariff_codes("essential", "EBDEM", "2025-26", "test"), ["EBDEMT1", "EBDEMT2"])
+        self.assertEqual(b.tariff_codes("essential", "NOPE", "2025-26", "test"), [])
+
+    def test_aer_spelling_is_stored_under_the_distributor_code(self):
+        """An AER code that differs only in case is the distributor's tariff: one row, final, distributor spelling; in a
+        year the distributor publishes nothing it still carries the distributor's spelling."""
+        docs = [doc("aer", "AER", "approved"), doc("dist", "DNSP"), doc("aer-26", "AER", "approved", "2026-27")]
+        tariffs, _ = self.run_build(docs, [
+            parsed_row("AER", "sources/aer.pdf", "LVDed", "10"), parsed_row("DNSP", "sources/dist.pdf", "LVDED", "11"),
+            parsed_row("AER", "sources/aer-26.pdf", "LVDed", "12", fin_year="2026-27")])
+        self.assertEqual(sorted(tariffs), [("LVDED", "2025-07-01"), ("LVDED", "2026-07-01")])
+        self.assertEqual(tariffs[("LVDED", "2025-07-01")]["status"], "final")
+        self.assertEqual(tariffs[("LVDED", "2026-07-01")]["status"], "provisional")
+
+    def test_aliased_aer_code_gives_way_to_the_distributor_codes(self):
+        docs = [doc("aer", "AER", "approved"), doc("dist", "DNSP")]
+        parsed = [parsed_row("AER", "sources/aer.pdf", "HV", "10"), parsed_row("AER", "sources/aer.pdf", "HVX", "10"),
+                  parsed_row("DNSP", "sources/dist.pdf", "HV1", "11"),
+                  parsed_row("DNSP", "sources/dist.pdf", "HV2", "12")]
+        tariffs, _ = self.run_build(docs, parsed, code_aliases=[alias("{code}", "{code}{n}")])
+        # HV is priced as HV1 and HV2; HVX has no HVX<n> in the list and stays provisional
+        self.assertEqual(sorted(tariffs), [("HV1", "2025-07-01"), ("HV2", "2025-07-01"), ("HVX", "2025-07-01")])
+        tariffs, _ = self.run_build(docs, parsed)  # without the rule both spellings are kept
+        self.assertIn(("HV", "2025-07-01"), tariffs)
+
+    def test_aliased_aer_code_ends_when_a_mid_year_list_starts(self):
+        docs = [doc("aer", "AER", "approved"), doc("dist-oct", "DNSP")]
+        tariffs, _ = self.run_build(docs, [parsed_row("AER", "sources/aer.pdf", "X-SA", "10"),
+                                           parsed_row("DNSP", "sources/dist-oct.pdf", "X", "11")],
+                                    starts={"sources/dist-oct.pdf": "2025-10-01"},
+                                    code_aliases=[alias("{code}-SA", "{code}")])
+        self.assertEqual((tariffs[("X-SA", "2025-07-01")]["effective_to"], tariffs[("X", "2025-10-01")]["status"]),
+                         ("2025-09-30", "final"))
+
+
+def alias(aer_code, distributor_code, distributor_id="essential", valid_from="", valid_to=""):
+    return {"distributor_id": distributor_id, "aer_code": aer_code, "distributor_code": distributor_code,
+            "valid_from": valid_from, "valid_to": valid_to, "reason": "test"}
+
+
+class TestAliases(unittest.TestCase):
+    def test_rules_match_only_codes_the_list_prices(self):
+        rules = [alias("{code}", "{code}T{n}", "ergon"), alias("{code}-SA", "{code}", "sapn"),
+                 alias("OLD", "NEW 1", "sapn", valid_to="2024-06-30")]
+        self.assertEqual(aliases.targets(rules, "ergon", "EBDEM", "2024-07-01", ["EBDEMT1", "EBDEMT3", "EBDEMX"]),
+                         ["EBDEMT1", "EBDEMT3"])
+        self.assertEqual(aliases.targets(rules, "sapn", "hvad-sa", "2024-07-01", ["HVAD", "HVADF"]), ["HVAD"])
+        self.assertEqual(aliases.targets(rules, "sapn", "OLD", "2023-07-01", ["NEW1"]), ["NEW1"])
+        self.assertEqual(aliases.targets(rules, "sapn", "OLD", "2024-07-01", ["NEW1"]), [])  # rule expired
+        self.assertEqual(aliases.targets(rules, "ergon", "EBDEM", "2024-07-01", []), [])  # never creates a code
+
+    def test_committed_rules_load(self):
+        self.assertTrue(aliases.load())
+
+    def test_bad_rules_are_rejected(self):
+        for row in (alias("{code}", "{code}", "nowhere"), alias("{code}{n}", "{code}"), alias("{code}", "X"),
+                    alias("{x}", "{x}"), alias("A", "B", valid_from="2025-13-01"),
+                    alias("A", "B", valid_from="2025-07-01", valid_to="2024-07-01"), {**alias("A", "B"), "reason": ""}):
+            with self.subTest(row=row):
+                self.assertTrue(aliases.problems([row]))
+        self.assertEqual(aliases.problems([alias("{code}-SA", "{code}", "sapn")]), [])
 
 
 class TestDocs(unittest.TestCase):
@@ -277,12 +351,13 @@ class TestDocs(unittest.TestCase):
                         self.assertIn(flag, help_text, f"{script} {flag}")
 
     def test_every_validation_check_is_documented(self):
+        """Each check validate.py runs (and prints as PASS/FAIL) has a row in the Checks table of the update guide."""
+        _, out = quiet(validate.main, [])
+        ran = re.findall(r"^(?:PASS|FAIL) (\w+)", out, re.M)
+        self.assertEqual(ran, ["load"] + [name for name, _ in validate.CHECKS])
         text = UPDATE_DOC.read_text(encoding="utf-8")
-        checks = re.findall(r"^  (\w+) {2,}", validate.__doc__.split("The checks, in order")[1], re.M)
-        self.assertEqual(checks, ["load", "periods", "status", "units", "blocks", "tou", "files", "values",
-                                  "quotes"])
-        for c in checks:
-            self.assertRegex(text, rf"\| `{c}` \|", f"docs/update-and-validate.md does not explain the {c} check")
+        for name in ran + [name for name, _ in validate.SOURCE_CHECKS]:
+            self.assertRegex(text, rf"\| `{name}` \|", f"docs/update-and-validate.md does not explain the {name} check")
 
     def test_fin_year_lists_agree(self):
         self.assertEqual(sorted(bs.FIN_YEAR_DATES), spec.FIN_YEARS)

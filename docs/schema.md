@@ -12,8 +12,8 @@
 | Not stored | retail plans; the DUoS / TUoS / jurisdictional breakdown |
 | Years | 2023-24 to 2026-27 |
 | Distributors | 14 |
-| Tariff-years | 2,506 (2,046 final, 460 provisional) |
-| Rates | 9,714 |
+| Tariff-years | 2,391 (2,046 final, 345 provisional) |
+| Rates | 8,823 |
 | Data (canonical) | `data/tariffdb/tables/<table>.csv`, committed |
 | SQLite | `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` (built, not committed: a binary does not diff and would drift from the CSVs) |
 | Schema source | `scripts/tariffdb/spec.py` → `schema.json`, `schema.sqlite.sql`, this page |
@@ -25,10 +25,10 @@
 |---|---|---|---|
 | [`distributor`](#distributor) | one distributor (DNSP) | distributor_id | 14 |
 | [`source_document`](#source_document) | one version of one source document, held or not | document_id | 116 |
-| [`tariff`](#tariff) | one tariff code of one distributor for one period (a financial year, or part of one after a mid-year change) | distributor_id, tariff_code, effective_from | 2,506 |
-| [`rate`](#rate) | one price of one tariff for one period: charge type x TOU period x season x block | rate_id | 9,714 |
+| [`tariff`](#tariff) | one tariff code of one distributor for one period (a financial year, or part of one after a mid-year change) | distributor_id, tariff_code, effective_from | 2,391 |
+| [`rate`](#rate) | one price of one tariff for one period: charge type x TOU period x season x block | rate_id | 8,823 |
 | [`tou_window`](#tou_window) | one time window that one tariff's charges use, for one period | window_id | 4,705 |
-| [`eligibility`](#eligibility) | one stated criterion of one tariff for one period | criterion_id | 7,577 |
+| [`eligibility`](#eligibility) | one stated criterion of one tariff for one period | criterion_id | 7,432 |
 
 ## History
 
@@ -207,7 +207,7 @@ A network tariff code in effect for a period, with its name and customer class a
 |---|---|
 | One row is | one tariff code of one distributor for one period (a financial year, or part of one after a mid-year change) |
 | Primary key | `distributor_id`, `tariff_code`, `effective_from` |
-| Rows | 2,506 |
+| Rows | 2,391 |
 | Source | built by scripts/tariffdb/build.py from the parsed price lists (out/aer_long.csv, out/dnsp/*.csv) |
 | File | `data/tariffdb/tables/tariff.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document) |
@@ -233,7 +233,7 @@ The network price charged for one component of a tariff: the total network price
 |---|---|
 | One row is | one price of one tariff for one period: charge type x TOU period x season x block |
 | Primary key | `rate_id` |
-| Rows | 9,714 |
+| Rows | 8,823 |
 | Source | built by scripts/tariffdb/build.py from the parsed price lists (total network price, GST exclusive) and, for block bounds, data/tariffdb/curated/*.yaml |
 | File | `data/tariffdb/tables/rate.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document); (distributor_id, tariff_code, effective_from) → [`tariff`](#tariff) |
@@ -256,7 +256,7 @@ The network price charged for one component of a tariff: the total network price
 | `block_from` | numeric | yes |  |  | lower bound of the block, from the curated block ladder | `0` |
 | `block_to` | numeric | yes |  |  | upper bound of the block; NULL = unbounded or not stated | `1020` |
 | `block_unit` | text | yes |  | kWh/day, kWh/billing_day, kWh/quarter, kWh | unit and reset period of the bounds | `kWh/quarter` |
-| `region` | text | yes |  |  | pricing zone, when the document prices one code by zone | `T1` |
+| `region` | text | yes |  |  | pricing zone, when the document prices one code by zone | `East` |
 | `value` | numeric | no |  | unit: see unit | price in standard units | `222.29` |
 | `unit` | text | no |  |  | standard unit: c/day, c/kWh, c/kVAh, c/kW/day, c/kW/month, c/kVA/month ... (? = billing period not stated) | `c/day` |
 | `value_published` | text | no |  |  | number exactly as printed | `2.2229` |
@@ -312,7 +312,7 @@ Who can or must be on the tariff: customer type, voltage, consumption or demand 
 |---|---|
 | One row is | one stated criterion of one tariff for one period |
 | Primary key | `criterion_id` |
-| Rows | 7,577 |
+| Rows | 7,432 |
 | Source | data/tariffdb/curated/*.yaml (eligibility), quoted from the distributor's documents |
 | File | `data/tariffdb/tables/eligibility.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document); (distributor_id, tariff_code, effective_from) → [`tariff`](#tariff) |
@@ -354,6 +354,7 @@ Who can or must be on the tariff: customer type, voltage, consumption or demand 
 | Empty CSV field | NULL |
 | Prices | total network price, GST exclusive, in cents: c/day, c/kWh, c/kVAh, c/kW/month ... (`?` = the source states no billing period); `value_published` / `unit_published` as printed |
 | Negative price | a reward paid to the customer (export rebates) |
+| `tariff_code` | as the distributor prints it; AER spellings map onto it (case and spaces, plus the rules in `data/tariffdb/code_alias.csv`) |
 | Keys | built from content (distributor, code, period, component), never row order, so a rebuild is byte-identical |
 | `locator` | `xlsx:<sheet>!<cell>`, `pdf:p<page>` (`scripts/tariffdb/locators.py`) |
 

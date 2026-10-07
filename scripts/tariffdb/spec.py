@@ -274,18 +274,6 @@ def ddl():
     return "\n".join(out) + "\n"
 
 
-def edges():
-    """(child table, [child columns], parent table, nullable) for every foreign key."""
-    out = []
-    for t in TABLES:
-        for c in t["columns"]:
-            if c["references"]:
-                out.append((t["name"], [c["name"]], c["references"].split(".")[0], c["nullable"]))
-        for rt, cols in t.get("foreign_keys", []):
-            out.append((t["name"], cols, rt, False))
-    return out
-
-
 def json_spec():
     return {"generated_from": "scripts/tariffdb/spec.py", "tables": [
         {"name": t["name"], "grain": t["grain"], "source": t["source"], "description": t["description"],

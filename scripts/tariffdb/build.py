@@ -12,6 +12,8 @@ Which rates a tariff code gets, per distributor and financial year:
                build_support.FINAL_DOCUMENT names it where a distributor publishes more than one);
   provisional  otherwise, the AER's latest held report for that year (v1 first, as it is published first), else a
                distributor document the AER hosts, else the distributor's own proposal.
+A code is stored as the distributor spells it: an AER code that differs only in case or spacing is the same tariff,
+and an AER code data/tariffdb/code_alias.csv maps onto codes the final list prices gives way to them.
 Each price is the total network price (NUoS) excluding GST. A component printed both with and without metering keeps
 the without-metering copy, and the distributor's separately priced metering charge becomes its own `metering` rate.
 
@@ -36,6 +38,7 @@ from collections import Counter, defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.dirname(HERE))
+import aliases  # noqa: E402
 import build_support as bs  # noqa: E402
 import curated  # noqa: E402
 import spec  # noqa: E402
@@ -129,10 +132,6 @@ def split_shared_codes(codes):
     return out
 
 
-def norm_code(code):
-    return re.sub(r"\s+", "", code).upper().rstrip("*")
-
-
 def codes_of(r):
     """Codes a parsed row prices. The AER prints some codes jointly ('010, 011*', 'A100/F100'); a distributor code is
     taken as printed ('M/QOPCL' is one SA Power Networks code)."""
@@ -142,13 +141,14 @@ def codes_of(r):
 
 
 class Builder:
-    def __init__(self, parsed=None, metering=None, curated_files=None, docs=None, starts=None):
+    def __init__(self, parsed=None, metering=None, curated_files=None, docs=None, starts=None, code_aliases=None):
         self.docs = docs if docs is not None else bs.documents()
         self.starts = starts if starts is not None else bs.EFFECTIVE_FROM
         self.doc_by_path = {d["local_path"]: d for d in self.docs if d["local_path"]}
         self.parsed = parsed if parsed is not None else self.parser_rows("out/aer_long.csv", "out/dnsp/*.csv")
         self.metering = metering if metering is not None else self.parser_rows("out/dnsp_metering/*.csv")
         self.curated_files = curated_files if curated_files is not None else curated.load_all()
+        self.aliases = code_aliases if code_aliases is not None else aliases.load()
         self.tables = {t: {} for t in spec.TABLE_ORDER}
         self.problems = []
         self.by_norm = None
@@ -255,23 +255,42 @@ class Builder:
         return final, provisional
 
     def tariffs_and_rates(self):
-        for (did, fy), docs in sorted(self.candidates().items()):
+        years = [(did, fy, docs, *self.choose(did, fy, docs)) for (did, fy), docs in sorted(self.candidates().items())]
+        spelling = defaultdict(dict)  # distributor -> normalised code -> its own spelling (latest year that prints it)
+        for did, _, docs, final, _ in years:
+            for _, doc_id in final:
+                spelling[did].update({aliases.norm(c): c for c in docs[doc_id]})
+        for did, fy, docs, final, provisional in years:
             fy_start, fy_end = bs.FIN_YEAR_DATES[fy]
-            final, provisional = self.choose(did, fy, docs)
-            sources = ([(fy_start, provisional, "provisional")] if provisional else []) + [
-                (start, doc_id, "final") for start, doc_id in final]
-            for code in sorted({c for _, doc_id, _ in sources for c in docs[doc_id]}):
-                # the document in force from each start date; a final list replaces the provisional one from the day
-                # it takes effect, and a mid-year re-issue replaces the codes it prices from its own start
+            # an AER code is stored under the distributor's spelling ('LVDed' is United Energy's 'LVDED'), so its final
+            # rates replace the provisional ones and its history stays under one code
+            this_year = {aliases.norm(c): c for _, doc_id in final for c in docs[doc_id]}
+            printed = {}  # stored code -> code as the provisional document prints it
+            for code in docs.get(provisional) or {}:
+                stored = this_year.get(aliases.norm(code)) or spelling[did].get(aliases.norm(code), code)
+                if stored in printed:
+                    raise SystemExit(f"{did} {fy}: {provisional} prints both {printed[stored]!r} and {code!r}")
+                printed[stored] = code
+            for code in sorted(set(printed) | {c for _, doc_id in final for c in docs[doc_id]}):
+                # the document in force from each start date: a final list replaces the provisional one from the day
+                # it takes effect, a mid-year re-issue replaces the codes it prices from its own start, and an AER code
+                # the distributor prices under its own codes (data/tariffdb/code_alias.csv) ends that day (None)
                 segments = {}
-                for start, doc_id, status in sources:
+                if code in printed:
+                    segments[fy_start] = (provisional, "provisional", docs[provisional][printed[code]])
+                    for start, doc_id in final:
+                        if aliases.targets(self.aliases, did, printed[code], start, docs[doc_id]):
+                            segments[start] = None
+                for start, doc_id in final:
                     if code in docs[doc_id]:
-                        segments[start] = (doc_id, status)
+                        segments[start] = (doc_id, "final", docs[doc_id][code])
                 starts = sorted(segments)
                 for i, start in enumerate(starts):
+                    if segments[start] is None:
+                        continue
                     end = day_before(starts[i + 1]) if i + 1 < len(starts) else fy_end
-                    doc_id, status = segments[start]
-                    self.tariff_period(did, fy, code, start, end, doc_id, status, docs[doc_id][code])
+                    doc_id, status, rows = segments[start]
+                    self.tariff_period(did, fy, code, start, end, doc_id, status, rows)
 
     def tariff_period(self, did, fy, code, start, end, doc_id, status, rows):
         self.periods[(did, fy, code)].append((start, end, doc_id, status))
@@ -320,22 +339,28 @@ class Builder:
                         "note": r["note"] or None})
 
     # ------------------------------------------------------------------ curated facts
-    def tariff_code(self, did, code, fy, where):
-        """The stored tariff code a curated code names in that year: the same code, or the one code that differs from
+    def tariff_codes(self, did, code, fy, where):
+        """The stored tariff codes a curated code names in that year: the same code; else the one code that differs from
         it only in spacing, case or a trailing '*' (curated files quote 'LVKVATOU1' where the price list prints
-        'LVKVATOU 1'). None, recorded as a problem, when no tariff of that year has rates."""
+        'LVKVATOU 1'); else the codes the distributor prices it as by data/tariffdb/code_alias.csv (a fact Ergon states
+        for EBDEM holds for EBDEMT1-T3). Empty, recorded as a problem, when no tariff of that year has rates."""
         if (did, fy, code) in self.periods:
-            return code
+            return [code]
         if self.by_norm is None:
             self.by_norm = defaultdict(set)
             for d, f, c in self.periods:
-                self.by_norm[(d, norm_code(c), f)].add(c)
-        same = self.by_norm.get((did, norm_code(code), fy), set())
-        if len(same) == 1:
-            return next(iter(same))
-        self.problems.append(f"{where}: no {fy} tariff {code!r} of {did} has rates" if not same else
-                             f"{where}: {code!r} ({fy}) matches several tariffs {sorted(same)}")
-        return None
+                self.by_norm[(d, aliases.norm(c), f)].add(c)
+        same = self.by_norm.get((did, aliases.norm(code), fy), set())
+        if len(same) > 1:
+            self.problems.append(f"{where}: {code!r} ({fy}) matches several tariffs {sorted(same)}")
+            return []
+        if same:
+            return list(same)
+        year = [c for d, f, c in self.periods if d == did and f == fy]
+        found = aliases.targets(self.aliases, did, code, bs.FIN_YEAR_DATES[fy][0], year)
+        if not found:
+            self.problems.append(f"{where}: no {fy} tariff {code!r} of {did} has rates")
+        return found
 
     def curated_facts(self):
         for name, data in sorted(self.curated_files.items()):
@@ -345,18 +370,18 @@ class Builder:
             self.blocks(did, data, f"curated/{name}.yaml")
 
     def code_periods(self, did, code, fy, where):
-        """(stored code, [(start, end)]) of the tariff periods a curated fact for that year applies to."""
-        code = self.tariff_code(did, code, fy, where)
-        return code, [(start, end) for start, end, _, _ in self.periods.get((did, fy, code), [])]
+        """[(stored code, start, end)] of the tariff periods a curated fact for that year applies to."""
+        return [(c, start, end) for c in self.tariff_codes(did, code, fy, where)
+                for start, end, _, _ in self.periods[(did, fy, c)]]
 
     def tou_windows(self, did, data, where):
         for s in data.get("tou_schedules") or []:
             doc = self.doc(s["doc"], where)["document_id"]
             for t in s.get("tariffs") or []:
                 applies = APPLIES.get(t["applies_to"], t["applies_to"])
-                for code in t["codes"]:
-                    code, periods = self.code_periods(did, code, s["fin_year"], f"{where} {s['id']}")
-                    for (start, end), w in ((p, w) for p in periods for w in s["windows"]):
+                for named in t["codes"]:
+                    periods = self.code_periods(did, named, s["fin_year"], f"{where} {s['id']}")
+                    for (code, start, end), w in ((p, w) for p in periods for w in s["windows"]):
                         ms = curated.months_of(w.get("months"))
                         months = None if ms is None else ",".join(str(m) for m in ms)
                         wid = ":".join([did, code, start, applies, w["period"], w["days"],
@@ -379,9 +404,8 @@ class Builder:
             doc = self.doc(r["doc"], where)["document_id"]
             fact = (r["rule_type"], r.get("operator"), r.get("value_num"), r.get("value_unit"), r.get("value_text"),
                     r.get("target_code"))
-            for code in r["codes"]:
-                code, periods = self.code_periods(did, code, r["fin_year"], f"{where} eligibility")
-                for start, end in periods:
+            for named in r["codes"]:
+                for code, start, end in self.code_periods(did, named, r["fin_year"], f"{where} eligibility"):
                     if fact in seen[(code, start)]:
                         continue  # the same criterion stated twice (another page or document of the same year)
                     seen[(code, start)].add(fact)
@@ -403,9 +427,8 @@ class Builder:
                 by_block[(row["tariff_code"], row["effective_from"], row["charge_type"], row["block"])].append(row)
         for r in data.get("steps") or []:
             charge_type = "export" if "export" in r["step_group"].lower() else "usage"
-            for code in r["codes"]:
-                code, periods = self.code_periods(did, code, r["fin_year"], f"{where} steps")
-                for start, _ in periods:
+            for named in r["codes"]:
+                for code, start, _ in self.code_periods(did, named, r["fin_year"], f"{where} steps"):
                     rows = by_block.get((code, start, charge_type, r["step_index"]))
                     if not rows:
                         self.problems.append(f"{where} steps: {code} {r['fin_year']} has no {charge_type} rate for "

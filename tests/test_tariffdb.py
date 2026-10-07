@@ -253,6 +253,16 @@ class TestBuildRules(unittest.TestCase):
             self.run_build(docs, [parsed_row("DNSP", "sources/dist-a.pdf", "A1", "1"),
                                   parsed_row("DNSP", "sources/dist-b.pdf", "A1", "2")])
 
+    def test_years_before_the_cutoff_are_parsed_but_not_stored(self):
+        docs = [doc("old", "DNSP", fin_year="2015-16"), doc("edge", "DNSP", fin_year="2016-17")]
+        parsed = [parsed_row("DNSP", "sources/old.pdf", "A1", "1", fin_year="2015-16"),
+                  parsed_row("DNSP", "sources/edge.pdf", "A1", "2", fin_year="2016-17")]
+        for first_day, kept in ((bs.FIRST_STORED_DAY, {"edge"}), (None, {"old", "edge"})):
+            b = build.Builder(parsed=parsed, metering=[], curated_files={}, docs=docs, starts={}, code_aliases=[],
+                              first_day=first_day)
+            b.tariffs_and_rates()
+            self.assertEqual({v["document_id"] for v in b.tables["tariff"].values()}, kept)
+
     def test_two_lists_pricing_different_codes_both_count(self):
         tariffs, _ = self.run_build([doc("dist-a", "DNSP"), doc("dist-b", "DNSP")],
                                     [parsed_row("DNSP", "sources/dist-a.pdf", "A1", "1"),

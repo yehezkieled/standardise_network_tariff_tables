@@ -1,6 +1,6 @@
 # standardise_network_tariff_tables
 
-Australian electricity **network tariffs** for all 14 distributors, 1996-97 to 2026-27, as one historical dataset:
+Australian electricity **network tariffs** for all 14 distributors, every pricing year in effect from 1 January 2017 to 2026-27, as one historical dataset:
 per tariff code, the final rate the customer is charged, with its TOU windows and eligibility.
 
 ![Every table with its keys and the tables they reference](docs/schema-erd.svg)
@@ -78,6 +78,16 @@ and price lists back to 2009-10, distributor and state-regulator documents), wit
 per distributor and year, and the reason for each gap (`sources/archive/README.md`). The parsers in
 `scripts/history/` read them into the same tables (`sources/archive/` is committed in full, so every historical value
 is re-checked against its page in CI).
+
+### Older years (before 2017)
+
+The database stores the pricing years in effect on or after 1 January 2017 (2016-17, Victoria's 2017, and later). The
+archive and the parsers already cover 1996-97 to 2016 (every parser output passes `scripts/history/check.py`, which
+checks all years). To store them as well:
+
+1. Lower `FIRST_STORED_DAY` in `scripts/tariffdb/build_support.py` (e.g. `"1996-07-01"`).
+2. `./run.sh --no-fetch` (or run the `scripts/history/*.py` parsers), then rebuild and validate as in
+   [docs/update-and-validate.md](docs/update-and-validate.md).
 
 Rows without a local path are documents that could not be obtained at all (the access note says why); the
 report treats those distributor-years as "no distributor-side data".

@@ -56,6 +56,14 @@ def year_dates(key):
 
 
 YEAR_DATES = {k: year_dates(k) for k in spec.PRICING_YEARS}
+# the database stores the pricing years in effect on or after this day (the captain's cutoff); the archive and
+# scripts/history keep the older years, so lowering it and rebuilding stores them too (README, "Older years")
+FIRST_STORED_DAY = "2017-01-01"
+
+
+def stored(year, first_day=FIRST_STORED_DAY):
+    """Whether the database stores a pricing year: it ends on or after first_day (None stores every year)."""
+    return first_day is None or year_dates(year)[1] >= first_day
 
 # (distributor_id, fin_year) -> the price list customers are billed on, where a distributor publishes more than one for
 # the year (scripts/tariffdb/build.py fails until the choice is named here)

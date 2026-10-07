@@ -138,6 +138,9 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 | 3 | `.venv/bin/python scripts/history/check.py <slug> --sources`: all `PASS` |
 | 4 | Rebuild, then validate |
 
+The database stores only the years in effect on or after `build_support.FIRST_STORED_DAY` (2017-01-01); an older
+year is parsed and checked but not stored until that day is lowered (README, "Older years").
+
 The distributor's own list, or a state regulator's published schedule, is `final`; an AER-hosted proposal stands in
 (`provisional`) only for a year with neither.
 

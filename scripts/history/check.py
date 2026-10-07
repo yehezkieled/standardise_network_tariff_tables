@@ -44,7 +44,7 @@ def main(argv=None):
         print(f"  left out by the build: {n} rows, {why}")
 
     parsed = build.Builder.parser_rows("out/aer_long.csv", "out/dnsp/*.csv") + mine
-    b = build.Builder(parsed=parsed).build()
+    b = build.Builder(parsed=parsed, first_day=None).build()  # every year, also those before the stored cutoff
     with tempfile.TemporaryDirectory(prefix=f"history-{a.slug}-") as out:
         build.write_all(b, out)
         db = loader.load(out)

@@ -16,7 +16,8 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 - Years before 2023-24 come from `sources/archive/` (committed in full; change rows only through
   `scripts/archive_sources.py`, which locks) via `scripts/history/*.py` (`CONTRACT.md`; `check.py <slug> --sources`).
   Pricing years are financial, except Victoria (calendar 2001-2020, `2000-H2`, `2021-H1`) and Tasmania (to `2008-H1`);
-  a state regulator's published schedule is final like the distributor's own list.
+  a state regulator's published schedule is final like the distributor's own list. Only years in effect on or after
+  `build_support.FIRST_STORED_DAY` (2017-01-01, the captain's cutoff) are stored; `check.py` still checks every year.
 - `validate.py --sources` re-reads every value and quote (minutes); CI runs it with `--committed-only`
   (`TARIFFDB_SOURCES=committed`).
 - Explanations of AER-vs-distributor differences live only in `scripts/adjustments.py`; spreadsheet numbers are read

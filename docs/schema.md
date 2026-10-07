@@ -10,10 +10,10 @@
 |---|---|
 | Stores | the network price charged per tariff code: daily, usage, demand, capacity, export and metering rates, TOU windows, eligibility criteria |
 | Not stored | retail plans; the DUoS / TUoS / jurisdictional breakdown |
-| Years | 1996-97 to 2026-27 |
+| Years | 2016-17 to 2026-27 |
 | Distributors | 14 |
-| Tariff-years | 12,348 (10,930 final, 1,418 provisional) |
-| Rates | 47,752 |
+| Tariff-years | 6,381 (5,060 final, 1,321 provisional) |
+| Rates | 24,865 |
 | Data (canonical) | `data/tariffdb/tables/<table>.csv`, committed |
 | SQLite | `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` (built, not committed: a binary does not diff and would drift from the CSVs) |
 | Schema source | `scripts/tariffdb/spec.py` → `schema.json`, `schema.sqlite.sql`, this page |
@@ -24,9 +24,9 @@
 | Table | One row is | Key | Rows |
 |---|---|---|---|
 | [`distributor`](#distributor) | one distributor (DNSP) | distributor_id | 14 |
-| [`source_document`](#source_document) | one version of one source document, held or not | document_id | 970 |
-| [`tariff`](#tariff) | one tariff code of one distributor for one period (a pricing year, or part of one after a mid-year change) | distributor_id, tariff_code, effective_from | 12,348 |
-| [`rate`](#rate) | one price of one tariff for one period: charge type x TOU period x season x block | rate_id | 47,752 |
+| [`source_document`](#source_document) | one version of one source document, held or not | document_id | 412 |
+| [`tariff`](#tariff) | one tariff code of one distributor for one period (a pricing year, or part of one after a mid-year change) | distributor_id, tariff_code, effective_from | 6,381 |
+| [`rate`](#rate) | one price of one tariff for one period: charge type x TOU period x season x block | rate_id | 24,865 |
 | [`tou_window`](#tou_window) | one time window that one tariff's charges use, for one period | window_id | 4,705 |
 | [`eligibility`](#eligibility) | one stated criterion of one tariff for one period | criterion_id | 7,432 |
 
@@ -176,7 +176,7 @@ Every document version the rates, TOU windows and criteria are read from, with w
 |---|---|
 | One row is | one version of one source document, held or not |
 | Primary key | `document_id` |
-| Rows | 970 |
+| Rows | 412 |
 | Source | sources/inventory.csv (2023-24 on) and sources/archive/inventory.csv (earlier years) read by build_support.documents(), plus the AER versions it registers |
 | File | `data/tariffdb/tables/source_document.csv` |
 | References | (distributor_id) → [`distributor`](#distributor) |
@@ -207,7 +207,7 @@ A network tariff code in effect for a period, with its name and customer class a
 |---|---|
 | One row is | one tariff code of one distributor for one period (a pricing year, or part of one after a mid-year change) |
 | Primary key | `distributor_id`, `tariff_code`, `effective_from` |
-| Rows | 12,348 |
+| Rows | 6,381 |
 | Source | built by scripts/tariffdb/build.py from the parsed price lists (out/aer_long.csv, out/dnsp/*.csv, out/history/*.csv) |
 | File | `data/tariffdb/tables/tariff.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document) |
@@ -233,7 +233,7 @@ The network price charged for one component of a tariff: the total network price
 |---|---|
 | One row is | one price of one tariff for one period: charge type x TOU period x season x block |
 | Primary key | `rate_id` |
-| Rows | 47,752 |
+| Rows | 24,865 |
 | Source | built by scripts/tariffdb/build.py from the parsed price lists (total network price, GST exclusive) and, for block bounds, data/tariffdb/curated/*.yaml |
 | File | `data/tariffdb/tables/rate.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document); (distributor_id, tariff_code, effective_from) → [`tariff`](#tariff) |
@@ -250,13 +250,13 @@ The network price charged for one component of a tariff: the total network price
 | `effective_from` | date | no | FK → tariff | YYYY-MM-DD | first day the price applies | `2025-07-01` |
 | `effective_to` | date | no |  | YYYY-MM-DD | last day the price applies (inclusive) | `2026-06-30` |
 | `charge_type` | text | no |  | daily, usage, demand, capacity, export, metering, other | daily = fixed charge per day; usage = per kWh or kVAh; demand / capacity = per kW or kVA; export = per exported kWh or kW (negative = a reward paid); metering = metering charge; other | `daily` |
-| `tou_period` | text | yes |  | anytime, peak, shoulder, off_peak, super_off_peak, critical_peak, solar_soak, capacity_minimum, capacity_remaining, critical_minimum, dynamic_maximum, dynamic_minimum | time-of-use period the price applies in (anytime = all times); NULL for daily and metering charges | `off_peak` |
+| `tou_period` | text | yes |  | anytime, peak, shoulder, off_peak, super_off_peak, critical_peak, solar_soak, capacity_minimum, capacity_remaining, critical_minimum, dynamic_maximum, dynamic_minimum | time-of-use period the price applies in (anytime = all times); NULL for daily and metering charges | `anytime` |
 | `season` | text | yes |  | summer, non_summer, high, low, winter, spring, autumn | season the price applies in; NULL = all year | `high` |
 | `block` | integer | yes |  |  | consumption block number (1 = first) of a stepped price; NULL otherwise | `1` |
 | `block_from` | numeric | yes |  |  | lower bound of the block, from the curated block ladder | `0` |
 | `block_to` | numeric | yes |  |  | upper bound of the block; NULL = unbounded or not stated | `1020` |
 | `block_unit` | text | yes |  | kWh/day, kWh/billing_day, kWh/quarter, kWh | unit and reset period of the bounds | `kWh/quarter` |
-| `region` | text | yes |  |  | pricing zone, when the document prices one code by zone | `Zone P` |
+| `region` | text | yes |  |  | pricing zone, when the document prices one code by zone | `East` |
 | `value` | numeric | no |  | unit: see unit | price in standard units | `222.29` |
 | `unit` | text | no |  |  | standard unit: c/day, c/kWh, c/kVAh, c/kW/day, c/kW/month, c/kVA/month ... (? = billing period not stated) | `c/day` |
 | `value_published` | text | no |  |  | number exactly as printed | `2.2229` |

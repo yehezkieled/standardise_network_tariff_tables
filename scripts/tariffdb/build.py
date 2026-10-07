@@ -3,7 +3,8 @@
 
 Inputs:
   - the parser outputs out/aer_long.csv (latest held AER version per year), out/dnsp/*.csv, out/dnsp_metering/*.csv
-    and out/history/*.csv (archived documents of pricing years before 2023-24: scripts/history/);
+    and out/history/*.csv (archived documents of pricing years before 2023-24: scripts/history/; only the years
+    in effect on or after build_support.FIRST_STORED_DAY are stored);
     run ./run.sh first; every row carries the cell or page it was read from;
   - data/tariffdb/curated/*.yaml: TOU windows, eligibility criteria and block bounds quoted from distributor documents;
   - the document registry, scripts/tariffdb/build_support.py over sources/inventory.csv and
@@ -151,13 +152,17 @@ def codes_of(r):
 
 
 class Builder:
-    def __init__(self, parsed=None, metering=None, curated_files=None, docs=None, starts=None, code_aliases=None):
-        self.docs = docs if docs is not None else bs.documents()
+    def __init__(self, parsed=None, metering=None, curated_files=None, docs=None, starts=None, code_aliases=None,
+                 first_day=bs.FIRST_STORED_DAY):
+        """first_day: store only the pricing years in effect on or after it (None: every year)."""
+        self.docs = [d for d in (docs if docs is not None else bs.documents()) if bs.stored(d["fin_year"], first_day)]
         self.starts = starts if starts is not None else bs.EFFECTIVE_FROM | bs.archive_effective_from()
         self.doc_by_path = {d["local_path"]: d for d in self.docs if d["local_path"]}
         self.parsed = parsed if parsed is not None else self.parser_rows("out/aer_long.csv", "out/dnsp/*.csv",
                                                                                    "out/history/*.csv")
-        self.metering = metering if metering is not None else self.parser_rows("out/dnsp_metering/*.csv")
+        self.parsed = [r for r in self.parsed if bs.stored(r["fin_year"], first_day)]
+        self.metering = [r for r in (metering if metering is not None else self.parser_rows("out/dnsp_metering/*.csv"))
+                         if bs.stored(r["fin_year"], first_day)]
         self.curated_files = curated_files if curated_files is not None else curated.load_all()
         self.aliases = code_aliases if code_aliases is not None else aliases.load()
         self.tables = {t: {} for t in spec.TABLE_ORDER}

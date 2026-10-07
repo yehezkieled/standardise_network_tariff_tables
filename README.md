@@ -65,11 +65,17 @@ exact URL it was retrieved from, an access note and the SHA-256 of the file that
   not, is a `source_document` row in the tariff database; the versions that are not held are listed as gaps in
   `REPORT.md`. `scripts/reconcile.py --aer-version <document_id>` reconciles any held version.
 - **Wayback Machine copies** (URL on `web.archive.org`): documents whose publisher blocks automated access
-  (energex.com.au, ergon.com.au, powerwater.com.au) or no longer serves the file. These are committed under
-  `sources/` because they cannot be re-fetched reliably.
-- **Everything else** is not committed. `scripts/fetch_sources.py` (run by `./run.sh`) downloads each missing
-  file from its recorded URL and verifies the checksum, so a changed checksum shows that the publisher replaced
-  the document in place. `scripts/fetch_sources.py --check` only reports what is missing or differs.
+  (energex.com.au, ergon.com.au, powerwater.com.au) or no longer serves the file.
+- **Distributor documents** fetched from the distributor's site.
+
+Every file is committed: publishers replace documents in place and remove old ones. `scripts/fetch_sources.py`
+(run by `./run.sh`) re-downloads a missing file from its recorded URL and verifies the checksum, so a changed
+checksum shows that the publisher replaced the document; `scripts/fetch_sources.py --check` only reports what is
+missing or differs.
+
+Pricing years before 2023-24: `sources/archive/` holds every older public document found (AER-hosted proposals
+and price lists back to 2009-10, distributor and state-regulator documents), with its own inventory, a coverage table
+per distributor and year, and the reason for each gap (`sources/archive/README.md`). These are not parsed yet.
 
 Rows without a local path are documents that could not be obtained at all (the access note says why); the
 report treats those distributor-years as "no distributor-side data".
@@ -93,4 +99,4 @@ report treats those distributor-years as "no distributor-side data".
   TOU and eligibility facts against their sources), `validate.py` (every rule and source check), `load.py` (SQLite
   load, `--out` to save a database), `schema_doc.py` (writes `docs/schema.md` and `docs/schema-erd.svg`),
   `build_support.py` (distributors and the document registry), `locators.py` (reads a value at its cell or page).
-  Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py`.
+  Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_archive.py`.

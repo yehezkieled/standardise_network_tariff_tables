@@ -17,6 +17,8 @@ The checks, in order (docs/update-and-validate.md says what a failure means and 
                 hosts) or a state regulator's published schedule, and each rate carries its tariff's status and
                 document
   units         every standard unit is one the docs list and fits its charge type (usage per kWh, demand per kW...)
+  magnitude     no c/kWh rate outside critical peak exceeds 200 c/kWh unless its note contains 'confirmed
+                high rate:'
   blocks        a stepped price numbers its blocks 1..n without gaps, with bounds that rise from block to block
   tou           windows of one tariff, charge group and published period name never overlap on the same day type
                 and month
@@ -111,6 +113,12 @@ def check_units(db):
         elif not re.match(UNITS_BY_CHARGE[r["charge_type"]], r["unit"]) and r["rate_id"] not in KNOWN_MISPRINTS:
             bad.append(f"rate {r['rate_id']}: a {r['charge_type']} charge in {r['unit']}")
     return bad
+
+
+def check_magnitude(db):
+    return [f"rate {r['rate_id']}: {r['value']} c/kWh" for r in rows(
+        db, f"""SELECT rate_id, value FROM rate WHERE unit = 'c/kWh' AND coalesce(tou_period, '') != 'critical_peak'
+                AND abs(value) > {MAX_KWH_PRICE} AND coalesce(note, '') NOT LIKE '%confirmed high rate:%'""")]
 
 
 def check_blocks(db):
@@ -229,8 +237,8 @@ def check_quotes(db, committed_only):
 
 
 # the checks main() runs after load, in order: (name, check); SOURCE_CHECKS only with --sources
-CHECKS = (("periods", check_periods), ("status", check_status), ("units", check_units), ("blocks", check_blocks),
-          ("tou", check_tou), ("aliases", check_aliases))
+CHECKS = (("periods", check_periods), ("status", check_status), ("units", check_units),
+          ("magnitude", check_magnitude), ("blocks", check_blocks), ("tou", check_tou), ("aliases", check_aliases))
 SOURCE_CHECKS = (("files", check_files), ("values", check_values), ("quotes", check_quotes))
 
 

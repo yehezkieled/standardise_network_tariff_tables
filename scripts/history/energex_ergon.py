@@ -903,7 +903,10 @@ def energex_scs(doc):
             notes_.append(f"unit cell prints '{unit}'; unit as printed for '{comp}' on the other rows")
             unit = known[0]
         if unit == "$/kWh/month":
-            notes_.append("unit printed '$/kWh/month'")
+            notes_.append("confirmed high rate: unit printed '$/kWh/month'; the price applies only to the kWh above the "
+                          "access band's monthly summer-peak allowance: Energex_Annual_Pricing_Proposal_2018-19_1.pdf "
+                          "p18 'Represented as a rate ($) per kWh consumed above the customer’s nominated access band "
+                          "within a month during the summer peak window.'")
         kw = dict(name=name, customer_class=cls, time_band=band(comp))
         if allowance and re.match(r"network access allowance", prefix, re.I):
             kw["charge_type"] = "fixed"

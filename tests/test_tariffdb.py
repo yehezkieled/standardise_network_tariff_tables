@@ -180,6 +180,8 @@ class TestValidate(unittest.TestCase):
                                     f"ELSE 'final' END WHERE {key}"),
             (validate.check_units, "UPDATE rate SET unit = 'c/kWh' WHERE charge_type = 'daily' AND rowid IN "
                                    "(SELECT rowid FROM rate WHERE charge_type = 'daily' LIMIT 1)"),
+            (validate.check_magnitude, "UPDATE rate SET value = 5000 WHERE rowid IN (SELECT rowid FROM rate WHERE "
+                                       "unit = 'c/kWh' AND tou_period != 'critical_peak' LIMIT 1)"),
             (validate.check_blocks, "UPDATE rate SET block = 3 WHERE block = 2 AND rowid IN "
                                     "(SELECT rowid FROM rate WHERE block = 2 LIMIT 1)"),
             (validate.check_aliases, "INSERT INTO tariff SELECT distributor_id, lower(tariff_code), effective_from, "

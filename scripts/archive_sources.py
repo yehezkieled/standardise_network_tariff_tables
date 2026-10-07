@@ -2,7 +2,8 @@
 
 Every document is committed under sources/archive/<distributor_id>/<pricing year>/ and registered, one row per file,
 in sources/archive/inventory.csv. sources/archive/coverage.csv records, per distributor and pricing year, what is held
-and, where nothing is held, why. The current pipeline (scripts/tariffdb) does not read the archive yet.
+and, where nothing is held, why. The tariff database build reads the archive (build_support.archive_documents) via
+the scripts/history parsers.
 
     .venv/bin/python scripts/archive_sources.py add --distributor TasNetworks --year 2019-20 --side AER_HOSTED \
         --kind pricing_proposal --title "TasNetworks - AER approved REVISED Annual Distribution Pricing Proposal 2019-20" \

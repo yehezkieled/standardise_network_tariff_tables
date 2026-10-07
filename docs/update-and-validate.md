@@ -173,6 +173,7 @@ The distributor's own list, or a state regulator's published schedule, is `final
 | `periods` | one tariff's periods never overlap; rates, windows and criteria sit inside their tariff's period; the document's year holds the period | a wrong `EFFECTIVE_FROM`, or a document registered under the wrong year |
 | `status` | `final` exactly when the document is the distributor's own published list; each rate has its tariff's status and document | a document registered with the wrong side or price status in `sources/inventory.csv` |
 | `units` | each unit is a standard unit that fits its charge type | a parser read the wrong column or unit heading; fix the parser (a real misprint goes in `validate.KNOWN_MISPRINTS` with its evidence) |
+| `magnitude` | no c/kWh rate outside `critical_peak` exceeds 200 c/kWh unless its note contains `confirmed high rate:` | a parser read a $/kWh cell as c/kWh, or a demand charge as usage; fix the parser (a real high price gets a parser note `confirmed high rate: ...` quoting its evidence) |
 | `blocks` | blocks number 1..n and their lower bounds rise | a block ladder in the curated `steps` that does not match the price list |
 | `tou` | windows of one tariff and period name never overlap on a day type and month | a mistyped window in the curated YAML |
 | `aliases` | no provisional tariff is a final tariff of the same distributor and period under another spelling or an alias | the AER spells a code differently: add a rule to `data/tariffdb/code_alias.csv` |

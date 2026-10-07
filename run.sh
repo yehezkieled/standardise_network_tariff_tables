@@ -18,6 +18,11 @@ for s in scripts/dnsp/*.py; do
   [ "$(basename "$s")" = "__init__.py" ] && continue
   echo "== DNSP side: $s"; $PY "$s" 2>&1 | grep -v -e UserWarning -e "warn(msg)" | tail -3
 done
+mkdir -p out/history
+for s in scripts/history/*.py; do
+  case "$(basename "$s")" in common.py|check.py) continue;; esac
+  echo "== history: $s"; $PY "$s" 2>&1 | grep -v -e UserWarning -e "warn(msg)" | tail -3
+done
 echo "== reconcile"; $PY scripts/reconcile.py
 echo "== report"; $PY scripts/report_tables.py && $PY scripts/write_report.py
 cp out/report.md REPORT.md && cp out/discrepancies.csv discrepancies.csv

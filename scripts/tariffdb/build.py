@@ -2,14 +2,17 @@
 (schema.sqlite.sql) and the machine-readable table spec (schema.json), all from scripts/tariffdb/spec.py.
 
 Inputs:
-  - the parser outputs out/aer_long.csv (latest held AER version per year), out/dnsp/*.csv and out/dnsp_metering/*.csv
-    (run ./run.sh first; every row carries the cell or page it was read from);
+  - the parser outputs out/aer_long.csv (latest held AER version per year), out/dnsp/*.csv, out/dnsp_metering/*.csv
+    and out/history/*.csv (archived documents of pricing years before 2023-24: scripts/history/);
+    run ./run.sh first; every row carries the cell or page it was read from;
   - data/tariffdb/curated/*.yaml: TOU windows, eligibility criteria and block bounds quoted from distributor documents;
-  - the document registry, scripts/tariffdb/build_support.py over sources/inventory.csv.
+  - the document registry, scripts/tariffdb/build_support.py over sources/inventory.csv and
+    sources/archive/inventory.csv.
 
-Which rates a tariff code gets, per distributor and financial year:
+Which rates a tariff code gets, per distributor and pricing year:
   final        the distributor's own published price list prices the code (one such document per distributor-year;
-               build_support.FINAL_DOCUMENT names it where a distributor publishes more than one);
+               build_support.FINAL_DOCUMENT names it where a distributor publishes more than one), or before
+               2023-24 the tariff schedule a state regulator published or approved;
   provisional  otherwise, the AER's latest held report for that year (v1 first, as it is published first), else a
                distributor document the AER hosts, else the distributor's own proposal.
 A code is stored as the distributor spells it: an AER code that differs only in case or spacing is the same tariff,
@@ -100,7 +103,7 @@ def withdrawn_before(r):
     months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
     year = int(m.group(3)) + (2000 if len(m.group(3)) == 2 else 0)
     when = f"{year:04d}-{months.index(m.group(2).lower()) + 1:02d}-{int(m.group(1)):02d}"
-    return when <= bs.FIN_YEAR_DATES[r["fin_year"]][0]
+    return when <= bs.YEAR_DATES[r["fin_year"]][0]
 
 
 def split_shared_codes(codes):
@@ -132,6 +135,13 @@ def split_shared_codes(codes):
     return out
 
 
+def is_final(d):
+    """A document whose prices customers were billed on: the distributor's own published price list, or (before the
+    AER) the schedule a state regulator published or approved."""
+    return (d["recon_side"] == "DNSP" and d["price_status"] == "published") or (
+        d["recon_side"] == "REGULATOR_HOSTED" and d["price_status"] in ("published", "approved"))
+
+
 def codes_of(r):
     """Codes a parsed row prices. The AER prints some codes jointly ('010, 011*', 'A100/F100'); a distributor code is
     taken as printed ('M/QOPCL' is one SA Power Networks code)."""
@@ -143,9 +153,10 @@ def codes_of(r):
 class Builder:
     def __init__(self, parsed=None, metering=None, curated_files=None, docs=None, starts=None, code_aliases=None):
         self.docs = docs if docs is not None else bs.documents()
-        self.starts = starts if starts is not None else bs.EFFECTIVE_FROM
+        self.starts = starts if starts is not None else bs.EFFECTIVE_FROM | bs.archive_effective_from()
         self.doc_by_path = {d["local_path"]: d for d in self.docs if d["local_path"]}
-        self.parsed = parsed if parsed is not None else self.parser_rows("out/aer_long.csv", "out/dnsp/*.csv")
+        self.parsed = parsed if parsed is not None else self.parser_rows("out/aer_long.csv", "out/dnsp/*.csv",
+                                                                                   "out/history/*.csv")
         self.metering = metering if metering is not None else self.parser_rows("out/dnsp_metering/*.csv")
         self.curated_files = curated_files if curated_files is not None else curated.load_all()
         self.aliases = code_aliases if code_aliases is not None else aliases.load()
@@ -182,8 +193,8 @@ class Builder:
                      | {"observes_dst": int(d["observes_dst"])})
         for d in self.docs:
             self.add("source_document", {
-                "document_id": d["document_id"], "distributor_id": d["distributor_id"], "fin_year": d["fin_year"],
-                "publisher": "AER" if d["author"] == "AER" else "distributor", "document_type": d["document_type"],
+                "document_id": d["document_id"], "distributor_id": d["distributor_id"], "pricing_year": d["fin_year"],
+                "publisher": d["author"], "document_type": d["document_type"],
                 "hosted_by_aer": int(d["recon_side"] == "AER_HOSTED"), "version_label": d["version_label"],
                 "version_seq": d["version_seq"], "price_status": d["price_status"],
                 "published_on": d["publication_date"] or None, "source_url": d["source_url"] or None,
@@ -220,7 +231,7 @@ class Builder:
         """First day a document's prices apply: 1 July, or the date build_support.EFFECTIVE_FROM records for a
         distributor's mid-year re-issue."""
         d = next(x for x in self.docs if x["document_id"] == doc_id)
-        start, end = bs.FIN_YEAR_DATES[fy]
+        start, end = bs.YEAR_DATES[fy]
         day = self.starts.get(d["local_path"], start)
         if not start <= day <= end:
             raise SystemExit(f"{d['local_path']}: EFFECTIVE_FROM {day} is outside {fy}")
@@ -232,7 +243,7 @@ class Builder:
         info = {x["document_id"]: x for x in self.docs}
         by_start = defaultdict(list)
         for k in docs:
-            if info[k]["recon_side"] == "DNSP" and info[k]["price_status"] == "published":
+            if is_final(info[k]):
                 by_start[self.start_of(k, fy)].append(k)
         final = []
         for start, ks in sorted(by_start.items()):
@@ -245,7 +256,7 @@ class Builder:
             final.append((start, ks[0]))
         finals = {k for _, k in final} | {k for ks in by_start.values() for k in ks}
         provisional = None
-        for side in ("AER", "AER_HOSTED", "DNSP"):
+        for side in ("AER", "AER_HOSTED", "DNSP", "REGULATOR_HOSTED"):
             ks = [k for k in docs if info[k]["recon_side"] == side and k not in finals]
             if len(ks) > 1:
                 raise SystemExit(f"{did} {fy}: several {side} documents price this year: {sorted(ks)}")
@@ -261,7 +272,7 @@ class Builder:
             for _, doc_id in final:
                 spelling[did].update({aliases.norm(c): c for c in docs[doc_id]})
         for did, fy, docs, final, provisional in years:
-            fy_start, fy_end = bs.FIN_YEAR_DATES[fy]
+            fy_start, fy_end = bs.YEAR_DATES[fy]
             # an AER code is stored under the distributor's spelling ('LVDed' is United Energy's 'LVDED'), so its final
             # rates replace the provisional ones and its history stays under one code
             this_year = {aliases.norm(c): c for _, doc_id in final for c in docs[doc_id]}
@@ -357,7 +368,7 @@ class Builder:
         if same:
             return list(same)
         year = [c for d, f, c in self.periods if d == did and f == fy]
-        found = aliases.targets(self.aliases, did, code, bs.FIN_YEAR_DATES[fy][0], year)
+        found = aliases.targets(self.aliases, did, code, bs.YEAR_DATES[fy][0], year)
         if not found:
             self.problems.append(f"{where}: no {fy} tariff {code!r} of {did} has rates")
         return found

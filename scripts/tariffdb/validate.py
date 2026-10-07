@@ -14,7 +14,8 @@ The checks, in order (docs/update-and-validate.md says what a failure means and 
   periods       no two periods of one tariff code overlap; every rate, window and criterion lies inside its tariff's
                 period; a source document's year contains the period it prices
   status        a tariff is final exactly when its document is the distributor's own published list (not one the AER
-                hosts), and each rate carries its tariff's status and document
+                hosts) or a state regulator's published schedule, and each rate carries its tariff's status and
+                document
   units         every standard unit is one the docs list and fits its charge type (usage per kWh, demand per kW...)
   blocks        a stepped price numbers its blocks 1..n without gaps, with bounds that rise from block to block
   tou           windows of one tariff, charge group and published period name never overlap on the same day type
@@ -75,11 +76,11 @@ def check_periods(db):
             bad.append(f"{table} {r['distributor_id']} {r['tariff_code']} {r['effective_from']}: ends "
                        f"{r['effective_to']}, after its tariff ({r['tariff_to']})")
     for r in rows(db, """SELECT t.distributor_id, t.tariff_code, t.effective_from, t.effective_to, d.document_id,
-                         d.fin_year FROM tariff t JOIN source_document d USING (document_id)"""):
-        start, end = bs.FIN_YEAR_DATES[r["fin_year"]]
+                         d.pricing_year FROM tariff t JOIN source_document d USING (document_id)"""):
+        start, end = bs.YEAR_DATES[r["pricing_year"]]
         if not (start <= r["effective_from"] and r["effective_to"] <= end):
             bad.append(f"tariff {r['distributor_id']} {r['tariff_code']} {r['effective_from']}..{r['effective_to']}: "
-                       f"outside the {r['fin_year']} year of {r['document_id']}")
+                       f"outside the {r['pricing_year']} year of {r['document_id']}")
     return bad
 
 
@@ -88,10 +89,12 @@ def check_status(db):
     for r in rows(db, """SELECT t.distributor_id, t.tariff_code, t.effective_from, t.status, d.document_id,
                          d.publisher, d.hosted_by_aer, d.price_status FROM tariff t JOIN source_document d
                          USING (document_id)"""):
-        final = r["publisher"] == "distributor" and not r["hosted_by_aer"] and r["price_status"] == "published"
+        final = (r["publisher"] == "distributor" and not r["hosted_by_aer"] and r["price_status"] == "published") or (
+            r["publisher"] == "regulator" and r["price_status"] in ("published", "approved"))
         if (r["status"] == "final") != final:
             bad.append(f"tariff {r['distributor_id']} {r['tariff_code']} {r['effective_from']}: status {r['status']} "
-                       f"but {r['document_id']} is {'' if final else 'not '}the distributor's own published list")
+                       f"but {r['document_id']} is {'' if final else 'not '}the distributor's own published list "
+                       f"or a regulator's published schedule")
     for r in rows(db, """SELECT r.rate_id, r.status, r.document_id, t.status AS t_status, t.document_id AS t_doc
                          FROM rate r JOIN tariff t USING (distributor_id, tariff_code, effective_from)
                          WHERE r.status != t.status OR r.document_id != t.document_id"""):
@@ -235,7 +238,7 @@ def coverage(db):
     """One line per distributor-year and status: tariffs, those pricing a time-of-use period with no TOU window, and
     those with no eligibility criterion (the facts curated from the distributor's documents)."""
     out = []
-    for r in rows(db, """SELECT t.distributor_id, d.fin_year, t.status, count(*) AS n,
+    for r in rows(db, """SELECT t.distributor_id, d.pricing_year, t.status, count(*) AS n,
                          sum(EXISTS (SELECT 1 FROM rate r WHERE r.distributor_id = t.distributor_id
                                AND r.tariff_code = t.tariff_code AND r.effective_from = t.effective_from
                                AND r.tou_period IS NOT NULL AND r.tou_period != 'anytime')
@@ -245,7 +248,7 @@ def coverage(db):
                                AND e.tariff_code = t.tariff_code AND e.effective_from = t.effective_from)) AS no_elig
                          FROM tariff t JOIN source_document d USING (document_id)
                          GROUP BY 1, 2, 3 ORDER BY 1, 2, 3"""):
-        out.append(f"{r['distributor_id']:13} {r['fin_year']} {r['status']:11} {r['n']:4} tariffs, {r['no_tou']:3} "
+        out.append(f"{r['distributor_id']:13} {r['pricing_year']:7} {r['status']:11} {r['n']:4} tariffs, {r['no_tou']:3} "
                    f"pricing a TOU period without windows, {r['no_elig']:3} without eligibility")
     return out
 

@@ -1,8 +1,8 @@
 # Historical source archive (pricing years before 2023-24)
 
 Every public document found that holds a distributor's network tariffs, metering charges or network export charges
-for a pricing year before 2023-24, committed so it can be parsed later. 2023-24 onward lives in
-`sources/inventory.csv` and the tariff database.
+for a pricing year before 2023-24. The parsers in `scripts/history/` read them into the tariff database
+(`docs/schema.md`); 2023-24 onward is registered in `sources/inventory.csv`.
 
 ```
 sources/archive/
@@ -30,6 +30,7 @@ sources/archive/
 | document_kind | `price_list`, `pricing_proposal`, `tariff_summary`, `tariff_schedule`, `price_guide`, `annual_tariff_report`, `pricing_model`, `metering_price_list`, `alternative_control_services`, `tariff_structure_statement`, `statement_of_reasons`, `enforceable_undertaking`, `other` |
 | title, version_label | as published; version_label tells initial / revised / AER approved apart |
 | price_status | `published` (distributor's own, final), `approved` (regulator approved), `proposed`, `unverified`, `not_applicable` (no prices) |
+| effective_from | first day its prices apply, only when that is not the first day of its pricing year (a mid-year re-issue) |
 | publication_date, publication_date_basis | only when the title, document or landing page states it (basis says which) |
 | landing_page, source_url | page that links the file; exact URL fetched (Wayback: `.../web/<timestamp>id_/<original>`) |
 | retrieved_via, retrieved_on | `direct` (download date) or `wayback` (capture date) |
@@ -40,6 +41,8 @@ sources/archive/
 
 - Add a document: `scripts/archive_sources.py add ...` (`--help` lists the values). It downloads, hashes and
   registers; an identical file already held is skipped, a different file with the same name gets a `_2` suffix.
+- Correct a status or kind, or record a mid-year start: `scripts/archive_sources.py set <path> --note "<evidence>" ...`;
+  re-file under another year or name: `move`; drop a wrong document: `remove`.
 - No file over 95 MB (GitHub limit 100 MB); none needs Git LFS today.
 - A distributor-year without a price document needs a `gaps.csv` row (reason + evidence searched).
 - After any change: `scripts/archive_sources.py coverage`, then `.venv/bin/python -m unittest tests/test_archive.py`.

@@ -102,7 +102,7 @@ class Data:
 
 # ------------------------------------------------------------------------------------------------------ markdown
 def glance(data):
-    years = sorted({r["fin_year"] for r in data.rows["source_document"]})
+    years = sorted({r["pricing_year"] for r in data.rows["source_document"]})
     status = {s: sum(r["status"] == s for r in data.rows["tariff"]) for s in ("final", "provisional")}
     return md_table(["", ""], [
         ("Stores", "the network price charged per tariff code: daily, usage, demand, capacity, export and metering "
@@ -179,7 +179,7 @@ def walk(data):
         ("Tariff, every year", f"SELECT effective_from, effective_to, tariff_name, status, document_id\n"
                                f"FROM tariff WHERE {key} ORDER BY effective_from;"),
         (f"Documents for {fy}", f"SELECT document_id, publisher, version_label, price_status, published_on\n"
-                                f"FROM source_document WHERE fin_year = '{fy}'\n"
+                                f"FROM source_document WHERE pricing_year = '{fy}'\n"
                                 f"  AND (distributor_id = '{did}' OR distributor_id IS NULL) ORDER BY published_on;"),
         (f"Rates on {date}", f"SELECT charge_type, tou_period, value, unit, component, status, locator\n"
                              f"FROM rate WHERE {key} AND {on} ORDER BY charge_type, tou_period;"),

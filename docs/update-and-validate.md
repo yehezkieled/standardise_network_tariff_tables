@@ -126,7 +126,7 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 
 | # | Step |
 |---|---|
-| 1 | Add the year to `spec.FIN_YEARS` **and** `build_support.FIN_YEAR_DATES` (a test checks they agree) |
+| 1 | Raise `spec.LAST_FIN_YEAR` (pricing years and their dates follow from it) |
 | 2 | Follow "New AER version", then "Distributor publishes" |
 
 ### Schema change

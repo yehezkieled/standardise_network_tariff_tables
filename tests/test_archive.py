@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / "scripts" / "tariffdb"))
 import archive_sources as A  # noqa: E402
 
 ARCHIVE = ROOT / "sources" / "archive"
@@ -31,6 +32,13 @@ class ArchiveTest(unittest.TestCase):
                 self.assertIn(r["document_kind"], A.KINDS)
                 self.assertIn(r["price_status"], A.PRICE_STATUS)
                 self.assertTrue(r["title"] and r["source_url"])
+                for field in ("publication_date", "effective_from", "retrieved_on"):
+                    if r[field]:
+                        self.assertRegex(r[field], f"^{A.DATE_RE}$", field)
+                if r["effective_from"]:
+                    import build_support
+                    start, end = build_support.year_dates(r["pricing_year"])
+                    self.assertTrue(start < r["effective_from"] <= end, "effective_from inside its pricing year")
                 self.assertEqual(r["retrieved_via"] == "wayback", "web.archive.org/web/" in r["source_url"])
                 if r["retrieved_via"] == "wayback":
                     self.assertRegex(r["source_url"], r"web\.archive\.org/web/\d+id_/")

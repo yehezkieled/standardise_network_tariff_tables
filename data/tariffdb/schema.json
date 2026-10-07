@@ -76,7 +76,7 @@
     {
       "name": "source_document",
       "grain": "one version of one source document, held or not",
-      "source": "sources/inventory.csv read by build_support.documents(), plus the AER versions it registers",
+      "source": "sources/inventory.csv (2023-24 on) and sources/archive/inventory.csv (earlier years) read by build_support.documents(), plus the AER versions it registers",
       "description": "Every document version the rates, TOU windows and criteria are read from, with where it came from. A re-issued document is a new row; no version replaces another.",
       "file": "tables/source_document.csv",
       "primary_key": [
@@ -108,19 +108,70 @@
           "description": "distributor whose prices it carries; NULL for an AER report covering every distributor"
         },
         {
-          "name": "fin_year",
+          "name": "pricing_year",
           "type": "text",
           "nullable": false,
           "primary_key": false,
           "references": null,
           "enum": [
+            "1996-97",
+            "1997-98",
+            "1998-99",
+            "1999-00",
+            "2000-01",
+            "2001-02",
+            "2002-03",
+            "2003-04",
+            "2004-05",
+            "2005-06",
+            "2006-07",
+            "2007-08",
+            "2008-09",
+            "2009-10",
+            "2010-11",
+            "2011-12",
+            "2012-13",
+            "2013-14",
+            "2014-15",
+            "2015-16",
+            "2016-17",
+            "2017-18",
+            "2018-19",
+            "2019-20",
+            "2020-21",
+            "2021-22",
+            "2022-23",
             "2023-24",
             "2024-25",
             "2025-26",
-            "2026-27"
+            "2026-27",
+            "2000",
+            "2001",
+            "2002",
+            "2003",
+            "2004",
+            "2005",
+            "2006",
+            "2007",
+            "2008",
+            "2009",
+            "2010",
+            "2011",
+            "2012",
+            "2013",
+            "2014",
+            "2015",
+            "2016",
+            "2017",
+            "2018",
+            "2019",
+            "2020",
+            "2000-H2",
+            "2008-H1",
+            "2021-H1"
           ],
           "unit": null,
-          "description": "pricing year"
+          "description": "pricing year: a financial year (2025-26), or the calendar year (2005) or half year (2021-H1) a regulator priced by (Victoria 2000-H2 to 2021-H1, Tasmania to 2008-H1)"
         },
         {
           "name": "publisher",
@@ -130,7 +181,8 @@
           "references": null,
           "enum": [
             "AER",
-            "distributor"
+            "distributor",
+            "regulator"
           ],
           "unit": null,
           "description": "who published the prices"
@@ -153,7 +205,9 @@
             "schedule_of_charges",
             "statement_of_tariff_classes",
             "price_guide",
-            "pricing_schedule"
+            "pricing_schedule",
+            "annual_tariff_report",
+            "pricing_model"
           ],
           "unit": null,
           "description": "kind of publication"
@@ -248,8 +302,8 @@
     },
     {
       "name": "tariff",
-      "grain": "one tariff code of one distributor for one period (a financial year, or part of one after a mid-year change)",
-      "source": "built by scripts/tariffdb/build.py from the parsed price lists (out/aer_long.csv, out/dnsp/*.csv)",
+      "grain": "one tariff code of one distributor for one period (a pricing year, or part of one after a mid-year change)",
+      "source": "built by scripts/tariffdb/build.py from the parsed price lists (out/aer_long.csv, out/dnsp/*.csv, out/history/*.csv)",
       "description": "A network tariff code in effect for a period, with its name and customer class as published and whether its rates are provisional (AER) or final (the distributor's own list). A tariff with no rate rows is one its document lists with every price zero.",
       "file": "tables/tariff.csv",
       "primary_key": [
@@ -333,7 +387,7 @@
             "final"
           ],
           "unit": null,
-          "description": "provisional = rates from the AER's report; final = rates from the distributor's own published price list"
+          "description": "provisional = rates from the AER's report or a proposal; final = rates from the distributor's own published price list, or the schedule a state regulator published"
         },
         {
           "name": "document_id",

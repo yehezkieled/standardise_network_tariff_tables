@@ -37,9 +37,10 @@ COVERAGE = os.path.join(ARCHIVE, "coverage.csv")
 LAST_YEAR = "2022-23"  # 2023-24 onward is in sources/inventory.csv and the tariff database
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 MAX_BYTES = 95 * 1024 * 1024  # GitHub rejects files over 100 MB
+DATE_RE = r"(19|20)\d\d-[01]\d-[0-3]\d"
 
 COLUMNS = ["distributor_id", "distributor", "pricing_year", "year_kind", "side", "document_kind", "title",
-           "version_label", "price_status", "publication_date", "publication_date_basis", "landing_page", "source_url",
+           "version_label", "price_status", "effective_from", "publication_date", "publication_date_basis", "landing_page", "source_url",
            "retrieved_via", "retrieved_on", "local_path", "bytes", "sha256", "note"]
 # AER_HOSTED: distributor document on aer.gov.au; AER: AER-authored; DNSP: the distributor's own site;
 # REGULATOR_HOSTED: a state regulator before the AER (IPART, ICRC, ESC, QCA, ESCOSA, OTTER, NT Utilities Commission)
@@ -166,6 +167,8 @@ def add(a):
         raise SystemExit(f"--distributor {a.distributor!r}: one of {sorted(DISTRIBUTORS)}")
     did = DISTRIBUTORS[a.distributor]
     kind = year_kind(a.year)
+    if a.publication_date and not re.fullmatch(DATE_RE, a.publication_date):
+        raise SystemExit(f"--publication-date {a.publication_date!r}: YYYY-MM-DD")
     m = re.search(r"web\.archive\.org/web/(\d{4})(\d\d)(\d\d)\d*(id_)?/", a.url)
     if m and not m.group(4):
         raise SystemExit("Wayback URL without 'id_': the archive would rewrite the file")
@@ -305,6 +308,22 @@ def move(a):
     print(edit_row(a.path, change)["local_path"])
 
 
+def set_fields(a):
+    """Correct a row's price status or kind, or record the first day a mid-year re-issue's prices apply."""
+    if a.effective_from and not re.fullmatch(DATE_RE, a.effective_from):
+        raise SystemExit("--effective-from: YYYY-MM-DD")
+
+    def change(r):
+        for field, value in (("price_status", a.price_status), ("document_kind", a.kind),
+                             ("effective_from", a.effective_from)):
+            if value:
+                r[field] = value
+        r["note"] = f"{r['note']}; {a.note}" if r["note"] else a.note
+        return r
+    r = edit_row(a.path, change)
+    print(r["local_path"], r["price_status"], r["document_kind"], r["effective_from"])
+
+
 def remove(a):
     def change(r):
         os.remove(os.path.join(ROOT, r["local_path"]))
@@ -356,6 +375,14 @@ def main():
     p.add_argument("--name", default="")
     p.add_argument("--note", default="", help="appended to the row's note (say why it moved)")
     p.set_defaults(fn=move)
+    p = sub.add_parser("set", help="correct a row's price status or kind, or set the day a re-issue takes effect")
+    p.add_argument("path")
+    p.add_argument("--price-status", default="", choices=["", *PRICE_STATUS])
+    p.add_argument("--kind", default="", choices=["", *KINDS])
+    p.add_argument("--effective-from", default="",
+                   help="YYYY-MM-DD: first day its prices apply, when that is not the first day of its pricing year")
+    p.add_argument("--note", required=True, help="appended to the row's note: the evidence (quote and page)")
+    p.set_defaults(fn=set_fields)
     p = sub.add_parser("remove", help="delete a registered document and its row")
     p.add_argument("path")
     p.add_argument("--reason", required=True)

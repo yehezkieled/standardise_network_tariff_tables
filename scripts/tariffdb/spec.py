@@ -8,14 +8,18 @@ Column types: text, integer, numeric, date ('YYYY-MM-DD'), time ('HH:MM', end-ex
 (0/1). Every enum is a CHECK constraint. An empty CSV field is NULL.
 """
 
-FIN_YEARS = ["2023-24", "2024-25", "2025-26", "2026-27"]
+LAST_FIN_YEAR = 2026  # 2026-27; a new year: raise it
+# pricing years: financial years (2025-26); Victoria priced by calendar year from 2001 to 2020 (with half years 2000-H2
+# and 2021-H1 joining financial years on either side) and Tasmania until 2007 (2008-H1 before financial years)
+FIN_YEARS = [f"{y}-{(y + 1) % 100:02d}" for y in range(1996, LAST_FIN_YEAR + 1)]
+PRICING_YEARS = FIN_YEARS + [str(y) for y in range(2000, 2021)] + ["2000-H2", "2008-H1", "2021-H1"]
 STATES = ["NSW", "VIC", "QLD", "SA", "TAS", "ACT", "NT"]
 STATUSES = ["provisional", "final"]
-PUBLISHERS = ["AER", "distributor"]
+PUBLISHERS = ["AER", "distributor", "regulator"]  # regulator: a state regulator before the AER (ESC, ESCOSA, QCA ...)
 DOCUMENT_TYPES = [
     "aer_consolidated_stakeholder_report", "aer_stakeholder_report", "aer_landing_page", "pricing_proposal",
     "pricing_proposal_overview", "price_list", "tariff_summary", "tariff_schedule", "schedule_of_charges",
-    "statement_of_tariff_classes", "price_guide", "pricing_schedule",
+    "statement_of_tariff_classes", "price_guide", "pricing_schedule", "annual_tariff_report", "pricing_model",
 ]
 # unverified: a distributor document hosted by the AER whose regulatory status no held source states; mixed: one AER
 # version carrying approved prices for some distributors and proposed for others
@@ -91,14 +95,17 @@ TABLES = [
     {
         "name": "source_document",
         "grain": "one version of one source document, held or not",
-        "source": "sources/inventory.csv read by build_support.documents(), plus the AER versions it registers",
+        "source": "sources/inventory.csv (2023-24 on) and sources/archive/inventory.csv (earlier years) read by "
+                  "build_support.documents(), plus the AER versions it registers",
         "description": "Every document version the rates, TOU windows and criteria are read from, with where it came "
                        "from. A re-issued document is a new row; no version replaces another.",
         "columns": [
             col("document_id", "text", "slug derived from the file name", pk=True),
             col("distributor_id", "text", "distributor whose prices it carries; NULL for an AER report covering every "
                 "distributor", null=True, fk="distributor.distributor_id"),
-            col("fin_year", "text", "pricing year", enum=FIN_YEARS),
+            col("pricing_year", "text", "pricing year: a financial year (2025-26), or the calendar year (2005) or half "
+                "year (2021-H1) a regulator priced by (Victoria 2000-H2 to 2021-H1, Tasmania to 2008-H1)",
+                enum=PRICING_YEARS),
             col("publisher", "text", "who published the prices", enum=PUBLISHERS),
             col("document_type", "text", "kind of publication", enum=DOCUMENT_TYPES),
             col("hosted_by_aer", "boolean", "1 for a distributor document taken from aer.gov.au rather than the "
@@ -118,9 +125,10 @@ TABLES = [
     },
     {
         "name": "tariff",
-        "grain": "one tariff code of one distributor for one period (a financial year, or part of one after a "
+        "grain": "one tariff code of one distributor for one period (a pricing year, or part of one after a "
                  "mid-year change)",
-        "source": "built by scripts/tariffdb/build.py from the parsed price lists (out/aer_long.csv, out/dnsp/*.csv)",
+        "source": "built by scripts/tariffdb/build.py from the parsed price lists (out/aer_long.csv, out/dnsp/*.csv, "
+                  "out/history/*.csv)",
         "description": "A network tariff code in effect for a period, with its name and customer class as published "
                        "and whether its rates are provisional (AER) or final (the distributor's own list). A tariff "
                        "with no rate rows is one its document lists with every price zero.",
@@ -131,8 +139,8 @@ TABLES = [
             col("effective_to", "date", "last day the tariff applies (inclusive)"),
             col("tariff_name", "text", "name as published", null=True),
             col("customer_class", "text", "tariff class or customer class heading as published", null=True),
-            col("status", "text", "provisional = rates from the AER's report; final = rates from the distributor's "
-                "own published price list", enum=STATUSES),
+            col("status", "text", "provisional = rates from the AER's report or a proposal; final = rates from the "
+                "distributor's own published price list, or the schedule a state regulator published", enum=STATUSES),
             col("document_id", "text", "document the tariff and its rates are read from",
                 fk="source_document.document_id"),
         ],

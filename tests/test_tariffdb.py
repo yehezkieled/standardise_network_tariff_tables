@@ -359,8 +359,13 @@ class TestDocs(unittest.TestCase):
         for name in ran + [name for name, _ in validate.SOURCE_CHECKS]:
             self.assertRegex(text, rf"\| `{name}` \|", f"docs/update-and-validate.md does not explain the {name} check")
 
-    def test_fin_year_lists_agree(self):
-        self.assertEqual(sorted(bs.FIN_YEAR_DATES), spec.FIN_YEARS)
+    def test_pricing_year_dates(self):
+        self.assertEqual(sorted(bs.YEAR_DATES), sorted(spec.PRICING_YEARS))
+        self.assertEqual(bs.year_dates("2025-26"), ("2025-07-01", "2026-06-30"))
+        self.assertEqual(bs.year_dates("1999-00"), ("1999-07-01", "2000-06-30"))
+        self.assertEqual(bs.year_dates("2005"), ("2005-01-01", "2005-12-31"))
+        self.assertEqual(bs.year_dates("2021-H1"), ("2021-01-01", "2021-06-30"))
+        self.assertEqual(bs.year_dates("2000-H2"), ("2000-07-01", "2000-12-31"))
 
 
 if __name__ == "__main__":

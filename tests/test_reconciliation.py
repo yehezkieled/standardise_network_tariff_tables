@@ -620,7 +620,7 @@ class ReconciliationRegression(unittest.TestCase):
         with self.assertRaises(SystemExit):
             fetch_sources.main(['--hash'])
 
-    # ---- regressions for the independent verification (data/verification/) ----------------------------------------
+    # ---- regressions for the independent verifiers' findings ---------------------------------------------------------
 
     def test_unit_without_a_printed_period_is_inferred(self):
         """verifier B L5/M4: a period taken from anything but the printed unit is marked inferred ('?')."""

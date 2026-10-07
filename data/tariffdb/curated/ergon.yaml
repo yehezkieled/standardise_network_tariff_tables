@@ -2,13 +2,10 @@
 # Sources checked, every sheet incl. notes and Tariff Trials / CAC Trial sheets: Ergon Energy Network Price Lists
 # 2023-24..2026-27 (Sch 8 Wayback copies), AER-hosted price lists 2023-24 and 2024-25, the AER 2024-25 Ergon stakeholder
 # report and the Ergon sections of the AER consolidated 2025-26 (v1, v5) and 2026-27 reports. None states TOU clock
-# times, demand measurement rules (interval/aggregation/window) or the months of 'Summer'/'Non Summer' (SAC Large
-# 2023-24/2024-25 columns), so tou_schedules and demand_rules are empty; relations are empty because no document states
-# a rename/replacement between parsed codes. The only stated quantity threshold is the 'Volume Peak Charge (over 10,000)'
-# column (steps). regional_variant flags quote the 'Pricing Zone' cell (East/West/Mt Isa) of the tariff's row block.
+# times or the months of 'Summer'/'Non Summer' (SAC Large 2023-24/2024-25 columns), so tou_schedules is empty. The only
+# stated quantity threshold is the 'Volume Peak Charge (over 10,000)' column (steps).
 distributor: ergon
 tou_schedules: []
-demand_rules: []
 eligibility:
 - codes: [ERDEMT1, ERDEMT2, ERDEMT3, ERIBT1, ERIBT2, ERIBT3, ERTDEMT1, ERTDEMT2, ERTDEMT3, ERTOUET1, ERTOUET2, ERTOUET3, MRDEMT4, MRIBT4, MRTDEMT4, MRTOUET4, WRDEMT1, WRDEMT2, WRDEMT3, WRIBT1, WRIBT2, WRIBT3,
     WRTDEMT1, WRTDEMT2, WRTDEMT3, WRTOUET1, WRTOUET2, WRTOUET3]
@@ -2651,4536 +2648,274 @@ eligibility:
   quote: Mt Isa Demand Large (withdrawn from 1 Jul 25)
   note: Ergon Energy section of the AER consolidated 2025-26 report (v5); the tariff is listed with this label in the row
     of its code.
-relations: []
-flags:
-- codes: [ERDEMT1, ERDEMT2, ERDEMT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C7
-  quote: East
-  note: pricing zone East variant of 'Residential Demand'
-- codes: [WRDEMT1, WRDEMT2, WRDEMT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C10
-  quote: West
-  note: pricing zone West variant of 'Residential Demand'
-- codes: [MRDEMT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential Demand'
 - codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3, MRTDEMT4, WRTDEMT1, WRTDEMT2, WRTDEMT3]
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Residential!B14
   quote: Residential Transitional Demand
-- codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C14
-  quote: East
-  note: pricing zone East variant of 'Residential Transitional Demand'
-- codes: [WRTDEMT1, WRTDEMT2, WRTDEMT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C17
-  quote: West
-  note: pricing zone West variant of 'Residential Transitional Demand'
-- codes: [MRTDEMT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential Transitional Demand'
-- codes: [ERTOUET1, ERTOUET2, ERTOUET3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C21
-  quote: East
-  note: pricing zone East variant of 'Residential ToU Energy'
-- codes: [WRTOUET1, WRTOUET2, WRTOUET3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C24
-  quote: West
-  note: pricing zone West variant of 'Residential ToU Energy'
-- codes: [MRTOUET4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential ToU Energy'
-- codes: [ERIBT1, ERIBT2, ERIBT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C28
-  quote: East
-  note: pricing zone East variant of 'IBT Residential'
-- codes: [WRIBT1, WRIBT2, WRIBT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C31
-  quote: West
-  note: pricing zone West variant of 'IBT Residential'
-- codes: [MRIBT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'IBT Residential'
-- codes: [EVCT1, EVCT2, EVCT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C36
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1, WVCT2, WVCT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C39
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C42
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1, EVNT2, EVNT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C43
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1, WVNT2, WVNT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C46
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C49
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [EBDEMT1, EBDEMT2, EBDEMT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C7
-  quote: East
-  note: pricing zone East variant of 'Small Business Demand'
-- codes: [WBDEMT1, WBDEMT2, WBDEMT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C10
-  quote: West
-  note: pricing zone West variant of 'Small Business Demand'
-- codes: [MBDEMT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Demand'
 - codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3, MBTDEMT4, WBTDEMT1, WBTDEMT2, WBTDEMT3]
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B14
   quote: Small Business Transitional Demand
-- codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C14
-  quote: East
-  note: pricing zone East variant of 'Small Business Transitional Demand'
-- codes: [WBTDEMT1, WBTDEMT2, WBTDEMT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C17
-  quote: West
-  note: pricing zone West variant of 'Small Business Transitional Demand'
-- codes: [MBTDEMT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Transitional Demand'
-- codes: [EBTOUET1, EBTOUET2, EBTOUET3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C21
-  quote: East
-  note: pricing zone East variant of 'Small Business ToU Energy'
-- codes: [WBTOUET1, WBTOUET2, WBTOUET3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C24
-  quote: West
-  note: pricing zone West variant of 'Small Business ToU Energy'
-- codes: [MBTOUET4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business ToU Energy'
-- codes: [EBIBT1, EBIBT2, EBIBT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C28
-  quote: East
-  note: pricing zone East variant of 'IBT Business'
-- codes: [WBIBT1, WBIBT2, WBIBT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C31
-  quote: West
-  note: pricing zone West variant of 'IBT Business'
-- codes: [MBIBT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'IBT Business'
-- codes: [EBWIFT1, EBWIFT2, EBWIFT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C35
-  quote: East
-  note: pricing zone East variant of 'Small Business Wide IFT'
-- codes: [WBWIFT1, WBWIFT2, WBWIFT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C38
-  quote: West
-  note: pricing zone West variant of 'Small Business Wide IFT'
-- codes: [MBWIFT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C41
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Wide IFT'
 - codes: [EBFRMT1, EBFRMT2, EBFRMT3]
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B42
   quote: Transitional Network ToU Energy Tariff 1
-- codes: [EBFRMT1, EBFRMT2, EBFRMT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C42
-  quote: East
-  note: pricing zone East variant of 'Transitional Network ToU Energy Tariff 1'
 - codes: [EBIRRT1, EBIRRT2, EBIRRT3]
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B45
   quote: Transitional Network ToU Energy Tariff 2
-- codes: [EBIRRT1, EBIRRT2, EBIRRT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C45
-  quote: East
-  note: pricing zone East variant of 'Transitional Network ToU Energy Tariff 2'
 - codes: [EBPMPT1, EBPMPT2, EBPMPT3]
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B48
   quote: Transitional Network Dual Rate Demand Tariff 3
-- codes: [EBPMPT1, EBPMPT2, EBPMPT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C48
-  quote: East
-  note: pricing zone East variant of 'Transitional Network Dual Rate Demand Tariff 3'
-- codes: [EBPLCT1, EBPLCT2, EBPLCT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C52
-  quote: East
-  note: pricing zone East variant of 'Small Business Primary Load Control'
-- codes: [WBPLCT1, WBPLCT2, WBPLCT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C55
-  quote: West
-  note: pricing zone West variant of 'Small Business Primary Load Control'
-- codes: [MBPLCT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C58
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Primary Load Control'
-- codes: [EVCT1, EVCT2, EVCT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C59
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1, WVCT2, WVCT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C62
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C65
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1, EVNT2, EVNT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C66
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1, WVNT2, WVNT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C69
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C72
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C7
-  quote: East
-  note: pricing zone East variant of 'ToU Demand'
-- codes: [WLTOUDT1, WLTOUDT2, WLTOUDT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C10
-  quote: West
-  note: pricing zone West variant of 'ToU Demand'
-- codes: [MLTOUDT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'ToU Demand'
-- codes: [EDSTT1, EDSTT2, EDSTT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C14
-  quote: East
-  note: pricing zone East variant of 'Demand Small'
-- codes: [WDSTT1, WDSTT2, WDSTT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C17
-  quote: West
-  note: pricing zone West variant of 'Demand Small'
-- codes: [MDSTT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Small'
-- codes: [EDMTT1, EDMTT2, EDMTT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C21
-  quote: East
-  note: pricing zone East variant of 'Demand Medium'
-- codes: [WDMTT1, WDMTT2, WDMTT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C24
-  quote: West
-  note: pricing zone West variant of 'Demand Medium'
-- codes: [MDMTT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Medium'
-- codes: [EDLTT1, EDLTT2, EDLTT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C28
-  quote: East
-  note: pricing zone East variant of 'Demand Large'
-- codes: [WDLTT1, WDLTT2, WDLTT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C31
-  quote: West
-  note: pricing zone West variant of 'Demand Large'
-- codes: [MDLTT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Large'
-- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C35
-  quote: East
-  note: pricing zone East variant of 'Seasonal TOU Demand'
-- codes: [WSTOUDT1, WSTOUDT2, WSTOUDT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C38
-  quote: West
-  note: pricing zone West variant of 'Seasonal TOU Demand'
-- codes: [MSTOUDT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C41
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Seasonal TOU Demand'
-- codes: [ERESTT1, ERESTT2, ERESTT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C42
-  quote: East
-  note: pricing zone East variant of 'Large Residential Energy'
-- codes: [WRESTT1, WRESTT2, WRESTT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C45
-  quote: West
-  note: pricing zone West variant of 'Large Residential Energy'
-- codes: [MRESTT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C48
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Residential Energy'
-- codes: [EBESTT1, EBESTT2, EBESTT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C49
-  quote: East
-  note: pricing zone East variant of 'Large Business Energy'
-- codes: [WBESTT1, WBESTT2, WBESTT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C52
-  quote: West
-  note: pricing zone West variant of 'Large Business Energy'
-- codes: [MBESTT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C55
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Energy'
-- codes: [ELPLCT1, ELPLCT2, ELPLCT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C57
-  quote: East
-  note: pricing zone East variant of 'Large Business Primary Load Control'
-- codes: [WLPLCT1, WLPLCT2, WLPLCT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C60
-  quote: West
-  note: pricing zone West variant of 'Large Business Primary Load Control'
-- codes: [MLPLCT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C63
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Primary Load Control'
-- codes: [ELSLCT1, ELSLCT2, ELSLCT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C64
-  quote: East
-  note: pricing zone East variant of 'Large Business Secondary Load Control'
-- codes: [WLSLCT1, WLSLCT2, WLSLCT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C67
-  quote: West
-  note: pricing zone West variant of 'Large Business Secondary Load Control'
-- codes: [MLSLCT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C70
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Secondary Load Control'
-- codes: [EVUT1, EVUT2, EVUT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C7
-  quote: East
-  note: pricing zone East variant of 'Unmetered'
-- codes: [WVUT1, WVUT2, WVUT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C10
-  quote: West
-  note: pricing zone West variant of 'Unmetered'
-- codes: [MVUT4]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Unmetered'
-- codes: [EC22LT1, EC22LT2, EC22LT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C7
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Line'
-- codes: [WC22LT1, WC22LT2, WC22LT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C10
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Line'
-- codes: [EC22LTOUT1, EC22LTOUT2, EC22LTOUT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C13
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Line STOUD'
-- codes: [WC22LTOUT1, WC22LTOUT2, WC22LTOUT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C16
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Line STOUD'
-- codes: [EC22BT1, EC22BT2, EC22BT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C19
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Bus'
-- codes: [WC22BT1, WC22BT2, WC22BT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C22
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Bus'
-- codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C25
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Bus STOUD'
-- codes: [WC22BTOUT1, WC22BTOUT2, WC22BTOUT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C28
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Bus STOUD'
-- codes: [EC33T1, EC33T2, EC33T3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C32
-  quote: East
-  note: pricing zone East variant of 'CAC 33kV'
-- codes: [WC33T1, WC33T2, WC33T3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C35
-  quote: West
-  note: pricing zone West variant of 'CAC 33kV'
-- codes: [EC66T1, EC66T2, EC66T3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C38
-  quote: East
-  note: pricing zone East variant of 'CAC 66kV'
-- codes: [WC66T1, WC66T2, WC66T3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C41
-  quote: West
-  note: pricing zone West variant of 'CAC 66kV'
-- codes: [EC66TOUT1, EC66TOUT2, EC66TOUT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C44
-  quote: East
-  note: pricing zone East variant of 'CAC 66/33kV STOUD'
-- codes: [WC66TOUT1, WC66TOUT2, WC66TOUT3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C47
-  quote: West
-  note: pricing zone West variant of 'CAC 66/33kV STOUD'
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC Trial!C7
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Time of Use Export'
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC Trial!C10
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Time of Use Export'
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC Trial!C14
-  quote: East
-  note: pricing zone East variant of 'CAC 33/66kV Time of Use Export'
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC Trial!C17
-  quote: West
-  note: pricing zone West variant of 'CAC 33/66kV Time of Use Export'
-- codes: [ERDEMT1, ERDEMT2, ERDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C7
-  quote: East
-  note: pricing zone East variant of 'Residential Demand'
-- codes: [WRDEMT1, WRDEMT2, WRDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C10
-  quote: West
-  note: pricing zone West variant of 'Residential Demand'
-- codes: [MRDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential Demand'
 - codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3, MRTDEMT4, WRTDEMT1, WRTDEMT2, WRTDEMT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Residential!B14
   quote: Residential Transitional Demand
-- codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C14
-  quote: East
-  note: pricing zone East variant of 'Residential Transitional Demand'
-- codes: [WRTDEMT1, WRTDEMT2, WRTDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C17
-  quote: West
-  note: pricing zone West variant of 'Residential Transitional Demand'
-- codes: [MRTDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential Transitional Demand'
-- codes: [ERTOUET1, ERTOUET2, ERTOUET3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C21
-  quote: East
-  note: pricing zone East variant of 'Residential ToU Energy'
-- codes: [WRTOUET1, WRTOUET2, WRTOUET3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C24
-  quote: West
-  note: pricing zone West variant of 'Residential ToU Energy'
-- codes: [MRTOUET4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential ToU Energy'
-- codes: [ERIBT1, ERIBT2, ERIBT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C28
-  quote: East
-  note: pricing zone East variant of 'IBT Residential'
-- codes: [WRIBT1, WRIBT2, WRIBT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C31
-  quote: West
-  note: pricing zone West variant of 'IBT Residential'
-- codes: [MRIBT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'IBT Residential'
-- codes: [EVCT1, EVCT2, EVCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C36
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1, WVCT2, WVCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C39
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C42
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1, EVNT2, EVNT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C43
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1, WVNT2, WVNT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C46
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C49
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [EBDEMT1, EBDEMT2, EBDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C7
-  quote: East
-  note: pricing zone East variant of 'Small Business Demand'
-- codes: [WBDEMT1, WBDEMT2, WBDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C10
-  quote: West
-  note: pricing zone West variant of 'Small Business Demand'
-- codes: [MBDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Demand'
 - codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3, MBTDEMT4, WBTDEMT1, WBTDEMT2, WBTDEMT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B14
   quote: Small Business Transitional Demand
-- codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C14
-  quote: East
-  note: pricing zone East variant of 'Small Business Transitional Demand'
-- codes: [WBTDEMT1, WBTDEMT2, WBTDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C17
-  quote: West
-  note: pricing zone West variant of 'Small Business Transitional Demand'
-- codes: [MBTDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Transitional Demand'
-- codes: [EBTOUET1, EBTOUET2, EBTOUET3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C21
-  quote: East
-  note: pricing zone East variant of 'Small Business ToU Energy'
-- codes: [WBTOUET1, WBTOUET2, WBTOUET3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C24
-  quote: West
-  note: pricing zone West variant of 'Small Business ToU Energy'
-- codes: [MBTOUET4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business ToU Energy'
-- codes: [EBIBT1, EBIBT2, EBIBT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C28
-  quote: East
-  note: pricing zone East variant of 'IBT Business'
-- codes: [WBIBT1, WBIBT2, WBIBT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C31
-  quote: West
-  note: pricing zone West variant of 'IBT Business'
-- codes: [MBIBT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'IBT Business'
-- codes: [EBWIFT1, EBWIFT2, EBWIFT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C35
-  quote: East
-  note: pricing zone East variant of 'Small Business Wide IFT'
-- codes: [WBWIFT1, WBWIFT2, WBWIFT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C38
-  quote: West
-  note: pricing zone West variant of 'Small Business Wide IFT'
-- codes: [MBWIFT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C41
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Wide IFT'
 - codes: [EBFRMT1, EBFRMT2, EBFRMT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B42
   quote: Transitional Network ToU Energy Tariff 1
-- codes: [EBFRMT1, EBFRMT2, EBFRMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C42
-  quote: East
-  note: pricing zone East variant of 'Transitional Network ToU Energy Tariff 1'
 - codes: [EBIRRT1, EBIRRT2, EBIRRT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B45
   quote: Transitional Network ToU Energy Tariff 2
-- codes: [EBIRRT1, EBIRRT2, EBIRRT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C45
-  quote: East
-  note: pricing zone East variant of 'Transitional Network ToU Energy Tariff 2'
 - codes: [EBPMPT1, EBPMPT2, EBPMPT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B48
   quote: Transitional Network Dual Rate Demand Tariff 3
-- codes: [EBPMPT1, EBPMPT2, EBPMPT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C48
-  quote: East
-  note: pricing zone East variant of 'Transitional Network Dual Rate Demand Tariff 3'
-- codes: [EBPLCT1, EBPLCT2, EBPLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C52
-  quote: East
-  note: pricing zone East variant of 'Small Business Primary Load Control'
-- codes: [WBPLCT1, WBPLCT2, WBPLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C55
-  quote: West
-  note: pricing zone West variant of 'Small Business Primary Load Control'
-- codes: [MBPLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C58
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Primary Load Control'
-- codes: [EVCT1, EVCT2, EVCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C59
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1, WVCT2, WVCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C62
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C65
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1, EVNT2, EVNT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C66
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1, WVNT2, WVNT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C69
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SACS Business!C72
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C7
-  quote: East
-  note: pricing zone East variant of 'ToU Demand'
-- codes: [WLTOUDT1, WLTOUDT2, WLTOUDT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C10
-  quote: West
-  note: pricing zone West variant of 'ToU Demand'
-- codes: [MLTOUDT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'ToU Demand'
-- codes: [EDSTT1, EDSTT2, EDSTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C14
-  quote: East
-  note: pricing zone East variant of 'Demand Small'
-- codes: [WDSTT1, WDSTT2, WDSTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C17
-  quote: West
-  note: pricing zone West variant of 'Demand Small'
-- codes: [MDSTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Small'
-- codes: [EDMTT1, EDMTT2, EDMTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C21
-  quote: East
-  note: pricing zone East variant of 'Demand Medium'
-- codes: [WDMTT1, WDMTT2, WDMTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C24
-  quote: West
-  note: pricing zone West variant of 'Demand Medium'
-- codes: [MDMTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Medium'
-- codes: [EDLTT1, EDLTT2, EDLTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C28
-  quote: East
-  note: pricing zone East variant of 'Demand Large'
-- codes: [WDLTT1, WDLTT2, WDLTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C31
-  quote: West
-  note: pricing zone West variant of 'Demand Large'
-- codes: [MDLTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Large'
-- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C35
-  quote: East
-  note: pricing zone East variant of 'Seasonal TOU Demand'
-- codes: [WSTOUDT1, WSTOUDT2, WSTOUDT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C38
-  quote: West
-  note: pricing zone West variant of 'Seasonal TOU Demand'
-- codes: [MSTOUDT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C41
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Seasonal TOU Demand'
-- codes: [ERESTT1, ERESTT2, ERESTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C42
-  quote: East
-  note: pricing zone East variant of 'Large Residential Energy'
-- codes: [WRESTT1, WRESTT2, WRESTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C45
-  quote: West
-  note: pricing zone West variant of 'Large Residential Energy'
-- codes: [MRESTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C48
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Residential Energy'
-- codes: [EBESTT1, EBESTT2, EBESTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C49
-  quote: East
-  note: pricing zone East variant of 'Large Business Energy'
-- codes: [WBESTT1, WBESTT2, WBESTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C52
-  quote: West
-  note: pricing zone West variant of 'Large Business Energy'
-- codes: [MBESTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C55
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Energy'
-- codes: [ELPLCT1, ELPLCT2, ELPLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C57
-  quote: East
-  note: pricing zone East variant of 'Large Business Primary Load Control'
-- codes: [WLPLCT1, WLPLCT2, WLPLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C60
-  quote: West
-  note: pricing zone West variant of 'Large Business Primary Load Control'
-- codes: [MLPLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C63
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Primary Load Control'
-- codes: [ELSLCT1, ELSLCT2, ELSLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C64
-  quote: East
-  note: pricing zone East variant of 'Large Business Secondary Load Control'
-- codes: [WLSLCT1, WLSLCT2, WLSLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C67
-  quote: West
-  note: pricing zone West variant of 'Large Business Secondary Load Control'
-- codes: [MLSLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Large!C70
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Secondary Load Control'
-- codes: [EVUT1, EVUT2, EVUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C7
-  quote: East
-  note: pricing zone East variant of 'Unmetered'
-- codes: [WVUT1, WVUT2, WVUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C10
-  quote: West
-  note: pricing zone West variant of 'Unmetered'
-- codes: [MVUT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Unmetered'
-- codes: [EC22LT1, EC22LT2, EC22LT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C7
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Line'
-- codes: [WC22LT1, WC22LT2, WC22LT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C10
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Line'
-- codes: [EC22LTOUT1, EC22LTOUT2, EC22LTOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C13
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Line STOUD'
-- codes: [WC22LTOUT1, WC22LTOUT2, WC22LTOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C16
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Line STOUD'
-- codes: [EC22BT1, EC22BT2, EC22BT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C19
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Bus'
-- codes: [WC22BT1, WC22BT2, WC22BT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C22
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Bus'
-- codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C25
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Bus STOUD'
-- codes: [WC22BTOUT1, WC22BTOUT2, WC22BTOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C28
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Bus STOUD'
-- codes: [EC33T1, EC33T2, EC33T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C32
-  quote: East
-  note: pricing zone East variant of 'CAC 33kV'
-- codes: [WC33T1, WC33T2, WC33T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C35
-  quote: West
-  note: pricing zone West variant of 'CAC 33kV'
-- codes: [EC66T1, EC66T2, EC66T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C38
-  quote: East
-  note: pricing zone East variant of 'CAC 66kV'
-- codes: [WC66T1, WC66T2, WC66T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C41
-  quote: West
-  note: pricing zone West variant of 'CAC 66kV'
-- codes: [EC66TOUT1, EC66TOUT2, EC66TOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C44
-  quote: East
-  note: pricing zone East variant of 'CAC 66/33kV STOUD'
-- codes: [WC66TOUT1, WC66TOUT2, WC66TOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC!C47
-  quote: West
-  note: pricing zone West variant of 'CAC 66/33kV STOUD'
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC Trial!C7
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Time of Use Export'
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC Trial!C10
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Time of Use Export'
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC Trial!C14
-  quote: East
-  note: pricing zone East variant of 'CAC 33/66kV Time of Use Export'
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: regional_variant
-  locator: xlsx:CAC Trial!C17
-  quote: West
-  note: pricing zone West variant of 'CAC 33/66kV Time of Use Export'
-- codes: [ERDEMT1, ERDEMT2, ERDEMT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C7
-  quote: East
-  note: pricing zone East variant of 'Residential Demand'
-- codes: [WRDEMT1, WRDEMT2, WRDEMT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C10
-  quote: West
-  note: pricing zone West variant of 'Residential Demand'
-- codes: [MRDEMT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential Demand'
 - codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3, MRTDEMT4, WRTDEMT1, WRTDEMT2, WRTDEMT3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Residential!B14
   quote: Residential Transitional Demand
-- codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C14
-  quote: East
-  note: pricing zone East variant of 'Residential Transitional Demand'
-- codes: [WRTDEMT1, WRTDEMT2, WRTDEMT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C17
-  quote: West
-  note: pricing zone West variant of 'Residential Transitional Demand'
-- codes: [MRTDEMT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential Transitional Demand'
-- codes: [ERTOUET1, ERTOUET2, ERTOUET3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C21
-  quote: East
-  note: pricing zone East variant of 'Residential ToU Energy'
-- codes: [WRTOUET1, WRTOUET2, WRTOUET3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C24
-  quote: West
-  note: pricing zone West variant of 'Residential ToU Energy'
-- codes: [MRTOUET4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential ToU Energy'
-- codes: [ERIBT1, ERIBT2, ERIBT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C28
-  quote: East
-  note: pricing zone East variant of 'IBT Residential'
-- codes: [WRIBT1, WRIBT2, WRIBT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C31
-  quote: West
-  note: pricing zone West variant of 'IBT Residential'
-- codes: [MRIBT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'IBT Residential'
-- codes: [EVCT1, EVCT2, EVCT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C36
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1, WVCT2, WVCT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C39
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C42
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1, EVNT2, EVNT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C43
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1, WVNT2, WVNT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C46
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C49
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [EBDEMT1, EBDEMT2, EBDEMT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C7
-  quote: East
-  note: pricing zone East variant of 'Small Business Demand'
-- codes: [WBDEMT1, WBDEMT2, WBDEMT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C10
-  quote: West
-  note: pricing zone West variant of 'Small Business Demand'
-- codes: [MBDEMT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Demand'
 - codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3, MBTDEMT4, WBTDEMT1, WBTDEMT2, WBTDEMT3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B14
   quote: Small Business Transitional Demand
-- codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C14
-  quote: East
-  note: pricing zone East variant of 'Small Business Transitional Demand'
-- codes: [WBTDEMT1, WBTDEMT2, WBTDEMT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C17
-  quote: West
-  note: pricing zone West variant of 'Small Business Transitional Demand'
-- codes: [MBTDEMT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Transitional Demand'
-- codes: [EBTOUET1, EBTOUET2, EBTOUET3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C21
-  quote: East
-  note: pricing zone East variant of 'Small Business ToU Energy'
-- codes: [WBTOUET1, WBTOUET2, WBTOUET3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C24
-  quote: West
-  note: pricing zone West variant of 'Small Business ToU Energy'
-- codes: [MBTOUET4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business ToU Energy'
-- codes: [EBIBT1, EBIBT2, EBIBT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C28
-  quote: East
-  note: pricing zone East variant of 'IBT Business'
-- codes: [WBIBT1, WBIBT2, WBIBT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C31
-  quote: West
-  note: pricing zone West variant of 'IBT Business'
-- codes: [MBIBT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'IBT Business'
-- codes: [EBWIFT1, EBWIFT2, EBWIFT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C35
-  quote: East
-  note: pricing zone East variant of 'Small Business Wide IFT'
-- codes: [WBWIFT1, WBWIFT2, WBWIFT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C38
-  quote: West
-  note: pricing zone West variant of 'Small Business Wide IFT'
-- codes: [MBWIFT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C41
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Wide IFT'
 - codes: [EBFRMT1, EBFRMT2, EBFRMT3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B42
   quote: Transitional Network ToU Energy Tariff 1
-- codes: [EBFRMT1, EBFRMT2, EBFRMT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C42
-  quote: East
-  note: pricing zone East variant of 'Transitional Network ToU Energy Tariff 1'
 - codes: [EBIRRT1, EBIRRT2, EBIRRT3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B45
   quote: Transitional Network ToU Energy Tariff 2
-- codes: [EBIRRT1, EBIRRT2, EBIRRT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C45
-  quote: East
-  note: pricing zone East variant of 'Transitional Network ToU Energy Tariff 2'
 - codes: [EBPMPT1, EBPMPT2, EBPMPT3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B48
   quote: Transitional Network Dual Rate Demand Tariff 3
-- codes: [EBPMPT1, EBPMPT2, EBPMPT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C48
-  quote: East
-  note: pricing zone East variant of 'Transitional Network Dual Rate Demand Tariff 3'
-- codes: [EBPLCT1, EBPLCT2, EBPLCT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C52
-  quote: East
-  note: pricing zone East variant of 'Small Business Primary Load Control'
-- codes: [WBPLCT1, WBPLCT2, WBPLCT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C55
-  quote: West
-  note: pricing zone West variant of 'Small Business Primary Load Control'
-- codes: [MBPLCT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C58
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Primary Load Control'
-- codes: [EVCT1, EVCT2, EVCT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C59
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1, WVCT2, WVCT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C62
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C65
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1, EVNT2, EVNT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C66
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1, WVNT2, WVNT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C69
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C72
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C7
-  quote: East
-  note: pricing zone East variant of 'ToU Demand'
-- codes: [WLTOUDT1, WLTOUDT2, WLTOUDT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C10
-  quote: West
-  note: pricing zone West variant of 'ToU Demand'
-- codes: [MLTOUDT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'ToU Demand'
-- codes: [EDSTT1, EDSTT2, EDSTT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C14
-  quote: East
-  note: pricing zone East variant of 'Demand Small'
-- codes: [WDSTT1, WDSTT2, WDSTT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C17
-  quote: West
-  note: pricing zone West variant of 'Demand Small'
-- codes: [MDSTT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Small'
-- codes: [EDMTT1, EDMTT2, EDMTT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C21
-  quote: East
-  note: pricing zone East variant of 'Demand Medium'
-- codes: [WDMTT1, WDMTT2, WDMTT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C24
-  quote: West
-  note: pricing zone West variant of 'Demand Medium'
-- codes: [MDMTT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Medium'
-- codes: [EDLTT1, EDLTT2, EDLTT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C28
-  quote: East
-  note: pricing zone East variant of 'Demand Large'
-- codes: [WDLTT1, WDLTT2, WDLTT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C31
-  quote: West
-  note: pricing zone West variant of 'Demand Large'
-- codes: [MDLTT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Large'
-- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C35
-  quote: East
-  note: pricing zone East variant of 'Seasonal TOU Demand'
-- codes: [WSTOUDT1, WSTOUDT2, WSTOUDT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C38
-  quote: West
-  note: pricing zone West variant of 'Seasonal TOU Demand'
-- codes: [MSTOUDT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C41
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Seasonal TOU Demand'
-- codes: [ERESTT1, ERESTT2, ERESTT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C42
-  quote: East
-  note: pricing zone East variant of 'Large Residential Energy'
-- codes: [WRESTT1, WRESTT2, WRESTT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C45
-  quote: West
-  note: pricing zone West variant of 'Large Residential Energy'
-- codes: [MRESTT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C48
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Residential Energy'
-- codes: [EBESTT1, EBESTT2, EBESTT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C49
-  quote: East
-  note: pricing zone East variant of 'Large Business Energy'
-- codes: [WBESTT1, WBESTT2, WBESTT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C52
-  quote: West
-  note: pricing zone West variant of 'Large Business Energy'
-- codes: [MBESTT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C55
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Energy'
-- codes: [ELPLCT1, ELPLCT2, ELPLCT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C57
-  quote: East
-  note: pricing zone East variant of 'Large Business Primary Load Control'
-- codes: [WLPLCT1, WLPLCT2, WLPLCT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C60
-  quote: West
-  note: pricing zone West variant of 'Large Business Primary Load Control'
-- codes: [MLPLCT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C63
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Primary Load Control'
-- codes: [ELSLCT1, ELSLCT2, ELSLCT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C64
-  quote: East
-  note: pricing zone East variant of 'Large Business Secondary Load Control'
-- codes: [WLSLCT1, WLSLCT2, WLSLCT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C67
-  quote: West
-  note: pricing zone West variant of 'Large Business Secondary Load Control'
-- codes: [MLSLCT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C70
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Secondary Load Control'
-- codes: [EVUT1, EVUT2, EVUT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C7
-  quote: East
-  note: pricing zone East variant of 'Unmetered'
-- codes: [WVUT1, WVUT2, WVUT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C10
-  quote: West
-  note: pricing zone West variant of 'Unmetered'
-- codes: [MVUT4]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Unmetered'
 - codes: [TBA T1, TBA T2, TBA T3]
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Tariff Trials!B1
   quote: Network Trial Tariffs 2024/25 (Excluding GST)
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C7
-  quote: East
-  note: pricing zone East variant of 'Large Dynamic Flex Storage'
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C11
-  quote: East
-  note: pricing zone East variant of 'CAC Dynamic Flex Storage'
-- codes: [TBA T1, TBA T2, TBA T3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C14
-  quote: East
-  note: pricing zone East variant of 'CAC Dynamic Price Storage'
-- codes: [EC22LT1, EC22LT2, EC22LT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C7
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Line'
-- codes: [WC22LT1, WC22LT2, WC22LT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C10
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Line'
-- codes: [EC22LTOUT1, EC22LTOUT2, EC22LTOUT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C13
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Line STOUD'
-- codes: [WC22LTOUT1, WC22LTOUT2, WC22LTOUT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C16
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Line STOUD'
-- codes: [EC22BT1, EC22BT2, EC22BT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C19
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Bus'
-- codes: [WC22BT1, WC22BT2, WC22BT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C22
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Bus'
-- codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C25
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Bus STOUD'
-- codes: [WC22BTOUT1, WC22BTOUT2, WC22BTOUT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C28
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Bus STOUD'
-- codes: [EC33T1, EC33T2, EC33T3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C32
-  quote: East
-  note: pricing zone East variant of 'CAC 33kV'
-- codes: [WC33T1, WC33T2, WC33T3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C35
-  quote: West
-  note: pricing zone West variant of 'CAC 33kV'
-- codes: [EC66T1, EC66T2, EC66T3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C38
-  quote: East
-  note: pricing zone East variant of 'CAC 66kV'
-- codes: [WC66T1, WC66T2, WC66T3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C41
-  quote: West
-  note: pricing zone West variant of 'CAC 66kV'
-- codes: [EC66TOUT1, EC66TOUT2, EC66TOUT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C44
-  quote: East
-  note: pricing zone East variant of 'CAC 66/33kV STOUD'
-- codes: [WC66TOUT1, WC66TOUT2, WC66TOUT3]
-  doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C47
-  quote: West
-  note: pricing zone West variant of 'CAC 66/33kV STOUD'
-- codes: [ERDEMT1, ERDEMT2, ERDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C7
-  quote: East
-  note: pricing zone East variant of 'Residential Demand'
-- codes: [WRDEMT1, WRDEMT2, WRDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C10
-  quote: West
-  note: pricing zone West variant of 'Residential Demand'
-- codes: [MRDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential Demand'
 - codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3, MRTDEMT4, WRTDEMT1, WRTDEMT2, WRTDEMT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Residential!B14
   quote: Residential Transitional Demand
-- codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C14
-  quote: East
-  note: pricing zone East variant of 'Residential Transitional Demand'
-- codes: [WRTDEMT1, WRTDEMT2, WRTDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C17
-  quote: West
-  note: pricing zone West variant of 'Residential Transitional Demand'
-- codes: [MRTDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential Transitional Demand'
-- codes: [ERTOUET1, ERTOUET2, ERTOUET3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C21
-  quote: East
-  note: pricing zone East variant of 'Residential ToU Energy'
-- codes: [WRTOUET1, WRTOUET2, WRTOUET3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C24
-  quote: West
-  note: pricing zone West variant of 'Residential ToU Energy'
-- codes: [MRTOUET4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential ToU Energy'
-- codes: [ERIBT1, ERIBT2, ERIBT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C28
-  quote: East
-  note: pricing zone East variant of 'IBT Residential'
-- codes: [WRIBT1, WRIBT2, WRIBT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C31
-  quote: West
-  note: pricing zone West variant of 'IBT Residential'
-- codes: [MRIBT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'IBT Residential'
-- codes: [EVCT1, EVCT2, EVCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C36
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1, WVCT2, WVCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C39
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C42
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1, EVNT2, EVNT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C43
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1, WVNT2, WVNT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C46
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C49
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [EBDEMT1, EBDEMT2, EBDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C7
-  quote: East
-  note: pricing zone East variant of 'Small Business Demand'
-- codes: [WBDEMT1, WBDEMT2, WBDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C10
-  quote: West
-  note: pricing zone West variant of 'Small Business Demand'
-- codes: [MBDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Demand'
 - codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3, MBTDEMT4, WBTDEMT1, WBTDEMT2, WBTDEMT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B14
   quote: Small Business Transitional Demand
-- codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C14
-  quote: East
-  note: pricing zone East variant of 'Small Business Transitional Demand'
-- codes: [WBTDEMT1, WBTDEMT2, WBTDEMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C17
-  quote: West
-  note: pricing zone West variant of 'Small Business Transitional Demand'
-- codes: [MBTDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Transitional Demand'
-- codes: [EBTOUET1, EBTOUET2, EBTOUET3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C21
-  quote: East
-  note: pricing zone East variant of 'Small Business ToU Energy'
-- codes: [WBTOUET1, WBTOUET2, WBTOUET3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C24
-  quote: West
-  note: pricing zone West variant of 'Small Business ToU Energy'
-- codes: [MBTOUET4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business ToU Energy'
-- codes: [EBIBT1, EBIBT2, EBIBT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C28
-  quote: East
-  note: pricing zone East variant of 'IBT Business'
-- codes: [WBIBT1, WBIBT2, WBIBT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C31
-  quote: West
-  note: pricing zone West variant of 'IBT Business'
-- codes: [MBIBT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'IBT Business'
-- codes: [EBWIFT1, EBWIFT2, EBWIFT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C35
-  quote: East
-  note: pricing zone East variant of 'Small Business Wide IFT'
-- codes: [WBWIFT1, WBWIFT2, WBWIFT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C38
-  quote: West
-  note: pricing zone West variant of 'Small Business Wide IFT'
-- codes: [MBWIFT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C41
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Wide IFT'
 - codes: [EBFRMT1, EBFRMT2, EBFRMT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B42
   quote: Transitional Network ToU Energy Tariff 1
-- codes: [EBFRMT1, EBFRMT2, EBFRMT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C42
-  quote: East
-  note: pricing zone East variant of 'Transitional Network ToU Energy Tariff 1'
 - codes: [EBIRRT1, EBIRRT2, EBIRRT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B45
   quote: Transitional Network ToU Energy Tariff 2
-- codes: [EBIRRT1, EBIRRT2, EBIRRT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C45
-  quote: East
-  note: pricing zone East variant of 'Transitional Network ToU Energy Tariff 2'
 - codes: [EBPMPT1, EBPMPT2, EBPMPT3]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B48
   quote: Transitional Network Dual Rate Demand Tariff 3
-- codes: [EBPMPT1, EBPMPT2, EBPMPT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C48
-  quote: East
-  note: pricing zone East variant of 'Transitional Network Dual Rate Demand Tariff 3'
-- codes: [EBPLCT1, EBPLCT2, EBPLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C52
-  quote: East
-  note: pricing zone East variant of 'Small Business Primary Load Control'
-- codes: [WBPLCT1, WBPLCT2, WBPLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C55
-  quote: West
-  note: pricing zone West variant of 'Small Business Primary Load Control'
-- codes: [MBPLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C58
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Primary Load Control'
-- codes: [EVCT1, EVCT2, EVCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C59
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1, WVCT2, WVCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C62
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C65
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1, EVNT2, EVNT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C66
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1, WVNT2, WVNT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C69
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SACS Business!C72
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C7
-  quote: East
-  note: pricing zone East variant of 'ToU Demand'
-- codes: [WLTOUDT1, WLTOUDT2, WLTOUDT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C10
-  quote: West
-  note: pricing zone West variant of 'ToU Demand'
-- codes: [MLTOUDT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'ToU Demand'
-- codes: [EDSTT1, EDSTT2, EDSTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C14
-  quote: East
-  note: pricing zone East variant of 'Demand Small'
-- codes: [WDSTT1, WDSTT2, WDSTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C17
-  quote: West
-  note: pricing zone West variant of 'Demand Small'
-- codes: [MDSTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Small'
-- codes: [EDMTT1, EDMTT2, EDMTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C21
-  quote: East
-  note: pricing zone East variant of 'Demand Medium'
-- codes: [WDMTT1, WDMTT2, WDMTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C24
-  quote: West
-  note: pricing zone West variant of 'Demand Medium'
-- codes: [MDMTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Medium'
-- codes: [EDLTT1, EDLTT2, EDLTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C28
-  quote: East
-  note: pricing zone East variant of 'Demand Large'
-- codes: [WDLTT1, WDLTT2, WDLTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C31
-  quote: West
-  note: pricing zone West variant of 'Demand Large'
-- codes: [MDLTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C34
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Large'
-- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C35
-  quote: East
-  note: pricing zone East variant of 'Seasonal TOU Demand'
-- codes: [WSTOUDT1, WSTOUDT2, WSTOUDT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C38
-  quote: West
-  note: pricing zone West variant of 'Seasonal TOU Demand'
-- codes: [MSTOUDT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C41
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Seasonal TOU Demand'
-- codes: [ERESTT1, ERESTT2, ERESTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C42
-  quote: East
-  note: pricing zone East variant of 'Large Residential Energy'
-- codes: [WRESTT1, WRESTT2, WRESTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C45
-  quote: West
-  note: pricing zone West variant of 'Large Residential Energy'
-- codes: [MRESTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C48
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Residential Energy'
-- codes: [EBESTT1, EBESTT2, EBESTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C49
-  quote: East
-  note: pricing zone East variant of 'Large Business Energy'
-- codes: [WBESTT1, WBESTT2, WBESTT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C52
-  quote: West
-  note: pricing zone West variant of 'Large Business Energy'
-- codes: [MBESTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C55
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Energy'
-- codes: [ELPLCT1, ELPLCT2, ELPLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C57
-  quote: East
-  note: pricing zone East variant of 'Large Business Primary Load Control'
-- codes: [WLPLCT1, WLPLCT2, WLPLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C60
-  quote: West
-  note: pricing zone West variant of 'Large Business Primary Load Control'
-- codes: [MLPLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C63
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Primary Load Control'
-- codes: [ELSLCT1, ELSLCT2, ELSLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C64
-  quote: East
-  note: pricing zone East variant of 'Large Business Secondary Load Control'
-- codes: [WLSLCT1, WLSLCT2, WLSLCT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C67
-  quote: West
-  note: pricing zone West variant of 'Large Business Secondary Load Control'
-- codes: [MLSLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Large!C70
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Secondary Load Control'
-- codes: [EVUT1, EVUT2, EVUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C7
-  quote: East
-  note: pricing zone East variant of 'Unmetered'
-- codes: [WVUT1, WVUT2, WVUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C10
-  quote: West
-  note: pricing zone West variant of 'Unmetered'
-- codes: [MVUT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:SAC Unmetered!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Unmetered'
 - codes: [ECFLEXT1, ECPRCET1, ELFLEXT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Tariff Trials!B1
   quote: Network Trial Tariffs 2024/25 (Excluding GST)
-- codes: [ELFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C7
-  quote: East
-  note: pricing zone East variant of 'Large Dynamic Flex Storage'
-- codes: [ECFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C9
-  quote: East
-  note: pricing zone East variant of 'CAC Dynamic Flex Storage'
-- codes: [ECPRCET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C10
-  quote: East
-  note: pricing zone East variant of 'CAC Dynamic Price Storage'
-- codes: [EC22LT1, EC22LT2, EC22LT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C7
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Line'
-- codes: [WC22LT1, WC22LT2, WC22LT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C10
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Line'
-- codes: [EC22LTOUT1, EC22LTOUT2, EC22LTOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C13
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Line STOUD'
-- codes: [WC22LTOUT1, WC22LTOUT2, WC22LTOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C16
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Line STOUD'
-- codes: [EC22BT1, EC22BT2, EC22BT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C19
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Bus'
-- codes: [WC22BT1, WC22BT2, WC22BT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C22
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Bus'
-- codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C25
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Bus STOUD'
-- codes: [WC22BTOUT1, WC22BTOUT2, WC22BTOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C28
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Bus STOUD'
-- codes: [EC33T1, EC33T2, EC33T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C32
-  quote: East
-  note: pricing zone East variant of 'CAC 33kV'
-- codes: [WC33T1, WC33T2, WC33T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C35
-  quote: West
-  note: pricing zone West variant of 'CAC 33kV'
-- codes: [EC66T1, EC66T2, EC66T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C38
-  quote: East
-  note: pricing zone East variant of 'CAC 66kV'
-- codes: [WC66T1, WC66T2, WC66T3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C41
-  quote: West
-  note: pricing zone West variant of 'CAC 66kV'
-- codes: [EC66TOUT1, EC66TOUT2, EC66TOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C44
-  quote: East
-  note: pricing zone East variant of 'CAC 66/33kV STOUD'
-- codes: [WC66TOUT1, WC66TOUT2, WC66TOUT3]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:CAC!C47
-  quote: West
-  note: pricing zone West variant of 'CAC 66/33kV STOUD'
-- codes: [ERTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C8
-  quote: East
-  note: pricing zone East variant of 'Residential ToU Energy'
-- codes: [WRTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C9
-  quote: West
-  note: pricing zone West variant of 'Residential ToU Energy'
-- codes: [MRTOUET4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C10
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential ToU Energy'
-- codes: [ERTDEMT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C11
-  quote: East
-  note: pricing zone East variant of 'Residential ToU Demand&Energy'
-- codes: [WRTDEMT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C12
-  quote: West
-  note: pricing zone West variant of 'Residential ToU Demand&Energy'
-- codes: [MRTDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential ToU Demand&Energy'
-- codes: [ERIBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C14
-  quote: East
-  note: pricing zone East variant of 'Residential Flat'
-- codes: [WRIBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C15
-  quote: West
-  note: pricing zone West variant of 'Residential Flat'
-- codes: [MRIBT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C16
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential Flat'
-- codes: [EVCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C18
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C19
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C21
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C22
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C23
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [EBTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C8
-  quote: East
-  note: pricing zone East variant of 'Small Business ToU Energy'
-- codes: [WBTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C9
-  quote: West
-  note: pricing zone West variant of 'Small Business ToU Energy'
-- codes: [MBTOUET4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C10
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business ToU Energy'
-- codes: [EBTDEMT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C11
-  quote: East
-  note: pricing zone East variant of 'Small Business ToU Demand&Energy'
-- codes: [WBTDEMT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C12
-  quote: West
-  note: pricing zone West variant of 'Small Business ToU Demand&Energy'
-- codes: [MBTDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business ToU Demand&Energy'
-- codes: [EBIBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C14
-  quote: East
-  note: pricing zone East variant of 'Business Flat'
-- codes: [WBIBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C15
-  quote: West
-  note: pricing zone West variant of 'Business Flat'
-- codes: [MBIBT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C16
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Business Flat'
 - codes: [EBFRMT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B17
   quote: Transitional Network ToU Energy Tariff 1
-- codes: [EBFRMT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C17
-  quote: East
-  note: pricing zone East variant of 'Transitional Network ToU Energy Tariff 1'
 - codes: [EBIRRT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B18
   quote: Transitional Network ToU Energy Tariff 2
-- codes: [EBIRRT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C18
-  quote: East
-  note: pricing zone East variant of 'Transitional Network ToU Energy Tariff 2'
 - codes: [EBPMPT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B19
   quote: Transitional Network Dual Rate Demand Tariff 3
-- codes: [EBPMPT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C19
-  quote: East
-  note: pricing zone East variant of 'Transitional Network Dual Rate Demand Tariff 3'
-- codes: [EBPLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C21
-  quote: East
-  note: pricing zone East variant of 'Small Business Primary Load Control'
-- codes: [WBPLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C22
-  quote: West
-  note: pricing zone West variant of 'Small Business Primary Load Control'
-- codes: [MBPLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C23
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Primary Load Control'
-- codes: [EVCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C24
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C25
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C26
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C27
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C28
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C29
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [EVUT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C31
-  quote: East
-  note: pricing zone East variant of 'Unmetered'
-- codes: [WVUT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C32
-  quote: West
-  note: pricing zone West variant of 'Unmetered'
-- codes: [MVUT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SACS Business!C33
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Unmetered'
-- codes: [ELTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C8
-  quote: East
-  note: pricing zone East variant of 'Large ToU Demand&Energy'
-- codes: [WLTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C9
-  quote: West
-  note: pricing zone West variant of 'Large ToU Demand&Energy'
-- codes: [MLTOUDT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C10
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large ToU Demand&Energy'
-- codes: [EDSTT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C11
-  quote: East
-  note: pricing zone East variant of 'Demand Small'
-- codes: [WDSTT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C12
-  quote: West
-  note: pricing zone West variant of 'Demand Small'
-- codes: [MDSTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Small'
-- codes: [EBESTT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C14
-  quote: East
-  note: pricing zone East variant of 'Large Business Energy'
-- codes: [WBESTT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C15
-  quote: West
-  note: pricing zone West variant of 'Large Business Energy'
-- codes: [MBESTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C16
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Energy'
-- codes: [ELTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C17
-  quote: East
-  note: pricing zone East variant of 'Large TOU Energy'
-- codes: [WLTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C18
-  quote: West
-  note: pricing zone West variant of 'Large TOU Energy'
-- codes: [MLTOUET4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C19
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large TOU Energy'
-- codes: [ELFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C21
-  quote: East
-  note: pricing zone East variant of 'Large Dynamic Flex Storage'
-- codes: [WLFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C22
-  quote: West
-  note: pricing zone West variant of 'Large Dynamic Flex Storage'
-- codes: [MLFLEXT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C23
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Dynamic Flex Storage'
-- codes: [ELPLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C25
-  quote: East
-  note: pricing zone East variant of 'Large Business Primary Load Control'
-- codes: [WLPLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C26
-  quote: West
-  note: pricing zone West variant of 'Large Business Primary Load Control'
-- codes: [MLPLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Primary Load Control'
-- codes: [ELSLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C28
-  quote: East
-  note: pricing zone East variant of 'Large Business Secondary Load Control'
-- codes: [WLSLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C29
-  quote: West
-  note: pricing zone West variant of 'Large Business Secondary Load Control'
-- codes: [MLSLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:SAC Large!C30
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Secondary Load Control'
-- codes: [EC22LT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C8
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Line Anytime'
-- codes: [WC22LT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C9
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Line Anytime'
-- codes: [ECHLTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C10
-  quote: East
-  note: pricing zone East variant of 'CAC HV Line TOU Demand'
-- codes: [WCHLTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C11
-  quote: West
-  note: pricing zone West variant of 'CAC HV Line TOU Demand'
-- codes: [EC22BT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C12
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Bus Anytime'
-- codes: [WC22BT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C13
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Bus Anytime'
-- codes: [ECHBTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C14
-  quote: East
-  note: pricing zone East variant of 'CAC HV Bus TOU Demand'
-- codes: [WCHBTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C15
-  quote: West
-  note: pricing zone West variant of 'CAC HV Bus TOU Demand'
-- codes: [EC33T1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C17
-  quote: East
-  note: pricing zone East variant of 'CAC 33kV Anytime'
-- codes: [WC33T1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C18
-  quote: West
-  note: pricing zone West variant of 'CAC 33kV Anytime'
-- codes: [EC33TOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C19
-  quote: East
-  note: pricing zone East variant of 'CAC 33kV TOU Demand'
-- codes: [WC33TOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C20
-  quote: West
-  note: pricing zone West variant of 'CAC 33kV TOU Demand'
-- codes: [EC66T1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C21
-  quote: East
-  note: pricing zone East variant of 'CAC 66kV Anytime'
-- codes: [WC66T1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C22
-  quote: West
-  note: pricing zone West variant of 'CAC 66kV Anytime'
-- codes: [EC66TOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C23
-  quote: East
-  note: pricing zone East variant of 'CAC 66kV TOU Demand'
-- codes: [WC66TOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C24
-  quote: West
-  note: pricing zone West variant of 'CAC 66kV TOU Demand'
-- codes: [ECFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C26
-  quote: East
-  note: pricing zone East variant of 'CAC Dynamic Flex Storage'
-- codes: [WCFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:CAC!C27
-  quote: West
-  note: pricing zone West variant of 'CAC Dynamic Flex Storage'
 - codes: [ECPRCET1, ESCPRCET1, ESPRCET1, ESSPRCET1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Tariff Trials!B3
   quote: Tariff Trials - Ergon Energy Network
-- codes: [ECPRCET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C8
-  quote: East
-  note: pricing zone East variant of 'CAC Dynamic Price Storage'
-- codes: [ESPRCET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C9
-  quote: East
-  note: pricing zone East variant of 'SAC Dynamic Price Storage'
-- codes: [ESCPRCET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C11
-  quote: East
-  note: pricing zone East variant of 'CAC Secondary Dynamic Price Storage'
-- codes: [ESSPRCET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
-  fin_year: 2025-26
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C12
-  quote: East
-  note: pricing zone East variant of 'SAC Secondary Dynamic Price Storage'
-- codes: [ERTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C8
-  quote: East
-  note: pricing zone East variant of 'Residential ToU Energy'
-- codes: [WRTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C9
-  quote: West
-  note: pricing zone West variant of 'Residential ToU Energy'
-- codes: [MRTOUET4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C10
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential ToU Energy'
-- codes: [ERTDEMT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C11
-  quote: East
-  note: pricing zone East variant of 'Residential ToU Demand&Energy'
-- codes: [WRTDEMT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C12
-  quote: West
-  note: pricing zone West variant of 'Residential ToU Demand&Energy'
-- codes: [MRTDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential ToU Demand&Energy'
 - codes: [ERIBT1, MRIBT4, WRIBT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
   fin_year: 2026-27
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: xlsx:SACS Residential!B24
   quote: '* Closed to new customers'
   note: 'tariff marked *: ''Residential Flat*'' (SACS Residential!B14)'
-- codes: [ERIBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C14
-  quote: East
-  note: pricing zone East variant of 'Residential Flat'
-- codes: [WRIBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C15
-  quote: West
-  note: pricing zone West variant of 'Residential Flat'
-- codes: [MRIBT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C16
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Residential Flat'
-- codes: [EVCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C18
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C19
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C21
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C22
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Residential!C23
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [EBTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C8
-  quote: East
-  note: pricing zone East variant of 'Small Business ToU Energy'
-- codes: [WBTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C9
-  quote: West
-  note: pricing zone West variant of 'Small Business ToU Energy'
-- codes: [MBTOUET4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C10
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business ToU Energy'
-- codes: [EBTDEMT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C11
-  quote: East
-  note: pricing zone East variant of 'Small Business ToU Demand&Energy'
-- codes: [WBTDEMT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C12
-  quote: West
-  note: pricing zone West variant of 'Small Business ToU Demand&Energy'
-- codes: [MBTDEMT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business ToU Demand&Energy'
 - codes: [EBIBT1, MBIBT4, WBIBT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
   fin_year: 2026-27
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: xlsx:SACS Business!B31
   quote: '* Closed to new customers'
   note: 'tariff marked *: ''Business Flat*'' (SACS Business!B14)'
-- codes: [EBIBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C14
-  quote: East
-  note: pricing zone East variant of 'Business Flat'
-- codes: [WBIBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C15
-  quote: West
-  note: pricing zone West variant of 'Business Flat'
-- codes: [MBIBT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C16
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Business Flat'
-- codes: [EBPLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C18
-  quote: East
-  note: pricing zone East variant of 'Small Business Primary Load Control'
-- codes: [WBPLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C19
-  quote: West
-  note: pricing zone West variant of 'Small Business Primary Load Control'
-- codes: [MBPLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C20
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Small Business Primary Load Control'
-- codes: [EVCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C21
-  quote: East
-  note: pricing zone East variant of 'Volume Controlled'
-- codes: [WVCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C22
-  quote: West
-  note: pricing zone West variant of 'Volume Controlled'
-- codes: [MVCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C23
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Controlled'
-- codes: [EVNT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C24
-  quote: East
-  note: pricing zone East variant of 'Volume Night Controlled'
-- codes: [WVNT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C25
-  quote: West
-  note: pricing zone West variant of 'Volume Night Controlled'
-- codes: [MVNT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C26
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Volume Night Controlled'
-- codes: [EVUT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C28
-  quote: East
-  note: pricing zone East variant of 'Unmetered'
-- codes: [WVUT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C29
-  quote: West
-  note: pricing zone West variant of 'Unmetered'
-- codes: [MVUT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SACS Business!C30
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Unmetered'
-- codes: [ELTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C8
-  quote: East
-  note: pricing zone East variant of 'Large ToU Demand&Energy'
-- codes: [WLTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C9
-  quote: West
-  note: pricing zone West variant of 'Large ToU Demand&Energy'
-- codes: [MLTOUDT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C10
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large ToU Demand&Energy'
-- codes: [EDSTT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C11
-  quote: East
-  note: pricing zone East variant of 'Demand Small'
-- codes: [WDSTT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C12
-  quote: West
-  note: pricing zone West variant of 'Demand Small'
-- codes: [MDSTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C13
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Demand Small'
-- codes: [EBESTT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C14
-  quote: East
-  note: pricing zone East variant of 'Large Business Energy'
-- codes: [WBESTT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C15
-  quote: West
-  note: pricing zone West variant of 'Large Business Energy'
-- codes: [MBESTT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C16
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Energy'
-- codes: [ELTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C17
-  quote: East
-  note: pricing zone East variant of 'Large TOU Energy'
-- codes: [WLTOUET1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C18
-  quote: West
-  note: pricing zone West variant of 'Large TOU Energy'
-- codes: [MLTOUET4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C19
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large TOU Energy'
-- codes: [ELFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C21
-  quote: East
-  note: pricing zone East variant of 'Large Dynamic Flex Storage'
-- codes: [WLFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C22
-  quote: West
-  note: pricing zone West variant of 'Large Dynamic Flex Storage'
-- codes: [MLFLEXT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C23
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Dynamic Flex Storage'
-- codes: [ELPLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C25
-  quote: East
-  note: pricing zone East variant of 'Large Business Primary Load Control'
-- codes: [WLPLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C26
-  quote: West
-  note: pricing zone West variant of 'Large Business Primary Load Control'
-- codes: [MLPLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C27
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Primary Load Control'
-- codes: [ELSLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C28
-  quote: East
-  note: pricing zone East variant of 'Large Business Secondary Load Control'
-- codes: [WLSLCT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C29
-  quote: West
-  note: pricing zone West variant of 'Large Business Secondary Load Control'
-- codes: [MLSLCT4]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:SAC Large!C30
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant of 'Large Business Secondary Load Control'
-- codes: [EC22LT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C8
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Line Anytime'
-- codes: [WC22LT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C9
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Line Anytime'
-- codes: [ECHLTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C10
-  quote: East
-  note: pricing zone East variant of 'CAC HV Line TOU Demand'
-- codes: [WCHLTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C11
-  quote: West
-  note: pricing zone West variant of 'CAC HV Line TOU Demand'
-- codes: [EC22BT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C12
-  quote: East
-  note: pricing zone East variant of 'CAC 22/11kV Bus Anytime'
-- codes: [WC22BT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C13
-  quote: West
-  note: pricing zone West variant of 'CAC 22/11kV Bus Anytime'
-- codes: [ECHBTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C14
-  quote: East
-  note: pricing zone East variant of 'CAC HV Bus TOU Demand'
-- codes: [WCHBTOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C15
-  quote: West
-  note: pricing zone West variant of 'CAC HV Bus TOU Demand'
-- codes: [EC33T1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C17
-  quote: East
-  note: pricing zone East variant of 'CAC 33kV Anytime'
-- codes: [WC33T1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C18
-  quote: West
-  note: pricing zone West variant of 'CAC 33kV Anytime'
-- codes: [EC33TOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C19
-  quote: East
-  note: pricing zone East variant of 'CAC 33kV TOU Demand'
-- codes: [WC33TOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C20
-  quote: West
-  note: pricing zone West variant of 'CAC 33kV TOU Demand'
-- codes: [EC66T1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C21
-  quote: East
-  note: pricing zone East variant of 'CAC 66kV Anytime'
-- codes: [WC66T1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C22
-  quote: West
-  note: pricing zone West variant of 'CAC 66kV Anytime'
-- codes: [EC66TOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C23
-  quote: East
-  note: pricing zone East variant of 'CAC 66kV TOU Demand'
-- codes: [WC66TOUDT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C24
-  quote: West
-  note: pricing zone West variant of 'CAC 66kV TOU Demand'
-- codes: [ECFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C26
-  quote: East
-  note: pricing zone East variant of 'CAC Dynamic Flex Storage'
-- codes: [WCFLEXT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:CAC!C27
-  quote: West
-  note: pricing zone West variant of 'CAC Dynamic Flex Storage'
 - codes: [ECHVDBT1, ESLVDBT1, WCHVDBT1, WSLVDBT1]
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
   fin_year: 2026-27
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Tariff Trials!B3
   quote: Tariff Trials - Ergon Energy Network
-- codes: [ESLVDBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C8
-  quote: East
-  note: pricing zone East variant of 'Dynamic Business LV Tariff Trial'
-- codes: [WSLVDBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C9
-  quote: West
-  note: pricing zone West variant of 'Dynamic Business LV Tariff Trial'
-- codes: [ECHVDBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C11
-  quote: East
-  note: pricing zone East variant of 'Dynamic Business HV Tariff Trial'
-- codes: [WCHVDBT1]
-  doc: sources/dnsp/ergon/Ergon_Network_Price_List_2026-27_Sch8_wayback.xlsx
-  fin_year: 2026-27
-  flag: regional_variant
-  locator: xlsx:Tariff Trials!C12
-  quote: West
-  note: pricing zone West variant of 'Dynamic Business HV Tariff Trial'
-- codes: [ERIB]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C86
-  quote: East
-  note: pricing zone East variant ('East SAC<100MWhpa Residential IBT T1')
-- codes: [WRIB]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C89
-  quote: West
-  note: pricing zone West variant ('West SAC<100MWhpa Residential IBT T1')
-- codes: [MRIB]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C92
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC<100MWhpa Residential IBT T4')
-- codes: [ERTOUE]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C93
-  quote: East
-  note: pricing zone East variant ('East SAC<100MWhpa Residential TOU Energy T1')
-- codes: [WRTOUE]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C96
-  quote: West
-  note: pricing zone West variant ('West SAC<100MWhpa Residential TOU Energy T1')
-- codes: [MRTOUE]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C99
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC<100MWhpa Residential TOU Energy T4')
 - codes: [ERTDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C100
-  quote: East
-  note: pricing zone East variant ('East SAC<100MWhpa Residential TOU Transitional Demand T1')
-- codes: [ERTDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C100
   quote: East SAC<100MWhpa Residential TOU Transitional Demand T1
 - codes: [WRTDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C103
-  quote: West
-  note: pricing zone West variant ('West SAC<100MWhpa Residential TOU Transitional Demand T1')
-- codes: [WRTDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C103
   quote: West SAC<100MWhpa Residential TOU Transitional Demand T1
 - codes: [MRTDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C106
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC<100MWhpa Residential TOU Transitional Demand T4')
-- codes: [MRTDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C106
   quote: MtIsa SAC<100MWhpa Residential TOU Transitional Demand T4
-- codes: [ERDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C107
-  quote: East
-  note: pricing zone East variant ('East SAC<100MWhpa Residential TOU Demand T1')
-- codes: [WRDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C110
-  quote: West
-  note: pricing zone West variant ('West SAC<100MWhpa Residential TOU Demand T1')
-- codes: [MRDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C113
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC<100MWhpa Residential TOU Demand T4')
-- codes: [EVN]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C115
-  quote: East
-  note: pricing zone East variant ('East SAC<100MWhpa Volume Night Controlled T1')
-- codes: [WVN]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C118
-  quote: West
-  note: pricing zone West variant ('West SAC<100MWhpa VolumeNightControlled T1')
-- codes: [MVN]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C121
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC<100MWhpa VolumeNightControlled T4')
-- codes: [EVC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C122
-  quote: East
-  note: pricing zone East variant ('East SAC<100MWhpa VolumeControlled T1')
-- codes: [WVC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C125
-  quote: West
-  note: pricing zone West variant ('West SAC<100MWhpa VolumeControlled T1')
-- codes: [MVC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C128
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC<100MWhpa VolumeControlled T4')
-- codes: [EBIB]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C130
-  quote: East
-  note: pricing zone East variant ('East SAC<20MWhpa Business IBT T1')
-- codes: [WBIB]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C133
-  quote: West
-  note: pricing zone West variant ('West SAC<20MWhpa Business IBT T1')
-- codes: [MBIB]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C136
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC<20MWhpa Business IBT T4')
-- codes: [EBWIF]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C137
-  quote: East
-  note: pricing zone East variant ('East Wide Inclining Fixed  T1')
-- codes: [WBWIF]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C140
-  quote: West
-  note: pricing zone West variant ('West Wide Inclining Fixed T1')
-- codes: [MBWIF]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C143
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa Wide Inclining Fixed T4')
-- codes: [EBTOUE]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C144
-  quote: East
-  note: pricing zone East variant ('East SAC<100MWhpa Business TOU Energy T1')
-- codes: [WBTOUE]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C147
-  quote: West
-  note: pricing zone West variant ('West SAC<100MWhpa Business TOU Energy T1')
-- codes: [MBTOUE]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C150
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC<100MWhpa Business TOU Energy T4')
 - codes: [EBTDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C151
-  quote: East
-  note: pricing zone East variant ('East SAC<100MWhpa Business TOU Transitional Demand T1')
-- codes: [EBTDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C151
   quote: East SAC<100MWhpa Business TOU Transitional Demand T1
 - codes: [WBTDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C154
-  quote: West
-  note: pricing zone West variant ('West SAC<100MWhpa Business TOU Transitional Demand T1')
-- codes: [WBTDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C154
   quote: West SAC<100MWhpa Business TOU Transitional Demand T1
 - codes: [MBTDEM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C157
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC<100MWhpa Business TOU Transitional Demand T4')
-- codes: [MBTDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C157
   quote: MtIsa SAC<100MWhpa Business TOU Transitional Demand T4
-- codes: [EBDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C158
-  quote: East
-  note: pricing zone East variant ('East SAC<100MWhpa Business TOU Demand T1')
-- codes: [WBDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C161
-  quote: West
-  note: pricing zone West variant ('West SAC<100MWhpa Business TOU Demand T1')
-- codes: [MBDEM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C164
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC<100MWhpa Business TOU Demand T4')
-- codes: [EBPLC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C165
-  quote: East
-  note: pricing zone East variant ('East SAC<100MWhpa Small Business Primary Load Control  T1')
-- codes: [WBPLC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C168
-  quote: West
-  note: pricing zone West variant ('West SAC<100MWhpa Small Business Primary Load Control  T1')
-- codes: [MBPLC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C171
-  quote: Mt Isa
-  note: pricing zone Mt Isa variant ('Mt Isa SAC<100MWhpa Small Business Primary Load Control  T4')
 - codes: [EBFRM]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C172
-  quote: East
-  note: pricing zone East variant ('East Transitional Network ToU Energy Tariff 1 T1')
-- codes: [EBFRM]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C172
   quote: East Transitional Network ToU Energy Tariff 1 T1
 - codes: [EBIRR]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C175
-  quote: East
-  note: pricing zone East variant ('East Transitional Network ToU Energy Tariff 2 T1')
-- codes: [EBIRR]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C175
   quote: East Transitional Network ToU Energy Tariff 2 T1
 - codes: [EBPMP]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
   fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C178
-  quote: East
-  note: pricing zone East variant ('East Transitional Network Dual Rate Demand Tariff 3 T1')
-- codes: [EBPMP]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C178
   quote: East Transitional Network Dual Rate Demand Tariff 3 T1
-- codes: [EVU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C182
-  quote: East
-  note: pricing zone East variant ('East SAC<100MWhpa VolumeUnmetered T1')
-- codes: [WVU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C185
-  quote: West
-  note: pricing zone West variant ('West SAC<100MWhpa VolumeUnmetered T1')
-- codes: [MVU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C188
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC<100MWhpa VolumeUnmetered T4')
-- codes: [EBEST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C190
-  quote: East
-  note: pricing zone East variant ('East SAC>100MWhpa Large Business Energy')
-- codes: [WBEST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C193
-  quote: West
-  note: pricing zone West variant ('West SAC>100MWhpa Large Business Energy')
-- codes: [MBEST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C196
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC>100MWhpa Large Business Energy')
-- codes: [EREST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C197
-  quote: East
-  note: pricing zone East variant ('East SAC>100MWhpa Large Residential Energy')
-- codes: [WREST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C200
-  quote: West
-  note: pricing zone West variant ('West SAC>100MWhpa Large Residential Energy')
-- codes: [MREST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C203
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC>100MWhpa Large Residential Energy')
-- codes: [EDLT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C205
-  quote: East
-  note: pricing zone East variant ('East SAC>100MWhpa DemandLarge')
-- codes: [EDMT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C208
-  quote: East
-  note: pricing zone East variant ('East SAC>100MWhpa DemandMedium')
-- codes: [EDST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C211
-  quote: East
-  note: pricing zone East variant ('East SAC>100MWhpa DemandSmall')
-- codes: [WDLT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C214
-  quote: West
-  note: pricing zone West variant ('West SAC>100MWhpa DemandLarge')
-- codes: [WDMT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C217
-  quote: West
-  note: pricing zone West variant ('West SAC>100MWhpa DemandMedium')
-- codes: [WDST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C220
-  quote: West
-  note: pricing zone West variant ('West SAC>100MWhpa DemandSmall')
-- codes: [MDLT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C223
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC>100MWhpa DemandLarge')
-- codes: [MDMT]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C224
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC>100MWhpa DemandMedium')
-- codes: [MDST]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C225
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC>100MWhpa DemandSmall')
-- codes: [ESTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C226
-  quote: East
-  note: pricing zone East variant ('East SAC>100MWhpa STOUD')
-- codes: [WSTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C229
-  quote: West
-  note: pricing zone West variant ('West SAC>100MWhpa STOUD')
-- codes: [MSTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C232
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC>100MWhpa STOUD')
-- codes: [ELTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C233
-  quote: East
-  note: pricing zone East variant ('East SAC>100MWhpa TOUD')
-- codes: [WLTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C236
-  quote: West
-  note: pricing zone West variant ('West SAC>100MWhpa TOUD')
-- codes: [MLTOUD]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C239
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC>100MWhpa TOUD')
-- codes: [ELPLC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C240
-  quote: East
-  note: pricing zone East variant ('East SAC>100MWhpa Business Primary LC')
-- codes: [WLPLC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C243
-  quote: West
-  note: pricing zone West variant ('West SAC>100MWhpa Business Primary LC')
-- codes: [MLPLC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C246
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC>100MWhpa Business Primary LC')
-- codes: [ELSLC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C247
-  quote: East
-  note: pricing zone East variant ('East SAC>100MWhpa Business Secondary LC')
-- codes: [WLSLC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C250
-  quote: West
-  note: pricing zone West variant ('West SAC>100MWhpa Business Secondary LC')
-- codes: [MLSLC]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C253
-  quote: MtIsa
-  note: pricing zone MtIsa variant ('MtIsa SAC>100MWhpa Business Secondary LC')
-- codes: [EC66]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C255
-  quote: East
-  note: pricing zone East variant ('East CAC66kV Anytime')
-- codes: [EC33]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C258
-  quote: East
-  note: pricing zone East variant ('East CAC33kV Anytime')
-- codes: [EC22B]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C261
-  quote: East
-  note: pricing zone East variant ('East CAC22/11kVBus Anytime')
-- codes: [EC22L]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C264
-  quote: East
-  note: pricing zone East variant ('East CAC22/11kVLine Anytime')
-- codes: [EC66TOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C267
-  quote: East
-  note: pricing zone East variant ('East CACHigherVoltage STOUD')
-- codes: [EC22BTOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C270
-  quote: East
-  note: pricing zone East variant ('East CAC22/11kVBus STOUD')
-- codes: [EC22LTOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C273
-  quote: East
-  note: pricing zone East variant ('East CAC22/11kVLine STOUD')
-- codes: [WC66]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C276
-  quote: West
-  note: pricing zone West variant ('West CAC66kV Anytime')
-- codes: [WC33]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C279
-  quote: West
-  note: pricing zone West variant ('West CAC33kV Anytime')
-- codes: [WC22B]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C282
-  quote: West
-  note: pricing zone West variant ('West CAC22/11kVBus Anytime')
-- codes: [WC22L]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C285
-  quote: West
-  note: pricing zone West variant ('West CAC22/11kVLine Anytime')
-- codes: [WC66TOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C288
-  quote: West
-  note: pricing zone West variant ('West CACHigherVoltage STOUD')
-- codes: [WC22BTOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C291
-  quote: West
-  note: pricing zone West variant ('West CAC22/11kVBus STOUD')
-- codes: [WC22LTOU]
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ergon_2024-25.xlsx
-  fin_year: 2024-25
-  flag: regional_variant
-  locator: xlsx:Tariff schedule!C294
-  quote: West
-  note: pricing zone West variant ('West CAC22/11kVLine STOUD')
 - codes:
   - ERIBT1
   - ERIBT2
@@ -7191,7 +2926,8 @@ flags:
   - WRIBT3
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B50
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'IBT Residential*' (SACS Residential!B28)
@@ -7205,7 +2941,8 @@ flags:
   - WBIBT3
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'IBT Business*' (SACS Business!B28)
@@ -7219,7 +2956,8 @@ flags:
   - WBWIFT3
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Small Business Wide IFT*' (SACS Business!B35)
@@ -7229,7 +2967,8 @@ flags:
   - EBFRMT3
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network ToU Energy Tariff 1*' (SACS Business!B42)
@@ -7239,7 +2978,8 @@ flags:
   - EBIRRT3
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network ToU Energy Tariff 2*' (SACS Business!B45)
@@ -7249,7 +2989,8 @@ flags:
   - EBPMPT3
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network Dual Rate Demand Tariff 3*' (SACS Business!B48)
@@ -7263,7 +3004,8 @@ flags:
   - WSTOUDT3
   doc: sources/aer/2023-24_price_lists/Ergon_2023-24_Network_Price_List_31Mar2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SAC Large!B71
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Seasonal TOU Demand*' (SAC Large!B35)
@@ -7277,7 +3019,8 @@ flags:
   - WRIBT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B50
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'IBT Residential*' (SACS Residential!B28)
@@ -7291,7 +3034,8 @@ flags:
   - WBIBT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'IBT Business*' (SACS Business!B28)
@@ -7305,7 +3049,8 @@ flags:
   - WBWIFT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Small Business Wide IFT*' (SACS Business!B35)
@@ -7315,7 +3060,8 @@ flags:
   - EBFRMT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network ToU Energy Tariff 1*' (SACS Business!B42)
@@ -7325,7 +3071,8 @@ flags:
   - EBIRRT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network ToU Energy Tariff 2*' (SACS Business!B45)
@@ -7335,7 +3082,8 @@ flags:
   - EBPMPT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network Dual Rate Demand Tariff 3*' (SACS Business!B48)
@@ -7349,7 +3097,8 @@ flags:
   - WSTOUDT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SAC Large!B71
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Seasonal TOU Demand*' (SAC Large!B35)
@@ -7363,7 +3112,8 @@ flags:
   - WRIBT3
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B50
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'IBT Residential*' (SACS Residential!B28)
@@ -7377,7 +3127,8 @@ flags:
   - WBIBT3
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'IBT Business*' (SACS Business!B28)
@@ -7391,7 +3142,8 @@ flags:
   - WBWIFT3
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Small Business Wide IFT*' (SACS Business!B35)
@@ -7401,7 +3153,8 @@ flags:
   - EBFRMT3
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network ToU Energy Tariff 1*' (SACS Business!B42)
@@ -7411,7 +3164,8 @@ flags:
   - EBIRRT3
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network ToU Energy Tariff 2*' (SACS Business!B45)
@@ -7421,7 +3175,8 @@ flags:
   - EBPMPT3
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network Dual Rate Demand Tariff 3*' (SACS Business!B48)
@@ -7435,7 +3190,8 @@ flags:
   - WSTOUDT3
   doc: sources/aer/dnsp_copies/Ergon_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SAC Large!B71
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Seasonal TOU Demand*' (SAC Large!B35)
@@ -7449,7 +3205,8 @@ flags:
   - WRIBT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B50
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'IBT Residential*' (SACS Residential!B28)
@@ -7463,7 +3220,8 @@ flags:
   - WBIBT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'IBT Business*' (SACS Business!B28)
@@ -7477,7 +3235,8 @@ flags:
   - WBWIFT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Small Business Wide IFT*' (SACS Business!B35)
@@ -7487,7 +3246,8 @@ flags:
   - EBFRMT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network ToU Energy Tariff 1*' (SACS Business!B42)
@@ -7497,7 +3257,8 @@ flags:
   - EBIRRT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network ToU Energy Tariff 2*' (SACS Business!B45)
@@ -7507,7 +3268,8 @@ flags:
   - EBPMPT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B73
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network Dual Rate Demand Tariff 3*' (SACS Business!B48)
@@ -7521,7 +3283,8 @@ flags:
   - WSTOUDT3
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SAC Large!B71
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Seasonal TOU Demand*' (SAC Large!B35)
@@ -7531,7 +3294,8 @@ flags:
   - WRIBT1
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B24
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B14)
@@ -7541,7 +3305,8 @@ flags:
   - WBIBT1
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B34
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B14)
@@ -7549,7 +3314,8 @@ flags:
   - EBFRMT1
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B34
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network ToU Energy Tariff 1*' (SACS Business!B17)
@@ -7557,7 +3323,8 @@ flags:
   - EBIRRT1
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B34
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network ToU Energy Tariff 2*' (SACS Business!B18)
@@ -7565,7 +3332,8 @@ flags:
   - EBPMPT1
   doc: sources/dnsp/ergon/Ergon_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B34
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Transitional Network Dual Rate Demand Tariff 3*' (SACS Business!B19)
@@ -7573,154 +3341,176 @@ flags:
   - EBWIFT1
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C497
   quote: East Small Business Wide IFT (withdrawn from 1 Jul 25)
 - codes:
   - EBWIFT2
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C498
   quote: East Small Business Wide IFT (withdrawn from 1 Jul 25)
 - codes:
   - EBWIFT3
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C499
   quote: East Small Business Wide IFT (withdrawn from 1 Jul 25)
 - codes:
   - WBWIFT1
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C500
   quote: West Small Business Wide IFT (withdrawn from 1 Jul 25)
 - codes:
   - WBWIFT2
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C501
   quote: West Small Business Wide IFT (withdrawn from 1 Jul 25)
 - codes:
   - WBWIFT3
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C502
   quote: West Small Business Wide IFT (withdrawn from 1 Jul 25)
 - codes:
   - MBWIFT4
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C503
   quote: Mt Isa Small Business Wide IFT (withdrawn from 1 Jul 25)
 - codes:
   - EDSTT1
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C504
   quote: East Demand Small (withdrawn from 1 Jul 25)
 - codes:
   - EDSTT2
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C505
   quote: East Demand Small (withdrawn from 1 Jul 25)
 - codes:
   - EDSTT3
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C506
   quote: East Demand Small (withdrawn from 1 Jul 25)
 - codes:
   - WDSTT1
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C507
   quote: West Demand Small (withdrawn from 1 Jul 25)
 - codes:
   - WDSTT2
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C508
   quote: West Demand Small (withdrawn from 1 Jul 25)
 - codes:
   - WDSTT3
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C509
   quote: West Demand Small (withdrawn from 1 Jul 25)
 - codes:
   - MDSTT4
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C510
   quote: Mt Isa Demand Small (withdrawn from 1 Jul 25)
 - codes:
   - EDMTT1
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C511
   quote: East Demand Medium (withdrawn from 1 Jul 25)
 - codes:
   - EDMTT2
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C512
   quote: East Demand Medium (withdrawn from 1 Jul 25)
 - codes:
   - EDMTT3
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C513
   quote: East Demand Medium (withdrawn from 1 Jul 25)
 - codes:
   - WDMTT1
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C514
   quote: West Demand Medium (withdrawn from 1 Jul 25)
 - codes:
   - WDMTT2
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C515
   quote: West Demand Medium (withdrawn from 1 Jul 25)
 - codes:
   - MDMTT4
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C516
   quote: Mt Isa Demand Medium (withdrawn from 1 Jul 25)
 - codes:
   - EDLTT2
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C517
   quote: East Demand Large (withdrawn from 1 Jul 25)
 - codes:
   - MDLTT4
   doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: xlsx:Tariff schedule!C518
   quote: Mt Isa Demand Large (withdrawn from 1 Jul 25)
 steps:

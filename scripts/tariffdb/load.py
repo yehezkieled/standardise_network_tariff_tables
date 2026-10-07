@@ -1,7 +1,10 @@
-"""Import the exported tables into an ephemeral SQLite database and enforce the schema.
+"""Load the tables (data/tariffdb/tables/*.csv) into SQLite with every key, foreign key and CHECK constraint.
 
-Run from the repository root: .venv/bin/python scripts/tariffdb/load.py [--out tariffs.sqlite]
-No database server is needed; without --out no database file is written. For PostgreSQL use data/tariffdb/load.postgres.sql.
+  .venv/bin/python scripts/tariffdb/load.py                             load in memory and report row counts
+  .venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite   also save the database to a file
+
+The CSVs are the committed copy; the .sqlite file is built from them and never committed (a binary does not diff,
+and a committed copy could drift from the CSVs). No database server is needed.
 """
 import csv
 import json
@@ -43,10 +46,11 @@ def load(directory=DEFAULT_DATA):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument('--out', help='also save the loaded database to this SQLite file (a migration, not a source)')
+    parser.add_argument('--out', help='also save the loaded database to this SQLite file (e.g. out/tariffdb.sqlite)')
     args = parser.parse_args()
     with load() as db:
         if args.out:
+            Path(args.out).parent.mkdir(parents=True, exist_ok=True)
             Path(args.out).unlink(missing_ok=True)
             with sqlite3.connect(args.out) as target:
                 db.backup(target)
@@ -54,4 +58,5 @@ if __name__ == '__main__':
         tables = [r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")]
         for table in tables:
             print(f"{table}: {db.execute(f'SELECT count(*) FROM {table}').fetchone()[0]}")
-        print('SQLite import passed; foreign keys and constraints enabled' + ('' if args.out else '; no database file written') + '.')
+        print('SQLite import passed; foreign keys and constraints enabled'
+              + ('' if args.out else '; no database file written') + '.')

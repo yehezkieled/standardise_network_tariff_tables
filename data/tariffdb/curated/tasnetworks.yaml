@@ -1,10 +1,10 @@
-# TasNetworks curated tariff facts (TOU windows, demand rules, eligibility, relations, flags).
+# TasNetworks curated tariff facts (TOU windows, eligibility).
 # Format and rules: scripts/tariffdb/curated.py. Every item quotes its source at the locator.
-# TOU windows and demand rules are stated only in the 2023-24 Network tariff application and price guide. The other held
+# TOU windows are stated only in the 2023-24 Network tariff application and price guide. The other held
 # TasNetworks documents (pricing schedules 2023-24 and 2024-25 PDF, 2025-26 and 2026-27 xlsx incl. their indicative
 # 2026-27..2028-29 and Locational TUoS sheets, the AER 2024-25 stakeholder report and the TasNetworks sections of the AER
-# consolidated 2025-26 v1/v5 and 2026-27 reports) carry no time windows, demand measurement rules or block thresholds,
-# so 2024-25..2026-27 have no tou_schedules or demand_rules.
+# consolidated 2025-26 v1/v5 and 2026-27 reports) carry no time windows or block thresholds, so 2024-25..2026-27 have
+# no tou_schedules.
 distributor: tasnetworks
 tou_schedules:
 - id: tasnetworks-2023-24-guide-res-tou
@@ -53,7 +53,7 @@ tou_schedules:
   tariffs:
   - codes:
     - TAS93
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p19
     quote: 'Table 2: Time periods for residential low voltage time of use (TAS93)'
   - codes:
@@ -76,7 +76,7 @@ tou_schedules:
     note: Table 7 (pdf:p25) lists the same peak and off-peak periods as Table 2.
   - codes:
     - TAS92
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p29
     quote: 'Table 10: Time periods for residential low voltage pay as you go time of use consumption (TAS92)'
   - codes:
@@ -142,7 +142,7 @@ tou_schedules:
   tariffs:
   - codes:
     - TAS94
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p31
     quote: 'Table 12: Time periods for small business low voltage time of use consumption (TAS94)'
 - id: tasnetworks-2023-24-guide-seasonal-tou
@@ -233,19 +233,19 @@ tou_schedules:
   tariffs:
   - codes:
     - TAS75
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p42
     quote: 'Figure 9: Time periods for irrigation low voltage time of use consumption (TAS75)'
     note: 'Same page, section 10.1 (TAS75): the energy based charge varies by time of day ''based on the periods identified
       in Table 22''; Table 22 and Figure 9 show the seasonal periods.'
   - codes:
     - TASSDM
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p45
     quote: 'Table 24: Time periods for large business high voltage specified demand < 2MVA (TASSDM)'
   - codes:
     - TAS15
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p48
     quote: 'Table 26: Time periods for large business high voltage specified demand > 2MVA (TAS15)'
 - id: tasnetworks-2023-24-guide-tas63-supply
@@ -310,235 +310,6 @@ tou_schedules:
   - codes:
     - TAS61
     applies_to: controlled_load
-demand_rules:
-- id: tasnetworks-2023-24-tas87-peak-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  interval_minutes: 30
-  aggregation: average_of_highest_days
-  aggregation_count: 4
-  window_schedule: tasnetworks-2023-24-guide-res-tou
-  window_period: peak
-  locator: pdf:p21
-  quote: average of the four highest peaks in demand recorded for the customer over the course of the month during the peak
-    periods which apply to TAS87
-  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
-    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Residential low voltage
-    time of use demand TAS87 kW 30''. No minimum chargeable demand is stated.'
-  tariffs:
-  - codes:
-    - TAS87
-    time_band: peak
-- id: tasnetworks-2023-24-tas87-offpeak-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  interval_minutes: 30
-  aggregation: average_of_highest_days
-  aggregation_count: 4
-  window_schedule: tasnetworks-2023-24-guide-res-tou
-  window_period: off_peak
-  locator: pdf:p22
-  quote: average of the four highest peaks in demand recorded for the customer over the course of a month during the off-peak
-    periods which apply to TAS87
-  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
-    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Residential low voltage
-    time of use demand TAS87 kW 30''. No minimum chargeable demand is stated.'
-  tariffs:
-  - codes:
-    - TAS87
-    time_band: off_peak
-- id: tasnetworks-2023-24-tas97-peak-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  interval_minutes: 30
-  aggregation: average_of_highest_days
-  aggregation_count: 4
-  window_schedule: tasnetworks-2023-24-guide-res-tou
-  window_period: peak
-  locator: pdf:p25
-  quote: average of the four highest peaks in demand recorded for the customer over the course of the month during the peak
-    periods with apply to TAS97
-  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
-    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Residential low voltage
-    time of use demand DER TAS97 kW 30''. No minimum chargeable demand is stated.'
-  tariffs:
-  - codes:
-    - TAS97
-    time_band: peak
-- id: tasnetworks-2023-24-tas97-offpeak-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  interval_minutes: 30
-  aggregation: average_of_highest_days
-  aggregation_count: 4
-  window_schedule: tasnetworks-2023-24-guide-res-tou
-  window_period: off_peak
-  locator: pdf:p25
-  quote: average of the four highest peaks in demand recorded for the customer over the course of a month during the off-peak
-    periods with apply to TAS97
-  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
-    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Residential low voltage
-    time of use demand DER TAS97 kW 30''. No minimum chargeable demand is stated.'
-  tariffs:
-  - codes:
-    - TAS97
-    time_band: off_peak
-- id: tasnetworks-2023-24-tas88-peak-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  interval_minutes: 30
-  aggregation: average_of_highest_days
-  aggregation_count: 4
-  window_schedule: tasnetworks-2023-24-guide-res-tou
-  window_period: peak
-  locator: pdf:p33
-  quote: average of the four highest peaks in demand recorded for the customer over the course of the month during the peak
-    periods which apply to TAS88
-  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
-    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Small business low
-    voltage time of use demand TAS88 kW 30''. No minimum chargeable demand is stated.'
-  tariffs:
-  - codes:
-    - TAS88
-    time_band: peak
-- id: tasnetworks-2023-24-tas88-offpeak-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  interval_minutes: 30
-  aggregation: average_of_highest_days
-  aggregation_count: 4
-  window_schedule: tasnetworks-2023-24-guide-res-tou
-  window_period: off_peak
-  locator: pdf:p33
-  quote: average of the four highest peaks in demand recorded for the customer over the course of a month during the off-peak
-    periods which apply to TAS88
-  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
-    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Small business low
-    voltage time of use demand TAS88 kW 30''. No minimum chargeable demand is stated.'
-  tariffs:
-  - codes:
-    - TAS88
-    time_band: off_peak
-- id: tasnetworks-2023-24-tas98-peak-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  interval_minutes: 30
-  aggregation: average_of_highest_days
-  aggregation_count: 4
-  window_schedule: tasnetworks-2023-24-guide-res-tou
-  window_period: peak
-  locator: pdf:p36
-  quote: average of the four highest peaks in demand recorded for the customer over the course of the month during the peak
-    periods which apply to TAS98
-  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
-    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Small business low
-    voltage time of use demand DER TAS98 kW 30''. No minimum chargeable demand is stated.'
-  tariffs:
-  - codes:
-    - TAS98
-    time_band: peak
-- id: tasnetworks-2023-24-tas98-offpeak-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  interval_minutes: 30
-  aggregation: average_of_highest_days
-  aggregation_count: 4
-  window_schedule: tasnetworks-2023-24-guide-res-tou
-  window_period: off_peak
-  locator: pdf:p36
-  quote: average of the four highest peaks in demand recorded for the customer over the course of a month during the off-peak
-    periods which apply to TAS98
-  note: 'Average of the four highest demands in the billing period, each from a separate day; Table 37 (pdf:p67) gives method
-    ''Time of use (average)'' over the ''Billing period'' (section 20.2, pdf:p66-67). Measure and interval from Table 36 (pdf:p66): ''Small business low
-    voltage time of use demand DER TAS98 kW 30''. No minimum chargeable demand is stated.'
-  tariffs:
-  - codes:
-    - TAS98
-    time_band: off_peak
-- id: tasnetworks-2023-24-tas89-peak-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: monthly_max
-  window_schedule: tasnetworks-2023-24-guide-res-tou
-  window_period: peak
-  locator: pdf:p40
-  quote: The monthly billing period peak demand charge uses the maximum demand recorded during the peak period within the
-    period.
-  note: 'Measure and interval from Table 36 (pdf:p66): ''Large business low voltage time of use demand TAS89 kVA 30''. No
-    minimum chargeable demand is stated.'
-  tariffs:
-  - codes:
-    - TAS89
-    time_band: peak
-- id: tasnetworks-2023-24-tas89-offpeak-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: monthly_max
-  window_schedule: tasnetworks-2023-24-guide-res-tou
-  window_period: off_peak
-  locator: pdf:p40
-  quote: The monthly billing period off-peak demand charge uses the maximum demand recorded during the off-peak period within
-    the period.
-  note: 'Measure and interval from Table 36 (pdf:p66): ''Large business low voltage time of use demand TAS89 kVA 30''. No
-    minimum chargeable demand is stated.'
-  tariffs:
-  - codes:
-    - TAS89
-    time_band: off_peak
-- id: tasnetworks-2023-24-tas82-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 15
-  aggregation: billing_period_max
-  locator: pdf:p39
-  quote: multiplying the amount calculated in (a) by the anytime maximum demand recorded during the billing period.
-  note: 'Anytime maximum demand over the billing period (Table 37, pdf:p67: ''ATMD Billing period''; standard billing frequency
-    for demand tariffs is monthly, section 20.6). Measure and interval from Table 36 (pdf:p66): ''Large business low voltage kVA demand TAS82 kVA 15''.'
-  tariffs:
-  - codes:
-    - TAS82
-- id: tasnetworks-2023-24-tassdm-specified-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 15
-  aggregation: agreed
-  locator: pdf:p44
-  quote: No later than two months prior to the commencement of each financial year, customers on this network tariff are required
-    to reach agreement with TasNetworks on the level of specified demand
-  note: Daily charge on the agreed specified demand; daily anytime maximum demand (ATMD) above the specified demand is charged
-    at the specified rate up to 120 per cent, and the part above 120 per cent at the excess rate (10 times the specified rate)
-    (section 11.1.3, pdf:p45). Measure and interval from Table 36 (pdf:p66).
-  tariffs:
-  - codes:
-    - TASSDM
-- id: tasnetworks-2023-24-tas15-specified-demand
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 15
-  aggregation: agreed
-  locator: pdf:p47
-  quote: No later than two months prior to the commencement of each financial year, customers on this network tariff are required
-    to reach agreement with TasNetworks on the level of specified demand
-  note: Daily charge on the agreed specified demand; daily ATMD above the specified demand is charged at the excess rate,
-    5 times the specified rate (section 11.2.3, pdf:p48). Measure and interval from Table 36 (pdf:p66).
-  tariffs:
-  - codes:
-    - TAS15
 eligibility:
 - codes:
   - TAS93
@@ -3568,116 +3339,28 @@ eligibility:
   value_text: unmetered
   locator: xlsx:Tariff schedule!D115
   quote: Unmetered supplies
-relations:
-- from: TAS93
-  type: assigned_with
-  to: TAS63
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  locator: pdf:p18
-  quote: This network tariff may also be used in conjunction with the network tariff TAS63 – controlled low voltage energy
-    – night period only.
-- from: TAS93
-  type: opt_out_alternative
-  to: TAS31
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  locator: pdf:p18
-  quote: An installation that is supplied under this tariff may be reassigned to network tariff TAS31 – residential low voltage
-    general light and power, provided it remains a private residential dwelling.
-  note: The guide states TAS93 installations may be reassigned to the flat TAS31; it does not call TAS31 the opt-out target
-    of default assignment in those words.
-- from: TAS31
-  type: assigned_with
-  to: TAS41
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  locator: pdf:p20
-  quote: 'This network tariff may also be used in conjunction with the following additional network tariffs: • TAS41 – uncontrolled
-    low voltage heating and hot water;'
-  note: '''This network tariff'' is section 7.2 ''Residential low voltage general light and power (TAS31)'' (same page).'
-- from: TAS31
-  type: assigned_with
-  to: TAS61
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  locator: pdf:p20
-  quote: 'This network tariff may also be used in conjunction with the following additional network tariffs: • TAS41 – uncontrolled
-    low voltage heating and hot water; • TAS61 – controlled low voltage energy – off-peak with afternoon boost; and'
-  note: '''This network tariff'' is section 7.2 ''Residential low voltage general light and power (TAS31)'' (same page).'
-- from: TAS31
-  type: assigned_with
-  to: TAS63
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  locator: pdf:p20
-  quote: 'This network tariff may also be used in conjunction with the following additional network tariffs: • TAS41 – uncontrolled
-    low voltage heating and hot water; • TAS61 – controlled low voltage energy – off-peak with afternoon boost; and • TAS63
-    – controlled low voltage energy – night period only.'
-  note: '''This network tariff'' is section 7.2 ''Residential low voltage general light and power (TAS31)'' (same page).'
-- from: TAS22
-  type: assigned_with
-  to: TAS41
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  locator: pdf:p32
-  quote: 'This network tariff may also be used in conjunction with the following additional network tariffs: • TAS41 – uncontrolled
-    low voltage heating and hot water;'
-  note: '''This network tariff'' is section 8.2 ''Small business low voltage general light and power (TAS22)'' (same page).'
-- from: TAS22
-  type: assigned_with
-  to: TAS61
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  locator: pdf:p32
-  quote: 'This network tariff may also be used in conjunction with the following additional network tariffs: • TAS41 – uncontrolled
-    low voltage heating and hot water; • TAS61 – controlled low voltage energy – off-peak with afternoon boost; and'
-  note: '''This network tariff'' is section 8.2 ''Small business low voltage general light and power (TAS22)'' (same page).'
-- from: TAS22
-  type: assigned_with
-  to: TAS63
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  locator: pdf:p32
-  quote: 'This network tariff may also be used in conjunction with the following additional network tariffs: • TAS41 – uncontrolled
-    low voltage heating and hot water; • TAS61 – controlled low voltage energy – off-peak with afternoon boost; and • TAS63
-    – controlled low voltage energy – night period only.'
-  note: '''This network tariff'' is section 8.2 ''Small business low voltage general light and power (TAS22)'' (same page).'
-- from: TAS92
-  type: assigned_with
-  to: TAS63
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  locator: pdf:p28
-  quote: This network tariff may be used in conjunction with TAS63 – controlled low voltage energy – night period only.
-- from: TAS94
-  type: assigned_with
-  to: TAS63
-  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
-  fin_year: 2023-24
-  locator: pdf:p30
-  quote: This network tariff may be used in conjunction with the network tariff TAS63 – controlled low voltage energy – night
-    period only.
-flags:
 - codes:
   - TAS101
   doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
   fin_year: 2023-24
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: pdf:p17
   quote: Residential low voltage pay as you go consumption TAS101 Published obsolete tariff
 - codes:
   - TAS92
   doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
   fin_year: 2023-24
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: pdf:p17
   quote: Residential low voltage pay as you go time of use consumption TAS92 Published obsolete tariff
 - codes:
   - TAS61
   doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
   fin_year: 2023-24
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: pdf:p17
   quote: Controlled low voltage energy – off-peak with afternoon boost TAS61 Published obsolete tariff
 - codes:
@@ -3686,7 +3369,8 @@ flags:
   - TAS101
   doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p11
   quote: 'TasNetworks currently has three obsolete network tariffs: • TAS61 – Controlled low voltage energy – off-peak with
     afternoon boost; • TAS92 – Residential low voltage pay as you go time of use consumption; and • TAS101 – Residential
@@ -3699,7 +3383,8 @@ flags:
   - TAS92
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
   fin_year: 2023-24
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: pdf:p7
   quote: Residential low voltage pay as you go consumption TAS1013 56.440 8.123 Residential low voltage pay as you go time
     of use TAS923
@@ -3709,7 +3394,8 @@ flags:
 - codes: *id001
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p7
   quote: Residential low voltage pay as you go consumption TAS1013 56.440 8.123 Residential low voltage pay as you go time
     of use TAS923
@@ -3720,7 +3406,8 @@ flags:
   - TAS61
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
   fin_year: 2023-24
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: pdf:p8
   quote: Controlled low voltage energy – off-peak with afternoon TAS616
   column_locator: pdf:p8
@@ -3729,7 +3416,8 @@ flags:
 - codes: *id002
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2023-24.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p8
   quote: Controlled low voltage energy – off-peak with afternoon TAS616
   column_locator: pdf:p8
@@ -3740,7 +3428,8 @@ flags:
   - TAS41
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
   fin_year: 2024-25
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: pdf:p1
   quote: Residential general light and power (1) Residential TAS31 64.059 9.016 Uncontrolled energy low voltage heating
     (1) Residential TAS41
@@ -3752,7 +3441,8 @@ flags:
   - TAS101
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
   fin_year: 2024-25
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: pdf:p1
   quote: Controlled energy off-peak with afternoon boost (1) Residential TAS61 15.082 1.773 Residential pay as you go (PAYG)
     time of use (1) Residential TAS92 Residential pay as you go (PAYG) (1) Residential TAS101
@@ -3762,7 +3452,8 @@ flags:
   - TAS22
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2024-25.pdf
   fin_year: 2024-25
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: pdf:p1
   quote: General light and power (1) Small business LV TAS22
   column_locator: pdf:p1
@@ -3771,7 +3462,8 @@ flags:
   - TAS31
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
   fin_year: 2025-26
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: xlsx:Network tariffs 2025-26!B9
   quote: Residential general light and power (1)
   column_locator: xlsx:Network tariffs 2025-26!B31
@@ -3781,7 +3473,8 @@ flags:
   - TAS41
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
   fin_year: 2025-26
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: xlsx:Network tariffs 2025-26!B10
   quote: Uncontrolled energy low voltage heating (1)
   column_locator: xlsx:Network tariffs 2025-26!B31
@@ -3791,7 +3484,8 @@ flags:
   - TAS61
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
   fin_year: 2025-26
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: xlsx:Network tariffs 2025-26!B12
   quote: Controlled energy off-peak with afternoon boost (1)
   column_locator: xlsx:Network tariffs 2025-26!B31
@@ -3801,7 +3495,8 @@ flags:
   - TAS22
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Pricing_Schedule_SCS_2025-26.xlsx
   fin_year: 2025-26
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: xlsx:Network tariffs 2025-26!B16
   quote: General light and power (1)
   column_locator: xlsx:Network tariffs 2025-26!B31
@@ -3811,7 +3506,8 @@ flags:
   - TAS31
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
   fin_year: 2026-27
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: xlsx:Network tariffs 2026-27!B9
   quote: Residential general light and power (1)
   column_locator: xlsx:Network tariffs 2026-27!B31
@@ -3821,7 +3517,8 @@ flags:
   - TAS41
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
   fin_year: 2026-27
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: xlsx:Network tariffs 2026-27!B10
   quote: Uncontrolled energy low voltage heating (1)
   column_locator: xlsx:Network tariffs 2026-27!B31
@@ -3831,7 +3528,8 @@ flags:
   - TAS61
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
   fin_year: 2026-27
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: xlsx:Network tariffs 2026-27!B12
   quote: Controlled energy off-peak with afternoon boost (1)
   column_locator: xlsx:Network tariffs 2026-27!B31
@@ -3841,7 +3539,8 @@ flags:
   - TAS22
   doc: sources/dnsp/tasnetworks/TasNetworks_Network_Pricing_Schedule_2026-27.xlsx
   fin_year: 2026-27
-  flag: obsolete
+  rule_type: availability
+  value_text: obsolete
   locator: xlsx:Network tariffs 2026-27!B16
   quote: General light and power (1)
   column_locator: xlsx:Network tariffs 2026-27!B31

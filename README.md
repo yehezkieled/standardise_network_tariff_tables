@@ -1,23 +1,45 @@
-# aer-tariff-recon
+# standardise_network_tariff_tables
 
-Reconciles the network tariff prices the Australian Energy Regulator (AER) publishes with each annual pricing
-decision against the tariff price lists each electricity distributor publishes itself, for all 14 distributors
-and financial years 2023-24 to 2026-27.
+Australian electricity **network tariffs** for all 14 distributors, 2023-24 to 2026-27, as one historical dataset:
+per tariff code, the final rate the customer is charged, with its TOU windows and eligibility.
 
-## Findings
+![Every table with its keys and the tables they reference](docs/schema-erd.svg)
+
+| | |
+|---|---|
+| Data | `data/tariffdb/tables/*.csv` (canonical, committed) |
+| SQLite | `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` (built, not committed) |
+| Schema | [docs/schema.md](docs/schema.md): every table and column, examples, a worked tariff |
+| Update and validate | [docs/update-and-validate.md](docs/update-and-validate.md) |
+| Scope | network tariffs, metering and export (feed-in) network charges; not retail plans, not the DUoS/TUoS breakdown |
+
+## Workflow: AER v1 first, distributor replaces
+
+```mermaid
+flowchart LR
+    A["AER report v1"] -->|"later versions replace v1"| P["provisional"]
+    D["distributor's own price list"] -->|"replaces, per tariff code"| F["final"]
+    P -.-> F
+    D --> T["TOU windows, eligibility"]
+```
+
+- Load the AER report as soon as v1 is out (`status = provisional`); each later AER version replaces it.
+- When the distributor publishes its own price list, its rates replace the AER's for every code it prices
+  (`status = final`).
+- **Caveat:** the AER report carries rates only. TOU windows and eligibility usually have to wait for the
+  distributor's documents (`validate.py --coverage` lists the gaps).
+
+Recipes and checks: [docs/update-and-validate.md](docs/update-and-validate.md).
+
+## Reconciliation (AER vs distributor)
+
+The repository also reconciles the AER's published prices against each distributor's own list:
 
 - `REPORT.md` - the report: what the AER files are each year, which distributor documents were used, the method,
   the explained and the genuine differences, format changes, items marked `[UNSURE]`, recommendations, and a
   per-distributor-and-year detail section with the full source inventory.
 - `discrepancies.csv` - every discrepancy (value differs, AER-only and distributor-only tariff codes and
   components) with its explanation class and the source URL on both sides.
-- `data/tariffdb/` - the tariff database: every AER and distributor tariff 2023-24 to 2026-27 (rates, requirements,
-  TOU windows, demand rules, blocks) as one CSV per relational table, with SQLite/PostgreSQL DDL, a JSON table spec
-  and provenance (document version, cell or page, verbatim quote) on every row. Schema, design reasons and the
-  exceptions catalogue: `docs/tariffdb.md`.
-- `docs/effective_rates.md` - the effective rate per tariff component: the AER's rate as provisional as soon as the
-  AER publishes, validated against and replaced by the distributor's own published rate as final; what changed when
-  each distributor published, per distributor and year, and the components only one side prints.
 
 ## Reproduce
 
@@ -38,7 +60,7 @@ exact URL it was retrieved from, an access note and the SHA-256 of the file that
 - **AER-authored files** (`sources/aer/`, side `AER`): committed, because the AER replaces the file behind its
   landing page with each new version (v1..v5 a year) and takes the superseded file private. Every version, held or
   not, is a `source_document` row in the tariff database; the versions that are not held are listed as gaps in
-  `REPORT.md` and `docs/tariffdb.md`. `scripts/reconcile.py --aer-version <document_id>` reconciles any held version.
+  `REPORT.md`. `scripts/reconcile.py --aer-version <document_id>` reconciles any held version.
 - **Wayback Machine copies** (URL on `web.archive.org`): documents whose publisher blocks automated access
   (energex.com.au, ergon.com.au, powerwater.com.au) or no longer serves the file. These are committed under
   `sources/` because they cannot be re-fetched reliably.
@@ -64,9 +86,8 @@ report treats those distributor-years as "no distributor-side data".
   `notes/report_head.md` and `notes/report_sections/*.md`.
 - `notes/format_notes.json` - per distributor-year notes on document format changes.
 - `scripts/tariffdb/` - the tariff database: `spec.py` (schema, single source of truth), `build.py` (builds
-  `data/tariffdb/` from the parser outputs and `data/tariffdb/curated/*.yaml`), `curated.py` (validates the curated
-  TOU/demand/eligibility facts against their sources), `load.py` (SQLite import check, `--out` to save a database),
-  `docs.py` (writes `docs/tariffdb.md`), `fixes.py` (writes `data/tariffdb/transcription_fixes.csv`),
-  `verification.py` (re-checks the independent verifiers' findings in `data/verification/`), `rates.py` (effective
-  rates: tables `rate_history` and `effective_rate`, CLI `rate`/`history`/`changes`, writes `docs/effective_rates.md`).
-  Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_rates.py`.
+  `data/tariffdb/` from the parser outputs and `data/tariffdb/curated/*.yaml`), `curated.py` (checks the curated
+  TOU and eligibility facts against their sources), `validate.py` (every rule and source check), `load.py` (SQLite
+  load, `--out` to save a database), `schema_doc.py` (writes `docs/schema.md` and `docs/schema-erd.svg`),
+  `build_support.py` (distributors and the document registry), `locators.py` (reads a value at its cell or page).
+  Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py`.

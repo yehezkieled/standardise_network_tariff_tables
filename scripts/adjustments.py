@@ -1,5 +1,4 @@
-"""Documented adjustments between AER and distributor prices: the explanation classes of scripts/reconcile.py and the
-price_adjustment rows of the tariff database (scripts/tariffdb/build.py).
+"""Documented adjustments between AER and distributor prices: the explanation classes of scripts/reconcile.py.
 
 A value difference is explained only when all of these hold; anything else stays `unexplained`:
   * the distributor-year and the tariff are inside the scope below, which is exactly what the aer-rules review

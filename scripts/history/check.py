@@ -45,9 +45,9 @@ def main(argv=None):
 
     parsed = build.Builder.parser_rows("out/aer_long.csv", "out/dnsp/*.csv") + mine
     b = build.Builder(parsed=parsed).build()
-    out = tempfile.mkdtemp(prefix=f"history-{a.slug}-")
-    build.write_all(b, out)
-    db = loader.load(out)
+    with tempfile.TemporaryDirectory(prefix=f"history-{a.slug}-") as out:
+        build.write_all(b, out)
+        db = loader.load(out)
     paths = {r["source_file"] for r in mine}
     docs = {d["document_id"]: d for d in validate.rows(db, "SELECT * FROM source_document")}
     mine_docs = {k for k, d in docs.items() if d["local_path"] in paths}

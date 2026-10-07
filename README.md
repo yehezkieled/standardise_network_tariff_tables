@@ -1,6 +1,8 @@
 # standardise_network_tariff_tables
 
-Australian electricity **network tariffs** for all 14 distributors, every pricing year in effect from 1 January 2017 to 2026-27, as one historical dataset:
+Australian electricity **network tariffs** for all 14 distributors, every pricing year in effect from 1 January 2017 to 2026-27
+(except Ergon, which starts at 2020-21: its 2016-17 to 2019-20 documents print the network price only as separate
+DUOS / TUOS / jurisdictional parts, and the dataset stores only printed totals), as one historical dataset:
 per tariff code, the final rate the customer is charged, with its TOU windows and eligibility.
 
 ![Every table with its keys and the tables they reference](docs/schema-erd.svg)
@@ -88,6 +90,9 @@ checks all years). To store them as well:
 1. Lower `FIRST_STORED_DAY` in `scripts/tariffdb/build_support.py` (e.g. `"1996-07-01"`).
 2. `./run.sh --no-fetch` (or run the `scripts/history/*.py` parsers), then rebuild and validate as in
    [docs/update-and-validate.md](docs/update-and-validate.md).
+
+A year whose documents print only parts and no total is never stored, whatever the cutoff; it is listed with its
+evidence in `sources/archive/gaps.csv` (Ergon 2016-17 to 2019-20, see above).
 
 Rows without a local path are documents that could not be obtained at all (the access note says why); the
 report treats those distributor-years as "no distributor-side data".

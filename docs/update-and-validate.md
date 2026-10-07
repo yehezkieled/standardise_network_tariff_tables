@@ -140,6 +140,8 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 
 The database stores only the years in effect on or after `build_support.FIRST_STORED_DAY` (2017-01-01); an older
 year is parsed and checked but not stored until that day is lowered (README, "Older years").
+A year whose documents print the price only as parts (DUOS / TUOS / jurisdictional, no total) is listed in
+`sources/archive/gaps.csv` rather than stored, for example Ergon 2016-17 to 2019-20.
 
 The distributor's own list, or a state regulator's published schedule, is `final`; an AER-hosted proposal stands in
 (`provisional`) only for a year with neither.

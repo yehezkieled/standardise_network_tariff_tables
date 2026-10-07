@@ -7,7 +7,8 @@ for a pricing year before 2023-24. The parsers in `scripts/history/` read them i
 ```
 sources/archive/
   inventory.csv          one row per file (written by scripts/archive_sources.py add, never by hand)
-  gaps.csv               hand-written: why a distributor-year has no price document
+  gaps.csv               hand-written: why a distributor-year has no stored price (no price document held,
+                         or the held documents print no total network price, parts only)
   coverage.csv           generated: per distributor and pricing year, what is held (archive_sources.py coverage)
   <distributor_id>/<pricing year>/<file>
 ```
@@ -44,5 +45,6 @@ sources/archive/
 - Correct a status or kind, or record a mid-year start: `scripts/archive_sources.py set <path> --note "<evidence>" ...`;
   re-file under another year or name: `move`; drop a wrong document: `remove`.
 - No file over 95 MB (GitHub limit 100 MB); none needs Git LFS today.
-- A distributor-year without a price document needs a `gaps.csv` row (reason + evidence searched).
+- A distributor-year without a price document, or whose documents print only parts and no total network price,
+  needs a `gaps.csv` row (reason + evidence searched).
 - After any change: `scripts/archive_sources.py coverage`, then `.venv/bin/python -m unittest tests/test_archive.py`.

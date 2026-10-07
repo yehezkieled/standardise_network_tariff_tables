@@ -1,6 +1,6 @@
 # AER network tariff files vs distributor-published price lists, FY2023-24 to FY2026-27
 
-Repository: `yehezkieled/aer-tariff-recon`. Everything is reproducible with one command from the repository root: `./run.sh` (creates `.venv`, fetches any source document not in the checkout from the URL recorded in `sources/inventory.csv`, parses the AER files and every distributor file, reconciles, and assembles this report).
+Repository: `yehezkieled/standardise_network_tariff_tables`. Everything is reproducible with one command from the repository root: `./run.sh` (creates `.venv`, fetches any source document not in the checkout from the URL recorded in `sources/inventory.csv`, parses the AER files and every distributor file, reconciles, and assembles this report).
 
 Deliverables:
 

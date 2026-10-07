@@ -39,6 +39,16 @@ for _d in DISTRIBUTORS:
 FIN_YEAR_DATES = {"2023-24": ("2023-07-01", "2024-06-30"), "2024-25": ("2024-07-01", "2025-06-30"),
                   "2025-26": ("2025-07-01", "2026-06-30"), "2026-27": ("2026-07-01", "2027-06-30")}
 
+# (distributor_id, fin_year) -> the price list customers are billed on, where a distributor publishes more than one for
+# the year (scripts/tariffdb/build.py fails until the choice is named here)
+FINAL_DOCUMENT = {
+    # the June 2026 schedule adds the ACT large-scale feed-in tariff (LFiT) cost to the AER-approved April 2026 prices
+    ("evoenergy", "2026-27"): "sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx",
+}
+# local_path -> first day a distributor's mid-year re-issue takes effect (a list published for 1 July is not listed).
+# From that day its prices replace the earlier list's for every code it prices; the earlier period ends the day before.
+EFFECTIVE_FROM = {}
+
 LANDING = {
     "2025-26": ("sources/aer/landing/AER_Consolidated_stakeholder_report_2025-26_landing_20261006.html",
                 "https://www.aer.gov.au/documents/aer-consolidated-stakeholder-report-2025-26",
@@ -299,31 +309,3 @@ def documents():
             # the superseded SAPN 2024-25 report: as unverified as its replacement; a landing page carries no prices
             d["price_status"] = "unverified" if d["document_type"] == "aer_stakeholder_report" else "published"
     return out
-
-
-def series_rows(docs):
-    seen = {}
-    for d in docs:
-        if d["series_id"] in seen:
-            continue
-        title = d["title"]
-        if d["document_type"] == "aer_consolidated_stakeholder_report" and "landing" not in d["series_id"]:
-            title = f"AER consolidated stakeholder report {d['fin_year']}"
-        seen[d["series_id"]] = {"series_id": d["series_id"], "author": d["author"], "distributor_id": d["distributor_id"],
-                                "fin_year": d["fin_year"], "title": title}
-    return list(seen.values())
-
-
-def version_coverage(docs):
-    """Which distributors' prices each AER consolidated version carries, and with what status (from the changelog)."""
-    by_series_seq = {(d["series_id"], d["version_seq"]): d for d in docs}
-    rows = []
-    for fy, versions in AER_VERSIONS.items():
-        landing = f"aer-consolidated-{fy}-landing-page"
-        for seq, _date, quote, cov in versions:
-            doc = by_series_seq[(f"aer-all-{fy}-consolidated", seq)]
-            for state, status in sorted(cov.items()):
-                for did in BY_STATE[state]:
-                    rows.append({"document_id": doc["document_id"], "distributor_id": did, "price_status": status,
-                                 "evidence_document_id": landing, "locator": "html:text", "quote": quote})
-    return rows

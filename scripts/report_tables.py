@@ -101,7 +101,7 @@ W("")
 W("AER versions not held, so not reconciled:\n")
 W("| Financial year | Document | Published | Prices | Why not held |")
 W("|---|---|---|---|---|")
-for fy, doc, date, status, reason in bs.unheld_aer_documents(rd("data/tariffdb/tables/source_document.csv")):
+for fy, doc, date, status, reason in bs.unheld_aer_documents(bs.documents()):
     W(f"| {fy} | {doc} | {date} | {status} | {reason} |")
 W("")
 W("Proposed (v1) against approved prices: the 2025-26 v1 file carries proposed prices for ACT, NSW, NT, TAS and VIC "

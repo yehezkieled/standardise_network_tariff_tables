@@ -25,7 +25,7 @@ tou_schedules:
     end: '24:00'
   tariffs:
   - codes: [EA958]
-    applies_to: energy
+    applies_to: usage
 - id: ausgrid-2023-24-low-season-demand-window
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
@@ -117,371 +117,6 @@ tou_schedules:
     note: 'Table 4.1 (p12) rows: each code has a value in the last column group (''Capacity charge'' - Peak, c/kW/day for EA302/EA316,
       c/kVA/day for the others, by x-position). Section 10.7 (p27) and 2.1 (p6) give ''the capacity charging windows for larger
       businesses (2-8 pm working weekdays)''; the document does not list which codes are ''larger businesses''.'
-demand_rules:
-- id: ausgrid-2023-24-demand-kw-low-season
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  interval_minutes: 30
-  aggregation: monthly_max
-  window_schedule: ausgrid-2023-24-low-season-demand-window
-  window_period: demand_window
-  locator: pdf:p25
-  quote: The demand measure is the maximum energy consumption recorded over any 30-minute period within the defined seasonal
-    demand window on a working weekday in each month (measured in kW).
-  note: 'Low season demand charge. The next sentence: ''The resulting demand charge applies for each day in the month (before
-    being reset for the next month)''. Window: ''In seasons where there is no peak energy on working weekdays, a window of
-    2-8 pm applies for low season demand charging'' (same page).'
-  tariffs:
-  - codes: &id001 [EA111, EA115, EA116, EA251, EA255, EA256]
-    season: low
-- id: ausgrid-2023-24-demand-kw-high-season
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  interval_minutes: 30
-  aggregation: monthly_max
-  locator: pdf:p25
-  quote: The demand measure is the maximum energy consumption recorded over any 30-minute period within the defined seasonal
-    demand window on a working weekday in each month (measured in kW).
-  note: 'High season demand charge. Window: ''The demand window for measuring the maximum demand is aligned with a corresponding
-    TOU peak energy window'' (same page); the peak energy windows and high-season months are not given in this document (it
-    refers to TSS Section 3.1 and the ES7 Network Price Guide), so no window is linked.'
-  tariffs:
-  - codes: *id001
-    season: high
-- id: ausgrid-2023-24-capacity-kw
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  aggregation: not_stated
-  window_schedule: ausgrid-2023-24-larger-business-capacity-window
-  window_period: demand_window
-  locator: pdf:p26
-  quote: we introduced capacity charges for the transitional tariffs EA316 (in kW) and EA317 (in kVA) effective from 1 July
-    2021
-  note: EA302 is linked because Table 4.1 (p12) prices EA302 and EA316 identically in the Peak c/kW/day column under the 'Capacity
-    charge' heading ('c/kW/day c/kW/day c/kW/day c/kVA/day'). Measurement interval and aggregation are not stated; the window
-    is the 'capacity charging windows for larger businesses (2-8 pm working weekdays)' (p27).
-  tariffs:
-  - codes: [EA302, EA316]
-    time_band: peak
-- id: ausgrid-2023-24-capacity-kva
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: not_stated
-  window_schedule: ausgrid-2023-24-larger-business-capacity-window
-  window_period: demand_window
-  locator: pdf:p12
-  quote: c/kW/day c/kW/day c/kW/day c/kVA/day
-  note: 'Table 4.1 unit row: the last column (''Capacity charge - Peak'') is c/kVA/day; these codes are priced in it. Section
-    10.6 (p26) also says EA317''s capacity charge is ''in kVA''. Interval and aggregation are not stated; window per p27 (''capacity
-    charging windows for larger businesses (2-8 pm working weekdays)'').'
-  tariffs:
-  - codes: [EA305, EA310, EA317, EA325, EA360, EA370, EA380, EA390, EA391]
-    time_band: peak
-- id: ausgrid-2023-24-capacity-kva-transmission
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: not_stated
-  locator: pdf:p12
-  quote: c/kW/day c/kW/day c/kW/day c/kVA/day
-  note: 'Table 4.1 unit row: EA501 (Transmission-connected) is priced in the last column (''Capacity charge - Peak'', c/kVA/day).
-    No window or measurement method is stated for it.'
-  tariffs:
-  - codes: [EA501]
-    time_band: peak
-- id: ausgrid-2024-25-demand-kw
-  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
-  fin_year: 2024-25
-  measure: kW
-  aggregation: not_stated
-  locator: pdf:p1
-  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
-  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
-    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
-    text). EA111/EA116/EA251/EA256 are priced in ''High Season Peak'' (their only demand charge in this list); EA302 in ''Peak''.
-    The price list states no demand window, months, interval or aggregation.'
-  tariffs:
-  - codes: [EA111, EA116, EA251, EA256]
-    season: high
-  - codes: [EA302]
-    time_band: peak
-- id: ausgrid-2024-25-capacity-kva
-  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: not_stated
-  locator: pdf:p1
-  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
-  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
-    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
-    text). These codes are priced in ''Network Capacity Prices: Peak'' (¢/kVA/day). No window, interval or aggregation is
-    stated.'
-  tariffs:
-  - codes: &id002 [EA305, EA310, EA314, EA315, EA365, EA370, EA390, EA501]
-    time_band: peak
-- id: ausgrid-2024-25-tuos-demand-kw
-  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
-  fin_year: 2024-25
-  measure: kW
-  aggregation: not_stated
-  locator: pdf:p3
-  quote: ¢/kWh ¢/kWh ¢/kWh ¢/kWh ¢/kW/day
-  note: Storage tariff table unit row; the only ¢/kW/day column is headed 'TUOS demand' and only EA394 (Storage (load), sub-transmission)
-    has a value in it. No window or measurement method is stated.
-  tariffs:
-  - codes: [EA394]
-- id: ausgrid-2025-26-demand-kw
-  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
-  fin_year: 2025-26
-  measure: kW
-  aggregation: not_stated
-  locator: pdf:p1
-  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
-  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
-    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
-    text). EA111/EA116/EA251/EA256 are priced in ''High Season Peak'' (their only demand charge in this list); EA302 in ''Peak''.
-    The price list states no demand window, months, interval or aggregation.'
-  tariffs:
-  - codes: [EA111, EA116, EA251, EA256]
-    season: high
-  - codes: [EA302]
-    time_band: peak
-- id: ausgrid-2025-26-capacity-kva
-  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: not_stated
-  locator: pdf:p1
-  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
-  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
-    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
-    text). These codes are priced in ''Network Capacity Prices: Peak'' (¢/kVA/day). No window, interval or aggregation is
-    stated.'
-  tariffs:
-  - codes: *id002
-    time_band: peak
-- id: ausgrid-2025-26-tuos-demand-kw
-  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
-  fin_year: 2025-26
-  measure: kW
-  aggregation: not_stated
-  locator: pdf:p3
-  quote: ¢/kWh ¢/kWh ¢/kWh ¢/kWh ¢/kW/day
-  note: Storage tariff table unit row; the only ¢/kW/day column is headed 'TUOS demand' and only EA394 (Storage (load), sub-transmission)
-    has a value in it. No window or measurement method is stated.
-  tariffs:
-  - codes: [EA394]
-- id: ausgrid-2026-27-demand-kw
-  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
-  fin_year: 2026-27
-  measure: kW
-  aggregation: not_stated
-  locator: pdf:p1
-  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
-  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
-    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
-    text). EA111/EA116/EA251/EA256 are priced in ''High Season Peak'' (their only demand charge in this list); EA302 in ''Peak''.
-    The price list states no demand window, months, interval or aggregation.'
-  tariffs:
-  - codes: [EA111, EA116, EA251, EA256]
-    season: high
-  - codes: [EA302]
-    time_band: peak
-- id: ausgrid-2026-27-capacity-kva
-  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: not_stated
-  locator: pdf:p1
-  quote: ¢/kWh ¢/kW/day ¢/kW/day ¢/kVA/day
-  note: 'Unit row of the price table. The header reads ''Network Demand Prices: High Season Peak, Peak'' over the two ¢/kW/day
-    columns and ''Network Capacity Prices: Peak'' over the ¢/kVA/day column (heading words are split over lines in the extracted
-    text). These codes are priced in ''Network Capacity Prices: Peak'' (¢/kVA/day). No window, interval or aggregation is
-    stated.'
-  tariffs:
-  - codes: *id002
-    time_band: peak
-- id: ausgrid-2026-27-tuos-demand-kw
-  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
-  fin_year: 2026-27
-  measure: kW
-  aggregation: not_stated
-  locator: pdf:p3
-  quote: ¢/kWh ¢/kWh ¢/kWh ¢/kWh ¢/kWh ¢/kW/day
-  note: Storage tariff table unit row; the only ¢/kW/day column is headed 'TUOS demand' and only EA394 (Storage (load), sub-transmission)
-    has a value in it. No window or measurement method is stated.
-  tariffs:
-  - codes: [EA394]
-- id: ausgrid-2026-27-ea976-capacity-kva
-  doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: not_stated
-  locator: pdf:p3
-  quote: '% For EA976, block 1 rate applies for the customer''s guaranteed kVA threshold.'
-  note: 'Footnote continues: ''Block 2 is the rate applied to demand used above the firm threshold.'' The trial table prices
-    ''Capacity charges: Block 1 Firm capacity'' and ''Block 2 Flexible capacity'' in ¢/kVA/day. The firm threshold is customer-specific
-    (no number), so no charge_step is recorded; no window or aggregation is stated.'
-  tariffs:
-  - codes: [EA976]
-    time_band: block1
-  - codes: [EA976]
-    time_band: block2
-- id: ausgrid-2024-25-aer-peak-demand-kw
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
-  fin_year: 2024-25
-  measure: kW
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!M84
-  quote: cents/kW/highsn
-  note: AER tariff schedule unit cell; column headings (row 83) are 'Peak Demand', 'Real Capacity', 'App. Capacity', 'TUOS
-    demand'. No window, interval or aggregation is stated. Peak demand column (cents/kW/highsn) is populated for EA111, EA116,
-    EA251, EA256.
-  tariffs:
-  - codes: [EA111, EA116, EA251, EA256]
-    season: high
-- id: ausgrid-2024-25-aer-real-capacity-kw
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
-  fin_year: 2024-25
-  measure: kW
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!N84
-  quote: cents/kW/day
-  note: AER tariff schedule unit cell; column headings (row 83) are 'Peak Demand', 'Real Capacity', 'App. Capacity', 'TUOS
-    demand'. No window, interval or aggregation is stated. Real capacity column (cents/kW/day) is populated for EA302 only.
-  tariffs:
-  - codes: [EA302]
-    time_band: peak
-- id: ausgrid-2024-25-aer-apparent-capacity-kva
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!O84
-  quote: cents/kVA/day
-  note: AER tariff schedule unit cell; column headings (row 83) are 'Peak Demand', 'Real Capacity', 'App. Capacity', 'TUOS
-    demand'. No window, interval or aggregation is stated. Apparent capacity column (cents/kVA/day) is populated for these
-    codes.
-  tariffs:
-  - codes: *id002
-    time_band: peak
-- id: ausgrid-2024-25-aer-tuos-demand-kw
-  doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
-  fin_year: 2024-25
-  measure: kW
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!T84
-  quote: cents/kW/day
-  note: AER tariff schedule unit cell; column headings (row 83) are 'Peak Demand', 'Real Capacity', 'App. Capacity', 'TUOS
-    demand'. No window, interval or aggregation is stated. TUOS demand column (cents/kW/day) is populated for EA394 only.
-  tariffs:
-  - codes: [EA394]
-- id: ausgrid-2025-26-aer-peak-demand-kw
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
-  fin_year: 2025-26
-  measure: kW
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!L14
-  quote: cents/kW/highsn
-  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
-    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Peak demand column (cents/kW/highsn)
-    is populated for EA111, EA116, EA251, EA256.
-  tariffs:
-  - codes: [EA111, EA116, EA251, EA256]
-    season: high
-- id: ausgrid-2025-26-aer-real-capacity-kw
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
-  fin_year: 2025-26
-  measure: kW
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!M14
-  quote: cents/kW/day
-  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
-    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Real capacity column (cents/kW/day)
-    is populated for EA302 only.
-  tariffs:
-  - codes: [EA302]
-    time_band: peak
-- id: ausgrid-2025-26-aer-apparent-capacity-kva
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!N14
-  quote: cents/kVA/day
-  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
-    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Apparent capacity column (cents/kVA/day)
-    is populated for these codes.
-  tariffs:
-  - codes: *id002
-    time_band: peak
-- id: ausgrid-2025-26-aer-tuos-demand-kw
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2025-26_v5.xlsx
-  fin_year: 2025-26
-  measure: kW
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!S14
-  quote: cents/kW/day
-  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
-    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. TUOS demand column (cents/kW/day)
-    is populated for EA394 only.
-  tariffs:
-  - codes: [EA394]
-- id: ausgrid-2026-27-aer-peak-demand-kw
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
-  fin_year: 2026-27
-  measure: kW
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!L14
-  quote: cents/kW/highsn
-  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
-    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Peak demand column (cents/kW/highsn)
-    is populated for EA111, EA116, EA251, EA256.
-  tariffs:
-  - codes: [EA111, EA116, EA251, EA256]
-    season: high
-- id: ausgrid-2026-27-aer-real-capacity-kw
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
-  fin_year: 2026-27
-  measure: kW
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!M14
-  quote: cents/kW/day
-  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
-    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Real capacity column (cents/kW/day)
-    is populated for EA302 only.
-  tariffs:
-  - codes: [EA302]
-    time_band: peak
-- id: ausgrid-2026-27-aer-apparent-capacity-kva
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!N14
-  quote: cents/kVA/day
-  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
-    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. Apparent capacity column (cents/kVA/day)
-    is populated for these codes.
-  tariffs:
-  - codes: [EA305, EA310, EA314, EA315, EA365, EA370, EA390]
-    time_band: peak
-- id: ausgrid-2026-27-aer-tuos-demand-kw
-  doc: sources/aer/AER_Consolidated_stakeholder_report_2026-27_26Aug2026.xlsx
-  fin_year: 2026-27
-  measure: kW
-  aggregation: not_stated
-  locator: xlsx:Tariff schedule!S14
-  quote: cents/kW/day
-  note: AER tariff schedule unit cell; column headings (row 13) are 'Peak demand', 'Peak capacity - real capacity', 'Peak
-    capacity - apparent capacity', 'TUOS demand'. No window, interval or aggregation is stated. TUOS demand column (cents/kW/day)
-    is populated for EA394 only.
-  tariffs:
-  - codes: [EA394]
 eligibility:
 - codes: [EA010, EA025, EA111, EA116, EA029, EA030, EA040, EA050, EA225, EA251, EA256, EA302, EA305, EA310, EA314, EA315]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
@@ -3447,62 +3082,25 @@ eligibility:
   locator: pdf:p3
   quote: EA905 Flexible load (LV large)
   note: Tariff name as published.
-relations:
-- from: EA011
-  type: same_prices_as
-  to: EA010
-  fin_year: 2023-24
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  locator: pdf:p26
-  quote: our transitional TOU tariffs for residential (EA011) and small business (EA051) customers introduced during 2018-19
-    were set to the legacy flat tariff in NUOS charges in 2019-20.
-  note: Transitional TOU tariffs 'are set to the same level as legacy flat tariffs for the 2019-24 regulatory period'.
-- from: EA051
-  type: same_prices_as
-  to: EA050
-  fin_year: 2023-24
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  locator: pdf:p26
-  quote: our transitional TOU tariffs for residential (EA011) and small business (EA051) customers introduced during 2018-19
-    were set to the legacy flat tariff in NUOS charges in 2019-20.
-  note: Transitional TOU tariffs 'are set to the same level as legacy flat tariffs for the 2019-24 regulatory period'.
-- from: EA316
-  type: same_prices_as
-  to: EA302
-  fin_year: 2023-24
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  locator: pdf:p26
-  quote: Transitional tariff EA316 (40-160 MWh) will converge with EA302 (40-160 MWh). Transitional tariff EA317 (160-750
-    MWh) will converge with EA305 (160-750 MWh).
-  note: 'Section 10.6 continues: ''This transition will be completed in 2023-24, ensuring that all charging components for
-    these tariffs are aligned.'''
-- from: EA317
-  type: same_prices_as
-  to: EA305
-  fin_year: 2023-24
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  locator: pdf:p26
-  quote: Transitional tariff EA316 (40-160 MWh) will converge with EA302 (40-160 MWh). Transitional tariff EA317 (160-750
-    MWh) will converge with EA305 (160-750 MWh).
-  note: 'Section 10.6 continues: ''This transition will be completed in 2023-24, ensuring that all charging components for
-    these tariffs are aligned.'''
-flags:
 - codes: [EA010]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p1
   quote: EA010 Residential flat Closed
 - codes: [EA050]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p1
   quote: EA050 Small Business flat Closed
 - codes: [EA956, EA957, EA958, EA964, EA965]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p3
   quote: EA956 Local use of system 1.0186 7.3671 53.7465 11.1337 3.3522 EA957 SAPS 1.0000 7.3671 10.8007 Low Voltage EA958*
     Super off-peak 1.0431 7.3671 50.0453 10.8007 1.1151 EA964 Flexible load (primary) 1.0420 7.3671 55.4363 110.6030 1.3279
@@ -3512,19 +3110,22 @@ flags:
 - codes: [EA010]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p1
   quote: EA010 Residential flat Closed
 - codes: [EA050]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p1
   quote: EA050 Small Business flat Closed
 - codes: [EA955, EA956, EA964, EA965]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
   fin_year: 2025-26
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p3
   quote: Local use of system trial - EA955 1.0195 7.5452 188.3660 13.0529 4.7687 small business Local use of system trial -
     EA956 1.0195 7.5452 54.0624 15.4417 4.5162 residential Low Voltage EA964 Flexible load (primary) 1.0409 7.5452 65.3351 127.1097
@@ -3534,19 +3135,22 @@ flags:
 - codes: [EA010]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
   fin_year: 2026-27
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p1
   quote: EA010 Residential flat Closed
 - codes: [EA050]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
   fin_year: 2026-27
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p1
   quote: Small Business flat EA050 1.0398 10.8329 202.3139 11.3299 Closed
 - codes: [EA905, EA955, EA956]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
   fin_year: 2026-27
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p3
   quote: EA905 Flexible load (LV large) 1.0398 15.7260 3182.3737 228.7975 4.4129 Local use of system EA955 1.0115 10.8329 201.2217
     13.2469 4.8987 trial - small business Local use of system EA956 1.0115 7.8192 61.4642 15.8322 4.7080 trial - residential
@@ -3555,7 +3159,8 @@ flags:
 - codes: [EA964, EA965]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
   fin_year: 2026-27
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p3
   quote: Low Voltage EA964 Flexible load (primary) 1.0398 7.8192 63.7308 120.0406 1.5477 Flexible load EA965 1.0429 2.5589 1.4842
     119.7940 1.3012 (secondary)
@@ -3564,7 +3169,8 @@ flags:
 - codes: [EA974, EA975, EA976]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
   fin_year: 2026-27
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p3
   quote: Residential Dynamic EA974 1.0429 7.8192 112.3647 2.8061 -55.6825 110.4369 Tariff (load) Residential Dynamic EA975 0.9943
     3.6055 -110.4369 55.6825 Tariff (generation) HV Dynamic High Voltage EA976 1.0128 7979.2649 4.0147 1.9792 34.6232 17.3116
@@ -3574,79 +3180,92 @@ flags:
 - codes: [EA010]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p12
   quote: EA010 Residential non-TOU closed
 - codes: [EA011]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p12
   quote: EA011 Residential transitional TOU closed
 - codes: [EA011]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p12
   quote: EA011 Residential transitional TOU closed
 - codes: [EA050]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p12
   quote: EA050 Small business non-TOU closed
 - codes: [EA051]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p12
   quote: EA051 Small business transitional TOU closed
 - codes: [EA051]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p12
   quote: EA051 Small business transitional TOU closed
 - codes: [EA316]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p12
   quote: EA316 Transitional 40-160 MWh closed
 - codes: [EA316]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p12
   quote: EA316 Transitional 40-160 MWh closed
 - codes: [EA317]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p12
   quote: EA317 Transitional 160-750 MWh closed
 - codes: [EA317]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p12
   quote: EA317 Transitional 160-750 MWh closed
 - codes: [EA325]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p12
   quote: EA325 LV Connection (standby) closed
 - codes: [EA360]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p12
   quote: EA360 HV Connection (standby) closed
 - codes: [EA957]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B124
   quote: EA957
   column_locator: xlsx:Proposal report!B117
@@ -3656,7 +3275,8 @@ flags:
 - codes: [EA958]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B125
   quote: EA958
   column_locator: xlsx:Proposal report!B117
@@ -3666,7 +3286,8 @@ flags:
 - codes: [EA964]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B131
   quote: EA964
   column_locator: xlsx:Proposal report!B117
@@ -3676,7 +3297,8 @@ flags:
 - codes: [EA965]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B132
   quote: EA965
   column_locator: xlsx:Proposal report!B117
@@ -3686,7 +3308,8 @@ flags:
 - codes: [EA956]
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Ausgrid_2024-25.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B133
   quote: EA956
   column_locator: xlsx:Proposal report!B117

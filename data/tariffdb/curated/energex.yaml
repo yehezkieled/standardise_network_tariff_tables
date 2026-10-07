@@ -2,13 +2,11 @@
 # Sources checked, every sheet incl. notes and Trial Tariffs / CAC Trial sheets: Energex Network Price Lists
 # 2023-24..2026-27 (Sch 8 Wayback copies), AER-hosted price lists 2023-24 and 2024-25, the AER 2024-25 Energex
 # stakeholder report and the Energex sections of the AER consolidated 2025-26 (v1, v5) and 2026-27 reports. None states
-# TOU clock times, demand measurement rules (interval/aggregation/window), seasons or quantity block thresholds, so
-# tou_schedules and demand_rules are empty; relations are empty because no document states a rename/replacement between
-# parsed codes. The consolidated 2025-26 v5 rows labelled '(withdrawn from 1 Jul 25)*' carry the code HSAC (Historic
-# SAC), not the withdrawn tariff's own code, so no withdrawn flag is recorded for them.
+# TOU clock times, seasons or quantity block thresholds, so tou_schedules is empty. The consolidated 2025-26 v5 rows
+# labelled '(withdrawn from 1 Jul 25)*' carry the code HSAC (Historic SAC), not the withdrawn tariff's own code, so no
+# 'withdrawn' availability criterion is recorded for them.
 distributor: energex
 tou_schedules: []
-demand_rules: []
 eligibility:
 - codes: ['3700', '3900', '6900', '8400', '8900']
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
@@ -1540,207 +1538,140 @@ eligibility:
   value_text: HV
   locator: xlsx:Tariff schedule!C117
   quote: 11 kV Bus
-relations: []
-flags:
 - codes: ['3900']
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Residential!B8
   quote: Residential Transitional Demand
 - codes: ['3800']
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B8
   quote: Small Business Transitional Demand
-- codes: ['3000']
-  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
-  fin_year: 2023-24
-  flag: site_specific
-  locator: xlsx:CAC!D7
-  quote: Site Specific
-  note: Fixed Charge column for 'EG - 11kV*' reads 'Site Specific'
-- codes: ['4000']
-  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
-  fin_year: 2023-24
-  flag: site_specific
-  locator: xlsx:CAC!D8
-  quote: Site Specific
-  note: Fixed Charge column for '11kV Bus' reads 'Site Specific'
-- codes: ['4500']
-  doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
-  fin_year: 2023-24
-  flag: site_specific
-  locator: xlsx:CAC!D9
-  quote: Site Specific
-  note: Fixed Charge column for '11kV Line*' reads 'Site Specific'
 - codes: ['7100']
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: xlsx:Network Tariff Classes & Codes!D14
   quote: Business Demand (closed) South East
 - codes: ['3900']
   doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Residential!B8
   quote: Residential Transitional Demand
 - codes: ['3800']
   doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B8
   quote: Small Business Transitional Demand
-- codes: ['3000']
-  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: site_specific
-  locator: xlsx:CAC!D7
-  quote: Site Specific
-  note: Fixed Charge column for 'EG - 11kV*' reads 'Site Specific'
-- codes: ['4000']
-  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: site_specific
-  locator: xlsx:CAC!D8
-  quote: Site Specific
-  note: Fixed Charge column for '11kV Bus' reads 'Site Specific'
-- codes: ['4500']
-  doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
-  fin_year: 2023-24
-  flag: site_specific
-  locator: xlsx:CAC!D9
-  quote: Site Specific
-  note: Fixed Charge column for '11kV Line*' reads 'Site Specific'
 - codes: ['7100']
   doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: xlsx:Network Tariff Classes & Codes!D14
   quote: Business Demand (closed) South East
 - codes: ['3900']
   doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Residential!B8
   quote: Residential Transitional Demand
 - codes: ['3800']
   doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B8
   quote: Small Business Transitional Demand
-- codes: ['3000']
-  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: site_specific
-  locator: xlsx:CAC!D7
-  quote: Site Specific
-  note: Fixed Charge column for 'EG - 11kV*' reads 'Site Specific'
-- codes: ['4000']
-  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: site_specific
-  locator: xlsx:CAC!D8
-  quote: Site Specific
-  note: Fixed Charge column for '11kV Bus' reads 'Site Specific'
-- codes: ['4500']
-  doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
-  fin_year: 2024-25
-  flag: site_specific
-  locator: xlsx:CAC!D9
-  quote: Site Specific
-  note: Fixed Charge column for '11kV Line*' reads 'Site Specific'
 - codes: [TBA3, TBA4, TBA6]
   doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Trial Tariffs!B2
   quote: Tariff Trials - Energex
 - codes: ['3900']
   doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Residential!B8
   quote: Residential Transitional Demand
 - codes: ['3800']
   doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:SACS Business!B8
   quote: Small Business Transitional Demand
-- codes: ['3000']
-  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: site_specific
-  locator: xlsx:CAC!D7
-  quote: Site Specific
-  note: Fixed Charge column for 'EG - 11kV*' reads 'Site Specific'
-- codes: ['4000']
-  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: site_specific
-  locator: xlsx:CAC!D8
-  quote: Site Specific
-  note: Fixed Charge column for '11kV Bus' reads 'Site Specific'
-- codes: ['4500']
-  doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
-  fin_year: 2024-25
-  flag: site_specific
-  locator: xlsx:CAC!D9
-  quote: Site Specific
-  note: Fixed Charge column for '11kV Line*' reads 'Site Specific'
 - codes: ['92000', '92100', '94000']
   doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Trial Tariffs!B2
   quote: Tariff Trials - Energex
 - codes: ['92100', '92200', '94100', '94200']
   doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Tariff Trials!B3
   quote: Trial Tariffs - Energex
 - codes: ['8400']
   doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
   fin_year: 2026-27
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: xlsx:SACS Residential!B14
   quote: '*Closed to new customers'
   note: 'tariff marked *: ''Residential Flat*'' (SACS Residential!B10)'
 - codes: ['8500']
   doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
   fin_year: 2026-27
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: xlsx:SACS Business!B17
   quote: '*Closed to new customers'
   note: 'tariff marked *: ''Business Flat*'' (SACS Business!B10)'
 - codes: ['92500', '94500', '96200']
   doc: sources/dnsp/energex/Energex_Network_Price_List_2026-27_Sch8_wayback.xlsx
   fin_year: 2026-27
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Tariff Trials!B3
   quote: Tariff Trials - Energex
 - codes: ['3900']
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C89
   quote: Residential Transitional Demand
 - codes: ['3800']
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Energex_2024-25.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C100
   quote: Small Business Transitional Demand
 - codes:
   - '8400'
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B15
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
@@ -1748,7 +1679,8 @@ flags:
   - '8900'
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B15
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
@@ -1756,7 +1688,8 @@ flags:
   - '7100'
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
@@ -1764,7 +1697,8 @@ flags:
   - '8500'
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
@@ -1772,7 +1706,8 @@ flags:
   - '8800'
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
@@ -1780,7 +1715,8 @@ flags:
   - '3000'
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:CAC!B11
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
@@ -1788,7 +1724,8 @@ flags:
   - '4500'
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:CAC!B11
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
@@ -1796,7 +1733,8 @@ flags:
   - '8400'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B15
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
@@ -1804,7 +1742,8 @@ flags:
   - '8900'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B15
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
@@ -1812,7 +1751,8 @@ flags:
   - '7100'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
@@ -1820,7 +1760,8 @@ flags:
   - '8500'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
@@ -1828,7 +1769,8 @@ flags:
   - '8800'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
@@ -1836,7 +1778,8 @@ flags:
   - '3000'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:CAC!B11
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
@@ -1844,7 +1787,8 @@ flags:
   - '4500'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2023-24_Sch8_wayback.xlsx
   fin_year: 2023-24
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:CAC!B11
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
@@ -1852,7 +1796,8 @@ flags:
   - '8400'
   doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B15
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
@@ -1860,7 +1805,8 @@ flags:
   - '8900'
   doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B15
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
@@ -1868,7 +1814,8 @@ flags:
   - '7100'
   doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
@@ -1876,7 +1823,8 @@ flags:
   - '8500'
   doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
@@ -1884,7 +1832,8 @@ flags:
   - '8800'
   doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
@@ -1892,7 +1841,8 @@ flags:
   - '3000'
   doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:CAC!B11
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
@@ -1900,7 +1850,8 @@ flags:
   - '4500'
   doc: sources/aer/dnsp_copies/Energex_2024-25_Network_Price_List_28Mar2024.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:CAC!B11
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
@@ -1908,7 +1859,8 @@ flags:
   - '8400'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B15
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
@@ -1916,7 +1868,8 @@ flags:
   - '8900'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B15
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Residential ToU*' (SACS Residential!B11)
@@ -1924,7 +1877,8 @@ flags:
   - '7100'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business Demand*' (SACS Business!B11)
@@ -1932,7 +1886,8 @@ flags:
   - '8500'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B12)
@@ -1940,7 +1895,8 @@ flags:
   - '8800'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B18
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business ToU*' (SACS Business!B13)
@@ -1948,7 +1904,8 @@ flags:
   - '3000'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:CAC!B11
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'EG - 11kV*' (CAC!B7)
@@ -1956,7 +1913,8 @@ flags:
   - '4500'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2024-25_Sch8_wayback.xlsx
   fin_year: 2024-25
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:CAC!B11
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here '11kV Line*' (CAC!B9)
@@ -1964,7 +1922,8 @@ flags:
   - '8400'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Residential!B14
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Residential Flat*' (SACS Residential!B10)
@@ -1972,7 +1931,8 @@ flags:
   - '8500'
   doc: sources/dnsp/energex/Energex_Network_Price_List_2025-26_Sch8_wayback.xlsx
   fin_year: 2025-26
-  flag: grandfathered
+  rule_type: availability
+  value_text: grandfathered
   locator: xlsx:SACS Business!B17
   quote: '*Grandfathered'
   note: applies to tariffs marked * in this table, here 'Business Flat*' (SACS Business!B10)

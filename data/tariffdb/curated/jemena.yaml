@@ -37,7 +37,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A120, F120]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p1"
     quote: "A120 / F120 Residential Time of Use Available to customers with a remotely read AMI meter Peak: 3 PM to 9 PM everyday (local time); Off peak all other times"
 - id: jemena-2023-24-dnsp-res-demand-window
@@ -140,7 +140,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A210, F210]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A210 / F210a Time of Use Weekdays Only available to customers with two rate accumulation meter (or Interval meter) AND consuming < 40 MWh pa Peak: 9 AM to 9 PM weekdays (local time); Off peak all other times"
 - id: jemena-2023-24-dnsp-tou-7-23-weekdays
@@ -175,15 +175,15 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A230, F230]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A230 / F230a Time of Use Weekdays - Demand Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa Peak: 7 AM to 11 PM weekdays (local time); Off peak all other times"
   - codes: [A23N, F23N]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A23N / F23Na Time of Use - Opt-out Available to customers with any maximum demand BUT only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa & < 160 MWh pa Peak: 7 AM to 11 PM weekdays (local time); Off peak all other times"
   - codes: [A290]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A290 Unmetered Supply Peak: 7 AM to 11 PM weekdays (local time) ; Off peak all other times"
 - id: jemena-2023-24-dnsp-anytime-demand-window
@@ -251,7 +251,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A270, F270]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A270 / F270a Time of Use Extended - Demand (closed to new entrants)d Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa & < 160 MWh pa Peak: 7 AM to 11 PM \"Mon-Sun\" (local time); Off peak all other times"
 - id: jemena-2023-24-dnsp-lb-tou
@@ -286,119 +286,119 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A300, F300]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A300 / F300a LV 0.4 - 0.8 GWh (Transitional) Only available to non-embedded network customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A30E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30E LV Annual Consumption  0.8 GWh (Transitional) EN Only available to embedded network customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A30C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30C LV CR 0.4 - 0.8 GWh Available to non-embedded network or embedded customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A320]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A320 LV 0.8+ - 2.2 GWh (Transitional) Only available to non-embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A32E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A32E LV 0.8+ - 2.2 GWh (Transitional) EN Only available to embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A32C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A32C LV CR 0.8+ - 2.2 GWh Available to non-embedded and embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A340]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A340 LV 2.2+ - 6.0 GWh (Transitional) Only available to non-embedded network customers consuming > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34E LV 2.2+ GWh (Transitional) EN Only available to embedded network customers consuming > 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34C LV CR 2.2+ - 6.0 GWh Only available to non-embedded network customers consuming > 2.2 GWh pa BUT  6.0 GWh pa and embedded network customers consuming > 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional) MS Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34T LV 2.2+ - 6.0 GWh (only available to customers currently on the A34M tariff)d MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A370]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A370 LV 6.0+ GWh (Transitional) Only available to non-embedded network customers consuming > 6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37C LV 6.0+ GWh CR Only available to non-embedded network customers consuming > 6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37M LV 6.0+ GWh (closed to new entrants)d (Transitional) MS Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 6.0 GWh Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37T LV 6.0+ GWh (only available to customers currently on the A37M tariff)d MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 6.0 GWh Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A400]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A400 HV (Transitional) Only available to non-embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A40E HV EN (Transitional) Only available to embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A40C HV CR Available to non-embedded or embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40R]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A40R HV (closed to new entrants)d (Transitional) RF Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A40T HV (only available to customers currently on the A40R tariff)d RF_CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A480]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A480 HV - Annual Consumption  55 GWh (Transitional) Only available to non-embedded customers consuming  55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A48C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A48C HV - Annual Consumption  55 GWh (Transitional) CR Only available to non-embedded customers consuming  55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A500]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A500 Subtransmission (Transitional) Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50C Subtransmission CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50M Subtransmission - Multiple Connection CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50A]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50A Subtransmission MA (Transitional) Available to Subtransmission customers connected to KTS-TMA-MAT-AW-PV Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50T Subtransmission MA CR Available to Subtransmission customers connected to KTS-TMA-MAT-AW-PV Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50E Subtransmission EG (Transitional) Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50X]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50X Subtransmission EG CR Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
 - id: jemena-2023-24-dnsp-lb-annual-demand-window
@@ -705,7 +705,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A120, F120]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p1"
     quote: "A120 / F120 Residential Time of Use Available to customers with a remotely read AMI meter Peak: 3 PM to 9 PM everyday (local time); Off peak all other times"
 - id: jemena-2023-24-aerhosted-res-demand-window
@@ -808,7 +808,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A210, F210]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A210 / F210a Time of Use Weekdays Only available to customers with two rate accumulation meter (or Interval meter) AND consuming < 40 MWh pa Peak: 9 AM to 9 PM weekdays (local time); Off peak all other times"
 - id: jemena-2023-24-aerhosted-tou-7-23-weekdays
@@ -843,15 +843,15 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A230, F230]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A230 / F230a Time of Use Weekdays - Demand Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa Peak: 7 AM to 11 PM weekdays (local time); Off peak all other times"
   - codes: [A23N, F23N]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A23N / F23Na Time of Use - Opt-out Available to customers with any maximum demand BUT only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa & < 160 MWh pa Peak: 7 AM to 11 PM weekdays (local time); Off peak all other times"
   - codes: [A290]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A290 Unmetered Supply Peak: 7 AM to 11 PM weekdays (local time) ; Off peak all other times"
 - id: jemena-2023-24-aerhosted-anytime-demand-window
@@ -919,7 +919,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A270, F270]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A270 / F270a Time of Use Extended - Demand (closed to new entrants)d Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa & < 160 MWh pa Peak: 7 AM to 11 PM \"Mon-Sun\" (local time); Off peak all other times"
 - id: jemena-2023-24-aerhosted-lb-tou
@@ -954,119 +954,119 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A300, F300]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A300 / F300a LV 0.4 - 0.8 GWh (Transitional) Only available to non-embedded network customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A30E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30E LV Annual Consumption  0.8 GWh (Transitional) EN Only available to embedded network customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A30C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30C LV CR 0.4 - 0.8 GWh Available to non-embedded network or embedded customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A320]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A320 LV 0.8+ - 2.2 GWh (Transitional) Only available to non-embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A32E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A32E LV 0.8+ - 2.2 GWh (Transitional) EN Only available to embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A32C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A32C LV CR 0.8+ - 2.2 GWh Available to non-embedded and embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A340]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A340 LV 2.2+ - 6.0 GWh (Transitional) Only available to non-embedded network customers consuming > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34E LV 2.2+ GWh (Transitional) EN Only available to embedded network customers consuming > 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34C LV CR 2.2+ - 6.0 GWh Only available to non-embedded network customers consuming > 2.2 GWh pa BUT  6.0 GWh pa and embedded network customers consuming > 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional) MS Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34T LV 2.2+ - 6.0 GWh (only available to customers currently on the A34M tariff)d MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A370]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A370 LV 6.0+ GWh (Transitional) Only available to non-embedded network customers consuming > 6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37C LV 6.0+ GWh CR Only available to non-embedded network customers consuming > 6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37M LV 6.0+ GWh (closed to new entrants)d (Transitional) MS Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 6.0 GWh Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37T LV 6.0+ GWh (only available to customers currently on the A37M tariff)d MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 6.0 GWh Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A400]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A400 HV (Transitional) Only available to non-embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A40E HV EN (Transitional) Only available to embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A40C HV CR Available to non-embedded or embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40R]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A40R HV (closed to new entrants)d (Transitional) RF Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A40T HV (only available to customers currently on the A40R tariff)d RF_CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A480]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A480 HV - Annual Consumption  55 GWh (Transitional) Only available to non-embedded customers consuming  55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A48C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A48C HV - Annual Consumption  55 GWh (Transitional) CR Only available to non-embedded customers consuming  55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A500]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A500 Subtransmission (Transitional) Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50C Subtransmission CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50M Subtransmission - Multiple Connection CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50A]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50A Subtransmission MA (Transitional) Available to Subtransmission customers connected to KTS-TMA-MAT-AW-PV Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50T Subtransmission MA CR Available to Subtransmission customers connected to KTS-TMA-MAT-AW-PV Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50E Subtransmission EG (Transitional) Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50X]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50X Subtransmission EG CR Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
 - id: jemena-2023-24-aerhosted-lb-annual-demand-window
@@ -1373,7 +1373,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A120, F120]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p1"
     quote: "A120 / F120 Residential Time of Use Available to customers with a remotely read AMI meter Peak: 3 PM to 9 PM everyday (local time); Off peak all other times"
 - id: jemena-2024-25-dnsp-res-demand-window
@@ -1476,7 +1476,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A210, F210]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A210 / F210a Time of Use Weekdays Only available to customers with two rate accumulation meter (or Interval meter) AND consuming < 40 MWh pa Peak: 9 AM to 9 PM weekdays (local time); Off peak all other times"
 - id: jemena-2024-25-dnsp-tou-7-23-weekdays
@@ -1511,15 +1511,15 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A230, F230]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A230 / F230a Time of Use Weekdays - Demand Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa Peak: 7 AM to 11 PM weekdays (local time); Off peak all other times"
   - codes: [A23N, F23N]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A23N / F23Na Time of Use - Opt-out Available to customers with any maximum demand BUT only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa & < 160 MWh pa Peak: 7 AM to 11 PM weekdays (local time); Off peak all other times"
   - codes: [A290]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A290 Unmetered Supply Peak: 7 AM to 11 PM weekdays (local time) ; Off peak all other times"
 - id: jemena-2024-25-dnsp-anytime-demand-window
@@ -1587,7 +1587,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A270, F270]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A270 / F270a Time of Use Extended - Demand (closed to new entrants)d Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa & < 160 MWh pa Peak: 7 AM to 11 PM \"Mon-Sun\" (local time); Off peak all other times"
 - id: jemena-2024-25-dnsp-lb-tou
@@ -1622,119 +1622,119 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A300, F300]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A300 / F300a LV 0.4 - 0.8 GWh (Transitional) Only available to non-embedded network customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A30E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30E LV Annual Consumption  0.8 GWh (Transitional) EN Only available to embedded network customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A30C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30C LV 0.4 - 0.8 GWh CR Available to non-embedded network or embedded customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A320]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A320 LV 0.8+ - 2.2 GWh (Transitional) Only available to non-embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A32E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A32E LV 0.8+ - 2.2 GWh (Transitional) EN Only available to embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A32C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A32C LV 0.8+ - 2.2 GWh CR Available to non-embedded and embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A340]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A340 LV 2.2+ - 6.0 GWh (Transitional) Only available to non-embedded network customers consuming > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34E LV 2.2+ GWh (Transitional) EN Only available to embedded network customers consuming > 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34C LV 2.2+ - 6.0 GWh CR Only available to non-embedded network customers consuming > 2.2 GWh pa BUT  6.0 GWh pa and embedded network customers consuming > 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional) MS Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34T LV 2.2+ - 6.0 GWh (only available to customers currently on the A34M tariff)d MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A370]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A370 LV 6.0+ GWh (Transitional) Only available to non-embedded network customers consuming > 6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37C LV 6.0+ GWh CR Only available to non-embedded network customers consuming > 6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37M LV 6.0+ GWh (closed to new entrants)d (Transitional) MS Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 6.0 GWh Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37T LV 6.0+ GWh (only available to customers currently on the A37M tariff)d MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 6.0 GWh Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A400]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A400 HV (Transitional) Only available to non-embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A40E HV (Transitional) EN Only available to embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A40C HV CR Available to non-embedded or embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40R]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A40R HV (closed to new entrants)d (Transitional) RF Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A40T HV (only available to customers currently on the A40R tariff)d RF_CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A480]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A480 HV - Annual Consumption  55 GWh (Transitional) Only available to non-embedded customers consuming  55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A48C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A48C HV - Annual Consumption  55 GWh (Transitional) CR Only available to non-embedded customers consuming  55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A500]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A500 Subtransmission (Transitional) Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50C Subtransmission CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50M Subtransmission - Multiple Connection CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50A]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50A SubtransmissionMA (Transitional) Available to Subtransmission customers connected to KTS-TMA-MAT-AW-PV Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50T SubtransmissionMA CR Available to Subtransmission customers connected to KTS-TMA-MAT-AW-PV Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50E SubtransmissionEG (Transitional) Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50X]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50X SubtransmissionEG CR Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
 - id: jemena-2024-25-dnsp-lb-annual-demand-window
@@ -2041,7 +2041,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A120, F120]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p1"
     quote: "A120 / F120 Residential Time of Use Available to customers with a remotely read AMI meter Peak: 3 PM to 9 PM everyday (local time); Off peak all other times"
 - id: jemena-2024-25-aerhosted-res-demand-window
@@ -2144,7 +2144,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A210, F210]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A210 / F210a Time of Use Weekdays Only available to customers with two rate accumulation meter (or Interval meter) AND consuming < 40 MWh pa Peak: 9 AM to 9 PM weekdays (local time); Off peak all other times"
 - id: jemena-2024-25-aerhosted-tou-7-23-weekdays
@@ -2179,15 +2179,15 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A230, F230]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A230 / F230a Time of Use Weekdays - Demand Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa Peak: 7 AM to 11 PM weekdays (local time); Off peak all other times"
   - codes: [A23N, F23N]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A23N / F23Na Time of Use - Opt-out Available to customers with any maximum demand BUT only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa & < 160 MWh pa Peak: 7 AM to 11 PM weekdays (local time); Off peak all other times"
   - codes: [A290]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A290 Unmetered Supply Peak: 7 AM to 11 PM weekdays (local time) ; Off peak all other times"
 - id: jemena-2024-25-aerhosted-anytime-demand-window
@@ -2255,7 +2255,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A270, F270]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A270 / F270a Time of Use Extended - Demand (closed to new entrants)d Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa & < 160 MWh pa Peak: 7 AM to 11 PM \"Mon-Sun\" (local time); Off peak all other times"
 - id: jemena-2024-25-aerhosted-lb-tou
@@ -2290,119 +2290,119 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A300, F300]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A300 / F300a LV 0.4 - 0.8 GWh (Transitional) Only available to non-embedded network customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A30E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30E LV Annual Consumption  0.8 GWh (Transitional) EN Only available to embedded network customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A30C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30C LV 0.4 - 0.8 GWh CR Available to non-embedded network or embedded customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A320]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A320 LV 0.8+ - 2.2 GWh (Transitional) Only available to non-embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A32E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A32E LV 0.8+ - 2.2 GWh (Transitional) EN Only available to embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A32C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A32C LV 0.8+ - 2.2 GWh CR Available to non-embedded and embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A340]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A340 LV 2.2+ - 6.0 GWh (Transitional) Only available to non-embedded network customers consuming > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34E LV 2.2+ GWh (Transitional) EN Only available to embedded network customers consuming > 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34C LV 2.2+ - 6.0 GWh CR Only available to non-embedded network customers consuming > 2.2 GWh pa BUT  6.0 GWh pa and embedded network customers consuming > 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional) MS Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34T LV 2.2+ - 6.0 GWh (only available to customers currently on the A34M tariff)d MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A370]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A370 LV 6.0+ GWh (Transitional) Only available to non-embedded network customers consuming > 6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37C LV 6.0+ GWh CR Only available to non-embedded network customers consuming > 6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37M LV 6.0+ GWh (closed to new entrants)d (Transitional) MS Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 6.0 GWh Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37T LV 6.0+ GWh (only available to customers currently on the A37M tariff)d MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 6.0 GWh Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A400]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A400 HV (Transitional) Only available to non-embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A40E HV (Transitional) EN Only available to embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A40C HV CR Available to non-embedded or embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40R]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A40R HV (closed to new entrants)d (Transitional) RF Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A40T HV (only available to customers currently on the A40R tariff)d RF_CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A480]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A480 HV - Annual Consumption  55 GWh (Transitional) Only available to non-embedded customers consuming  55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A48C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A48C HV - Annual Consumption  55 GWh (Transitional) CR Only available to non-embedded customers consuming  55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A500]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A500 Subtransmission (Transitional) Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50C Subtransmission CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50M Subtransmission - Multiple Connection CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50A]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50A SubtransmissionMA (Transitional) Available to Subtransmission customers connected to KTS-TMA-MAT-AW-PV Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50T SubtransmissionMA CR Available to Subtransmission customers connected to KTS-TMA-MAT-AW-PV Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50E SubtransmissionEG (Transitional) Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50X]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50X SubtransmissionEG CR Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
 - id: jemena-2024-25-aerhosted-lb-annual-demand-window
@@ -2709,7 +2709,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A120]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p1"
     quote: "A120 Residential Time of Use Available to customers with a remotely read AMI meter Peak: 3 PM to 9 PM everyday (local time); Off peak all other times"
 - id: jemena-2025-26-dnsp-res-demand-window
@@ -2812,7 +2812,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A210]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A210 Time of Use Weekdays Only available to customers with two rate accumulation meter (or Interval meter) AND consuming < 40 MWh pa Peak: 9 AM to 9 PM weekdays (local time); Off peak all other times"
 - id: jemena-2025-26-dnsp-tou-7-23-weekdays
@@ -2847,15 +2847,15 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A230]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A230 Time of Use Weekdays - Demand Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa Peak: 7 AM to 11 PM weekdays (local time); Off peak all other times"
   - codes: [A23N]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A23N Time of Use - Opt-out Available to customers with any maximum demand BUT only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa & < 160 MWh pa Peak: 7 AM to 11 PM weekdays (local time); Off peak all other times"
   - codes: [A290]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A290 Unmetered Supply Peak: 7 AM to 11 PM weekdays (local time) ; Off peak all other times"
 - id: jemena-2025-26-dnsp-anytime-demand-window
@@ -2923,7 +2923,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A270]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A270 Time of Use Extended - Demand (closed to new entrants)d Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh pa & < 160 MWh pa Peak: 7 AM to 11 PM \"Mon-Sun\" (local time); Off peak all other times"
 - id: jemena-2025-26-dnsp-lb-tou
@@ -2958,119 +2958,119 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A300]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A300 LV 0.4 - 0.8 GWh (Transitional) Only available to non-embedded network customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A30E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30E LV Annual Consumption  0.8 GWh (Transitional) EN Only available to embedded network customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A30C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30C LV CR 0.4 - 0.8 GWh Available to non-embedded network or embedded customers consuming  0.8 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A320]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A320 LV 0.8+ - 2.2 GWh (Transitional) Only available to non-embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A32E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A32E LV 0.8+ - 2.2 GWh (Transitional) EN Only available to embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A32C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A32C LV CR 0.8+ - 2.2 GWh Available to non-embedded and embedded network customers consuming > 0.8 GWh pa BUT 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A340]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A340 LV 2.2+ - 6.0 GWh (Transitional) Only available to non-embedded network customers consuming > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34E LV 2.2+ GWh (Transitional) EN Only available to embedded network customers consuming > 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34C LV CR 2.2+ - 6.0 GWh Only available to non-embedded network customers consuming > 2.2 GWh pa BUT  6.0 GWh pa and embedded network customers consuming > 2.2 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional) MS Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A34T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A34T LV 2.2+ - 6.0 GWh (only available to customers currently on the A34M tariff)d MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 2.2 GWh pa BUT  6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A370]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A370 LV 6.0+ GWh (Transitional) Only available to non-embedded network customers consuming > 6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37C LV 6.0+ GWh CR Only available to non-embedded network customers consuming > 6.0 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37M LV 6.0+ GWh (closed to new entrants)d (Transitional) MS Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 6.0 GWh Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A37T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A37T LV 6.0+ GWh (only available to customers currently on the A37M tariff)d MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 6.0 GWh Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A400]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A400 HV (Transitional) Only available to non-embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A40E HV EN (Transitional) Only available to embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A40C HV CR Available to non-embedded or embedded network customers consuming < 55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40R]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A40R HV (closed to new entrants)d (Transitional) RF Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A40T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A40T HV (only available to customers currently on the A40R tariff)d RF_CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A480]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A480 HV - Annual Consumption  55 GWh (Transitional) Only available to non-embedded customers consuming  55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A48C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p8"
     quote: "A48C HV - Annual Consumption  55 GWh (Transitional) CR Only available to non-embedded customers consuming  55 GWh pa Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A500]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A500 Subtransmission (Transitional) Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50C Subtransmission CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50M Subtransmission - Multiple Connection CR Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50A]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p9"
     quote: "A50A Subtransmission MA (Transitional) Available to Subtransmission customers connected to KTS-TMA-MAT-AW-PV Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50T Subtransmission MA CR Available to Subtransmission customers connected to KTS-TMA-MAT-AW-PV Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50E Subtransmission EG (Transitional) Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
   - codes: [A50X]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p10"
     quote: "A50X Subtransmission EG CR Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 AM to 8 PM (local time) weekdays; Off peak all other times"
 - id: jemena-2025-26-dnsp-lb-annual-demand-window
@@ -3382,11 +3382,11 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A130]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p1"
     quote: "A130 Residential Daytime Saver Available to customers with a remotely read AMI meter. Peak period: 4 pm to 9 pm every day (local time). Solar soak period: 11 am to 4 pm every day (local time). Off-peak period: All other times."
   - codes: [A10E]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p1"
     quote: "A10E Residential Export Available to customers with a remotely read AMI meter. Peak period: 4 pm to 9 pm every day (local time). Solar soak period: 11 am to 4 pm every day (local time). Off-peak period: All other times."
 - id: jemena-2026-27-dnsp-export
@@ -3473,7 +3473,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A210]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A210 Time of Use Weekdays Only available to customers with two rate accumulation meter (or Interval meter). AND consuming < 40 MWh p.a. Peak: 9 am to 9 pm weekdays (local time); Off-peak all other times"
 - id: jemena-2026-27-dnsp-tou-7-23-weekdays
@@ -3508,15 +3508,15 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A230]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A230 Time of Use Weekdays - Demand Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh p.a. Peak: 7 am to 11 pm weekdays (local time); Off-peak all other times"
   - codes: [A23N]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A23N Time of Use - Opt-out Available to customers with any maximum demand BUT only available to customers with a meter capable of measuring demand AND consuming > 40 MWh p.a. & < 160 MWh p.a. Peak: 7 am to 11 pm weekdays (local time); Off peak all other times"
   - codes: [A290]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A290 Unmetered Supply Peak: 7 am to 11 pm weekdays (local time) ; Off-peak all other times"
 - id: jemena-2026-27-dnsp-anytime-demand-window
@@ -3584,7 +3584,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A270]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p2"
     quote: "A270 Time of Use Extended - Demand (closed to new entrants)c Only available to customers with a meter capable of measuring demand AND consuming > 40 MWh p.a. & < 160 MWh p.a. Peak: 7 am to 11 pm every day (local time); Off-peak all other times"
 - id: jemena-2026-27-dnsp-sdic-window
@@ -3700,7 +3700,7 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A30B]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30B LV large business storage Available upon application and at JEN’s discretion to customers with storage capacity <= 500 kVA. Peak: 4 pm to 9 pm every day (local time); Off-peak all other times"
 - id: jemena-2026-27-dnsp-lb-tou
@@ -3735,55 +3735,55 @@ tou_schedules:
     end: "24:00"
   tariffs:
   - codes: [A30C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A30C LV CR 0.4 - 0.8 GWh Available to non-embedded network or embedded customers consuming ≤ 0.8 GWh p.a. Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A32C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A32C LV CR 0.8+ - 2.2 GWh Available to non-embedded and embedded network customers consuming > 0.8 GWh p.a. BUT ≤ 2.2 GWh p.a. Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A34C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A34C LV CR 2.2+ - 6.0 GWh Only available to non-embedded network customers consuming > 2.2 GWh p.a. BUT ≤ 6.0 GWh p.a. and embedded network customers consuming > 2.2 GWh p.a. Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A34T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p3"
     quote: "A34T LV 2.2+ - 6.0 GWh (closed to new entrants) MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 2.2 GWh p.a. BUT ≤ 6.0 GWh p.a. Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A37C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A37C LV 6.0+ GWh CR Only available to non-embedded network customers consuming > 6.0 GWh p.a. Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A37T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p4"
     quote: "A37T LV 6.0+ GWh (closed to new entrants) MS_CR Only available to non-embedded network customer taking supply from multiple NMIs on a single site AND the aggregated annual consumption from those NMIs is > 6.0 GWh. Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A40C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A40C HV CR Available to non-embedded or embedded network customers consuming < 55 GWh p.a. Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A40T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A40T HV RF_CR (closed to new entrants) Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A48C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p5"
     quote: "A48C HV - Annual Consumption  55 GWh CR Only available to non-embedded customers consuming ≥ 55 GWh p.a. Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A50C]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A50C Subtransmission CR Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A50M]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p6"
     quote: "A50M Subtransmission - Multiple Connection CR Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A50T]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A50T Subtransmission MA CR Available to Subtransmission customers connected to KTS-TMA-MAT-AW-PV loop. Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
   - codes: [A50X]
-    applies_to: energy
+    applies_to: usage
     locator: "pdf:p7"
     quote: "A50X Subtransmission EG CR Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times"
 - id: jemena-2026-27-dnsp-lb-annual-demand-window
@@ -3854,877 +3854,6 @@ tou_schedules:
     applies_to: demand
     locator: "pdf:p7"
     quote: "A50X Subtransmission EG CR Available to Embedded Generators connected to SMTS-SPS-ST Loop. Peak: 8 am to 8 pm (local time) weekdays; Off-peak all other times. Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months"
-demand_rules:
-- id: jemena-2023-24-dnsp-res-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  fin_year: 2023-24
-  measure: kW
-  aggregation: monthly_max
-  window_schedule: jemena-2023-24-dnsp-res-demand-window
-  window_period: demand_window
-  note: "Demand rate in $/kW pa; window 'reset monthly'."
-  locator: "pdf:p1"
-  quote: "Demand charging window 3PM - 9PM workdays (local time); reset monthly. Prices may vary for summer and non-summer monthsb - Standing charge $/customer pa 96.847 - Unit rate ¢/kWh 4.096 - Demand rate $/kW"
-  tariffs:
-  - codes: [A10D, F10D]
-- id: jemena-2023-24-dnsp-sb-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  fin_year: 2023-24
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-dnsp-sb-demand-window
-  window_period: demand_window
-  note: Demand rate in $/kW pa.
-  locator: "pdf:p1"
-  quote: "Demand charging window 10am-8pm workdays (local time) using the maximum level of the last 12 months where data is available. - Standing charge $/customer pa 147.858 - Unit rate ¢/kWh 9.862 - Demand rate $/kW"
-  tariffs:
-  - codes: [A20D, F20D]
-- id: jemena-2023-24-dnsp-any-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  fin_year: 2023-24
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-dnsp-anytime-demand-window
-  window_period: demand_window
-  note: Demand rate in $/kW pa.
-  locator: "pdf:p2"
-  quote: "Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available - Standing charge $/customer pa 702.616 - Peak Unit rate ¢/kWh 8.951 - Off Peak Unit rate ¢/kWh 3.134 - Demand rate $/kW"
-  tariffs:
-  - codes: [A230, F230, A23N, F23N]
-- id: jemena-2023-24-dnsp-any-demand-min60kW
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  fin_year: 2023-24
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-dnsp-anytime-demand-window
-  window_period: demand_window
-  minimum_chargeable: 60
-  minimum_unit: kW
-  note: "Window and aggregation from 'Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available', printed under the same tariff."
-  locator: "pdf:p2"
-  quote: Minimum Chargeable Demand 60 kW
-  tariffs:
-  - codes: [A270, F270]
-- id: jemena-2023-24-dnsp-annual-demand-min120kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 120
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p3"
-  quote: Minimum Chargeable Annual Demand 120 kVA
-  tariffs:
-  - codes: [A300, F300, A30E, A30C]
-- id: jemena-2023-24-dnsp-sdic-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: jemena-2023-24-dnsp-sdic-window
-  window_period: demand_window
-  months: 12,1,2,3
-  note: "Summer Demand Incentive Charge in c/kVA/day, reset monthly; the schedule's footnote says there is no minimum demand for the summer demand incentive charge."
-  locator: "pdf:p3"
-  quote: "Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer pa 3,011.376 - Peak Unit rate ¢/kWh 4.363 - Off Peak Unit rate ¢/kWh 1.245 - Annual Demand charge $/kVA pa 114.310 - Summer Demand Incentive Chargef ¢/kVA/day"
-  tariffs:
-  - codes: [A300, F300, A30E, A30C, A320, A32E, A32C, A340, A34E, A34C, A34M, A34T, A370, A37C, A37M, A37T, A400, A40E, A40C, A40R, A40T, A480, A48C, A500, A50C, A50M, A50A, A50T, A50E, A50X]
-    season: summer
-    time_band: summer_demand_incentive
-- id: jemena-2023-24-dnsp-annual-demand-min250kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 250
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p4"
-  quote: Minimum Chargeable Annual Demand 250 kVA
-  tariffs:
-  - codes: [A320, A32E, A32C, A340, A34E, A34C, A34M, A34T]
-- id: jemena-2023-24-dnsp-annual-demand-min450kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 450
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p6"
-  quote: Minimum Chargeable Annual Demand 450 kVA
-  tariffs:
-  - codes: [A370, A37C, A37M, A37T]
-- id: jemena-2023-24-dnsp-annual-demand-min1000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 1000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p7"
-  quote: Minimum Chargeable Annual Demand 1,000 kVA
-  tariffs:
-  - codes: [A400, A40E, A40C, A40R, A40T]
-- id: jemena-2023-24-dnsp-annual-demand-min10000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 10000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p8"
-  quote: Minimum Chargeable Annual Demand 10,000 kVA
-  tariffs:
-  - codes: [A480, A48C]
-- id: jemena-2023-24-dnsp-annual-demand-min15000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 15000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p9"
-  quote: Minimum Chargeable Annual Demand 15,000 kVA
-  tariffs:
-  - codes: [A500, A50C, A50M, A50A, A50T, A50E, A50X]
-- id: jemena-2023-24-aerhosted-res-demand
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  aggregation: monthly_max
-  window_schedule: jemena-2023-24-aerhosted-res-demand-window
-  window_period: demand_window
-  note: "Demand rate in $/kW pa; window 'reset monthly'."
-  locator: "pdf:p1"
-  quote: "Demand charging window 3PM - 9PM workdays (local time); reset monthly. Prices may vary for summer and non-summer monthsb - Standing charge $/customer pa 96.847 - Unit rate ¢/kWh 4.096 - Demand rate $/kW"
-  tariffs:
-  - codes: [A10D, F10D]
-- id: jemena-2023-24-aerhosted-sb-demand
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-aerhosted-sb-demand-window
-  window_period: demand_window
-  note: Demand rate in $/kW pa.
-  locator: "pdf:p1"
-  quote: "Demand charging window 10am-8pm workdays (local time) using the maximum level of the last 12 months where data is available. - Standing charge $/customer pa 147.858 - Unit rate ¢/kWh 9.862 - Demand rate $/kW"
-  tariffs:
-  - codes: [A20D, F20D]
-- id: jemena-2023-24-aerhosted-any-demand
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-aerhosted-anytime-demand-window
-  window_period: demand_window
-  note: Demand rate in $/kW pa.
-  locator: "pdf:p2"
-  quote: "Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available - Standing charge $/customer pa 702.616 - Peak Unit rate ¢/kWh 8.951 - Off Peak Unit rate ¢/kWh 3.134 - Demand rate $/kW"
-  tariffs:
-  - codes: [A230, F230, A23N, F23N]
-- id: jemena-2023-24-aerhosted-any-demand-min60kW
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-aerhosted-anytime-demand-window
-  window_period: demand_window
-  minimum_chargeable: 60
-  minimum_unit: kW
-  note: "Window and aggregation from 'Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available', printed under the same tariff."
-  locator: "pdf:p2"
-  quote: Minimum Chargeable Demand 60 kW
-  tariffs:
-  - codes: [A270, F270]
-- id: jemena-2023-24-aerhosted-annual-demand-min120kVA
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 120
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p3"
-  quote: Minimum Chargeable Annual Demand 120 kVA
-  tariffs:
-  - codes: [A300, F300, A30E, A30C]
-- id: jemena-2023-24-aerhosted-sdic-demand
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: jemena-2023-24-aerhosted-sdic-window
-  window_period: demand_window
-  months: 12,1,2,3
-  note: "Summer Demand Incentive Charge in c/kVA/day, reset monthly; the schedule's footnote says there is no minimum demand for the summer demand incentive charge."
-  locator: "pdf:p3"
-  quote: "Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer pa 3,011.376 - Peak Unit rate ¢/kWh 4.363 - Off Peak Unit rate ¢/kWh 1.245 - Annual Demand charge $/kVA pa 114.310 - Summer Demand Incentive Chargef ¢/kVA/day"
-  tariffs:
-  - codes: [A300, F300, A30E, A30C, A320, A32E, A32C, A340, A34E, A34C, A34M, A34T, A370, A37C, A37M, A37T, A400, A40E, A40C, A40R, A40T, A480, A48C, A500, A50C, A50M, A50A, A50T, A50E, A50X]
-    season: summer
-    time_band: summer_demand_incentive
-- id: jemena-2023-24-aerhosted-annual-demand-min250kVA
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 250
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p4"
-  quote: Minimum Chargeable Annual Demand 250 kVA
-  tariffs:
-  - codes: [A320, A32E, A32C, A340, A34E, A34C, A34M, A34T]
-- id: jemena-2023-24-aerhosted-annual-demand-min450kVA
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 450
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p6"
-  quote: Minimum Chargeable Annual Demand 450 kVA
-  tariffs:
-  - codes: [A370, A37C, A37M, A37T]
-- id: jemena-2023-24-aerhosted-annual-demand-min1000kVA
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 1000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p7"
-  quote: Minimum Chargeable Annual Demand 1,000 kVA
-  tariffs:
-  - codes: [A400, A40E, A40C, A40R, A40T]
-- id: jemena-2023-24-aerhosted-annual-demand-min10000kVA
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 10000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p8"
-  quote: Minimum Chargeable Annual Demand 10,000 kVA
-  tariffs:
-  - codes: [A480, A48C]
-- id: jemena-2023-24-aerhosted-annual-demand-min15000kVA
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2023-24-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 15000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p9"
-  quote: Minimum Chargeable Annual Demand 15,000 kVA
-  tariffs:
-  - codes: [A500, A50C, A50M, A50A, A50T, A50E, A50X]
-- id: jemena-2024-25-dnsp-res-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  fin_year: 2024-25
-  measure: kW
-  aggregation: monthly_max
-  window_schedule: jemena-2024-25-dnsp-res-demand-window
-  window_period: demand_window
-  note: "Demand rate in $/kW pa; window 'reset monthly'."
-  locator: "pdf:p1"
-  quote: "Demand charging window 3PM - 9PM workdays (local time); reset monthly. Prices may vary for summer and non-summer monthsb - Standing charge $/customer pa 116.448 - Unit rate ¢/kWh 4.814 - Demand rate $/kW"
-  tariffs:
-  - codes: [A10D, F10D]
-- id: jemena-2024-25-dnsp-sb-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  fin_year: 2024-25
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-dnsp-sb-demand-window
-  window_period: demand_window
-  note: Demand rate in $/kW pa.
-  locator: "pdf:p1"
-  quote: "Demand charging window 10am-8pm workdays (local time) using the maximum level of the last 12 months where data is available. - Standing charge $/customer pa 177.742 - Unit rate ¢/kWh 11.641 - Demand rate $/kW"
-  tariffs:
-  - codes: [A20D, F20D]
-- id: jemena-2024-25-dnsp-any-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  fin_year: 2024-25
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-dnsp-anytime-demand-window
-  window_period: demand_window
-  note: Demand rate in $/kW pa.
-  locator: "pdf:p2"
-  quote: "Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available - Standing charge $/customer pa 881.187 - Peak Unit rate ¢/kWh 10.553 - Off Peak Unit rate ¢/kWh 3.678 - Demand rate $/kW"
-  tariffs:
-  - codes: [A230, F230, A23N, F23N]
-- id: jemena-2024-25-dnsp-any-demand-min60kW
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  fin_year: 2024-25
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-dnsp-anytime-demand-window
-  window_period: demand_window
-  minimum_chargeable: 60
-  minimum_unit: kW
-  note: "Window and aggregation from 'Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available', printed under the same tariff."
-  locator: "pdf:p2"
-  quote: Minimum Chargeable Demand 60 kW
-  tariffs:
-  - codes: [A270, F270]
-- id: jemena-2024-25-dnsp-annual-demand-min120kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 120
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p3"
-  quote: Minimum Chargeable Annual Demand 120 kVA
-  tariffs:
-  - codes: [A300, F300, A30E, A30C]
-- id: jemena-2024-25-dnsp-sdic-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: jemena-2024-25-dnsp-sdic-window
-  window_period: demand_window
-  months: 12,1,2,3
-  note: "Summer Demand Incentive Charge in c/kVA/day, reset monthly; the schedule's footnote says there is no minimum demand for the summer demand incentive charge."
-  locator: "pdf:p3"
-  quote: "Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer pa 3,627.564 - Peak Unit rate ¢/kWh 5.093 - Off Peak Unit rate ¢/kWh 1.422 - Annual Demand charge $/kVA pa 124.013 - Summer Demand Incentive Chargef ¢/kVA/day"
-  tariffs:
-  - codes: [A300, F300, A30E, A30C, A320, A32E, A32C, A340, A34E, A34C, A34M, A34T, A370, A37C, A37M, A37T, A400, A40E, A40C, A40R, A40T, A480, A48C, A500, A50C, A50M, A50A, A50T, A50E, A50X]
-    season: summer
-    time_band: summer_demand_incentive
-- id: jemena-2024-25-dnsp-annual-demand-min250kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 250
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p4"
-  quote: Minimum Chargeable Annual Demand 250 kVA
-  tariffs:
-  - codes: [A320, A32E, A32C, A340, A34E, A34C, A34M, A34T]
-- id: jemena-2024-25-dnsp-annual-demand-min450kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 450
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p6"
-  quote: Minimum Chargeable Annual Demand 450 kVA
-  tariffs:
-  - codes: [A370, A37C, A37M, A37T]
-- id: jemena-2024-25-dnsp-annual-demand-min1000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 1000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p7"
-  quote: Minimum Chargeable Annual Demand 1,000 kVA
-  tariffs:
-  - codes: [A400, A40E, A40C, A40R, A40T]
-- id: jemena-2024-25-dnsp-annual-demand-min10000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 10000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p8"
-  quote: Minimum Chargeable Annual Demand 10,000 kVA
-  tariffs:
-  - codes: [A480, A48C]
-- id: jemena-2024-25-dnsp-annual-demand-min15000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 15000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p9"
-  quote: Minimum Chargeable Annual Demand 15,000 kVA
-  tariffs:
-  - codes: [A500, A50C, A50M, A50A, A50T, A50E, A50X]
-- id: jemena-2024-25-aerhosted-res-demand
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  fin_year: 2024-25
-  measure: kW
-  aggregation: monthly_max
-  window_schedule: jemena-2024-25-aerhosted-res-demand-window
-  window_period: demand_window
-  note: "Demand rate in $/kW pa; window 'reset monthly'."
-  locator: "pdf:p1"
-  quote: "Demand charging window 3PM - 9PM workdays (local time); reset monthly. Prices may vary for summer and non-summer monthsb - Standing charge $/customer pa 116.448 - Unit rate ¢/kWh 4.814 - Demand rate $/kW"
-  tariffs:
-  - codes: [A10D, F10D]
-- id: jemena-2024-25-aerhosted-sb-demand
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  fin_year: 2024-25
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-aerhosted-sb-demand-window
-  window_period: demand_window
-  note: Demand rate in $/kW pa.
-  locator: "pdf:p1"
-  quote: "Demand charging window 10am-8pm workdays (local time) using the maximum level of the last 12 months where data is available. - Standing charge $/customer pa 177.742 - Unit rate ¢/kWh 11.641 - Demand rate $/kW"
-  tariffs:
-  - codes: [A20D, F20D]
-- id: jemena-2024-25-aerhosted-any-demand
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  fin_year: 2024-25
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-aerhosted-anytime-demand-window
-  window_period: demand_window
-  note: Demand rate in $/kW pa.
-  locator: "pdf:p2"
-  quote: "Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available - Standing charge $/customer pa 881.187 - Peak Unit rate ¢/kWh 10.553 - Off Peak Unit rate ¢/kWh 3.678 - Demand rate $/kW"
-  tariffs:
-  - codes: [A230, F230, A23N, F23N]
-- id: jemena-2024-25-aerhosted-any-demand-min60kW
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  fin_year: 2024-25
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-aerhosted-anytime-demand-window
-  window_period: demand_window
-  minimum_chargeable: 60
-  minimum_unit: kW
-  note: "Window and aggregation from 'Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available', printed under the same tariff."
-  locator: "pdf:p2"
-  quote: Minimum Chargeable Demand 60 kW
-  tariffs:
-  - codes: [A270, F270]
-- id: jemena-2024-25-aerhosted-annual-demand-min120kVA
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 120
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p3"
-  quote: Minimum Chargeable Annual Demand 120 kVA
-  tariffs:
-  - codes: [A300, F300, A30E, A30C]
-- id: jemena-2024-25-aerhosted-sdic-demand
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: jemena-2024-25-aerhosted-sdic-window
-  window_period: demand_window
-  months: 12,1,2,3
-  note: "Summer Demand Incentive Charge in c/kVA/day, reset monthly; the schedule's footnote says there is no minimum demand for the summer demand incentive charge."
-  locator: "pdf:p3"
-  quote: "Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer pa 3,627.564 - Peak Unit rate ¢/kWh 5.093 - Off Peak Unit rate ¢/kWh 1.422 - Annual Demand charge $/kVA pa 124.013 - Summer Demand Incentive Chargef ¢/kVA/day"
-  tariffs:
-  - codes: [A300, F300, A30E, A30C, A320, A32E, A32C, A340, A34E, A34C, A34M, A34T, A370, A37C, A37M, A37T, A400, A40E, A40C, A40R, A40T, A480, A48C, A500, A50C, A50M, A50A, A50T, A50E, A50X]
-    season: summer
-    time_band: summer_demand_incentive
-- id: jemena-2024-25-aerhosted-annual-demand-min250kVA
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 250
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p4"
-  quote: Minimum Chargeable Annual Demand 250 kVA
-  tariffs:
-  - codes: [A320, A32E, A32C, A340, A34E, A34C, A34M, A34T]
-- id: jemena-2024-25-aerhosted-annual-demand-min450kVA
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 450
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p6"
-  quote: Minimum Chargeable Annual Demand 450 kVA
-  tariffs:
-  - codes: [A370, A37C, A37M, A37T]
-- id: jemena-2024-25-aerhosted-annual-demand-min1000kVA
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 1000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p7"
-  quote: Minimum Chargeable Annual Demand 1,000 kVA
-  tariffs:
-  - codes: [A400, A40E, A40C, A40R, A40T]
-- id: jemena-2024-25-aerhosted-annual-demand-min10000kVA
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 10000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p8"
-  quote: Minimum Chargeable Annual Demand 10,000 kVA
-  tariffs:
-  - codes: [A480, A48C]
-- id: jemena-2024-25-aerhosted-annual-demand-min15000kVA
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2024-25-aerhosted-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 15000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p9"
-  quote: Minimum Chargeable Annual Demand 15,000 kVA
-  tariffs:
-  - codes: [A500, A50C, A50M, A50A, A50T, A50E, A50X]
-- id: jemena-2025-26-dnsp-res-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  fin_year: 2025-26
-  measure: kW
-  aggregation: monthly_max
-  window_schedule: jemena-2025-26-dnsp-res-demand-window
-  window_period: demand_window
-  note: "Demand rate in $/kW pa; window 'reset monthly'."
-  locator: "pdf:p1"
-  quote: "Demand charging window 3PM - 9PM workdays (local time); reset monthly. Prices may vary for summer and non-summer monthsb - Standing charge $/customer pa 111.145 - Unit rate ¢/kWh 4.618 - Demand rate $/kW"
-  tariffs:
-  - codes: [A10D]
-- id: jemena-2025-26-dnsp-sb-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  fin_year: 2025-26
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2025-26-dnsp-sb-demand-window
-  window_period: demand_window
-  note: Demand rate in $/kW pa.
-  locator: "pdf:p1"
-  quote: "Demand charging window 10am-8pm workdays (local time) using the maximum level of the last 12 months where data is available. - Standing charge $/customer pa 222.519 - Unit rate ¢/kWh 11.119 - Demand rate $/kW"
-  tariffs:
-  - codes: [A20D]
-- id: jemena-2025-26-dnsp-any-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  fin_year: 2025-26
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2025-26-dnsp-anytime-demand-window
-  window_period: demand_window
-  note: Demand rate in $/kW pa.
-  locator: "pdf:p2"
-  quote: "Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available - Standing charge $/customer pa 366.854 - Peak Unit rate ¢/kWh 9.976 - Off Peak Unit rate ¢/kWh 3.488 - Demand rate $/kW"
-  tariffs:
-  - codes: [A230, A23N]
-- id: jemena-2025-26-dnsp-any-demand-min60kW
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  fin_year: 2025-26
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2025-26-dnsp-anytime-demand-window
-  window_period: demand_window
-  minimum_chargeable: 60
-  minimum_unit: kW
-  note: "Window and aggregation from 'Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available', printed under the same tariff."
-  locator: "pdf:p2"
-  quote: Minimum Chargeable Demand 60 kW
-  tariffs:
-  - codes: [A270]
-- id: jemena-2025-26-dnsp-annual-demand-min120kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2025-26-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 120
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p3"
-  quote: Minimum Chargeable Annual Demand 120 kVA
-  tariffs:
-  - codes: [A300, A30E, A30C]
-- id: jemena-2025-26-dnsp-sdic-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: jemena-2025-26-dnsp-sdic-window
-  window_period: demand_window
-  months: 12,1,2,3
-  note: "Summer Demand Incentive Charge in c/kVA/day, reset monthly; the schedule's footnote says there is no minimum demand for the summer demand incentive charge."
-  locator: "pdf:p3"
-  quote: "Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer pa 3,650.610 - Peak Unit rate ¢/kWh 5.257 - Off Peak Unit rate ¢/kWh 1.430 - Annual Demand charge $/kVA pa 98.370 - Summer Demand Incentive Chargef ¢/kVA/day"
-  tariffs:
-  - codes: [A300, A30E, A30C, A320, A32E, A32C, A340, A34E, A34C, A34M, A34T, A370, A37C, A37M, A37T, A400, A40E, A40C, A40R, A40T, A480, A48C, A500, A50C, A50M, A50A, A50T, A50E, A50X]
-    season: summer
-    time_band: summer_demand_incentive
-- id: jemena-2025-26-dnsp-annual-demand-min250kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2025-26-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 250
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p4"
-  quote: Minimum Chargeable Annual Demand 250 kVA
-  tariffs:
-  - codes: [A320, A32E, A32C, A340, A34E, A34C, A34M, A34T]
-- id: jemena-2025-26-dnsp-annual-demand-min450kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2025-26-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 450
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p6"
-  quote: Minimum Chargeable Annual Demand 450 kVA
-  tariffs:
-  - codes: [A370, A37C, A37M, A37T]
-- id: jemena-2025-26-dnsp-annual-demand-min1000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2025-26-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 1000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p7"
-  quote: Minimum Chargeable Annual Demand 1,000 kVA
-  tariffs:
-  - codes: [A400, A40E, A40C, A40R, A40T]
-- id: jemena-2025-26-dnsp-annual-demand-min10000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2025-26-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 10000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p8"
-  quote: Minimum Chargeable Annual Demand 10,000 kVA
-  tariffs:
-  - codes: [A480, A48C]
-- id: jemena-2025-26-dnsp-annual-demand-min15000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2025-26-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 15000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p9"
-  quote: Minimum Chargeable Annual Demand 15,000 kVA
-  tariffs:
-  - codes: [A500, A50C, A50M, A50A, A50T, A50E, A50X]
-- id: jemena-2026-27-dnsp-any-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
-  fin_year: 2026-27
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2026-27-dnsp-anytime-demand-window
-  window_period: demand_window
-  note: Demand rate in $/kW pa.
-  locator: "pdf:p2"
-  quote: "Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available. - Standing charge $/customer p.a. 494.463 - Peak unit rate ¢/kWh 9.809 - Off-peak unit rate ¢/kWh 3.442 - Demand rate $/kW"
-  tariffs:
-  - codes: [A230, A23N]
-- id: jemena-2026-27-dnsp-any-demand-min60kW
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
-  fin_year: 2026-27
-  measure: kW
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2026-27-dnsp-anytime-demand-window
-  window_period: demand_window
-  minimum_chargeable: 60
-  minimum_unit: kW
-  note: "Window and aggregation from 'Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available', printed under the same tariff."
-  locator: "pdf:p2"
-  quote: Minimum Chargeable Demand 60 kW
-  tariffs:
-  - codes: [A270]
-- id: jemena-2026-27-dnsp-sdic-demand
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: jemena-2026-27-dnsp-sdic-window
-  window_period: demand_window
-  months: 12,1,2,3
-  note: "Summer Demand Incentive Charge in c/kVA/day, reset monthly; the schedule's footnote says there is no minimum demand for the summer demand incentive charge."
-  locator: "pdf:p3"
-  quote: "Summer Demand Incentive Charge charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge $/customer p.a. 4,079.849 - Peak unit rate ¢/kWh 7.704 - Off-peak unit rate ¢/kWh 0.000 - Summer Demand Incentive Charged ¢/kVA/day"
-  tariffs:
-  - codes: [A30B, A30C, A32C, A34C, A34T, A37C, A37T, A40C, A40T, A48C, A50C, A50M, A50T, A50X]
-    season: summer
-    time_band: summer_demand_incentive
-- id: jemena-2026-27-dnsp-annual-demand-min120kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2026-27-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 120
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8 am - 8 pm weekdays (local time), Rolling 12 months.', printed under each of these tariffs."
-  locator: "pdf:p3"
-  quote: Minimum Chargeable Annual Demand 120 kVA
-  tariffs:
-  - codes: [A30C]
-- id: jemena-2026-27-dnsp-annual-demand-min250kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2026-27-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 250
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p3"
-  quote: Minimum Chargeable Annual Demand 250 kVA
-  tariffs:
-  - codes: [A32C, A34C, A34T]
-- id: jemena-2026-27-dnsp-annual-demand-min450kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2026-27-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 450
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p4"
-  quote: Minimum Chargeable Annual Demand 450 kVA
-  tariffs:
-  - codes: [A37C, A37T]
-- id: jemena-2026-27-dnsp-annual-demand-min1000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2026-27-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 1000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p5"
-  quote: Minimum Chargeable Annual Demand 1,000 kVA
-  tariffs:
-  - codes: [A40C, A40T]
-- id: jemena-2026-27-dnsp-annual-demand-min10000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2026-27-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 10000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p5"
-  quote: Minimum Chargeable Annual Demand 10,000 kVA
-  tariffs:
-  - codes: [A48C]
-- id: jemena-2026-27-dnsp-annual-demand-min15000kVA
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: jemena-2026-27-dnsp-lb-annual-demand-window
-  window_period: demand_window
-  minimum_chargeable: 15000
-  minimum_unit: kVA
-  note: "Annual Demand charge in $/kVA pa. Window and aggregation from 'Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months', printed under each of these tariffs."
-  locator: "pdf:p6"
-  quote: Minimum Chargeable Annual Demand 15,000 kVA
-  tariffs:
-  - codes: [A50C, A50M, A50T, A50X]
 eligibility:
 - codes: [A100, F100, A120, F120, A10D, F10D, A180]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
@@ -9756,829 +8885,822 @@ eligibility:
   value_text: HV
   locator: "xlsx:Tariff schedule!D112"
   quote: Large Business - HV
-relations:
-- from: A180
-  type: assigned_with
-  to: A100
-  fin_year: 2023-24
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
-  locator: "pdf:p1"
-  quote: "A180 Off Peak Heating Only (dedicated circuit) Available as a complementary tariff to the \"Residential Single Rate\" A100 tariff only"
-- from: A180
-  type: assigned_with
-  to: A100
-  fin_year: 2023-24
-  doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
-  locator: "pdf:p1"
-  quote: "A180 Off Peak Heating Only (dedicated circuit) Available as a complementary tariff to the \"Residential Single Rate\" A100 tariff only"
-- from: A180
-  type: assigned_with
-  to: A100
-  fin_year: 2024-25
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
-  locator: "pdf:p1"
-  quote: "A180 Off Peak Heating Only (dedicated circuit) Available as a complementary tariff to the \"Residential Single Rate\" A100 tariff only"
-- from: A180
-  type: assigned_with
-  to: A100
-  fin_year: 2024-25
-  doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
-  locator: "pdf:p1"
-  quote: "A180 Off Peak Heating Only (dedicated circuit) Available as a complementary tariff to the \"Residential Single Rate\" A100 tariff only"
-- from: A180
-  type: assigned_with
-  to: A100
-  fin_year: 2025-26
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  locator: "pdf:p1"
-  quote: "A180 Off Peak Heating Only (dedicated circuit) Available as a complementary tariff to the \"Residential Single Rate\" A100 tariff only"
-- from: F100
-  type: replaced_by
-  to: A100
-  fin_year: 2025-26
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  locator: "pdf:p10"
-  quote: "Tariffs starting with \"F\" were tariffs that previously attracted the premium feed-in tariff rebate. These tariffs ended on 1 November 2024 and all customers that were previously on PfiT tariffs have been moved to the corresponding A tariff."
-  note: "Each F tariff maps to the A tariff with the same digits (the 'corresponding A tariff'); this document prints no F codes, the pairing (e.g. 'A100 / F100') is printed in the 2023-24 and 2024-25 schedules."
-- from: F120
-  type: replaced_by
-  to: A120
-  fin_year: 2025-26
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  locator: "pdf:p10"
-  quote: "Tariffs starting with \"F\" were tariffs that previously attracted the premium feed-in tariff rebate. These tariffs ended on 1 November 2024 and all customers that were previously on PfiT tariffs have been moved to the corresponding A tariff."
-  note: "Each F tariff maps to the A tariff with the same digits (the 'corresponding A tariff'); this document prints no F codes, the pairing (e.g. 'A100 / F100') is printed in the 2023-24 and 2024-25 schedules."
-- from: F10D
-  type: replaced_by
-  to: A10D
-  fin_year: 2025-26
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  locator: "pdf:p10"
-  quote: "Tariffs starting with \"F\" were tariffs that previously attracted the premium feed-in tariff rebate. These tariffs ended on 1 November 2024 and all customers that were previously on PfiT tariffs have been moved to the corresponding A tariff."
-  note: "Each F tariff maps to the A tariff with the same digits (the 'corresponding A tariff'); this document prints no F codes, the pairing (e.g. 'A100 / F100') is printed in the 2023-24 and 2024-25 schedules."
-- from: F200
-  type: replaced_by
-  to: A200
-  fin_year: 2025-26
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  locator: "pdf:p10"
-  quote: "Tariffs starting with \"F\" were tariffs that previously attracted the premium feed-in tariff rebate. These tariffs ended on 1 November 2024 and all customers that were previously on PfiT tariffs have been moved to the corresponding A tariff."
-  note: "Each F tariff maps to the A tariff with the same digits (the 'corresponding A tariff'); this document prints no F codes, the pairing (e.g. 'A100 / F100') is printed in the 2023-24 and 2024-25 schedules."
-- from: F20D
-  type: replaced_by
-  to: A20D
-  fin_year: 2025-26
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  locator: "pdf:p10"
-  quote: "Tariffs starting with \"F\" were tariffs that previously attracted the premium feed-in tariff rebate. These tariffs ended on 1 November 2024 and all customers that were previously on PfiT tariffs have been moved to the corresponding A tariff."
-  note: "Each F tariff maps to the A tariff with the same digits (the 'corresponding A tariff'); this document prints no F codes, the pairing (e.g. 'A100 / F100') is printed in the 2023-24 and 2024-25 schedules."
-- from: F210
-  type: replaced_by
-  to: A210
-  fin_year: 2025-26
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  locator: "pdf:p10"
-  quote: "Tariffs starting with \"F\" were tariffs that previously attracted the premium feed-in tariff rebate. These tariffs ended on 1 November 2024 and all customers that were previously on PfiT tariffs have been moved to the corresponding A tariff."
-  note: "Each F tariff maps to the A tariff with the same digits (the 'corresponding A tariff'); this document prints no F codes, the pairing (e.g. 'A100 / F100') is printed in the 2023-24 and 2024-25 schedules."
-- from: F230
-  type: replaced_by
-  to: A230
-  fin_year: 2025-26
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  locator: "pdf:p10"
-  quote: "Tariffs starting with \"F\" were tariffs that previously attracted the premium feed-in tariff rebate. These tariffs ended on 1 November 2024 and all customers that were previously on PfiT tariffs have been moved to the corresponding A tariff."
-  note: "Each F tariff maps to the A tariff with the same digits (the 'corresponding A tariff'); this document prints no F codes, the pairing (e.g. 'A100 / F100') is printed in the 2023-24 and 2024-25 schedules."
-- from: F23N
-  type: replaced_by
-  to: A23N
-  fin_year: 2025-26
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  locator: "pdf:p10"
-  quote: "Tariffs starting with \"F\" were tariffs that previously attracted the premium feed-in tariff rebate. These tariffs ended on 1 November 2024 and all customers that were previously on PfiT tariffs have been moved to the corresponding A tariff."
-  note: "Each F tariff maps to the A tariff with the same digits (the 'corresponding A tariff'); this document prints no F codes, the pairing (e.g. 'A100 / F100') is printed in the 2023-24 and 2024-25 schedules."
-- from: F270
-  type: replaced_by
-  to: A270
-  fin_year: 2025-26
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  locator: "pdf:p10"
-  quote: "Tariffs starting with \"F\" were tariffs that previously attracted the premium feed-in tariff rebate. These tariffs ended on 1 November 2024 and all customers that were previously on PfiT tariffs have been moved to the corresponding A tariff."
-  note: "Each F tariff maps to the A tariff with the same digits (the 'corresponding A tariff'); this document prints no F codes, the pairing (e.g. 'A100 / F100') is printed in the 2023-24 and 2024-25 schedules."
-- from: F300
-  type: replaced_by
-  to: A300
-  fin_year: 2025-26
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
-  locator: "pdf:p10"
-  quote: "Tariffs starting with \"F\" were tariffs that previously attracted the premium feed-in tariff rebate. These tariffs ended on 1 November 2024 and all customers that were previously on PfiT tariffs have been moved to the corresponding A tariff."
-  note: "Each F tariff maps to the A tariff with the same digits (the 'corresponding A tariff'); this document prints no F codes, the pairing (e.g. 'A100 / F100') is printed in the 2023-24 and 2024-25 schedules."
-- from: A180
-  type: assigned_with
-  to: A100
-  fin_year: 2026-27
-  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
-  locator: "pdf:p1"
-  quote: "A180 Off-peak Heating Only (dedicated circuit) Available as a complementary tariff to the \"Residential Single Rate\" A100 tariff only"
-flags:
 - codes: [A270, F270]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p2"
   quote: A270 / F270a Time of Use Extended - Demand (closed to new entrants)d
 - codes: [A300, F300]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p3"
   quote: A300 / F300a LV 0.4 - 0.8 GWh (Transitional)
 - codes: [A30E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p3"
   quote: "A30E LV Annual Consumption  0.8 GWh (Transitional)"
 - codes: [A320]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A320 LV 0.8+ - 2.2 GWh (Transitional)
 - codes: [A32E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A32E LV 0.8+ - 2.2 GWh (Transitional)
 - codes: [A340]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A340 LV 2.2+ - 6.0 GWh (Transitional)
 - codes: [A34E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p5"
   quote: A34E LV 2.2+ GWh (Transitional)
 - codes: &id014 [A34M]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p5"
   quote: A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional)
 - codes: *id014
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p5"
   quote: A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional)
 - codes: [A370]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p6"
   quote: A370 LV 6.0+ GWh (Transitional)
 - codes: &id015 [A37M]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p6"
   quote: A37M LV 6.0+ GWh (closed to new entrants)d (Transitional)
 - codes: *id015
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p6"
   quote: A37M LV 6.0+ GWh (closed to new entrants)d (Transitional)
 - codes: [A400]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p7"
   quote: A400 HV (Transitional)
 - codes: [A40E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p7"
   quote: A40E HV EN (Transitional)
 - codes: &id016 [A40R]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p8"
   quote: A40R HV (closed to new entrants)d (Transitional)
 - codes: *id016
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: A40R HV (closed to new entrants)d (Transitional)
 - codes: [A480]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: "A480 HV - Annual Consumption  55 GWh (Transitional)"
 - codes: [A48C]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: "A48C HV - Annual Consumption  55 GWh (Transitional)"
 - codes: [A500]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p9"
   quote: A500 Subtransmission (Transitional)
 - codes: [A50A]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p9"
   quote: A50A Subtransmission MA (Transitional)
 - codes: [A50E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p10"
   quote: A50E Subtransmission EG (Transitional)
 - codes: [A270, F270]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p2"
   quote: A270 / F270a Time of Use Extended - Demand (closed to new entrants)d
 - codes: [A300, F300]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p3"
   quote: A300 / F300a LV 0.4 - 0.8 GWh (Transitional)
 - codes: [A30E]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p3"
   quote: "A30E LV Annual Consumption  0.8 GWh (Transitional)"
 - codes: [A320]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A320 LV 0.8+ - 2.2 GWh (Transitional)
 - codes: [A32E]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A32E LV 0.8+ - 2.2 GWh (Transitional)
 - codes: [A340]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A340 LV 2.2+ - 6.0 GWh (Transitional)
 - codes: [A34E]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p5"
   quote: A34E LV 2.2+ GWh (Transitional)
 - codes: &id017 [A34M]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p5"
   quote: A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional)
 - codes: *id017
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p5"
   quote: A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional)
 - codes: [A370]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p6"
   quote: A370 LV 6.0+ GWh (Transitional)
 - codes: &id018 [A37M]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p6"
   quote: A37M LV 6.0+ GWh (closed to new entrants)d (Transitional)
 - codes: *id018
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p6"
   quote: A37M LV 6.0+ GWh (closed to new entrants)d (Transitional)
 - codes: [A400]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p7"
   quote: A400 HV (Transitional)
 - codes: [A40E]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p7"
   quote: A40E HV EN (Transitional)
 - codes: &id019 [A40R]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p8"
   quote: A40R HV (closed to new entrants)d (Transitional)
 - codes: *id019
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: A40R HV (closed to new entrants)d (Transitional)
 - codes: [A480]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: "A480 HV - Annual Consumption  55 GWh (Transitional)"
 - codes: [A48C]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: "A48C HV - Annual Consumption  55 GWh (Transitional)"
 - codes: [A500]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p9"
   quote: A500 Subtransmission (Transitional)
 - codes: [A50A]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p9"
   quote: A50A Subtransmission MA (Transitional)
 - codes: [A50E]
   doc: sources/aer/2023-24_price_lists/Jemena_2023-24_Network_Tariff_Schedule_31Mar2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p10"
   quote: A50E Subtransmission EG (Transitional)
 - codes: [A270, F270]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p2"
   quote: A270 / F270a Time of Use Extended - Demand (closed to new entrants)d
 - codes: [A300, F300]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p3"
   quote: A300 / F300a LV 0.4 - 0.8 GWh (Transitional)
 - codes: [A30E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p3"
   quote: "A30E LV Annual Consumption  0.8 GWh (Transitional)"
 - codes: [A320]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A320 LV 0.8+ - 2.2 GWh (Transitional)
 - codes: [A32E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A32E LV 0.8+ - 2.2 GWh (Transitional)
 - codes: [A340]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A340 LV 2.2+ - 6.0 GWh (Transitional)
 - codes: [A34E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p5"
   quote: A34E LV 2.2+ GWh (Transitional)
 - codes: &id020 [A34M]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p5"
   quote: A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional)
 - codes: *id020
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p5"
   quote: A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional)
 - codes: [A370]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p6"
   quote: A370 LV 6.0+ GWh (Transitional)
 - codes: &id021 [A37M]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p6"
   quote: A37M LV 6.0+ GWh (closed to new entrants)d (Transitional)
 - codes: *id021
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p6"
   quote: A37M LV 6.0+ GWh (closed to new entrants)d (Transitional)
 - codes: [A400]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p7"
   quote: A400 HV (Transitional)
 - codes: [A40E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p7"
   quote: A40E HV (Transitional)
 - codes: &id022 [A40R]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p8"
   quote: A40R HV (closed to new entrants)d (Transitional)
 - codes: *id022
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: A40R HV (closed to new entrants)d (Transitional)
 - codes: [A480]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: "A480 HV - Annual Consumption  55 GWh (Transitional)"
 - codes: [A48C]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: "A48C HV - Annual Consumption  55 GWh (Transitional)"
 - codes: [A500]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p9"
   quote: A500 Subtransmission (Transitional)
 - codes: [A50A]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p9"
   quote: A50A SubtransmissionMA (Transitional)
 - codes: [A50E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p10"
   quote: A50E SubtransmissionEG (Transitional)
 - codes: [A270, F270]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p2"
   quote: A270 / F270a Time of Use Extended - Demand (closed to new entrants)d
 - codes: [A300, F300]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p3"
   quote: A300 / F300a LV 0.4 - 0.8 GWh (Transitional)
 - codes: [A30E]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p3"
   quote: "A30E LV Annual Consumption  0.8 GWh (Transitional)"
 - codes: [A320]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A320 LV 0.8+ - 2.2 GWh (Transitional)
 - codes: [A32E]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A32E LV 0.8+ - 2.2 GWh (Transitional)
 - codes: [A340]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A340 LV 2.2+ - 6.0 GWh (Transitional)
 - codes: [A34E]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p5"
   quote: A34E LV 2.2+ GWh (Transitional)
 - codes: &id023 [A34M]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p5"
   quote: A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional)
 - codes: *id023
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p5"
   quote: A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional)
 - codes: [A370]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p6"
   quote: A370 LV 6.0+ GWh (Transitional)
 - codes: &id024 [A37M]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p6"
   quote: A37M LV 6.0+ GWh (closed to new entrants)d (Transitional)
 - codes: *id024
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p6"
   quote: A37M LV 6.0+ GWh (closed to new entrants)d (Transitional)
 - codes: [A400]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p7"
   quote: A400 HV (Transitional)
 - codes: [A40E]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p7"
   quote: A40E HV (Transitional)
 - codes: &id025 [A40R]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p8"
   quote: A40R HV (closed to new entrants)d (Transitional)
 - codes: *id025
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: A40R HV (closed to new entrants)d (Transitional)
 - codes: [A480]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: "A480 HV - Annual Consumption  55 GWh (Transitional)"
 - codes: [A48C]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: "A48C HV - Annual Consumption  55 GWh (Transitional)"
 - codes: [A500]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p9"
   quote: A500 Subtransmission (Transitional)
 - codes: [A50A]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p9"
   quote: A50A SubtransmissionMA (Transitional)
 - codes: [A50E]
   doc: sources/aer/dnsp_copies/Jemena_2024-25_Network_Tariff_Schedule_28Mar2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p10"
   quote: A50E SubtransmissionEG (Transitional)
 - codes: [A270]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p2"
   quote: A270 Time of Use Extended - Demand (closed to new entrants)d
 - codes: [A300]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p3"
   quote: A300 LV 0.4 - 0.8 GWh (Transitional)
 - codes: [A30E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p3"
   quote: "A30E LV Annual Consumption  0.8 GWh (Transitional)"
 - codes: [A320]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A320 LV 0.8+ - 2.2 GWh (Transitional)
 - codes: [A32E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A32E LV 0.8+ - 2.2 GWh (Transitional)
 - codes: [A340]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p4"
   quote: A340 LV 2.2+ - 6.0 GWh (Transitional)
 - codes: [A34E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p5"
   quote: A34E LV 2.2+ GWh (Transitional)
 - codes: &id026 [A34M]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p5"
   quote: A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional)
 - codes: *id026
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p5"
   quote: A34M LV 2.2+ - 6.0 GWh (closed to new entrants)d (Transitional)
 - codes: [A370]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p6"
   quote: A370 LV 6.0+ GWh (Transitional)
 - codes: &id027 [A37M]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p6"
   quote: A37M LV 6.0+ GWh (closed to new entrants)d (Transitional)
 - codes: *id027
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p6"
   quote: A37M LV 6.0+ GWh (closed to new entrants)d (Transitional)
 - codes: [A400]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p7"
   quote: A400 HV (Transitional)
 - codes: [A40E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p7"
   quote: A40E HV EN (Transitional)
 - codes: &id028 [A40R]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p8"
   quote: A40R HV (closed to new entrants)d (Transitional)
 - codes: *id028
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: A40R HV (closed to new entrants)d (Transitional)
 - codes: [A480]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: "A480 HV - Annual Consumption  55 GWh (Transitional)"
 - codes: [A48C]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p8"
   quote: "A48C HV - Annual Consumption  55 GWh (Transitional)"
 - codes: [A500]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p9"
   quote: A500 Subtransmission (Transitional)
 - codes: [A50A]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p9"
   quote: A50A Subtransmission MA (Transitional)
 - codes: [A50E]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "pdf:p10"
   quote: A50E Subtransmission EG (Transitional)
 - codes: [F100, F120, F10D, F200, F20D, F210, F230, F23N, F270, F300]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
   fin_year: 2025-26
-  flag: withdrawn
+  rule_type: availability
+  value_text: withdrawn
   locator: "pdf:p10"
   quote: "Tariffs starting with \"F\" were tariffs that previously attracted the premium feed-in tariff rebate. These tariffs ended on 1 November 2024"
 - codes: [A270]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
   fin_year: 2026-27
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p2"
   quote: A270 Time of Use Extended - Demand (closed to new entrants)c
 - codes: [A34T]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
   fin_year: 2026-27
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p3"
   quote: A34T LV 2.2+ - 6.0 GWh (closed to new entrants)
 - codes: [A37T]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
   fin_year: 2026-27
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p4"
   quote: A37T LV 6.0+ GWh (closed to new entrants)
 - codes: [A40T]
   doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
   fin_year: 2026-27
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: "pdf:p5"
   quote: A40T HV RF_CR (closed to new entrants)
 - codes: *id001
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Jemena_2024-25.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "xlsx:Tariff schedule!C99"
   quote: Large Business - LV <= 0.8  GWh (Transitional)
 - codes: *id002
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Jemena_2024-25.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "xlsx:Tariff schedule!C100"
   quote: Large Business – LVEN ≤ 0.8 GWh (Transitional)
 - codes: *id004
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Jemena_2024-25.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "xlsx:Tariff schedule!C102"
   quote: Large Business - LV 0.8+ -  2.2 GWh (Transitional)
 - codes: *id005
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Jemena_2024-25.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "xlsx:Tariff schedule!C103"
   quote: Large Business - LVEN 0.8+ -  2.2 GWh (Transitional)
 - codes: *id007
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Jemena_2024-25.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "xlsx:Tariff schedule!C105"
   quote: Large Business - LV 2.2+ -  6.0 GWh (Transitional)
 - codes: *id009
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Jemena_2024-25.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "xlsx:Tariff schedule!C107"
   quote: Large Business - LV 6.0+ GWh (Transitional)
 - codes: *id010
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_Jemena_2024-25.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: "xlsx:Tariff schedule!C108"
   quote: Large Business - LVMS 6.0+ GWh (Transitional)

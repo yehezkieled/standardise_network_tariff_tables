@@ -1,4 +1,4 @@
-# Hand-curated TOU windows, demand rules, eligibility, relations and flags for sapn.
+# Hand-curated TOU windows and eligibility for sapn.
 # Every item cites a document locator and a verbatim quote; validate with scripts/tariffdb/curated.py.
 distributor: sapn
 tou_schedules:
@@ -52,13 +52,13 @@ tou_schedules:
   tariffs:
   - codes:
     - RTOU
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p26
     quote: Time of Use | Opt-out Usage – Peak $/kWh 14 hours per day not captured in the Off-peak RTOU Interval meter, or
       Solar Sponge windows.
   - codes:
     - RPRO
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p26
     quote: Prosumer | RPRO Choice Usage – Peak $/kWh 14 hours per day not captured in the Off-peak
 - id: sapn-2324-app-rpro-demand
@@ -136,13 +136,13 @@ tou_schedules:
   tariffs:
   - codes:
     - RELE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p26
     quote: Electrify | RELE Customer Fixed $/day Fixed supply charge per annum. Choice, Trial Usage – Peak $/kWh Four hour
       window of 5:00pm – 9:00pm.
   - codes:
     - RELE2W
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p26
     quote: Way | RELE2W Choice, Trial Usage – Peak $/kWh Four hour window of 5:00pm – 9:00pm.
 - id: sapn-2324-app-rele2w-export
@@ -374,7 +374,7 @@ tou_schedules:
   tariffs:
   - codes:
     - B2R
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p28
     quote: Two-Rate | B2R Accumulation Usage – Peak $/kWh Five days a week (Monday – Friday) or possibly
 - id: sapn-2324-app-b2rt
@@ -411,7 +411,7 @@ tou_schedules:
   tariffs:
   - codes:
     - B2RT
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p29
     quote: Two-Rate | B2RT Two-Rate Usage – Peak $/kWh 7:00am to 9:00pm five days a week
 - id: sapn-2324-app-sbtou-energy
@@ -529,13 +529,13 @@ tou_schedules:
   tariffs:
   - codes:
     - SBTOU
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p28
     quote: Time of Use | out Usage – Peak $/kWh 5:00pm – 9:00pm All days November – March. SBTOU Interval meter, Usage – Shoulder
       $/kWh 7:00am – 5:00pm WD November – March and
   - codes:
     - SBTOUD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p28
     quote: Usage – Shoulder $/kWh 7:00am – 5:00pm WD November – March and | SBTOUD Choice 7:00am – 9:00pm WD April – October.
 - id: sapn-2324-app-sbtoue-energy
@@ -622,7 +622,7 @@ tou_schedules:
   tariffs:
   - codes:
     - SBTOUE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p28
     quote: 'Electrify | Interval meter, Usage – Shoulder $/kWh 7:00am – 10:00am and 4:00pm – 5:00pm WD. SBTOUE either: Usage
       – Off-peak $/kWh'
@@ -720,7 +720,7 @@ tou_schedules:
   - codes:
     - LBAD
     - LBADCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p66
     quote: LBAD LBADCBD Large LV Business Annual Demand
     note: Row of the NUoS tariff schedule (Table 31, pdf:p66), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -729,7 +729,7 @@ tou_schedules:
   - codes:
     - LBADF
     - LBADFCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p66
     quote: LBADF LBADFCBD Large LV Business Agreed Demand Flexible
     note: Row of the NUoS tariff schedule (Table 31, pdf:p66), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -739,7 +739,7 @@ tou_schedules:
   - codes:
     - LBMD
     - LBMDCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p66
     quote: LBMD LBMDCBD Large LV Business Monthly Peak Demand
     note: Row of the NUoS tariff schedule (Table 31, pdf:p66), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -748,7 +748,7 @@ tou_schedules:
   - codes:
     - HVAD
     - HVADCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p66
     quote: HVAD HVADCBD HV Business Annual Demand
     note: Row of the NUoS tariff schedule (Table 31, pdf:p66), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -757,7 +757,7 @@ tou_schedules:
   - codes:
     - HVADF
     - HVADFCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p66
     quote: HVADF HVADFCBD HV Business Agreed Demand Flexible
     note: Row of the NUoS tariff schedule (Table 31, pdf:p66), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -767,7 +767,7 @@ tou_schedules:
   - codes:
     - HVMD
     - HVMDCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p66
     quote: HVMD HVMDCBD HV Business Monthly Peak Demand
     note: Row of the NUoS tariff schedule (Table 31, pdf:p66), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -776,7 +776,7 @@ tou_schedules:
   - codes:
     - HVAD500
     - HVAD500CBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p66
     quote: HVAD500 HVAD500CBD HV Business Annual Demand <500kVA
     note: Row of the NUoS tariff schedule (Table 31, pdf:p66), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -1072,13 +1072,13 @@ tou_schedules:
   tariffs:
   - codes:
     - RTOU
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p25
     quote: 'Time of Use | Opt-out Usage – Peak $/kWh 14 hours per day not captured in the RTOU Interval meter, either: Off-peak
       or Solar Sponge windows.'
   - codes:
     - RPRO
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p25
     quote: Prosumer | Remotely read interval Usage – Peak $/kWh 14 hours per day not captured in the RPRO
 - id: sapn-2425-app-rpro-demand
@@ -1156,13 +1156,13 @@ tou_schedules:
   tariffs:
   - codes:
     - RELE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p25
     quote: Electrify | RELE Customer Choice, Trial Fixed $/day Fixed supply charge per annum. Remotely read interval Usage
       – Peak $/kWh Four hour window of 5:00pm –
   - codes:
     - RELE2W
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p26
     quote: Electrify Two Customer Choice, Trial Fixed $/day Fixed supply charge per annum. Way | RELE2W
 - id: sapn-2425-app-rele2w-export
@@ -1394,7 +1394,7 @@ tou_schedules:
   tariffs:
   - codes:
     - B2R
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p28
     quote: Two-Rate | B2R Accumulation Usage – Peak $/kWh Five days a week (Monday – Friday) or possibly
 - id: sapn-2425-app-b2rt
@@ -1431,7 +1431,7 @@ tou_schedules:
   tariffs:
   - codes:
     - B2RT
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p29
     quote: Two-Rate | B2RT Two-Rate Usage – Peak $/kWh 7:00am to 9:00pm five days a week
 - id: sapn-2425-app-sbtou-energy
@@ -1549,13 +1549,13 @@ tou_schedules:
   tariffs:
   - codes:
     - SBTOU
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p28
     quote: Time of Use | out Usage – Peak $/kWh 5:00pm – 9:00pm All days November – March. SBTOU Interval meter, Usage – Shoulder
       $/kWh 7:00am – 5:00pm WD November – March and
   - codes:
     - SBTOUD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p28
     quote: Usage – Shoulder $/kWh 7:00am – 5:00pm WD November – March and | SBTOUD Choice 7:00am – 9:00pm WD April – October.
 - id: sapn-2425-app-sbtoue-energy
@@ -1642,7 +1642,7 @@ tou_schedules:
   tariffs:
   - codes:
     - SBTOUE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p28
     quote: 'Electrify | Interval meter, Usage – Shoulder $/kWh 7:00am – 10:00am and 4:00pm – 5:00pm WD. SBTOUE either: Usage
       – Off-peak $/kWh'
@@ -1740,7 +1740,7 @@ tou_schedules:
   - codes:
     - LBAD
     - LBADCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p67
     quote: LBAD LBADCBD Large LV Business Annual Demand
     note: Row of the NUoS tariff schedule (Table 31, pdf:p67), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -1749,7 +1749,7 @@ tou_schedules:
   - codes:
     - LBADF
     - LBADFCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p67
     quote: LBADF LBADFCBD Large LV Business Agreed Demand Flexible
     note: Row of the NUoS tariff schedule (Table 31, pdf:p67), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -1759,7 +1759,7 @@ tou_schedules:
   - codes:
     - LBMD
     - LBMDCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p67
     quote: LBMD LBMDCBD Large LV Business Monthly Peak Demand
     note: Row of the NUoS tariff schedule (Table 31, pdf:p67), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -1768,7 +1768,7 @@ tou_schedules:
   - codes:
     - HVAD
     - HVADCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p67
     quote: HVAD HVADCBD HV Business Annual Demand
     note: Row of the NUoS tariff schedule (Table 31, pdf:p67), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -1777,7 +1777,7 @@ tou_schedules:
   - codes:
     - HVADF
     - HVADFCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p67
     quote: HVADF HVADFCBD HV Business Agreed Demand Flexible
     note: Row of the NUoS tariff schedule (Table 31, pdf:p67), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -1787,7 +1787,7 @@ tou_schedules:
   - codes:
     - HVMD
     - HVMDCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p67
     quote: HVMD HVMDCBD HV Business Monthly Peak Demand
     note: Row of the NUoS tariff schedule (Table 31, pdf:p67), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -1796,7 +1796,7 @@ tou_schedules:
   - codes:
     - HVAD500
     - HVAD500CBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p67
     quote: HVAD500 HVAD500CBD HV Business Annual Demand <500kVA
     note: Row of the NUoS tariff schedule (Table 31, pdf:p67), whose two code columns are headed 'Code SA' and 'Code CBD only'.
@@ -2082,12 +2082,12 @@ tou_schedules:
   tariffs:
   - codes:
     - RTOU
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p13
     quote: Time of Use | Opt-out Fixed $/day Fixed metering charge per annum. RTOU Interval meter
   - codes:
     - RTOUNE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p13
     quote: Time of Use | Opt-out Fixed $/day Fixed metering charge per annum. RTOUNE Interval meter
 - id: sapn-2526-aer-rtou-export
@@ -2164,12 +2164,12 @@ tou_schedules:
   tariffs:
   - codes:
     - RESELE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p14
     quote: Electrify | RESELE Choice
   - codes:
     - RESELENE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p14
     quote: Electrify | Choice Fixed $/day Fixed metering charge per annum. RESELENE Interval meter
 - id: sapn-2526-aer-resele-export
@@ -2384,12 +2384,12 @@ tou_schedules:
   tariffs:
   - codes:
     - B2R
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p20
     quote: Two-Rate | B2R Accumulation
   - codes:
     - B2RNE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p20
     quote: Two-Rate | Accumulation Fixed $/day Fixed metering charge per annum. B2RNE meter Usage – Peak $/kWh Five days a
       week (Monday – Friday) or possibly
@@ -2507,22 +2507,22 @@ tou_schedules:
   tariffs:
   - codes:
     - SBTOU
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p21
     quote: Time of Use | Opt-out Fixed $/day Fixed metering charge per annum. SBTOU 0-40 MWh p.a.
   - codes:
     - SBTOUNE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p21
     quote: Time of Use | Opt-out Fixed $/day Fixed metering charge per annum. SBTOUNE 0-40 MWh p.a.
   - codes:
     - MBTOUD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p22
     quote: Demand | 40-160 MWh p.a. Usage – Peak $/kWh 5:00pm – 9:00pm All days November – March. MBTOUD
   - codes:
     - MBTOUDNE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p22
     quote: Demand | 40-160 MWh p.a. Usage – Peak $/kWh 5:00pm – 9:00pm All days November – March. MBTOUDNE
 - id: sapn-2526-aer-sb-export
@@ -2634,12 +2634,12 @@ tou_schedules:
   tariffs:
   - codes:
     - SBELE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p23
     quote: Electrify | SBELE Interval meter
   - codes:
     - SBELENE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p23
     quote: Electrify | Interval meter Usage – Peak $/kWh 5:00pm – 9:00pm All days. SBELENE
 - id: sapn-2526-aer-sbele-export
@@ -2720,7 +2720,7 @@ tou_schedules:
   - codes:
     - LBAD
     - LBADCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: LBAD LBADCBD Large LV Business Annual Demand
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -2729,7 +2729,7 @@ tou_schedules:
   - codes:
     - LBADF
     - LBADFCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: LBADF LBADFCBD Large LV Business Agreed Demand Flexible
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -2738,7 +2738,7 @@ tou_schedules:
   - codes:
     - LBMD
     - LBMDCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: LBMD LBMDCBD Large LV Business Monthly Demand
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -2747,7 +2747,7 @@ tou_schedules:
   - codes:
     - HVAD
     - HVADCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: HVAD HVADCBD HV Business Annual Demand
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -2756,7 +2756,7 @@ tou_schedules:
   - codes:
     - HVAD500
     - HVAD500CBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: HVAD500 HVAD500CBD HV Business Annual Demand <500kVA
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -2766,7 +2766,7 @@ tou_schedules:
   - codes:
     - HVADF
     - HVADFCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: HVADF HVADFCBD HV Business Agreed Demand Flexible
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -2775,7 +2775,7 @@ tou_schedules:
   - codes:
     - HVMD
     - HVMDCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: HVMD HVMDCBD HV Business Monthly Demand
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -3045,12 +3045,12 @@ tou_schedules:
   tariffs:
   - codes:
     - RTOU
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p13
     quote: Time of Use | Opt-out Fixed $/day Fixed metering charge per annum. RTOU Interval meter
   - codes:
     - RTOUNE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p13
     quote: Time of Use | Opt-out Fixed $/day Fixed metering charge per annum. RTOUNE Interval meter
 - id: sapn-2526-dnsp-rtou-export
@@ -3127,12 +3127,12 @@ tou_schedules:
   tariffs:
   - codes:
     - RESELE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p14
     quote: Electrify | RESELE Choice
   - codes:
     - RESELENE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p14
     quote: Electrify | Choice Fixed $/day Fixed metering charge per annum. RESELENE Interval meter
 - id: sapn-2526-dnsp-resele-export
@@ -3347,12 +3347,12 @@ tou_schedules:
   tariffs:
   - codes:
     - B2R
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p20
     quote: Two-Rate | B2R Accumulation
   - codes:
     - B2RNE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p20
     quote: Two-Rate | Accumulation Fixed $/day Fixed metering charge per annum. B2RNE meter Usage – Peak $/kWh Five days a
       week (Monday – Friday) or possibly
@@ -3470,22 +3470,22 @@ tou_schedules:
   tariffs:
   - codes:
     - SBTOU
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p21
     quote: Time of Use | Opt-out Fixed $/day Fixed metering charge per annum. SBTOU 0-40 MWh p.a.
   - codes:
     - SBTOUNE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p21
     quote: Time of Use | Opt-out Fixed $/day Fixed metering charge per annum. SBTOUNE 0-40 MWh p.a.
   - codes:
     - MBTOUD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p22
     quote: Demand | 40-160 MWh p.a. Usage – Peak $/kWh 5:00pm – 9:00pm All days November – March. MBTOUD
   - codes:
     - MBTOUDNE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p22
     quote: Demand | 40-160 MWh p.a. Usage – Peak $/kWh 5:00pm – 9:00pm All days November – March. MBTOUDNE
 - id: sapn-2526-dnsp-sb-export
@@ -3597,12 +3597,12 @@ tou_schedules:
   tariffs:
   - codes:
     - SBELE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p23
     quote: Electrify | SBELE Interval meter
   - codes:
     - SBELENE
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p23
     quote: Electrify | Interval meter Usage – Peak $/kWh 5:00pm – 9:00pm All days. SBELENE
 - id: sapn-2526-dnsp-sbele-export
@@ -3683,7 +3683,7 @@ tou_schedules:
   - codes:
     - LBAD
     - LBADCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: LBAD LBADCBD Large LV Business Annual Demand
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -3692,7 +3692,7 @@ tou_schedules:
   - codes:
     - LBADF
     - LBADFCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: LBADF LBADFCBD Large LV Business Agreed Demand Flexible
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -3701,7 +3701,7 @@ tou_schedules:
   - codes:
     - LBMD
     - LBMDCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: LBMD LBMDCBD Large LV Business Monthly Demand
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -3710,7 +3710,7 @@ tou_schedules:
   - codes:
     - HVAD
     - HVADCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: HVAD HVADCBD HV Business Annual Demand
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -3719,7 +3719,7 @@ tou_schedules:
   - codes:
     - HVAD500
     - HVAD500CBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: HVAD500 HVAD500CBD HV Business Annual Demand <500kVA
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -3729,7 +3729,7 @@ tou_schedules:
   - codes:
     - HVADF
     - HVADFCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: HVADF HVADFCBD HV Business Agreed Demand Flexible
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -3738,7 +3738,7 @@ tou_schedules:
   - codes:
     - HVMD
     - HVMDCBD
-    applies_to: energy
+    applies_to: usage
     locator: pdf:p37
     quote: HVMD HVMDCBD HV Business Monthly Demand
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
@@ -3965,2264 +3965,6 @@ tou_schedules:
     note: 'Row of the NUoS tariff schedule (Table 9, pdf:p37), whose first two code columns are headed ''Code: SA'' and ''Code:
       CBD''. The Table 8 (pdf:p31) LBGF block (High Voltage Business Generation Flexible | HVBGF) gives the peak demand row
       ''November – March: • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days''.'
-demand_rules:
-- id: sapn-2324-app-rpro-summer-demand
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kW
-  aggregation: not_stated
-  window_schedule: sapn-2324-app-rpro-demand
-  window_period: demand_window
-  months: 11,12,1,2,3
-  locator: pdf:p26
-  quote: 'Demand – $/kW/day Highest daily average demand interval Summer November – March: • 5:00pm – 9:00pm CDST All days'
-  note: Charged in $/kW/day on the 'highest daily average demand interval' in the summer window; the billing aggregation (monthly
-    or otherwise) is not stated in this document. The component is in the 'Residential Prosumer | RPRO' row of Table 3 (pdf:p26),
-    the only Table 3 tariff with a demand component.
-  tariffs:
-  - codes:
-    - RPRO
-    season: summer
-- id: sapn-2324-app-sbd-peak-actual
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: monthly_max
-  window_schedule: sapn-2324-app-transition-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p28
-  quote: 'Demand – $/kVA/day Actual monthly highest demand measured: Transition | SBD ( Type 4) Peak Actual • Over a 30-minute
-    demand interval; and • 4:00pm – 9:00pm WD November – March'
-  tariffs:
-  - codes: &id001
-    - SBD
-    time_band: peak
-- id: sapn-2324-app-sbd-shoulder-actual
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: monthly_max
-  window_schedule: sapn-2324-app-transition-demand
-  window_period: shoulder
-  locator: pdf:p28
-  quote: 'Demand – $ /kVA/day Actual monthly highest demand: Shoulder Actual • Over a 30-minute demand interval; and • 12:00pm
-    – 4:00pm WD 12 months'
-  note: Second demand component of the 'Small Business Actual kVA Demand – Transition | SBD' row of Table 5 (pdf:p28), directly
-    below its Peak Actual component.
-  tariffs:
-  - codes: *id001
-    time_band: shoulder
-- id: sapn-2324-app-bd-hbd-peak-actual
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: monthly_max
-  window_schedule: sapn-2324-app-transition-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: 'Transition | BD Interval meter Demand – $/kVA/day Actual monthly highest demand: (Type 4) Peak Actual • Over a 30-minute
-    demand interval; and HV Business • 4:00pm – 9:00pm WD November – March'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Actual Demand – Transition | BD' and 'HV Business Actual Demand – Transition
-    | HBD' in one row with one set of components.
-  tariffs:
-  - codes: &id002
-    - BD
-    - HBD
-    time_band: peak
-- id: sapn-2324-app-bd-hbd-shoulder-actual
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: monthly_max
-  window_schedule: sapn-2324-app-transition-demand
-  window_period: shoulder
-  locator: pdf:p29
-  quote: 'Actual Demand – Demand – $/kVA/day Actual monthly highest demand: Transition | HBD Shoulder Actual • Over a 30-minute
-    demand interval; and • 12:00pm – 4:00pm WD 12 months'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Actual Demand – Transition | BD' and 'HV Business Actual Demand – Transition
-    | HBD' in one row with one set of components.
-  tariffs:
-  - codes: *id002
-    time_band: shoulder
-- id: sapn-2324-app-sbtoud-annual
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p28
-  quote: Demand – Annual $ /kVA/pa Highest average demand interval (30 minutes) (Type 4); or during the last 12 months.
-  note: Charged in $/kVA/pa. The only demand component of the 'Small Business Time of Use + Demand | SBTOUD' row of Table 5
-    (pdf:p28).
-  tariffs:
-  - codes:
-    - SBTOUD
-- id: sapn-2324-app-annual-peak-cbd
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2324-app-cbd-peak-demand
-  window_period: peak
-  locator: pdf:p29
-  quote: 'Demand – $/kVA/day Highest daily average demand interval during the Annual Demand | Peak Annual last 12 months November
-    – March: HVAD • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Annual Demand | LBAD', 'HV Business Annual Demand | HVAD' and 'HV Business
-    Annual Demand <500kVA | HVAD500' in one row with one set of components. CBD codes are the price list's 'SA CBD only' code
-    column (Table 31, pdf:p66, e.g. 'LBAD LBADCBD Large LV Business Annual Demand'); this window is linked to them. Measured
-    November – March (the linked window); the document does not state in which months the annual peak charge is billed.
-  tariffs:
-  - codes:
-    - LBADCBD
-    - HVADCBD
-    - HVAD500CBD
-    time_band: peak
-- id: sapn-2324-app-monthly-peak-cbd
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2324-app-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: 'Demand – $ /kVA/day Highest daily average demand interval during the Monthly Demand Peak Actual month November – March:
-    | HVMD • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Monthly Demand | LBMD' and 'HV Business Monthly Demand | HVMD' in one row
-    with one set of components. CBD codes are the price list's 'SA CBD only' code column (Table 31, pdf:p66, e.g. 'LBAD LBADCBD
-    Large LV Business Annual Demand'); this window is linked to them.
-  tariffs:
-  - codes:
-    - LBMDCBD
-    - HVMDCBD
-    time_band: peak
-- id: sapn-2324-app-flex-peak-firm-cbd
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2324-app-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: 'Demand Firm – $/kVA/day Agreed demand November to March Annual Demand Peak Agreed on days when the following days
-    temperature Flexible | HVADF forecast at West Tce Adelaide at 4:00pm is 38 degrees or above: • CBD 11:00am – 5:00pm CDST
-    WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Annual Demand Flexible | LBADF' and 'HV Business Annual Demand Flexible |
-    HVADF' in one row with one set of components. CBD codes are the price list's 'SA CBD only' code column (Table 31, pdf:p66,
-    e.g. 'LBAD LBADCBD Large LV Business Annual Demand'); this window is linked to them.
-  tariffs:
-  - codes:
-    - LBADFCBD
-    - HVADFCBD
-    time_band: peak
-- id: sapn-2324-app-gen-peak-agreed-cbd
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2324-app-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p30
-  quote: 'Demand – $/kVA/day Agreed demand November to March on extreme Generation includes Peak Agreed summer days: Supplies
-    | HVBG Generation-only • CBD 11:00am – 5:00pm CDST WD batteries • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 continued (pdf:p30) lists 'Large LV Business Generation Supplies | LVBG' and 'HV Business Generation Supplies
-    | HVBG' (price-list codes LBG/HVBG, Table 31 'LBG LBGCBD Large LV Business Generation supply') in one row. CBD codes are
-    the price list's 'SA CBD only' code column (Table 31, pdf:p66, e.g. 'LBAD LBADCBD Large LV Business Annual Demand'); this
-    window is linked to them.
-  tariffs:
-  - codes:
-    - LBGCBD
-    - HVBGCBD
-    time_band: peak
-- id: sapn-2324-app-genflex-peak-firm-cbd
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2324-app-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p30
-  quote: 'Demand Firm – $/kVA/day Agreed demand November to March Generation includes Peak Agreed on days when the following
-    days temperature Supplies Flexible Generation-only forecast at West Tce Adelaide at 4:00pm is 38 | HVBGF batteries degrees
-    or above: • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 continued (pdf:p30) lists 'Large LV Business Generation Supplies Flexible | LVBGF' and 'HV Business Generation
-    Supplies Flexible | HVBGF' (price-list codes LBGF/HVBGF) in one row. CBD codes are the price list's 'SA CBD only' code column
-    (Table 31, pdf:p66, e.g. 'LBAD LBADCBD Large LV Business Annual Demand'); this window is linked to them.
-  tariffs:
-  - codes:
-    - LBGFCBD
-    - HVBGFCBD
-    time_band: peak
-- id: sapn-2324-app-annual-peak-noncbd
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2324-app-noncbd-peak-demand
-  window_period: peak
-  locator: pdf:p29
-  quote: 'Demand – $/kVA/day Highest daily average demand interval during the Annual Demand | Peak Annual last 12 months November
-    – March: HVAD • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Annual Demand | LBAD', 'HV Business Annual Demand | HVAD' and 'HV Business
-    Annual Demand <500kVA | HVAD500' in one row with one set of components. The non-CBD window is linked to the 'Code SA' codes
-    of the price list (Table 31, pdf:p66). Measured November – March (the linked window); the document does not state in which
-    months the annual peak charge is billed.
-  tariffs:
-  - codes:
-    - LBAD
-    - HVAD
-    - HVAD500
-    time_band: peak
-- id: sapn-2324-app-monthly-peak-noncbd
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2324-app-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: 'Demand – $ /kVA/day Highest daily average demand interval during the Monthly Demand Peak Actual month November – March:
-    | HVMD • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Monthly Demand | LBMD' and 'HV Business Monthly Demand | HVMD' in one row
-    with one set of components. The non-CBD window is linked to the 'Code SA' codes of the price list (Table 31, pdf:p66).
-  tariffs:
-  - codes:
-    - LBMD
-    - HVMD
-    time_band: peak
-- id: sapn-2324-app-flex-peak-firm-noncbd
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2324-app-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: 'Demand Firm – $/kVA/day Agreed demand November to March Annual Demand Peak Agreed on days when the following days
-    temperature Flexible | HVADF forecast at West Tce Adelaide at 4:00pm is 38 degrees or above: • CBD 11:00am – 5:00pm CDST
-    WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Annual Demand Flexible | LBADF' and 'HV Business Annual Demand Flexible |
-    HVADF' in one row with one set of components. The non-CBD window is linked to the 'Code SA' codes of the price list (Table
-    31, pdf:p66).
-  tariffs:
-  - codes:
-    - LBADF
-    - HVADF
-    time_band: peak
-- id: sapn-2324-app-gen-peak-agreed-noncbd
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2324-app-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p30
-  quote: 'Demand – $/kVA/day Agreed demand November to March on extreme Generation includes Peak Agreed summer days: Supplies
-    | HVBG Generation-only • CBD 11:00am – 5:00pm CDST WD batteries • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 continued (pdf:p30) lists 'Large LV Business Generation Supplies | LVBG' and 'HV Business Generation Supplies
-    | HVBG' (price-list codes LBG/HVBG, Table 31 'LBG LBGCBD Large LV Business Generation supply') in one row. The non-CBD window
-    is linked to the 'Code SA' codes of the price list (Table 31, pdf:p66).
-  tariffs:
-  - codes:
-    - LBG
-    - HVBG
-    time_band: peak
-- id: sapn-2324-app-genflex-peak-firm-noncbd
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2324-app-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p30
-  quote: 'Demand Firm – $/kVA/day Agreed demand November to March Generation includes Peak Agreed on days when the following
-    days temperature Supplies Flexible Generation-only forecast at West Tce Adelaide at 4:00pm is 38 | HVBGF batteries degrees
-    or above: • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 continued (pdf:p30) lists 'Large LV Business Generation Supplies Flexible | LVBGF' and 'HV Business Generation
-    Supplies Flexible | HVBGF' (price-list codes LBGF/HVBGF) in one row. The non-CBD window is linked to the 'Code SA' codes
-    of the price list (Table 31, pdf:p66).
-  tariffs:
-  - codes:
-    - LBGF
-    - HVBGF
-    time_band: peak
-- id: sapn-2324-app-annual-anytime
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p29
-  quote: Demand – $/kVA/day Highest average demand interval (30 minutes) Annual Demand Anytime Annual during the last 12 months.
-  note: Table 6 (pdf:p29) lists 'Large LV Business Annual Demand | LBAD', 'HV Business Annual Demand | HVAD' and 'HV Business
-    Annual Demand <500kVA | HVAD500' in one row with one set of components. CBD codes from the price list's 'SA CBD only' column
-    (Table 31, pdf:p66).
-  tariffs:
-  - codes:
-    - LBAD
-    - HVAD
-    - HVAD500
-    - LBADCBD
-    - HVADCBD
-    - HVAD500CBD
-    time_band: anytime
-- id: sapn-2324-app-monthly-anytime
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p29
-  quote: Demand – $/kVA/day Highest average demand interval (30 minutes) Anytime Actual during the last 12 months.
-  note: Table 6 (pdf:p29) lists 'Large LV Business Monthly Demand | LBMD' and 'HV Business Monthly Demand | HVMD' in one row
-    with one set of components. CBD codes from the price list's 'SA CBD only' column (Table 31, pdf:p66).
-  tariffs:
-  - codes:
-    - LBMD
-    - HVMD
-    - LBMDCBD
-    - HVMDCBD
-    time_band: anytime
-- id: sapn-2324-app-flex-anytime
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p29
-  quote: Demand Firm – $/kVA/day Agreed demand interval (30 minutes). Anytime Agreed Demand Flex – $/kVA/day Agreed demand interval
-    (30 minutes). Anytime Agreed
-  note: Demand Firm – Anytime Agreed and Demand Flex – Anytime Agreed. Table 6 (pdf:p29) lists 'Large LV Business Annual Demand
-    Flexible | LBADF' and 'HV Business Annual Demand Flexible | HVADF' in one row with one set of components. CBD codes from
-    the price list's 'SA CBD only' column (Table 31, pdf:p66).
-  tariffs:
-  - codes:
-    - LBADF
-    - HVADF
-    - LBADFCBD
-    - HVADFCBD
-    time_band: anytime
-- id: sapn-2324-app-gen-anytime
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p30
-  quote: Demand – $/kVA/day Highest average demand interval (30 minutes) Anytime Actual during the last 12 months unless otherwise
-    Agreed.
-  note: '''unless otherwise Agreed''. Table 6 continued (pdf:p30) lists ''Large LV Business Generation Supplies | LVBG'' and
-    ''HV Business Generation Supplies | HVBG'' (price-list codes LBG/HVBG, Table 31 ''LBG LBGCBD Large LV Business Generation
-    supply'') in one row.'
-  tariffs:
-  - codes:
-    - LBG
-    - HVBG
-    - LBGCBD
-    - HVBGCBD
-    time_band: anytime
-- id: sapn-2324-app-genflex-anytime
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p30
-  quote: Demand Firm – $/kVA/day Agreed demand interval (30 minutes). Anytime Agreed Demand Flex – $/kVA/day Agreed demand interval
-    (30 minutes). Anytime Agreed
-  note: Demand Firm – Anytime Agreed and Demand Flex – Anytime Agreed (pdf:p30). Table 6 continued (pdf:p30) lists 'Large LV
-    Business Generation Supplies Flexible | LVBGF' and 'HV Business Generation Supplies Flexible | HVBGF' (price-list codes
-    LBGF/HVBGF) in one row.
-  tariffs:
-  - codes:
-    - LBGF
-    - HVBGF
-    - LBGFCBD
-    - HVBGFCBD
-    time_band: anytime
-- id: sapn-2324-app-major-peak-agreed
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: agreed
-  locator: pdf:p31
-  quote: ZSN customers Demand – $/kVA day Agreed demand during a time window Peak Agreed determined by transmission pricing
-    Sub-Transmission requirements which vary across the State.
-  note: The peak window is 'determined by transmission pricing requirements which vary across the State' and is not given in
-    the document. Table 7 (pdf:p31) lists 'Zone Substation Non-Locational | ZSN' and 'Sub-Transmission Non-Locational | STN'
-    in one row with one set of components.
-  tariffs:
-  - codes:
-    - ZSN
-    - STN
-    time_band: peak
-- id: sapn-2324-app-major-anytime
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p31
-  quote: Non-Locational | Demand – $/kVA day Highest average demand interval (30 minutes) STN Anytime Actual during the last
-    12 months unless otherwise Agreed. Minimum of 5,000 kVA.
-  note: '''unless otherwise Agreed''. ZSN and STN share this row of Table 7 (pdf:p31).'
-  tariffs:
-  - codes:
-    - ZSN
-    - STN
-    time_band: anytime
-- id: sapn-2324-app-major-flex-peak
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  aggregation: agreed
-  months: 11,12,1,2,3
-  locator: pdf:p31
-  quote: Flexible | ZSNF customers Demand Firm – $/kVA day Agreed demand November to March Peak Agreed on days when the following
-    days temperature Sub-Transmission Customer forecast at West Tce Adelaide at 4:00pm is 38 Non-Locational Choice, Trial degrees
-    or above during a time window
-  note: On days at or above 38 degrees, 'during a time window determined by transmission pricing requirements which vary across
-    the State' (window not given). Table 7 (pdf:p31) lists ZSNF and STNF in one row; the generation flexible row (ZSNGF, STNGF)
-    on the same page states the same Demand Firm – Peak Agreed wording.
-  tariffs:
-  - codes:
-    - ZSNF
-    - STNF
-    - ZSNGF
-    - STNGF
-    time_band: peak
-- id: sapn-2324-app-major-flex-anytime
-  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
-  fin_year: 2023-24
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p31
-  quote: Demand Firm – $/kVA day Agreed demand interval (30 minutes). Anytime Agreed Anytime (Firm + Flex) minimum 5,000 kVA.
-  note: '''Anytime (Firm + Flex) minimum 5,000 kVA.'' The ZSNF/STNF and ZSNGF/STNGF rows of Table 7 (pdf:p31) both state this
-    for Demand Firm and Demand Flex – Anytime Agreed.'
-  tariffs:
-  - codes:
-    - ZSNF
-    - STNF
-    - ZSNGF
-    - STNGF
-    time_band: anytime
-- id: sapn-2425-app-rpro-summer-demand
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kW
-  aggregation: not_stated
-  window_schedule: sapn-2425-app-rpro-demand
-  window_period: demand_window
-  months: 11,12,1,2,3
-  locator: pdf:p25
-  quote: 'Demand – $/kW/day Highest daily average demand Summer interval November – March: • 5:00pm – 9:00pm CDST All days'
-  note: Charged in $/kW/day on the 'highest daily average demand interval' in the summer window; the billing aggregation (monthly
-    or otherwise) is not stated in this document. The component is in the 'Residential Prosumer | RPRO' row of Table 3 (pdf:p25),
-    the only Table 3 tariff with a demand component.
-  tariffs:
-  - codes:
-    - RPRO
-    season: summer
-- id: sapn-2425-app-sbd-peak-actual
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: monthly_max
-  window_schedule: sapn-2425-app-transition-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p28
-  quote: 'Demand – $/kVA/day Actual monthly highest demand measured: Transition | SBD ( Type 4) Peak Actual • Over a 30-minute
-    demand interval; and • 4:00pm – 9:00pm WD November – March'
-  tariffs:
-  - codes: &id003
-    - SBD
-    time_band: peak
-- id: sapn-2425-app-sbd-shoulder-actual
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: monthly_max
-  window_schedule: sapn-2425-app-transition-demand
-  window_period: shoulder
-  locator: pdf:p28
-  quote: 'Demand – $ /kVA/day Actual monthly highest demand: Shoulder Actual • Over a 30-minute demand interval; and • 12:00pm
-    – 4:00pm WD 12 months'
-  note: Second demand component of the 'Small Business Actual kVA Demand – Transition | SBD' row of Table 5 (pdf:p28), directly
-    below its Peak Actual component.
-  tariffs:
-  - codes: *id003
-    time_band: shoulder
-- id: sapn-2425-app-bd-hbd-peak-actual
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: monthly_max
-  window_schedule: sapn-2425-app-transition-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: 'Transition | BD Interval meter Demand – $/kVA/day Actual monthly highest demand: (Type 4) Peak Actual • Over a 30-minute
-    demand interval; and HV Business • 4:00pm – 9:00pm WD November – March'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Actual Demand – Transition | BD' and 'HV Business Actual Demand – Transition
-    | HBD' in one row with one set of components.
-  tariffs:
-  - codes: &id004
-    - BD
-    - HBD
-    time_band: peak
-- id: sapn-2425-app-bd-hbd-shoulder-actual
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: monthly_max
-  window_schedule: sapn-2425-app-transition-demand
-  window_period: shoulder
-  locator: pdf:p29
-  quote: 'Actual Demand – Demand – $/kVA/day Actual monthly highest demand: Transition | HBD Shoulder Actual • Over a 30-minute
-    demand interval; and • 12:00pm – 4:00pm WD 12 months'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Actual Demand – Transition | BD' and 'HV Business Actual Demand – Transition
-    | HBD' in one row with one set of components.
-  tariffs:
-  - codes: *id004
-    time_band: shoulder
-- id: sapn-2425-app-sbtoud-annual
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p28
-  quote: Demand – Annual $ /kVA/pa Highest average demand interval (30 minutes) (Type 4); or during the last 12 months.
-  note: Charged in $/kVA/pa. The only demand component of the 'Small Business Time of Use + Demand | SBTOUD' row of Table 5
-    (pdf:p28).
-  tariffs:
-  - codes:
-    - SBTOUD
-- id: sapn-2425-app-annual-peak-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2425-app-cbd-peak-demand
-  window_period: peak
-  locator: pdf:p29
-  quote: 'Demand – $/kVA/day Highest daily average demand interval during the Annual Demand | Peak Annual last 12 months November
-    – March: HVAD • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Annual Demand | LBAD', 'HV Business Annual Demand | HVAD' and 'HV Business
-    Annual Demand <500kVA | HVAD500' in one row with one set of components. CBD codes are the price list's 'SA CBD only' code
-    column (Table 31, pdf:p67, e.g. 'LBAD LBADCBD Large LV Business Annual Demand'); this window is linked to them. Measured
-    November – March (the linked window); the document does not state in which months the annual peak charge is billed.
-  tariffs:
-  - codes:
-    - LBADCBD
-    - HVADCBD
-    - HVAD500CBD
-    time_band: peak
-- id: sapn-2425-app-monthly-peak-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2425-app-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: 'Demand – $ /kVA/day Highest daily average demand interval during the Monthly Demand Peak Actual month November – March:
-    | HVMD • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Monthly Demand | LBMD' and 'HV Business Monthly Demand | HVMD' in one row
-    with one set of components. CBD codes are the price list's 'SA CBD only' code column (Table 31, pdf:p67, e.g. 'LBAD LBADCBD
-    Large LV Business Annual Demand'); this window is linked to them.
-  tariffs:
-  - codes:
-    - LBMDCBD
-    - HVMDCBD
-    time_band: peak
-- id: sapn-2425-app-flex-peak-firm-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2425-app-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: 'Demand Firm – $/kVA/day Agreed demand November to March Annual Demand Peak Agreed on days when the temperature is
-    38 degrees or Flexible | HVADF above as measured at West Terrace Adelaide or as otherwise agreed with regional customers:
-    • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Annual Demand Flexible | LBADF' and 'HV Business Annual Demand Flexible |
-    HVADF' in one row with one set of components. CBD codes are the price list's 'SA CBD only' code column (Table 31, pdf:p67,
-    e.g. 'LBAD LBADCBD Large LV Business Annual Demand'); this window is linked to them.
-  tariffs:
-  - codes:
-    - LBADFCBD
-    - HVADFCBD
-    time_band: peak
-- id: sapn-2425-app-gen-peak-agreed-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2425-app-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p30
-  quote: 'Demand – $/kVA/day Agreed demand November to March on extreme Generation includes Peak Agreed summer days: Supplies
-    | HVBG Generation-only • CBD 11:00am – 5:00pm CDST WD batteries • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 continued (pdf:p30) lists 'Large LV Business Generation Supplies | LVBG' and 'HV Business Generation Supplies
-    | HVBG' (price-list codes LBG/HVBG, Table 31 'LBG LBGCBD Large LV Business Generation supply') in one row. CBD codes are
-    the price list's 'SA CBD only' code column (Table 31, pdf:p67, e.g. 'LBAD LBADCBD Large LV Business Annual Demand'); this
-    window is linked to them.
-  tariffs:
-  - codes:
-    - LBGCBD
-    - HVBGCBD
-    time_band: peak
-- id: sapn-2425-app-genflex-peak-firm-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2425-app-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p30
-  quote: 'Demand Firm – $/kVA/day Agreed demand November to March Generation includes Peak Agreed on days when the temperature
-    is 38 degrees or Supplies Flexible Generation-only above as measured at West Terrace Adelaide or | HVBGF batteries as otherwise
-    agreed with regional customers: • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 continued (pdf:p30) lists 'Large LV Business Generation Supplies Flexible | LVBGF' and 'HV Business Generation
-    Supplies Flexible | HVBGF' (price-list codes LBGF/HVBGF) in one row. CBD codes are the price list's 'SA CBD only' code column
-    (Table 31, pdf:p67, e.g. 'LBAD LBADCBD Large LV Business Annual Demand'); this window is linked to them.
-  tariffs:
-  - codes:
-    - LBGFCBD
-    - HVBGFCBD
-    time_band: peak
-- id: sapn-2425-app-annual-peak-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2425-app-noncbd-peak-demand
-  window_period: peak
-  locator: pdf:p29
-  quote: 'Demand – $/kVA/day Highest daily average demand interval during the Annual Demand | Peak Annual last 12 months November
-    – March: HVAD • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Annual Demand | LBAD', 'HV Business Annual Demand | HVAD' and 'HV Business
-    Annual Demand <500kVA | HVAD500' in one row with one set of components. The non-CBD window is linked to the 'Code SA' codes
-    of the price list (Table 31, pdf:p67). Measured November – March (the linked window); the document does not state in which
-    months the annual peak charge is billed.
-  tariffs:
-  - codes:
-    - LBAD
-    - HVAD
-    - HVAD500
-    time_band: peak
-- id: sapn-2425-app-monthly-peak-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2425-app-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: 'Demand – $ /kVA/day Highest daily average demand interval during the Monthly Demand Peak Actual month November – March:
-    | HVMD • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Monthly Demand | LBMD' and 'HV Business Monthly Demand | HVMD' in one row
-    with one set of components. The non-CBD window is linked to the 'Code SA' codes of the price list (Table 31, pdf:p67).
-  tariffs:
-  - codes:
-    - LBMD
-    - HVMD
-    time_band: peak
-- id: sapn-2425-app-flex-peak-firm-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2425-app-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: 'Demand Firm – $/kVA/day Agreed demand November to March Annual Demand Peak Agreed on days when the temperature is
-    38 degrees or Flexible | HVADF above as measured at West Terrace Adelaide or as otherwise agreed with regional customers:
-    • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 (pdf:p29) lists 'Large LV Business Annual Demand Flexible | LBADF' and 'HV Business Annual Demand Flexible |
-    HVADF' in one row with one set of components. The non-CBD window is linked to the 'Code SA' codes of the price list (Table
-    31, pdf:p67).
-  tariffs:
-  - codes:
-    - LBADF
-    - HVADF
-    time_band: peak
-- id: sapn-2425-app-gen-peak-agreed-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2425-app-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p30
-  quote: 'Demand – $/kVA/day Agreed demand November to March on extreme Generation includes Peak Agreed summer days: Supplies
-    | HVBG Generation-only • CBD 11:00am – 5:00pm CDST WD batteries • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 continued (pdf:p30) lists 'Large LV Business Generation Supplies | LVBG' and 'HV Business Generation Supplies
-    | HVBG' (price-list codes LBG/HVBG, Table 31 'LBG LBGCBD Large LV Business Generation supply') in one row. The non-CBD window
-    is linked to the 'Code SA' codes of the price list (Table 31, pdf:p67).
-  tariffs:
-  - codes:
-    - LBG
-    - HVBG
-    time_band: peak
-- id: sapn-2425-app-genflex-peak-firm-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2425-app-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p30
-  quote: 'Demand Firm – $/kVA/day Agreed demand November to March Generation includes Peak Agreed on days when the temperature
-    is 38 degrees or Supplies Flexible Generation-only above as measured at West Terrace Adelaide or | HVBGF batteries as otherwise
-    agreed with regional customers: • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days'
-  note: Table 6 continued (pdf:p30) lists 'Large LV Business Generation Supplies Flexible | LVBGF' and 'HV Business Generation
-    Supplies Flexible | HVBGF' (price-list codes LBGF/HVBGF) in one row. The non-CBD window is linked to the 'Code SA' codes
-    of the price list (Table 31, pdf:p67).
-  tariffs:
-  - codes:
-    - LBGF
-    - HVBGF
-    time_band: peak
-- id: sapn-2425-app-annual-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p29
-  quote: Demand – $/kVA/day Highest average demand interval (30 minutes) Annual Demand Anytime Annual during the last 12 months.
-  note: Table 6 (pdf:p29) lists 'Large LV Business Annual Demand | LBAD', 'HV Business Annual Demand | HVAD' and 'HV Business
-    Annual Demand <500kVA | HVAD500' in one row with one set of components. CBD codes from the price list's 'SA CBD only' column
-    (Table 31, pdf:p67).
-  tariffs:
-  - codes:
-    - LBAD
-    - HVAD
-    - HVAD500
-    - LBADCBD
-    - HVADCBD
-    - HVAD500CBD
-    time_band: anytime
-- id: sapn-2425-app-monthly-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p29
-  quote: Demand – $/kVA/day Highest average demand interval (30 minutes) Anytime Actual during the last 12 months.
-  note: Table 6 (pdf:p29) lists 'Large LV Business Monthly Demand | LBMD' and 'HV Business Monthly Demand | HVMD' in one row
-    with one set of components. CBD codes from the price list's 'SA CBD only' column (Table 31, pdf:p67).
-  tariffs:
-  - codes:
-    - LBMD
-    - HVMD
-    - LBMDCBD
-    - HVMDCBD
-    time_band: anytime
-- id: sapn-2425-app-flex-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p29
-  quote: Demand Firm – $/kVA/day Agreed demand interval (30 minutes). Anytime Agreed Demand Flex – $/kVA/day Agreed demand interval
-    (30 minutes). Anytime Agreed
-  note: Demand Firm – Anytime Agreed and Demand Flex – Anytime Agreed. Table 6 (pdf:p29) lists 'Large LV Business Annual Demand
-    Flexible | LBADF' and 'HV Business Annual Demand Flexible | HVADF' in one row with one set of components. CBD codes from
-    the price list's 'SA CBD only' column (Table 31, pdf:p67).
-  tariffs:
-  - codes:
-    - LBADF
-    - HVADF
-    - LBADFCBD
-    - HVADFCBD
-    time_band: anytime
-- id: sapn-2425-app-gen-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p30
-  quote: Demand – $/kVA/day Highest average demand interval (30 minutes) Anytime Actual during the last 12 months unless otherwise
-    Agreed.
-  note: '''unless otherwise Agreed''. Table 6 continued (pdf:p30) lists ''Large LV Business Generation Supplies | LVBG'' and
-    ''HV Business Generation Supplies | HVBG'' (price-list codes LBG/HVBG, Table 31 ''LBG LBGCBD Large LV Business Generation
-    supply'') in one row.'
-  tariffs:
-  - codes:
-    - LBG
-    - HVBG
-    - LBGCBD
-    - HVBGCBD
-    time_band: anytime
-- id: sapn-2425-app-genflex-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p30
-  quote: Demand Firm – $/kVA/day Agreed demand interval (30 minutes). Anytime Agreed Demand Flex – $/kVA/day Agreed demand interval
-    (30 minutes). Anytime Agreed
-  note: Demand Firm – Anytime Agreed and Demand Flex – Anytime Agreed (pdf:p30). Table 6 continued (pdf:p30) lists 'Large LV
-    Business Generation Supplies Flexible | LVBGF' and 'HV Business Generation Supplies Flexible | HVBGF' (price-list codes
-    LBGF/HVBGF) in one row.
-  tariffs:
-  - codes:
-    - LBGF
-    - HVBGF
-    - LBGFCBD
-    - HVBGFCBD
-    time_band: anytime
-- id: sapn-2425-app-major-peak-agreed
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: agreed
-  locator: pdf:p31
-  quote: ZSN customers Demand – $/kVA day Agreed demand during a time window Peak Agreed determined by transmission pricing
-    Sub-Transmission requirements which vary across the State.
-  note: The peak window is 'determined by transmission pricing requirements which vary across the State' and is not given in
-    the document. Table 7 (pdf:p31) lists 'Zone Substation Non-Locational | ZSN' and 'Sub-Transmission Non-Locational | STN'
-    in one row with one set of components.
-  tariffs:
-  - codes:
-    - ZSN
-    - STN
-    time_band: peak
-- id: sapn-2425-app-major-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p31
-  quote: Non-Locational | Demand – $/kVA day Highest average demand interval (30 minutes) STN Anytime Actual during the last
-    12 months unless otherwise Agreed. Minimum of 5,000 kVA.
-  note: '''unless otherwise Agreed''. ZSN and STN share this row of Table 7 (pdf:p31).'
-  tariffs:
-  - codes:
-    - ZSN
-    - STN
-    time_band: anytime
-- id: sapn-2425-app-major-flex-peak
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  aggregation: agreed
-  months: 11,12,1,2,3
-  locator: pdf:p31
-  quote: Flexible | ZSNF customers Demand Firm – $/kVA day Agreed demand November – March Peak Agreed on days when the temperature
-    is 38 degrees or
-  note: On days at or above 38 degrees, 'during a time window determined by transmission pricing requirements which vary across
-    the State' (window not given). Table 7 (pdf:p31) lists ZSNF and STNF in one row; the generation flexible row (ZSNGF, STNGF)
-    on the same page states the same Demand Firm – Peak Agreed wording.
-  tariffs:
-  - codes:
-    - ZSNF
-    - STNF
-    - ZSNGF
-    - STNGF
-    time_band: peak
-- id: sapn-2425-app-major-flex-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  fin_year: 2024-25
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p31
-  quote: Demand Firm – $/kVA day Agreed demand interval (30 minutes). Anytime Agreed Anytime (Firm + Flex) minimum 5,000 kVA.
-  note: '''Anytime (Firm + Flex) minimum 5,000 kVA.'' The ZSNF/STNF and ZSNGF/STNGF rows of Table 7 (pdf:p31) both state this
-    for Demand Firm and Demand Flex – Anytime Agreed.'
-  tariffs:
-  - codes:
-    - ZSNF
-    - STNF
-    - ZSNGF
-    - STNGF
-    time_band: anytime
-- id: sapn-2526-aer-mbtoud-annual
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p22
-  quote: Demand – Annual $ /kVA/day Highest 30 minute demand interval during the regardless of kVA last 12 months.
-  note: Demand – Annual component of both the 'Medium Business Time of Use Demand | MBTOUD' and the '... | MBTOUDNE' rows on
-    pdf:p22.
-  tariffs:
-  - codes:
-    - MBTOUD
-    - MBTOUDNE
-- id: sapn-2526-aer-lv-annual-peak-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-aer-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p25
-  quote: 'LBAD meter Peak Demand – $/kVA/day Highest daily average demand during the last 12 Peak Annual months November – March:
-    • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. CBD
-    codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large
-    LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - LBADCBD
-    time_band: peak
-- id: sapn-2526-aer-lv-monthly-peak-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2526-aer-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p25
-  quote: 'LBMD meter Peak Demand – $ /kVA/day Highest daily average demand during the month Peak Monthly November – March: •
-    CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed November – March.'
-  note: 'CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD
-    Large LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - LBMDCBD
-    time_band: peak
-- id: sapn-2526-aer-lv-flex-peak-firm-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-aer-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p25
-  quote: 'Flexible | LBADF meter Peak Demand Firm – $/kVA/day Agreed demand November – March Peak Agreed on days when the temperature
-    is 38 degrees or above as measured at West Terrace Adelaide or as otherwise agreed with regional customers: • CBD 11:00am
-    – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. CBD
-    codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large
-    LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - LBADFCBD
-    time_band: peak
-- id: sapn-2526-aer-lv-annual-peak-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-aer-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p25
-  quote: 'LBAD meter Peak Demand – $/kVA/day Highest daily average demand during the last 12 Peak Annual months November – March:
-    • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. The
-    non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with
-    its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - LBAD
-    time_band: peak
-- id: sapn-2526-aer-lv-monthly-peak-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2526-aer-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p25
-  quote: 'LBMD meter Peak Demand – $ /kVA/day Highest daily average demand during the month Peak Monthly November – March: •
-    CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed November – March.'
-  note: 'The non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA''
-    with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - LBMD
-    time_band: peak
-- id: sapn-2526-aer-lv-flex-peak-firm-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-aer-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p25
-  quote: 'Flexible | LBADF meter Peak Demand Firm – $/kVA/day Agreed demand November – March Peak Agreed on days when the temperature
-    is 38 degrees or above as measured at West Terrace Adelaide or as otherwise agreed with regional customers: • CBD 11:00am
-    – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. The
-    non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with
-    its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - LBADF
-    time_band: peak
-- id: sapn-2526-aer-lv-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p25
-  quote: Demand – $/kVA/day Highest 30 minute demand interval during the last Anytime Annual 12 months.
-  note: 'Demand – Anytime Annual component of both the LBAD and the LBMD rows of Table 5 (pdf:p25). CBD codes: the NUoS code
-    table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - LBAD
-    - LBMD
-    - LBADCBD
-    - LBMDCBD
-    time_band: anytime
-- id: sapn-2526-aer-lv-flex-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p25
-  quote: Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months. Demand Flex – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
-    during the last 12 months.
-  note: 'Demand Firm and Demand Flex – Anytime Agreed components of the ''Large Low Voltage Business Annual Demand Flexible
-    | LBADF'' row of Table 5 (pdf:p25). CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code:
-    CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - LBADF
-    - LBADFCBD
-    time_band: anytime
-- id: sapn-2526-aer-hv-annual-peak-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-aer-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p27
-  quote: 'Business Annual Demand – $/kVA/day Highest daily average demand during the last 12 Demand Peak Annual months November
-    – March: <500kVA | • CBD 11:00am – 5:00pm WD HVAD500 • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year
-    round.'
-  note: 'Table 6 (pdf:p27) lists ''High Voltage Business Annual Demand | HVAD'' and ''High Voltage Business Annual Demand <500kVA
-    | HVAD500'' in one row with one set of components. Measured November – March in the linked window; ''Peak demand values
-    billed all year round.'', so months is all. CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with
-    its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - HVADCBD
-    - HVAD500CBD
-    time_band: peak
-- id: sapn-2526-aer-hv-monthly-peak-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2526-aer-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p27
-  quote: 'D emand | HVMD I nterval meter Usage – Off Peak $/kWh At all other times not captured in the Peak window. Demand –
-    $ /kVA/day Highest daily average demand during the month Peak Monthly November – March: • CBD 11:00am – 5:00pm WD • Non
-    CBD 5:00pm – 9:00pm All days Peak demand values billed November – March.'
-  note: 'CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD
-    Large LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - HVMDCBD
-    time_band: peak
-- id: sapn-2526-aer-hv-flex-peak-firm-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-aer-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p27
-  quote: '| HVADF window. Demand Firm – $/kVA/day Agreed demand November – March Peak Agreed on days when the temperature is
-    38 degrees or above as measured at West Terrace Adelaide or as otherwise agreed with regional customers: • CBD 11:00am –
-    5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. CBD
-    codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large
-    LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - HVADFCBD
-    time_band: peak
-- id: sapn-2526-aer-hv-annual-peak-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-aer-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p27
-  quote: 'Business Annual Demand – $/kVA/day Highest daily average demand during the last 12 Demand Peak Annual months November
-    – March: <500kVA | • CBD 11:00am – 5:00pm WD HVAD500 • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year
-    round.'
-  note: 'Table 6 (pdf:p27) lists ''High Voltage Business Annual Demand | HVAD'' and ''High Voltage Business Annual Demand <500kVA
-    | HVAD500'' in one row with one set of components. Measured November – March in the linked window; ''Peak demand values
-    billed all year round.'', so months is all. The non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table
-    (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - HVAD
-    - HVAD500
-    time_band: peak
-- id: sapn-2526-aer-hv-monthly-peak-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2526-aer-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p27
-  quote: 'D emand | HVMD I nterval meter Usage – Off Peak $/kWh At all other times not captured in the Peak window. Demand –
-    $ /kVA/day Highest daily average demand during the month Peak Monthly November – March: • CBD 11:00am – 5:00pm WD • Non
-    CBD 5:00pm – 9:00pm All days Peak demand values billed November – March.'
-  note: 'The non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA''
-    with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - HVMD
-    time_band: peak
-- id: sapn-2526-aer-hv-flex-peak-firm-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-aer-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p27
-  quote: '| HVADF window. Demand Firm – $/kVA/day Agreed demand November – March Peak Agreed on days when the temperature is
-    38 degrees or above as measured at West Terrace Adelaide or as otherwise agreed with regional customers: • CBD 11:00am –
-    5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. The
-    non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with
-    its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - HVADF
-    time_band: peak
-- id: sapn-2526-aer-hv-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p27
-  quote: Demand – $/kVA/day Highest 30 minute demand interval during the Anytime Annual last 12 months.
-  note: 'Demand – Anytime Annual component of the HVAD/HVAD500 row and of the ''High Voltage Business Monthly Demand | HVMD''
-    row of Table 6 (pdf:p27). Table 6 (pdf:p27) lists ''High Voltage Business Annual Demand | HVAD'' and ''High Voltage Business
-    Annual Demand <500kVA | HVAD500'' in one row with one set of components. CBD codes: the NUoS code table (Table 9, pdf:p37)
-    pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - HVAD
-    - HVAD500
-    - HVMD
-    - HVADCBD
-    - HVAD500CBD
-    - HVMDCBD
-    time_band: anytime
-- id: sapn-2526-aer-hv-flex-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p27
-  quote: Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months.
-  note: 'Demand Firm and Demand Flex – Anytime Agreed components of the ''High Voltage Business Annual Demand Flexible | HVADF''
-    row of Table 6 (pdf:p27); both state this measurement. CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code:
-    SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - HVADF
-    - HVADFCBD
-    time_band: anytime
-- id: sapn-2526-aer-gen-peak-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-aer-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p31
-  quote: 'Generation| includes Demand – $/kVA/day Highest daily average demand during the last 12 HVBG Generation-only Peak
-    Agreed months November – March: batteries • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values
-    billed all year round.'
-  note: 'Component named ''Demand – Peak Agreed''. Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation | LBG'' and
-    ''HV Business Generation| HVBG'' in one row with one set of components. Measured November – March in the linked window;
-    ''Peak demand values billed all year round.'', so months is all. CBD codes: the NUoS code table (Table 9, pdf:p37) pairs
-    each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''; this CBD window is linked
-    to them.'
-  tariffs:
-  - codes:
-    - LBGCBD
-    - HVBGCBD
-    time_band: peak
-- id: sapn-2526-aer-genflex-peak-firm-cbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-aer-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p31
-  quote: 'Demand Firm – $/kVA/day Agreed demand November – March Business Generation-only Peak Agreed on days when the temperature
-    is 38 degrees or Generation batteries above as measured at West Terrace Adelaide or Flexible | HVBGF as otherwise agreed
-    with regional customers: • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year
-    round.'
-  note: 'Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation Flexible | LBGF'' and ''High Voltage Business Generation
-    Flexible | HVBGF'' in one row with one set of components. Measured November – March in the linked window; ''Peak demand
-    values billed all year round.'', so months is all. CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code:
-    SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - LBGFCBD
-    - HVBGFCBD
-    time_band: peak
-- id: sapn-2526-aer-gen-peak-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-aer-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p31
-  quote: 'Generation| includes Demand – $/kVA/day Highest daily average demand during the last 12 HVBG Generation-only Peak
-    Agreed months November – March: batteries • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values
-    billed all year round.'
-  note: 'Component named ''Demand – Peak Agreed''. Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation | LBG'' and
-    ''HV Business Generation| HVBG'' in one row with one set of components. Measured November – March in the linked window;
-    ''Peak demand values billed all year round.'', so months is all. The non-CBD window is linked to the ''Code: SA'' codes
-    (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business
-    Annual Demand'').'
-  tariffs:
-  - codes:
-    - LBG
-    - HVBG
-    time_band: peak
-- id: sapn-2526-aer-genflex-peak-firm-noncbd
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-aer-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p31
-  quote: 'Demand Firm – $/kVA/day Agreed demand November – March Business Generation-only Peak Agreed on days when the temperature
-    is 38 degrees or Generation batteries above as measured at West Terrace Adelaide or Flexible | HVBGF as otherwise agreed
-    with regional customers: • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year
-    round.'
-  note: 'Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation Flexible | LBGF'' and ''High Voltage Business Generation
-    Flexible | HVBGF'' in one row with one set of components. Measured November – March in the linked window; ''Peak demand
-    values billed all year round.'', so months is all. The non-CBD window is linked to the ''Code: SA'' codes (the NUoS code
-    table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - LBGF
-    - HVBGF
-    time_band: peak
-- id: sapn-2526-aer-gen-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p31
-  quote: Demand – $/kVA/day Highest 30 minute demand interval during the Anytime Agreed last 12 months.
-  note: 'Component named ''Demand – Anytime Agreed''. Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation | LBG''
-    and ''HV Business Generation| HVBG'' in one row with one set of components. CBD codes: the NUoS code table (Table 9, pdf:p37)
-    pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - LBG
-    - HVBG
-    - LBGCBD
-    - HVBGCBD
-    time_band: anytime
-- id: sapn-2526-aer-genflex-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p31
-  quote: Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months.
-  note: 'Demand Firm and Demand Flex – Anytime Agreed (the Flex line reads ''determined by highest 30 minute demand interval'').
-    Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation Flexible | LBGF'' and ''High Voltage Business Generation
-    Flexible | HVBGF'' in one row with one set of components. CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code:
-    SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - LBGF
-    - HVBGF
-    - LBGFCBD
-    - HVBGFCBD
-    time_band: anytime
-- id: sapn-2526-aer-major-peak-agreed
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p29
-  quote: ZSS Tariff calculated Demand – $/kVA day Agreed demand determined by the highest 30 for individual Peak Agreed minute
-    demand interval during a time window Sub Transmission customers determined by transmission pricing Non-Locational | requirements
-    which vary across the State. STR
-  note: Time window 'determined by transmission pricing requirements which vary across the State' (not given in the document).
-    Table 7 (pdf:p29) lists 'Zone Substation Non-Locational | ZSS' and 'Sub Transmission Non-Locational | STR' in one row.
-  tariffs:
-  - codes: &id005
-    - ZSS
-    - STR
-    time_band: peak
-- id: sapn-2526-aer-major-anytime-agreed
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p29
-  quote: STR Demand – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months. Minimum of 5,000 kVA.
-  note: ZSS and STR share this row of Table 7 (pdf:p29).
-  tariffs:
-  - codes: *id005
-    time_band: anytime
-- id: sapn-2526-aer-major-flex-peak-firm
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: Flexible | ZSSF Demand Firm – $/kVA day Agreed demand November – March Tariff calculated Peak Agreed on days when the
-    temperature is 38 degrees or Sub Transmission for individual above as measured at West Terrace Adelaide Non-Locational customers
-    or as otherwise agreed with regional Flexible | STRF
-  note: On days at or above 38 degrees, 'during a time window determined by transmission pricing requirements which vary across
-    the State' (window not given). ZSSF and STRF share this row of Table 7 (pdf:p29).
-  tariffs:
-  - codes: &id006
-    - ZSSF
-    - STRF
-    time_band: peak
-- id: sapn-2526-aer-major-flex-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p29
-  quote: Demand Firm – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months. Minimum 5,000 kVA (Firm + Flex).
-  note: Demand Firm – Anytime Agreed of the ZSSF/STRF row of Table 7 (pdf:p29); the Demand Flex – Anytime Agreed line states
-    the same measurement.
-  tariffs:
-  - codes: *id006
-    time_band: anytime
-- id: sapn-2526-aer-major-gen-peak-agreed
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p32
-  quote: Agreed demand determined by the highest 30 ZSSG for individual Peak Agreed minute demand interval during a time window
-    customers determined by transmission pricing Sub Transmission requirements which vary across the State.
-  note: Time window 'determined by transmission pricing requirements which vary across the State' (not given in the document).
-    'Zone Substation Non-Locational Generation | ZSSG' and 'Sub Transmission Non-Locational Generation | STRG' share this row
-    (pdf:p32).
-  tariffs:
-  - codes: &id007
-    - ZSSG
-    - STRG
-    time_band: peak
-- id: sapn-2526-aer-major-gen-anytime-agreed
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p32
-  quote: STRG Generation-only Anytime Agreed minute demand interval during the last 12 batteries months. Minimum of 5,000 kVA.
-  note: '''Demand – Anytime Agreed: Agreed demand determined by the highest 30 minute demand interval during the last 12 months.''
-    ZSSG and STRG share this row (pdf:p32).'
-  tariffs:
-  - codes: *id007
-    time_band: anytime
-- id: sapn-2526-aer-major-gen-flex-peak-firm
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  months: 11,12,1,2,3
-  locator: pdf:p32
-  quote: Demand Firm – $/kVA day Agreed demand November – March Flexible | ZSSGF for individual Peak Agreed on days when the
-    temperature is 38 degrees or
-  note: On days at or above 38 degrees, 'during a time window determined by transmission pricing requirements which vary across
-    the State' (window not given). 'Zone Substation Non-Locational Generation Flexible | ZSSGF' and 'Sub Transmission Non-Locational
-    Generation Flexible | STRGF' share this row (pdf:p32).
-  tariffs:
-  - codes: &id008
-    - ZSSGF
-    - STRGF
-    time_band: peak
-- id: sapn-2526-aer-major-gen-flex-anytime
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p32
-  quote: Demand Firm – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months. Minimum 5,000 kVA (Firm + Flex).
-  note: Demand Firm – Anytime Agreed of the ZSSGF/STRGF row (pdf:p32); the Demand Flex – Anytime Agreed line states the same
-    measurement.
-  tariffs:
-  - codes: *id008
-    time_band: anytime
-- id: sapn-2526-dnsp-mbtoud-annual
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p22
-  quote: Demand – Annual $ /kVA/day Highest 30 minute demand interval during the regardless of kVA last 12 months.
-  note: Demand – Annual component of both the 'Medium Business Time of Use Demand | MBTOUD' and the '... | MBTOUDNE' rows on
-    pdf:p22.
-  tariffs:
-  - codes:
-    - MBTOUD
-    - MBTOUDNE
-- id: sapn-2526-dnsp-lv-annual-peak-cbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-dnsp-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p25
-  quote: 'LBAD meter Peak Demand – $/kVA/day Highest daily average demand during the last 12 Peak Annual months November – March:
-    • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. CBD
-    codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large
-    LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - LBADCBD
-    time_band: peak
-- id: sapn-2526-dnsp-lv-monthly-peak-cbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2526-dnsp-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p25
-  quote: 'LBMD meter Peak Demand – $ /kVA/day Highest daily average demand during the month Peak Monthly November – March: •
-    CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed November – March.'
-  note: 'CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD
-    Large LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - LBMDCBD
-    time_band: peak
-- id: sapn-2526-dnsp-lv-flex-peak-firm-cbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-dnsp-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p25
-  quote: 'Flexible | LBADF meter Peak Demand Firm – $/kVA/day Agreed demand November – March Peak Agreed on days when the temperature
-    is 38 degrees or above as measured at West Terrace Adelaide or as otherwise agreed with regional customers: • CBD 11:00am
-    – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. CBD
-    codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large
-    LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - LBADFCBD
-    time_band: peak
-- id: sapn-2526-dnsp-lv-annual-peak-noncbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-dnsp-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p25
-  quote: 'LBAD meter Peak Demand – $/kVA/day Highest daily average demand during the last 12 Peak Annual months November – March:
-    • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. The
-    non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with
-    its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - LBAD
-    time_band: peak
-- id: sapn-2526-dnsp-lv-monthly-peak-noncbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2526-dnsp-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p25
-  quote: 'LBMD meter Peak Demand – $ /kVA/day Highest daily average demand during the month Peak Monthly November – March: •
-    CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed November – March.'
-  note: 'The non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA''
-    with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - LBMD
-    time_band: peak
-- id: sapn-2526-dnsp-lv-flex-peak-firm-noncbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-dnsp-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p25
-  quote: 'Flexible | LBADF meter Peak Demand Firm – $/kVA/day Agreed demand November – March Peak Agreed on days when the temperature
-    is 38 degrees or above as measured at West Terrace Adelaide or as otherwise agreed with regional customers: • CBD 11:00am
-    – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. The
-    non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with
-    its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - LBADF
-    time_band: peak
-- id: sapn-2526-dnsp-lv-anytime
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p25
-  quote: Demand – $/kVA/day Highest 30 minute demand interval during the last Anytime Annual 12 months.
-  note: 'Demand – Anytime Annual component of both the LBAD and the LBMD rows of Table 5 (pdf:p25). CBD codes: the NUoS code
-    table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - LBAD
-    - LBMD
-    - LBADCBD
-    - LBMDCBD
-    time_band: anytime
-- id: sapn-2526-dnsp-lv-flex-anytime
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p25
-  quote: Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months. Demand Flex – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
-    during the last 12 months.
-  note: 'Demand Firm and Demand Flex – Anytime Agreed components of the ''Large Low Voltage Business Annual Demand Flexible
-    | LBADF'' row of Table 5 (pdf:p25). CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code:
-    CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - LBADF
-    - LBADFCBD
-    time_band: anytime
-- id: sapn-2526-dnsp-hv-annual-peak-cbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-dnsp-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p27
-  quote: 'Business Annual Demand – $/kVA/day Highest daily average demand during the last 12 Demand Peak Annual months November
-    – March: <500kVA | • CBD 11:00am – 5:00pm WD HVAD500 • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year
-    round.'
-  note: 'Table 6 (pdf:p27) lists ''High Voltage Business Annual Demand | HVAD'' and ''High Voltage Business Annual Demand <500kVA
-    | HVAD500'' in one row with one set of components. Measured November – March in the linked window; ''Peak demand values
-    billed all year round.'', so months is all. CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with
-    its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - HVADCBD
-    - HVAD500CBD
-    time_band: peak
-- id: sapn-2526-dnsp-hv-monthly-peak-cbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2526-dnsp-cbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p27
-  quote: 'D emand | HVMD I nterval meter Usage – Off Peak $/kWh At all other times not captured in the Peak window. Demand –
-    $ /kVA/day Highest daily average demand during the month Peak Monthly November – March: • CBD 11:00am – 5:00pm WD • Non
-    CBD 5:00pm – 9:00pm All days Peak demand values billed November – March.'
-  note: 'CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD
-    Large LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - HVMDCBD
-    time_band: peak
-- id: sapn-2526-dnsp-hv-flex-peak-firm-cbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-dnsp-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p27
-  quote: '| HVADF window. Demand Firm – $/kVA/day Agreed demand November – March Peak Agreed on days when the temperature is
-    38 degrees or above as measured at West Terrace Adelaide or as otherwise agreed with regional customers: • CBD 11:00am –
-    5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. CBD
-    codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large
-    LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - HVADFCBD
-    time_band: peak
-- id: sapn-2526-dnsp-hv-annual-peak-noncbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-dnsp-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p27
-  quote: 'Business Annual Demand – $/kVA/day Highest daily average demand during the last 12 Demand Peak Annual months November
-    – March: <500kVA | • CBD 11:00am – 5:00pm WD HVAD500 • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year
-    round.'
-  note: 'Table 6 (pdf:p27) lists ''High Voltage Business Annual Demand | HVAD'' and ''High Voltage Business Annual Demand <500kVA
-    | HVAD500'' in one row with one set of components. Measured November – March in the linked window; ''Peak demand values
-    billed all year round.'', so months is all. The non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table
-    (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - HVAD
-    - HVAD500
-    time_band: peak
-- id: sapn-2526-dnsp-hv-monthly-peak-noncbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: monthly_max
-  window_schedule: sapn-2526-dnsp-noncbd-peak-demand
-  window_period: peak
-  months: 11,12,1,2,3
-  locator: pdf:p27
-  quote: 'D emand | HVMD I nterval meter Usage – Off Peak $/kWh At all other times not captured in the Peak window. Demand –
-    $ /kVA/day Highest daily average demand during the month Peak Monthly November – March: • CBD 11:00am – 5:00pm WD • Non
-    CBD 5:00pm – 9:00pm All days Peak demand values billed November – March.'
-  note: 'The non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA''
-    with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - HVMD
-    time_band: peak
-- id: sapn-2526-dnsp-hv-flex-peak-firm-noncbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-dnsp-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p27
-  quote: '| HVADF window. Demand Firm – $/kVA/day Agreed demand November – March Peak Agreed on days when the temperature is
-    38 degrees or above as measured at West Terrace Adelaide or as otherwise agreed with regional customers: • CBD 11:00am –
-    5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round.'
-  note: 'Measured November – March in the linked window; ''Peak demand values billed all year round.'', so months is all. The
-    non-CBD window is linked to the ''Code: SA'' codes (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with
-    its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - HVADF
-    time_band: peak
-- id: sapn-2526-dnsp-hv-anytime
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p27
-  quote: Demand – $/kVA/day Highest 30 minute demand interval during the Anytime Annual last 12 months.
-  note: 'Demand – Anytime Annual component of the HVAD/HVAD500 row and of the ''High Voltage Business Monthly Demand | HVMD''
-    row of Table 6 (pdf:p27). Table 6 (pdf:p27) lists ''High Voltage Business Annual Demand | HVAD'' and ''High Voltage Business
-    Annual Demand <500kVA | HVAD500'' in one row with one set of components. CBD codes: the NUoS code table (Table 9, pdf:p37)
-    pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - HVAD
-    - HVAD500
-    - HVMD
-    - HVADCBD
-    - HVAD500CBD
-    - HVMDCBD
-    time_band: anytime
-- id: sapn-2526-dnsp-hv-flex-anytime
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p27
-  quote: Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months.
-  note: 'Demand Firm and Demand Flex – Anytime Agreed components of the ''High Voltage Business Annual Demand Flexible | HVADF''
-    row of Table 6 (pdf:p27); both state this measurement. CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code:
-    SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - HVADF
-    - HVADFCBD
-    time_band: anytime
-- id: sapn-2526-dnsp-gen-peak-cbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-dnsp-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p31
-  quote: 'Generation| includes Demand – $/kVA/day Highest daily average demand during the last 12 HVBG Generation-only Peak
-    Agreed months November – March: batteries • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values
-    billed all year round.'
-  note: 'Component named ''Demand – Peak Agreed''. Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation | LBG'' and
-    ''HV Business Generation| HVBG'' in one row with one set of components. Measured November – March in the linked window;
-    ''Peak demand values billed all year round.'', so months is all. CBD codes: the NUoS code table (Table 9, pdf:p37) pairs
-    each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''; this CBD window is linked
-    to them.'
-  tariffs:
-  - codes:
-    - LBGCBD
-    - HVBGCBD
-    time_band: peak
-- id: sapn-2526-dnsp-genflex-peak-firm-cbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-dnsp-cbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p31
-  quote: 'Demand Firm – $/kVA/day Agreed demand November – March Business Generation-only Peak Agreed on days when the temperature
-    is 38 degrees or Generation batteries above as measured at West Terrace Adelaide or Flexible | HVBGF as otherwise agreed
-    with regional customers: • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year
-    round.'
-  note: 'Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation Flexible | LBGF'' and ''High Voltage Business Generation
-    Flexible | HVBGF'' in one row with one set of components. Measured November – March in the linked window; ''Peak demand
-    values billed all year round.'', so months is all. CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code:
-    SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''; this CBD window is linked to them.'
-  tariffs:
-  - codes:
-    - LBGFCBD
-    - HVBGFCBD
-    time_band: peak
-- id: sapn-2526-dnsp-gen-peak-noncbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: rolling_12_month_max
-  window_schedule: sapn-2526-dnsp-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p31
-  quote: 'Generation| includes Demand – $/kVA/day Highest daily average demand during the last 12 HVBG Generation-only Peak
-    Agreed months November – March: batteries • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values
-    billed all year round.'
-  note: 'Component named ''Demand – Peak Agreed''. Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation | LBG'' and
-    ''HV Business Generation| HVBG'' in one row with one set of components. Measured November – March in the linked window;
-    ''Peak demand values billed all year round.'', so months is all. The non-CBD window is linked to the ''Code: SA'' codes
-    (the NUoS code table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business
-    Annual Demand'').'
-  tariffs:
-  - codes:
-    - LBG
-    - HVBG
-    time_band: peak
-- id: sapn-2526-dnsp-genflex-peak-firm-noncbd
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  window_schedule: sapn-2526-dnsp-noncbd-peak-demand
-  window_period: peak
-  months: all
-  locator: pdf:p31
-  quote: 'Demand Firm – $/kVA/day Agreed demand November – March Business Generation-only Peak Agreed on days when the temperature
-    is 38 degrees or Generation batteries above as measured at West Terrace Adelaide or Flexible | HVBGF as otherwise agreed
-    with regional customers: • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year
-    round.'
-  note: 'Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation Flexible | LBGF'' and ''High Voltage Business Generation
-    Flexible | HVBGF'' in one row with one set of components. Measured November – March in the linked window; ''Peak demand
-    values billed all year round.'', so months is all. The non-CBD window is linked to the ''Code: SA'' codes (the NUoS code
-    table (Table 9, pdf:p37) pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand'').'
-  tariffs:
-  - codes:
-    - LBGF
-    - HVBGF
-    time_band: peak
-- id: sapn-2526-dnsp-gen-anytime
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: rolling_12_month_max
-  locator: pdf:p31
-  quote: Demand – $/kVA/day Highest 30 minute demand interval during the Anytime Agreed last 12 months.
-  note: 'Component named ''Demand – Anytime Agreed''. Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation | LBG''
-    and ''HV Business Generation| HVBG'' in one row with one set of components. CBD codes: the NUoS code table (Table 9, pdf:p37)
-    pairs each ''Code: SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - LBG
-    - HVBG
-    - LBGCBD
-    - HVBGCBD
-    time_band: anytime
-- id: sapn-2526-dnsp-genflex-anytime
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p31
-  quote: Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months.
-  note: 'Demand Firm and Demand Flex – Anytime Agreed (the Flex line reads ''determined by highest 30 minute demand interval'').
-    Table 8 (pdf:p31) lists ''Large Low Voltage Business Generation Flexible | LBGF'' and ''High Voltage Business Generation
-    Flexible | HVBGF'' in one row with one set of components. CBD codes: the NUoS code table (Table 9, pdf:p37) pairs each ''Code:
-    SA'' with its ''Code: CBD'', e.g. ''LBAD LBADCBD Large LV Business Annual Demand''.'
-  tariffs:
-  - codes:
-    - LBGF
-    - HVBGF
-    - LBGFCBD
-    - HVBGFCBD
-    time_band: anytime
-- id: sapn-2526-dnsp-major-peak-agreed
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p29
-  quote: ZSS Tariff calculated Demand – $/kVA day Agreed demand determined by the highest 30 for individual Peak Agreed minute
-    demand interval during a time window Sub Transmission customers determined by transmission pricing Non-Locational | requirements
-    which vary across the State. STR
-  note: Time window 'determined by transmission pricing requirements which vary across the State' (not given in the document).
-    Table 7 (pdf:p29) lists 'Zone Substation Non-Locational | ZSS' and 'Sub Transmission Non-Locational | STR' in one row.
-  tariffs:
-  - codes: &id009
-    - ZSS
-    - STR
-    time_band: peak
-- id: sapn-2526-dnsp-major-anytime-agreed
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p29
-  quote: STR Demand – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months. Minimum of 5,000 kVA.
-  note: ZSS and STR share this row of Table 7 (pdf:p29).
-  tariffs:
-  - codes: *id009
-    time_band: anytime
-- id: sapn-2526-dnsp-major-flex-peak-firm
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  months: 11,12,1,2,3
-  locator: pdf:p29
-  quote: Flexible | ZSSF Demand Firm – $/kVA day Agreed demand November – March Tariff calculated Peak Agreed on days when the
-    temperature is 38 degrees or Sub Transmission for individual above as measured at West Terrace Adelaide Non-Locational customers
-    or as otherwise agreed with regional Flexible | STRF
-  note: On days at or above 38 degrees, 'during a time window determined by transmission pricing requirements which vary across
-    the State' (window not given). ZSSF and STRF share this row of Table 7 (pdf:p29).
-  tariffs:
-  - codes: &id010
-    - ZSSF
-    - STRF
-    time_band: peak
-- id: sapn-2526-dnsp-major-flex-anytime
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p29
-  quote: Demand Firm – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months. Minimum 5,000 kVA (Firm + Flex).
-  note: Demand Firm – Anytime Agreed of the ZSSF/STRF row of Table 7 (pdf:p29); the Demand Flex – Anytime Agreed line states
-    the same measurement.
-  tariffs:
-  - codes: *id010
-    time_band: anytime
-- id: sapn-2526-dnsp-major-gen-peak-agreed
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  locator: pdf:p32
-  quote: Agreed demand determined by the highest 30 ZSSG for individual Peak Agreed minute demand interval during a time window
-    customers determined by transmission pricing Sub Transmission requirements which vary across the State.
-  note: Time window 'determined by transmission pricing requirements which vary across the State' (not given in the document).
-    'Zone Substation Non-Locational Generation | ZSSG' and 'Sub Transmission Non-Locational Generation | STRG' share this row
-    (pdf:p32).
-  tariffs:
-  - codes: &id011
-    - ZSSG
-    - STRG
-    time_band: peak
-- id: sapn-2526-dnsp-major-gen-anytime-agreed
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p32
-  quote: STRG Generation-only Anytime Agreed minute demand interval during the last 12 batteries months. Minimum of 5,000 kVA.
-  note: '''Demand – Anytime Agreed: Agreed demand determined by the highest 30 minute demand interval during the last 12 months.''
-    ZSSG and STRG share this row (pdf:p32).'
-  tariffs:
-  - codes: *id011
-    time_band: anytime
-- id: sapn-2526-dnsp-major-gen-flex-peak-firm
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  aggregation: agreed
-  months: 11,12,1,2,3
-  locator: pdf:p32
-  quote: Demand Firm – $/kVA day Agreed demand November – March Flexible | ZSSGF for individual Peak Agreed on days when the
-    temperature is 38 degrees or
-  note: On days at or above 38 degrees, 'during a time window determined by transmission pricing requirements which vary across
-    the State' (window not given). 'Zone Substation Non-Locational Generation Flexible | ZSSGF' and 'Sub Transmission Non-Locational
-    Generation Flexible | STRGF' share this row (pdf:p32).
-  tariffs:
-  - codes: &id012
-    - ZSSGF
-    - STRGF
-    time_band: peak
-- id: sapn-2526-dnsp-major-gen-flex-anytime
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  measure: kVA
-  interval_minutes: 30
-  aggregation: agreed
-  minimum_chargeable: 5000
-  minimum_unit: kVA
-  locator: pdf:p32
-  quote: Demand Firm – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
-    last 12 months. Minimum 5,000 kVA (Firm + Flex).
-  note: Demand Firm – Anytime Agreed of the ZSSGF/STRGF row (pdf:p32); the Demand Flex – Anytime Agreed line states the same
-    measurement.
-  tariffs:
-  - codes: *id012
-    time_band: anytime
-- id: sapn-2627-dnsp-annual-demand
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: not_stated
-  locator: pdf:p5
-  quote: kVA DEMAND Actual Monthly Price Schedule - Network Use of Service (NUoS) Single Rate and Time of Use consumption CL
-    Single Rate and Time of Use consumption Export Charge Export Credit Actual/Agreed Annual Demand
-  note: Price-list column group 'kVA DEMAND - Actual/Agreed Annual' (Peak, Anytime, Anytime Flex; $/kVA/day). The 2026-27 price
-    list states no measurement interval, window or aggregation method and refers to the Tariff Structure Statement for application
-    of tariffs. The codes are the rows with a price in that column (column positions checked on the page).
-  tariffs:
-  - codes:
-    - LBAD
-    - LBADCBD
-    - LBADF
-    - LBADFCBD
-    - HVAD
-    - HVADCBD
-    - HVADF
-    - HVADFCBD
-    - HVAD500
-    - HVAD500CBD
-    - ZSS
-    - ZSSF
-    - STR
-    - STRF
-    - LBG
-    - LBGCBD
-    - LBGF
-    - LBGFCBD
-    - HVBG
-    - HVBGCBD
-    - HVBGF
-    - HVBGFCBD
-    - ZSSG
-    - ZSSGF
-    - STRG
-    - STRGF
-    time_band: peak
-  - codes:
-    - MBTOUD
-    - MBTOUDNE
-    - LBAD
-    - LBADCBD
-    - LBADF
-    - LBADFCBD
-    - LBMD
-    - LBMDCBD
-    - HVAD
-    - HVADCBD
-    - HVADF
-    - HVADFCBD
-    - HVAD500
-    - HVAD500CBD
-    - HVMD
-    - HVMDCBD
-    - ZSS
-    - ZSSF
-    - STR
-    - STRF
-    - LBG
-    - LBGCBD
-    - LBGF
-    - LBGFCBD
-    - HVBG
-    - HVBGCBD
-    - HVBGF
-    - HVBGFCBD
-    - ZSSG
-    - ZSSGF
-    - STRG
-    - STRGF
-    time_band: anytime
-- id: sapn-2627-dnsp-annual-demand-flex
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: not_stated
-  locator: pdf:p5
-  quote: kVA DEMAND Actual Monthly Price Schedule - Network Use of Service (NUoS) Single Rate and Time of Use consumption CL
-    Single Rate and Time of Use consumption Export Charge Export Credit Actual/Agreed Annual Demand
-  note: '''Anytime Flex'' column of the ''kVA DEMAND - Actual/Agreed Annual'' group ($/kVA/day), priced for the Flexible tariffs
-    only. Whether the flexible quantity is actual or agreed demand is not stated in the price list. The codes are the rows with
-    a price in that column (column positions checked on the page).'
-  tariffs:
-  - codes:
-    - LBADF
-    - LBADFCBD
-    - HVADF
-    - HVADFCBD
-    - ZSSF
-    - STRF
-    - LBGF
-    - LBGFCBD
-    - HVBGF
-    - HVBGFCBD
-    - ZSSGF
-    - STRGF
-    time_band: anytime
-- id: sapn-2627-dnsp-monthly-demand
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: monthly_max
-  locator: pdf:p5
-  quote: kVA DEMAND Actual Monthly
-  note: Column 'kVA DEMAND - Actual Monthly Demand - Peak Summer' ($/kVA/day); the price list does not state the summer months,
-    the peak window or the measurement interval. The codes are the rows with a price in that column (column positions checked
-    on the page).
-  tariffs:
-  - codes:
-    - LBMD
-    - LBMDCBD
-    - HVMD
-    - HVMDCBD
-    time_band: peak
-    season: summer
-- id: sapn-2627-dnsp-site-annual-demand
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: not_stated
-  locator: pdf:p6
-  quote: kVA DEMAND Actual Monthly Price Schedule - Network Use of Service (NUoS) Single Rate and Time of Use consumption CL
-    Single Rate and Time of Use consumption Export Charge Export Credit Actual/Agreed Annual Demand
-  note: Price-list column group 'kVA DEMAND - Actual/Agreed Annual' (Peak, Anytime, Anytime Flex; $/kVA/day). The 2026-27 price
-    list states no measurement interval, window or aggregation method and refers to the Tariff Structure Statement for application
-    of tariffs. The codes are the rows with a price in that column (column positions checked on the page).
-  tariffs:
-  - codes:
-    - LBAD305
-    - LBAD342
-    - LBAD422
-    - LBAD977
-    - HVAD276
-    - HVAD381
-    - ZSS104
-    - ZSS296
-    - ZSS550
-    - ZSS951
-    - ZSN021
-    - ZSN024
-    - ZSN228
-    - ZSN408
-    - ZSN438
-    - ZSN608
-    - STR483
-    - STR610
-    - STR749
-    - STN018
-    - STN084
-    - STN161
-    - STN378
-    - STN528
-    - STN557
-    - STN609
-    - STN788
-    - STN984
-    time_band: peak
-  - codes:
-    - LBAD305
-    - LBAD342
-    - LBAD422
-    - LBAD977
-    - HVAD276
-    - HVAD381
-    - ZSS104
-    - ZSS296
-    - ZSS550
-    - ZSS951
-    - ZSN021
-    - ZSN024
-    - ZSN228
-    - ZSN408
-    - ZSN438
-    - ZSN608
-    - STR483
-    - STR610
-    - STR749
-    - STN018
-    - STN084
-    - STN161
-    - STN378
-    - STN528
-    - STN557
-    - STN609
-    - STN788
-    - STN984
-    - LBMD979
-    time_band: anytime
-- id: sapn-2627-dnsp-site-monthly-demand
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  measure: kVA
-  aggregation: monthly_max
-  locator: pdf:p6
-  quote: kVA DEMAND Actual Monthly
-  note: LBMD979 'Large LV Business Monthly Peak Demand' priced in the 'Actual Monthly Demand - Peak Summer' column; summer months,
-    window and interval are not stated. The codes are the rows with a price in that column (column positions checked on the
-    page).
-  tariffs:
-  - codes:
-    - LBMD979
-    time_band: peak
-    season: summer
 eligibility:
 - codes:
   - RSR
@@ -12928,65 +10670,36 @@ eligibility:
     $ 0.0424 $ 0.1761 $ 0 .0274 STN609 Sub Transmission kVA Locational $ 2,470.4000 $ 0.0018 $ 0.4426 $ 0 .0274 STN788 Sub
     Transmission kVA Locational $ 443.1000 $ 0.0018 $ 0.3531 $ 0 .0274 STN984 Sub Transmission kVA Locational $ 102.2000 $
     0.0018 $ 0.3531 $ 0 .0274
-relations:
-- from: RPRO
-  type: replaced_by
-  to: RTOU
-  fin_year: 2024-25
-  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
-  locator: pdf:p9
-  quote: All existing RPRO customers will be reassigned to the default Residential Time of Use (RTOU) tariff effective 1 July
-    2025.
-  note: The document also says the RPRO tariff 'is proposed to close at 30 June 2025'.
-- from: RPRO
-  type: replaced_by
-  to: RESELE
-  fin_year: 2025-26
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  locator: pdf:p4
-  quote: 'Residential Electrify: This was a trial tariff in the 2024-25 period that will be implemented as a customer choice
-    tariff designed for customers who can shift their energy use to off-peak times. It has stronger pricing signals than the
-    default Residential Time of Use tariff and replaces the Residential Prosumer tariff.'
-  note: The NUoS code table (Table 9, pdf:p37) gives 'RESELE RESELE RESELENE Residential Electrify'; the document does not
-    print the code RPRO (Residential Prosumer is code RPRO in the 2024-25 proposal).
-- from: RPRO
-  type: replaced_by
-  to: RESELE
-  fin_year: 2025-26
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  locator: pdf:p4
-  quote: 'Residential Electrify: This was a trial tariff in the 2024-25 period that will be implemented as a customer choice
-    tariff designed for customers who can shift their energy use to off-peak times. It has stronger pricing signals than the
-    default Residential Time of Use tariff and replaces the Residential Prosumer tariff.'
-  note: The NUoS code table (Table 9, pdf:p37) gives 'RESELE RESELE RESELENE Residential Electrify'; the document does not
-    print the code RPRO (Residential Prosumer is code RPRO in the 2024-25 proposal).
-flags:
 - codes:
   - RSR
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p26
   quote: Residential Closed Fixed $/day Fixed supply charge per annum. Single Rate | RSR
 - codes:
   - BSR
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p28
   quote: Small Business Closed Fixed $/day Fixed supply charge per annum. Single Rate | BSR
 - codes:
   - B2R
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p28
   quote: Small Business Closed Fixed $/day Fixed supply charge per annum. Two-Rate | B2R
 - codes:
   - BSRT
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p29
   quote: Large LV Business Closed Fixed $/day Fixed supply charge per annum. Single Rate | Accumulation Usage $/kWh Anytime
     based on usage. BSRT meter (Type 6)
@@ -12994,14 +10707,16 @@ flags:
   - B2RT
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p29
   quote: Large LV Business Closed Fixed $/day Fixed supply charge per annum. Two-Rate | B2RT
 - codes:
   - SBD
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p28
   quote: 'Small Business Closed, Opt-out Fixed $/day Fixed supply charge per annum. Actual kVA 01/07/2020 Usage $/kWh Anytime
     based on usage. Demand – Interval meter Demand – $/kVA/day Actual monthly highest demand measured: Transition | SBD (
@@ -13010,14 +10725,16 @@ flags:
   - SBD
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p25
   quote: In 2020/21 SBD, BD and HBD became transition tariffs.
 - codes:
   - BD
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p29
   quote: Large LV Business Closed, Opt-out Fixed $/day Fixed supply charge per annum. Actual Demand – 01/07/2020 Usage $/kWh
     Anytime based on usage. Transition | BD Interval meter
@@ -13025,7 +10742,8 @@ flags:
   - HBD
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p44
   quote: HV Business Actual Demand - Tariff Closed
   note: 'Price-table heading for HBD: the code table (pdf:p66) lists ''HBD HBD HV Business Actual Monthly Demand (transition)''
@@ -13035,14 +10753,16 @@ flags:
   - HBD
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p25
   quote: In 2020/21 SBD, BD and HBD became transition tariffs.
 - codes:
   - M/QOPCL
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p27
   quote: Controlled Load Closed ** Flat rate $/kWh Based on usage. Time clock is managed by SA Residential and 01/07/2020
     Power Networks, and typically involves Small Business Legacy meters supply usage between 11:00pm – 7:00am |OPCL
@@ -13052,21 +10772,24 @@ flags:
   - RELE
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p26
   quote: Electrify | RELE Customer Fixed $/day Fixed supply charge per annum. Choice, Trial
 - codes:
   - RELE2W
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p26
   quote: Way | RELE2W Choice, Trial
 - codes:
   - SBTOUE
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p28
   quote: Time of Use Choice, Trial Usage – Peak $/kWh 5:00pm – 9:00pm All days. Electrify | Interval meter, Usage – Shoulder
     $/kWh 7:00am – 10:00am and 4:00pm – 5:00pm WD. SBTOUE
@@ -13075,7 +10798,8 @@ flags:
   - LBADFCBD
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p66
   quote: LBADF LBADFCBD Large LV Business Agreed Demand Flexible
   column_locator: pdf:p76
@@ -13087,7 +10811,8 @@ flags:
   - HVADFCBD
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p66
   quote: HVADF HVADFCBD HV Business Agreed Demand Flexible
   column_locator: pdf:p77
@@ -13099,7 +10824,8 @@ flags:
   - LBGFCBD
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p66
   quote: LBGF LBGFCBD Large LV Business Generation Flexible
   column_locator: pdf:p76
@@ -13111,7 +10837,8 @@ flags:
   - HVBGFCBD
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p66
   quote: HVBGF HVBGFCBD HV Business Generation Flexible
   column_locator: pdf:p77
@@ -13123,7 +10850,8 @@ flags:
   - STNF
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p10
   quote: Zone Substation Flexible (ZSNF) o Sub Transmission Flexible (STNF)
   column_locator: pdf:p10
@@ -13134,7 +10862,8 @@ flags:
   - STNGF
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p10
   quote: Zone Substation Generation Flexible (ZSNGF) o Sub Transmission Generation Flexible (STNGF)
   column_locator: pdf:p10
@@ -13144,7 +10873,8 @@ flags:
   - RSR
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p25
   quote: Residential Closed Accumulation Fixed $/day Fixed supply charge per annum. Single Rate | meter (Type 6) Usage $/kWh
     Single block usage charge. RSR
@@ -13152,21 +10882,24 @@ flags:
   - BSR
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p28
   quote: Small Business Closed Fixed $/day Fixed supply charge per annum. Single Rate | BSR
 - codes:
   - B2R
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p28
   quote: Small Business Closed Fixed $/day Fixed supply charge per annum. Two-Rate | B2R
 - codes:
   - BSRT
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p29
   quote: Large LV Business Closed Fixed $/day Fixed supply charge per annum. Single Rate | Accumulation Usage $/kWh Anytime
     based on usage. BSRT meter (Type 6)
@@ -13174,14 +10907,16 @@ flags:
   - B2RT
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p29
   quote: Large LV Business Closed Fixed $/day Fixed supply charge per annum. Two-Rate | B2RT
 - codes:
   - SBD
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p28
   quote: 'Small Business Closed, Opt-out Fixed $/day Fixed supply charge per annum. Actual kVA 01/07/2020 Usage $/kWh Anytime
     based on usage. Demand – Interval meter Demand – $/kVA/day Actual monthly highest demand measured: Transition | SBD (
@@ -13190,14 +10925,16 @@ flags:
   - SBD
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p10
   quote: Small Business Actual Monthly Demand (SBD) transition tariff
 - codes:
   - BD
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p29
   quote: Large LV Business Closed, Opt-out Fixed $/day Fixed supply charge per annum. Actual Demand – 01/07/2020 Usage $/kWh
     Anytime based on usage. Transition | BD Interval meter
@@ -13205,7 +10942,8 @@ flags:
   - HBD
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p44
   quote: HV Business Actual Demand - Tariff Closed
   note: 'Price-table heading for HBD: the code table (pdf:p67) lists ''HBD HBD HV Business Actual Monthly Demand (transition)''
@@ -13215,14 +10953,16 @@ flags:
   - HBD
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p10
   quote: Large Business Actual Monthly Demand (BD) and High Voltage Business Actual Monthly Demand (HBD) transition tariffs
 - codes:
   - M/QOPCL
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p27
   quote: Controlled Load Closed ** Flat rate $/kWh Based on usage. Time clock is managed by SA Residential and 01/07/2020
     Power Networks, and typically involves Small Business Legacy meters supply usage between 11:00pm – 7:00am |OPCL
@@ -13232,21 +10972,24 @@ flags:
   - RELE
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p25
   quote: Electrify | RELE Customer Choice, Trial
 - codes:
   - RELE2W
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p26
   quote: Electrify Two Customer Choice, Trial Fixed $/day Fixed supply charge per annum. Way | RELE2W
 - codes:
   - SBTOUE
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p28
   quote: Time of Use Choice, Trial Usage – Peak $/kWh 5:00pm – 9:00pm All days. Electrify | Interval meter, Usage – Shoulder
     $/kWh 7:00am – 10:00am and 4:00pm – 5:00pm WD. SBTOUE
@@ -13255,7 +10998,8 @@ flags:
   - LBADFCBD
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p67
   quote: LBADF LBADFCBD Large LV Business Agreed Demand Flexible
   column_locator: pdf:p77
@@ -13267,7 +11011,8 @@ flags:
   - HVADFCBD
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p67
   quote: HVADF HVADFCBD HV Business Agreed Demand Flexible
   column_locator: pdf:p78
@@ -13279,7 +11024,8 @@ flags:
   - LBGFCBD
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p67
   quote: LBGF LBGFCBD Large LV Business Generation Flexible
   column_locator: pdf:p77
@@ -13291,7 +11037,8 @@ flags:
   - HVBGFCBD
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p67
   quote: HVBGF HVBGFCBD HV Business Generation Flexible
   column_locator: pdf:p78
@@ -13303,7 +11050,8 @@ flags:
   - STNF
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p10
   quote: Zone Substation Flexible (ZSNF) o Sub Transmission Flexible (STNF)
   column_locator: pdf:p10
@@ -13313,7 +11061,8 @@ flags:
   - STNGF
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: pdf:p10
   quote: Zone Substation Generation Flexible (ZSNGF) o Sub Transmission Generation Flexible (STNGF)
   column_locator: pdf:p10
@@ -13322,14 +11071,16 @@ flags:
   - RSR
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p13
   quote: Residential Closed Fixed $/day Fixed supply charge per annum. Single Rate | RSR
 - codes:
   - RSRNE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p13
   quote: Residential Closed Fixed $/day Fixed supply charge per annum. Single Rate | Accumulation Fixed $/day Fixed metering
     charge per annum. RSRNE
@@ -13337,14 +11088,16 @@ flags:
   - BSR
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p20
   quote: Business Closed Fixed $/day Fixed supply charge per annum. Single Rate | BSR
 - codes:
   - BSRNE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p20
   quote: Business Closed Fixed $/day Fixed supply charge per annum. Single Rate | Accumulation Fixed $/day Fixed metering
     charge per annum. BSRNE
@@ -13352,14 +11105,16 @@ flags:
   - B2R
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p20
   quote: Business Closed Fixed $/day Fixed supply charge per annum. Two-Rate | B2R
 - codes:
   - B2RNE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p20
   quote: Business Closed Fixed $/day Fixed supply charge per annum. Two-Rate | Accumulation Fixed $/day Fixed metering charge
     per annum. B2RNE
@@ -13367,14 +11122,16 @@ flags:
   - RSR
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p13
   quote: Residential Closed Fixed $/day Fixed supply charge per annum. Single Rate | RSR
 - codes:
   - RSRNE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p13
   quote: Residential Closed Fixed $/day Fixed supply charge per annum. Single Rate | Accumulation Fixed $/day Fixed metering
     charge per annum. RSRNE
@@ -13382,14 +11139,16 @@ flags:
   - BSR
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p20
   quote: Business Closed Fixed $/day Fixed supply charge per annum. Single Rate | BSR
 - codes:
   - BSRNE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p20
   quote: Business Closed Fixed $/day Fixed supply charge per annum. Single Rate | Accumulation Fixed $/day Fixed metering
     charge per annum. BSRNE
@@ -13397,14 +11156,16 @@ flags:
   - B2R
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p20
   quote: Business Closed Fixed $/day Fixed supply charge per annum. Two-Rate | B2R
 - codes:
   - B2RNE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  flag: closed_to_new
+  rule_type: availability
+  value_text: closed_to_new
   locator: pdf:p20
   quote: Business Closed Fixed $/day Fixed supply charge per annum. Two-Rate | Accumulation Fixed $/day Fixed metering charge
     per annum. B2RNE
@@ -13412,369 +11173,80 @@ flags:
   - SBD
   doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2023-24_id320662.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p5
   quote: SBD SBD Small Business Actual Monthly Demand (transition)
 - codes:
   - BD
   doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2023-24_id320662.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p5
   quote: BD BD Large LV Business Actual Monthly Demand (transition)
 - codes:
   - HBD
   doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2023-24_id320662.pdf
   fin_year: 2023-24
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p5
   quote: HBD HBD HV Business Actual Monthly Demand (transition)
-- codes:
-  - LBAD201
-  - LBAD292
-  - LBAD322
-  - LBAD342
-  - LBAD422
-  - LBAD517
-  - LBAD583
-  - LBAD711
-  - LBAD977
-  - LBMD979
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2023-24_id320662.pdf
-  fin_year: 2023-24
-  flag: site_specific
-  locator: pdf:p6
-  quote: LBAD201 Large LV Business Annual Demand LBAD292 Large LV Business Annual Demand LBAD322 Large LV Business Annual
-    Demand LBAD342 Large LV Business Annual Demand LBAD422 Large LV Business Annual Demand LBAD517 Large LV Business Annual
-    Demand LBAD583 Large LV Business Annual Demand LBAD711 Large LV Business Annual Demand LBAD977 Large LV Business Annual
-    Demand LBMD979 Large LV Business Monthly Peak Demand
-  column_locator: pdf:p6
-  column_quote: Large LV Business >160 MWh pa - Site Specific Tariffs
-- codes:
-  - HVAD078
-  - HVAD381
-  - HVAD265
-  - HVAD439
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2023-24_id320662.pdf
-  fin_year: 2023-24
-  flag: site_specific
-  locator: pdf:p6
-  quote: HVAD078 HV Business Annual Demand HVAD381 HV Business Annual Demand HVAD265 HV Business Annual Demand HVAD439 HV
-    Business Annual Demand
-  column_locator: pdf:p6
-  column_quote: Large HV Business - Site Specific Tariffs
-- codes:
-  - ZSS025
-  - ZSS035
-  - ZSS104
-  - ZSS196
-  - ZSS296
-  - ZSS272
-  - ZSS273
-  - ZSS330
-  - ZSS376
-  - ZSS408
-  - ZSS500
-  - ZSS550
-  - ZSS850
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2023-24_id320662.pdf
-  fin_year: 2023-24
-  flag: site_specific
-  locator: pdf:p6
-  quote: ZSS025 Zone Substation kVA non-Locational ZSS035 Zone Substation kVA non-Locational ZSS104 Zone Substation kVA non-Locational
-    ZSS196 Zone Substation kVA non-Locational ZSS296 Zone Substation kVA non-Locational ZSS272 Zone Substation kVA non-Locational
-    ZSS273 Zone Substation kVA non-Locational ZSS330 Zone Substation kVA non-Locational ZSS376 Zone Substation kVA non-Locational
-    ZSS408 Zone Substation kVA non-Locational ZSS500 Zone Substation kVA non-Locational ZSS550 Zone Substation kVA non-Locational
-    ZSS850 Zone Substation kVA non-Locational
-  column_locator: pdf:p6
-  column_quote: Major Business - Site Specific Tariffs
-- codes:
-  - ZSN021
-  - ZSN024
-  - ZSN228
-  - ZSN438
-  - ZSN608
-  - ZSN951
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2023-24_id320662.pdf
-  fin_year: 2023-24
-  flag: site_specific
-  locator: pdf:p6
-  quote: ZSN021 Zone Substation kVA Locational ZSN024 Zone Substation kVA Locational ZSN228 Zone Substation kVA Locational
-    ZSN438 Zone Substation kVA Locational ZSN608 Zone Substation kVA Locational ZSN951 Zone Substation kVA Locational
-  column_locator: pdf:p6
-  column_quote: Major Business - Site Specific Tariffs
-- codes:
-  - STR148
-  - STR162
-  - STR483
-  - STR610
-  - STR749
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2023-24_id320662.pdf
-  fin_year: 2023-24
-  flag: site_specific
-  locator: pdf:p6
-  quote: STR148 Sub Transmission kVA non-Locational STR162 Sub Transmission kVA non-Locational STR483 Sub Transmission kVA
-    non-Locational STR610 Sub Transmission kVA non-Locational STR749 Sub Transmission kVA non-Locational
-  column_locator: pdf:p6
-  column_quote: Major Business - Site Specific Tariffs
-- codes:
-  - STN018
-  - STN084
-  - STN161
-  - STN378
-  - STN557
-  - STN609
-  - STN788
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2023-24_id320662.pdf
-  fin_year: 2023-24
-  flag: site_specific
-  locator: pdf:p6
-  quote: STN018 Sub Transmission kVA Locational STN084 Sub Transmission kVA Locational STN161 Sub Transmission kVA Locational
-    STN378 Sub Transmission kVA Locational STN557 Sub Transmission kVA Locational STN609 Sub Transmission kVA Locational STN788
-    Sub Transmission kVA Locational
-  column_locator: pdf:p6
-  column_quote: Major Business - Site Specific Tariffs
 - codes:
   - SBD
   doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p5
   quote: SBD SBD Sm all Business Actual M onthly Dem and (transition)
 - codes:
   - BD
   doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p5
   quote: BD BD Large LV Business Actual M onthly Dem and (transition)
 - codes:
   - HBD
   doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: pdf:p5
   quote: HBD HBD HV Business Actual M onthly Dem and (transition)
-- codes:
-  - LBAD201
-  - LBAD292
-  - LBAD305
-  - LBAD322
-  - LBAD342
-  - LBAD422
-  - LBAD517
-  - LBAD583
-  - LBAD711
-  - LBAD977
-  - LBMD979
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
-  fin_year: 2024-25
-  flag: site_specific
-  locator: pdf:p6
-  quote: LBAD201 Large LV Business Annual Demand LBAD292 Large LV Business Annual Demand LBAD305 Large LV Business Annual
-    Demand LBAD322 Large LV Business Annual Demand LBAD342 Large LV Business Annual Demand LBAD422 Large LV Business Annual
-    Demand LBAD517 Large LV Business Annual Demand LBAD583 Large LV Business Annual Demand LBAD711 Large LV Business Annual
-    Demand LBAD977 Large LV Business Annual Demand LBMD979 Large LV Business Monthly Peak Demand
-  column_locator: pdf:p6
-  column_quote: Large LV Business >160 MWh pa - Site Specific Tariffs
-- codes:
-  - HVAD078
-  - HVAD265
-  - HVAD276
-  - HVAD381
-  - HVAD439
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
-  fin_year: 2024-25
-  flag: site_specific
-  locator: pdf:p6
-  quote: HVAD078 HV Business Annual Demand HVAD265 HV Business Annual Demand HVAD276 HV Business Annual Demand HVAD381 HV
-    Business Annual Demand HVAD439 HV Business Annual Demand
-  column_locator: pdf:p6
-  column_quote: Large HV Business - Site Specific Tariffs
-- codes:
-  - ZSS025
-  - ZSS035
-  - ZSS104
-  - ZSS196
-  - ZSS296
-  - ZSS272
-  - ZSS273
-  - ZSS330
-  - ZSS376
-  - ZSS500
-  - ZSS550
-  - ZSS850
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
-  fin_year: 2024-25
-  flag: site_specific
-  locator: pdf:p6
-  quote: ZSS025 Zone Substation kVA non-Locational ZSS035 Zone Substation kVA non-Locational ZSS104 Zone Substation kVA non-Locational
-    ZSS196 Zone Substation kVA non-Locational ZSS296 Zone Substation kVA non-Locational ZSS272 Zone Substation kVA non-Locational
-    ZSS273 Zone Substation kVA non-Locational ZSS330 Zone Substation kVA non-Locational ZSS376 Zone Substation kVA non-Locational
-    ZSS500 Zone Substation kVA non-Locational ZSS550 Zone Substation kVA non-Locational ZSS850 Zone Substation kVA non-Locational
-  column_locator: pdf:p6
-  column_quote: Major Business - Site Specific Tariffs
-- codes:
-  - ZSN021
-  - ZSN024
-  - ZSN228
-  - ZSS408
-  - ZSN438
-  - ZSN608
-  - ZSN700
-  - ZSN951
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
-  fin_year: 2024-25
-  flag: site_specific
-  locator: pdf:p6
-  quote: ZSN021 Zone Substation kVA Locational ZSN024 Zone Substation kVA Locational ZSN228 Zone Substation kVA Locational
-    ZSS408 Zone Substation kVA Locational ZSN438 Zone Substation kVA Locational ZSN608 Zone Substation kVA Locational ZSN700
-    Zone Substation kVA Locational ZSN951 Zone Substation kVA Locational
-  column_locator: pdf:p6
-  column_quote: Major Business - Site Specific Tariffs
-- codes:
-  - STR069
-  - STR123
-  - STR148
-  - STR404
-  - STR483
-  - STR610
-  - STR749
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
-  fin_year: 2024-25
-  flag: site_specific
-  locator: pdf:p6
-  quote: STR069 Sub Transmission kVA non-Locational STR123 Sub Transmission kVA non-Locational STR148 Sub Transmission kVA
-    non-Locational STR404 Sub Transmission kVA non-Locational STR483 Sub Transmission kVA non-Locational STR610 Sub Transmission
-    kVA non-Locational STR749 Sub Transmission kVA non-Locational
-  column_locator: pdf:p6
-  column_quote: Major Business - Site Specific Tariffs
-- codes:
-  - STN018
-  - STN084
-  - STN161
-  - STN162
-  - STN378
-  - STN557
-  - STN609
-  - STN788
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
-  fin_year: 2024-25
-  flag: site_specific
-  locator: pdf:p6
-  quote: STN018 Sub Transmission kVA Locational STN084 Sub Transmission kVA Locational STN161 Sub Transmission kVA Locational
-    STN162 Sub Transmission kVA Locational STN378 Sub Transmission kVA Locational STN557 Sub Transmission kVA Locational STN609
-    Sub Transmission kVA Locational STN788 Sub Transmission kVA Locational
-  column_locator: pdf:p6
-  column_quote: Major Business - Site Specific Tariffs
-- codes:
-  - LBAD201
-  - LBAD292
-  - LBAD305
-  - LBAD342
-  - LBMD979
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p14
-  quote: LBAD201 Large LV Business Annual Demand LBAD292 Large LV Business Annual Demand LBAD305 Large LV Business Annual
-    Demand LBAD342 Large LV Business Annual Demand LBMD979 Large LV Business Monthly Peak Demand
-  column_locator: pdf:p14
-  column_quote: Large LV Business Site Specific
-- codes:
-  - HVAD276
-  - HVAD439
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p14
-  quote: HVAD276 HV Business Annual Demand HVAD439 HV Business Annual Demand
-  column_locator: pdf:p14
-  column_quote: Large HV Business Site Specific
-- codes:
-  - ZSS025
-  - ZSS035
-  - ZSS104
-  - ZSS196
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p14
-  quote: ZSS025 Zone Substation kVA non-Locational ZSS035 Zone Substation kVA non-Locational ZSS104 Zone Substation kVA non-Locational
-    ZSS196 Zone Substation kVA non-Locational
-  column_locator: pdf:p14
-  column_quote: Major Business Site Specific Tariffs
-- codes:
-  - ZSN021
-  - ZSN024
-  - ZSN228
-  - ZSN408
-  - ZSN035
-  - ZSN272
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p14
-  quote: ZSN021 Zone Substation kVA Locational ZSN024 Zone Substation kVA Locational ZSN228 ZSN228 Zone Substation kVA Locational
-    ZSN408 Zone Substation kVA Locational ZSN035 Zone Substation kVA Locational ZSN272 Zone Substation kVA Locational
-  column_locator: pdf:p14
-  column_quote: Major Business Site Specific Tariffs
-- codes:
-  - STR069
-  - STR123
-  - STR148
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p14
-  quote: STR069 STR123 Sub Transmission kVA non-Locational STR148 Sub Transmission kVA non-Locational
-  column_locator: pdf:p14
-  column_quote: Major Business Site Specific Tariffs
-- codes:
-  - STN018
-  - STN084
-  - STN161
-  - STN378
-  - STN528
-  - STN557
-  - STN609
-  - STN788
-  - STN984
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p14
-  quote: STN018 Sub Transmission kVA Locational STN084 Sub Transmission kVA Locational STN161 Sub Transmission kVA Locational
-    STN378 Sub Transmission kVA Locational STN528 Sub Transmission kVA Locational STN557 Sub Transmission kVA Locational STN609
-    Sub Transmission kVA Locational STN788 Sub Transmission kVA Locational STN984 Sub Transmission kVA Locational
-  column_locator: pdf:p14
-  column_quote: Major Business Site Specific Tariffs
 - codes:
   - SBD
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C103
   quote: Small Business Actual Monthly Demand (transition)
 - codes:
   - BD
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C111
   quote: Large LV Business Actual Monthly Demand (transition)
 - codes:
   - HBD
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: transitional
+  rule_type: availability
+  value_text: transitional
   locator: xlsx:Tariff schedule!C117
   quote: HV Business Actual Monthly Demand (transition)
 - codes:
   - LBADF-SA
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B128
   quote: Large LV Business Agreed Demand Flexible
   column_locator: xlsx:Proposal report!B118
@@ -13785,7 +11257,8 @@ flags:
   - HVADF-SA
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B129
   quote: HV Business Agreed Demand Flexible
   column_locator: xlsx:Proposal report!B118
@@ -13796,7 +11269,8 @@ flags:
   - ZSNF
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B130
   quote: Zone Substation kVA Flexible
   column_locator: xlsx:Proposal report!B118
@@ -13807,7 +11281,8 @@ flags:
   - STNF
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B131
   quote: Sub Transmission kVA Flexible
   column_locator: xlsx:Proposal report!B118
@@ -13818,7 +11293,8 @@ flags:
   - LBGF-SA
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B132
   quote: Large LV Business Generation Flexible
   column_locator: xlsx:Proposal report!B118
@@ -13829,7 +11305,8 @@ flags:
   - HVBGF-SA
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B133
   quote: HV Business Generation Flexible
   column_locator: xlsx:Proposal report!B118
@@ -13840,7 +11317,8 @@ flags:
   - ZSNGF
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B134
   quote: Zone Substation Generation Flexible
   column_locator: xlsx:Proposal report!B118
@@ -13851,7 +11329,8 @@ flags:
   - STNGF
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B135
   quote: Sub Transmission Generation Flexible
   column_locator: xlsx:Proposal report!B118
@@ -13862,7 +11341,8 @@ flags:
   - RELE
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B136
   quote: Residential Electrify
   column_locator: xlsx:Proposal report!B118
@@ -13873,7 +11353,8 @@ flags:
   - RELE2W
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B138
   quote: Electrify Two Way
   column_locator: xlsx:Proposal report!B118
@@ -13884,102 +11365,11 @@ flags:
   - SBTOUE
   doc: sources/aer/2024-25_stakeholder_reports/AER_Stakeholder_report_SAPN_2024-25_updated17Jul2024.xlsx
   fin_year: 2024-25
-  flag: trial
+  rule_type: availability
+  value_text: trial
   locator: xlsx:Proposal report!B139
   quote: Small Business Electrify
   column_locator: xlsx:Proposal report!B118
   column_quote: The below table provides trial tariff revenues for SA Power Networks for 2024–25 and historical years
   note: Row of the 'Tariff trials' table (Proposal report!B117-B144); B118 introduces it. Tariff schedule!C138/E138
     give this name's code.
-- codes:
-  - LBAD305
-  - LBAD342
-  - LBAD422
-  - LBAD977
-  - LBMD979
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p6
-  quote: LBAD305 Large LV Business Annual Demand $ 68.8016 $ 0.1019 $ 0.0637 $ 0.3408 $ 0 .0630 LBAD342 Large LV Business
-    Annual Demand $ 17.2004 $ 0.1019 $ 0.0637 $ 0.3408 $ 0 .0630 LBAD422 Large LV Business Annual Demand $ 60.2014 $ 0.1019
-    $ 0.0637 $ 0.3408 $ 0 .0630 LBAD977 Large LV Business Annual Demand $ 103.2024 $ 0.1019 $ 0.0637 $ 0.3408 $ 0 .0630 LBMD979
-    Large LV Business Monthly Peak Demand $ 34.4008 $ 0.1019 $ 0.0637 $ 0 .0630 $ 1.2357
-  column_locator: pdf:p6
-  column_quote: Large LV Business Site Specific
-- codes:
-  - HVAD276
-  - HVAD381
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p6
-  quote: HVAD276 HV Business Annual Demand $ 45.3698 $ 0.0730 $ 0.0456 $ 0.2696 $ 0 .0849 HVAD381 HV Business Annual Demand
-    $ 481.3698 $ 0.0730 $ 0.0456 $ 0.2696 $ 0 .0849
-  column_locator: pdf:p6
-  column_quote: Large HV Business Site Specific
-- codes:
-  - ZSS104
-  - ZSS296
-  - ZSS550
-  - ZSS951
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p6
-  quote: ZSS104 Zone Substation kVA non-Locational $ 735.0000 $ 0.0273 $ 0.2011 $ 0 .0658 ZSS296 Zone Substation kVA non-Locational
-    $ 584.0000 $ 0.0273 $ 0.2011 $ 0 .0658 ZSS550 Zone Substation kVA non-Locational $ 675.0000 $ 0.0273 $ 0.2011 $ 0 .0658
-    ZSS951 Zone Substation kVA non-Locational $ 367.0000 $ 0.0273 $ 0.2011 $ 0 .0658
-  column_locator: pdf:p6
-  column_quote: Major Business Site Specific Tariffs
-- codes:
-  - ZSN021
-  - ZSN024
-  - ZSN228
-  - ZSN408
-  - ZSN438
-  - ZSN608
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p6
-  quote: ZSN021 Zone Substation kVA Locational $ 411.4000 $ 0.0041 $ 0.4339 $ 0 .0658 ZSN024 Zone Substation kVA Locational
-    $ 141.0000 $ 0.0041 $ 0.3905 $ 0 .0658 ZSN228 ZSN228 Zone Substation kVA Locational $ 176.1000 $ 0.0041 $ 0.4184 $ 0 .0658
-    ZSN408 Zone Substation kVA Locational $ 73.2000 $ 0.0041 $ 0.3905 $ 0 .0658 ZSN438 Zone Substation kVA Locational $ 53.6000
-    $ 0.0041 $ 0.3905 $ 0 .0658 ZSN608 Zone Substation kVA Locational $ 140.2000 $ 0.0041 $ 0.3905 $ 0 .0658
-  column_locator: pdf:p6
-  column_quote: Major Business Site Specific Tariffs
-- codes:
-  - STR483
-  - STR610
-  - STR749
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p6
-  quote: STR483 Sub Transmission kVA non-Locational $ 716.0000 $ 0.0250 $ 0.1737 $ 0 .0274 STR610 Sub Transmission kVA non-Locational
-    $ 260.0000 $ 0.0250 $ 0.1737 $ 0 .0274 STR749 Sub Transmission kVA non-Locational $ 351.0000 $ 0.0250 $ 0.1737 $ 0 .0274
-  column_locator: pdf:p6
-  column_quote: Major Business Site Specific Tariffs
-- codes:
-  - STN018
-  - STN084
-  - STN161
-  - STN378
-  - STN528
-  - STN557
-  - STN609
-  - STN788
-  - STN984
-  doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
-  fin_year: 2026-27
-  flag: site_specific
-  locator: pdf:p6
-  quote: STN018 Sub Transmission kVA Locational $ 857.4000 $ 0.0018 $ 0.4065 $ 0 .0274 STN084 Sub Transmission kVA Locational
-    $ 1,343.4000 $ 0.0018 $ 0.4321 $ 0 .0274 STN161 Sub Transmission kVA Locational $ 888.3000 $ 0.0424 $ 0.0508 $ 0 .0274
-    STN378 Sub Transmission kVA Locational $ 423.1000 $ 0.0018 $ 0.4321 $ 0 .0274 STN528 Sub Transmission kVA Locational $
-    407.1000 $ 0.0018 $ 0.4181 $ 0 .0274 STN557 Sub Transmission kVA Locational $ 557.3000 $ 0.0424 $ 0.1761 $ 0 .0274 STN609
-    Sub Transmission kVA Locational $ 2,470.4000 $ 0.0018 $ 0.4426 $ 0 .0274 STN788 Sub Transmission kVA Locational $ 443.1000
-    $ 0.0018 $ 0.3531 $ 0 .0274 STN984 Sub Transmission kVA Locational $ 102.2000 $ 0.0018 $ 0.3531 $ 0 .0274
-  column_locator: pdf:p6
-  column_quote: Major Business Site Specific Tariffs

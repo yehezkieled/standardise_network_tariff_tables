@@ -1,10 +1,13 @@
-"""Hand-curated facts that no price table carries: TOU windows, demand measurement rules, eligibility and assignment
-rules, tariff relations and status flags. One YAML file per distributor under data/tariffdb/curated/.
+"""Hand-curated facts that no price table carries: TOU windows, eligibility criteria and consumption-block bounds. One
+YAML file per distributor under data/tariffdb/curated/; scripts/tariffdb/build.py loads them into the tou_window and
+eligibility tables and the block_* columns of rate.
 
 Every fact quotes its source verbatim at a locator; `validate()` re-reads each quote from the source file (on word
 boundaries), checks enums, times and months, and checks that schedules marked covers_full_day tile 24 hours per day
-type without overlap. Tariff codes are checked by build.py, which runs this validation with quotes and fails on any
-code that is neither a parsed tariff, an alias, nor printed at the fact's locator in a distributor document. Run:  .venv/bin/python scripts/tariffdb/curated.py data/tariffdb/curated/<distributor>.yaml
+type without overlap. A fact whose code names no tariff with rates in that year is not loaded;
+scripts/tariffdb/build.py --verbose lists each one.
+
+  .venv/bin/python scripts/tariffdb/curated.py data/tariffdb/curated/<distributor>.yaml
 
 File format (keys in [] are optional):
 
@@ -25,26 +28,17 @@ tou_schedules:
          [months: "all" | "11,12,1,2,3" | not_stated], [season: <as published>], [locator: ..., quote: ...]}
     (omit months only when the source names no season; not_stated = the source names a season but not its months)
     tariffs:
-      - {codes: [<code>, ...], applies_to: energy | demand | export | controlled_load | all, [locator, quote]}
-demand_rules:
-  - id: <slug>
-    doc, fin_year, measure: kW | kVA, [interval_minutes: 30], aggregation: <spec.AGGREGATIONS>,
-    [aggregation_count: 4  (n of average_of_highest_days)],
-    [window_schedule: <tou schedule id>, window_period: <period>], [months: "12,1,2,3"],
-    [minimum_chargeable: 250, minimum_unit: kVA], locator, quote, [note]
-    tariffs: [{codes: [...], [time_band: peak], [season: summer]}]
+      - {codes: [<code>, ...], applies_to: <spec.TOU_APPLIES>, [locator, quote]}
 eligibility:
-  - {codes: [...], doc, fin_year, rule_type: <spec.RULE_TYPES>, [operator: <spec.OPERATORS>], [value_num: 40],
-     [value_unit: MWh/yr], [value_text: <spec.RULE_VALUES[rule_type] when listed>], [target_code: <code>], locator,
-     quote, [note]}
-relations:
-  - {from: <code>, type: <spec.RELATION_TYPES>, to: <code>, fin_year, doc, locator, quote, [note]}
-flags:
-  - {codes: [...], doc, fin_year, flag: <spec.LISTING_FLAGS>, locator, quote, [column_locator, column_quote]}
+  - {codes: [...], doc, fin_year, rule_type: <spec.CRITERIA>, [operator: <spec.OPERATORS>], [value_num: 40],
+     [value_unit: MWh/yr], [value_text: <spec.CRITERION_VALUES[rule_type] when listed>], [target_code: <code>],
+     locator, quote, [column_locator, column_quote], [note]}
+    (column_* quotes the column header when the quote is a bare table row, e.g. a 'Yes' under 'Closed to New Entrants')
 steps:
   - {codes: [...], doc, fin_year, step_group: <quantity as named>, component_label, step_index: 1, lower_bound: 0,
-     [upper_bound: 60], lower_inclusive: true, upper_inclusive: true, quantity_unit: kWh, reset_period: day, locator, quote}
-    (column_* quotes the column header when the quote is a bare table row, e.g. a 'Yes' under 'Closed to New Entrants')
+     [upper_bound: 60], lower_inclusive: true, upper_inclusive: true, quantity_unit: kWh,
+     reset_period: <RESET_PERIODS>, locator, quote}
+    (bounds go onto the usage rates with block = step_index, or the export rates when step_group names export)
 """
 import csv
 import glob
@@ -69,6 +63,10 @@ DAY_TYPE_DAYS = {"weekday": DAYS[:5], "business_day": DAYS[:5], "weekend": DAYS[
                  "all_days": DAYS}
 
 
+SECTIONS = ("distributor", "tou_schedules", "eligibility", "steps")
+# day: each day stands alone; billing_period_per_day: per-day bounds multiplied by the days in the billing period (an
+# unused allowance rolls over within the period); quarter: bounds accumulate per calendar quarter; unstated
+RESET_PERIODS = ("day", "billing_period_per_day", "quarter", "unstated")
 BOUNDARY_RULES = {"consumption_min", "consumption_max", "demand_min", "demand_max"}
 
 
@@ -187,7 +185,7 @@ def coverage_errors(windows):
 
 
 def validate(data, check_quotes=True):
-    errors = []
+    errors = [f"unknown section {k!r} (sections: {', '.join(SECTIONS)})" for k in data if k not in SECTIONS]
     did = data.get("distributor")
     if did is None:
         return ["missing distributor"]
@@ -210,7 +208,8 @@ def validate(data, check_quotes=True):
 
     for i, s in enumerate(data.get("tou_schedules") or []):
         where = f"tou_schedules[{i}] {s.get('id')}"
-        _req(errors, where, s, ["id", "doc", "fin_year", "name", "time_basis", "public_holidays", "locator", "quote", "windows"])
+        _req(errors, where, s, ["id", "doc", "fin_year", "name", "time_basis", "public_holidays", "locator", "quote",
+                                "windows"])
         if s.get("id") in sched_ids:
             errors.append(f"{where}: duplicate id")
         sched_ids.add(s.get("id"))
@@ -227,7 +226,8 @@ def validate(data, check_quotes=True):
             for k in ("start", "end"):
                 if not TIME_RE.match(str(w.get(k, ""))):
                     errors.append(f"{ww}: {k}={w.get(k)!r} is not HH:MM")
-            if TIME_RE.match(str(w.get("start", ""))) and TIME_RE.match(str(w.get("end", ""))) and minutes(w["start"]) >= minutes(w["end"]):
+            times_ok = TIME_RE.match(str(w.get("start", ""))) and TIME_RE.match(str(w.get("end", "")))
+            if times_ok and minutes(w["start"]) >= minutes(w["end"]):
                 errors.append(f"{ww}: start must be before end (split windows that cross midnight)")
             try:
                 if months_of(w.get("months")) is None and not w.get("season"):
@@ -247,33 +247,13 @@ def validate(data, check_quotes=True):
             _enum(errors, tw, t.get("applies_to"), spec.TOU_APPLIES, "applies_to")
             if check_quotes and t.get("quote"):
                 _quote(errors, tw, t, s.get("doc"))
-    for i, r in enumerate(data.get("demand_rules") or []):
-        where = f"demand_rules[{i}] {r.get('id')}"
-        _req(errors, where, r, ["id", "doc", "fin_year", "measure", "aggregation", "locator", "quote", "tariffs"])
-        check_doc(where, r)
-        _enum(errors, where, r.get("measure"), ["kW", "kVA"], "measure")
-        _enum(errors, where, r.get("aggregation"), spec.AGGREGATIONS, "aggregation")
-        if (r.get("aggregation") == "average_of_highest_days") != (r.get("aggregation_count") is not None):
-            errors.append(f"{where}: aggregation_count goes with (and only with) average_of_highest_days")
-        if r.get("window_schedule") and r["window_schedule"] not in sched_ids:
-            errors.append(f"{where}: window_schedule {r['window_schedule']!r} not defined above")
-        _enum(errors, where, r.get("window_period"), spec.TOU_PERIODS, "window_period")
-        if r.get("months") == "not_stated":
-            errors.append(f"{where}: omit months on a demand rule when they are not stated (say so in the note)")
-        elif r.get("months"):
-            try:
-                months_of(r["months"])
-            except ValueError as e:
-                errors.append(f"{where}: {e}")
-        if check_quotes:
-            _quote(errors, where, r, r.get("doc"))
     for i, r in enumerate(data.get("eligibility") or []):
         where = f"eligibility[{i}] {r.get('codes')} {r.get('rule_type')}"
         _req(errors, where, r, ["codes", "doc", "fin_year", "rule_type", "locator", "quote"])
         check_doc(where, r)
-        _enum(errors, where, r.get("rule_type"), spec.RULE_TYPES, "rule_type")
+        _enum(errors, where, r.get("rule_type"), spec.CRITERIA, "rule_type")
         _enum(errors, where, r.get("operator"), spec.OPERATORS, "operator")
-        allowed = spec.RULE_VALUES.get(r.get("rule_type"))
+        allowed = spec.CRITERION_VALUES.get(r.get("rule_type"))
         if allowed and r.get("value_text") is not None and r["value_text"] not in allowed:
             errors.append(f"{where}: value_text={r['value_text']!r} not in {allowed}")
         if r.get("value_num") is None and not r.get("value_text") and not r.get("target_code"):
@@ -292,20 +272,6 @@ def validate(data, check_quotes=True):
                 errors.append(f"{where}: operator {op!r} is not supported by the quoted boundary")
         elif r.get("operator") in ("ge_unstated", "le_unstated"):
             errors.append(f"{where}: unstated boundary operator needs a numeric boundary rule")
-        if check_quotes:
-            _quote(errors, where, r, r.get("doc"))
-    for i, r in enumerate(data.get("relations") or []):
-        where = f"relations[{i}] {r.get('from')} {r.get('type')} {r.get('to')}"
-        _req(errors, where, r, ["from", "type", "to", "doc", "fin_year", "locator", "quote"])
-        check_doc(where, r)
-        _enum(errors, where, r.get("type"), spec.RELATION_TYPES, "type")
-        if check_quotes:
-            _quote(errors, where, r, r.get("doc"))
-    for i, r in enumerate(data.get("flags") or []):
-        where = f"flags[{i}] {r.get('codes')} {r.get('flag')}"
-        _req(errors, where, r, ["codes", "doc", "fin_year", "flag", "locator", "quote"])
-        check_doc(where, r)
-        _enum(errors, where, r.get("flag"), spec.LISTING_FLAGS, "flag")
         if bool(r.get("column_locator")) != bool(r.get("column_quote")):
             errors.append(f"{where}: column_locator and column_quote go together")
         if check_quotes:
@@ -313,15 +279,14 @@ def validate(data, check_quotes=True):
             if r.get("column_locator"):
                 _quote(errors, where + " column", {"locator": r["column_locator"], "quote": r["column_quote"]},
                        r.get("doc"))
-    step_cols = {c["name"]: c for t in spec.TABLES if t["name"] == "charge_step" for c in t["columns"]}
     for i, r in enumerate(data.get("steps") or []):
         where = f"steps[{i}] {r.get('codes')} {r.get('step_group')} #{r.get('step_index')}"
         _req(errors, where, r, ["codes", "doc", "fin_year", "step_group", "component_label", "step_index",
                                 "lower_inclusive", "upper_inclusive", "quantity_unit", "reset_period", "locator",
                                 "quote"])
         check_doc(where, r)
-        for k in ("quantity_unit", "reset_period"):
-            _enum(errors, where, r.get(k), step_cols[k]["enum"], k)
+        _enum(errors, where, r.get("quantity_unit"), ["kWh"], "quantity_unit")
+        _enum(errors, where, r.get("reset_period"), RESET_PERIODS, "reset_period")
         if not isinstance(r.get("step_index"), int) or r["step_index"] < 1:
             errors.append(f"{where}: step_index must be an integer >= 1")
         if r.get("upper_bound") is not None and r.get("lower_bound") is not None and \
@@ -333,14 +298,11 @@ def validate(data, check_quotes=True):
 
 
 if __name__ == "__main__":
-    from build_support import DISTRIBUTORS
-    names = {d["distributor_id"]: d["name"] for d in DISTRIBUTORS}
     bad = 0
     for p in sys.argv[1:]:
         data = load(p)
         errs = validate(data)
-        n = {k: len(data.get(k) or []) for k in ("tou_schedules", "demand_rules", "eligibility", "relations", "flags",
-                                                  "steps")}
+        n = {k: len(data.get(k) or []) for k in SECTIONS[1:]}
         print(f"{p}: {n}; {len(errs)} problems")
         for e in errs:
             print("  " + e)

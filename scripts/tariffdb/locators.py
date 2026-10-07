@@ -81,14 +81,6 @@ def excel_display(cell):
     return cell_value(cell)
 
 
-def binary_float_display(value, shown):
-    """How formatting the binary float would show `value` at the decimals of `shown` (0.02215 is stored as
-    0.022149999..., so '0.0221' where Excel shows '0.0222'); None when `shown` is not a plain decimal."""
-    if not isinstance(value, float) or not isinstance(shown, str) or not re.fullmatch(r"-?\d+(\.\d+)?", shown):
-        return None
-    return f"{value:.{len(shown.partition('.')[2])}f}"
-
-
 def read_cell_excel(path, sheet, cell):
     """(raw value, value as Excel displays it)."""
     c = _workbook(path)[sheet][cell]
@@ -225,11 +217,6 @@ def verify(path: str, locator: str, value) -> tuple[bool, str]:
                         continue
                     return True, f"'{form}' on page {loc['page']}"
     return False, f"{value!r} not found on page {loc['page']}"
-
-
-def normalise_text(s: str) -> str:
-    """Whitespace- and dash-insensitive form used to find quoted wording in a source."""
-    return re.sub(r"\s+", "", _spaced(s))
 
 
 def _spaced(s: str) -> str:

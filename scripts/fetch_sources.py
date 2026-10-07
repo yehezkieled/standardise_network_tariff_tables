@@ -17,7 +17,7 @@ import csv, hashlib, os, sys, time, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INV = os.path.join(ROOT, "sources", "inventory.csv")
-UA = "Mozilla/5.0 (X11; Linux x86_64) aer-tariff-recon/1.0 (+https://github.com/yehezkieled/aer-tariff-recon)"
+UA = "Mozilla/5.0 (X11; Linux x86_64) standardise_network_tariff_tables/1.0 (+https://github.com/yehezkieled/standardise_network_tariff_tables)"
 
 
 def sha256(path):

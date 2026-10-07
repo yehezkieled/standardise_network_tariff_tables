@@ -75,7 +75,9 @@ missing or differs.
 
 Pricing years before 2023-24: `sources/archive/` holds every older public document found (AER-hosted proposals
 and price lists back to 2009-10, distributor and state-regulator documents), with its own inventory, a coverage table
-per distributor and year, and the reason for each gap (`sources/archive/README.md`). These are not parsed yet.
+per distributor and year, and the reason for each gap (`sources/archive/README.md`). The parsers in
+`scripts/history/` read them into the same tables (`sources/archive/` is committed in full, so every historical value
+is re-checked against its page in CI).
 
 Rows without a local path are documents that could not be obtained at all (the access note says why); the
 report treats those distributor-years as "no distributor-side data".
@@ -85,6 +87,9 @@ report treats those distributor-years as "no distributor-side data".
 - `scripts/parse_aer.py` - reads the AER files into one long table (`out/aer_long.csv`).
 - `scripts/dnsp/*.py` - one parser per distributor group, all emitting the `scripts/schema.py` columns
   (contract in `scripts/dnsp/CONTRACT.md`).
+- `scripts/history/*.py` - one parser per distributor group for the archived pricing years before 2023-24
+  (contract in `scripts/history/CONTRACT.md`; `check.py <slug> --sources` verifies one parser's output);
+  `scripts/archive_sources.py` adds, re-files and corrects archived documents.
 - `scripts/units.py` - unit normalisation (cents; fixed charges per day; demand per published period).
 - `scripts/reconcile.py` - code and component matching, difference classification, grid and discrepancy outputs
   (`--aer-version` for a superseded AER version; the default run also writes `out/version_grid.csv`).

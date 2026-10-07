@@ -129,6 +129,18 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 | 1 | Raise `spec.LAST_FIN_YEAR` (pricing years and their dates follow from it) |
 | 2 | Follow "New AER version", then "Distributor publishes" |
 
+### A year before 2023-24
+
+| # | Step |
+|---|---|
+| 1 | Register the document in the archive: `scripts/archive_sources.py add ...` (`sources/archive/README.md`) |
+| 2 | Parse it in its group's `scripts/history/<slug>.py` (contract: `scripts/history/CONTRACT.md`) |
+| 3 | `.venv/bin/python scripts/history/check.py <slug> --sources`: all `PASS` |
+| 4 | Rebuild, then validate |
+
+The distributor's own list, or a state regulator's published schedule, is `final`; an AER-hosted proposal stands in
+(`provisional`) only for a year with neither.
+
 ### Schema change
 
 | # | Step |

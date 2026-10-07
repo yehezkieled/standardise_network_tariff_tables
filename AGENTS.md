@@ -19,6 +19,20 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   via `scripts/published.py` (Excel display rounding, never `round()` or f-format on the float). Every AER-authored
   file under `sources/aer/` is committed (the AER takes superseded versions private).
 
+## Updating from new releases
+
+The recurring job (an issue labelled `source-release`, opened monthly by `.github/workflows/release-check.yml`, or
+"check for new tariffs"). Steps, commands and PR evidence: `docs/update-and-validate.md` > "Find and load new releases".
+
+1. Find: `.venv/bin/python scripts/check_releases.py` (exit 2 = something new). Bot-blocked pages: real browser.
+2. Archive first, same day: new AER files are lost once superseded (`--archive`, then commit).
+3. Register each file in `sources/inventory.csv`, follow the matching recipe, `./run.sh`, rebuild.
+4. AER v1 loads as `provisional`; the distributor's list replaces it per code as `final` (the build does this). TOU
+   windows and eligibility wait for the distributor's documents; never infer them from the AER file.
+5. Every "Before you commit" box, then `check_releases.py --no-files --accept`.
+6. One PR per release with the evidence table; never merge it yourself. Unsure about a value: mark it `[UNSURE]` in
+   the PR and leave it out of the data.
+
 ## Maintaining this file
 
 Keep this file for knowledge useful to almost every future agent session in this project.

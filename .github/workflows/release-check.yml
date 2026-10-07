@@ -1,0 +1,85 @@
+# Monthly check for new or changed source documents (scripts/check_releases.py), on the GitHub-hosted runners of
+# whichever repository runs it. It only reads the publishers' public pages, and writes only to this repository with
+# the default GITHUB_TOKEN: no other secrets, services or uploads.
+#   - anything new or changed  -> opens (or refreshes) one issue labelled source-release with the report
+#   - a new AER file appeared  -> also opens a draft PR that archives it (the AER takes superseded versions private)
+# Forks: GitHub turns scheduled workflows off in forks; enable them under the fork's Actions tab. Draft PRs need
+# Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests"; without it the issue
+# still lists every new file. A PR opened with GITHUB_TOKEN does not start CI: CI runs once someone pushes to it.
+# Run it now: Actions > Source release check > Run workflow. Same check locally: docs/update-and-validate.md.
+name: Source release check
+
+on:
+  schedule:
+    - cron: "17 3 2 * *" # 03:17 UTC on the 2nd of every month
+  workflow_dispatch:
+
+permissions:
+  contents: write # push the archive branch
+  issues: write
+  pull-requests: write
+
+concurrency: release-check
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check the publishers
+        id: check
+        run: |
+          rc=0
+          python scripts/check_releases.py --archive --report out/release-check.md || rc=$?
+          [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ] || exit "$rc"
+          echo "found=$([ "$rc" -eq 2 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          echo "archived=$(git status --porcelain sources/aer | wc -l)" >> "$GITHUB_OUTPUT"
+
+      - name: Draft PR archiving the new AER files
+        id: pr
+        if: steps.check.outputs.archived != '0'
+        continue-on-error: true
+        run: |
+          if [ -n "$(gh pr list --label source-release --state open --json number --jq '.[].number')" ]; then
+            echo "an archive PR is already open"; exit 0
+          fi
+          branch="release-check/aer-archive-$(date -u +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add sources/aer
+          git commit -m "chore(sources): archive new AER files found by the release check"
+          git push origin "$branch"
+          gh label create source-release --color 0e8a16 --description "New or changed source documents" --force
+          { cat out/release-check.md; echo; echo "Archive only: inventory rows, registries and the rebuild are still to do (AGENTS.md > Updating from new releases). Run: $RUN_URL"; } > out/pr-body.md
+          gh pr create --draft --label source-release --title "chore(sources): archive new AER files ($(date -u +%Y-%m-%d))" --body-file out/pr-body.md
+
+      - name: Open or refresh the issue
+        if: steps.check.outputs.found == 'true'
+        run: |
+          gh label create source-release --color 0e8a16 --description "New or changed source documents" --force
+          {
+            head -c 60000 out/release-check.md
+            echo
+            echo "---"
+            echo "Process with an AI coding agent: \"Follow AGENTS.md > Updating from new releases for this issue.\""
+            if [ "${{ steps.pr.outcome }}" = "failure" ]; then
+              echo "The archive PR could not be opened (Actions may not be allowed to create PRs): download the new AER files above first."
+            fi
+            echo "Run: $RUN_URL"
+          } > out/issue-body.md
+          n=$(gh issue list --label source-release --state open --json number --jq '.[0].number // empty')
+          if [ -n "$n" ]; then
+            gh issue edit "$n" --body-file out/issue-body.md
+            gh issue comment "$n" --body "Report refreshed on $(date -u +%Y-%m-%d): $RUN_URL"
+          else
+            gh issue create --label source-release --title "New or changed source documents ($(date -u +%Y-%m-%d))" --body-file out/issue-body.md
+          fi

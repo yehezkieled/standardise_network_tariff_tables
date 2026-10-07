@@ -24,6 +24,49 @@ flowchart LR
 > until then a provisional tariff can have rates but no `tou_window` / `eligibility` rows.
 > `validate.py --coverage` lists those gaps.
 
+## Find and load new releases
+
+Works for any year: nothing below names one.
+
+```mermaid
+flowchart LR
+    C["check_releases.py<br/>(monthly workflow<br/>or by hand)"] -->|"new / changed"| I["issue<br/>source-release"]
+    C -->|"new AER file"| A["draft PR<br/>archiving it"]
+    I --> G["agent or human:<br/>steps 2-7"]
+    A --> G
+    G --> P["PR with evidence"]
+```
+
+| # | Step | How |
+|---|---|---|
+| 1 | Find | `.venv/bin/python scripts/check_releases.py` (`--no-files` for pages only). Reports new AER versions (landing-page changelog vs `build_support.AER_VERSIONS`), new or gone document links on the pages in `sources/watch.csv`, and inventory files whose SHA-256 changed. Pages listed as not reachable block bots: open them in a real browser |
+| 2 | Archive | AER files: `--archive` saves each new one and its landing page under `sources/aer/`; commit both at once (the AER takes superseded versions private). Distributor files: `./run.sh` fetches them from `sources/inventory.csv`; a publisher that blocks downloads gets a Wayback copy (`https://web.archive.org/web/<timestamp>id_/<url>`), committed with a `.gitignore` allow line |
+| 3 | Register | One `sources/inventory.csv` row per file (URL, access note, SHA-256), then the recipe below: "New AER version", "Distributor publishes its price list", "Mid-year price change" or "New financial year". An AER landing page saved by `--archive` replaces the year's `build_support.LANDING` entry, and its changelog lines go into `AER_VERSIONS` verbatim |
+| 4 | Parse | `./run.sh`. A format the parser rejects: fix `scripts/parse_aer.py` or `scripts/dnsp/<group>.py` (contract: `scripts/dnsp/CONTRACT.md`), never the output |
+| 5 | Apply the rule | Automatic in the build: AER versions stay `provisional`, the distributor's list replaces them per code as `final`. TOU windows and eligibility only come from the distributor's documents (curated YAML) |
+| 6 | Validate | "Before you commit" below, every box |
+| 7 | Accept | `.venv/bin/python scripts/check_releases.py --no-files --accept` records the current links in `sources/watch_seen.csv`, so the next check reports only what is newer. Accept irrelevant links the same way |
+| 8 | PR | One PR per release; the body has the evidence (below). It closes the `source-release` issue |
+
+PR evidence:
+
+| Include | From |
+|---|---|
+| Each new document: URL, local path, SHA-256, retrieval date | `sources/inventory.csv` diff |
+| AER changelog lines quoted verbatim | the saved landing page |
+| `validate.py --sources` output (all `PASS`) and the test result | the commands above |
+| Rows changed per table and status counts (`provisional` → `final`) | `git diff --stat data/tariffdb/tables/` |
+| Gaps left (codes without TOU or eligibility) | `validate.py --coverage` |
+| Anything not loaded, and why | build output (`--verbose`) |
+
+### Monthly schedule
+
+| Where | How |
+|---|---|
+| GitHub (default) | `.github/workflows/release-check.yml` runs on the 2nd of every month on the repository's own GitHub runners, with only the default `GITHUB_TOKEN`; it reads public pages and writes only an issue and a draft PR to this repository. Run now: Actions > Source release check > Run workflow |
+| A fork | Scheduled workflows are off in forks: enable them in the fork's Actions tab. For the draft PR, also turn on Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests" (without it, the issue still lists every new file) |
+| Your own machine | `crontab -e`, then `17 3 2 * * cd /path/to/repo && .venv/bin/python scripts/check_releases.py --report out/release-check.md` (exit 2 = something new; read the report) |
+
 ## Recipes
 
 ### New AER version (v1 or later)
@@ -106,6 +149,7 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 | Build SQLite | `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` |
 | Schema docs | `.venv/bin/python scripts/tariffdb/schema_doc.py` (`--check` to verify) |
 | Tests | `.venv/bin/python -m unittest tests/test_tariffdb.py` |
+| New or changed source documents | `.venv/bin/python scripts/check_releases.py` (`--no-files`, `--archive`, `--accept`) |
 
 ## Checks
 
@@ -129,7 +173,7 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 - [ ] `.venv/bin/python scripts/tariffdb/build.py` (no error; read the "not loaded" count)
 - [ ] `.venv/bin/python scripts/tariffdb/validate.py --sources`: all `PASS`
 - [ ] `.venv/bin/python scripts/tariffdb/schema_doc.py`
-- [ ] `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_reconciliation.py`: OK
+- [ ] `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_reconciliation.py tests/test_check_releases.py`: OK
 - [ ] `git diff --stat data/tariffdb/tables/`: only the rows you expected changed
 
 ## Rules
@@ -137,6 +181,7 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 | Rule | Why |
 |---|---|
 | CSVs are generated; only `data/tariffdb/curated/*.yaml` and `data/tariffdb/code_alias.csv` are hand-written | a rebuild must reproduce every row |
+| `sources/watch.csv` (pages to watch) is hand-written; `sources/watch_seen.csv` is written only by `check_releases.py --accept` | the baseline must be what the pages really showed |
 | Every curated fact carries a verbatim `quote` | `validate.py --sources` can prove it |
 | The `.sqlite` is never committed | build it with `load.py --out`; a binary does not diff |
 | Superseded provisional rows are not kept as rows | `git log -p data/tariffdb/tables/rate.csv` has them |

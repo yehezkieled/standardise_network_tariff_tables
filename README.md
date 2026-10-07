@@ -30,6 +30,9 @@ flowchart LR
   distributor's documents (`validate.py --coverage` lists the gaps).
 
 Recipes and checks: [docs/update-and-validate.md](docs/update-and-validate.md).
+New releases: a monthly workflow (`.github/workflows/release-check.yml`) runs `scripts/check_releases.py` and opens an
+issue when the AER or a distributor publishes something new; any AI coding agent can then follow
+[AGENTS.md](AGENTS.md) ("Updating from new releases") to load it and open a PR.
 
 ## Reconciliation (AER vs distributor)
 

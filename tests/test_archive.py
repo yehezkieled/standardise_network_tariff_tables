@@ -47,6 +47,8 @@ class ArchiveTest(unittest.TestCase):
                 self.assertLess(p.stat().st_size, A.MAX_BYTES)
                 h = hashlib.sha256(p.read_bytes()).hexdigest()
                 self.assertEqual(h, r["sha256"])
+                self.assertEqual(A.damage(p), "", "replace the cut-off capture or remove it")
+                self.assertRegex(p.name, r"^[A-Za-z0-9._-]+$")
 
     def test_every_file_is_registered(self):
         held = {r["local_path"] for r in self.rows}
@@ -79,6 +81,12 @@ class ArchiveTest(unittest.TestCase):
         self.assertEqual(A.year_keys("ausgrid", "2020-21"), ["2020-21", "2021-22", "2022-23"])
         self.assertEqual(A.year_keys("tasnetworks", "2007")[:3], ["2007", "2008-H1", "2008-09"])
         self.assertEqual(A.year_keys("powercor", "1999-00")[:3], ["1999-00", "2000-H2", "2001"])
+
+    def test_file_name(self):
+        self.assertEqual(A.file_name("https://web.archive.org/web/2004id_/http://x.au/a/Price%20List%202004.pdf"),
+                         "Price_List_2004.pdf")
+        self.assertEqual(A.file_name("http://x.au/download.jsp?id=11938", b"%PDF-1.4"), "download.jsp_11938.pdf")
+        self.assertEqual(A.file_name("http://x.au/../../etc/passwd"), "passwd.bin")
 
 
 if __name__ == "__main__":

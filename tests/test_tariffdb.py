@@ -184,7 +184,7 @@ class TestValidate(unittest.TestCase):
                                     "(SELECT rowid FROM rate WHERE block = 2 LIMIT 1)"),
             (validate.check_aliases, "INSERT INTO tariff SELECT distributor_id, lower(tariff_code), effective_from, "
                                      "effective_to, tariff_name, customer_class, 'provisional', document_id FROM "
-                                     "tariff WHERE status = 'final' LIMIT 1"),
+                                     "tariff WHERE status = 'final' AND tariff_code <> lower(tariff_code) LIMIT 1"),
             (validate.check_tou, "INSERT INTO tou_window SELECT window_id || '-copy', distributor_id, tariff_code, "
                                  "effective_from, effective_to, applies_to, tou_period, period_label, day_type, "
                                  "start_time, end_time, months, season, time_basis, public_holidays, document_id, "

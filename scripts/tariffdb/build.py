@@ -11,8 +11,8 @@ Inputs:
 
 Which rates a tariff code gets, per distributor and pricing year:
   final        the distributor's own published price list prices the code (lists that take effect the same day must
-               price different codes; build_support.FINAL_DOCUMENT names the billed one where two price the same code), or before
-               2023-24 the tariff schedule a state regulator published or approved;
+               price different codes; build_support.FINAL_DOCUMENT names the billed one where two price the same
+               code), or before 2023-24 the tariff schedule a state regulator published or approved;
   provisional  otherwise, the AER's latest held report for that year (v1 first, as it is published first), else a
                distributor document the AER hosts, else the distributor's own proposal.
 A code is stored as the distributor spells it: an AER code that differs only in case or spacing is the same tariff,

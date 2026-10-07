@@ -49,6 +49,9 @@ UNIT_RE = re.compile(r"^c/(?:day|kWh|kVAh|(?:kW|kVA|k\?|lamp)/(?:day|month|year|
 UNITS_BY_CHARGE = {"daily": r"c/(day|lamp/day)$", "metering": r"c/(day|kWh)$", "usage": r"c/(kWh|kVAh)$",
                    "demand": r"c/k(W|VA|\?)/", "capacity": r"c/k(W|VA|\?)/",
                    "export": r"c/(kWh|kVAh)$|c/k(W|VA)/", "other": r"c/"}
+# above this a c/kWh price outside critical peak is a misread unless its note says 'confirmed high rate:' (the largest
+# ordinary energy price in the dataset is under 150 c/kWh)
+MAX_KWH_PRICE = 200
 # rates stored with the unit their document prints although it does not fit the charge: rate_id -> evidence
 KNOWN_MISPRINTS = {
     rid: "Evoenergy Statement of Tariff Classes and Tariffs 2023-24 p26 prints 'Net energy c/kVA/day' (123) and "

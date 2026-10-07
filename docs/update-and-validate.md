@@ -63,6 +63,7 @@ The distributor's spelling wins; the AER's copy of that tariff is dropped.
 | 2 | Prefer a pattern: `{code}` = same text both sides, `{n}` = one digit (distributor side). A literal pair also works |
 | 3 | Rebuild, then validate: the `aliases` check fails while a duplicate remains |
 
+One AER code may map to several distributor codes (`EBDEM` → `EBDEMT1`–`T3`): the AER copy gives way to all of them.
 A rule only matches codes the distributor's list really prices that day; it never creates a code.
 
 ### Mid-year price change

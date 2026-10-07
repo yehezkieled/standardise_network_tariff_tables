@@ -251,6 +251,12 @@ class TestBuildRules(unittest.TestCase):
             self.run_build(docs, [parsed_row("DNSP", "sources/dist-a.pdf", "A1", "1"),
                                   parsed_row("DNSP", "sources/dist-b.pdf", "A1", "2")])
 
+    def test_two_lists_pricing_different_codes_both_count(self):
+        tariffs, _ = self.run_build([doc("dist-a", "DNSP"), doc("dist-b", "DNSP")],
+                                    [parsed_row("DNSP", "sources/dist-a.pdf", "A1", "1"),
+                                     parsed_row("DNSP", "sources/dist-b.pdf", "B1", "2")])
+        self.assertEqual({(k[0], v["document_id"]) for k, v in tariffs.items()}, {("A1", "dist-a"), ("B1", "dist-b")})
+
     def test_joint_aer_codes_are_split_and_withdrawn_rows_dropped(self):
         tariffs, _ = self.run_build([doc("aer", "AER", "approved")], [
             parsed_row("AER", "sources/aer.pdf", "010, 011*", "10"),

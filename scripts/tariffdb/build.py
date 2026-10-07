@@ -10,8 +10,8 @@ Inputs:
     sources/archive/inventory.csv.
 
 Which rates a tariff code gets, per distributor and pricing year:
-  final        the distributor's own published price list prices the code (one such document per distributor-year;
-               build_support.FINAL_DOCUMENT names it where a distributor publishes more than one), or before
+  final        the distributor's own published price list prices the code (lists that take effect the same day must
+               price different codes; build_support.FINAL_DOCUMENT names the billed one where two price the same code), or before
                2023-24 the tariff schedule a state regulator published or approved;
   provisional  otherwise, the AER's latest held report for that year (v1 first, as it is published first), else a
                distributor document the AER hosts, else the distributor's own proposal.
@@ -247,13 +247,16 @@ class Builder:
                 by_start[self.start_of(k, fy)].append(k)
         final = []
         for start, ks in sorted(by_start.items()):
-            if len(ks) > 1:
+            codes = [aliases.norm(c) for k in ks for c in docs[k]]
+            if len(ks) > 1 and len(codes) != len(set(codes)):
+                # lists that price the same code the same day are alternatives; lists that price different codes
+                # (Country Energy's current and obsolete tariffs, 2007-08) together make the year's price list
                 path = bs.FINAL_DOCUMENT.get((did, fy))
                 ks = [k for k in ks if info[k]["local_path"] == path]
                 if len(ks) != 1:
                     raise SystemExit(f"{did} {fy}: several published distributor price lists take effect {start}; "
                                      f"name the one customers are billed on in build_support.FINAL_DOCUMENT")
-            final.append((start, ks[0]))
+            final += [(start, k) for k in sorted(ks)]
         finals = {k for _, k in final} | {k for ks in by_start.values() for k in ks}
         provisional = None
         for side in ("AER", "AER_HOSTED", "DNSP", "REGULATOR_HOSTED"):

@@ -251,7 +251,7 @@ The network price charged for one component of a tariff: the total network price
 | `effective_to` | date | no |  | YYYY-MM-DD | last day the price applies (inclusive) | `2026-06-30` |
 | `charge_type` | text | no |  | daily, usage, demand, capacity, export, metering, other | daily = fixed charge per day; usage = per kWh or kVAh; demand / capacity = per kW or kVA; export = per exported kWh or kW (negative = a reward paid); metering = metering charge; other | `daily` |
 | `tou_period` | text | yes |  | anytime, peak, shoulder, off_peak, super_off_peak, critical_peak, solar_soak, capacity_minimum, capacity_remaining, critical_minimum, dynamic_maximum, dynamic_minimum | time-of-use period the price applies in (anytime = all times); NULL for daily and metering charges | `anytime` |
-| `season` | text | yes |  | summer, non_summer, high, low, winter | season the price applies in; NULL = all year | `high` |
+| `season` | text | yes |  | summer, non_summer, high, low, winter, spring, autumn | season the price applies in; NULL = all year | `high` |
 | `block` | integer | yes |  |  | consumption block number (1 = first) of a stepped price; NULL otherwise | `1` |
 | `block_from` | numeric | yes |  |  | lower bound of the block, from the curated block ladder | `0` |
 | `block_to` | numeric | yes |  |  | upper bound of the block; NULL = unbounded or not stated | `1020` |

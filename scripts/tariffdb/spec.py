@@ -29,7 +29,7 @@ CHARGE_TYPES = ["daily", "usage", "demand", "capacity", "export", "metering", "o
 # bands distributors publish (capacity_minimum/remaining, critical_minimum, dynamic_minimum/maximum)
 RATE_PERIODS = ["anytime", "peak", "shoulder", "off_peak", "super_off_peak", "critical_peak", "solar_soak",
                 "capacity_minimum", "capacity_remaining", "critical_minimum", "dynamic_maximum", "dynamic_minimum"]
-SEASONS = ["summer", "non_summer", "high", "low", "winter"]
+SEASONS = ["summer", "non_summer", "high", "low", "winter", "spring", "autumn"]
 DAY_TYPES = ["weekday", "weekend", "all_days", "business_day", "non_business_day"]
 TOU_PERIODS = ["peak", "shoulder", "off_peak", "solar_soak", "critical_peak", "super_off_peak", "demand_window",
                "export_charge_window", "export_reward_window", "controlled_load_supply", "anytime", "high_season_peak",

@@ -52,7 +52,7 @@ CREATE TABLE rate (
   effective_to TEXT NOT NULL CHECK (effective_to IS NULL OR effective_to GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
   charge_type TEXT NOT NULL CHECK (charge_type IN ('daily', 'usage', 'demand', 'capacity', 'export', 'metering', 'other')),
   tou_period TEXT CHECK (tou_period IN ('anytime', 'peak', 'shoulder', 'off_peak', 'super_off_peak', 'critical_peak', 'solar_soak', 'capacity_minimum', 'capacity_remaining', 'critical_minimum', 'dynamic_maximum', 'dynamic_minimum')),
-  season TEXT CHECK (season IN ('summer', 'non_summer', 'high', 'low', 'winter')),
+  season TEXT CHECK (season IN ('summer', 'non_summer', 'high', 'low', 'winter', 'spring', 'autumn')),
   block INTEGER CHECK (typeof(block) IN ('integer', 'null')),
   block_from NUMERIC CHECK (typeof(block_from) IN ('integer', 'real', 'null')),
   block_to NUMERIC CHECK (typeof(block_to) IN ('integer', 'real', 'null')),

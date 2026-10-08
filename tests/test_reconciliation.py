@@ -241,19 +241,17 @@ class ReconciliationRegression(unittest.TestCase):
                 self.assertTrue(all(r['unit_std'].startswith('c/'+measure+'/') for r in demand), (year, code))
 
     @needs_tasnetworks_documents
-    def test_tasnetworks_unestablished_measures_follow_header(self):
+    def test_tasnetworks_embedded_network_demand_is_kva(self):
+        """The 2025-26 and 2026-27 schedules print '(c/kVA/day) (c/kW/day)' for the embedded-network tariffs; the
+        2024-29 network tariff application guide (Table 6) measures them in kVA."""
         for year, side, path, parser in tasnetworks.FILES[2:]:
             rows = parser(path, year, side, '')
             demand = [r for r in rows if re.fullmatch(r'TAS(?:84T[1-4]|14T[12])', r['tariff_code'])
                       and '/k' in r['unit'] and 'Wh' not in r['unit']]
             self.assertTrue(demand, year)
             for r in demand:
-                if year == '2024-25':
-                    self.assertTrue(r['unit_std'].startswith('c/kVA/'), (year, r['tariff_code'], r['unit_std']))
-                    self.assertNotIn('[UNSURE]', r['note'])
-                else:
-                    self.assertTrue(r['unit_std'].startswith('c/k?/'), (year, r['tariff_code'], r['unit_std']))
-                    self.assertIn('[UNSURE]', r['note'])
+                self.assertTrue(r['unit_std'].startswith('c/kVA/'), (year, r['tariff_code'], r['unit_std']))
+                self.assertNotIn('[UNSURE]', r['note'])
 
     def test_seasonal_unit_suffix_is_daily_price_in_that_season(self):
         for alabel, unit, dlabel, season in [('HS dem kVA', 'cents/kVA/highsn', 'Import - Demand Charges - High Season Demand', 'high'),

@@ -157,13 +157,15 @@ def unheld_aer_documents(source_documents):
 
 
 DOC_TYPE_RULES = [
+    (r"[Tt]rial [Nn]otification", "tariff_trial_notification"),
     (r"consolidated stakeholder report", "aer_consolidated_stakeholder_report"),
     (r"per-DNSP stakeholder report", "aer_stakeholder_report"),
     (r"Pricing Proposal Overview", "pricing_proposal_overview"),
     (r"Tariff Summary", "tariff_summary"),
     (r"Statement of Tariff Classes", "statement_of_tariff_classes"),
     (r"[Ss]chedule of [Cc]harges", "schedule_of_charges"),
-    (r"tariff application and price guide", "price_guide"),
+    (r"tariff application and price guide|[Nn]etwork [Pp]rice [Gg]uide|[Nn]etwork [Tt]ariff [Gg]uide", "price_guide"),
+    (r"Tariff Structure Statement|Tariff Structure Explanatory Statement", "tariff_structure_statement"),
     (r"Pricing Schedule", "pricing_schedule"),
     (r"Schedule of tariffs|Tariff Schedule", "tariff_schedule"),
     (r"[Pp]ricing [Pp]roposal|Pricing PDF|Final Pricing", "pricing_proposal"),

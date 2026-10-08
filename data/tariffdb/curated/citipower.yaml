@@ -43,20 +43,22 @@ tou_schedules:
     April to November'. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
     not stated
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 3pm-9pm (summer)
     days: business_day
     start: '15:00'
     end: '21:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 3pm-9pm (non-summer)
     days: business_day
     start: '15:00'
     end: '21:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - CR
@@ -163,20 +165,22 @@ tou_schedules:
   note: Table A.8 summer / non-summer demand columns; summer is December to March. 'workdays' is not defined in the document;
     mapped to business_day (Mon-Fri); public holiday treatment not stated
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (non-summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - CG
@@ -193,20 +197,22 @@ tou_schedules:
   note: Table A.8 summer / non-summer demand columns; summer is December to March. 'workdays' is not defined in the document;
     mapped to business_day (Mon-Fri); public holiday treatment not stated
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (non-summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - CMG
@@ -333,12 +339,13 @@ tou_schedules:
     each workday''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
     not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: summer incentive 1-4pm
     days: business_day
     start: '13:00'
     end: '16:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
   tariffs:
   - codes:
@@ -359,12 +366,13 @@ tou_schedules:
   note: CST2 shows 4-7pm in the summer incentive demand column of Table A.9. 'workdays' is not defined in the document;
     mapped to business_day (Mon-Fri); public holiday treatment not stated
   windows:
-  - period: demand_window
+  - period: peak
     label: summer incentive 4-7pm
     days: business_day
     start: '16:00'
     end: '19:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
   tariffs:
   - codes:
@@ -458,7 +466,7 @@ tou_schedules:
     Each link quotes the code''s Table A.9 row (p27), whose peak energy and 12-month rolling demand columns read ''workdays
     7am-7pm''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: rolling demand 7am-7pm workdays
     days: business_day
     start: 07:00
@@ -598,7 +606,7 @@ tou_schedules:
   note: 'Each site is measured over one of the two windows (4-9pm or 11am-4pm). Link quote: Table 6 (p13) row naming GT as ''Generator
     storage''; the p14 ''Generator tariff'' note gives this window.'
   windows:
-  - period: demand_window
+  - period: peak
     label: only 4-9pm every day
     days: all_days
     start: '16:00'
@@ -622,7 +630,7 @@ tou_schedules:
   note: 'Each site is measured over one of the two windows (4-9pm or 11am-4pm). Link quote: Table 6 (p13) row naming GT as ''Generator
     storage''; the p14 ''Generator tariff'' note gives this window.'
   windows:
-  - period: demand_window
+  - period: peak
     label: only 11am-4pm every day
     days: all_days
     start: '11:00'
@@ -706,20 +714,22 @@ tou_schedules:
   note: Table 5 summer / non-summer demand; summer covers December to March. 'workdays' is not defined in the document;
     mapped to business_day (Mon-Fri); public holiday treatment not stated
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (non-summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - CG
@@ -736,20 +746,22 @@ tou_schedules:
   note: Table 5 summer / non-summer demand; summer covers December to March. 'workdays' is not defined in the document;
     mapped to business_day (Mon-Fri); public holiday treatment not stated
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (non-summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - CMG
@@ -875,12 +887,13 @@ tou_schedules:
   note: 'p13: summer incentive is the ''maximum monthly 15-minute kVA for the December to March months'' on each workday.
     ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: summer incentive 1-4pm
     days: business_day
     start: '13:00'
     end: '16:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
   tariffs:
   - codes:
@@ -901,12 +914,13 @@ tou_schedules:
   note: CST2's 4-7pm incentive period is printed in Table 6, whose text does not extract cleanly. 'workdays' is not defined
     in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated
   windows:
-  - period: demand_window
+  - period: peak
     label: summer incentive 4-7pm
     days: business_day
     start: '16:00'
     end: '19:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
   tariffs:
   - codes:
@@ -993,7 +1007,7 @@ tou_schedules:
   note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
     Each link quotes the code''s Table 6 row (p11), whose peak energy and 12-month rolling demand columns read ''workdays 7am-7pm''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: rolling demand 7am-7pm workdays
     days: business_day
     start: 07:00
@@ -1088,7 +1102,7 @@ tou_schedules:
   note: 'Window depends on location (one of the two). Link quote: Table 2 (p6) row naming GT as ''Generator storage''; the quoted
     window is under the ''Generator storage:'' notes on the same page.'
   windows:
-  - period: demand_window
+  - period: peak
     label: over 4-9pm every day
     days: all_days
     start: '16:00'
@@ -1112,7 +1126,7 @@ tou_schedules:
   note: 'Window depends on location (one of the two). Link quote: Table 2 (p6) row naming GT as ''Generator storage''; the quoted
     window is under the ''Generator storage:'' notes on the same page.'
   windows:
-  - period: demand_window
+  - period: peak
     label: over 11am-4pm every day
     days: all_days
     start: '11:00'
@@ -1196,13 +1210,13 @@ tou_schedules:
   note: 'p10: summer incentive is measured on each workday of the December to March months. ''workdays'' is not defined
     in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: summer incentive 1-4pm
     days: business_day
     start: '13:00'
     end: '16:00'
     months: 12,1,2,3
-    season: summer
+    season_label: summer
   tariffs:
   - codes:
     - CLLV1
@@ -1222,13 +1236,13 @@ tou_schedules:
   note: '''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not
     stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: summer incentive 4-7pm
     days: business_day
     start: '16:00'
     end: '19:00'
     months: 12,1,2,3
-    season: summer
+    season_label: summer
   tariffs:
   - codes:
     - CLLV2
@@ -1314,7 +1328,7 @@ tou_schedules:
     Each link quotes the code''s Table 6 row (p8, an image, read by OCR), whose peak energy and 12-month rolling demand columns
     read ''workdays 7am-7pm''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: rolling demand 7am-7pm workdays
     days: business_day
     start: 07:00
@@ -1364,7 +1378,7 @@ tou_schedules:
     1 kWh per day BEL'' (read on the rendered page; OCR text is out of order). Import windows of CRSTOU / CRCER are in the same
     image table.'
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: exports between 11:00am - 4:00pm (1 kWh/day basic export level free)
     days: all_days
     start: '11:00'
@@ -1447,7 +1461,7 @@ tou_schedules:
   note: 'Months: Table 5 (p6, an image) gives the CFS saver energy export column as ''all days 11am-4pm during Sep-May with
     1 kWh per day BEL'' (read on the rendered page; OCR text is out of order). CFS import windows are in the same image table.'
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: exports between 11:00am - 4:00pm (1 kWh/day basic export level free)
     days: all_days
     start: '11:00'
@@ -1471,12 +1485,13 @@ tou_schedules:
     August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
     not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: 1-4pm summer incentive
     days: business_day
     start: '13:00'
     end: '16:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
     locator: pdf:p11
     quote: 1-4pm local time workdays in summer (Dec-Mar), or
@@ -1499,12 +1514,13 @@ tou_schedules:
     August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
     not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: 4-7pm summer incentive
     days: business_day
     start: '16:00'
     end: '19:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
     locator: pdf:p11
     quote: 4-7pm local time workdays in summer (Dec-Mar), or
@@ -1527,12 +1543,13 @@ tou_schedules:
     August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment
     not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: 4-7pm winter incentive
     days: business_day
     start: '16:00'
     end: '19:00'
     months: 5,6,7,8
+    season_label: winter
     season: winter
     locator: pdf:p11
     quote: 4-7pm local time workdays in winter (May-Aug).
@@ -1555,7 +1572,7 @@ tou_schedules:
     read ''workdays 7am-7pm''. OCR reads the CHV3 code cell as ''AHO''; the rendered page shows CHV3 in the third high voltage
     row.'
   windows:
-  - period: demand_window
+  - period: peak
     label: rolling demand 7am-7pm workdays
     days: business_day
     start: 07:00
@@ -1649,13 +1666,28 @@ tou_schedules:
   locator: pdf-ocr:p7
   quote: CMG Default workdays 10am- workdays 10am- Medium business demand ≤120KVA 6pm 6pm
   note: 'Table 5 (p7, an image) CMG row read by OCR: ''workdays 10am-6pm'' in both the summer and non-summer demand columns
-    (OCR prints ''<'' as ''≤'').'
+    (OCR prints ''<'' as ''≤''). Season months from the Table 5 notes (p7, text).'
   windows:
-  - period: demand_window
-    label: Summer and non-summer demand
+  - period: peak
+    label: Summer demand
     days: business_day
     start: '10:00'
     end: '18:00'
+    months: 12,1,2,3
+    season_label: Summer
+    season: summer
+    locator: pdf:p7
+    quote: Summer period covers December to March, non-summer is April to November
+  - period: peak
+    label: Non-summer demand
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season_label: Non-summer
+    season: non_summer
+    locator: pdf:p7
+    quote: Summer period covers December to March, non-summer is April to November
   tariffs:
   - codes:
     - CMG
@@ -1669,13 +1701,29 @@ tou_schedules:
   covers_full_day: false
   locator: pdf-ocr:p6
   quote: Default workdays 10am-workdays 10am- Medium business demand CMG 160MWh 6pm 6pm
-  note: 'Table 5 (p6, an image) CMG row read by OCR: ''workdays 10am-6pm'' in both the summer and non-summer demand columns.'
+  note: 'Table 5 (p6, an image) CMG row read by OCR: ''workdays 10am-6pm'' in both the summer and non-summer demand columns.
+    Season months from the Table 5 notes (p7, text).'
   windows:
-  - period: demand_window
-    label: Summer and non-summer demand
+  - period: peak
+    label: Summer demand
     days: business_day
     start: '10:00'
     end: '18:00'
+    months: 12,1,2,3
+    season_label: Summer
+    season: summer
+    locator: pdf:p7
+    quote: Summer period covers December to March, non-summer is April to November
+  - period: peak
+    label: Non-summer demand
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season_label: Non-summer
+    season: non_summer
+    locator: pdf:p7
+    quote: Summer period covers December to March, non-summer is April to November
   tariffs:
   - codes:
     - CMG
@@ -1779,7 +1827,7 @@ tou_schedules:
     row, ''Peak energy export credit'' column: ''all days 4pm-9pm during Dec-Feb and Jun-Aug''. Notes (p5): ''All times are
     local time''.'
   windows:
-  - period: export_reward_window
+  - period: peak
     label: peak energy export credit all days 4pm-9pm during Dec-Feb and Jun-Aug
     days: all_days
     start: '16:00'
@@ -1841,20 +1889,22 @@ tou_schedules:
     for C2U which is in AEST''; p7: ''Summer period covers December to March, non-summer is April to November''. ''workdays''
     is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (non-summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - CG
@@ -1992,7 +2042,7 @@ tou_schedules:
     (the second ''all days 4pm-'' and second ''9pm during Dec-'' in the quote). Notes (p6): ''All times are local time, except
     for C2U which is in AEST''.'
   windows:
-  - period: export_reward_window
+  - period: peak
     label: peak energy export credit all days 4pm-9pm during Dec-Feb and Jun-Aug
     days: all_days
     start: '16:00'
@@ -2090,20 +2140,22 @@ tou_schedules:
     ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document;
     mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 3pm-9pm (summer)
     days: business_day
     start: '15:00'
     end: '21:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 3pm-9pm (non-summer)
     days: business_day
     start: '15:00'
     end: '21:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - CR
@@ -2159,20 +2211,22 @@ tou_schedules:
     for C2U''; ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in
     the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (non-summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - CG
@@ -5313,3 +5367,494 @@ steps:
   quantity_unit: kWh
   reset_period: billing_period_per_day
   note: "Saver energy export column (Table 5, an image): 'all days 11am-4pm during Sep-May with 1 kWh per day BEL'. Mirrors the United Energy URCER/UFS steps."
+rate_periods:
+- codes:
+  - CLLV3
+  - CHV3
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  component: Demand Charges - Summer incentive
+  season: winter
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm
+    summer incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: 'Table 6 notes (p9). The Tariff Summary prices the incentive demand of the tariffs ending in 3 only in its ''Summer
+    incentive'' column; the document measures it 4-7pm workdays in winter (May-Aug): window citipower-2627-pdf-large-incentive-3.'
+- codes:
+  - CLLV
+  - CLLVT
+  - CHV
+  - CHVT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  component: Incentive demand
+  season: summer
+  locator: pdf:p10
+  quote: Summer incentive kVA is the maximum monthly 15-minute kVA for the December to March months.
+  note: Section 2.5.3. The AER schedule prints the 'Incentive demand' rate without a season; the document charges it for December
+    to March only.
+- codes:
+  - CRCER
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  component: Usage Charges - Peak import Mar-May, Sep-Nov
+  tou_period: shoulder
+  locator: pdf-ocr:p5
+  quote: Supply Energy / Demand Peak energy Peak energy Tariff type Standing Peak energy Off-peak energy Saver energy Tariff
+    Code Status Anytime energy Saver energy voltage threshold exportcredit (shoulder) export
+  note: 'Table 4 is an image, so the quote is the rendered-page OCR of the header (stacked header lines interleave). Table
+    4 (residential) has two peak energy columns: ''Peak energy'' (CER row: all days 4pm-9pm during Dec-Feb and Jun-Aug) and
+    ''Peak energy (shoulder)'' (CER row: all days 4pm-9pm during Mar-May and Sep-Nov). The Tariff Summary prints the second
+    as ''Peak import Mar-May, Sep-Nov''; it is priced in the shoulder window.'
+charge_rules:
+- codes:
+  - CG
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p7
+  quote: CG and CMG demand component is billed based on the highest 30-minute KW reading in the maximum demand period for
+    each month and is not based on a rolling 12-month period
+  note: Table 5 notes. Holds for the Summer and Non-Summer demand rates; the maximum demand period is the tariffs' demand
+    window.
+- codes:
+  - CFS
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p7
+  quote: CFS capacity charge applied to maximum 30-minute kW demand over the most recent rolling 12-months measured at all
+    times
+  note: Table 5 notes.
+- codes:
+  - CLLV1
+  - CLLV2
+  - CLLV3
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months.
+  note: Section 2.5.2 'Rolling demand maximum kVA' (the 12-month rolling demand charge). No minimum chargeable demand for
+    large low voltage (Table 6 prints none; the minimum is stated for high voltage and sub-transmission only).
+- codes:
+  - CHV1
+  - CHV2
+  - CHV3
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 500
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months.
+    Minimum chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA' (the 12-month rolling demand charge); the minimum applies to the rolling
+    demand only (Table 6 notes, p9).
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months.
+    Minimum chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA' (the 12-month rolling demand charge).
+- codes:
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p11
+  quote: Incentive kVA is the maximum monthly 15-minute kVA each of four months of the year. There is no charge for the
+    other eight months of the year.
+  note: Section 2.5.3 'Incentive demand kVA'; measured in the tariff's incentive demand window (Dec-Mar for tariffs ending
+    in 1 and 2).
+- codes:
+  - CLLV3
+  - CHV3
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  season: winter
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p11
+  quote: Incentive kVA is the maximum monthly 15-minute kVA each of four months of the year. There is no charge for the
+    other eight months of the year.
+  note: Section 2.5.3 'Incentive demand kVA'; measured in the winter (May-Aug) incentive demand window for tariffs ending
+    in 3 (rate_periods sets the season).
+- codes:
+  - CR
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p6
+  quote: CR demand component will be billed based on the highest 30-minute KW reading in the maximum demand period for each
+    month
+  note: Table 4 notes. Holds for the Summer and Non-Summer demand rates; the maximum demand period is the tariff's demand
+    window.
+- codes:
+  - CG
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p7
+  quote: CG and CMG demand component will be billed based on the highest 30-minute KW reading in the maximum demand period
+    for each month and is not based on a rolling 12-month period
+  note: Table 5 notes. Holds for the Summer and Non-Summer demand rates; the maximum demand period is the tariff's demand
+    window.
+- codes:
+  - CLLV
+  - CLLVT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p10
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA' (the 12-month rolling demand charge); the minimum applies to the rolling
+    demand only (Table 6 notes, p8). The 2025-26 rates are the AER's, which print one code per large tariff (CLLV, CLLVT,
+    CHV, CHVT for the variants ending in 1 and 2).
+- codes:
+  - CHV
+  - CHVT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 500
+  locator: pdf:p10
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA' (the 12-month rolling demand charge); the minimum applies to the rolling
+    demand only (Table 6 notes, p8). The 2025-26 rates are the AER's, which print one code per large tariff (CLLV, CLLVT,
+    CHV, CHVT for the variants ending in 1 and 2).
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p10
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA' (the 12-month rolling demand charge).
+- codes:
+  - CLLV
+  - CLLVT
+  - CHV
+  - CHVT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p10
+  quote: Summer incentive kVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
+    the other eight months of the year.
+  note: Section 2.5.3 'Summer incentive demand kVA'; measured 1-4pm or 4-7pm workdays as the customer is assigned (rate_periods
+    sets the season of the 'Incentive demand' rate). The 2025-26 rates are the AER's, which print one code per large tariff
+    (CLLV, CLLVT, CHV, CHVT for the variants ending in 1 and 2).
+- codes:
+  - CR
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: CR demand component will be billed based on the highest 30-minute KW reading in the maximum demand period for each
+    month
+  note: Table 4 notes. Holds for the Summer and Non-Summer demand rates; the maximum demand period is the tariff's demand
+    window.
+- codes:
+  - CG
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p10
+  quote: CG and CMG demand component will be billed based on the highest 30-minute KW reading in the maximum demand period
+    for each month and is not based on a rolling 12-month period
+  note: Table 5 notes. Holds for the Summer and Non-Summer demand rates; the maximum demand period is the tariff's demand
+    window.
+- codes:
+  - CLLV1
+  - CLLV2
+  - CLLVT1
+  - CLLVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p13
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - CHV1
+  - CHV2
+  - CHVT1
+  - CHVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 500
+  locator: pdf:p13
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p13
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - CLLV1
+  - CLLV2
+  - CLLVT1
+  - CLLVT2
+  - CHV1
+  - CHV2
+  - CHVT1
+  - CHVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p13
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
+    the other eight months of the year.
+  note: Section 2.5.3 'Summer incentive demand kVA'; prices the 'Demand Charges - Dec-Mar' rate, measured 1-4pm (tariffs ending
+    1) or 4-7pm (ending 2) workdays.
+- codes:
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p6
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or over
+    11am-4pm depending on location, every day of the year, local time
+  note: Generator storage trial tariff (GT) notes.
+- codes:
+  - CLLV1
+  - CLLV2
+  - CLLVT1
+  - CLLVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p29
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section A.4.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - CHV1
+  - CHV2
+  - CHVT1
+  - CHVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 500
+  locator: pdf:p29
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section A.4.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - CST2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p29
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section A.4.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - CLLV1
+  - CLLV2
+  - CLLVT1
+  - CLLVT2
+  - CHV1
+  - CHV2
+  - CHVT1
+  - CHVT2
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p29
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
+    the other eight months of the year.
+  note: Section A.4.3 'Summer incentive demand kVA'; prices the 'Demand Charges - Dec-Mar' rate, measured 1-4pm (tariffs ending
+    1) or 4-7pm (ending 2) workdays.
+- codes:
+  - GT
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p14
+  quote: Generator tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for only
+    4-9pm or only 11am-4pm, every day of year, local time
+  note: Trial tariff notes.
+- codes:
+  - CFL
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Structure_Statement_2026-31_AER_final_decision_April2026.pdf
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p17
+  quote: Charge applied to maximum 30-minute kW demand over $/kW/ Capacity charge the most recent rolling 12- month months
+    measured at all times
+  note: Table of large business tariffs, CFL row, 'Capacity charge' notes column (table cells interleave in the text layer).
+    The 2026-27 pricing proposal states this for the small flexible tariff only.
+- codes:
+  - CG
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p13
+  quote: Demand is measured as the maximum half-hour kW demand between 10am and 6pm, local time, work days, resetting every
+    month.
+  note: Section 3.2 'Small and medium business tariffs' (TSS for 2021-22 to 2025-26); holds for the Dec-Mar and Apr-Nov demand
+    rates.

@@ -3,9 +3,13 @@
 Australian electricity **network tariffs** for all 14 distributors, every pricing year in effect from 1 January 2017 to 2026-27
 (except Ergon, which starts at 2020-21: its 2016-17 to 2019-20 documents print the network price only as separate
 DUOS / TUOS / jurisdictional parts, and the dataset stores only printed totals), as one historical dataset:
-per tariff code, the final rate the customer is charged, with its TOU windows and eligibility. The pricing years
-before 2023-24 (2016-17 / Victoria 2017 through 2022-23) carry rates only: TOU windows and eligibility criteria start
-2023-07-01. Back-filling them for 2017 to 2023 is planned follow-up work.
+per tariff code, the final rate the customer is charged, with what a bill needs besides it: TOU windows, eligibility,
+which sites pay a rate (opt-in, meter type), metering charges and how each demand charge is measured. Those billing
+rules cover 2023-24 to 2026-27: `scripts/billcalc.py sweep` bills 1,908 of that era's 2,391 tariff-periods (1,207
+with nothing assumed, 701 with an assumption it names, such as a clock basis the document leaves unstated); it lists
+the rest with what is missing (mostly locational, storage and trial tariffs whose windows no held document states).
+The pricing years before 2023-24 (2016-17 / Victoria 2017 through 2022-23) carry rates only; back-filling their
+windows by era is planned follow-up work.
 
 ## Download
 
@@ -29,6 +33,7 @@ Built from `main` by `.venv/bin/python scripts/release.py --publish` (standard l
 | SQLite | [download](#download), or `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` (built, not committed) |
 | Schema | [docs/schema.md](docs/schema.md): every table and column, examples, a worked tariff |
 | Update and validate | [docs/update-and-validate.md](docs/update-and-validate.md) |
+| Bill, categorise, compare | `scripts/billcalc.py` on interval data ([docs/update-and-validate.md](docs/update-and-validate.md), "Bill calculator") |
 | Scope | network tariffs, metering and export (feed-in) network charges; not retail plans, not the DUoS/TUoS breakdown |
 
 ## Workflow: AER v1 first, distributor replaces
@@ -133,7 +138,11 @@ evidence in `sources/archive/gaps.csv` (Ergon 2016-17 to 2019-20, see above).
 - `scripts/release.py` - builds the downloadable SQLite and CSV zip from a commit and publishes the GitHub release.
 - `scripts/tariffdb/` - the tariff database: `spec.py` (schema, single source of truth), `build.py` (builds
   `data/tariffdb/` from the parser outputs and `data/tariffdb/curated/*.yaml`), `curated.py` (checks the curated
-  TOU and eligibility facts against their sources), `validate.py` (every rule and source check), `load.py` (SQLite
+  facts against their sources), `validate.py` (every rule and source check), `load.py` (SQLite
   load, `--out` to save a database), `schema_doc.py` (writes `docs/schema.md` and `docs/schema-erd.svg`),
-  `build_support.py` (distributors and the document registry), `locators.py` (reads a value at its cell or page).
+  `build_support.py` (distributors and the document registry), `locators.py` (reads a value at its cell or page),
+  `joins.py` (how a rate finds its TOU windows).
   Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_archive.py`.
+- `scripts/billcalc.py` - the network bill calculator over the tariff database: bills interval data, labels each
+  interval with its periods, compares tariffs, and reports every fact it had to assume or could not find.
+  Tests: `.venv/bin/python -m unittest tests/test_billcalc.py` (the distributors' published example bills).

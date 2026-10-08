@@ -1,11 +1,1828 @@
-# Ergon Energy curated facts (every fact quotes a workbook cell; tariff-class headings, legends and labels).
-# Sources checked, every sheet incl. notes and Tariff Trials / CAC Trial sheets: Ergon Energy Network Price Lists
-# 2023-24..2026-27 (Sch 8 Wayback copies), AER-hosted price lists 2023-24 and 2024-25, the AER 2024-25 Ergon stakeholder
-# report and the Ergon sections of the AER consolidated 2025-26 (v1, v5) and 2026-27 reports. None states TOU clock
-# times or the months of 'Summer'/'Non Summer' (SAC Large 2023-24/2024-25 columns), so tou_schedules is empty. The only
-# stated quantity threshold is the 'Volume Peak Charge (over 10,000)' column (steps).
+# Ergon Energy curated facts. Eligibility and steps quote workbook cells (tariff-class headings, legends and labels) of
+# the Ergon Energy Network Price Lists 2023-24..2026-27 (Sch 8 Wayback copies), the AER-hosted price lists 2023-24 and
+# 2024-25, the AER 2024-25 Ergon stakeholder report and the Ergon sections of the AER consolidated 2025-26 (v1, v5) and
+# 2026-27 reports; none of those states TOU clock times, the months of 'Summer'/'Non Summer' or how a demand or
+# capacity quantity is measured. TOU windows, rate periods and demand/capacity measurement rules quote Ergon's Network
+# Tariff Guide of each year (2023-24..2026-27; the guides apply the TSS 2020-25 and 2025-30 structures) and, for the
+# sub-threshold trial tariffs (LFLEX/CFLEX/CPRCE 2024-25, SPRCE/CPRCE 2025-26, SLVDB/CHVDB 2026-27), Ergon's tariff trial
+# notifications (AER-hosted). The only stated quantity threshold in the price lists is the 'Volume Peak Charge (over
+# 10,000)' column (steps).
 distributor: ergon
-tou_schedules: []
+tou_schedules:
+- id: ergon-2627-residential-tou
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  name: Residential Time of Use volume windows (RTOUE, RTDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p21
+  quote: 'The following time periods apply to volume charges:'
+  note: 'RTOUE (p21) and RTDEM (p25, ''Shoulder window: 9pm-11am on weekdays and weekends'') state the same three windows,
+    as does Table 6. ''Weekdays and weekends'' = every day. ''Weekdays'' and ''Weekends'' include public holidays and bank
+    holidays for state, regional and local (definitions under Table 6, p20), so public holidays keep their day of the week.
+    Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: shoulder
+    label: Shoulder window
+    days: all_days
+    start: 00:00
+    end: '11:00'
+    quote: 'Shoulder window: 9pm to 11am on weekdays and weekends'
+  - period: off_peak
+    label: Off Peak window
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+    quote: 'Off Peak window: 11am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Peak window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    quote: 'Peak window: 4pm to 9pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder window
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    quote: 'Shoulder window: 9pm to 11am on weekdays and weekends'
+  tariffs:
+  - codes: [ERTOUET1, MRTOUET4, WRTOUET1]
+    applies_to: usage
+    locator: pdf:p21
+    quote: 'Tariff: Residential Time of Use Energy (Tariff code: RTOUE)'
+  - codes: [ERTDEMT1, MRTDEMT4, WRTDEMT1]
+    applies_to: usage
+    locator: pdf:p25
+    quote: 'Tariff: Residential Time of Use Demand and Energy (Tariff code: RTDEM)'
+- id: ergon-2627-residential-tou-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  name: Residential Time of Use Demand and Energy peak demand window (RTDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p25
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: '''Weekdays'' and ''Weekends'' include public holidays and bank holidays for state, regional and local (definitions
+    under Table 6, p20), so public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock
+    basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: [ERTDEMT1, MRTDEMT4, WRTDEMT1]
+    applies_to: demand
+    locator: pdf:p25
+    quote: 'Tariff: Residential Time of Use Demand and Energy (Tariff code: RTDEM)'
+- id: ergon-2627-business-tou
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  name: Business Time of Use volume windows (BTOUE, BTDEM, LTOUD, LTOUE, LFLEX, CFLEX)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'The following time periods apply to volume charges:'
+  note: Each of these tariffs' sections (BTOUE p22, BTDEM p25, LTOUD p23, LTOUE p27, LFLEX p28, CFLEX p34) and Table 6 print
+    the same three windows; no peak on weekends. The price lists price only the peak volume of LFLEX and CFLEX. 'Weekdays'
+    and 'Weekends' include public holidays and bank holidays for state, regional and local (definitions under Table 6, p20),
+    so public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock basis).
+  windows:
+  - period: shoulder
+    label: Shoulder window
+    days: weekday
+    start: 00:00
+    end: '11:00'
+    quote: 'Shoulder window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak window
+    days: weekday
+    start: '11:00'
+    end: '13:00'
+    quote: 'Off-peak window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder window
+    days: weekday
+    start: '13:00'
+    end: '17:00'
+    quote: 'Shoulder window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: peak
+    label: Peak window
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    quote: 'Peak window: 5pm to 8pm on weekdays'
+  - period: shoulder
+    label: Shoulder window
+    days: weekday
+    start: '20:00'
+    end: '24:00'
+    quote: 'Shoulder window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: shoulder
+    label: Shoulder window
+    days: weekend
+    start: 00:00
+    end: '11:00'
+    quote: 'Shoulder window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak window
+    days: weekend
+    start: '11:00'
+    end: '13:00'
+    quote: 'Off-peak window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder window
+    days: weekend
+    start: '13:00'
+    end: '24:00'
+    quote: 'Shoulder window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  tariffs:
+  - codes: [EBTOUET1, MBTOUET4, WBTOUET1]
+    applies_to: usage
+    locator: pdf:p22
+    quote: 'Tariff: Small Business Time of Use Energy (Tariff code: BTOUE)'
+  - codes: [EBTDEMT1, MBTDEMT4, WBTDEMT1]
+    applies_to: usage
+    locator: pdf:p25
+    quote: 'Tariff: Small Business Time of Use Demand and Energy (Tariff code: BTDEM)'
+  - codes: [ELTOUDT1, MLTOUDT4, WLTOUDT1]
+    applies_to: usage
+    locator: pdf:p23
+    quote: 'Tariff: Large Business Time of Use Demand and Energy (Tariff code: LTOUD)'
+  - codes: [ELTOUET1, MLTOUET4, WLTOUET1]
+    applies_to: usage
+    locator: pdf:p27
+    quote: 'Tariff: Large Time of Use Energy (Tariff code: LTOUE)'
+  - codes: [ELFLEXT1, MLFLEXT4, WLFLEXT1]
+    applies_to: usage
+    locator: pdf:p27
+    quote: 'Tariff: Large Dynamic Flex Storage (Tariff code: LFLEX)'
+  - codes: [ECFLEXT1, WCFLEXT1]
+    applies_to: usage
+    locator: pdf:p34
+    quote: 'Tariff: CAC Dynamic Flex Storage (Tariff code: CFLEX)'
+- id: ergon-2627-sb-tou-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  name: Small Business Time of Use Demand and Energy peak demand window (BTDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p26
+  quote: 'Peak demand window: 5pm to 8pm weekdays'
+  note: '''Weekdays'' and ''Weekends'' include public holidays and bank holidays for state, regional and local (definitions
+    under Table 6, p20), so public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock
+    basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+  tariffs:
+  - codes: [EBTDEMT1, MBTDEMT4, WBTDEMT1]
+    applies_to: demand
+    locator: pdf:p25
+    quote: 'Tariff: Small Business Time of Use Demand and Energy (Tariff code: BTDEM)'
+- id: ergon-2627-ltoud-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  name: Large Business Time of Use Demand and Energy demand windows (LTOUD)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p23
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the peak demand charging window/timeframe.'
+  note: The price list prices peak and shoulder demand (kVA, and the kW variant); no off-peak demand rate. 'Weekdays' and
+    'Weekends' include public holidays and bank holidays for state, regional and local (definitions under Table 6, p20), so
+    public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock basis).
+  windows:
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: 00:00
+    end: '11:00'
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak demand window
+    days: weekday
+    start: '11:00'
+    end: '13:00'
+    quote: 'Off-peak demand window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: '13:00'
+    end: '17:00'
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    quote: 'Peak demand window: 5pm to 8pm weekdays'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: '20:00'
+    end: '24:00'
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekend
+    start: 00:00
+    end: '11:00'
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak demand window
+    days: weekend
+    start: '11:00'
+    end: '13:00'
+    quote: 'Off-peak demand window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekend
+    start: '13:00'
+    end: '24:00'
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  tariffs:
+  - codes: [ELTOUDT1, MLTOUDT4, WLTOUDT1]
+    applies_to: demand
+    locator: pdf:p23
+    quote: 'Tariff: Large Business Time of Use Demand and Energy (Tariff code: LTOUD)'
+- id: ergon-2627-cac-tou-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  name: CAC Time of Use Demand demand windows (CHBTOUD, CHLTOUD, C33TOUD, C66TOUD)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p32
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30-minute
+    period in the peak demand charging window/timeframe.
+  note: 'CHBTOUD (p32), CHLTOUD (p32), C33TOUD (p33) and C66TOUD (p34) print the same three kVA demand windows (''Off-peak
+    demand window: 11am to 1pm on weekdays and weekends, and'' runs on into the anytime kW charge); no off-peak demand rate
+    is priced. ''Weekdays'' and ''Weekends'' include public holidays and bank holidays for state, regional and local (definitions
+    under Table 6, p20), so public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock
+    basis).'
+  windows:
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: 00:00
+    end: '11:00'
+    locator: pdf:p32
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak demand window
+    days: weekday
+    start: '11:00'
+    end: '13:00'
+    locator: pdf:p32
+    quote: 'Off-peak demand window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: '13:00'
+    end: '17:00'
+    locator: pdf:p32
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p32
+    quote: 'Peak demand window: 5pm to 8pm weekdays'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: '20:00'
+    end: '24:00'
+    locator: pdf:p32
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekend
+    start: 00:00
+    end: '11:00'
+    locator: pdf:p32
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak demand window
+    days: weekend
+    start: '11:00'
+    end: '13:00'
+    locator: pdf:p32
+    quote: 'Off-peak demand window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekend
+    start: '13:00'
+    end: '24:00'
+    locator: pdf:p32
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  tariffs:
+  - codes: [ECHBTOUDT1, WCHBTOUDT1]
+    applies_to: demand
+    locator: pdf:p31
+    quote: 'Tariff: CAC HV Bus TOU Demand (CHBTOUD)'
+  - codes: [ECHLTOUDT1, WCHLTOUDT1]
+    applies_to: demand
+    locator: pdf:p32
+    quote: 'Tariff: CAC HV Line TOU Demand (CHLTOUD)'
+  - codes: [EC33TOUDT1, WC33TOUDT1]
+    applies_to: demand
+    locator: pdf:p32
+    quote: CAC 33kV TOU Demand (NTC C33TOUD)
+  - codes: [EC66TOUDT1, WC66TOUDT1]
+    applies_to: demand
+    locator: pdf:p33
+    quote: CAC 66kV TOU Demand (NTC C66TOUD)
+- id: ergon-2526-residential-tou
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  name: Residential Time of Use volume windows (RTOUE, RTDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p23
+  quote: 'The following time periods apply to volume charges:'
+  note: 'RTOUE (p23) and RTDEM (p27, ''Shoulder window: 9pm-11am on weekdays and weekends'') state the same three windows,
+    as does Table 6. ''Weekdays and weekends'' = every day. ''Weekdays'' and ''Weekends'' include public holidays and bank
+    holidays for state, regional and local (definitions under Table 6, p22), so public holidays keep their day of the week.
+    Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: shoulder
+    label: Shoulder window
+    days: all_days
+    start: 00:00
+    end: '11:00'
+    quote: 'Shoulder window: 9pm to 11am on weekdays and weekends'
+  - period: off_peak
+    label: Off Peak window
+    days: all_days
+    start: '11:00'
+    end: '16:00'
+    quote: 'Off Peak window: 11am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Peak window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    quote: 'Peak window: 4pm to 9pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder window
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    quote: 'Shoulder window: 9pm to 11am on weekdays and weekends'
+  tariffs:
+  - codes: [ERTOUET1, MRTOUET4, WRTOUET1]
+    applies_to: usage
+    locator: pdf:p23
+    quote: 'Tariff: Residential Time of Use Energy (Tariff code: RTOUE)'
+  - codes: [ERTDEMT1, MRTDEMT4, WRTDEMT1]
+    applies_to: usage
+    locator: pdf:p27
+    quote: 'Tariff: Residential Time of Use Demand and Energy (Tariff code: RTDEM)'
+- id: ergon-2526-residential-tou-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  name: Residential Time of Use Demand and Energy peak demand window (RTDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p27
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: '''Weekdays'' and ''Weekends'' include public holidays and bank holidays for state, regional and local (definitions
+    under Table 6, p22), so public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock
+    basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: [ERTDEMT1, MRTDEMT4, WRTDEMT1]
+    applies_to: demand
+    locator: pdf:p27
+    quote: 'Tariff: Residential Time of Use Demand and Energy (Tariff code: RTDEM)'
+- id: ergon-2526-business-tou
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  name: Business Time of Use volume windows (BTOUE, BTDEM, LTOUD, LTOUE, LFLEX, CFLEX)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p24
+  quote: 'The following time periods apply to volume charges:'
+  note: Each of these tariffs' sections (BTOUE p24, BTDEM p27, LTOUD p25, LTOUE p30, LFLEX p31, CFLEX p36) and Table 6 print
+    the same three windows; no peak on weekends. The price lists price only the peak volume of LFLEX and CFLEX. 'Weekdays'
+    and 'Weekends' include public holidays and bank holidays for state, regional and local (definitions under Table 6, p22),
+    so public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock basis).
+  windows:
+  - period: shoulder
+    label: Shoulder window
+    days: weekday
+    start: 00:00
+    end: '11:00'
+    quote: 'Shoulder window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak window
+    days: weekday
+    start: '11:00'
+    end: '13:00'
+    quote: 'Off-peak window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder window
+    days: weekday
+    start: '13:00'
+    end: '17:00'
+    quote: 'Shoulder window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: peak
+    label: Peak window
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    quote: 'Peak window: 5pm to 8pm on weekdays'
+  - period: shoulder
+    label: Shoulder window
+    days: weekday
+    start: '20:00'
+    end: '24:00'
+    quote: 'Shoulder window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: shoulder
+    label: Shoulder window
+    days: weekend
+    start: 00:00
+    end: '11:00'
+    quote: 'Shoulder window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak window
+    days: weekend
+    start: '11:00'
+    end: '13:00'
+    quote: 'Off-peak window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder window
+    days: weekend
+    start: '13:00'
+    end: '24:00'
+    quote: 'Shoulder window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  tariffs:
+  - codes: [EBTOUET1, MBTOUET4, WBTOUET1]
+    applies_to: usage
+    locator: pdf:p24
+    quote: 'Tariff: Small Business Time of Use Energy (Tariff code: BTOUE)'
+  - codes: [EBTDEMT1, MBTDEMT4, WBTDEMT1]
+    applies_to: usage
+    locator: pdf:p27
+    quote: 'Tariff: Small Business Time of Use Demand and Energy (Tariff code: BTDEM)'
+  - codes: [ELTOUDT1, MLTOUDT4, WLTOUDT1]
+    applies_to: usage
+    locator: pdf:p25
+    quote: 'Tariff: Large Business Time of Use Demand and Energy (Tariff code: LTOUD)'
+  - codes: [ELTOUET1, MLTOUET4, WLTOUET1]
+    applies_to: usage
+    locator: pdf:p30
+    quote: 'Tariff: Large Time of Use Energy (Tariff code: LTOUE)'
+  - codes: [ELFLEXT1, MLFLEXT4, WLFLEXT1]
+    applies_to: usage
+    locator: pdf:p30
+    quote: 'Tariff: Large Dynamic Flex Storage (Tariff code: LFLEX)'
+  - codes: [ECFLEXT1, WCFLEXT1]
+    applies_to: usage
+    locator: pdf:p36
+    quote: 'Tariff: CAC Dynamic Flex Storage (Tariff code: CFLEX)'
+- id: ergon-2526-sb-tou-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  name: Small Business Time of Use Demand and Energy peak demand window (BTDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p28
+  quote: 'Peak demand window: 5pm to 8pm weekdays'
+  note: '''Weekdays'' and ''Weekends'' include public holidays and bank holidays for state, regional and local (definitions
+    under Table 6, p22), so public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock
+    basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+  tariffs:
+  - codes: [EBTDEMT1, MBTDEMT4, WBTDEMT1]
+    applies_to: demand
+    locator: pdf:p27
+    quote: 'Tariff: Small Business Time of Use Demand and Energy (Tariff code: BTDEM)'
+- id: ergon-2526-ltoud-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  name: Large Business Time of Use Demand and Energy demand windows (LTOUD)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p25
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30 minute period during the peak demand charging window/timeframe.'
+  note: The price list prices peak and shoulder demand (kVA, and the kW variant); no off-peak demand rate. 'Weekdays' and
+    'Weekends' include public holidays and bank holidays for state, regional and local (definitions under Table 6, p22), so
+    public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock basis).
+  windows:
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: 00:00
+    end: '11:00'
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak demand window
+    days: weekday
+    start: '11:00'
+    end: '13:00'
+    quote: 'Off-peak demand window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: '13:00'
+    end: '17:00'
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    quote: 'Peak demand window: 5pm to 8pm weekdays'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: '20:00'
+    end: '24:00'
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekend
+    start: 00:00
+    end: '11:00'
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak demand window
+    days: weekend
+    start: '11:00'
+    end: '13:00'
+    quote: 'Off-peak demand window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekend
+    start: '13:00'
+    end: '24:00'
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  tariffs:
+  - codes: [ELTOUDT1, MLTOUDT4, WLTOUDT1]
+    applies_to: demand
+    locator: pdf:p25
+    quote: 'Tariff: Large Business Time of Use Demand and Energy (Tariff code: LTOUD)'
+- id: ergon-2526-cac-tou-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  name: CAC Time of Use Demand demand windows (CHBTOUD, CHLTOUD, C33TOUD, C66TOUD)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p35
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30 minute
+    period in the peak demand charging window/timeframe.
+  note: 'CHBTOUD (p35), CHLTOUD (p35), C33TOUD (p36) and C66TOUD (p36) print the same three kVA demand windows (''Off-peak
+    demand window: 11am to 1pm on weekdays and weekends, and'' runs on into the anytime kW charge); no off-peak demand rate
+    is priced. ''Weekdays'' and ''Weekends'' include public holidays and bank holidays for state, regional and local (definitions
+    under Table 6, p22), so public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock
+    basis).'
+  windows:
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: 00:00
+    end: '11:00'
+    locator: pdf:p35
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak demand window
+    days: weekday
+    start: '11:00'
+    end: '13:00'
+    locator: pdf:p35
+    quote: 'Off-peak demand window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: '13:00'
+    end: '17:00'
+    locator: pdf:p35
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p35
+    quote: 'Peak demand window: 5pm to 8pm weekdays'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekday
+    start: '20:00'
+    end: '24:00'
+    locator: pdf:p35
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekend
+    start: 00:00
+    end: '11:00'
+    locator: pdf:p35
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  - period: off_peak
+    label: Off-peak demand window
+    days: weekend
+    start: '11:00'
+    end: '13:00'
+    locator: pdf:p35
+    quote: 'Off-peak demand window: 11am to 1pm on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder demand window
+    days: weekend
+    start: '13:00'
+    end: '24:00'
+    locator: pdf:p35
+    quote: 'Shoulder demand window: 1pm to 5pm and 8pm to 11am on weekdays; 1pm to 11am on weekends'
+  tariffs:
+  - codes: [ECHBTOUDT1, WCHBTOUDT1]
+    applies_to: demand
+    locator: pdf:p34
+    quote: 'Tariff: CAC HV Bus TOU Demand (CHBTOUD)'
+  - codes: [ECHLTOUDT1, WCHLTOUDT1]
+    applies_to: demand
+    locator: pdf:p35
+    quote: 'Tariff: CAC HV Line TOU Demand (CHLTOUD)'
+  - codes: [EC33TOUDT1, WC33TOUDT1]
+    applies_to: demand
+    locator: pdf:p35
+    quote: CAC 33kV TOU Demand (NTC C33TOUD)
+  - codes: [EC66TOUDT1, WC66TOUDT1]
+    applies_to: demand
+    locator: pdf:p35
+    quote: CAC 66kV TOU Demand (NTC C66TOUD)
+- id: ergon-2526-bfrm-tou
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  name: Transitional Network TOU Energy Tariff 1 volume windows (BFRM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p28
+  quote: 'The following time periods apply to volume charges:'
+  note: Table 6 (p21) prints weekends as peak 'Not charged' and off-peak 'All usage all times'. 'Weekdays' and 'Weekends'
+    include public holidays and bank holidays for state, regional and local (definitions under Table 6, p22), so public holidays
+    keep their day of the week. Times as printed (Queensland; the guide names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: 00:00
+    end: 07:00
+    quote: 'Off-peak: All other times'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: 07:00
+    end: '21:00'
+    quote: 'Peak: 7am to 9pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    quote: 'Off-peak: All other times'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    quote: 'Off-peak: All other times'
+  tariffs:
+  - codes: [EBFRMT1]
+    applies_to: usage
+    locator: pdf:p28
+    quote: 'Tariff: Transitional Network TOU Energy Tariff 1'
+- id: ergon-2526-prce-trial-tou
+  doc: sources/dnsp/ergon/Ergon_Tariff_Trial_Notification_2025-26.pdf
+  fin_year: 2025-26
+  name: Dynamic Price Storage trial volume windows (SPRCE, CPRCE)
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p3
+  quote: 'The indicative structure includes:'
+  note: The notification describes the trials 'Dynamic Price Storage tariff – SAC (NTCTBA)' (p3) and '– CAC' (p4); the 2025-26
+    price list names ESPRCET1 'SAC Dynamic Price Storage' and ECPRCET1 'CAC Dynamic Price Storage'. 'Daily' = every day; the
+    notification does not say how public holidays are treated. Critical peak periods are notified events (no fixed hours).
+    Times as printed.
+  windows:
+  - period: shoulder
+    label: Volume Shoulder
+    days: all_days
+    start: 00:00
+    end: '11:00'
+    quote: Volume Shoulder - $/kWh in the hours of Midnight to 11am, 1pm to 5pm and 8pm to Midnight Daily
+  - period: off_peak
+    label: Volume Off-Peak
+    days: all_days
+    start: '11:00'
+    end: '13:00'
+    quote: Volume Off-Peak - $/kWh in the hours of 11am to 1pm Daily
+  - period: shoulder
+    label: Volume Shoulder
+    days: all_days
+    start: '13:00'
+    end: '17:00'
+    quote: Volume Shoulder - $/kWh in the hours of Midnight to 11am, 1pm to 5pm and 8pm to Midnight Daily
+  - period: peak
+    label: Volume Peak
+    days: all_days
+    start: '17:00'
+    end: '20:00'
+    quote: Volume Peak - $/kWh in the hours of 5pm to 8pm Daily
+  - period: shoulder
+    label: Volume Shoulder
+    days: all_days
+    start: '20:00'
+    end: '24:00'
+    quote: Volume Shoulder - $/kWh in the hours of Midnight to 11am, 1pm to 5pm and 8pm to Midnight Daily
+  tariffs:
+  - codes: [ESPRCET1]
+    applies_to: usage
+    locator: pdf:p3
+    quote: Name of trial Dynamic Price Storage tariff – SAC (NTCTBA)
+  - codes: [ECPRCET1]
+    applies_to: usage
+    locator: pdf:p4
+    quote: Name of trial Dynamic Price Storage tariff – CAC (NTCTBA)
+- id: ergon-2627-dbt-trial-peak
+  doc: sources/dnsp/ergon/Ergon_Tariff_Trial_Notification_2026-27.pdf
+  fin_year: 2026-27
+  name: Dynamic Business LV/HV trial volume peak window (SLVDB, CHVDB)
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p3
+  quote: Volume peak energy charge ($/kWh) o Applies to all energy consumed on weekdays between the hours of 5pm to 8pm. o
+    No peak charge applies on weekends.
+  note: The notification describes the trials 'Dynamic Business LV tariff trial (NTC-TBA)' (p3) and 'Dynamic Business HV tariff
+    trial (NTC-TBA)' (p5) with the same structure; the 2026-27 price list names ESLVDBT1/WSLVDBT1 'Dynamic Business LV Tariff
+    Trial' and ECHVDBT1/WCHVDBT1 'Dynamic Business HV Tariff Trial'. The price list prices only peak volume besides the critical
+    peak (notified event) charges. The notification does not say how public holidays are treated. Times as printed.
+  windows:
+  - period: peak
+    label: Volume peak energy charge
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+  tariffs:
+  - codes: [ESLVDBT1, WSLVDBT1]
+    applies_to: usage
+    locator: pdf:p3
+    quote: Name of trial Dynamic Business LV tariff trial (NTC-TBA)
+  - codes: [ECHVDBT1, WCHVDBT1]
+    applies_to: usage
+    locator: pdf:p5
+    quote: Name of trial Dynamic Business HV tariff trial (NTC-TBA)
+- id: ergon-2627-dbt-trial-shoulder-demand
+  doc: sources/dnsp/ergon/Ergon_Tariff_Trial_Notification_2026-27.pdf
+  fin_year: 2026-27
+  name: Dynamic Business LV/HV trial shoulder demand window (SLVDB, CHVDB)
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p3
+  quote: Shoulder demand charge ($kW/month) o Based on the highest 30-minute kW demand during the month between midnight to
+    11am, 1pm to 5pm and 8pm to midnight on weekdays and midnight to 11am, and 1pm to midnight on weekends.
+  note: Same wording for the HV trial (p5). The notification does not say how public holidays are treated. Times as printed.
+  windows:
+  - period: shoulder
+    label: Shoulder demand charge
+    days: weekday
+    start: 00:00
+    end: '11:00'
+  - period: shoulder
+    label: Shoulder demand charge
+    days: weekday
+    start: '13:00'
+    end: '17:00'
+  - period: shoulder
+    label: Shoulder demand charge
+    days: weekday
+    start: '20:00'
+    end: '24:00'
+  - period: shoulder
+    label: Shoulder demand charge
+    days: weekend
+    start: 00:00
+    end: '11:00'
+  - period: shoulder
+    label: Shoulder demand charge
+    days: weekend
+    start: '13:00'
+    end: '24:00'
+  tariffs:
+  - codes: [ESLVDBT1, WSLVDBT1]
+    applies_to: demand
+    locator: pdf:p3
+    quote: Name of trial Dynamic Business LV tariff trial (NTC-TBA)
+  - codes: [ECHVDBT1, WCHVDBT1]
+    applies_to: demand
+    locator: pdf:p5
+    quote: Name of trial Dynamic Business HV tariff trial (NTC-TBA)
+- id: ergon-2425-residential-tou
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Residential Time of Use Energy volume windows (RTOUE)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p30
+  quote: 'The following time periods apply to volume charges:'
+  note: '''Weekdays and weekends'' = every day; Table 6 prints the same windows. Table 6 note a (p23): ''Weekdays include
+    government gazetted full day public and bank holidays'', so public holidays keep their day of the week. Times as printed
+    (Queensland; the guide names no clock basis).'
+  windows:
+  - period: shoulder
+    label: Night (shoulder)
+    days: all_days
+    start: 00:00
+    end: 09:00
+    quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: all_days
+    start: 09:00
+    end: '16:00'
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Evening (peak)
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    quote: 'Evening (peak): 4pm to 9pm on weekdays and weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  tariffs:
+  - codes: [ERTOUET1, ERTOUET2, ERTOUET3, MRTOUET4, WRTOUET1, WRTOUET2, WRTOUET3]
+    applies_to: usage
+    locator: pdf:p29
+    quote: 'Tariff: Residential Time of Use (ToU) Energy (Tariff code: RTOUE)'
+- id: ergon-2425-sb-tou
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Small Business Time of Use Energy volume windows (BTOUE)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p31
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 prints the same windows (weekend evening peak ''Not charged''). Table 6 note a (p23): ''Weekdays include
+    government gazetted full day public and bank holidays'', so public holidays keep their day of the week. Times as printed
+    (Queensland; the guide names no clock basis).'
+  windows:
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekday
+    start: 00:00
+    end: 09:00
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: weekday
+    start: 09:00
+    end: '16:00'
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Evening (peak)
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+    quote: 'Evening (peak): 4pm to 9pm on weekdays'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekend
+    start: 00:00
+    end: 09:00
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: weekend
+    start: 09:00
+    end: '16:00'
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekend
+    start: '16:00'
+    end: '24:00'
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  tariffs:
+  - codes: [EBTOUET1, EBTOUET2, EBTOUET3, MBTOUET4, WBTOUET1, WBTOUET2, WBTOUET3]
+    applies_to: usage
+    locator: pdf:p30
+    quote: 'Tariff: Small Business Time of Use (ToU) Energy (Tariff code: BTOUE)'
+- id: ergon-2425-rtdem-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Residential Transitional Demand peak demand window (RTDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p25
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: 'Table 6 note a (p23): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays
+    keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3, MRTDEMT4, WRTDEMT1, WRTDEMT2, WRTDEMT3]
+    applies_to: demand
+    locator: pdf:p24
+    quote: 'Tariff: Residential Transitional Demand (Tariff code: RTDEM)'
+- id: ergon-2425-rdem-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Residential Demand peak demand window (RDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p29
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: 'Table 6 note a (p23): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays
+    keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: [ERDEMT1, ERDEMT2, ERDEMT3, MRDEMT4, WRDEMT1, WRDEMT2, WRDEMT3]
+    applies_to: demand
+    locator: pdf:p29
+    quote: 'Tariff: Residential Demand (Tariff code: RDEM)'
+- id: ergon-2425-btdem-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Small Business Transitional Demand peak demand window (BTDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p26
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Table 6 note a (p23): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays
+    keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3, MBTDEMT4, WBTDEMT1, WBTDEMT2, WBTDEMT3]
+    applies_to: demand
+    locator: pdf:p26
+    quote: 'Tariff: Small Business Transitional Demand (Tariff code: BTDEM)'
+- id: ergon-2425-bdem-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Small Business Demand peak demand window (BDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p30
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Table 6 note a (p23): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays
+    keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: [EBDEMT1, EBDEMT2, EBDEMT3, MBDEMT4, WBDEMT1, WBDEMT2, WBDEMT3]
+    applies_to: demand
+    locator: pdf:p30
+    quote: 'Tariff: Small Business Demand (Tariff code: BDEM)'
+- id: ergon-2425-ltoud-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Large Business ToU Demand demand windows (LTOUD)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p27
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'The off-peak demand window is Table 6''s ''Off-peak demand'' row of Large Business ToU Demand (weekdays 9pm – 4pm,
+    weekends all times): the time outside the peak demand window, where the excess demand charge is measured. Table 6 note
+    a (p23): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep their day
+    of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak demand
+    days: weekday
+    start: 00:00
+    end: '16:00'
+    locator: pdf:p23
+    quote: Off-peak demand 9pm – 4pm All times
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: Off-peak demand
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p23
+    quote: Off-peak demand 9pm – 4pm All times
+  - period: off_peak
+    label: Off-peak demand
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p23
+    quote: Off-peak demand 9pm – 4pm All times
+  tariffs:
+  - codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3, MLTOUDT4, WLTOUDT1, WLTOUDT2, WLTOUDT3]
+    applies_to: demand
+    locator: pdf:p27
+    quote: 'Tariff: Large Business Time of Use Demand (Tariff code: LTOUD)'
+- id: ergon-2425-bfrm-tou
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Transitional Network ToU Energy Tariff 1 volume windows (BFRM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p32
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 prints weekends as peak ''Not charged'' and off-peak ''All usage all times''. Table 6 note a (p23): ''Weekdays
+    include government gazetted full day public and bank holidays'', so public holidays keep their day of the week. Times
+    as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: 00:00
+    end: 07:00
+    quote: 'Off-peak: All other times'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: 07:00
+    end: '21:00'
+    quote: 'Peak: 7am to 9pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    quote: 'Off-peak: All other times'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    quote: 'Off-peak: All other times'
+  tariffs:
+  - codes: [EBFRMT1, EBFRMT2, EBFRMT3]
+    applies_to: usage
+    locator: pdf:p31
+    quote: 'Tariff: Transitional Network ToU Energy Tariff 1'
+- id: ergon-2425-stoud-volume
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Seasonal Time of Use Demand volume seasons (STOUD)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p35
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note b (p23): ''Summer'' is defined as the months of December, January, and February; Non-Summer is every
+    other month. Table 6 note a (p23): ''Weekdays include government gazetted full day public and bank holidays'', so public
+    holidays keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak charge
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer months
+    quote: 'Peak charge: All times during summer months of December, January, and February'
+  - period: off_peak
+    label: Off-peak charge
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: Non-Summer months
+    quote: 'Off-peak charge: All times during Non-Summer months'
+  tariffs:
+  - codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+    applies_to: usage
+    locator: pdf:p35
+    quote: 'Tariff: Seasonal Time of Use Demand (Tariff code: STOUD)'
+- id: ergon-2425-stoud-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: Seasonal Time of Use Demand demand windows (STOUD)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p35
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+  note: 'No demand is charged on summer weekends or outside 10am-8pm on summer weekdays (Table 6: summer peak demand ''Not
+    charged'' on weekends). Table 6 note a (p23): ''Weekdays include government gazetted full day public and bank holidays'',
+    so public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '10:00'
+    end: '20:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+    quote: 'Peak demand window: 10:00am to 8:00pm during Summer months (December, January, and February) weekdays'
+  - period: off_peak
+    label: Off-peak demand window
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: Non-Summer months
+    quote: 'Off-peak demand window: All times during Non-Summer months'
+  tariffs:
+  - codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+    applies_to: demand
+    locator: pdf:p35
+    quote: 'Tariff: Seasonal Time of Use Demand (Tariff code: STOUD)'
+- id: ergon-2425-cac-stoud-volume
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: CAC Seasonal Time of Use Demand volume seasons (C22BTOUT, C22LTOUT, C66TOUT)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p37
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note b (p23) defines Summer as December, January and February; Non-Summer is every other month. Table 6 note
+    a (p23): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep their day
+    of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak charge
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+    quote: 'Peak charge: all times during Summer months of December, January, and February'
+  - period: off_peak
+    label: Off-peak charge
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: Non-Summer months
+    quote: 'Off-peak charge: all times during Non-Summer months'
+  tariffs:
+  - codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22LTOUT1,
+      WC22LTOUT2, WC22LTOUT3, EC66TOUT1, EC66TOUT2, EC66TOUT3, WC66TOUT1, WC66TOUT2, WC66TOUT3]
+    applies_to: usage
+    locator: pdf:p37
+    quote: 'Tariff: Seasonal Time of Use Demand 11 or 22 kV Bus (Tariff code: C22BTOUT) Seasonal Time of Use Demand 11 or
+      22 kV Line (Tariff code: C22LTOUT) Seasonal Time of Use Demand 33 or 66 kV (Tariff code: C66TOUT)'
+- id: ergon-2425-cac-stoud-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  name: CAC Seasonal Time of Use Demand peak demand and off-peak capacity windows (C22BTOUT, C22LTOUT, C66TOUT)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p38
+  quote: 'Peak demand window: 10am to 8:00pm during Summer months of December, January, and February on weekdays'
+  note: 'Peak demand: Summer weekdays 10am-8pm. The off-peak window of the DUOS off-peak capacity charge is all times during
+    non-summer months and all times during Summer months outside that peak window. Table 6 note a (p23): ''Weekdays include
+    government gazetted full day public and bank holidays'', so public holidays keep their day of the week. Times as printed
+    (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: off-peak window
+    days: weekday
+    start: 00:00
+    end: '10:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+    quote: the monthly actual kVA maximum demand during the off-peak window, which is all times during non-summer months and
+      all times during Summer months excluding demands occurring during the peak window of 10am to 8pm on Summer weekdays.
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '10:00'
+    end: '20:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+  - period: off_peak
+    label: off-peak window
+    days: weekday
+    start: '20:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+    quote: the monthly actual kVA maximum demand during the off-peak window, which is all times during non-summer months and
+      all times during Summer months excluding demands occurring during the peak window of 10am to 8pm on Summer weekdays.
+  - period: off_peak
+    label: off-peak window
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+    quote: the monthly actual kVA maximum demand during the off-peak window, which is all times during non-summer months and
+      all times during Summer months excluding demands occurring during the peak window of 10am to 8pm on Summer weekdays.
+  - period: off_peak
+    label: off-peak window
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer months
+    quote: the monthly actual kVA maximum demand during the off-peak window, which is all times during non-summer months and
+      all times during Summer months excluding demands occurring during the peak window of 10am to 8pm on Summer weekdays.
+  tariffs:
+  - codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22LTOUT1,
+      WC22LTOUT2, WC22LTOUT3, EC66TOUT1, EC66TOUT2, EC66TOUT3, WC66TOUT1, WC66TOUT2, WC66TOUT3]
+    applies_to: demand
+    locator: pdf:p37
+    quote: 'Tariff: Seasonal Time of Use Demand 11 or 22 kV Bus (Tariff code: C22BTOUT) Seasonal Time of Use Demand 11 or
+      22 kV Line (Tariff code: C22LTOUT) Seasonal Time of Use Demand 33 or 66 kV (Tariff code: C66TOUT)'
+- id: ergon-2324-residential-tou
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Residential Time of Use Energy volume windows (RTOUE)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p25
+  quote: 'The following time periods apply to volume charges:'
+  note: '''Weekdays and weekends'' = every day; Table 6 prints the same windows. Table 6 note a (p17): ''Weekdays include
+    government gazetted full day public and bank holidays'', so public holidays keep their day of the week. Times as printed
+    (Queensland; the guide names no clock basis).'
+  windows:
+  - period: shoulder
+    label: Night (shoulder)
+    days: all_days
+    start: 00:00
+    end: 09:00
+    quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: all_days
+    start: 09:00
+    end: '16:00'
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Evening (peak)
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    quote: 'Evening (peak): 4pm to 9pm on weekdays and weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  tariffs:
+  - codes: [ERTOUET1, ERTOUET2, ERTOUET3, MRTOUET4, WRTOUET1, WRTOUET2, WRTOUET3]
+    applies_to: usage
+    locator: pdf:p24
+    quote: 'Tariff: Residential Time of Use (ToU) Energy (Tariff code: RTOUE)'
+- id: ergon-2324-sb-tou
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Small Business Time of Use Energy volume windows (BTOUE)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p26
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 prints the same windows (weekend evening peak ''Not charged''). Table 6 note a (p17): ''Weekdays include
+    government gazetted full day public and bank holidays'', so public holidays keep their day of the week. Times as printed
+    (Queensland; the guide names no clock basis).'
+  windows:
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekday
+    start: 00:00
+    end: 09:00
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: weekday
+    start: 09:00
+    end: '16:00'
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Evening (peak)
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+    quote: 'Evening (peak): 4pm to 9pm on weekdays'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekend
+    start: 00:00
+    end: 09:00
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: weekend
+    start: 09:00
+    end: '16:00'
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekend
+    start: '16:00'
+    end: '24:00'
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  tariffs:
+  - codes: [EBTOUET1, EBTOUET2, EBTOUET3, MBTOUET4, WBTOUET1, WBTOUET2, WBTOUET3]
+    applies_to: usage
+    locator: pdf:p26
+    quote: 'Tariff: Small Business Time of Use (ToU) Energy (Tariff code: BTOUE)'
+- id: ergon-2324-rtdem-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Residential Transitional Demand peak demand window (RTDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p19
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: 'Table 6 note a (p17): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays
+    keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3, MRTDEMT4, WRTDEMT1, WRTDEMT2, WRTDEMT3]
+    applies_to: demand
+    locator: pdf:p18
+    quote: 'Tariff: Residential Transitional Demand (Tariff code: RTDEM)'
+- id: ergon-2324-rdem-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Residential Demand peak demand window (RDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p24
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: 'Table 6 note a (p17): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays
+    keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: [ERDEMT1, ERDEMT2, ERDEMT3, MRDEMT4, WRDEMT1, WRDEMT2, WRDEMT3]
+    applies_to: demand
+    locator: pdf:p24
+    quote: 'Tariff: Residential Demand (Tariff code: RDEM)'
+- id: ergon-2324-btdem-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Small Business Transitional Demand peak demand window (BTDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p21
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Table 6 note a (p17): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays
+    keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3, MBTDEMT4, WBTDEMT1, WBTDEMT2, WBTDEMT3]
+    applies_to: demand
+    locator: pdf:p21
+    quote: 'Tariff: Small Business Transitional Demand (Tariff code: BTDEM)'
+- id: ergon-2324-bdem-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Small Business Demand peak demand window (BDEM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p26
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Table 6 note a (p17): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays
+    keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: [EBDEMT1, EBDEMT2, EBDEMT3, MBDEMT4, WBDEMT1, WBDEMT2, WBDEMT3]
+    applies_to: demand
+    locator: pdf:p26
+    quote: 'Tariff: Small Business Demand (Tariff code: BDEM)'
+- id: ergon-2324-ltoud-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Large Business ToU Demand demand windows (LTOUD)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'The off-peak demand window is Table 6''s ''Off-peak demand'' row of Large Business ToU Demand (weekdays 9pm – 4pm,
+    weekends all times): the time outside the peak demand window, where the excess demand charge is measured. Table 6 note
+    a (p17): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep their day
+    of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak demand
+    days: weekday
+    start: 00:00
+    end: '16:00'
+    locator: pdf:p17
+    quote: Off-peak demand 9pm – 4pm All times
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: Off-peak demand
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p17
+    quote: Off-peak demand 9pm – 4pm All times
+  - period: off_peak
+    label: Off-peak demand
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p17
+    quote: Off-peak demand 9pm – 4pm All times
+  tariffs:
+  - codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3, MLTOUDT4, WLTOUDT1, WLTOUDT2, WLTOUDT3]
+    applies_to: demand
+    locator: pdf:p22
+    quote: 'Tariff: Large Business Time of Use Demand (Tariff code: LTOUD)'
+- id: ergon-2324-bfrm-tou
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Transitional Network ToU Energy Tariff 1 volume windows (BFRM)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p27
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 prints weekends as peak ''Not charged'' and off-peak ''All usage all times''. Table 6 note a (p17): ''Weekdays
+    include government gazetted full day public and bank holidays'', so public holidays keep their day of the week. Times
+    as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: 00:00
+    end: 07:00
+    quote: 'Off-peak: All other times'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: 07:00
+    end: '21:00'
+    quote: 'Peak: 7am to 9pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    quote: 'Off-peak: All other times'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    quote: 'Off-peak: All other times'
+  tariffs:
+  - codes: [EBFRMT1, EBFRMT2, EBFRMT3]
+    applies_to: usage
+    locator: pdf:p27
+    quote: 'Tariff: Transitional Network ToU Energy Tariff 1'
+- id: ergon-2324-stoud-volume
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Seasonal Time of Use Demand volume seasons (STOUD)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p30
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note b (p17): ''Summer'' is defined as the months of December, January, and February; Non-Summer is every
+    other month. Table 6 note a (p17): ''Weekdays include government gazetted full day public and bank holidays'', so public
+    holidays keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak charge
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer months
+    quote: 'Peak charge: All times during summer months of December, January, and February'
+  - period: off_peak
+    label: Off-peak charge
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: Non-Summer months
+    quote: 'Off-peak charge: All times during Non-Summer months'
+  tariffs:
+  - codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+    applies_to: usage
+    locator: pdf:p30
+    quote: 'Tariff: Seasonal Time of Use Demand (Tariff code: STOUD)'
+- id: ergon-2324-stoud-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: Seasonal Time of Use Demand demand windows (STOUD)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p30
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+  note: 'No demand is charged on summer weekends or outside 10am-8pm on summer weekdays (Table 6: summer peak demand ''Not
+    charged'' on weekends). Table 6 note a (p17): ''Weekdays include government gazetted full day public and bank holidays'',
+    so public holidays keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '10:00'
+    end: '20:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+    quote: 'Peak demand window: 10:00am to 8:00pm during Summer months (December, January, and February) weekdays'
+  - period: off_peak
+    label: Off-peak demand window
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: Non-Summer months
+    quote: 'Off-peak demand window: All times during Non-Summer months'
+  tariffs:
+  - codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+    applies_to: demand
+    locator: pdf:p30
+    quote: 'Tariff: Seasonal Time of Use Demand (Tariff code: STOUD)'
+- id: ergon-2324-cac-stoud-volume
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: CAC Seasonal Time of Use Demand volume seasons (C22BTOUT, C22LTOUT, C66TOUT)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p33
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note b (p17) defines Summer as December, January and February; Non-Summer is every other month. Table 6 note
+    a (p17): ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep their day
+    of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak charge
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+    quote: 'Peak charge: all times during Summer months of December, January, and February'
+  - period: off_peak
+    label: Off-peak charge
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: Non-Summer months
+    quote: 'Off-peak charge: all times during Non-Summer months'
+  tariffs:
+  - codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22LTOUT1,
+      WC22LTOUT2, WC22LTOUT3, EC66TOUT1, EC66TOUT2, EC66TOUT3, WC66TOUT1, WC66TOUT2, WC66TOUT3]
+    applies_to: usage
+    locator: pdf:p33
+    quote: 'Tariff: Seasonal Time of Use Demand 11 or 22 kV Bus (Tariff code: C22BTOUT) Seasonal Time of Use Demand 11 or
+      22 kV Line (Tariff code: C22LTOUT) Seasonal Time of Use Demand 33 or 66 kV (Tariff code: C66TOUT)'
+- id: ergon-2324-cac-stoud-demand
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  name: CAC Seasonal Time of Use Demand peak demand and off-peak capacity windows (C22BTOUT, C22LTOUT, C66TOUT)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p33
+  quote: 'Peak demand window: 10am to 8:00pm during Summer months of December, January, and February on weekdays'
+  note: 'Peak demand: Summer weekdays 10am-8pm. The off-peak window of the DUOS off-peak capacity charge is all times during
+    non-summer months and all times during Summer months outside that peak window. Table 6 note a (p17): ''Weekdays include
+    government gazetted full day public and bank holidays'', so public holidays keep their day of the week. Times as printed
+    (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: off-peak window
+    days: weekday
+    start: 00:00
+    end: '10:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+    quote: monthly actual kVA maximum demand during the off-peak window, which is all times during non-summer months and all
+      times during Summer months excluding demands occurring during the peak window of 10am to 8pm on Summer weekdays.
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '10:00'
+    end: '20:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+  - period: off_peak
+    label: off-peak window
+    days: weekday
+    start: '20:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+    quote: monthly actual kVA maximum demand during the off-peak window, which is all times during non-summer months and all
+      times during Summer months excluding demands occurring during the peak window of 10am to 8pm on Summer weekdays.
+  - period: off_peak
+    label: off-peak window
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: Summer months
+    quote: monthly actual kVA maximum demand during the off-peak window, which is all times during non-summer months and all
+      times during Summer months excluding demands occurring during the peak window of 10am to 8pm on Summer weekdays.
+  - period: off_peak
+    label: off-peak window
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer months
+    quote: monthly actual kVA maximum demand during the off-peak window, which is all times during non-summer months and all
+      times during Summer months excluding demands occurring during the peak window of 10am to 8pm on Summer weekdays.
+  tariffs:
+  - codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22LTOUT1,
+      WC22LTOUT2, WC22LTOUT3, EC66TOUT1, EC66TOUT2, EC66TOUT3, WC66TOUT1, WC66TOUT2, WC66TOUT3]
+    applies_to: demand
+    locator: pdf:p33
+    quote: 'Tariff: Seasonal Time of Use Demand 11 or 22 kV Bus (Tariff code: C22BTOUT) Seasonal Time of Use Demand 11 or
+      22 kV Line (Tariff code: C22LTOUT) Seasonal Time of Use Demand 33 or 66 kV (Tariff code: C66TOUT)'
+- id: ergon-2425-storage-trial-tou
+  doc: sources/dnsp/ergon/Ergon_Tariff_Trial_Notification_2024-25_29Feb2024.pdf
+  fin_year: 2024-25
+  name: Storage trial volume windows (LFLEX, CFLEX, CPRCE)
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p2
+  quote: 'The proposed structure includes:'
+  note: The notification describes 'Large Dynamic Flex Storage' (p1-2), 'CAC Dynamic Flex Storage' (p4) and 'CAC Dynamic Price
+    Storage' (p6), each with the same three windows; the 2024-25 price list names ELFLEXT1, ECFLEXT1 and ECPRCET1 alike. The
+    shoulder line reads '... 8pm to' / 'Midnight Daily' around the column label '(structure and pricing)'. 'Daily' = every
+    day; how public holidays are treated is not stated. Critical peak periods are notified events (no fixed hours). Times
+    as printed.
+  windows:
+  - period: shoulder
+    label: Volume Shoulder
+    days: all_days
+    start: 00:00
+    end: '11:00'
+    quote: Volume Shoulder - $/kWh in the hours of Midnight to 11am, 1pm to 5pm and 8pm to
+  - period: off_peak
+    label: Volume Off-Peak
+    days: all_days
+    start: '11:00'
+    end: '13:00'
+    quote: Volume Off-Peak - $/kWh in the hours of 11am to 1pm Daily
+  - period: shoulder
+    label: Volume Shoulder
+    days: all_days
+    start: '13:00'
+    end: '17:00'
+    quote: Volume Shoulder - $/kWh in the hours of Midnight to 11am, 1pm to 5pm and 8pm to
+  - period: peak
+    label: Volume Peak
+    days: all_days
+    start: '17:00'
+    end: '20:00'
+    quote: Volume Peak - $/kWh in the hours of 5pm to 8pm Daily
+  - period: shoulder
+    label: Volume Shoulder
+    days: all_days
+    start: '20:00'
+    end: '24:00'
+    quote: Volume Shoulder - $/kWh in the hours of Midnight to 11am, 1pm to 5pm and 8pm to
+  tariffs:
+  - codes: [ELFLEXT1]
+    applies_to: usage
+    locator: pdf:p1
+    quote: Large Dynamic Flex Storage (NTCTBA)
+  - codes: [ECFLEXT1]
+    applies_to: usage
+    locator: pdf:p4
+    quote: CAC Dynamic Flex Storage (NTCTBA)
+  - codes: [ECPRCET1]
+    applies_to: usage
+    locator: pdf:p6
+    quote: CAC Dynamic Price Storage (NTCTBA)
 eligibility:
 - codes: [ERDEMT1, ERDEMT2, ERDEMT3, ERIBT1, ERIBT2, ERIBT3, ERTDEMT1, ERTDEMT2, ERTDEMT3, ERTOUET1, ERTOUET2, ERTOUET3, MRDEMT4, MRIBT4, MRTDEMT4, MRTOUET4, WRDEMT1, WRDEMT2, WRDEMT3, WRIBT1, WRIBT2, WRIBT3,
     WRTDEMT1, WRTDEMT2, WRTDEMT3, WRTOUET1, WRTOUET2, WRTOUET3]
@@ -3692,3 +5509,1405 @@ steps:
   reset_period: unstated
   note: The column heading states the threshold ('over 10,000') and the column is priced in $/kWh, so the threshold is read
     as kWh; the accumulation period is not stated.
+rate_periods:
+- codes: [ECHBTOUDT1, WCHBTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p32
+  quote: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over a 30-minute
+    period during the month.
+  note: The price list's 'Demand Charge kW' is this kW demand charge measured over the whole month, beside the time of use
+    kVA demand charges whose windows the guide also states.
+- codes: [ECHLTOUDT1, WCHLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p32
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single anytime peak
+    over a 30-minute period during the month.
+  note: The price list's 'Demand Charge kW' is this kW demand charge measured over the whole month, beside the time of use
+    kVA demand charges whose windows the guide also states.
+- codes: [EC33TOUDT1, WC33TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p33
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over
+    a 30-minute period anytime during the month.
+  note: The price list's 'Demand Charge kW' is this kW demand charge measured over the whole month, beside the time of use
+    kVA demand charges whose windows the guide also states.
+- codes: [EC66TOUDT1, WC66TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p34
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over
+    a 30-minute period anytime during the month.
+  note: The price list's 'Demand Charge kW' is this kW demand charge measured over the whole month, beside the time of use
+    kVA demand charges whose windows the guide also states.
+- codes: [ECHBTOUDT1, WCHBTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p35
+  quote: Also a monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over a 30
+    minute period during the month.
+  note: The price list's 'Demand Charge kW' is this kW demand charge measured over the whole month, beside the time of use
+    kVA demand charges whose windows the guide also states.
+- codes: [ECHLTOUDT1, WCHLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p35
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single anytime peak
+    over a 30 minute period during the month.
+  note: The price list's 'Demand Charge kW' is this kW demand charge measured over the whole month, beside the time of use
+    kVA demand charges whose windows the guide also states.
+- codes: [EC33TOUDT1, WC33TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p36
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over
+    a 30 minute period anytime during the month.
+  note: The price list's 'Demand Charge kW' is this kW demand charge measured over the whole month, beside the time of use
+    kVA demand charges whose windows the guide also states.
+- codes: [EC66TOUDT1, WC66TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p36
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over
+    a 30 minute period anytime during the month.
+  note: The price list's 'Demand Charge kW' is this kW demand charge measured over the whole month, beside the time of use
+    kVA demand charges whose windows the guide also states.
+- codes: [ERTOUET1, ERTOUET2, ERTOUET3, MRTOUET4, WRTOUET1, WRTOUET2, WRTOUET3, EBTOUET1, EBTOUET2, EBTOUET3, MBTOUET4, WBTOUET1,
+    WBTOUET2, WBTOUET3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Volume Evening Charge
+  tou_period: peak
+  locator: pdf:p23
+  quote: Evening (Peak) volume
+  note: Table 6 names the evening volume charge of Residential and Small Business ToU Energy with its period; the tariff sections
+    (p30, p31) give its hours.
+- codes: [ERTOUET1, ERTOUET2, ERTOUET3, MRTOUET4, WRTOUET1, WRTOUET2, WRTOUET3, EBTOUET1, EBTOUET2, EBTOUET3, MBTOUET4, WBTOUET1,
+    WBTOUET2, WBTOUET3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Volume Overnight Charge
+  tou_period: shoulder
+  locator: pdf:p23
+  quote: Overnight (Shoulder)
+  note: Table 6 names the overnight volume charge of Residential and Small Business ToU Energy with its period; the tariff
+    sections (p30, p31) give its hours.
+- codes: [ERTOUET1, ERTOUET2, ERTOUET3, MRTOUET4, WRTOUET1, WRTOUET2, WRTOUET3, EBTOUET1, EBTOUET2, EBTOUET3, MBTOUET4, WBTOUET1,
+    WBTOUET2, WBTOUET3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Volume Day Charge
+  tou_period: off_peak
+  locator: pdf:p23
+  quote: Day (Off Peak) volume
+  note: Table 6 names the day volume charge of Residential and Small Business ToU Energy with its period; the tariff sections
+    (p30, p31) give its hours.
+- codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3, MLTOUDT4, WLTOUDT1, WLTOUDT2, WLTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Excess Demand Charge
+  tou_period: off_peak
+  locator: pdf:p27
+  quote: 'Excess demand charge: A monthly charge calculated as $/kVA/month. It is measured as the single maximum demand outside
+    the peak demand window minus the maximum demand during the peak demand window.'
+  note: The excess demand charge applies outside the peak demand window, which Table 6 names the off-peak demand window; it
+    is measured (off-peak maximum less peak maximum, floored at zero) by its excess_over_window_max charge rule.
+- codes: [EDMTT1, EDMTT2, EDMTT3, MDMTT4, WDMTT1, WDMTT2, WDMTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA'
+  note: The tariff is an anytime demand tariff (no peak charging window for demand). The price list prints a kVA and a kW
+    demand charge; the kW one (for metering without kVA data) is given the period anytime so that its own kW rule and threshold
+    measure it, apart from the kVA rule.
+- codes: [EDSTT1, EDSTT2, EDSTT3, MDSTT4, WDSTT1, WDSTT2, WDSTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA Demand Small: 30 kW or 35 kVA'
+  note: The tariff is an anytime demand tariff (no peak charging window for demand). The price list prints a kVA and a kW
+    demand charge; the kW one (for metering without kVA data) is given the period anytime so that its own kW rule and threshold
+    measure it, apart from the kVA rule.
+- codes: [EDLTT1, EDLTT2, EDLTT3, MDLTT4, WDLTT1, WDLTT2, WDLTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p33
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariff is: Demand Large: 400 kW or 450 kVA'
+  note: The tariff is an anytime demand tariff (no peak charging window for demand). The price list prints a kVA and a kW
+    demand charge; the kW one (for metering without kVA data) is given the period anytime so that its own kW rule and threshold
+    measure it, apart from the kVA rule.
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Volume Summer No Charge
+  tou_period: peak
+  locator: pdf:p35
+  quote: 'Peak charge: All times during summer months of December, January, and February'
+  note: The price list's summer column is the guide's peak charge.
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Volume Non Summer Charge
+  tou_period: off_peak
+  locator: pdf:p35
+  quote: 'Off-peak charge: All times during Non-Summer months'
+  note: The price list's non-summer column is the guide's off-peak charge.
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Summer Demand Charge kW
+  tou_period: peak
+  locator: pdf:p35
+  quote: 'Peak demand window: 10:00am to 8:00pm during Summer months (December, January, and February) weekdays'
+  note: The price list's summer column is the guide's peak charge.
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Non Summer Demand Charge kW
+  tou_period: off_peak
+  locator: pdf:p35
+  quote: 'Off-peak demand window: All times during Non-Summer months'
+  note: The price list's non-summer column is the guide's off-peak charge.
+- codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22LTOUT1,
+    WC22LTOUT2, WC22LTOUT3, EC66TOUT1, EC66TOUT2, EC66TOUT3, WC66TOUT1, WC66TOUT2, WC66TOUT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  component: Capacity Charge
+  tou_period: anytime
+  locator: pdf:p38
+  quote: The TUOS capacity charge doesn’t have seasonal or time-of use dimensions and uses the greater of the authorised kVA
+    demand or any time maximum kVA demand recorded in any 30-minute period during the billing month.
+  note: 'The price list''s ''Capacity Charge'' column is priced in the TUOS part only (DUOS 0) and its ''Capacity Charge Off-Peak''
+    column in the DUOS part only: this is the TUOS capacity charge, with no time of use dimension.'
+- codes: [ERTOUET1, ERTOUET2, ERTOUET3, MRTOUET4, WRTOUET1, WRTOUET2, WRTOUET3, EBTOUET1, EBTOUET2, EBTOUET3, MBTOUET4, WBTOUET1,
+    WBTOUET2, WBTOUET3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Volume Evening Charge
+  tou_period: peak
+  locator: pdf:p17
+  quote: Evening (Peak) volume
+  note: Table 6 names the evening volume charge of Residential and Small Business ToU Energy with its period; the tariff sections
+    (p25, p26) give its hours.
+- codes: [ERTOUET1, ERTOUET2, ERTOUET3, MRTOUET4, WRTOUET1, WRTOUET2, WRTOUET3, EBTOUET1, EBTOUET2, EBTOUET3, MBTOUET4, WBTOUET1,
+    WBTOUET2, WBTOUET3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Volume Overnight Charge
+  tou_period: shoulder
+  locator: pdf:p17
+  quote: Overnight (Shoulder)
+  note: Table 6 names the overnight volume charge of Residential and Small Business ToU Energy with its period; the tariff
+    sections (p25, p26) give its hours.
+- codes: [ERTOUET1, ERTOUET2, ERTOUET3, MRTOUET4, WRTOUET1, WRTOUET2, WRTOUET3, EBTOUET1, EBTOUET2, EBTOUET3, MBTOUET4, WBTOUET1,
+    WBTOUET2, WBTOUET3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Volume Day Charge
+  tou_period: off_peak
+  locator: pdf:p17
+  quote: Day (Off Peak) volume
+  note: Table 6 names the day volume charge of Residential and Small Business ToU Energy with its period; the tariff sections
+    (p25, p26) give its hours.
+- codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3, MLTOUDT4, WLTOUDT1, WLTOUDT2, WLTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Excess Demand Charge
+  tou_period: off_peak
+  locator: pdf:p22
+  quote: 'Excess demand charge: A monthly charge calculated as $/kVA/month. It is measured as the single maximum demand outside
+    the peak demand window minus the maximum demand during the peak demand window.'
+  note: The excess demand charge applies outside the peak demand window, which Table 6 names the off-peak demand window; it
+    is measured (off-peak maximum less peak maximum, floored at zero) by its excess_over_window_max charge rule.
+- codes: [EDMTT1, EDMTT2, EDMTT3, MDMTT4, WDMTT1, WDMTT2, WDMTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p23
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA'
+  note: The tariff is an anytime demand tariff (no peak charging window for demand). The price list prints a kVA and a kW
+    demand charge; the kW one (for metering without kVA data) is given the period anytime so that its own kW rule and threshold
+    measure it, apart from the kVA rule.
+- codes: [EDSTT1, EDSTT2, EDSTT3, MDSTT4, WDSTT1, WDSTT2, WDSTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p23
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA Demand Small: 30 kW or 35 kVA'
+  note: The tariff is an anytime demand tariff (no peak charging window for demand). The price list prints a kVA and a kW
+    demand charge; the kW one (for metering without kVA data) is given the period anytime so that its own kW rule and threshold
+    measure it, apart from the kVA rule.
+- codes: [EDLTT1, EDLTT2, EDLTT3, MDLTT4, WDLTT1, WDLTT2, WDLTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Demand Charge kW
+  tou_period: anytime
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariff is: Demand Large: 400 kW or 450 kVA'
+  note: The tariff is an anytime demand tariff (no peak charging window for demand). The price list prints a kVA and a kW
+    demand charge; the kW one (for metering without kVA data) is given the period anytime so that its own kW rule and threshold
+    measure it, apart from the kVA rule.
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Volume Summer No Charge
+  tou_period: peak
+  locator: pdf:p30
+  quote: 'Peak charge: All times during summer months of December, January, and February'
+  note: The price list's summer column is the guide's peak charge.
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Volume Non Summer Charge
+  tou_period: off_peak
+  locator: pdf:p30
+  quote: 'Off-peak charge: All times during Non-Summer months'
+  note: The price list's non-summer column is the guide's off-peak charge.
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Summer Demand Charge kW
+  tou_period: peak
+  locator: pdf:p30
+  quote: 'Peak demand window: 10:00am to 8:00pm during Summer months (December, January, and February) weekdays'
+  note: The price list's summer column is the guide's peak charge.
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Non Summer Demand Charge kW
+  tou_period: off_peak
+  locator: pdf:p30
+  quote: 'Off-peak demand window: All times during Non-Summer months'
+  note: The price list's non-summer column is the guide's off-peak charge.
+- codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22LTOUT1,
+    WC22LTOUT2, WC22LTOUT3, EC66TOUT1, EC66TOUT2, EC66TOUT3, WC66TOUT1, WC66TOUT2, WC66TOUT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  component: Capacity Charge
+  tou_period: anytime
+  locator: pdf:p33
+  quote: The TUOS capacity charge doesn’t have seasonal or time-of use dimensions and uses the greater of the authorised kVA
+    demand or any time maximum kVA demand recorded in any 30-minute period during the billing month.
+  note: 'The price list''s ''Capacity Charge'' column is priced in the TUOS part only (DUOS 0) and its ''Capacity Charge Off-Peak''
+    column in the DUOS part only: this is the TUOS capacity charge, with no time of use dimension.'
+charge_rules:
+- codes: [ECHBTOUDT1, WCHBTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p32
+  quote: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over a 30-minute
+    period during the month.
+- codes: [ECHBTOUDT1, WCHBTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p32
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the peak demand charging window/timeframe.'
+  note: Measured in the peak demand window the guide states beside this sentence.
+- codes: [ECHBTOUDT1, WCHBTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p32
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the peak demand charging window/timeframe.'
+  note: Measured in the shoulder demand window the guide states beside this sentence.
+- codes: [ECHLTOUDT1, WCHLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p32
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single anytime peak
+    over a 30-minute period during the month.
+- codes: [ECHLTOUDT1, WCHLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p32
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30-minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the peak demand window the guide states beside this sentence.
+- codes: [ECHLTOUDT1, WCHLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p32
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30-minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the shoulder demand window the guide states beside this sentence.
+- codes: [EC33TOUDT1, WC33TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p33
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over
+    a 30-minute period anytime during the month.
+- codes: [EC33TOUDT1, WC33TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p33
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30-minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the peak demand window the guide states beside this sentence.
+- codes: [EC33TOUDT1, WC33TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p33
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30-minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the shoulder demand window the guide states beside this sentence.
+- codes: [EC66TOUDT1, WC66TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p34
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over
+    a 30-minute period anytime during the month.
+- codes: [EC66TOUDT1, WC66TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p34
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30-minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the peak demand window the guide states beside this sentence.
+- codes: [EC66TOUDT1, WC66TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p34
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30-minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the shoulder demand window the guide states beside this sentence.
+- codes: [ERTDEMT1, MRTDEMT4, WRTDEMT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p25
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [EBTDEMT1, MBTDEMT4, WBTDEMT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p26
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [ELTOUDT1, MLTOUDT4, WLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p23
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the peak demand charging window/timeframe.'
+  note: 'Holds for the peak and shoulder demand rates (each in its own demand window). The price list also prints ''Peak/Shoulder
+    Demand Charge kW'' rates: the kW variant of the demand charge, provided ''In instances where the smart meter is unable
+    to publish underpinning interval data for the purposes of determining kVA quantity for billing'' (tariff description);
+    those are measured in kW and have their own kW rule.'
+- codes: [ELTOUDT1, MLTOUDT4, WLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p23
+  quote: "Demand elements of the SAC Large default tariff (Large TOU Demand and Energy) are offered under a kVA charging
+    unit as default. In instances where the smart meter is unable to publish underpinning interval data for the purposes
+    of determining kVA quantity for billing, a kW variant of the demand charge will be provided."
+  note: "The 'Peak/Shoulder Demand Charge kW' rates: the kW variant of the demand charge, which the same page measures
+    as 'the maximum kVA demand measured as a single peak over a 30-minute period during the peak demand charging
+    window/timeframe' (monthly); stored as that measurement in kW, in each rate's own demand window [UNSURE: the guide
+    does not restate the measurement for the kW variant]."
+- codes: [EDSTT1, MDSTT4, WDSTT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 35
+  locator: pdf:p26
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month applied to the kVA amount by which a customer’s actual
+    monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand threshold
+    applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand threshold,
+    the chargeable demand for that month is set to zero and no demand charge is payable for that month. The demand threshold
+    applicable to Demand Small tariff is 35 kVA.'
+- codes: [EC66T1, WC66T1, EC33T1, WC33T1, EC22BT1, WC22BT1, EC22LT1, WC22LT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p30
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: [EC66T1, WC66T1, EC33T1, WC33T1, EC22BT1, WC22BT1, EC22LT1, WC22LT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max_of_agreed_and_measured
+  reset: month
+  locator: pdf:p30
+  quote: 'Capacity charge: Capacity charge is the greater of the authorised kVA demand or maximum kVA demand recorded in any
+    30-minute period during the billing month.'
+  note: '''authorised kVA demand'' is the agreed value.'
+- codes: [ECHBTOUDT1, WCHBTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p35
+  quote: Also a monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over a 30
+    minute period during the month.
+- codes: [ECHBTOUDT1, WCHBTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p35
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30 minute period during the peak demand charging window/timeframe.'
+  note: Measured in the peak demand window the guide states beside this sentence.
+- codes: [ECHBTOUDT1, WCHBTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p35
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30 minute period during the peak demand charging window/timeframe.'
+  note: Measured in the shoulder demand window the guide states beside this sentence.
+- codes: [ECHLTOUDT1, WCHLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p35
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single anytime peak
+    over a 30 minute period during the month.
+- codes: [ECHLTOUDT1, WCHLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p35
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30 minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the peak demand window the guide states beside this sentence.
+- codes: [ECHLTOUDT1, WCHLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p35
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30 minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the shoulder demand window the guide states beside this sentence.
+- codes: [EC33TOUDT1, WC33TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p36
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over
+    a 30 minute period anytime during the month.
+- codes: [EC33TOUDT1, WC33TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p36
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30 minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the peak demand window the guide states beside this sentence.
+- codes: [EC33TOUDT1, WC33TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p36
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30 minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the shoulder demand window the guide states beside this sentence.
+- codes: [EC66TOUDT1, WC66TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p36
+  quote: A monthly anytime charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak over
+    a 30 minute period anytime during the month.
+- codes: [EC66TOUDT1, WC66TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p36
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30 minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the peak demand window the guide states beside this sentence.
+- codes: [EC66TOUDT1, WC66TOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p36
+  quote: Monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single peak over a 30 minute
+    period in the peak demand charging window/timeframe.
+  note: Measured in the shoulder demand window the guide states beside this sentence.
+- codes: [ERTDEMT1, MRTDEMT4, WRTDEMT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p27
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30 minute period during the peak demand charging window/timeframe.'
+- codes: [EBTDEMT1, MBTDEMT4, WBTDEMT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30 minute period during the peak demand charging window/timeframe.'
+- codes: [ELTOUDT1, MLTOUDT4, WLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p25
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30 minute period during the peak demand charging window/timeframe.'
+  note: 'Holds for the peak and shoulder demand rates (each in its own demand window). The price list also prints ''Peak/Shoulder
+    Demand Charge kW'' rates: the kW variant of the demand charge, provided ''In instances where the smart meter is unable
+    to publish underpinning interval data for the purposes of determining kVA quantity for billing'' (tariff description);
+    those are measured in kW and have their own kW rule.'
+- codes: [ELTOUDT1, MLTOUDT4, WLTOUDT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p25
+  quote: "Demand elements of the SAC Large default tariff (Large TOU Demand and Energy) are offered under a kVA charging
+    unit as default. In instances where the smart meter is unable to publish underpinning interval data for the purposes
+    of determining kVA quantity for billing, a kW variant of the demand charge will be provided."
+  note: "The 'Peak/Shoulder Demand Charge kW' rates: the kW variant of the demand charge, which the same page measures
+    as 'the maximum kVA demand measured as a single peak over a 30-minute period during the peak demand charging
+    window/timeframe' (monthly); stored as that measurement in kW, in each rate's own demand window [UNSURE: the guide
+    does not restate the measurement for the kW variant]."
+- codes: [EDSTT1, MDSTT4, WDSTT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 35
+  locator: pdf:p30
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month applied to the kVA amount by which a customer’s actual
+    monthly maximum demand measured as a single peak over a 30 minute period during the month is greater than the demand threshold
+    applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand threshold,
+    the chargeable demand for that month is set to zero and no demand charge is payable for that month. The demand threshold
+    applicable to Demand Small tariff is 35 kVA.'
+- codes: [EC66T1, WC66T1, EC33T1, WC33T1, EC22BT1, WC22BT1, EC22LT1, WC22LT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p33
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30 minute period during the month.'
+- codes: [EC66T1, WC66T1, EC33T1, WC33T1, EC22BT1, WC22BT1, EC22LT1, WC22LT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max_of_agreed_and_measured
+  reset: month
+  locator: pdf:p33
+  quote: 'Capacity charge: Capacity charge is the greater of the authorised kVA demand or maximum kVA demand recorded in any
+    30 minute period during the billing month.'
+  note: '''authorised kVA demand'' is the agreed value.'
+- codes: [EBPMPT1]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2025-26_wayback.pdf
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kW
+  method: agreed
+  reset: month
+  minimum_value: 7.5
+  locator: pdf:p29
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month. Application of charges: Minimum demand charge: Charge
+    for pump size up to 7.5kW Remaining demand charge: Charge for pump size > 7.5kW This monthly $ per kW charge is applied
+    to the larger of the customer’s pump size capacity, or 7.5kW.'
+  note: 'Measured as the customer''s pump size (a stated capacity, not metered demand), at least 7.5 kW: the ''Minimum Capacity
+    Charge'' (capacity_minimum) prices the first 7.5 kW and the ''Remaining Capacity Charge'' (capacity_remaining) the pump
+    size above 7.5 kW. Appendix C works the charge per day of the billing period (''pump size less minimum demand value of
+    7.5kW, multiplied by 12 months'', divided by 365.25 days).'
+- codes: [ESLVDBT1, WSLVDBT1]
+  doc: sources/dnsp/ergon/Ergon_Tariff_Trial_Notification_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p3
+  quote: Shoulder demand charge ($kW/month) o Based on the highest 30-minute kW demand during the month between midnight to
+    11am, 1pm to 5pm and 8pm to midnight on weekdays and midnight to 11am, and 1pm to midnight on weekends.
+- codes: [ECHVDBT1, WCHVDBT1]
+  doc: sources/dnsp/ergon/Ergon_Tariff_Trial_Notification_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p5
+  quote: Shoulder demand charge ($kW/month) o Based on the highest 30-minute kW demand during the month between midnight to
+    11am, 1pm to 5pm and 8pm to midnight on weekdays and midnight to 11am, and 1pm to midnight on weekends.
+- codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3, MRTDEMT4, WRTDEMT1, WRTDEMT2, WRTDEMT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p25
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [ERDEMT1, ERDEMT2, ERDEMT3, MRDEMT4, WRDEMT1, WRDEMT2, WRDEMT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p29
+  quote: 'Demand charge: A monthly charge calculated as $/kW, based on the maximum kW demand measured as a single peak over
+    a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3, MBTDEMT4, WBTDEMT1, WBTDEMT2, WBTDEMT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p26
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [EBDEMT1, EBDEMT2, EBDEMT3, MBDEMT4, WBDEMT1, WBDEMT2, WBDEMT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p30
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3, MLTOUDT4, WLTOUDT1, WLTOUDT2, WLTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p27
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3, MLTOUDT4, WLTOUDT1, WLTOUDT2, WLTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p27
+  quote: "Excess demand charge: A monthly charge calculated as $/kVA/month. It is measured as the single maximum demand
+    outside the peak demand window minus the maximum demand during the peak demand window. Where the maximum monthly
+    demand outside the peak demand window is less than the highest monthly maximum demand inside the peak window, the
+    excess demand charge for that billing period is set to zero."
+  note: "The Excess Demand Charge of LTOUD, priced off_peak (rate_periods: outside the peak demand window, 4pm to 9pm
+    weekdays): the highest kVA outside the peak demand window less the highest inside it in the month, zero when
+    negative. The interval is the tariff description's on the same page: 'the demand charges are applied to the maximum
+    half hourly kVA'."
+- codes: [EDMTT1, EDMTT2, EDMTT3, MDMTT4, WDMTT1, WDMTT2, WDMTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 135
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA'
+  note: Holds for the 'Demand Charge kVA' rate (kVA denominated where the metering supports it).
+- codes: [EDMTT1, EDMTT2, EDMTT3, MDMTT4, WDMTT1, WDMTT2, WDMTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 120
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA'
+  note: Holds for the 'Demand Charge kW' rate (the kW denominated version for metering without kVA data).
+- codes: [EDSTT1, EDSTT2, EDSTT3, MDSTT4, WDSTT1, WDSTT2, WDSTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 35
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA Demand Small: 30 kW or 35 kVA'
+  note: Holds for the 'Demand Charge kVA' rate (kVA denominated where the metering supports it).
+- codes: [EDSTT1, EDSTT2, EDSTT3, MDSTT4, WDSTT1, WDSTT2, WDSTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 30
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA Demand Small: 30 kW or 35 kVA'
+  note: Holds for the 'Demand Charge kW' rate (the kW denominated version for metering without kVA data).
+- codes: [EDLTT1, EDLTT2, EDLTT3, MDLTT4, WDLTT1, WDLTT2, WDLTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 450
+  locator: pdf:p33
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariff is: Demand Large: 400 kW or 450 kVA'
+  note: Holds for the 'Demand Charge kVA' rate (kVA denominated where the metering supports it).
+- codes: [EDLTT1, EDLTT2, EDLTT3, MDLTT4, WDLTT1, WDLTT2, WDLTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 400
+  locator: pdf:p33
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariff is: Demand Large: 400 kW or 450 kVA'
+  note: Holds for the 'Demand Charge kW' rate (the kW denominated version for metering without kVA data).
+- codes: [EBPMPT1, EBPMPT2, EBPMPT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kW
+  method: agreed
+  reset: month
+  minimum_value: 7.5
+  locator: pdf:p32
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month. Application of charges: Minimum demand charge: Charge
+    for pump size up to 7.5kW Remaining demand charge: Charge for pump size > 7.5kW This monthly $ per kW charge is applied
+    to the larger of the customer’s pump size capacity, or 7.5kW.'
+  note: 'Measured as the customer''s pump size (a stated capacity, not metered demand), at least 7.5 kW: the ''Minimum Capacity
+    Charge'' (capacity_minimum) prices the first 7.5 kW and the ''Remaining Capacity Charge'' (capacity_remaining) the pump
+    size above 7.5 kW. Appendix C works the charge per day of the billing period (''pump size less minimum demand value of
+    7.5kW, multiplied by 12 months'', divided by 365.25 days).'
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 20
+  locator: pdf:p35
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe. Peak demand window: 10:00am to 8:00pm during
+    Summer months (December, January, and February) weekdays Off-peak demand window: All times during Non-Summer months Thresholds
+    above which demand charges apply: Peak: 20kW Off-peak: 40kW'
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: off_peak
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 40
+  locator: pdf:p35
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe. Peak demand window: 10:00am to 8:00pm during
+    Summer months (December, January, and February) weekdays Off-peak demand window: All times during Non-Summer months Thresholds
+    above which demand charges apply: Peak: 20kW Off-peak: 40kW'
+- codes: [EC66T1, EC66T2, EC66T3, WC66T1, WC66T2, WC66T3, EC33T1, EC33T2, EC33T3, WC33T1, WC33T2, WC33T3, EC22BT1, EC22BT2,
+    EC22BT3, WC22BT1, WC22BT2, WC22BT3, EC22LT1, EC22LT2, EC22LT3, WC22LT1, WC22LT2, WC22LT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p36
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: [EC66T1, EC66T2, EC66T3, WC66T1, WC66T2, WC66T3, EC33T1, EC33T2, EC33T3, WC33T1, WC33T2, WC33T3, EC22BT1, EC22BT2,
+    EC22BT3, WC22BT1, WC22BT2, WC22BT3, EC22LT1, EC22LT2, EC22LT3, WC22LT1, WC22LT2, WC22LT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max_of_agreed_and_measured
+  reset: month
+  locator: pdf:p36
+  quote: 'Capacity charge: Capacity charge is the greater of the authorised kVA demand or maximum kVA demand recorded in any
+    30-minute period during the billing month.'
+  note: '''authorised kVA demand'' is the agreed value.'
+- codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22LTOUT1,
+    WC22LTOUT2, WC22LTOUT3, EC66TOUT1, EC66TOUT2, EC66TOUT3, WC66TOUT1, WC66TOUT2, WC66TOUT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  tou_period: anytime
+  measure: kVA
+  interval_min: 30
+  method: max_of_agreed_and_measured
+  reset: month
+  locator: pdf:p38
+  quote: The TUOS capacity charge doesn’t have seasonal or time-of use dimensions and uses the greater of the authorised kVA
+    demand or any time maximum kVA demand recorded in any 30-minute period during the billing month.
+  note: '''authorised kVA demand'' is the agreed value.'
+- codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22LTOUT1,
+    WC22LTOUT2, WC22LTOUT3, EC66TOUT1, EC66TOUT2, EC66TOUT3, WC66TOUT1, WC66TOUT2, WC66TOUT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  tou_period: off_peak
+  measure: kVA
+  method: max_of_agreed_and_measured
+  reset: month
+  locator: pdf:p38
+  quote: The DUOS off-peak capacity charge calculation uses the maximum of authorised kVA demand or the monthly actual kVA
+    maximum demand during the off-peak window, which is all times during non-summer months and all times during Summer months
+    excluding demands occurring during the peak window of 10am to 8pm on Summer weekdays.
+  note: '''authorised kVA demand'' is the agreed value; the sentence states no interval (the guide''s general note says a
+    maximum demand is the average of a 30-minute period).'
+- codes: [ERTDEMT1, ERTDEMT2, ERTDEMT3, MRTDEMT4, WRTDEMT1, WRTDEMT2, WRTDEMT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [ERDEMT1, ERDEMT2, ERDEMT3, MRDEMT4, WRDEMT1, WRDEMT2, WRDEMT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p24
+  quote: 'Demand charge: A monthly charge calculated as $/kW, based on the maximum kW demand measured as a single peak over
+    a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [EBTDEMT1, EBTDEMT2, EBTDEMT3, MBTDEMT4, WBTDEMT1, WBTDEMT2, WBTDEMT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p21
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [EBDEMT1, EBDEMT2, EBDEMT3, MBDEMT4, WBDEMT1, WBDEMT2, WBDEMT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p26
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3, MLTOUDT4, WLTOUDT1, WLTOUDT2, WLTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p22
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: [ELTOUDT1, ELTOUDT2, ELTOUDT3, MLTOUDT4, WLTOUDT1, WLTOUDT2, WLTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p22
+  quote: "Excess demand charge: A monthly charge calculated as $/kVA/month. It is measured as the single maximum demand
+    outside the peak demand window minus the maximum demand during the peak demand window. Where the maximum monthly
+    demand outside the peak demand window is less than the highest monthly maximum demand inside the peak window, the
+    excess demand charge for that billing period is set to zero."
+  note: "The Excess Demand Charge of LTOUD, priced off_peak (rate_periods: outside the peak demand window, 4pm to 9pm
+    weekdays): the highest kVA outside the peak demand window less the highest inside it in the month, zero when
+    negative. The interval is the tariff description's on the same page: 'the demand charges are applied to the maximum
+    half hourly kVA'."
+- codes: [EDMTT1, EDMTT2, EDMTT3, MDMTT4, WDMTT1, WDMTT2, WDMTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 135
+  locator: pdf:p23
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA'
+  note: Holds for the 'Demand Charge kVA' rate (kVA denominated where the metering supports it).
+- codes: [EDMTT1, EDMTT2, EDMTT3, MDMTT4, WDMTT1, WDMTT2, WDMTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 120
+  locator: pdf:p23
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA'
+  note: Holds for the 'Demand Charge kW' rate (the kW denominated version for metering without kVA data).
+- codes: [EDSTT1, EDSTT2, EDSTT3, MDSTT4, WDSTT1, WDSTT2, WDSTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 35
+  locator: pdf:p23
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA Demand Small: 30 kW or 35 kVA'
+  note: Holds for the 'Demand Charge kVA' rate (kVA denominated where the metering supports it).
+- codes: [EDSTT1, EDSTT2, EDSTT3, MDSTT4, WDSTT1, WDSTT2, WDSTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 30
+  locator: pdf:p23
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW)), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariffs are: Demand Medium: 120 kW or 135 kVA Demand Small: 30 kW or 35 kVA'
+  note: Holds for the 'Demand Charge kW' rate (the kW denominated version for metering without kVA data).
+- codes: [EDLTT1, EDLTT2, EDLTT3, MDLTT4, WDLTT1, WDLTT2, WDLTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 450
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariff is: Demand Large: 400 kW or 450 kVA'
+  note: Holds for the 'Demand Charge kVA' rate (kVA denominated where the metering supports it).
+- codes: [EDLTT1, EDLTT2, EDLTT3, MDLTT4, WDLTT1, WDLTT2, WDLTT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: anytime
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 400
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month (or kW), applied to the kVA amount by which a customer’s
+    actual monthly maximum demand measured as a single peak over a 30-minute period during the month is greater than the demand
+    threshold applicable to the customer’s network tariff. Where the monthly metered maximum demand is less than the demand
+    threshold, the chargeable demand for that month is set to zero and no demand charge is payable for that month. The threshold
+    demands applicable to the SAC Large demand tariff is: Demand Large: 400 kW or 450 kVA'
+  note: Holds for the 'Demand Charge kW' rate (the kW denominated version for metering without kVA data).
+- codes: [EBPMPT1, EBPMPT2, EBPMPT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: capacity
+  measure: kW
+  method: agreed
+  reset: month
+  minimum_value: 7.5
+  locator: pdf:p27
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month. Application of charges: Minimum demand charge: Charge
+    for pump size up to 7.5kW Remaining demand charge: Charge for pump size > 7.5kW This monthly $ per kW charge is applied
+    to the larger of the customer’s pump size capacity, or 7.5kW.'
+  note: 'Measured as the customer''s pump size (a stated capacity, not metered demand), at least 7.5 kW: the ''Minimum Capacity
+    Charge'' (capacity_minimum) prices the first 7.5 kW and the ''Remaining Capacity Charge'' (capacity_remaining) the pump
+    size above 7.5 kW. Appendix C works the charge per day of the billing period (''pump size less minimum demand value of
+    7.5kW, multiplied by 12 months'', divided by 365.25 days).'
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 20
+  locator: pdf:p30
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe. Peak demand window: 10:00am to 8:00pm during
+    Summer months (December, January, and February) weekdays Off-peak demand window: All times during Non-Summer months Thresholds
+    above which demand charges apply: Peak: 20kW Off-peak: 40kW'
+- codes: [ESTOUDT1, ESTOUDT2, ESTOUDT3, MSTOUDT4, WSTOUDT1, WSTOUDT2, WSTOUDT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: off_peak
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  threshold_value: 40
+  locator: pdf:p30
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe. Peak demand window: 10:00am to 8:00pm during
+    Summer months (December, January, and February) weekdays Off-peak demand window: All times during Non-Summer months Thresholds
+    above which demand charges apply: Peak: 20kW Off-peak: 40kW'
+- codes: [EC66T1, EC66T2, EC66T3, WC66T1, WC66T2, WC66T3, EC33T1, EC33T2, EC33T3, WC33T1, WC33T2, WC33T3, EC22BT1, EC22BT2,
+    EC22BT3, WC22BT1, WC22BT2, WC22BT3, EC22LT1, EC22LT2, EC22LT3, WC22LT1, WC22LT2, WC22LT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p31
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: [EC66T1, EC66T2, EC66T3, WC66T1, WC66T2, WC66T3, EC33T1, EC33T2, EC33T3, WC33T1, WC33T2, WC33T3, EC22BT1, EC22BT2,
+    EC22BT3, WC22BT1, WC22BT2, WC22BT3, EC22LT1, EC22LT2, EC22LT3, WC22LT1, WC22LT2, WC22LT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max_of_agreed_and_measured
+  reset: month
+  locator: pdf:p31
+  quote: 'Capacity charge: Capacity charge is the greater of the authorised kVA demand or maximum kVA demand recorded in any
+    30-minute period during the billing month.'
+  note: '''authorised kVA demand'' is the agreed value.'
+- codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22LTOUT1,
+    WC22LTOUT2, WC22LTOUT3, EC66TOUT1, EC66TOUT2, EC66TOUT3, WC66TOUT1, WC66TOUT2, WC66TOUT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: capacity
+  tou_period: anytime
+  measure: kVA
+  interval_min: 30
+  method: max_of_agreed_and_measured
+  reset: month
+  locator: pdf:p33
+  quote: The TUOS capacity charge doesn’t have seasonal or time-of use dimensions and uses the greater of the authorised kVA
+    demand or any time maximum kVA demand recorded in any 30-minute period during the billing month.
+  note: '''authorised kVA demand'' is the agreed value.'
+- codes: [EC22BTOUT1, EC22BTOUT2, EC22BTOUT3, WC22BTOUT1, WC22BTOUT2, WC22BTOUT3, EC22LTOUT1, EC22LTOUT2, EC22LTOUT3, WC22LTOUT1,
+    WC22LTOUT2, WC22LTOUT3, EC66TOUT1, EC66TOUT2, EC66TOUT3, WC66TOUT1, WC66TOUT2, WC66TOUT3]
+  doc: sources/dnsp/ergon/Ergon_Network_Tariff_Guide_2023-24_wayback.pdf
+  fin_year: 2023-24
+  charge_type: capacity
+  tou_period: off_peak
+  measure: kVA
+  method: max_of_agreed_and_measured
+  reset: month
+  locator: pdf:p33
+  quote: The DUOS off-peak capacity charge calculation uses the maximum of authorised kVA demand or the monthly actual kVA
+    maximum demand during the off-peak window, which is all times during non-summer months and all times during Summer months
+    excluding demands occurring during the peak window of 10am to 8pm on Summer weekdays.
+  note: '''authorised kVA demand'' is the agreed value; the sentence states no interval (the guide''s general note says a
+    maximum demand is the average of a 30-minute period).'

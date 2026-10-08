@@ -39,14 +39,16 @@ tou_schedules:
     start: '16:00'
     end: '20:00'
     months: 11,12,1,2,3
-    season: High-season
+    season_label: High-season
+    season: high
   - period: peak
     label: Peak (Low-season)
     days: business_day
     start: '16:00'
     end: '20:00'
     months: 4,5,6,7,8,9,10
-    season: Low-season
+    season_label: Low-season
+    season: low
   - period: off_peak
     label: Off Peak
     days: business_day
@@ -174,14 +176,16 @@ tou_schedules:
     start: '16:00'
     end: '20:00'
     months: 11,12,1,2,3
-    season: High-season
+    season_label: High-season
+    season: high
   - period: peak
     label: Peak (Low-season)
     days: business_day
     start: '16:00'
     end: '20:00'
     months: 4,5,6,7,8,9,10
-    season: Low-season
+    season_label: Low-season
+    season: low
   - period: off_peak
     label: Off Peak
     days: business_day
@@ -322,14 +326,16 @@ tou_schedules:
     start: '16:00'
     end: '20:00'
     months: 11,12,1,2,3
-    season: High-season
+    season_label: High-season
+    season: high
   - period: peak
     label: Peak (Low-season)
     days: business_day
     start: '16:00'
     end: '20:00'
     months: 4,5,6,7,8,9,10
-    season: Low-season
+    season_label: Low-season
+    season: low
   - period: off_peak
     label: Off Peak
     days: business_day
@@ -456,14 +462,16 @@ tou_schedules:
     start: '16:00'
     end: '20:00'
     months: 11,12,1,2,3
-    season: High-season
+    season_label: High-season
+    season: high
   - period: peak
     label: Peak (Low-season)
     days: business_day
     start: '16:00'
     end: '20:00'
     months: 4,5,6,7,8,9,10
-    season: Low-season
+    season_label: Low-season
+    season: low
   - period: off_peak
     label: Off Peak
     days: business_day
@@ -576,14 +584,16 @@ tou_schedules:
     start: '16:00'
     end: '20:00'
     months: 11,12,1,2,3
-    season: High-season
+    season_label: High-season
+    season: high
   - period: peak
     label: Peak (Low-season)
     days: business_day
     start: '16:00'
     end: '20:00'
     months: 4,5,6,7,8,9,10
-    season: Low-season
+    season_label: Low-season
+    season: low
   - period: off_peak
     label: Off Peak
     days: business_day
@@ -710,14 +720,16 @@ tou_schedules:
     start: '16:00'
     end: '20:00'
     months: 11,12,1,2,3
-    season: High-season
+    season_label: High-season
+    season: high
   - period: peak
     label: Peak (Low-season)
     days: business_day
     start: '16:00'
     end: '20:00'
     months: 4,5,6,7,8,9,10
-    season: Low-season
+    season_label: Low-season
+    season: low
   - period: off_peak
     label: Off Peak
     days: business_day
@@ -818,14 +830,16 @@ tou_schedules:
     start: '16:00'
     end: '20:00'
     months: 11,12,1,2,3
-    season: High-season
+    season_label: High-season
+    season: high
   - period: peak
     label: Peak (Low-season)
     days: business_day
     start: '16:00'
     end: '20:00'
     months: 4,5,6,7,8,9,10
-    season: Low-season
+    season_label: Low-season
+    season: low
   - period: off_peak
     label: Off Peak
     days: business_day
@@ -3502,3 +3516,108 @@ eligibility:
   locator: pdf:p21
   quote: An obsolete time of use energy tariff that has time of use energy consumption charges (under our existing, obsolete
     charging windows) and a fixed charge. This tariff is closed to new entrants.
+charge_rules:
+- codes: all
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: Section 5.3 Demand Charges, stated for every tariff priced per kW or kVA. p21 (5.3.2 Demand Metering) adds 'Endeavour Energy
+    bills on a 30-minute demand interval.' Demand charges are priced per day (c/kW/day, c/kVA/day) times the days in the calendar month.
+- codes: all
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: Section 5.3 Demand Charges, stated for every tariff priced per kW or kVA. p21 (5.3.2 Demand Metering) adds 'Endeavour Energy
+    bills on a 30-minute demand interval.' Demand charges are priced per day (c/kW/day, c/kVA/day) times the days in the calendar month.
+- codes: all
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: Section 5.3 Demand Charges, stated for every tariff priced per kW or kVA. p21 (5.3.2 Demand Metering) adds 'Endeavour Energy
+    bills on a 30-minute demand interval.' Demand charges are priced per day (c/kW/day, c/kVA/day) times the days in the calendar month.
+- codes: all
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2025-26_v11.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: Section 5.3 Demand Charges, stated for every tariff priced per kW or kVA. p21 (5.3.2 Demand Metering) adds 'Endeavour Energy
+    bills on a 30-minute demand interval.' Demand charges are priced per day (c/kW/day, c/kVA/day) times the days in the calendar month.
+- codes: all
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: Section 5.3 Demand Charges, stated for every tariff priced per kW or kVA. p22 (5.3.2 Demand Metering) adds 'Endeavour Energy
+    bills on a 30-minute demand interval.' Demand charges are priced per day (c/kW/day, c/kVA/day) times the days in the calendar month.
+- codes: all
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: Section 5.3 Demand Charges, stated for every tariff priced per kW or kVA. p22 (5.3.2 Demand Metering) adds 'Endeavour Energy
+    bills on a 30-minute demand interval.' Demand charges are priced per day (c/kW/day, c/kVA/day) times the days in the calendar month.
+- codes: all
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2023-24_v10.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p21
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: Section 5.3 Demand Charges, stated for every tariff priced per kW or kVA. p23 (5.3.2 Demand Metering) adds 'Endeavour Energy
+    bills on a 30-minute demand interval.' Demand charges are priced per day (c/kW/day, c/kVA/day) times the days in the calendar month.
+- codes: all
+  doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2023-24_v10.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p21
+  quote: A monthly demand charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour
+    interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
+  note: Section 5.3 Demand Charges, stated for every tariff priced per kW or kVA. p23 (5.3.2 Demand Metering) adds 'Endeavour Energy
+    bills on a 30-minute demand interval.' Demand charges are priced per day (c/kW/day, c/kVA/day) times the days in the calendar month.

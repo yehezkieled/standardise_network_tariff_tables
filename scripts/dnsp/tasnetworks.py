@@ -36,6 +36,8 @@ BASIS_WORDS = {"network": "NUoS", "distribution": "DUoS", "transmission": "TUoS"
 # Measure of demand per tariff, from the 2023-24 price guide Table 36 ("Measure of demand (kVA or kW)").
 DEMAND_MEASURE_2023_24 = {"TAS87": "kW", "TAS97": "kW", "TAS88": "kW", "TAS98": "kW",
                           "TAS82": "kVA", "TAS89": "kVA", "TASSDM": "kVA", "TAS15": "kVA"}
+# the embedded-network tariffs the 2024-29 network tariff application guide adds (Appendix 1 Table 6: kVA)
+DEMAND_MEASURE_2024_29 = {c: "kVA" for c in ("TAS84T1", "TAS84T2", "TAS84T3", "TAS84T4", "TAS14T1", "TAS14T2")}
 
 
 def tariff_unit(code, group, options, printed=None):
@@ -56,6 +58,10 @@ def tariff_unit(code, group, options, printed=None):
     if measure is not None:
         return out(re.sub(r"/k(?:VA|W)/", f"/{measure}/", unit, flags=re.I),
                    f"header '{group}'; {measure} for {code} per 2023-24 price guide Table 36")
+    measure = DEMAND_MEASURE_2024_29.get(code)
+    if measure is not None:
+        return out(re.sub(r"/k(?:VA|W)/", f"/{measure}/", unit, flags=re.I),
+                   f"header '{group}'; {measure} for {code} per the 2024-29 network tariff application guide Table 6")
     if {m.upper() for o in options for m in re.findall(r"/(k(?:VA|W))/", o, re.I)} == {"KVA", "KW"}:
         return out(re.sub(r"/k(?:VA|W)/", "/kVA or kW/", unit, flags=re.I),
                    f"[UNSURE] header '{group}' lists both kVA and kW and no table fixes the measure for {code}; demand quantity unverified")

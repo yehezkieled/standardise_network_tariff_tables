@@ -656,6 +656,28 @@ def sapn_parse_page(lines, hdr, basis, ctx, state):
     return rows
 
 
+LEGACY_METERING = re.compile(r"^(?:Legacy Metering|Service Charge)\s+(Non-Capital|Capital)\s+([\d.]+)\s+[\d.,]+$")
+
+
+def legacy_metering_schedule(pdf, path, fin_year):
+    """The 'Metering Charges Schedule' of a price list ('Legacy Metering Service Charge', Non-Capital and Capital, per
+    day): one schedule for the network, not a tariff column, so the rows carry no tariff code (curated `metering`
+    facts say which tariffs it applies to). The printed 'Non-Capital and Capital' total is not stored."""
+    for pno, page in enumerate(pdf.pages, 1):
+        lines = (page.extract_text() or "").split("\n")
+        if not any(ln.startswith("3. Metering Charges Schedule") for ln in lines):
+            continue
+        unit = next((u for ln in lines for u in ("c/Day", "$/Day") if ln.startswith(u)), None)
+        for ln in lines:
+            m = LEGACY_METERING.match(ln.strip())
+            if m and unit:
+                METERING.append({"distributor": SAPN, "fin_year": fin_year, "tariff_code": "",
+                                 "meter_class": "Legacy Metering Service Charge", "component": m.group(1),
+                                 "unit": unit.replace("Day", "day"), "value": m.group(2), "gst": "excl",
+                                 "source_file": path, "locator": locators.pdf(pno),
+                                 "note": "3. Metering Charges Schedule; 'All prices exclude GST.'"})
+
+
 def parse_sapn(path, fin_year, side, url, extra):
     rows = []
     basis = None
@@ -668,6 +690,8 @@ def parse_sapn(path, fin_year, side, url, extra):
     # overlapping header text.
     template = None
     with pdfplumber.open(path) as pdf:
+        if side == "DNSP":
+            legacy_metering_schedule(pdf, path, fin_year)
         for pno, page in enumerate(pdf.pages, 1):
             lines = build_lines(page)
             title = None

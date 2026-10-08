@@ -1,10 +1,9 @@
-# TasNetworks curated tariff facts (TOU windows, eligibility).
+# TasNetworks curated tariff facts (TOU windows, eligibility, demand measurement rules).
 # Format and rules: scripts/tariffdb/curated.py. Every item quotes its source at the locator.
-# TOU windows are stated only in the 2023-24 Network tariff application and price guide. The other held
-# TasNetworks documents (pricing schedules 2023-24 and 2024-25 PDF, 2025-26 and 2026-27 xlsx incl. their indicative
-# 2026-27..2028-29 and Locational TUoS sheets, the AER 2024-25 stakeholder report and the TasNetworks sections of the AER
-# consolidated 2025-26 v1/v5 and 2026-27 reports) carry no time windows or block thresholds, so 2024-25..2026-27 have
-# no tou_schedules.
+# TOU windows and demand rules: 2023-24 from the 2023-24 Network tariff application and price guide; 2024-25 to 2026-27
+# from the 2024-2029 Network tariff application guide, one version per year (v2.1 from the 2024-25 pricing folder, v2.3
+# from 2025-26, v2.4 from 2026-27; their time periods and Appendix 1 are identical). The pricing schedules (PDF/xlsx),
+# the AER stakeholder reports and consolidated reports carry no time windows or block thresholds.
 distributor: tasnetworks
 tou_schedules:
 - id: tasnetworks-2023-24-guide-res-tou
@@ -166,70 +165,70 @@ tou_schedules:
     start: "00:00"
     end: "07:00"
     months: 10,11,12,1,2,3
-    season: Summer (1 Oct – 31 Mar)
+    season_label: Summer (1 Oct – 31 Mar)
   - period: shoulder
     label: Shoulder
     days: weekday
     start: "07:00"
     end: "22:00"
     months: 10,11,12,1,2,3
-    season: Summer (1 Oct – 31 Mar)
+    season_label: Summer (1 Oct – 31 Mar)
   - period: off_peak
     label: Off-peak
     days: weekday
     start: "22:00"
     end: "24:00"
     months: 10,11,12,1,2,3
-    season: Summer (1 Oct – 31 Mar)
+    season_label: Summer (1 Oct – 31 Mar)
   - period: off_peak
     label: Off-peak
     days: weekend
     start: "00:00"
     end: "24:00"
     months: 10,11,12,1,2,3
-    season: Summer (1 Oct – 31 Mar)
+    season_label: Summer (1 Oct – 31 Mar)
   - period: off_peak
     label: Off-peak
     days: weekday
     start: "00:00"
     end: "07:00"
     months: 4,5,6,7,8,9
-    season: Winter (1 Apr – 30 Sep)
+    season_label: Winter (1 Apr – 30 Sep)
   - period: peak
     label: Peak
     days: weekday
     start: "07:00"
     end: "22:00"
     months: 4,5,6,7,8,9
-    season: Winter (1 Apr – 30 Sep)
+    season_label: Winter (1 Apr – 30 Sep)
   - period: off_peak
     label: Off-peak
     days: weekday
     start: "22:00"
     end: "24:00"
     months: 4,5,6,7,8,9
-    season: Winter (1 Apr – 30 Sep)
+    season_label: Winter (1 Apr – 30 Sep)
   - period: off_peak
     label: Off-peak
     days: weekend
     start: "00:00"
     end: "07:00"
     months: 4,5,6,7,8,9
-    season: Winter (1 Apr – 30 Sep)
+    season_label: Winter (1 Apr – 30 Sep)
   - period: shoulder
     label: Shoulder
     days: weekend
     start: "07:00"
     end: "22:00"
     months: 4,5,6,7,8,9
-    season: Winter (1 Apr – 30 Sep)
+    season_label: Winter (1 Apr – 30 Sep)
   - period: off_peak
     label: Off-peak
     days: weekend
     start: "22:00"
     end: "24:00"
     months: 4,5,6,7,8,9
-    season: Winter (1 Apr – 30 Sep)
+    season_label: Winter (1 Apr – 30 Sep)
   tariffs:
   - codes:
     - TAS75
@@ -290,6 +289,1188 @@ tou_schedules:
     Public holidays are not mentioned anywhere in the guide. These are envelopes, not exact switching times: supply is at
     least 9 hours within 20:00-07:00 and a further 2 hours within 13:00-16:30, and pdf:p56 says ''TasNetworks will choose
     the actual times during the periods that the energy will be available.'''
+  windows:
+  - period: controlled_load_supply
+    label: Overnight (at least nine hours within)
+    days: all_days
+    start: "00:00"
+    end: "07:00"
+  - period: controlled_load_supply
+    label: Afternoon boost (two hours within)
+    days: all_days
+    start: "13:00"
+    end: "16:30"
+  - period: controlled_load_supply
+    label: Overnight (at least nine hours within)
+    days: all_days
+    start: "20:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS61
+    applies_to: controlled_load
+- id: tasnetworks-2024-25-guide-res-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  name: Peak / off-peak time periods shared by residential and LV demand tariffs (sections 5.1.1.2, 5.1.2.2, 5.2.2.2, 5.2.3.2,
+    5.4.1.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p24
+  quote: 5.1.1.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00
+    – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. Section 5.1.1 is ''Low voltage residential
+    time of use consumption (TAS93)''.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "10:00"
+    end: "16:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "16:00"
+    end: "21:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "21:00"
+    end: "24:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS93
+    applies_to: usage
+    locator: pdf:p24
+    quote: 5.1.1 Low voltage residential time of use consumption (TAS93)
+  - codes:
+    - TAS87
+    applies_to: demand
+    locator: pdf:p26
+    quote: 5.1.2.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.1.2 on the same page is 'Low voltage residential time of use demand (TAS87)'; its 5.1.2.5 says the demand-based
+      charge rate varies 'with time periods being identified in section 5.1.2.2'.
+  - codes:
+    - TAS88
+    applies_to: demand
+    locator: pdf:p40
+    quote: 5.2.2.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.2.2 on the same page is 'Low voltage small business time of use demand (TAS88)'.
+  - codes:
+    - TAS98
+    applies_to: demand
+    locator: pdf:p42
+    quote: 5.2.3.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.2.3 on the same page is 'Low voltage small business time of use demand consumer energy resources (TAS98)'.
+  - codes:
+    - TAS89
+    applies_to: demand
+    locator: pdf:p48
+    quote: 5.4.1.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.4.1 on the same page is 'Low voltage large business time of use demand (TAS89)'.
+- id: tasnetworks-2024-25-guide-sb-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  name: Small business time of use consumption periods (section 5.2.1.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p38
+  quote: 5.2.1.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00
+    – 21:00 Shoulder Weekdays (Monday to Friday) 10:00 – 16:00 Off-peak Weekdays (Monday to Friday) All times not covered
+    above Weekends (Saturday and Sunday) All day
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: "10:00"
+    end: "16:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "16:00"
+    end: "21:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "21:00"
+    end: "24:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS94
+    applies_to: usage
+    locator: pdf:p38
+    quote: 5.2.1 Low voltage small business time of use consumption (TAS94)
+- id: tasnetworks-2024-25-guide-tas97-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  name: Residential time of use consumer energy resources (CER) consumption periods (section 5.1.3.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: 5.1.3.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00
+    – 22:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day Super
+    off-peak All days (Monday to Sunday) Midnight – 04:00
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. The table lists super off-peak (midnight
+    – 04:00 every day) after off-peak (''All times not covered above'' / weekends ''All day''); Table 3 (pdf:p19) gives TAS97
+    separate Peak (Weekdays 07:00-10:00, 16:00-22:00), Super off-peak (Anyday Midnight - 04:00) and Off-peak (''All other
+    times'') columns, so midnight – 04:00 is recorded as super off-peak only and off-peak as the rest.'
+  windows:
+  - period: super_off_peak
+    label: Super off-peak
+    days: all_days
+    start: "00:00"
+    end: "04:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "04:00"
+    end: "07:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "10:00"
+    end: "16:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "16:00"
+    end: "22:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "04:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS97
+    applies_to: usage
+    locator: pdf:p28
+    quote: 5.1.3 Low voltage residential time of use consumer energy resources (TAS97)
+- id: tasnetworks-2024-25-guide-seasonal-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  name: Seasonal peak / shoulder / off-peak periods for irrigation and HV specified demand tariffs (sections 5.3.1.2, 5.5.1.2,
+    5.5.2.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p46
+  quote: Summer Shoulder Weekdays (Monday to Friday) 07:00 – 22:00 (1 Oct to Off-peak Weekdays (Monday to Friday) All other
+    summer times 31 Mar) Weekends (Saturday and Sunday) All day Winter Peak Weekdays (Monday to Friday) 07:00 – 22:00 (1 Apr
+    to Shoulder Weekends (Saturday and Sunday) 07:00 – 22:00 30 Sep) Off-peak Weekdays (Monday to Friday) All other winter
+    times Weekends (Saturday and Sunday) All other winter times
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. Table 3 (pdf:p21-22) writes the seasons
+    ''Winter (1 April – 30 September)'' and ''Summer (1 October – 31 March)''.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: "07:00"
+    end: "22:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "24:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "22:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "07:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: "07:00"
+    end: "22:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "22:00"
+    end: "24:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  tariffs:
+  - codes:
+    - TAS75
+    applies_to: usage
+    locator: pdf:p46
+    quote: 5.3.1 Low voltage irrigation time of use consumption (TAS75)
+  - codes:
+    - TAS15
+    applies_to: usage
+    locator: pdf:p54
+    quote: 5.5.1 High voltage kVA specified demand (>2 MVA) (TAS15)
+    note: Section 5.5.1.2 on the same page lists the same seasonal periods.
+  - codes:
+    - TASSDM
+    applies_to: usage
+    locator: pdf:p56
+    quote: 5.5.2 High voltage kVA specified demand (<2 MVA) (TASSDM)
+    note: Section 5.5.2.2 on the same page lists the same seasonal periods.
+- id: tasnetworks-2024-25-guide-embedded-peak-demand
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  name: Embedded network peak demand period (sections 5.4.3.2, 5.5.4.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p52
+  quote: 5.4.3.2 Time periods Tariff rate Time periods (AEST) Peak (demand only) Weekdays (Monday to Friday) 07:00 – 10:00
+    and 16:00 – 21:00
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. Only the peak demand period is a window;
+    consumption is ''Anytime'' (weekdays and weekends all day).'
+  windows:
+  - period: peak
+    label: Peak (demand only)
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: peak
+    label: Peak (demand only)
+    days: weekday
+    start: "16:00"
+    end: "21:00"
+  tariffs:
+  - codes:
+    - TAS84T1
+    - TAS84T2
+    - TAS84T3
+    - TAS84T4
+    applies_to: demand
+    locator: pdf:p52
+    quote: 5.4.3 Low voltage embedded network Tier 1 to Tier 4 (TAS84T1-TAS84T4)
+  - codes:
+    - TAS14T1
+    - TAS14T2
+    applies_to: demand
+    locator: pdf:p59
+    quote: 5.5.4 High voltage embedded network Tier 1 to Tier 2 (TAS14T1-TAS14T2)
+    note: 'Section 5.5.4.2 on the same page: ''Peak (demand only) Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00 – 21:00''.'
+- id: tasnetworks-2024-25-guide-tas63-supply
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  name: Controlled energy off-peak [night only] (TAS63) supply availability
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p34
+  quote: Energy to installations connected on this network tariff will only be available between 22:00 hours and 07:00 hours
+    the following day.
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. The guide does not restrict the window
+    to particular day types, so it is recorded for all days.'
+  windows:
+  - period: controlled_load_supply
+    label: Night period
+    days: all_days
+    start: "00:00"
+    end: "07:00"
+  - period: controlled_load_supply
+    label: Night period
+    days: all_days
+    start: "22:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS63
+    applies_to: controlled_load
+- id: tasnetworks-2024-25-guide-tas61-supply
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  name: Controlled energy off-peak with afternoon boost (TAS61) supply envelopes
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p36
+  quote: 'energy will be available daily for: • at least nine hours between 20:00 hours and 07:00 hours the following day;
+    and • a further two hours between 13:00 hours and 16:30 hours.'
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. These are envelopes, not exact switching
+    times: supply is at least 9 hours within 20:00-07:00 and a further 2 hours within 13:00-16:30.'
+  windows:
+  - period: controlled_load_supply
+    label: Overnight (at least nine hours within)
+    days: all_days
+    start: "00:00"
+    end: "07:00"
+  - period: controlled_load_supply
+    label: Afternoon boost (two hours within)
+    days: all_days
+    start: "13:00"
+    end: "16:30"
+  - period: controlled_load_supply
+    label: Overnight (at least nine hours within)
+    days: all_days
+    start: "20:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS61
+    applies_to: controlled_load
+- id: tasnetworks-2025-26-guide-res-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  name: Peak / off-peak time periods shared by residential and LV demand tariffs (sections 5.1.1.2, 5.1.2.2, 5.2.2.2, 5.2.3.2,
+    5.4.1.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p24
+  quote: 5.1.1.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00
+    – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. Section 5.1.1 is ''Low voltage residential
+    time of use consumption (TAS93)''.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "10:00"
+    end: "16:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "16:00"
+    end: "21:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "21:00"
+    end: "24:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS93
+    applies_to: usage
+    locator: pdf:p24
+    quote: 5.1.1 Low voltage residential time of use consumption (TAS93)
+  - codes:
+    - TAS87
+    applies_to: demand
+    locator: pdf:p26
+    quote: 5.1.2.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.1.2 on the same page is 'Low voltage residential time of use demand (TAS87)'; its 5.1.2.5 says the demand-based
+      charge rate varies 'with time periods being identified in section 5.1.2.2'.
+  - codes:
+    - TAS88
+    applies_to: demand
+    locator: pdf:p40
+    quote: 5.2.2.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.2.2 on the same page is 'Low voltage small business time of use demand (TAS88)'.
+  - codes:
+    - TAS98
+    applies_to: demand
+    locator: pdf:p42
+    quote: 5.2.3.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.2.3 on the same page is 'Low voltage small business time of use demand consumer energy resources (TAS98)'.
+  - codes:
+    - TAS89
+    applies_to: demand
+    locator: pdf:p48
+    quote: 5.4.1.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.4.1 on the same page is 'Low voltage large business time of use demand (TAS89)'.
+- id: tasnetworks-2025-26-guide-sb-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  name: Small business time of use consumption periods (section 5.2.1.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p38
+  quote: 5.2.1.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00
+    – 21:00 Shoulder Weekdays (Monday to Friday) 10:00 – 16:00 Off-peak Weekdays (Monday to Friday) All times not covered
+    above Weekends (Saturday and Sunday) All day
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: "10:00"
+    end: "16:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "16:00"
+    end: "21:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "21:00"
+    end: "24:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS94
+    applies_to: usage
+    locator: pdf:p38
+    quote: 5.2.1 Low voltage small business time of use consumption (TAS94)
+- id: tasnetworks-2025-26-guide-tas97-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  name: Residential time of use consumer energy resources (CER) consumption periods (section 5.1.3.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: 5.1.3.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00
+    – 22:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day Super
+    off-peak All days (Monday to Sunday) Midnight – 04:00
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. The table lists super off-peak (midnight
+    – 04:00 every day) after off-peak (''All times not covered above'' / weekends ''All day''); Table 3 (pdf:p19) gives TAS97
+    separate Peak (Weekdays 07:00-10:00, 16:00-22:00), Super off-peak (Anyday Midnight - 04:00) and Off-peak (''All other
+    times'') columns, so midnight – 04:00 is recorded as super off-peak only and off-peak as the rest.'
+  windows:
+  - period: super_off_peak
+    label: Super off-peak
+    days: all_days
+    start: "00:00"
+    end: "04:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "04:00"
+    end: "07:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "10:00"
+    end: "16:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "16:00"
+    end: "22:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "04:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS97
+    applies_to: usage
+    locator: pdf:p28
+    quote: 5.1.3 Low voltage residential time of use consumer energy resources (TAS97)
+- id: tasnetworks-2025-26-guide-seasonal-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  name: Seasonal peak / shoulder / off-peak periods for irrigation and HV specified demand tariffs (sections 5.3.1.2, 5.5.1.2,
+    5.5.2.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p46
+  quote: Summer Shoulder Weekdays (Monday to Friday) 07:00 – 22:00 (1 Oct to Off-peak Weekdays (Monday to Friday) All other
+    summer times 31 Mar) Weekends (Saturday and Sunday) All day Winter Peak Weekdays (Monday to Friday) 07:00 – 22:00 (1 Apr
+    to Shoulder Weekends (Saturday and Sunday) 07:00 – 22:00 30 Sep) Off-peak Weekdays (Monday to Friday) All other winter
+    times Weekends (Saturday and Sunday) All other winter times
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. Table 3 (pdf:p21-22) writes the seasons
+    ''Winter (1 April – 30 September)'' and ''Summer (1 October – 31 March)''.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: "07:00"
+    end: "22:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "24:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "22:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "07:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: "07:00"
+    end: "22:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "22:00"
+    end: "24:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  tariffs:
+  - codes:
+    - TAS75
+    applies_to: usage
+    locator: pdf:p46
+    quote: 5.3.1 Low voltage irrigation time of use consumption (TAS75)
+  - codes:
+    - TAS15
+    applies_to: usage
+    locator: pdf:p54
+    quote: 5.5.1 High voltage kVA specified demand (>2 MVA) (TAS15)
+    note: Section 5.5.1.2 on the same page lists the same seasonal periods.
+  - codes:
+    - TASSDM
+    applies_to: usage
+    locator: pdf:p56
+    quote: 5.5.2 High voltage kVA specified demand (<2 MVA) (TASSDM)
+    note: Section 5.5.2.2 on the same page lists the same seasonal periods.
+- id: tasnetworks-2025-26-guide-embedded-peak-demand
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  name: Embedded network peak demand period (sections 5.4.3.2, 5.5.4.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p52
+  quote: 5.4.3.2 Time periods Tariff rate Time periods (AEST) Peak (demand only) Weekdays (Monday to Friday) 07:00 – 10:00
+    and 16:00 – 21:00
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. Only the peak demand period is a window;
+    consumption is ''Anytime'' (weekdays and weekends all day).'
+  windows:
+  - period: peak
+    label: Peak (demand only)
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: peak
+    label: Peak (demand only)
+    days: weekday
+    start: "16:00"
+    end: "21:00"
+  tariffs:
+  - codes:
+    - TAS84T1
+    - TAS84T2
+    - TAS84T3
+    - TAS84T4
+    applies_to: demand
+    locator: pdf:p52
+    quote: 5.4.3 Low voltage embedded network Tier 1 to Tier 4 (TAS84T1-TAS84T4)
+  - codes:
+    - TAS14T1
+    - TAS14T2
+    applies_to: demand
+    locator: pdf:p59
+    quote: 5.5.4 High voltage embedded network Tier 1 to Tier 2 (TAS14T1-TAS14T2)
+    note: 'Section 5.5.4.2 on the same page: ''Peak (demand only) Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00 – 21:00''.'
+- id: tasnetworks-2025-26-guide-tas63-supply
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  name: Controlled energy off-peak [night only] (TAS63) supply availability
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p34
+  quote: Energy to installations connected on this network tariff will only be available between 22:00 hours and 07:00 hours
+    the following day.
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. The guide does not restrict the window
+    to particular day types, so it is recorded for all days.'
+  windows:
+  - period: controlled_load_supply
+    label: Night period
+    days: all_days
+    start: "00:00"
+    end: "07:00"
+  - period: controlled_load_supply
+    label: Night period
+    days: all_days
+    start: "22:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS63
+    applies_to: controlled_load
+- id: tasnetworks-2025-26-guide-tas61-supply
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  name: Controlled energy off-peak with afternoon boost (TAS61) supply envelopes
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p36
+  quote: 'energy will be available daily for: • at least nine hours between 20:00 hours and 07:00 hours the following day;
+    and • a further two hours between 13:00 hours and 16:30 hours.'
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. These are envelopes, not exact switching
+    times: supply is at least 9 hours within 20:00-07:00 and a further 2 hours within 13:00-16:30.'
+  windows:
+  - period: controlled_load_supply
+    label: Overnight (at least nine hours within)
+    days: all_days
+    start: "00:00"
+    end: "07:00"
+  - period: controlled_load_supply
+    label: Afternoon boost (two hours within)
+    days: all_days
+    start: "13:00"
+    end: "16:30"
+  - period: controlled_load_supply
+    label: Overnight (at least nine hours within)
+    days: all_days
+    start: "20:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS61
+    applies_to: controlled_load
+- id: tasnetworks-2026-27-guide-res-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  name: Peak / off-peak time periods shared by residential and LV demand tariffs (sections 5.1.1.2, 5.1.2.2, 5.2.2.2, 5.2.3.2,
+    5.4.1.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p24
+  quote: 5.1.1.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00
+    – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. Section 5.1.1 is ''Low voltage residential
+    time of use consumption (TAS93)''.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "10:00"
+    end: "16:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "16:00"
+    end: "21:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "21:00"
+    end: "24:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS93
+    applies_to: usage
+    locator: pdf:p24
+    quote: 5.1.1 Low voltage residential time of use consumption (TAS93)
+  - codes:
+    - TAS87
+    applies_to: demand
+    locator: pdf:p26
+    quote: 5.1.2.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.1.2 on the same page is 'Low voltage residential time of use demand (TAS87)'; its 5.1.2.5 says the demand-based
+      charge rate varies 'with time periods being identified in section 5.1.2.2'.
+  - codes:
+    - TAS88
+    applies_to: demand
+    locator: pdf:p40
+    quote: 5.2.2.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.2.2 on the same page is 'Low voltage small business time of use demand (TAS88)'.
+  - codes:
+    - TAS98
+    applies_to: demand
+    locator: pdf:p42
+    quote: 5.2.3.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.2.3 on the same page is 'Low voltage small business time of use demand consumer energy resources (TAS98)'.
+  - codes:
+    - TAS89
+    applies_to: demand
+    locator: pdf:p48
+    quote: 5.4.1.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and
+      16:00 – 21:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day
+    note: Section 5.4.1 on the same page is 'Low voltage large business time of use demand (TAS89)'.
+- id: tasnetworks-2026-27-guide-sb-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  name: Small business time of use consumption periods (section 5.2.1.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p38
+  quote: 5.2.1.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00
+    – 21:00 Shoulder Weekdays (Monday to Friday) 10:00 – 16:00 Off-peak Weekdays (Monday to Friday) All times not covered
+    above Weekends (Saturday and Sunday) All day
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: "10:00"
+    end: "16:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "16:00"
+    end: "21:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "21:00"
+    end: "24:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS94
+    applies_to: usage
+    locator: pdf:p38
+    quote: 5.2.1 Low voltage small business time of use consumption (TAS94)
+- id: tasnetworks-2026-27-guide-tas97-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  name: Residential time of use consumer energy resources (CER) consumption periods (section 5.1.3.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: 5.1.3.2 Time of use periods Tariff rate Time periods (AEST) Peak Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00
+    – 22:00 Off-peak Weekdays (Monday to Friday) All times not covered above Weekends (Saturday and Sunday) All day Super
+    off-peak All days (Monday to Sunday) Midnight – 04:00
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. The table lists super off-peak (midnight
+    – 04:00 every day) after off-peak (''All times not covered above'' / weekends ''All day''); Table 3 (pdf:p19) gives TAS97
+    separate Peak (Weekdays 07:00-10:00, 16:00-22:00), Super off-peak (Anyday Midnight - 04:00) and Off-peak (''All other
+    times'') columns, so midnight – 04:00 is recorded as super off-peak only and off-peak as the rest.'
+  windows:
+  - period: super_off_peak
+    label: Super off-peak
+    days: all_days
+    start: "00:00"
+    end: "04:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "04:00"
+    end: "07:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "10:00"
+    end: "16:00"
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "16:00"
+    end: "22:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "04:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS97
+    applies_to: usage
+    locator: pdf:p28
+    quote: 5.1.3 Low voltage residential time of use consumer energy resources (TAS97)
+- id: tasnetworks-2026-27-guide-seasonal-tou
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  name: Seasonal peak / shoulder / off-peak periods for irrigation and HV specified demand tariffs (sections 5.3.1.2, 5.5.1.2,
+    5.5.2.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p46
+  quote: Summer Shoulder Weekdays (Monday to Friday) 07:00 – 22:00 (1 Oct to Off-peak Weekdays (Monday to Friday) All other
+    summer times 31 Mar) Weekends (Saturday and Sunday) All day Winter Peak Weekdays (Monday to Friday) 07:00 – 22:00 (1 Apr
+    to Shoulder Weekends (Saturday and Sunday) 07:00 – 22:00 30 Sep) Off-peak Weekdays (Monday to Friday) All other winter
+    times Weekends (Saturday and Sunday) All other winter times
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. Table 3 (pdf:p21-22) writes the seasons
+    ''Winter (1 April – 30 September)'' and ''Summer (1 October – 31 March)''.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: "07:00"
+    end: "22:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "24:00"
+    months: 10,11,12,1,2,3
+    season_label: Summer (1 Oct to 31 Mar)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "00:00"
+    end: "07:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: peak
+    label: Peak
+    days: weekday
+    start: "07:00"
+    end: "22:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: "22:00"
+    end: "24:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "00:00"
+    end: "07:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: "07:00"
+    end: "22:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: "22:00"
+    end: "24:00"
+    months: 4,5,6,7,8,9
+    season_label: Winter (1 Apr to 30 Sep)
+  tariffs:
+  - codes:
+    - TAS75
+    applies_to: usage
+    locator: pdf:p46
+    quote: 5.3.1 Low voltage irrigation time of use consumption (TAS75)
+  - codes:
+    - TAS15
+    applies_to: usage
+    locator: pdf:p54
+    quote: 5.5.1 High voltage kVA specified demand (>2 MVA) (TAS15)
+    note: Section 5.5.1.2 on the same page lists the same seasonal periods.
+  - codes:
+    - TASSDM
+    applies_to: usage
+    locator: pdf:p56
+    quote: 5.5.2 High voltage kVA specified demand (<2 MVA) (TASSDM)
+    note: Section 5.5.2.2 on the same page lists the same seasonal periods.
+- id: tasnetworks-2026-27-guide-embedded-peak-demand
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  name: Embedded network peak demand period (sections 5.4.3.2, 5.5.4.2)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p52
+  quote: 5.4.3.2 Time periods Tariff rate Time periods (AEST) Peak (demand only) Weekdays (Monday to Friday) 07:00 – 10:00
+    and 16:00 – 21:00
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. Only the peak demand period is a window;
+    consumption is ''Anytime'' (weekdays and weekends all day).'
+  windows:
+  - period: peak
+    label: Peak (demand only)
+    days: weekday
+    start: "07:00"
+    end: "10:00"
+  - period: peak
+    label: Peak (demand only)
+    days: weekday
+    start: "16:00"
+    end: "21:00"
+  tariffs:
+  - codes:
+    - TAS84T1
+    - TAS84T2
+    - TAS84T3
+    - TAS84T4
+    applies_to: demand
+    locator: pdf:p52
+    quote: 5.4.3 Low voltage embedded network Tier 1 to Tier 4 (TAS84T1-TAS84T4)
+  - codes:
+    - TAS14T1
+    - TAS14T2
+    applies_to: demand
+    locator: pdf:p59
+    quote: 5.5.4 High voltage embedded network Tier 1 to Tier 2 (TAS14T1-TAS14T2)
+    note: 'Section 5.5.4.2 on the same page: ''Peak (demand only) Weekdays (Monday to Friday) 07:00 – 10:00 and 16:00 – 21:00''.'
+- id: tasnetworks-2026-27-guide-tas63-supply
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  name: Controlled energy off-peak [night only] (TAS63) supply availability
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p34
+  quote: Energy to installations connected on this network tariff will only be available between 22:00 hours and 07:00 hours
+    the following day.
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. The guide does not restrict the window
+    to particular day types, so it is recorded for all days.'
+  windows:
+  - period: controlled_load_supply
+    label: Night period
+    days: all_days
+    start: "00:00"
+    end: "07:00"
+  - period: controlled_load_supply
+    label: Night period
+    days: all_days
+    start: "22:00"
+    end: "24:00"
+  tariffs:
+  - codes:
+    - TAS63
+    applies_to: controlled_load
+- id: tasnetworks-2026-27-guide-tas61-supply
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  name: Controlled energy off-peak with afternoon boost (TAS61) supply envelopes
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p36
+  quote: 'energy will be available daily for: • at least nine hours between 20:00 hours and 07:00 hours the following day;
+    and • a further two hours between 13:00 hours and 16:30 hours.'
+  note: 'Guide section 2.2 ''Time zones'' (pdf:p7): ''All times referred to in this Guide are expressed in Australian Eastern
+    Standard Time (AEST).'' Public holidays are not mentioned anywhere in the guide. These are envelopes, not exact switching
+    times: supply is at least 9 hours within 20:00-07:00 and a further 2 hours within 13:00-16:30.'
   windows:
   - period: controlled_load_supply
     label: Overnight (at least nine hours within)
@@ -3546,3 +4727,296 @@ eligibility:
   column_locator: xlsx:Network tariffs 2026-27!B31
   column_quote: (1) These network tariffs are obsolete
   note: Tariff description cell of the TAS22 row (code in column D).
+charge_rules:
+- codes: [TAS87, TAS88, TAS97, TAS98]
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: avg_top_n_days
+  n: 4
+  reset: billing_period
+  locator: pdf:p67
+  quote: "Each of the four highest demand values used in each of the peak and off-peak calculations has to be from
+    separate days during the bill period (i.e. only one highest 30 minute demand value for peak and off-peak can be used
+    per day)."
+  note: "Section 20.2 (pdf:p66-67): TAS87, TAS88, TAS97 and TAS98 'are determined using the average of the largest four
+    values of electrical demands during the entire billing period for each peak and off-peak period'; Table 36 (pdf:p66)
+    gives kW and 30 minutes for each; Table 37 (pdf:p67) 'Time of use (average)', measurement period 'Billing period'. If
+    the billing period is under four days the average is over the days in it."
+- codes: [TAS89]
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p66
+  quote: "Network tariff TAS89 is a maximum demand tariff based on time of day (peak and off-peak periods) with the
+    maximum demand for this tariff is determined using the largest value of electrical demand during the entire billing
+    period for each of the peak and off-peak periods."
+  note: "Table 36 on the same page: 'Large business low voltage time of use demand TAS89 kVA 30'."
+- codes: [TAS82]
+  doc: sources/aer/2023-24_price_lists/TasNetworks_2023-24_Network_tariff_application_and_price_guide_4Apr2023.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: billing_period
+  locator: pdf:p39
+  quote: "(b) multiplying the amount calculated in (a) by the anytime maximum demand recorded during the billing
+    period."
+  note: "Section 9.1.1 (TAS82). Table 36 (pdf:p66): 'Large business low voltage kVA demand TAS82 kVA 15'; Table 37
+    (pdf:p67): 'ATMD', 'Billing period'."
+- codes: [TAS87, TAS88, TAS98]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: avg_top_n_days
+  n: 4
+  reset: billing_period
+  locator: pdf:p74
+  quote: "Each of the four demand values that form the peak and off-peak averages must be from different days within the
+    billing period."
+  note: "Appendix 1 section 1.2 (pdf:p74): 'The time of use demand charges for TAS87, TAS88 and TAS98 are based on the
+    average of the four highest peak and off-peak demand readings during the entire billing period'; Table 6 (pdf:p73)
+    gives KW, 30 minutes, 'Time of use', 'Billing period' for each. If the billing period is under four days the average
+    is over the days in it."
+- codes: [TAS89]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "The time of use demand charges for low voltage large business time of use demand (TAS89) are based on the
+    highest peak and off-peak demand readings during the entire billing period."
+  note: "Table 6 (pdf:p73): TAS89 kVA, 30 minutes, 'Time of use', 'Billing period'."
+- codes: [TAS82]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "For low voltage large business kVA (TAS82), ATMD is taken to be the highest demand reading during the entire
+    billing period."
+  note: "Table 6 (pdf:p73): 'Low voltage large business kVA TAS82 kVA 15 ATMD Billing period'."
+- codes: [TAS84T1, TAS84T2, TAS84T3, TAS84T4]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "The time of use demand charges for the embedded network tariffs (TAS84T1 - TAS84T4 and TAS14T1 - TAS14T2)
+    apply only to the highest peak demand readings during the time periods specified in section 5.4.3.2 and 5.5.4.2."
+  note: "Table 6 (pdf:p73): 'Low voltage embedded network TAS84 (T1-T4)' kVA, 30 minutes, 'Time of use', 'Billing
+    period'."
+- codes: [TAS14T1, TAS14T2]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "The time of use demand charges for the embedded network tariffs (TAS84T1 - TAS84T4 and TAS14T1 - TAS14T2)
+    apply only to the highest peak demand readings during the time periods specified in section 5.4.3.2 and 5.5.4.2."
+  note: "Table 6 (pdf:p73): 'High voltage embedded network TAS14 (T1-T2)' kVA, 15 minutes, 'Time of use', 'Billing
+    period'."
+- codes: [TAS97]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.1_16Jun2025.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: day
+  threshold_value: 8.5
+  locator: pdf:p29
+  quote: "for any day where the daily ATMD is greater than the demand threshold set for the tariff (8.5 kW), the demand
+    charge will be the difference between the ATMD and the demand threshold set for the tariff (8.5 kW) multiplied by the
+    excess demand rate."
+  note: "Section 5.1.3.6.1 (TAS97). Table 6 (pdf:p73): TAS97 KW, 30 minutes, 'ATMD', measurement period 'Daily'. Days at
+    or under 8.5 kW are charged zero."
+- codes: [TAS87, TAS88, TAS98]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: avg_top_n_days
+  n: 4
+  reset: billing_period
+  locator: pdf:p74
+  quote: "Each of the four demand values that form the peak and off-peak averages must be from different days within the
+    billing period."
+  note: "Appendix 1 section 1.2 (pdf:p74): 'The time of use demand charges for TAS87, TAS88 and TAS98 are based on the
+    average of the four highest peak and off-peak demand readings during the entire billing period'; Table 6 (pdf:p73)
+    gives KW, 30 minutes, 'Time of use', 'Billing period' for each. If the billing period is under four days the average
+    is over the days in it."
+- codes: [TAS89]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "The time of use demand charges for low voltage large business time of use demand (TAS89) are based on the
+    highest peak and off-peak demand readings during the entire billing period."
+  note: "Table 6 (pdf:p73): TAS89 kVA, 30 minutes, 'Time of use', 'Billing period'."
+- codes: [TAS82]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "For low voltage large business kVA (TAS82), ATMD is taken to be the highest demand reading during the entire
+    billing period."
+  note: "Table 6 (pdf:p73): 'Low voltage large business kVA TAS82 kVA 15 ATMD Billing period'."
+- codes: [TAS84T1, TAS84T2, TAS84T3, TAS84T4]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "The time of use demand charges for the embedded network tariffs (TAS84T1 - TAS84T4 and TAS14T1 - TAS14T2)
+    apply only to the highest peak demand readings during the time periods specified in section 5.4.3.2 and 5.5.4.2."
+  note: "Table 6 (pdf:p73): 'Low voltage embedded network TAS84 (T1-T4)' kVA, 30 minutes, 'Time of use', 'Billing
+    period'."
+- codes: [TAS14T1, TAS14T2]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "The time of use demand charges for the embedded network tariffs (TAS84T1 - TAS84T4 and TAS14T1 - TAS14T2)
+    apply only to the highest peak demand readings during the time periods specified in section 5.4.3.2 and 5.5.4.2."
+  note: "Table 6 (pdf:p73): 'High voltage embedded network TAS14 (T1-T2)' kVA, 15 minutes, 'Time of use', 'Billing
+    period'."
+- codes: [TAS97]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.3_26Aug2025.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: day
+  threshold_value: 8.5
+  locator: pdf:p29
+  quote: "for any day where the daily ATMD is greater than the demand threshold set for the tariff (8.5 kW), the demand
+    charge will be the difference between the ATMD and the demand threshold set for the tariff (8.5 kW) multiplied by the
+    excess demand rate."
+  note: "Section 5.1.3.6.1 (TAS97). Table 6 (pdf:p73): TAS97 KW, 30 minutes, 'ATMD', measurement period 'Daily'. Days at
+    or under 8.5 kW are charged zero."
+- codes: [TAS87, TAS88, TAS98]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: avg_top_n_days
+  n: 4
+  reset: billing_period
+  locator: pdf:p74
+  quote: "Each of the four demand values that form the peak and off-peak averages must be from different days within the
+    billing period."
+  note: "Appendix 1 section 1.2 (pdf:p74): 'The time of use demand charges for TAS87, TAS88 and TAS98 are based on the
+    average of the four highest peak and off-peak demand readings during the entire billing period'; Table 6 (pdf:p73)
+    gives KW, 30 minutes, 'Time of use', 'Billing period' for each. If the billing period is under four days the average
+    is over the days in it."
+- codes: [TAS89]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "The time of use demand charges for low voltage large business time of use demand (TAS89) are based on the
+    highest peak and off-peak demand readings during the entire billing period."
+  note: "Table 6 (pdf:p73): TAS89 kVA, 30 minutes, 'Time of use', 'Billing period'."
+- codes: [TAS82]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "For low voltage large business kVA (TAS82), ATMD is taken to be the highest demand reading during the entire
+    billing period."
+  note: "Table 6 (pdf:p73): 'Low voltage large business kVA TAS82 kVA 15 ATMD Billing period'."
+- codes: [TAS84T1, TAS84T2, TAS84T3, TAS84T4]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "The time of use demand charges for the embedded network tariffs (TAS84T1 - TAS84T4 and TAS14T1 - TAS14T2)
+    apply only to the highest peak demand readings during the time periods specified in section 5.4.3.2 and 5.5.4.2."
+  note: "Table 6 (pdf:p73): 'Low voltage embedded network TAS84 (T1-T4)' kVA, 30 minutes, 'Time of use', 'Billing
+    period'."
+- codes: [TAS14T1, TAS14T2]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: billing_period
+  locator: pdf:p74
+  quote: "The time of use demand charges for the embedded network tariffs (TAS84T1 - TAS84T4 and TAS14T1 - TAS14T2)
+    apply only to the highest peak demand readings during the time periods specified in section 5.4.3.2 and 5.5.4.2."
+  note: "Table 6 (pdf:p73): 'High voltage embedded network TAS14 (T1-T2)' kVA, 15 minutes, 'Time of use', 'Billing
+    period'."
+- codes: [TAS97]
+  doc: sources/dnsp/tasnetworks/TasNetworks_Network_Tariff_Application_Guide_2024-29_v2.4_30Jun2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: day
+  threshold_value: 8.5
+  locator: pdf:p29
+  quote: "for any day where the daily ATMD is greater than the demand threshold set for the tariff (8.5 kW), the demand
+    charge will be the difference between the ATMD and the demand threshold set for the tariff (8.5 kW) multiplied by the
+    excess demand rate."
+  note: "Section 5.1.3.6.1 (TAS97). Table 6 (pdf:p73): TAS97 KW, 30 minutes, 'ATMD', measurement period 'Daily'. Days at
+    or under 8.5 kW are charged zero."

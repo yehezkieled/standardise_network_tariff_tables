@@ -189,13 +189,39 @@ class TestValidate(unittest.TestCase):
                                      "tariff WHERE status = 'final' AND tariff_code <> lower(tariff_code) LIMIT 1"),
             (validate.check_tou, "INSERT INTO tou_window SELECT window_id || '-copy', distributor_id, tariff_code, "
                                  "effective_from, effective_to, applies_to, tou_period, period_label, day_type, "
-                                 "start_time, end_time, months, season, time_basis, public_holidays, document_id, "
-                                 "locator FROM tou_window LIMIT 1"),
+                                 "start_time, end_time, months, season, season_label, time_basis, public_holidays, "
+                                 "document_id, locator FROM tou_window LIMIT 1"),
+            (validate.check_joins, "UPDATE rate SET tou_period = 'super_off_peak' WHERE rowid IN (SELECT r.rowid FROM "
+                                   "rate r JOIN tou_window w USING (distributor_id, tariff_code, effective_from) "
+                                   "WHERE r.charge_type = 'usage' AND w.applies_to = 'usage' LIMIT 1)"),
+            (validate.check_rules, "UPDATE charge_rule SET measure = 'kVA' WHERE measure = 'kW' AND rowid IN "
+                                   "(SELECT rowid FROM charge_rule WHERE measure = 'kW' LIMIT 1)"),
         ]
         for check, sql in cases:
             with self.subTest(check=check.__name__):
                 self.assertEqual(check(load.load()), [], "the committed data passes")
                 self.assertNotEqual(check(self.broken(sql)), [], sql)
+
+    def test_joins_fails_a_window_no_rate_prices(self):
+        """A usage window of a period its rates price only in another season fails; a window of a period the price
+        list leaves unpriced, and a demand window no rate prices, are information only."""
+        copy = ("INSERT INTO tou_window SELECT window_id || '-{to}', distributor_id, tariff_code, effective_from, "
+                "effective_to, '{to}', {period}, period_label, day_type, start_time, end_time, months, "
+                "{season}, season_label, time_basis, public_holidays, document_id, locator FROM tou_window "
+                "WHERE window_id = '{w}'")
+        key = ("distributor_id", "tariff_code", "effective_from", "tou_period")
+        seasons = {}
+        for r in rows("rate"):
+            if r["charge_type"] == "usage":
+                seasons.setdefault(tuple(r[k] for k in key), set()).add(r["season"])
+        w = next(w["window_id"] for w in rows("tou_window") if w["applies_to"] == "usage" and w["season"] == "summer"
+                 and seasons.get(tuple(w[k] for k in key)) == {"summer"})
+        bad = validate.check_joins(self.broken(copy.format(to="usage", period="tou_period", season="'winter'", w=w)))
+        self.assertIn(f"window {w}-usage: no rate prices usage {w.split(':')[4]} in season winter", bad)
+        for to in ("usage", "demand"):
+            bad = validate.check_joins(self.broken(copy.format(to=to, period="'critical_minimum'", season="season",
+                                                               w=w)))
+            self.assertFalse(any(f"{w}-{to}" in b for b in bad), bad)
 
 
 def parsed_row(side, doc, code, value, fin_year="2025-26", component="Daily charge", charge_type="fixed",
@@ -323,6 +349,44 @@ class TestBuildRules(unittest.TestCase):
                                     code_aliases=[alias("{code}-SA", "{code}")])
         self.assertEqual((tariffs[("X-SA", "2025-07-01")]["effective_to"], tariffs[("X", "2025-10-01")]["status"]),
                          ("2025-09-30", "final"))
+
+
+class TestCuratedRateFacts(unittest.TestCase):
+    """The curated conditions, rate_periods, metering and charge_rules sections, on synthetic documents."""
+
+    def test_curated_facts_reach_the_rates_they_name(self):
+        dist = "sources/dist.pdf"
+        demand = dict(parsed_row("DNSP", dist, "A1", "5", component="Summer incentive", charge_type="demand"),
+                      unit="c/kW/day", unit_std="c/kW/day", season="summer")
+        parsed = [parsed_row("DNSP", dist, "A1", "100"), parsed_row("DNSP", dist, "A1", "30", component="Rebate"),
+                  demand, parsed_row("DNSP", dist, "B1", "100")]
+        schedule = {"distributor": "Essential Energy", "fin_year": "2025-26", "tariff_code": "", "gst": "excl",
+                    "component": "Legacy meter", "meter_class": "", "value": "36.5", "unit": "$/year",
+                    "source_file": dist, "locator": "pdf:p9", "note": ""}
+        fact = {"doc": dist, "fin_year": "2025-26", "locator": "pdf:p1", "quote": "q"}
+        rule = dict(fact, charge_type="demand", measure="kW", method="max", reset="month")
+        files = {"essential": {
+            "distributor": "essential",
+            "conditions": [dict(fact, codes=["A1"], component="Rebate", condition="opt_in:x")],
+            "rate_periods": [dict(fact, codes=["A1"], component="Summer incentive", tou_period="peak",
+                                  season="winter")],
+            "metering": [dict(fact, codes="all", schedule="Legacy meter", condition="meter_class:old|new")],
+            "charge_rules": [dict(rule, codes="all"), dict(rule, codes=["A1"], interval_min=15)]}}
+        b = build.Builder(parsed=parsed, metering=[schedule], curated_files=files, docs=[doc("dist", "DNSP")],
+                          starts={}, code_aliases=[])
+        b.tariffs_and_rates()
+        b.curated_facts()
+        b.rate_ids()
+        rates = {r["rate_id"]: r for r in b.tables["rate"].values()}
+        self.assertEqual(rates["essential:A1:2025-07-01:daily:rebate"]["condition"], "opt_in:x")
+        incentive = rates["essential:A1:2025-07-01:demand:summer-incentive:peak:winter"]  # the id follows the fact
+        self.assertIn("season (the price list says summer)", incentive["note"])
+        meters = [r for r in rates.values() if r["charge_type"] == "metering"]
+        self.assertEqual(sorted((r["tariff_code"], r["value"], r["unit"], r["condition"]) for r in meters),
+                         [(c, "10", "c/day", "meter_class:old|new") for c in ("A1", "B1")])
+        # the rule naming A1 wins over the one for every tariff; B1 has no demand rate, so no rule
+        self.assertEqual([(r["rule_id"], r["interval_min"]) for r in b.tables["charge_rule"].values()],
+                         [("essential:A1:2025-07-01:demand:all:all:kW", 15)])
 
 
 def alias(aer_code, distributor_code, distributor_id="essential", valid_from="", valid_to=""):

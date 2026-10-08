@@ -207,7 +207,9 @@
             "price_guide",
             "pricing_schedule",
             "annual_tariff_report",
-            "pricing_model"
+            "pricing_model",
+            "tariff_structure_statement",
+            "tariff_trial_notification"
           ],
           "unit": null,
           "description": "kind of publication"
@@ -423,7 +425,10 @@
       "checks": [
         "effective_from <= effective_to",
         "block IS NULL OR block > 0",
-        "block_from IS NULL OR block_to IS NULL OR block_from < block_to"
+        "block_from IS NULL OR block_to IS NULL OR block_from < block_to",
+        "(register IS NULL) = (charge_type IN ('daily', 'metering', 'other'))",
+        "charge_type != 'export' OR register = 'export'",
+        "condition IS NULL OR condition GLOB 'opt_in:[a-z0-9]*' OR condition GLOB 'meter_type:[a-z0-9]*' OR condition GLOB 'meter_class:[a-z0-9]*'"
       ],
       "columns": [
         {
@@ -434,7 +439,7 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "<distributor_id>:<tariff_code>:<effective_from>:<component>[:<region>]"
+          "description": "<distributor_id>:<tariff_code>:<effective_from>:<charge_type>:<component>[:<tou_period>][:<season>][:<block>][:<region>]"
         },
         {
           "name": "distributor_id",
@@ -591,6 +596,30 @@
           "description": "pricing zone, when the document prices one code by zone"
         },
         {
+          "name": "register",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "general",
+            "controlled_load",
+            "export"
+          ],
+          "unit": null,
+          "description": "meter register the quantity is measured on: general = general-supply import, controlled_load = a separately metered controlled-load circuit, export = energy sent out; NULL for daily, metering and other charges"
+        },
+        {
+          "name": "condition",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "NULL = always charged; opt_in:<name> = only for a customer who opts in to <name>; meter_type:<type> = only at a site with that meter; meter_class:<class> = only at a site in that class of the distributor's metering schedule; a|b = either (curated, quoted in data/tariffdb/curated/*.yaml)"
+        },
+        {
           "name": "value",
           "type": "numeric",
           "nullable": false,
@@ -707,7 +736,8 @@
       "checks": [
         "effective_from <= effective_to",
         "start_time < end_time",
-        "months IS NOT NULL OR season IS NOT NULL"
+        "months IS NOT NULL OR season_label IS NOT NULL",
+        "season IS NULL OR season_label IS NOT NULL"
       ],
       "columns": [
         {
@@ -718,7 +748,7 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "<distributor_id>:<tariff_code>:<effective_from>:<applies_to>:<tou_period>:<day_type>:<start>-<end>:<months>"
+          "description": "<distributor_id>:<tariff_code>:<effective_from>:<applies_to>:<tou_period>:<day_type>:<start>-<end>:<months> (season-<season> or months-not-stated when the document names the season without its months)"
         },
         {
           "name": "distributor_id",
@@ -783,22 +813,22 @@
           "primary_key": false,
           "references": null,
           "enum": [
+            "anytime",
             "peak",
             "shoulder",
             "off_peak",
-            "solar_soak",
-            "critical_peak",
             "super_off_peak",
-            "demand_window",
-            "export_charge_window",
-            "export_reward_window",
-            "controlled_load_supply",
-            "anytime",
-            "high_season_peak",
-            "low_season_peak"
+            "critical_peak",
+            "solar_soak",
+            "capacity_minimum",
+            "capacity_remaining",
+            "critical_minimum",
+            "dynamic_maximum",
+            "dynamic_minimum",
+            "controlled_load_supply"
           ],
           "unit": null,
-          "description": "period (peak, off_peak, demand_window, export_reward_window ...)"
+          "description": "the rate.tou_period the window prices (peak, off_peak, solar_soak ...); controlled_load_supply = the hours a controlled-load circuit is switched on (prices nothing)"
         },
         {
           "name": "period_label",
@@ -858,6 +888,24 @@
         },
         {
           "name": "season",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "summer",
+            "non_summer",
+            "high",
+            "low",
+            "winter",
+            "spring",
+            "autumn"
+          ],
+          "unit": null,
+          "description": "the rate.season the window belongs to; NULL = every season"
+        },
+        {
+          "name": "season_label",
           "type": "text",
           "nullable": true,
           "primary_key": false,
@@ -1104,6 +1152,294 @@
           "enum": null,
           "unit": null,
           "description": "verbatim wording at the locator"
+        }
+      ]
+    },
+    {
+      "name": "charge_rule",
+      "grain": "one stated measurement rule of one tariff's demand, capacity or export charges, for one period",
+      "source": "data/tariffdb/curated/*.yaml (charge_rules), quoted from the distributor's documents",
+      "description": "How the quantity a demand, capacity or export rate is applied to is measured: in kW or kVA, over which interval, highest or an average of the highest, reset when, with any minimum, threshold or free allowance the document states.",
+      "file": "tables/charge_rule.csv",
+      "primary_key": [
+        "rule_id"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "distributor_id",
+            "tariff_code",
+            "effective_from"
+          ],
+          "references": "tariff"
+        }
+      ],
+      "checks": [
+        "effective_from <= effective_to",
+        "(n IS NULL) = (method NOT IN ('avg_top_n_days', 'avg_top_n_intervals', 'avg_nominated_days'))",
+        "allowance_rollover IS NULL OR allowance_per_day IS NOT NULL"
+      ],
+      "columns": [
+        {
+          "name": "rule_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<distributor_id>:<tariff_code>:<effective_from>:<charge_type>:<tou_period or all>:<season or all>:<measure> (a tariff priced both per kW and per kVA has a rule for each)"
+        },
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "distributor"
+        },
+        {
+          "name": "tariff_code",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "tariff code"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first day the rule applies"
+        },
+        {
+          "name": "effective_to",
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "last day the rule applies (inclusive)"
+        },
+        {
+          "name": "charge_type",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "demand",
+            "capacity",
+            "export"
+          ],
+          "unit": null,
+          "description": "the rates the rule measures for"
+        },
+        {
+          "name": "tou_period",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "anytime",
+            "peak",
+            "shoulder",
+            "off_peak",
+            "super_off_peak",
+            "critical_peak",
+            "solar_soak",
+            "capacity_minimum",
+            "capacity_remaining",
+            "critical_minimum",
+            "dynamic_maximum",
+            "dynamic_minimum"
+          ],
+          "unit": null,
+          "description": "the rate.tou_period it measures for; NULL = every rate of the charge type"
+        },
+        {
+          "name": "season",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "summer",
+            "non_summer",
+            "high",
+            "low",
+            "winter",
+            "spring",
+            "autumn"
+          ],
+          "unit": null,
+          "description": "the rate.season it measures for; NULL = every season"
+        },
+        {
+          "name": "measure",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "kW",
+            "kVA",
+            "kWh"
+          ],
+          "unit": null,
+          "description": "quantity measured"
+        },
+        {
+          "name": "interval_min",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "length of the metering interval the demand is averaged over, minutes"
+        },
+        {
+          "name": "method",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "max",
+            "avg_top_n_days",
+            "avg_top_n_intervals",
+            "agreed",
+            "max_of_agreed_and_measured",
+            "sum",
+            "assigned",
+            "avg_nominated_days",
+            "max_daily_window_mean",
+            "excess_over_window_max",
+            "kva_at_max_kw",
+            "avg_daily_max"
+          ],
+          "unit": null,
+          "description": "max = the highest interval; avg_top_n_days = the mean of the n highest daily maxima; avg_top_n_intervals = the mean of the n highest intervals; agreed = a value agreed with the distributor; max_of_agreed_and_measured = the greater of the two; sum = the total over the span (energy); assigned = a value the distributor sets (a rating); avg_nominated_days = the mean of the daily maxima on the n days the distributor nominates; max_daily_window_mean = the highest daily mean over the window; excess_over_window_max = the highest in the window less the highest in the peak window (floored at 0); kva_at_max_kw = the kVA of the interval with the highest kW; avg_daily_max = the mean of every day's maximum"
+        },
+        {
+          "name": "n",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "n of the avg_top_n methods and of avg_nominated_days"
+        },
+        {
+          "name": "reset",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": [
+            "day",
+            "month",
+            "billing_period",
+            "season",
+            "year",
+            "year_from_april",
+            "rolling_12_months",
+            "rolling_13_months"
+          ],
+          "unit": null,
+          "description": "span the measured value is taken over before it starts again"
+        },
+        {
+          "name": "minimum_value",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "smallest quantity charged, when stated"
+        },
+        {
+          "name": "threshold_value",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the charge applies only to the quantity above this, when stated (e.g. export above 1.5 kW)"
+        },
+        {
+          "name": "allowance_per_day",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "free quantity per day before the charge applies, when stated"
+        },
+        {
+          "name": "allowance_rollover",
+          "type": "boolean",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1 when an unused daily allowance carries over within the billing period"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "source document version"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "verbatim wording at the locator"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "caveat from the curator"
         }
       ]
     }

@@ -4,12 +4,21 @@ Australian electricity **network tariffs** for all 14 distributors, every pricin
 (except Ergon, which starts at 2020-21: its 2016-17 to 2019-20 documents print the network price only as separate
 DUOS / TUOS / jurisdictional parts, and the dataset stores only printed totals), as one historical dataset:
 per tariff code, the final rate the customer is charged, with what a bill needs besides it: TOU windows, eligibility,
-which sites pay a rate (opt-in, meter type), metering charges and how each demand charge is measured. Those billing
-rules cover 2023-24 to 2026-27: `scripts/billcalc.py sweep` bills 1,908 of that era's 2,391 tariff-periods (1,207
-with nothing assumed, 701 with an assumption it names, such as a clock basis the document leaves unstated); it lists
-the rest with what is missing (mostly locational, storage and trial tariffs whose windows no held document states).
-The pricing years before 2023-24 (2016-17 / Victoria 2017 through 2022-23) carry rates only; back-filling their
-windows by era is planned follow-up work.
+which sites pay a rate (opt-in, meter type), metering charges and how each demand charge is measured.
+`scripts/billcalc.py sweep` bills each tariff-period on a synthetic month and lists what it had to assume or could not
+find:
+
+| Pricing years | Tariff-periods | Exact | Assumed | Blocked |
+|---|---|---|---|---|
+| 2023-24 to 2026-27 | 2,391 | 1,207 | 701 | 483 (mostly locational, storage and trial tariffs whose windows no held document states) |
+| 2016-17 / Victoria 2017 to 2022-23 | 3,990 | 2,158 | 1,209 | 623 (306 TOU rates without a stated window, 222 block bounds, 138 seasons without months) |
+
+The older years' TOU windows, demand rules and block bounds come from each year's own price list, pricing proposal or
+tariff guide, or the tariff structure statement for its period; Ergon's 2016-17 to 2019-20 stay unstored (above). Most
+of their `assumed` bills rest on a fact the documents leave unstated: the clock basis of the windows (1,032
+tariff-periods over all years), a c/kW/year demand price spread over the days (548), a demand window stated in
+daylight time all year (190), whether a quarterly block resets by calendar or billing quarter (179), or a window that
+leaves part of the day unpriced (21).
 
 ## Download
 

@@ -2307,6 +2307,4480 @@ tou_schedules:
   - codes:
     - C2U
     applies_to: usage
+- id: citipower-2017-pdf-res-flexible
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Residential flexible pricing (C13R, C13RB) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p49
+  quote: C13R Flexible pricing - residential <1,000 <120 N/A Mon-Fri Mon-Fri Mon-Sun  Residential customers – general power
+    & light 1500-2100
+  note: 'Table A.8 peak, shoulder and off-peak period columns: peak Mon-Fri 1500-2100; shoulder Mon-Fri 0700-1500, Mon-Fri
+    2100-2200 and Sat-Sun 0700-2200; off peak Mon-Sun 2200-0700. The row states ''Times are in local time''. Mon-Fri and Sat-Sun
+    are read as weekdays and weekends (public holidays not stated). Seasons: glossary (p79) ''For flexible pricing Summer
+    is defined to be calendar months December, January and February based on Day Light Saving Time''; non-summer is the other
+    months.'
+  windows:
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Mon-Fri 0700-1500 (summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: peak
+    label: Mon-Fri 1500-2100 (summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Mon-Fri 2100-2200 (summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Sat-Sun 0700-2200 (summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Mon-Fri 0700-1500 (non-summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: peak
+    label: Mon-Fri 1500-2100 (non-summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Mon-Fri 2100-2200 (non-summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Sat-Sun 0700-2200 (non-summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  tariffs:
+  - codes:
+    - C13R
+    applies_to: usage
+  - codes:
+    - C13RB
+    applies_to: usage
+    locator: pdf:p49
+    quote: C13RB Flexible pricing - residential - bulk <1,000 <120 N/A Mon-Fri Mon-Fri Mon-Sun  Residential customers who
+      are supplied 1500-2100
+- id: citipower-2017-pdf-res-demand
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Residential demand (CR, CRB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p49
+  quote: 'CR Residential Demand Tariff <1,000 <120 Summer: Dec 7 days, 24 hrs N/A N/A  Requires an active market interval
+    read meter – Mar  Times are in local time'
+  note: 'Table A.8 demand period column: ''Summer: Dec – Mar Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1500-2100''
+    (the cell''s lines interleave with the next columns). The row states ''Times are in local time''.'
+  windows:
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1500-2100 (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1500-2100 (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+  tariffs:
+  - codes:
+    - CR
+    applies_to: demand
+  - codes:
+    - CRB
+    applies_to: demand
+    locator: pdf:p49
+    quote: 'CRB Residential Bulk Demand Tariff <1,000 <120 Summer: Dec 7 days, 24 hrs N/A N/A  Requires an active market
+      interval read meter – Mar  Times are in local time'
+- id: citipower-2017-pdf-cg-demand
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Small business demand (CG, CGB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p52
+  quote: 'CG Non-Residential Demand <1,000 <120 Summer: Dec 7 days, 24 N/A N/A  Non-residential customers or – Mar hours
+     Builder''s temporary supplies  annual consumption <60MWh Non-summer:  Requires an active market interval read meter
+    Apr - Nov  Times are in local time'
+  note: 'Table A.8 demand period column: ''Summer: Dec – Mar Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1000-1800''.
+    The row states ''Times are in local time''.'
+  windows:
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+  tariffs:
+  - codes:
+    - CG
+    applies_to: demand
+  - codes:
+    - CGB
+    applies_to: demand
+    locator: pdf:p53
+    quote: 'CGB Non-Residential Bulk Demand <1,000 <120 Summer: Dec 7 days, 24 N/A N/A  Non-residential customers tariff
+      who are – Mar hours supplied directly from on-site substation terminals where there are no CitiPower Non-summer: distribution
+      assets beyond the substation with Apr - Nov  annual consumption of <60MWh Mon-Fri (excl.  Requires an active market
+      interval read meter public  Times are in local time'
+- id: citipower-2017-pdf-cmg-energy
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Medium business (CMG, CMGB, opt-out) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p53
+  quote: 'CMG Medium business <1,000 <120 Summer: Dec Mon-Fri N/A All other  Non-residential customers or – Mar (work days)
+    times  Builder''s temporary supplies  annual consumption >60MWh Non-summer: 0700-2300  Requires an active market interval
+    read meter Apr - Nov  Times are in local time'
+  note: Table A.8 peak period 'Mon-Fri (work days) 0700-2300', off peak 'All other times'. The row states 'Times are in local
+    time'. 'Work days' is not defined in this document; the tariff structure statement for 2017-2020 defines work days as
+    'any day of the week excluding public holidays and weekends' (TSS p9 notes).
+  windows:
+  - period: off_peak
+    label: All other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri (work days) 0700-2300
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: All other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: usage
+  - codes:
+    - CMGB
+    applies_to: usage
+    locator: pdf:p53
+    quote: 'CMGB Medium business bulk <1,000 <120 Summer: Dec Mon-Fri N/A All other  Non-residential customers tariff with
+      a – Mar (work days) times dedicated circuit connected to a controlled load who are supplied directly from on-site Non-summer:
+      0700-2300 substation terminals where there are no Apr - Nov CitiPower distribution assets beyond the Mon-Fri (excl.
+      substation public  annual consumption of >60MWh holidays)  Requires an active market interval read meter  Times are
+      in local time'
+- id: citipower-2017-pdf-dedicated
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Dedicated circuit and two rate controlled load off peak (all day)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p50
+  quote: CDS Dedicated Circuit <1,000 <120 N/A N/A N/A 7 days
+  note: 'Table A.8 off peak period column: ''7 days'' (CDS, CDSB) and ''7 Days, 24 hours'' (C2ROP, C2RBOP), with no peak or
+    shoulder period: the off-peak rate applies at all times on every day (the circuit is switched on at the typical times
+    the rows give). ''All times are in Eastern Standard Times unless otherwise specified'' (p48); the rows state no local
+    time, so standard time.'
+  windows:
+  - period: off_peak
+    label: 7 days
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CDS
+    applies_to: controlled_load
+  - codes:
+    - CDSB
+    applies_to: controlled_load
+    locator: pdf:p51
+    quote: CDSB Dedicated Circuit - Bulk <1,000 <120 N/A N/A N/A 7 days
+  - codes:
+    - C2ROP
+    applies_to: usage
+    locator: pdf:p51
+    quote: C2ROP Residential Two Rate 5d – controlled load <1,000 <120 N/A N/A N/A 7 Days, 24  Where GP&L is connected to
+      C2R (closed hours
+  - codes:
+    - C2RBOP
+    applies_to: usage
+    locator: pdf:p52
+    quote: C2RBOP Residential Two Rate 5d – Bulk - <1,000 <120 N/A N/A N/A 7 Days, 24  Where GP&L is connected to C2RB (closed
+      controlled load hours
+- id: citipower-2017-pdf-two-rate-5d
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Two rate 5 day and interval tariffs peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p58
+  quote: C2R Residential Two Rate <1,000 <120 Mon-Fri N/A All other  Existing customers only 1-phase electric hot water 5d
+    0700-2300
+  note: 'Table A.8: peak period ''Mon-Fri 0700-2300'', off peak ''All other times''. ''All times are in Eastern Standard Times
+    unless otherwise specified'' (p48); the rows state no local time, so standard time. Mon-Fri is read as weekdays (public
+    holidays not stated).'
+  windows:
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700-2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: All other times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2R
+    applies_to: usage
+  - codes:
+    - C2RB
+    applies_to: usage
+    locator: pdf:p58
+    quote: C2RB Residential Two Rate <1,000 <120 Mon-Fri N/A All other  Customers who are supplied directly from on-site
+      substation 1-phase electric hot water 5d - Bulk 0700-2300
+  - codes:
+    - C3R
+    applies_to: usage
+    locator: pdf:p58
+    quote: C3R Residential <1,000 <120 Mon-Fri N/A All other  Existing residential customers only None 0700 -2300 times
+  - codes:
+    - C3RB
+    applies_to: usage
+    locator: pdf:p58
+    quote: C3RB Residential - Bulk <1,000 <120 Mon-Fri N/A All other  Existing residential customers who are supplied directly
+      from on-site None 0700 -2300 times
+  - codes:
+    - C2G5
+    applies_to: usage
+    locator: pdf:p59
+    quote: C2G5 Non- Residential Two <1,000 <120 Mon-Fri N/A All other  Non-residential customers without a controlled load
+      who requested None Rate 5d 0700-2300 times
+  - codes:
+    - C2G5B
+    applies_to: usage
+    locator: pdf:p59
+    quote: C2G5B Non- Residential Two <1,000 <120 Mon-Fri N/A All other  Non-residential customers who requested a 2 rate
+      tariff None Rate 5d – Bulk 0700-2300 times
+  - codes:
+    - C3G
+    applies_to: usage
+    locator: pdf:p59
+    quote: C3G Non-Residential Interval <1,000 <120 Mon-Fri N/A All other  Existing non-residential customers only None 0700
+      -2300 times
+  - codes:
+    - C3GB
+    applies_to: usage
+    locator: pdf:p59
+    quote: C3GB Non-Residential Interval <1,000 <120 Mon-Fri N/A All other
+- id: citipower-2017-pdf-two-rate-7d
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Two rate 7 day tariffs peak / off-peak
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p59
+  quote: C2G7 Non-Residential Two <1,000 <120 Mon-Sun N/A All other  Non-residential customers who requested a 7-day, 2 rate
+    tariff None Rate 7d 0700-2300 times
+  note: 'Table A.8: peak period ''Mon-Sun 0700-2300'', off peak ''All other times'' (C2L7: ''Mon-Sun 2300-0700''). ''All times
+    are in Eastern Standard Times unless otherwise specified'' (p48); the rows state no local time, so standard time.'
+  windows:
+  - period: off_peak
+    label: All other times
+    days: all_days
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Sun 0700-2300
+    days: all_days
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: all_days
+    start: '23:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2G7
+    applies_to: usage
+  - codes:
+    - C2G7B
+    applies_to: usage
+    locator: pdf:p59
+    quote: C2G7B Non-Residential Two <1,000 <120 Mon-Sun N/A All other  Non-residential customers who requested a 7-day,
+      2 rate tariff who None Rate 7d - Bulk 0700-2300 times
+  - codes:
+    - C2L7
+    applies_to: usage
+    locator: pdf:p60
+    quote: C2L7 Large Two Rate 7d <1,000 <120 Mon-Sun N/A Mon-Sun  Large non-demand customers who requested a 7-day, 2 rate
+      tariff None 0700-2300 2300-0700
+- id: citipower-2017-pdf-bus-flexible
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Small business flexible pricing (C14G, C14GB) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p59
+  quote: C14G Non residential <1,000 <120 Mon-Fri Sat-Sun Mon-Sun  Non-residential customers 0700-1900 0700-1900 1900-0700
+  note: 'Table A.8: peak Mon-Fri 0700-1900, shoulder Sat-Sun 0700-1900, off peak Mon-Sun 1900-0700; ''Times are in local time''.
+    Mon-Fri and Sat-Sun are read as weekdays and weekends (public holidays not stated). Seasons: glossary (p79) ''For flexible
+    pricing Summer is defined to be calendar months December, January and February based on Day Light Saving Time''; non-summer
+    is the other months.'
+  windows:
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: peak
+    label: Mon-Fri 0700-1900 (summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Sat-Sun 0700-1900 (summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: peak
+    label: Mon-Fri 0700-1900 (non-summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Sat-Sun 0700-1900 (non-summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p79
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  tariffs:
+  - codes:
+    - C14G
+    applies_to: usage
+  - codes:
+    - C14GB
+    applies_to: usage
+    locator: pdf:p59
+    quote: C14GB Non-residential – bulk <1,000 <120 Mon-Fri Sat-Sun Mon-Sun  Non-residential customers who are supplied directly
+      from on-site 0700-1900 0700-1900 1900-0700
+- id: citipower-2017-pdf-c2u
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Public lighting (C2U) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p55
+  quote: 'C2U Public lighting <1,000 N/A N/A Mon-Fri N/A Mon-Thurs  Customers with an approved unmetered load 0700-2300 2300-0700
+     Public lighting to a public lighting customer Fri 2300 -  Note: New customer connections are required to install a
+    load-limiting device Mon 0700'
+  note: 'Table A.8: peak ''Mon-Fri 0700-2300''; off peak ''Mon-Thurs 2300-0700'' and ''Fri 2300 - Mon 0700'', i.e. every weekday
+    outside 0700-2300 and all weekend. ''All times are in Eastern Standard Times unless otherwise specified'' (p48); the rows
+    state no local time, so standard time.'
+  windows:
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700-2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2U
+    applies_to: usage
+- id: citipower-2017-pdf-large
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Large kVA demand tariffs (CLLV, CLLVB, CHV, CST) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p55
+  quote: CLLV Large low voltage (kVA demand tariff) <1,000 ≥120 7 days, 24 Mon-Fri 0700 N/A All other  Billed demand is the
+    maximum kVA over a 12 hours - 2300
+  note: 'Table A.8: demand period ''7 days, 24 hours''; peak ''Mon-Fri 0700 - 2300'', off peak ''All other times''. ''All
+    times are in Eastern Standard Times unless otherwise specified'' (p48); the rows state no local time, so standard time.
+    The kVA demand applies at all times, so it needs no window.'
+  windows:
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700 - 2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: All other times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CLLV
+    applies_to: usage
+  - codes:
+    - CLLVB
+    applies_to: usage
+    locator: pdf:p56
+    quote: CLLVB Large low voltage bulk (kVA demand tariff) <1,000 ≥120 7 days, 24 Mon-Fri 0700 N/A All other  Billed demand
+      is the maximum kVA over a 12 hours - 2300
+  - codes:
+    - CHV
+    applies_to: usage
+    locator: pdf:p56
+    quote: CHV High voltage (kVA demand tariff) ≥1,000 and N/A 7 days, 24 Mon-Fri 0700 N/A All other  Billed demand is the
+      maximum kVA over a 12 <22,000 hours - 2300
+  - codes:
+    - CST
+    applies_to: usage
+    locator: pdf:p56
+    quote: CST Sub-transmission (kVA demand tariff) ≥22,000 or N/A 7 days, 24 Mon-Fri 0700 N/A All other  Billed demand is
+      the maximum kVA over a 12 ≤66,000 hours - 2300
+- id: citipower-2018-pdf-res-flexible
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Residential flexible pricing (C13R, C13RB) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p46
+  quote: C13R Flexible pricing - residential <1,000 <120 N/A Mon-Fri Mon-Fri Mon-Sun • Residential customers – general power
+    & light supply 1500-2100
+  note: 'Table A.7/A.8 peak, shoulder and off-peak period columns: peak Mon-Fri 1500-2100; shoulder Mon-Fri 0700-1500, Mon-Fri
+    2100-2200 and Sat-Sun 0700-2200; off peak Mon-Sun 2200-0700. The row states ''Times are in local time''. Mon-Fri and Sat-Sun
+    are read as weekdays and weekends (public holidays not stated). Seasons: glossary ''Summer'' (p81: December, January and
+    February for flexible pricing) and ''Non Summer'' (p80: March through November).'
+  windows:
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Mon-Fri 0700-1500 (summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: peak
+    label: Mon-Fri 1500-2100 (summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Mon-Fri 2100-2200 (summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Sat-Sun 0700-2200 (summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Mon-Fri 0700-1500 (non-summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: peak
+    label: Mon-Fri 1500-2100 (non-summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Mon-Fri 2100-2200 (non-summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Sat-Sun 0700-2200 (non-summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  tariffs:
+  - codes:
+    - C13R
+    applies_to: usage
+  - codes:
+    - C13RB
+    applies_to: usage
+    locator: pdf:p47
+    quote: C13RB Flexible pricing - residential - <1,000 <120 N/A Mon-Fri Mon-Fri Mon-Sun • Residential customers who are
+      supplied directly from on-site bulk 1500-2100
+- id: citipower-2018-pdf-res-demand
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Residential demand (CR, CRB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p47
+  quote: 'CR Residential Demand Tariff <1,000 <120 Summer: 7 days, 24 N/A N/A • Requires an active market interval read meter
+    Dec – Mar hrs • Times are in local time'
+  note: 'Table A.7/A.8 demand period column: ''Summer: Dec – Mar Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1500-2100''
+    (the cell''s lines interleave with the next columns). The row states ''Times are in local time''.'
+  windows:
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1500-2100 (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1500-2100 (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+  tariffs:
+  - codes:
+    - CR
+    applies_to: demand
+  - codes:
+    - CRB
+    applies_to: demand
+    locator: pdf:p47
+    quote: 'CRB Residential Bulk Demand <1,000 <120 Summer: 7 days, 24 N/A N/A • Requires an active market interval read meter
+      Tariff Dec – Mar hrs • Times are in local time'
+- id: citipower-2018-pdf-cg-demand
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Small business demand (CG, CGB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p50
+  quote: 'CG Non-Residential Demand <1,000 <120 Summer: 7 days, 24 N/A N/A • Non-residential customers or builder''s temporary
+    supplies Dec – Mar hours • Annual consumption <60MWh • Requires an active market interval read meter Non- • Times are
+    in local time'
+  note: 'Table A.7/A.8 demand period column: ''Summer: Dec – Mar Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1000-1800''.
+    The row states ''Times are in local time''.'
+  windows:
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+  tariffs:
+  - codes:
+    - CG
+    applies_to: demand
+  - codes:
+    - CGB
+    applies_to: demand
+    locator: pdf:p50
+    quote: 'CGB Non-Residential Bulk <1,000 <120 Summer: 7 days, 24 N/A N/A • Non-residential customers who are supplied directly
+      from on- Demand Dec – Mar hours site substation terminals where there are no CitiPower distribution assets beyond the
+      substation with Non- • Annual consumption of <60MWh summer: • Requires an active market interval read meter Apr - Nov
+      • Times are in local time'
+- id: citipower-2018-pdf-cmg-demand
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Medium business (CMG, CMGB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p50
+  quote: 'CMG Medium business cost- <1,000 <120 Summer: Mon-Fri N/A All other • Non-residential customers or builder''s temporary
+    supplies reflective Dec – Mar (excl. times • Annual consumption >60MWh public • Requires an active market interval read
+    meter Non- holidays) • Times are in local time'
+  note: 'Table A.7 demand period column: ''Summer: Dec – Mar Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1000-1800''.
+    The row states ''Times are in local time''.'
+  windows:
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: demand
+  - codes:
+    - CMGB
+    applies_to: demand
+    locator: pdf:p51
+    quote: 'CMGB Medium business bulk cost- <1,000 <120 Summer: Mon-Fri N/A All other • Medium business customers who are
+      supplied directly from reflective Dec – Mar (excl. times on-site substation terminals where there are no CitiPower public
+      distribution assets beyond the substation Non- holidays) • Annual consumption >60MWh summer: • Requires an active market
+      interval read meter Apr - Nov 0700-2300 • Times are in local time'
+- id: citipower-2018-pdf-cmg-energy
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Medium business (CMG, CMGB, opt-out) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p50
+  quote: 'CMG Medium business cost- <1,000 <120 Summer: Mon-Fri N/A All other • Non-residential customers or builder''s temporary
+    supplies reflective Dec – Mar (excl. times • Annual consumption >60MWh public • Requires an active market interval read
+    meter Non- holidays) • Times are in local time'
+  note: Table A.7 peak period 'Mon-Fri (excl. public holidays) 0700-2300', off peak 'All other times'. The row states 'Times
+    are in local time'.
+  windows:
+  - period: off_peak
+    label: All other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 0700-2300
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: All other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: usage
+  - codes:
+    - CMGB
+    applies_to: usage
+    locator: pdf:p51
+    quote: 'CMGB Medium business bulk cost- <1,000 <120 Summer: Mon-Fri N/A All other • Medium business customers who are
+      supplied directly from reflective Dec – Mar (excl. times on-site substation terminals where there are no CitiPower public
+      distribution assets beyond the substation Non- holidays) • Annual consumption >60MWh summer: • Requires an active market
+      interval read meter Apr - Nov 0700-2300 • Times are in local time'
+  - codes:
+    - CMGO
+    applies_to: usage
+    locator: pdf:p51
+    quote: CMGO Medium business opt-out N/A N/A N/A Mon-Fri N/A All other • Non-residential customers or builder's temporary
+      supplies (excl. times • Annual consumption <160MWh public • Requires an active market interval read meter holidays)
+      • Times are in local time
+  - codes:
+    - CMGBO
+    applies_to: usage
+    locator: pdf:p51
+    quote: CMGBO Medium business bulk opt- N/A N/A N/A Mon-Fri N/A All other • Medium business customers who are supplied
+      directly from out (excl. times on-site substation terminals where there are no CitiPower public distribution assets
+      beyond the substation holidays) • Annual consumption <160MWh • Requires an active market interval read meter 0700-2300
+- id: citipower-2018-pdf-dedicated
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Dedicated circuit and two rate controlled load off peak (all day)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p48
+  quote: CDS Dedicated Circuit <1,000 <120 N/A N/A N/A 7 days
+  note: 'Table A.7/A.8 off peak period column: ''7 days'' (CDS, CDSB) and ''7 Days, 24 hours'' (C2ROP, C2RBOP), with no peak
+    or shoulder period: the off-peak rate applies at all times on every day (the circuit is switched on at the typical times
+    the rows give). ''All times are in Eastern Standard Times unless otherwise specified'' (p45); the rows state no local
+    time, so standard time.'
+  windows:
+  - period: off_peak
+    label: 7 days
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CDS
+    applies_to: controlled_load
+  - codes:
+    - CDSB
+    applies_to: controlled_load
+    locator: pdf:p48
+    quote: CDSB Dedicated Circuit - Bulk <1,000 <120 N/A N/A N/A 7 days
+  - codes:
+    - C2ROP
+    applies_to: usage
+    locator: pdf:p49
+    quote: C2ROP Residential Two Rate 5d – <1,000 <120 N/A N/A N/A 7 Days, • Where GP&L is connected to C2R (closed tariff)
+      controlled load 24 hours
+  - codes:
+    - C2RBOP
+    applies_to: usage
+    locator: pdf:p49
+    quote: C2RBOP Residential Two Rate 5d – <1,000 <120 N/A N/A N/A 7 Days, • Where GP&L is connected to C2RB (closed tariff)
+      Bulk - controlled load 24 hours
+- id: citipower-2018-pdf-two-rate-5d
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Two rate 5 day and interval tariffs peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p55
+  quote: C2R Residential Two Rate 5d <1,000 <120 Mon-Fri N/A All other • Existing customers only 1-phase electric hot 0700-2300
+  note: 'Table A.7/A.8: peak period ''Mon-Fri 0700-2300'', off peak ''All other times''. ''All times are in Eastern Standard
+    Times unless otherwise specified'' (p45); the rows state no local time, so standard time. Mon-Fri is read as weekdays
+    (public holidays not stated).'
+  windows:
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700-2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: All other times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2R
+    applies_to: usage
+  - codes:
+    - C2RB
+    applies_to: usage
+    locator: pdf:p55
+    quote: C2RB Residential Two Rate 5d - Bulk <1,000 <120 Mon-Fri N/A All other • Customers who are supplied directly from
+      on- 1-phase electric hot 0700-2300
+  - codes:
+    - C3R
+    applies_to: usage
+    locator: pdf:p55
+    quote: C3R Residential <1,000 <120 Mon-Fri N/A All other • Existing residential customers only None 0700 -2300 times
+  - codes:
+    - C3RB
+    applies_to: usage
+    locator: pdf:p55
+    quote: C3RB Residential - Bulk <1,000 <120 Mon-Fri N/A All other • Existing residential customers who are supplied None
+      0700 -2300 times
+  - codes:
+    - C2G5
+    applies_to: usage
+    locator: pdf:p56
+    quote: C2G5 Non- Residential Two Rate 5d <1,000 <120 Mon-Fri N/A All other • Non-residential customers without a controlled
+      None 0700-2300 times
+  - codes:
+    - C2G5B
+    applies_to: usage
+    locator: pdf:p56
+    quote: C2G5B Non- Residential Two Rate 5d – Bulk <1,000 <120 Mon-Fri N/A All other • Non-residential customers who requested
+      a 2 None 0700-2300 times
+  - codes:
+    - C3G
+    applies_to: usage
+    locator: pdf:p57
+    quote: C3G Non-Residential Interval <1,000 <120 Mon-Fri N/A All other • Existing non-residential customers or existing
+      None 0700 -2300 times
+  - codes:
+    - C3GB
+    applies_to: usage
+    locator: pdf:p57
+    quote: C3GB Non-Residential Interval - Bulk <1,000 <120 Mon-Fri N/A All other
+- id: citipower-2018-pdf-two-rate-7d
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Two rate 7 day tariffs peak / off-peak
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p56
+  quote: C2G7 Non-Residential Two Rate 7d <1,000 <120 Mon-Sun N/A All other • Non-residential customers who requested a 7-
+    None 0700-2300 times
+  note: 'Table A.7/A.8: peak period ''Mon-Sun 0700-2300'', off peak ''All other times'' (C2L7: ''Mon-Sun 2300-0700''). ''All
+    times are in Eastern Standard Times unless otherwise specified'' (p45); the rows state no local time, so standard time.'
+  windows:
+  - period: off_peak
+    label: All other times
+    days: all_days
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Sun 0700-2300
+    days: all_days
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: all_days
+    start: '23:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2G7
+    applies_to: usage
+  - codes:
+    - C2G7B
+    applies_to: usage
+    locator: pdf:p56
+    quote: C2G7B Non-Residential Two Rate 7d - Bulk <1,000 <120 Mon-Sun N/A All other • Non-residential customers who requested
+      a 7- None 0700-2300 times
+  - codes:
+    - C2L7
+    applies_to: usage
+    locator: pdf:p57
+    quote: C2L7 Large Two Rate 7d <1,000 <120 Mon-Sun N/A Mon-Sun • Large non-demand customers who requested a None 0700-2300
+      2300-0700
+- id: citipower-2018-pdf-bus-flexible
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Small business flexible pricing (C14G, C14GB) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p56
+  quote: C14G Non residential <1,000 <120 Mon-Fri Sat-Sun Mon-Sun • Non-residential customers 0700-1900 0700-1900 1900-0700
+  note: 'Table A.7/A.8: peak Mon-Fri 0700-1900, shoulder Sat-Sun 0700-1900, off peak Mon-Sun 1900-0700; ''Times are in local
+    time''. Mon-Fri and Sat-Sun are read as weekdays and weekends (public holidays not stated). Seasons: glossary ''Summer''
+    (p81: December, January and February for flexible pricing) and ''Non Summer'' (p80: March through November).'
+  windows:
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: peak
+    label: Mon-Fri 0700-1900 (summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Sat-Sun 0700-1900 (summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: peak
+    label: Mon-Fri 0700-1900 (non-summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Sat-Sun 0700-1900 (non-summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p81
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  tariffs:
+  - codes:
+    - C14G
+    applies_to: usage
+  - codes:
+    - C14GB
+    applies_to: usage
+    locator: pdf:p56
+    quote: C14GB Non-residential – bulk <1,000 <120 Mon-Fri Sat-Sun Mon-Sun • Non-residential customers who are supplied 0700-1900
+      0700-1900 1900-0700
+- id: citipower-2018-pdf-c2u
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Public lighting (C2U) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p53
+  quote: 'C2U Public lighting <1,000 N/A N/A Mon-Fri N/A Mon- • Customers with an approved unmetered load 0700-2300 Thurs
+    • Public lighting to a public lighting customer 2300- • Note: New customer connections are required to install a 0700
+    load-limiting device Fri 2300 - Mon 0700'
+  note: 'Table A.7/A.8: peak ''Mon-Fri 0700-2300''; off peak ''Mon-Thurs 2300-0700'' and ''Fri 2300 - Mon 0700'', i.e. every
+    weekday outside 0700-2300 and all weekend. ''All times are in Eastern Standard Times unless otherwise specified'' (p45);
+    the rows state no local time, so standard time.'
+  windows:
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700-2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2U
+    applies_to: usage
+- id: citipower-2018-pdf-large
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Large kVA demand tariffs (CLLV, CLLVB, CHV, CST) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p53
+  quote: CLLV Large low voltage (kVA <1,000 ≥120 7 days, 24 Mon-Fri N/A All other • Billed demand is the maximum kVA over
+    a 12 month rolling demand tariff) hours 0700 - times period 2300
+  note: 'Table A.7/A.8: demand period ''7 days, 24 hours''; peak ''Mon-Fri 0700 - 2300'', off peak ''All other times''. ''All
+    times are in Eastern Standard Times unless otherwise specified'' (p45); the rows state no local time, so standard time.
+    The kVA demand applies at all times, so it needs no window.'
+  windows:
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700 - 2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: All other times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CLLV
+    applies_to: usage
+  - codes:
+    - CLLVB
+    applies_to: usage
+    locator: pdf:p53
+    quote: CLLVB Large low voltage bulk (kVA <1,000 ≥120 7 days, 24 Mon-Fri N/A All other • Billed demand is the maximum kVA
+      over a 12 month rolling demand tariff) hours 0700 - times period 2300
+  - codes:
+    - CHV
+    applies_to: usage
+    locator: pdf:p53
+    quote: CHV High voltage (kVA demand ≥1,000 and N/A 7 days, 24 Mon-Fri N/A All other • Billed demand is the maximum kVA
+      over a 12 month rolling tariff) <22,000 hours 0700 - times period 2300
+  - codes:
+    - CST
+    applies_to: usage
+    locator: pdf:p53
+    quote: CST Sub-transmission (kVA ≥22,000 or N/A 7 days, 24 Mon-Fri N/A All other • Billed demand is the maximum kVA over
+      a 12 month rolling demand tariff) ≤66,000 hours 0700 - times period 2300
+- id: citipower-2019-pdf-res-flexible
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Residential flexible pricing (C13R, C13RB) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p26
+  quote: Flexible pricing C13R, C13RB [refer to seasonal tariffs] Week days Off peak energy Shoulder energy Peak energy SH
+    OP Weekends Off peak energy Shoulder energy OP Local time 12 AM 7 AM 3 PM 9 PM 10 PM 12 AM
+  note: 'Figure A.1 bar: week days off peak to 7 AM, shoulder 7 AM-3 PM, peak 3 PM-9 PM, shoulder (SH) 9 PM-10 PM, off peak
+    (OP) 10 PM-12 AM; weekends off peak, shoulder 7 AM-10 PM, off peak; ''Local time''. Week days and weekends (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p29) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (non-summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - C13R
+    - C13RB
+    applies_to: usage
+- id: citipower-2019-pdf-res-demand
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Residential demand (CR, CRB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p26
+  quote: Cost-reflective CR, CRB [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local time 12 AM
+    3 PM 9 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.1: work days peak demand 3 PM-9 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p29) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - CR
+    - CRB
+    applies_to: demand
+- id: citipower-2019-pdf-dedicated
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Controlled load off peak (all day)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p26
+  quote: Controlled load CDS, CDSB, C2ROP, C2RBOP All days Off peak energy AEST 12 AM 12 AM
+  note: 'Figure A.1: controlled load, all days off peak energy 12 AM-12 AM, AEST.'
+  windows:
+  - period: off_peak
+    label: All days off peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CDS
+    applies_to: usage
+  - codes:
+    - CDSB
+    applies_to: controlled_load
+  - codes:
+    - C2ROP
+    applies_to: usage
+  - codes:
+    - C2RBOP
+    applies_to: usage
+- id: citipower-2019-pdf-res-tou
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Residential time of use (C2R, C2RB, C3R, C3RB) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p26
+  quote: Time of use C2R, C2RB, C3R, C3RB Week days Off peak energy Peak energy OP Weekends Off peak energy AEST 12 AM 7 AM
+    11 PM 12 AM
+  note: 'Figure A.1: week days off peak, peak 7 AM-11 PM, off peak (OP); weekends off peak; AEST (public holidays not stated).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2R
+    - C2RB
+    - C3R
+    - C3RB
+    applies_to: usage
+- id: citipower-2019-pdf-bus-tou-5d
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Small business time of use 5 day (C2G5, C2G5B, C3G, C3GB)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p27
+  quote: Time of use - 5 day C2G5, C2G5B, C3G, C3GB Week days Off peak energy Peak energy OP Weekends Off peak energy AEST
+    12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST (public holidays not stated).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2G5
+    - C2G5B
+    - C3G
+    - C3GB
+    applies_to: usage
+- id: citipower-2019-pdf-bus-tou-7d
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Small business time of use 7 day (C2G7, C2G7B, C2L7)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p27
+  quote: Time of use - 7 day C2G7, C2G7B, C2L7 All days Off peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: all days peak 7 AM-11 PM; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: All days peak energy
+    days: all_days
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: '23:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2G7
+    - C2G7B
+    - C2L7
+    applies_to: usage
+- id: citipower-2019-pdf-bus-flexible
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Small business flexible pricing (C14G, C14GB)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p27
+  quote: Flexible pricing C14G, C14GB [refer to seasonal tariffs] Week days Off peak energy Peak energy Off peak energy Weekends
+    Off peak energy Shoulder energy Off peak energy Local time 12 AM 7 AM 7 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-7 PM, weekends shoulder 7 AM-7 PM, off peak otherwise; ''Local time'' (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p29) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - C14G
+    - C14GB
+    applies_to: usage
+- id: citipower-2019-pdf-cg-demand
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Small business demand (CG, CGB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p27
+  quote: Small business cost-reflective CG, CGB [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p29) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - CG
+    - CGB
+    applies_to: demand
+- id: citipower-2019-pdf-cmg-demand
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Medium business (CMG, CMGB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p28
+  quote: Medium business cost-reflective CMG, CMGB [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy
+    Peak energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p29) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - CMG
+    - CMGB
+    applies_to: demand
+- id: citipower-2019-pdf-cmg-energy
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Medium business (CMG, CMGB, CMGO, CMGBO) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Medium business cost-reflective CMG, CMGB [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy
+    Peak energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak energy 7 AM-11 PM, off peak otherwise, non work days off peak; ''Local time''; ''*Work
+    days are week days excluding public holidays''.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Work days peak energy
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMG
+    - CMGB
+    applies_to: usage
+  - codes:
+    - CMGO
+    - CMGBO
+    applies_to: usage
+    locator: pdf:p28
+    quote: Medium business opt-out CMGO, CMGBO Work days Off peak energy Peak energy OP Non work days Off peak energy Local
+      time 12 AM 7 AM 11 PM 12 AM *Work days are week days excluding public holidays
+- id: citipower-2019-pdf-c2u
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Public lighting (C2U) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Public lighting C2U Week days Off peak energy Peak energy OP Weekends Off peak energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2U
+    applies_to: usage
+- id: citipower-2019-pdf-large
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Large demand (CLLV, CLLVB, CHV, CST) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Large Demand CLLV, CLLVB, CHV, CST All days Rolling kVA demand Week days Off peak energy Peak energy OP Weekends
+    Off peak energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.3: all days rolling kVA demand (no window needed); week days peak energy 7 AM-11 PM, weekends off peak;
+    AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CLLV
+    - CLLVB
+    - CHV
+    - CST
+    applies_to: usage
+- id: citipower-2020-pdf-res-flexible
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Residential flexible pricing (C13R, C13RB) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p26
+  quote: Flexible pricing C13R, C13RB [refer to seasonal tariffs] Week days Off peak energy Shoulder energy Peak energy SH
+    OP Weekendsoff peak energy Shoulder energy DP Localtime 12 AM 7 AM 3 PM 9 PM 10 PM 12 AM
+  note: 'Figure A.1 bar: week days off peak to 7 AM, shoulder 7 AM-3 PM, peak 3 PM-9 PM, shoulder (SH) 9 PM-10 PM, off peak
+    (OP) 10 PM-12 AM; weekends off peak, shoulder 7 AM-10 PM, off peak; ''Local time''. Week days and weekends (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p29) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names). Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (non-summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - C13R
+    - C13RB
+    applies_to: usage
+- id: citipower-2020-pdf-res-demand
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Residential demand (CR, CRB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf-ocr:p26
+  quote: Cost-reflective CR, CRB [refer to seasonal tariffs] Work days Peak demand All times Peak energy Localtime 12 AM 3
+    PM 9 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.1: work days peak demand 3 PM-9 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p29) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names). Page read by OCR (the figure is an image).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - CR
+    - CRB
+    applies_to: demand
+- id: citipower-2020-pdf-dedicated
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Controlled load off peak (all day)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf-ocr:p26
+  quote: Controlled load CDS, CDSB All days Off peak energy AEST 12 AM 12 AM
+  note: 'Figure A.1: controlled load, all days off peak energy 12 AM-12 AM, AEST. Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: All days off peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CDS
+    applies_to: controlled_load
+  - codes:
+    - CDSB
+    applies_to: controlled_load
+- id: citipower-2020-pdf-res-tou
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Residential time of use (C2R, C2RB, C3R, C3RB) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p26
+  quote: Time of use C2R, C2RB, C3R, C3RB Week days Off peak energy Peakenergy OP Weekends Off peak energy AEST 12 AM 7 AM
+    11 PM 12 AM
+  note: 'Figure A.1: week days off peak, peak 7 AM-11 PM, off peak (OP); weekends off peak; AEST (public holidays not stated).
+    Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2R
+    - C2RB
+    - C3R
+    - C3RB
+    applies_to: usage
+- id: citipower-2020-pdf-bus-tou-5d
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Small business time of use 5 day (C2G5, C2G5B, C3G, C3GB)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p27
+  quote: Time of use - 5 day C2G5, C2G5B, C3G, C3GB Week days Off peak energy Peak energy OP Weekends Off peak energy AEST
+    12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST (public holidays not stated).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2G5
+    - C2G5B
+    - C3G
+    - C3GB
+    applies_to: usage
+- id: citipower-2020-pdf-bus-tou-7d
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Small business time of use 7 day (C2G7, C2G7B, C2L7)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p27
+  quote: Time of use - 7 day C2G7, C2G7B, C2L7 All days Off peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: all days peak 7 AM-11 PM; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: All days peak energy
+    days: all_days
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: '23:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2G7
+    - C2G7B
+    - C2L7
+    applies_to: usage
+- id: citipower-2020-pdf-bus-flexible
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Small business flexible pricing (C14G, C14GB)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p27
+  quote: Flexible pricing C14G, C14GB [refer to seasonal tariffs] Week days Off peak energy Peak energy Off peak energy Weekends
+    Off peak energy Shoulder energy Off peak energy Local time 12 AM 7 AM 7 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-7 PM, weekends shoulder 7 AM-7 PM, off peak otherwise; ''Local time'' (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p29) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - C14G
+    - C14GB
+    applies_to: usage
+- id: citipower-2020-pdf-cg-demand
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Small business demand (CG, CGB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p27
+  quote: Small business cost-reflective CG, CGB [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p29) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - CG
+    - CGB
+    applies_to: demand
+- id: citipower-2020-pdf-cmg-demand
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Medium business (CMG, CMGB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p28
+  quote: Medium business cost-reflective CMG, CMGB [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy
+    Peak energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p29) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p29
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - CMG
+    - CMGB
+    applies_to: demand
+- id: citipower-2020-pdf-cmg-energy
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Medium business (CMG, CMGB, CMGO, CMGBO) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Medium business cost-reflective CMG, CMGB [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy
+    Peak energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak energy 7 AM-11 PM, off peak otherwise, non work days off peak; ''Local time''; ''*Work
+    days are week days excluding public holidays''.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Work days peak energy
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMG
+    - CMGB
+    applies_to: usage
+  - codes:
+    - CMGO
+    - CMGBO
+    applies_to: usage
+    locator: pdf:p28
+    quote: Medium business opt-out CMGO, CMGBO Work days Off peak energy Peak energy OP Non work days Off peak energy Local
+      time 12 AM 7 AM 11 PM 12 AM *Work days are week days excluding public holidays
+- id: citipower-2020-pdf-c2u
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Public lighting (C2U) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Public lighting C2U Week days Off peak energy Peak energy OP Weekends Off peak energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2U
+    applies_to: usage
+- id: citipower-2020-pdf-large
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Large demand (CLLV, CLLVB, CHV, CST) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Large Demand CLLV, CLLVB, CHV, CST All days Rolling kVA demand Week days Off peak energy Peak energy OP Weekends
+    Off peak energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.3: all days rolling kVA demand (no window needed); week days peak energy 7 AM-11 PM, weekends off peak;
+    AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CLLV
+    - CLLVB
+    - CHV
+    - CST
+    applies_to: usage
+- id: citipower-2021-H1-pdf-res-flexible
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Residential flexible pricing (C13R, C13RB) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p24
+  quote: Flexible pricing C13R, Ci3RB [refer to seasonal tariffs] Week days Off peak energy Shoulder energy Peak energy SH
+    OP Weekendsoff peak energy Shoulder energy DP Localtime 12 AM 7 AM 3 PM 9 PM 10 PM 12 AM
+  note: 'Figure A.1 bar: week days off peak to 7 AM, shoulder 7 AM-3 PM, peak 3 PM-9 PM, shoulder (SH) 9 PM-10 PM, off peak
+    (OP) 10 PM-12 AM; weekends off peak, shoulder 7 AM-10 PM, off peak; ''Local time''. Week days and weekends (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p27) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names). Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (non-summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - C13R
+    - C13RB
+    applies_to: usage
+- id: citipower-2021-H1-pdf-res-demand
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Residential demand (CR, CRB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf-ocr:p24
+  quote: Cost-reflective CR, CRB [refer to seasonal tariffs] Workdays Peak demand All times Peak energy Localtime 12 AM 3
+    PM 9 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.1: work days peak demand 3 PM-9 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p27) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names). Page read by OCR (the figure is an image).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - CR
+    - CRB
+    applies_to: demand
+- id: citipower-2021-H1-pdf-dedicated
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Controlled load off peak (all day)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf-ocr:p24
+  quote: Controlled load CDS, CDSB All days Off peak energy AEST 12 AM 12 AM
+  note: 'Figure A.1: controlled load, all days off peak energy 12 AM-12 AM, AEST. Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: All days off peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CDS
+    applies_to: controlled_load
+  - codes:
+    - CDSB
+    applies_to: controlled_load
+- id: citipower-2021-H1-pdf-res-tou
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Residential time of use (C2R, C2RB, C3R, C3RB) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p24
+  quote: Time of use C2R, C2RB, C3R, C3RB Week days Off peak energy Peak energy OP Weekendsoff peak energy AEST 12 AM 7 AM
+    11 PM 12 AM
+  note: 'Figure A.1: week days off peak, peak 7 AM-11 PM, off peak (OP); weekends off peak; AEST (public holidays not stated).
+    Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2R
+    - C2RB
+    - C3R
+    - C3RB
+    applies_to: usage
+- id: citipower-2021-H1-pdf-bus-tou-5d
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Small business time of use 5 day (C2G5, C2G5B, C3G, C3GB)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: Time of use - 5 day C2G5, C2G5B, C3G, C3GB Week days Off peak energy Peak energy OP Weekends Off peak energy AEST
+    12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST (public holidays not stated).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2G5
+    - C2G5B
+    - C3G
+    - C3GB
+    applies_to: usage
+- id: citipower-2021-H1-pdf-bus-tou-7d
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Small business time of use 7 day (C2G7, C2G7B, C2L7)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p25
+  quote: Time of use - 7 day C2G7, C2G7B, C2L7 All days Off peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: all days peak 7 AM-11 PM; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: All days peak energy
+    days: all_days
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: '23:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2G7
+    - C2G7B
+    - C2L7
+    applies_to: usage
+- id: citipower-2021-H1-pdf-bus-flexible
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Small business flexible pricing (C14G, C14GB)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: Flexible pricing C14G, C14GB [refer to seasonal tariffs] Week days Off peak energy Peak energy Off peak energy Weekends
+    Off peak energy Shoulder energy Off peak energy Local time 12 AM 7 AM 7 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-7 PM, weekends shoulder 7 AM-7 PM, off peak otherwise; ''Local time'' (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p27) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Flexible pricing tariffs - Residential and Commercial C13R, C13RB, C14G, C14GB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - C14G
+    - C14GB
+    applies_to: usage
+- id: citipower-2021-H1-pdf-cg-demand
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Small business demand (CG, CGB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p25
+  quote: Small business cost-reflective CG, CGB [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p27) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - CG
+    - CGB
+    applies_to: demand
+- id: citipower-2021-H1-pdf-cmg-demand
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Medium business (CMG, CMGB) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p26
+  quote: Medium business cost-reflective CMG, CMGB [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy
+    Peak energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p27) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p27
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p27
+    quote: Cost-reflective tariffs - Residential and Commercial CR, CRB, CG, CGB, CMG, CMGB Season Non-summer Summer Non-summer
+      Month Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - CMG
+    - CMGB
+    applies_to: demand
+- id: citipower-2021-H1-pdf-cmg-energy
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Medium business (CMG, CMGB, CMGO, CMGBO) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p26
+  quote: Medium business cost-reflective CMG, CMGB [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy
+    Peak energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak energy 7 AM-11 PM, off peak otherwise, non work days off peak; ''Local time''; ''*Work
+    days are week days excluding public holidays''.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Work days peak energy
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMG
+    - CMGB
+    applies_to: usage
+  - codes:
+    - CMGO
+    - CMGBO
+    applies_to: usage
+    locator: pdf:p26
+    quote: Medium business opt-out CMGO, CMGBO Work days Off peak energy Peak energy OP Non work days Off peak energy Local
+      time 12 AM 7 AM 11 PM 12 AM *Work days are week days excluding public holidays
+- id: citipower-2021-H1-pdf-c2u
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Public lighting (C2U) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p26
+  quote: Public lighting C2U Week days Off peak energy Peak energy OP Weekends Off peak energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2U
+    applies_to: usage
+- id: citipower-2021-H1-pdf-large
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  name: Large demand (CLLV, CLLVB, CHV, CST) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p26
+  quote: Large Demand CLLV, CLLVB, CHV, CST All days Rolling kVA demand Week days Off peak energy Peak energy OP Weekends
+    Off peak energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.3: all days rolling kVA demand (no window needed); week days peak energy 7 AM-11 PM, weekends off peak;
+    AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CLLV
+    - CLLVB
+    - CHV
+    - CST
+    applies_to: usage
+- id: citipower-2021-22-pdf-res-tou
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Residential ToU (CRTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p23
+  quote: all days non-peak ToU CRTOU Default  3pm-9pm times
+  note: Residential tariff table; 'All times are local time' (same page).
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '15:00'
+  - period: peak
+    label: peak all days 3pm-9pm
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CRTOU
+    applies_to: usage
+- id: citipower-2021-22-pdf-res-demand
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Residential demand (CR) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p23
+  quote: workdays workdays Demand CR Opt-in   3pm-9pm 3pm-9pm
+  note: Residential tariff table, summer and non-summer demand columns. 'workdays' is not defined in the document; mapped
+    to business_day (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: workdays 3pm-9pm (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p23
+    quote: ummer period covers December to March, non-summer is April to November
+  - period: peak
+    label: workdays 3pm-9pm (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p23
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - CR
+    applies_to: demand
+- id: citipower-2021-22-pdf-sb-tou
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Small business ToU (CGTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p24
+  quote: workdays Non-peak ToU CGTOU Default  9am-9pm times
+  note: Small and medium business tariff table; 'All times are local time, except for C2U'. 'workdays' is not defined in the
+    document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: 09:00
+  - period: peak
+    label: peak workdays 9am-9pm
+    days: business_day
+    start: 09:00
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CGTOU
+    applies_to: usage
+- id: citipower-2021-22-pdf-cg-demand
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Small business demand (CG) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p24
+  quote: workdays workdays Demand CG Opt-in   10am-6pm 10am-6pm
+  note: Summer and non-summer demand columns. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  - period: peak
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - CG
+    applies_to: demand
+- id: citipower-2021-22-pdf-cmg-demand
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Medium business demand (CMG) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p24
+  quote: Medium business demand CMG Default   < 120KVA 10am-6pm 10am-6pm
+  note: Summer and non-summer demand columns. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  - period: peak
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: demand
+- id: citipower-2021-22-pdf-cmgo21-tou
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Medium business opt-out (CMGO21) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p24
+  quote: Medium business opt-out CMGO21 Opt-out  pa 10am-6pm times
+  note: Peak energy 'workdays 10am-6pm', off-peak 'Non-peak times'. 'workdays' is not defined in the document; mapped to business_day
+    (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: peak
+    label: peak workdays 10am-6pm
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '18:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMGO21
+    applies_to: usage
+- id: citipower-2021-22-pdf-c2u-tou
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Unmetered supply (C2U) energy peak / off-peak
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p24
+  quote: weekdays Non-peak Unmetered supply C2U Default unmetered 7am-11pm times
+  note: '''All times are local time, except for C2U'': C2U''s time basis is not stated in this document.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak weekdays 7am-11pm
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2U
+    applies_to: usage
+- id: citipower-2021-22-pdf-large-energy
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Large business energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p27
+  quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other times.
+  note: '''Peak and off peak usage'' (kVA demand section). ''workdays'' is not defined in the document; mapped to business_day
+    (Mon-Fri); public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '19:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLVT2
+    - CHVT1
+    - CHVT2
+    - CLLV1
+    - CLLV2
+    - CHV1
+    - CHV2
+    - CST2
+    applies_to: usage
+- id: citipower-2021-22-pdf-large-rolling
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Large business 12-month rolling demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p27
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' rate. ''workdays'' is not defined in the document;
+    mapped to business_day (Mon-Fri); public holiday treatment not stated.'
+  windows:
+  - period: peak
+    label: rolling demand 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLVT2
+    - CHVT1
+    - CHVT2
+    - CLLV1
+    - CLLV2
+    - CHV1
+    - CHV2
+    - CST2
+    applies_to: demand
+- id: citipower-2021-22-pdf-large-incentive-1
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Large business summer incentive demand window (tariffs ending 1)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: ending 1 represent 1-4pm, tariffs ending 2 represent 4-7pm summer incentive demand period
+  note: Large tariff table notes; 'Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months'
+    (kVA demand section), measured on each workday. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: summer incentive 1-4pm
+    days: business_day
+    start: '13:00'
+    end: '16:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p23
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - CLLV1
+    - CHV1
+    applies_to: demand
+- id: citipower-2021-22-pdf-large-incentive-2
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Large business summer incentive demand window (tariffs ending 2)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: ending 1 represent 1-4pm, tariffs ending 2 represent 4-7pm summer incentive demand period
+  note: Large tariff table notes; 'Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months'
+    (kVA demand section), measured on each workday. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: summer incentive 4-7pm
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p23
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - CLLV2
+    - CHV2
+    applies_to: demand
+- id: citipower-2022-23-pdf-res-tou
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  name: Residential ToU (CRTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p24
+  quote: all days non-peak ToU CRTOU Default ✓ 3pm-9pm times
+  note: Residential tariff table; 'All times are local time' (same page).
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '15:00'
+  - period: peak
+    label: peak all days 3pm-9pm
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CRTOU
+    applies_to: usage
+- id: citipower-2022-23-pdf-res-demand
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  name: Residential demand (CR) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p24
+  quote: workdays workdays Demand CR Opt-in ✓ ✓ 3pm-9pm 3pm-9pm
+  note: Residential tariff table, summer and non-summer demand columns. 'workdays' is not defined in the document; mapped
+    to business_day (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: workdays 3pm-9pm (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  - period: peak
+    label: workdays 3pm-9pm (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - CR
+    applies_to: demand
+- id: citipower-2022-23-pdf-sb-tou
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  name: Small business ToU (CGTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: workdays Non-peak ToU CGTOU Default ✓ 9am-9pm times
+  note: Small and medium business tariff table; 'All times are local time, except for C2U'. 'workdays' is not defined in the
+    document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: 09:00
+  - period: peak
+    label: peak workdays 9am-9pm
+    days: business_day
+    start: 09:00
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CGTOU
+    applies_to: usage
+- id: citipower-2022-23-pdf-cg-demand
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  name: Small business demand (CG) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: workdays workdays Demand CG Opt-in ✓ ✓ 10am-6pm 10am-6pm
+  note: Summer and non-summer demand columns. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p25
+    quote: ummer period covers December to March, non-summer is April to November
+  - period: peak
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p25
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - CG
+    applies_to: demand
+- id: citipower-2022-23-pdf-cmg-demand
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  name: Medium business demand (CMG) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: Medium business demand CMG Default ✓ ✓ < 120KVA 10am-6pm 10am-6pm
+  note: Summer and non-summer demand columns. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p25
+    quote: ummer period covers December to March, non-summer is April to November
+  - period: peak
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p25
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - CMG
+    applies_to: demand
+- id: citipower-2022-23-pdf-cmgo21-tou
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  name: Medium business opt-out (CMGO21) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: Medium business opt-out CMGO21 Opt-out ✓ pa 10am-6pm times
+  note: Peak energy 'workdays 10am-6pm', off-peak 'Non-peak times'. 'workdays' is not defined in the document; mapped to business_day
+    (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: peak
+    label: peak workdays 10am-6pm
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '18:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CMGO21
+    applies_to: usage
+- id: citipower-2022-23-pdf-c2u-tou
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  name: Unmetered supply (C2U) energy peak / off-peak
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: weekdays Non-peak Unmetered supply C2U Default unmetered 7am-11pm times
+  note: '''All times are local time, except for C2U'': C2U''s time basis is not stated in this document.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak weekdays 7am-11pm
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - C2U
+    applies_to: usage
+- id: citipower-2022-23-pdf-large-energy
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  name: Large business energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other times.
+  note: '''Peak and off peak usage'' (kVA demand section). ''workdays'' is not defined in the document; mapped to business_day
+    (Mon-Fri); public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '19:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLVT2
+    - CHVT1
+    - CHVT2
+    - CLLV1
+    - CLLV2
+    - CHV1
+    - CHV2
+    - CST2
+    applies_to: usage
+- id: citipower-2022-23-pdf-large-rolling
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  name: Large business 12-month rolling demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p28
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' rate. ''workdays'' is not defined in the document;
+    mapped to business_day (Mon-Fri); public holiday treatment not stated.'
+  windows:
+  - period: peak
+    label: rolling demand 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CLLVT2
+    - CHVT1
+    - CHVT2
+    - CLLV1
+    - CLLV2
+    - CHV1
+    - CHV2
+    - CST2
+    applies_to: demand
+- id: citipower-2022-23-pdf-large-incentive-1
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  name: Large business summer incentive demand window (tariffs ending 1)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p26
+  quote: ending 1 represent 1-4pm, tariffs ending 2 represent 4-7pm summer incentive demand period
+  note: Large tariff table notes; 'Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months'
+    (kVA demand section), measured on each workday. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: summer incentive 1-4pm
+    days: business_day
+    start: '13:00'
+    end: '16:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - CLLVT1
+    - CHVT1
+    - CLLV1
+    - CHV1
+    applies_to: demand
+- id: citipower-2022-23-pdf-large-incentive-2
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  name: Large business summer incentive demand window (tariffs ending 2)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p26
+  quote: ending 1 represent 1-4pm, tariffs ending 2 represent 4-7pm summer incentive demand period
+  note: Large tariff table notes; 'Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months'
+    (kVA demand section), measured on each workday. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: summer incentive 4-7pm
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - CLLVT2
+    - CHVT2
+    - CLLV2
+    - CHV2
+    applies_to: demand
 eligibility:
 - codes:
   - CRTOU
@@ -5406,6 +9880,272 @@ rate_periods:
     4 (residential) has two peak energy columns: ''Peak energy'' (CER row: all days 4pm-9pm during Dec-Feb and Jun-Aug) and
     ''Peak energy (shoulder)'' (CER row: all days 4pm-9pm during Mar-May and Sep-Nov). The Tariff Summary prints the second
     as ''Peak import Mar-May, Sep-Nov''; it is priced in the shoulder window.'
+- codes:
+  - CR
+  - CRB
+  - CG
+  - CGB
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  component: Demand Dec-Mar
+  tou_period: peak
+  locator: pdf:p49
+  quote: 'CR Residential Demand Tariff <1,000 <120 Summer: Dec 7 days, 24 hrs N/A N/A  Requires an active market interval
+    read meter – Mar  Times are in local time'
+  note: 'Table A.8 ''Demand period'' column: the demand is measured only in the stated window (Mon-Fri excl. public holidays
+    1500-2100 for CR/CRB, 1000-1800 for CG/CGB/CMG/CMGB), which the schedules give as the peak period.'
+- codes:
+  - CR
+  - CRB
+  - CG
+  - CGB
+  doc: sources/archive/citipower/2017/AER_approved_-_CitiPower_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  component: Demand Apr-Nov
+  tou_period: peak
+  locator: pdf:p49
+  quote: 'CR Residential Demand Tariff <1,000 <120 Summer: Dec 7 days, 24 hrs N/A N/A  Requires an active market interval
+    read meter – Mar  Times are in local time'
+  note: 'Table A.8 ''Demand period'' column: the demand is measured only in the stated window (Mon-Fri excl. public holidays
+    1500-2100 for CR/CRB, 1000-1800 for CG/CGB/CMG/CMGB), which the schedules give as the peak period.'
+- codes:
+  - CR
+  - CRB
+  - CG
+  - CGB
+  - CMG
+  - CMGB
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  component: Demand Dec-Mar
+  tou_period: peak
+  locator: pdf:p47
+  quote: 'CR Residential Demand Tariff <1,000 <120 Summer: 7 days, 24 N/A N/A • Requires an active market interval read meter
+    Dec – Mar hrs • Times are in local time'
+  note: 'Table A.7/A.8 ''Demand period'' column: the demand is measured only in the stated window (Mon-Fri excl. public holidays
+    1500-2100 for CR/CRB, 1000-1800 for CG/CGB/CMG/CMGB), which the schedules give as the peak period.'
+- codes:
+  - CR
+  - CRB
+  - CG
+  - CGB
+  - CMG
+  - CMGB
+  doc: sources/archive/citipower/2018/AER_approved_-_CitiPower_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  component: Demand Apr-Nov
+  tou_period: peak
+  locator: pdf:p47
+  quote: 'CR Residential Demand Tariff <1,000 <120 Summer: 7 days, 24 N/A N/A • Requires an active market interval read meter
+    Dec – Mar hrs • Times are in local time'
+  note: 'Table A.7/A.8 ''Demand period'' column: the demand is measured only in the stated window (Mon-Fri excl. public holidays
+    1500-2100 for CR/CRB, 1000-1800 for CG/CGB/CMG/CMGB), which the schedules give as the peak period.'
+- codes:
+  - CR
+  - CRB
+  - CG
+  - CGB
+  - CMG
+  - CMGB
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  component: Demand Dec-Mar
+  tou_period: peak
+  locator: pdf:p27
+  quote: Small business cost-reflective CG, CGB [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (CR, CRB) or 10
+    AM-6 PM (CG, CGB, CMG, CMGB).
+- codes:
+  - CR
+  - CRB
+  - CG
+  - CGB
+  - CMG
+  - CMGB
+  doc: sources/archive/citipower/2019/AER_approved_-_CitiPower_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  component: Demand Apr-Nov
+  tou_period: peak
+  locator: pdf:p27
+  quote: Small business cost-reflective CG, CGB [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (CR, CRB) or 10
+    AM-6 PM (CG, CGB, CMG, CMGB).
+- codes:
+  - CR
+  - CRB
+  - CG
+  - CGB
+  - CMG
+  - CMGB
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  component: Demand Dec-Mar
+  tou_period: peak
+  locator: pdf:p27
+  quote: Small business cost-reflective CG, CGB [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (CR, CRB) or 10
+    AM-6 PM (CG, CGB, CMG, CMGB).
+- codes:
+  - CR
+  - CRB
+  - CG
+  - CGB
+  - CMG
+  - CMGB
+  doc: sources/archive/citipower/2020/AER_-_Approved_CitiPower_Pricing_Proposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  component: Demand Apr-Nov
+  tou_period: peak
+  locator: pdf:p27
+  quote: Small business cost-reflective CG, CGB [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (CR, CRB) or 10
+    AM-6 PM (CG, CGB, CMG, CMGB).
+- codes:
+  - CR
+  - CRB
+  - CG
+  - CGB
+  - CMG
+  - CMGB
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  component: Demand Charges Dec-Mar
+  tou_period: peak
+  locator: pdf:p25
+  quote: Small business cost-reflective CG, CGB [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (CR, CRB) or 10
+    AM-6 PM (CG, CGB, CMG, CMGB).
+- codes:
+  - CR
+  - CRB
+  - CG
+  - CGB
+  - CMG
+  - CMGB
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  component: Demand Charges Apr-Nov
+  tou_period: peak
+  locator: pdf:p25
+  quote: Small business cost-reflective CG, CGB [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (CR, CRB) or 10
+    AM-6 PM (CG, CGB, CMG, CMGB).
+- codes:
+  - CR
+  - CG
+  - CMG
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  component: Demand Charges Dec-Mar
+  tou_period: peak
+  locator: pdf:p24
+  quote: workdays workdays Demand CG Opt-in   10am-6pm 10am-6pm
+  note: 'Summer and non-summer demand columns: the demand is measured in the workday window (CR 3pm-9pm, CG and CMG 10am-6pm),
+    which the schedules give as the peak period.'
+- codes:
+  - CR
+  - CG
+  - CMG
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  component: Demand Charges Apr-Nov
+  tou_period: peak
+  locator: pdf:p24
+  quote: workdays workdays Demand CG Opt-in   10am-6pm 10am-6pm
+  note: 'Summer and non-summer demand columns: the demand is measured in the workday window (CR 3pm-9pm, CG and CMG 10am-6pm),
+    which the schedules give as the peak period.'
+- codes:
+  - CLLVT1
+  - CLLVT2
+  - CHVT1
+  - CHVT2
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  - CST2
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  component: Demand Charges Jan-Dec
+  tou_period: peak
+  locator: pdf:p27
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: The 12-month rolling demand is measured 7am-7pm workdays (window citipower-2021-22-pdf-large-rolling).
+- codes:
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  component: Demand Charges Dec-Mar
+  tou_period: peak
+  locator: pdf:p27
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months.
+  note: The summer incentive demand is measured 1-4pm or 4-7pm on workdays (windows citipower-2021-22-pdf-large-incentive-1/-2).
+- codes:
+  - CR
+  - CG
+  - CMG
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  component: Demand Charges Dec-Mar
+  tou_period: peak
+  locator: pdf:p25
+  quote: workdays workdays Demand CG Opt-in ✓ ✓ 10am-6pm 10am-6pm
+  note: 'Summer and non-summer demand columns: the demand is measured in the workday window (CR 3pm-9pm, CG and CMG 10am-6pm),
+    which the schedules give as the peak period.'
+- codes:
+  - CR
+  - CG
+  - CMG
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  component: Demand Charges Apr-Nov
+  tou_period: peak
+  locator: pdf:p25
+  quote: workdays workdays Demand CG Opt-in ✓ ✓ 10am-6pm 10am-6pm
+  note: 'Summer and non-summer demand columns: the demand is measured in the workday window (CR 3pm-9pm, CG and CMG 10am-6pm),
+    which the schedules give as the peak period.'
+- codes:
+  - CLLVT1
+  - CLLVT2
+  - CHVT1
+  - CHVT2
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  - CST2
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  component: Demand Charges Jan-Dec
+  tou_period: peak
+  locator: pdf:p28
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: The 12-month rolling demand is measured 7am-7pm workdays (window citipower-2022-23-pdf-large-rolling).
+- codes:
+  - CLLVT1
+  - CLLVT2
+  - CHVT1
+  - CHVT2
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  component: Demand Charges Dec-Mar
+  tou_period: peak
+  locator: pdf:p28
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months.
+  note: The summer incentive demand is measured 1-4pm or 4-7pm on workdays (windows citipower-2022-23-pdf-large-incentive-1/-2).
 charge_rules:
 - codes:
   - CG
@@ -5858,3 +10598,248 @@ charge_rules:
     month.
   note: Section 3.2 'Small and medium business tariffs' (TSS for 2021-22 to 2025-26); holds for the Dec-Mar and Apr-Nov demand
     rates.
+- codes:
+  - CLLVT1
+  - CLLVT2
+  - CLLV1
+  - CLLV2
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p27
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - CHVT1
+  - CHVT2
+  - CHV1
+  - CHV2
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 500
+  locator: pdf:p27
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - CST2
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p27
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  doc: sources/archive/citipower/2021-22/CitiPower_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p27
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months.
+  note: '''Summer incentive demand kVA''; prices the ''Demand Charges Dec-Mar'' rate.'
+- codes:
+  - CLLVT1
+  - CLLVT2
+  - CLLV1
+  - CLLV2
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p28
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - CHVT1
+  - CHVT2
+  - CHV1
+  - CHV2
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 500
+  locator: pdf:p28
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - CST2
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p28
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - CLLVT1
+  - CLLVT2
+  - CHVT1
+  - CHVT2
+  - CLLV1
+  - CLLV2
+  - CHV1
+  - CHV2
+  doc: sources/archive/citipower/2022-23/CitiPower_FINAL_2022-23_Pricing_Proposal_6_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p28
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months.
+  note: '''Summer incentive demand kVA''; prices the ''Demand Charges Dec-Mar'' rate.'
+- codes:
+  - CG
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year:
+  - 2021-22
+  - 2022-23
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p13
+  quote: Demand is measured as the maximum half-hour kW demand between 10am and 6pm, local time, work days, resetting every
+    month.
+  note: Section 3.2 'Small and medium business tariffs' (TSS for 2021-22 to 2025-26); holds for the Dec-Mar and Apr-Nov demand
+    rates.
+- codes:
+  - CR
+  - CRB
+  doc: sources/archive/citipower/2017/CitiPower_-_Amended_Tariff_Structure_Statement_-_September_2017.pdf
+  fin_year:
+  - '2017'
+  - '2018'
+  - '2019'
+  - '2020'
+  - 2021-H1
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p8
+  quote: 'Maximum demand charge based on monthly maximum kilowatt demand, measured:  over a 30-minute period;  between 3:00PM
+    to 9:00PM (local time);'
+  note: Tariff structure statement 2017-2020, which the AER extended to 2021-H1; Table 1.1 'Residential cost-reflective'.
+    Holds for the Dec-Mar and Apr-Nov demand rates.
+- codes:
+  - CG
+  - CGB
+  doc: sources/archive/citipower/2017/CitiPower_-_Amended_Tariff_Structure_Statement_-_September_2017.pdf
+  fin_year:
+  - '2017'
+  - '2018'
+  - '2019'
+  - '2020'
+  - 2021-H1
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: 'Maximum demand charge based on monthly maximum kilowatt demand, measured:  over a 30-minute period;  between 10:00AM
+    to 6:00PM (local time);'
+  note: Tariff structure statement 2017-2020, which the AER extended to 2021-H1; Table 1.2 'Small business cost-reflective'.
+    Holds for the Dec-Mar and Apr-Nov demand rates.
+- codes:
+  - CMG
+  - CMGB
+  doc: sources/archive/citipower/2017/CitiPower_-_Amended_Tariff_Structure_Statement_-_September_2017.pdf
+  fin_year:
+  - '2018'
+  - '2019'
+  - '2020'
+  - 2021-H1
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: 'Maximum demand charge based on monthly maximum kilowatt demand, measured:  over a 30-minute period;  between 10:00AM
+    to 6:00PM (local time);'
+  note: Tariff structure statement 2017-2020, which the AER extended to 2021-H1; Table 1.3 'Medium business cost-reflective'.
+    Holds for the Dec-Mar and Apr-Nov demand rates.
+- codes:
+  - CLLV
+  - CLLVB
+  - CHV
+  - CST
+  doc: sources/archive/citipower/2017/CitiPower_-_Amended_Tariff_Structure_Statement_-_September_2017.pdf
+  fin_year:
+  - '2017'
+  - '2018'
+  - '2019'
+  - '2020'
+  - 2021-H1
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p10
+  quote: Maximum demand charge based on 12-month rolling maximum kVA demand over a 15-minute period, calculated on a monthly
+    basis
+  note: 'Tariff structure statement 2017-2020 (extended by the AER to 2021-H1), Table 1.4 ''Large low voltage'' (high voltage
+    and sub-transmission ''As for large low voltage tariff''). The pricing proposals: ''Billed demand is the maximum kVA over
+    a 12 month rolling period''.'

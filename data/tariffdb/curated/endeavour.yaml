@@ -1,5 +1,1615 @@
 distributor: endeavour
 tou_schedules:
+- id: endeavour-2016-17-res-tou
+  doc: sources/archive/endeavour/2016-17/NUOS_Price_List_201617_v2.pdf
+  fin_year: 2016-17
+  name: Domestic TOU time of day periods (section 1.7.1.1)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'Business Days Peak: 13:00 – 20:00 Shoulder: 07:00 – 13:00 & 20:00 – 22:00 Off-Peak: All other times Non-business
+    Days Shoulder: 07:00 – 22:00 Off-Peak: All other times 1.7.1.2. General Supply TOU and Demand TOU'
+  note: 'The heading on the previous page reads ''1.7.1.1. Domestic TOU For Domestic TOU Pricing Options ‘Peak’, ‘Shoulder’
+    and ‘Off-Peak’ periods are based on the following time periods and apply during both Eastern Standard Time (EST) and Daylight
+    Saving Time (DST):'' (its text layer doubles letters). Daylight Saving Time section (p23): ''In order to maintain the
+    same time limits during both Eastern Standard Time (EST) and Daylight Saving Time (DST), billing data is adjusted by shifting
+    the data forward an hour'', i.e. the windows are clock times in force (local time) all year. Public holidays: ''The following
+    public holidays are deemed to be non-business days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '07:00', end: '13:00', months: all}
+  - {period: peak, label: Peak, days: business_day, start: '13:00', end: '20:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '20:00', end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: non_business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder, days: non_business_day, start: '07:00', end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: non_business_day, start: '22:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N705]
+    applies_to: usage
+    locator: pdf:p8
+    quote: Domestic Time of Use (Type 5) Tariff – N705
+    note: Heading of the tariff's section. A Domestic TOU pricing option.
+  - codes: [N706]
+    applies_to: usage
+    locator: pdf:p8
+    quote: Domestic Time of Use Tariff – N706
+    note: Heading of the tariff's section. A Domestic TOU pricing option.
+  - codes: [NFT7]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Net meter [5], Domestic TOU Type 5 NFT7 ENF7
+    note: Row of the network price table. A Domestic TOU pricing option.
+  - codes: [NFT8]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Net meter [6], Domestic TOU Type 5 NFT8 ENF8
+    note: Row of the network price table. A Domestic TOU pricing option.
+  - codes: [NFTP]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Feed-In Credit (eligible customer), Gross DR meter [5], Domestic TOU Type 5 NFTP ENFP
+    note: Row of the network price table. A Domestic TOU pricing option.
+  - codes: [NFTQ]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Feed-In Credit (eligible customer), Gross DR meter [6], Domestic TOU Type 5 NFTQ ENFQ
+    note: Row of the network price table. A Domestic TOU pricing option.
+  - codes: [NG75]
+    applies_to: usage
+    locator: pdf:p33
+    quote: Domestic TOU, Type 5 Meter Solar (Gross) NG75 GG75
+    note: Row of the network price table. A Domestic TOU pricing option.
+  - codes: [NG76]
+    applies_to: usage
+    locator: pdf:p33
+    quote: Domestic TOU, Type 6 Meter Solar (Gross) NG76 GG76
+    note: Row of the network price table. A Domestic TOU pricing option.
+  - codes: [NS75]
+    applies_to: usage
+    locator: pdf:p33
+    quote: Domestic TOU, Type 5 Meter Solar (Net) NS75 GN75
+    note: Row of the network price table. A Domestic TOU pricing option.
+  - codes: [NS76]
+    applies_to: usage
+    locator: pdf:p33
+    quote: Domestic TOU, Type 6 Meter Solar (Net) NS76 GN76
+    note: Row of the network price table. A Domestic TOU pricing option.
+- id: endeavour-2016-17-gs-demand-tou
+  doc: sources/archive/endeavour/2016-17/NUOS_Price_List_201617_v2.pdf
+  fin_year: 2016-17
+  name: General Supply TOU, Demand TOU and all other TOU time of day periods (section 1.7.1.2), with the demand seasons (1.7.2)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p22
+  quote: '1.7.1.2. General Supply TOU and Demand TOU For General Supply TOU, Demand TOU and all other TOU Pricing Options,
+    ‘Peak’, ‘Shoulder’ and ‘Off-peak’ periods are based on the following time periods and apply during both Eastern Standard
+    Time (EST), and Daylight Saving Time (DST): Business Days Peak: 13:00 – 20:00 Shoulder: 07:00 – 13:00 & 20:00 – 22:00
+    Off-Peak: All other times. Non-business Days Off-Peak: All other times. 1.7.2. Seasons The following seasons apply to
+    all Demand TOU Pricing Options: High Season Demand Period: Summer Nov to Mar Winter Jun to Aug Low Season Demand Period:
+    Other Months Sep to Oct Other Months Apr to May'
+  note: 'The seasons apply to the demand rates; the energy rates are not seasonal, so a peak energy rate takes both peak windows.
+    Daylight Saving Time section (p23): ''In order to maintain the same time limits during both Eastern Standard Time (EST)
+    and Daylight Saving Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows are
+    clock times in force (local time) all year. Public holidays: ''The following public holidays are deemed to be non-business
+    days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '07:00', end: '13:00', months: all}
+  - {period: peak, label: 'Peak (High Season Demand Period: Summer Nov to Mar, Winter Jun to Aug)', days: business_day, start: '13:00',
+    end: '20:00', months: '11,12,1,2,3,6,7,8', season_label: High Season Demand Period, season: high}
+  - {period: peak, label: 'Peak (Low Season Demand Period: Other Months Sep to Oct, Apr to May)', days: business_day, start: '13:00',
+    end: '20:00', months: '4,5,9,10', season_label: Low Season Demand Period, season: low}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '20:00', end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N19]
+    applies_to: all
+    locator: pdf:p10
+    quote: Low Voltage Demand Time of Use – N19
+    note: Heading of the tariff's section.
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p11
+    quote: High Voltage Demand Time of Use – N29
+    note: Heading of the tariff's section.
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p11
+    quote: Sub-transmission Time of Use Demand – N39
+    note: Heading of the tariff's section.
+  - codes: [N84]
+    applies_to: usage
+    locator: pdf:p10
+    quote: General Supply Time of Use – N84
+    note: Heading of the tariff's section.
+  - codes: [N845]
+    applies_to: usage
+    locator: pdf:p9
+    quote: General Supply Time of Use (type 5) – N845
+    note: Heading of the tariff's section.
+  - codes: [N89]
+    applies_to: usage
+    locator: pdf:p11
+    quote: Transitional Time of Use – N89
+    note: Heading of the tariff's section.
+  - codes: [NFT5]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Net meter [3], General Supply TOU NFT5 ENF5
+    note: Row of the network price table.
+  - codes: [NFT6]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Net meter [4], General Supply TOU NFT6 ENF6
+    note: Row of the network price table.
+  - codes: [NFTL]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Feed-In Credit (eligible customer), Gross DR meter [3], General Supply TOU NFTL ENFL
+    note: Row of the network price table.
+  - codes: [NFTM]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Feed-In Credit (eligible customer), Gross DR meter [4], General Supply TOU NFTM ENFM
+    note: Row of the network price table.
+  - codes: [NG84]
+    applies_to: usage
+    locator: pdf:p33
+    quote: General Supply TOU Solar (Gross) NG84 GG84
+    note: Row of the network price table.
+  - codes: [NG85]
+    applies_to: usage
+    locator: pdf:p33
+    quote: General Supply TOU, Type 5 Mtr. Solar (Gross) NG85 GG85
+    note: Row of the network price table.
+  - codes: [NS19]
+    applies_to: all
+    locator: pdf:p33
+    quote: LV Demand TOU Solar (Net) NS19 GN19
+    note: Row of the network price table.
+  - codes: [NS29]
+    applies_to: all
+    locator: pdf:p33
+    quote: HV Demand TOU (Net) NS29 GN29
+    note: Row of the network price table.
+  - codes: [NS39]
+    applies_to: all
+    locator: pdf:p33
+    quote: ST Demand TOU (Net) NS39 GN39
+    note: Row of the network price table.
+  - codes: [NS84]
+    applies_to: usage
+    locator: pdf:p33
+    quote: General Supply TOU Solar (Net) NS84 GN84
+    note: Row of the network price table.
+  - codes: [NS85]
+    applies_to: usage
+    locator: pdf:p33
+    quote: General Supply TOU, Type 5 Mtr. Solar (Net) NS85 GN85
+    note: Row of the network price table.
+  - codes: [NS89]
+    applies_to: usage
+    locator: pdf:p33
+    quote: Transitional General Supply TOU Solar (Net) [1] NS89 GN89
+    note: Row of the network price table.
+- id: endeavour-2017-18-res-tou
+  doc: sources/archive/endeavour/2017-18/NUOS_Price_List_201718_v2.pdf
+  fin_year: 2017-18
+  name: Residential TOU time of day periods (section 1.7.1.1)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p21
+  quote: 'For Residential TOU Pricing Options ‘Peak’, ‘Shoulder’ and ‘Off-Peak’ periods are based on the following time periods
+    and apply during both Eastern Standard Time (EST) and Daylight Saving Time (DST): Business Days Peak: 13:00 – 20:00 Shoulder:
+    07:00 – 13:00 & 20:00 – 22:00 Off-Peak: All other times. Non-business Days Off-Peak: All other times.'
+  note: 'Daylight Saving Time section (p23): ''In order to maintain the same time limits during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows
+    are clock times in force (local time) all year. Public holidays: ''The following public holidays are deemed to be non-business
+    days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '07:00', end: '13:00', months: all}
+  - {period: peak, label: Peak, days: business_day, start: '13:00', end: '20:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '20:00', end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N705]
+    applies_to: usage
+    locator: pdf:p8
+    quote: Residential Time of Use Tariff (Interval data) – N705
+    note: Heading of the tariff's section. A Residential TOU pricing option.
+  - codes: [N706]
+    applies_to: usage
+    locator: pdf:p8
+    quote: Residential Time of Use Tariff (Basic data) – N706
+    note: Heading of the tariff's section. A Residential TOU pricing option.
+  - codes: [NFT7]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Net meter [5], Residential TOU NFT7 ENF7
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NFT8]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Net meter [6], Residential TOU NFT8 ENF8
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NFTP]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Feed-In Credit (eligible customer), Gross DR meter [5], Residential TOU NFTP ENFP
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NFTQ]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Feed-In Credit (eligible customer), Gross DR meter [6], Residential TOU NFTQ ENFQ
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NG75]
+    applies_to: usage
+    locator: pdf:p33
+    quote: Residential TOU (Interval data), Solar (Gross) NG75 GG75
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NG76]
+    applies_to: usage
+    locator: pdf:p33
+    quote: Residential TOU, (Basic data), Solar (Gross) NG76 GG76
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NS75]
+    applies_to: usage
+    locator: pdf:p33
+    quote: Residential TOU (Interval data), Solar (Net) NS75 GN75
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NS76]
+    applies_to: usage
+    locator: pdf:p33
+    quote: Residential TOU (Basic data), Solar (Net) NS76 GN76
+    note: Row of the network price table. A Residential TOU pricing option.
+- id: endeavour-2017-18-gs-demand-tou
+  doc: sources/archive/endeavour/2017-18/NUOS_Price_List_201718_v2.pdf
+  fin_year: 2017-18
+  name: General Supply TOU, Demand TOU and all other TOU time of day periods (section 1.7.1.2), with the demand seasons (1.7.2)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'Business Days Peak: 13:00 – 20:00 Shoulder: 07:00 – 13:00 & 20:00 – 22:00 Off-Peak: All other times. Non-business
+    Days Off-Peak: All other times. 1.7.2. Seasons The following seasons apply to all Demand TOU Pricing Options: High Season
+    Demand Period: Summer Nov to Mar Winter Jun to Aug Low Season Demand Period: Other Months Sep to Oct Other Months Apr
+    to May'
+  note: 'The heading on the previous page reads ''1.7.1.2. General Supply TOU and Demand TOU For General Supply TOU, Demand
+    TOU and all other TOU Pricing Options, ‘Peak’, ‘Shoulder’ and ‘Off-peak’ periods are based on the following time periods
+    and apply during both Eastern Standard Time (EST), and Daylight Saving Time (DST):''. The seasons apply to the demand
+    rates; the energy rates are not seasonal, so a peak energy rate takes both peak windows. Daylight Saving Time section
+    (p23): ''In order to maintain the same time limits during both Eastern Standard Time (EST) and Daylight Saving Time (DST),
+    billing data is adjusted by shifting the data forward an hour'', i.e. the windows are clock times in force (local time)
+    all year. Public holidays: ''The following public holidays are deemed to be non-business days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '07:00', end: '13:00', months: all}
+  - {period: peak, label: 'Peak (High Season Demand Period: Summer Nov to Mar, Winter Jun to Aug)', days: business_day, start: '13:00',
+    end: '20:00', months: '11,12,1,2,3,6,7,8', season_label: High Season Demand Period, season: high}
+  - {period: peak, label: 'Peak (Low Season Demand Period: Other Months Sep to Oct, Apr to May)', days: business_day, start: '13:00',
+    end: '20:00', months: '4,5,9,10', season_label: Low Season Demand Period, season: low}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '20:00', end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N19]
+    applies_to: all
+    locator: pdf:p10
+    quote: Low Voltage Demand Time of Use – N19
+    note: Heading of the tariff's section.
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p11
+    quote: High Voltage Demand Time of Use – N29
+    note: Heading of the tariff's section.
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p11
+    quote: Sub-transmission Time of Use Demand – N39
+    note: Heading of the tariff's section.
+  - codes: [N84]
+    applies_to: usage
+    locator: pdf:p10
+    quote: General Supply Time of Use (Basic data) – N84
+    note: Heading of the tariff's section.
+  - codes: [N845]
+    applies_to: usage
+    locator: pdf:p9
+    quote: General Supply Time of Use (Interval data) – N845
+    note: Heading of the tariff's section.
+  - codes: [N89]
+    applies_to: usage
+    locator: pdf:p11
+    quote: Transitional Time of Use – N89
+    note: Heading of the tariff's section.
+  - codes: [NFT5]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Net meter [3], General Supply TOU NFT5 ENF5
+    note: Row of the network price table.
+  - codes: [NFT6]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Net meter [4], General Supply TOU NFT6 ENF6
+    note: Row of the network price table.
+  - codes: [NFTL]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Feed-In Credit (eligible customer), Gross DR meter [3], General Supply TOU NFTL ENFL
+    note: Row of the network price table.
+  - codes: [NFTM]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Feed-In Credit (eligible customer), Gross DR meter [4], General Supply TOU NFTM ENFM
+    note: Row of the network price table.
+  - codes: [NG84]
+    applies_to: usage
+    locator: pdf:p33
+    quote: General Supply TOU (Basic data), Solar (Gross) NG84 GG84
+    note: Row of the network price table.
+  - codes: [NG85]
+    applies_to: usage
+    locator: pdf:p33
+    quote: General Supply TOU (Interval data), Solar (Gross) NG85 GG85
+    note: Row of the network price table.
+  - codes: [NS19]
+    applies_to: all
+    locator: pdf:p33
+    quote: LV Demand TOU Solar (Net) NS19 GN19
+    note: Row of the network price table.
+  - codes: [NS29]
+    applies_to: all
+    locator: pdf:p33
+    quote: HV Demand TOU (Net) NS29 GN29
+    note: Row of the network price table.
+  - codes: [NS39]
+    applies_to: all
+    locator: pdf:p33
+    quote: ST Demand TOU (Net) NS39 GN39
+    note: Row of the network price table.
+  - codes: [NS84]
+    applies_to: usage
+    locator: pdf:p33
+    quote: General Supply TOU (Basic data), Solar (Net) NS84 GN84
+    note: Row of the network price table.
+  - codes: [NS85]
+    applies_to: usage
+    locator: pdf:p33
+    quote: General Supply TOU (Interval data), Solar (Net) NS85 GN85
+    note: Row of the network price table.
+  - codes: [NS89]
+    applies_to: usage
+    locator: pdf:p33
+    quote: Transitional General Supply TOU Solar (Net) [1] NS89 GN89
+    note: Row of the network price table.
+- id: endeavour-2018-19-res-tou
+  doc: sources/archive/endeavour/2018-19/NUOS_Price_List_201819_v4.0.pdf
+  fin_year: 2018-19
+  name: Residential TOU time of day periods (section 1.7.1.1)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'For Residential TOU Pricing Options ‘Peak’, ‘Shoulder’ and ‘Off-Peak’ periods are based on the following time periods
+    and apply during both Eastern Standard Time (EST) and Daylight Saving Time (DST): Business Days Peak: 13:00 – 20:00 Shoulder:
+    07:00 – 13:00 & 20:00 – 22:00 Off-Peak: All other times. Non-business Days Off-Peak: All other times.'
+  note: 'Daylight Saving Time section (p24): ''In order to maintain the same time limits during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows
+    are clock times in force (local time) all year. Public holidays: ''The following public holidays are deemed to be non-business
+    days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '07:00', end: '13:00', months: all}
+  - {period: peak, label: Peak, days: business_day, start: '13:00', end: '20:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '20:00', end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N705]
+    applies_to: usage
+    locator: pdf:p8
+    quote: Residential Time of Use Tariff (Interval data) – N705
+    note: Heading of the tariff's section. A Residential TOU pricing option.
+  - codes: [N706]
+    applies_to: usage
+    locator: pdf:p9
+    quote: Residential Time of Use Tariff (Basic data) – N706
+    note: Heading of the tariff's section. A Residential TOU pricing option.
+  - codes: [NFT7]
+    applies_to: usage
+    locator: pdf:p36
+    quote: Feed-In Credit (eligible customer), Net meter [5], Residential TOU NFT7 ENF7
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NFT8]
+    applies_to: usage
+    locator: pdf:p36
+    quote: Feed-In Credit (eligible customer), Net meter [6], Residential TOU NFT8 ENF8
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NFTP]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Gross DR meter [5], Residential TOU NFTP ENFP
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NFTQ]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Gross DR meter [6], Residential TOU NFTQ ENFQ
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NG75]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Residential TOU (Interval data), Solar (Gross) NG75 GG75
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NG76]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Residential TOU, (Basic data), Solar (Gross) NG76 GG76
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NS75]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Residential TOU (Interval data), Solar (Net) NS75 GN75
+    note: Row of the network price table. A Residential TOU pricing option.
+  - codes: [NS76]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Residential TOU (Basic data), Solar (Net) NS76 GN76
+    note: Row of the network price table. A Residential TOU pricing option.
+- id: endeavour-2018-19-gs-demand-tou
+  doc: sources/archive/endeavour/2018-19/NUOS_Price_List_201819_v4.0.pdf
+  fin_year: 2018-19
+  name: General Supply TOU, Demand TOU and all other TOU time of day periods (section 1.7.1.2), with the demand seasons (1.7.2)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p23
+  quote: 'Business Days Peak: 13:00 – 20:00 Shoulder: 07:00 – 13:00 & 20:00 – 22:00 Off-Peak: All other times. Non-business
+    Days Off-Peak: All other times. 1.7.2. Seasons The following seasons apply to all Demand TOU Pricing Options: High Season
+    Demand Period: Summer Nov to Mar Winter Jun to Aug Low Season Demand Period: Other Months Sep to Oct Other Months Apr
+    to May'
+  note: 'The heading on the previous page reads ''1.7.1.2. General Supply TOU and Demand TOU For General Supply TOU, Demand
+    TOU and all other TOU Pricing Options, ‘Peak’, ‘Shoulder’ and ‘Off-peak’ periods are based on the following time periods
+    and apply during both Eastern Standard Time (EST), and Daylight Saving Time (DST):''. The seasons apply to the demand
+    rates; the energy rates are not seasonal, so a peak energy rate takes both peak windows. Daylight Saving Time section
+    (p24): ''In order to maintain the same time limits during both Eastern Standard Time (EST) and Daylight Saving Time (DST),
+    billing data is adjusted by shifting the data forward an hour'', i.e. the windows are clock times in force (local time)
+    all year. Public holidays: ''The following public holidays are deemed to be non-business days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '07:00', end: '13:00', months: all}
+  - {period: peak, label: 'Peak (High Season Demand Period: Summer Nov to Mar, Winter Jun to Aug)', days: business_day, start: '13:00',
+    end: '20:00', months: '11,12,1,2,3,6,7,8', season_label: High Season Demand Period, season: high}
+  - {period: peak, label: 'Peak (Low Season Demand Period: Other Months Sep to Oct, Apr to May)', days: business_day, start: '13:00',
+    end: '20:00', months: '4,5,9,10', season_label: Low Season Demand Period, season: low}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '20:00', end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N19]
+    applies_to: all
+    locator: pdf:p11
+    quote: Low Voltage Demand Time of Use – N19
+    note: Heading of the tariff's section.
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p12
+    quote: High Voltage Demand Time of Use – N29
+    note: Heading of the tariff's section.
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p12
+    quote: Sub-transmission Time of Use Demand – N39
+    note: Heading of the tariff's section.
+  - codes: [N84]
+    applies_to: usage
+    locator: pdf:p10
+    quote: General Supply Time of Use (Basic data) – N84
+    note: Heading of the tariff's section.
+  - codes: [N845]
+    applies_to: usage
+    locator: pdf:p10
+    quote: General Supply Time of Use (Interval data) – N845
+    note: Heading of the tariff's section.
+  - codes: [N89]
+    applies_to: usage
+    locator: pdf:p11
+    quote: Transitional Time of Use – N89
+    note: Heading of the tariff's section.
+  - codes: [NFT5]
+    applies_to: usage
+    locator: pdf:p36
+    quote: Feed-In Credit (eligible customer), Net meter [3], General Supply TOU NFT5 ENF5
+    note: Row of the network price table.
+  - codes: [NFT6]
+    applies_to: usage
+    locator: pdf:p36
+    quote: Feed-In Credit (eligible customer), Net meter [4], General Supply TOU NFT6 ENF6
+    note: Row of the network price table.
+  - codes: [NFTL]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Gross DR meter [3], General Supply TOU NFTL ENFL
+    note: Row of the network price table.
+  - codes: [NFTM]
+    applies_to: usage
+    locator: pdf:p35
+    quote: Feed-In Credit (eligible customer), Gross DR meter [4], General Supply TOU NFTM ENFM
+    note: Row of the network price table.
+  - codes: [NG84]
+    applies_to: usage
+    locator: pdf:p34
+    quote: General Supply TOU (Basic data), Solar (Gross) NG84 GG84
+    note: Row of the network price table.
+  - codes: [NG85]
+    applies_to: usage
+    locator: pdf:p34
+    quote: General Supply TOU (Interval data), Solar (Gross) NG85 GG85
+    note: Row of the network price table.
+  - codes: [NS19]
+    applies_to: all
+    locator: pdf:p34
+    quote: LV Demand TOU Solar (Net) NS19 GN19
+    note: Row of the network price table.
+  - codes: [NS29]
+    applies_to: all
+    locator: pdf:p34
+    quote: HV Demand TOU (Net) NS29 GN29
+    note: Row of the network price table.
+  - codes: [NS39]
+    applies_to: all
+    locator: pdf:p34
+    quote: ST Demand TOU (Net) NS39 GN39
+    note: Row of the network price table.
+  - codes: [NS84]
+    applies_to: usage
+    locator: pdf:p34
+    quote: General Supply TOU (Basic data), Solar (Net) NS84 GN84
+    note: Row of the network price table.
+  - codes: [NS85]
+    applies_to: usage
+    locator: pdf:p34
+    quote: General Supply TOU (Interval data), Solar (Net) NS85 GN85
+    note: Row of the network price table.
+  - codes: [NS89]
+    applies_to: usage
+    locator: pdf:p34
+    quote: Transitional General Supply TOU Solar (Net) [1] NS89 GN89
+    note: Row of the network price table.
+- id: endeavour-2019-20-stou
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  name: 'Time of Day (section 1.6.1, post-1 July 2019 definitions): seasonal peak energy and demand'
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p23
+  quote: '‘Peak’ and ‘Off Peak’ periods are based on the following time periods and apply during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST): Business Days Peak: 16:00 – 20:00 Off Peak: All other times. Non-business Days Off
+    Peak: All times. Demand charges apply to ‘Peak’ periods only. The following seasons apply to ‘Peak’ energy and demand
+    charges: High-season: November to March Low-season: April to October'
+  note: 'Daylight Saving Time section (p24): ''In order to maintain the same time limits during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows
+    are clock times in force (local time) all year. Public holidays: ''The following public holidays are deemed to be non-business
+    days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off Peak, days: business_day, start: '00:00', end: '16:00', months: all}
+  - {period: peak, label: Peak (High-season), days: business_day, start: '16:00', end: '20:00', months: '11,12,1,2,3', season_label: High-season,
+    season: high}
+  - {period: peak, label: Peak (Low-season), days: business_day, start: '16:00', end: '20:00', months: '4,5,6,7,8,9,10', season_label: Low-season,
+    season: low}
+  - {period: off_peak, label: Off Peak, days: business_day, start: '20:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N19]
+    applies_to: all
+    locator: pdf:p11
+    quote: Low Voltage Seasonal Time of Use Demand Tariff – N19
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'.
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p12
+    quote: High Voltage Seasonal Time of Use Demand Tariff – N29
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'.
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p12
+    quote: Sub-transmission Time of Use Demand Tariff – N39
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'.
+  - codes: [N71]
+    applies_to: usage
+    locator: pdf:p7
+    quote: Residential Seasonal TOU Tariff – N71
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'.
+  - codes: [N89]
+    applies_to: usage
+    locator: pdf:p11
+    quote: Low Voltage Seasonal Time of Use Transitional Tariff – N89
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'.
+  - codes: [N91]
+    applies_to: usage
+    locator: pdf:p9
+    quote: General Supply Seasonal TOU Tariff – N91
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'.
+  - codes: [NS19]
+    applies_to: all
+    locator: pdf:p38
+    quote: LV STOU Demand, Solar (Net) NS19 GN19
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'.
+  - codes: [NS29]
+    applies_to: all
+    locator: pdf:p38
+    quote: HV STOU Demand, Solar (Net) NS29 GN29
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'.
+  - codes: [NS39]
+    applies_to: all
+    locator: pdf:p38
+    quote: ST STOU Demand, Solar (Net) NS39 GN39
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'.
+  - codes: [NS89]
+    applies_to: usage
+    locator: pdf:p38
+    quote: LV STOU Transitional, Solar (Net) [1] NS89 GN89
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'.
+  - codes: [N72]
+    applies_to: demand
+    locator: pdf:p7
+    quote: Residential Demand Tariff – N72
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'. Its demand rates
+      are seasonal; its energy rate is flat.
+  - codes: [N73]
+    applies_to: demand
+    locator: pdf:p7
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'. Its demand rates
+      are seasonal; its energy rate is flat.
+  - codes: [N92]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'. Its demand rates
+      are seasonal; its energy rate is flat.
+  - codes: [N93]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 1.6.1)'. Its demand rates
+      are seasonal; its energy rate is flat.
+- id: endeavour-2019-20-obsolete-tou
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  name: Obsolete Time of Day (section 1.6.2, pre-1 July 2019 definitions)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p23
+  quote: 'For Obsolete Pricing Options (pre 1 July 2019 Time of Day Definitions) and Obsolete Solar Bonus Scheme Pricing Options,
+    ‘Peak’, ‘Shoulder’ and ‘Off Peak’ periods are based on the following time periods and apply during both Eastern Standard
+    Time (EST) and Daylight Saving Time (DST): Business Days Peak: 13:00 – 20:00 Shoulder: 07:00 – 13:00 & 20:00 – 22:00 Off
+    Peak: All other times. Non-business Days Off Peak: All times.'
+  note: 'Daylight Saving Time section (p24): ''In order to maintain the same time limits during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows
+    are clock times in force (local time) all year. Public holidays: ''The following public holidays are deemed to be non-business
+    days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '07:00', end: '13:00', months: all}
+  - {period: peak, label: Peak, days: business_day, start: '13:00', end: '20:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '20:00', end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N705]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Res TOU (Interval data) N705 N705
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [N706]
+    applies_to: usage
+    locator: pdf:p15
+    quote: Residential Time of Use Tariff (Basic data) – N706
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [N84]
+    applies_to: usage
+    locator: pdf:p16
+    quote: General Supply Time of Use (Basic data) – N84
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [N845]
+    applies_to: usage
+    locator: pdf:p15
+    quote: General Supply Time of Use (Interval data) – N845
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NFT5]
+    applies_to: usage
+    locator: pdf:p40
+    quote: Feed-In Credit, Net meter, GS TOU NFT5 ENF5
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NFT6]
+    applies_to: usage
+    locator: pdf:p40
+    quote: Feed-In Credit, Net meter GS TOU NFT6 ENF6
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NFT7]
+    applies_to: usage
+    locator: pdf:p40
+    quote: Feed-In Credit, Net meter, Res TOU NFT7 ENF7
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NFT8]
+    applies_to: usage
+    locator: pdf:p40
+    quote: Feed-In Credit, Net meter, Res TOU NFT8 ENF8
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NFTL]
+    applies_to: usage
+    locator: pdf:p40
+    quote: Feed-In Credit, Gross DR meter, GS TOU NFTL ENFL
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NFTM]
+    applies_to: usage
+    locator: pdf:p40
+    quote: Feed-In Credit, Gross DR meter, GS TOU NFTM ENFM
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NFTP]
+    applies_to: usage
+    locator: pdf:p40
+    quote: Feed-In Credit, Gross DR meter, Res TOU NFTP ENFP
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NFTQ]
+    applies_to: usage
+    locator: pdf:p40
+    quote: Feed-In Credit, Gross DR meter, Res TOU NFTQ ENFQ
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NG75]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Res TOU (Interval data), Solar (Gross) NG75 GG75
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NG76]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Res TOU, (Basic data), Solar (Gross) NG76 GG76
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NG84]
+    applies_to: usage
+    locator: pdf:p39
+    quote: GS TOU (Basic data), Solar (Gross) NG84 GG84
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NG85]
+    applies_to: usage
+    locator: pdf:p39
+    quote: GS TOU (Interval data), Solar (Gross) NG85 GG85
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NS75]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Res TOU (Interval data), Solar (Net) NS75 GN75
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NS76]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Res TOU (Basic data), Solar (Net) NS76 GN76
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NS84]
+    applies_to: usage
+    locator: pdf:p39
+    quote: GS TOU (Basic data), Solar (Net) NS84 GN84
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+  - codes: [NS85]
+    applies_to: usage
+    locator: pdf:p39
+    quote: GS TOU (Interval data), Solar (Net) NS85 GN85
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 1.6.2)'.
+- id: endeavour-2020-21-stou
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  name: 'Time of Day (section 6.1, post-1 July 2019 definitions): seasonal peak energy and demand'
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p22
+  quote: '‘Peak’ and ‘Off Peak’ periods are based on the following time periods and apply during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST): Business Days Peak: 16:00 – 20:00 Off Peak: All other times. Non-business Days Off
+    Peak: All times. Demand charges apply to ‘Peak’ periods only. The following seasons apply to ‘Peak’ energy and demand
+    charges: High-season: November to March Low-season: April to October'
+  note: 'Daylight Saving Time section (p23): ''In order to maintain the same time limits during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows
+    are clock times in force (local time) all year. Public holidays: ''The following public holidays are deemed to be non-business
+    days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off Peak, days: business_day, start: '00:00', end: '16:00', months: all}
+  - {period: peak, label: Peak (High-season), days: business_day, start: '16:00', end: '20:00', months: '11,12,1,2,3', season_label: High-season,
+    season: high}
+  - {period: peak, label: Peak (Low-season), days: business_day, start: '16:00', end: '20:00', months: '4,5,6,7,8,9,10', season_label: Low-season,
+    season: low}
+  - {period: off_peak, label: Off Peak, days: business_day, start: '20:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N19]
+    applies_to: all
+    locator: pdf:p10
+    quote: Low Voltage Seasonal Time of Use Demand Tariff – N19
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p11
+    quote: High Voltage Seasonal Time of Use Demand Tariff – N29
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p11
+    quote: Sub-transmission Seasonal Time of Use Demand Tariff – N39
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N71]
+    applies_to: usage
+    locator: pdf:p6
+    quote: Residential Seasonal TOU Tariff – N71
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N89]
+    applies_to: usage
+    locator: pdf:p10
+    quote: Low Voltage Seasonal Time of Use Transitional Tariff – N89
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N91]
+    applies_to: usage
+    locator: pdf:p8
+    quote: General Supply Seasonal TOU Tariff – N91
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS19]
+    applies_to: all
+    locator: pdf:p37
+    quote: LV STOU Demand, Solar (Net) NS19 GN19
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS29]
+    applies_to: all
+    locator: pdf:p37
+    quote: HV STOU Demand, Solar (Net) NS29 GN29
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS39]
+    applies_to: all
+    locator: pdf:p37
+    quote: ST STOU Demand, Solar (Net) NS39 GN39
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS89]
+    applies_to: usage
+    locator: pdf:p37
+    quote: LV STOU Transitional, Solar (Net) [1] NS89 GN89
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N72]
+    applies_to: demand
+    locator: pdf:p6
+    quote: Residential Demand Tariff – N72
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+  - codes: [N73]
+    applies_to: demand
+    locator: pdf:p6
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+  - codes: [N92]
+    applies_to: demand
+    locator: pdf:p9
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+  - codes: [N93]
+    applies_to: demand
+    locator: pdf:p9
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+- id: endeavour-2020-21-obsolete-tou
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  name: Obsolete Time of Day (section 6.2, pre-1 July 2019 definitions)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'For Obsolete Pricing Options (pre 1 July 2019 Time of Day Definitions) and Obsolete Solar Bonus Scheme Pricing Options,
+    ‘Peak’, ‘Shoulder’ and ‘Off Peak’ periods are based on the following time periods and apply during both Eastern Standard
+    Time (EST) and Daylight Saving Time (DST): Business Days Peak: 13:00 – 20:00 Shoulder: 07:00 – 13:00 & 20:00 – 22:00 Off
+    Peak: All other times. Non-business Days Off Peak: All times.'
+  note: 'Daylight Saving Time section (p23): ''In order to maintain the same time limits during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows
+    are clock times in force (local time) all year. Public holidays: ''The following public holidays are deemed to be non-business
+    days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '07:00', end: '13:00', months: all}
+  - {period: peak, label: Peak, days: business_day, start: '13:00', end: '20:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '20:00', end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N705]
+    applies_to: usage
+    locator: pdf:p38
+    quote: Res TOU (Interval data) N705 N705
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [N706]
+    applies_to: usage
+    locator: pdf:p14
+    quote: Residential Time of Use Tariff (Basic data) – N706
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [N84]
+    applies_to: usage
+    locator: pdf:p15
+    quote: General Supply Time of Use (Basic data) – N84
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [N845]
+    applies_to: usage
+    locator: pdf:p14
+    quote: General Supply Time of Use (Interval data) – N845
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT5]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Feed-In Credit, Net meter, GS TOU NFT5 ENF5
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT6]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Feed-In Credit, Net meter GS TOU NFT6 ENF6
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT7]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Feed-In Credit, Net meter, Res TOU NFT7 ENF7
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT8]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Feed-In Credit, Net meter, Res TOU NFT8 ENF8
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTL]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Feed-In Credit, Gross DR meter, GS TOU NFTL ENFL
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTM]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Feed-In Credit, Gross DR meter, GS TOU NFTM ENFM
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTP]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Feed-In Credit, Gross DR meter, Res TOU NFTP ENFP
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTQ]
+    applies_to: usage
+    locator: pdf:p39
+    quote: Feed-In Credit, Gross DR meter, Res TOU NFTQ ENFQ
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG75]
+    applies_to: usage
+    locator: pdf:p38
+    quote: Res TOU (Interval data), Solar (Gross) NG75 GG75
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG76]
+    applies_to: usage
+    locator: pdf:p38
+    quote: Res TOU, (Basic data), Solar (Gross) NG76 GG76
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG84]
+    applies_to: usage
+    locator: pdf:p38
+    quote: GS TOU (Basic data), Solar (Gross) NG84 GG84
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG85]
+    applies_to: usage
+    locator: pdf:p38
+    quote: GS TOU (Interval data), Solar (Gross) NG85 GG85
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS75]
+    applies_to: usage
+    locator: pdf:p38
+    quote: Res TOU (Interval data), Solar (Net) NS75 GN75
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS76]
+    applies_to: usage
+    locator: pdf:p38
+    quote: Res TOU (Basic data), Solar (Net) NS76 GN76
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS84]
+    applies_to: usage
+    locator: pdf:p38
+    quote: GS TOU (Basic data), Solar (Net) NS84 GN84
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS85]
+    applies_to: usage
+    locator: pdf:p38
+    quote: GS TOU (Interval data), Solar (Net) NS85 GN85
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+- id: endeavour-2021-22-stou
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  name: 'Time of Day (section 6.1, post-1 July 2019 definitions): seasonal peak energy and demand'
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p23
+  quote: '‘Peak’ and ‘Off Peak’ periods are based on the following time periods and apply during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST): Business Days Peak: 16:00 – 20:00 Off Peak: All other times. Non-business Days Off
+    Peak: All times. Demand charges apply to ‘Peak’ periods only. The following seasons apply to ‘Peak’ energy and demand
+    charges: High-season: November to March Low-season: April to October'
+  note: 'Daylight Saving Time section (p24): ''In order to maintain the same time limits during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows
+    are clock times in force (local time) all year. Public holidays: ''The following public holidays are deemed to be non-business
+    days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off Peak, days: business_day, start: '00:00', end: '16:00', months: all}
+  - {period: peak, label: Peak (High-season), days: business_day, start: '16:00', end: '20:00', months: '11,12,1,2,3', season_label: High-season,
+    season: high}
+  - {period: peak, label: Peak (Low-season), days: business_day, start: '16:00', end: '20:00', months: '4,5,6,7,8,9,10', season_label: Low-season,
+    season: low}
+  - {period: off_peak, label: Off Peak, days: business_day, start: '20:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N19]
+    applies_to: all
+    locator: pdf:p11
+    quote: Low Voltage Seasonal Time of Use Demand Tariff – N19
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p12
+    quote: High Voltage Seasonal Time of Use Demand Tariff – N29
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p12
+    quote: Sub-transmission Seasonal Time of Use Demand Tariff – N39
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N71]
+    applies_to: usage
+    locator: pdf:p7
+    quote: Residential Seasonal TOU Tariff – N71
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N89]
+    applies_to: usage
+    locator: pdf:p11
+    quote: Low Voltage Seasonal Time of Use Transitional Tariff – N89
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N91]
+    applies_to: usage
+    locator: pdf:p9
+    quote: General Supply Seasonal TOU Tariff – N91
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS19]
+    applies_to: all
+    locator: pdf:p40
+    quote: LV STOU Demand, Solar (Net) NS19 GN19
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS29]
+    applies_to: all
+    locator: pdf:p40
+    quote: HV STOU Demand, Solar (Net) NS29 GN29
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS39]
+    applies_to: all
+    locator: pdf:p40
+    quote: ST STOU Demand, Solar (Net) NS39 GN39
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS89]
+    applies_to: usage
+    locator: pdf:p40
+    quote: LV STOU Transitional, Solar (Net) [1] NS89 GN89
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N72]
+    applies_to: demand
+    locator: pdf:p7
+    quote: Residential Demand Tariff – N72
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+  - codes: [N73]
+    applies_to: demand
+    locator: pdf:p7
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+  - codes: [N92]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+  - codes: [N93]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+- id: endeavour-2021-22-obsolete-tou
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  name: Obsolete Time of Day (section 6.2, pre-1 July 2019 definitions)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p23
+  quote: 'For Obsolete Pricing Options (pre 1 July 2019 Time of Day Definitions) and Obsolete Solar Bonus Scheme Pricing Options,
+    ‘Peak’, ‘Shoulder’ and ‘Off Peak’ periods are based on the following time periods and apply during both Eastern Standard
+    Time (EST) and Daylight Saving Time (DST): Business Days Peak: 13:00 – 20:00 Shoulder: 07:00 – 13:00 & 20:00 – 22:00 Off
+    Peak: All other times. Non-business Days Off Peak: All times.'
+  note: 'Daylight Saving Time section (p24): ''In order to maintain the same time limits during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows
+    are clock times in force (local time) all year. Public holidays: ''The following public holidays are deemed to be non-business
+    days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '07:00', end: '13:00', months: all}
+  - {period: peak, label: Peak, days: business_day, start: '13:00', end: '20:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '20:00', end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N705]
+    applies_to: usage
+    locator: pdf:p41
+    quote: Res TOU (Interval data) N705 N705
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [N706]
+    applies_to: usage
+    locator: pdf:p15
+    quote: Residential Time of Use Tariff (Basic data) – N706
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [N84]
+    applies_to: usage
+    locator: pdf:p16
+    quote: General Supply Time of Use (Basic data) – N84
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [N845]
+    applies_to: usage
+    locator: pdf:p15
+    quote: General Supply Time of Use (Interval data) – N845
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT5]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Net meter, GS TOU NFT5 ENF5
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT6]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Net meter GS TOU NFT6 ENF6
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT7]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Net meter, Res TOU NFT7 ENF7
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT8]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Net meter, Res TOU NFT8 ENF8
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTL]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Gross DR meter, GS TOU NFTL ENFL
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTM]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Gross DR meter, GS TOU NFTM ENFM
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTP]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Gross DR meter, Res TOU NFTP ENFP
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTQ]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Gross DR meter, Res TOU NFTQ ENFQ
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG75]
+    applies_to: usage
+    locator: pdf:p41
+    quote: Res TOU (Interval data), Solar (Gross) NG75 GG75
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG76]
+    applies_to: usage
+    locator: pdf:p41
+    quote: Res TOU, (Basic data), Solar (Gross) NG76 GG76
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG84]
+    applies_to: usage
+    locator: pdf:p41
+    quote: GS TOU (Basic data), Solar (Gross) NG84 GG84
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG85]
+    applies_to: usage
+    locator: pdf:p41
+    quote: GS TOU (Interval data), Solar (Gross) NG85 GG85
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS75]
+    applies_to: usage
+    locator: pdf:p41
+    quote: Res TOU (Interval data), Solar (Net) NS75 GN75
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS76]
+    applies_to: usage
+    locator: pdf:p41
+    quote: Res TOU (Basic data), Solar (Net) NS76 GN76
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS84]
+    applies_to: usage
+    locator: pdf:p41
+    quote: GS TOU (Basic data), Solar (Net) NS84 GN84
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS85]
+    applies_to: usage
+    locator: pdf:p41
+    quote: GS TOU (Interval data), Solar (Net) NS85 GN85
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+- id: endeavour-2022-23-stou
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  name: 'Time of Day (section 6.1, post-1 July 2019 definitions): seasonal peak energy and demand'
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p23
+  quote: '‘Peak’ and ‘Off Peak’ periods are based on the following time periods and apply during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST): Business Days Peak: 16:00 – 20:00 Off Peak: All other times. Non-business Days Off
+    Peak: All times. Demand charges apply to ‘Peak’ periods only. The following seasons apply to ‘Peak’ energy and demand
+    charges: High-season: November to March Low-season: April to October'
+  note: 'Daylight Saving Time section (p24): ''In order to maintain the same time limits during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows
+    are clock times in force (local time) all year. Public holidays: ''The following public holidays are deemed to be non-business
+    days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off Peak, days: business_day, start: '00:00', end: '16:00', months: all}
+  - {period: peak, label: Peak (High-season), days: business_day, start: '16:00', end: '20:00', months: '11,12,1,2,3', season_label: High-season,
+    season: high}
+  - {period: peak, label: Peak (Low-season), days: business_day, start: '16:00', end: '20:00', months: '4,5,6,7,8,9,10', season_label: Low-season,
+    season: low}
+  - {period: off_peak, label: Off Peak, days: business_day, start: '20:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N19]
+    applies_to: all
+    locator: pdf:p11
+    quote: Low Voltage Seasonal Time of Use Demand Tariff – N19
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N29]
+    applies_to: all
+    locator: pdf:p12
+    quote: High Voltage Seasonal Time of Use Demand Tariff – N29
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N39]
+    applies_to: all
+    locator: pdf:p12
+    quote: Sub-transmission Seasonal Time of Use Demand Tariff – N39
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N71]
+    applies_to: usage
+    locator: pdf:p7
+    quote: Residential Seasonal TOU Tariff – N71
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N89]
+    applies_to: usage
+    locator: pdf:p11
+    quote: Low Voltage Seasonal Time of Use Transitional Tariff – N89
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N91]
+    applies_to: usage
+    locator: pdf:p9
+    quote: General Supply Seasonal TOU Tariff – N91
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS19]
+    applies_to: all
+    locator: pdf:p40
+    quote: LV STOU Demand, Solar (Net) NS19 GN19
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS29]
+    applies_to: all
+    locator: pdf:p40
+    quote: HV STOU Demand, Solar (Net) NS29 GN29
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS39]
+    applies_to: all
+    locator: pdf:p40
+    quote: ST STOU Demand, Solar (Net) NS39 GN39
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [NS89]
+    applies_to: usage
+    locator: pdf:p40
+    quote: LV STOU Transitional, Solar (Net) [1] NS89 GN89
+    note: Row of the network price table. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'.
+  - codes: [N72]
+    applies_to: demand
+    locator: pdf:p7
+    quote: Residential Demand Tariff – N72
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+  - codes: [N73]
+    applies_to: demand
+    locator: pdf:p7
+    quote: Residential Transitional Demand Tariff – N73
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+  - codes: [N92]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Demand Tariff – N92
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+  - codes: [N93]
+    applies_to: demand
+    locator: pdf:p10
+    quote: General Supply Transitional Demand Tariff – N93
+    note: Heading of the tariff's section. Listed in Table 1 or Table 4a, whose notes state 'The new Time of Day definitions
+      effective 1 July 2019 apply to all tariffs in this table (refer Network Price List section 6.1)'. Its demand rates are
+      seasonal; its energy rate is flat.
+- id: endeavour-2022-23-obsolete-tou
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  name: Obsolete Time of Day (section 6.2, pre-1 July 2019 definitions)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p23
+  quote: 'For Obsolete Pricing Options (pre 1 July 2019 Time of Day Definitions) and Obsolete Solar Bonus Scheme Pricing Options,
+    ‘Peak’, ‘Shoulder’ and ‘Off Peak’ periods are based on the following time periods and apply during both Eastern Standard
+    Time (EST) and Daylight Saving Time (DST): Business Days Peak: 13:00 – 20:00 Shoulder: 07:00 – 13:00 & 20:00 – 22:00 Off
+    Peak: All other times. Non-business Days Off Peak: All times.'
+  note: 'Daylight Saving Time section (p24): ''In order to maintain the same time limits during both Eastern Standard Time
+    (EST) and Daylight Saving Time (DST), billing data is adjusted by shifting the data forward an hour'', i.e. the windows
+    are clock times in force (local time) all year. Public holidays: ''The following public holidays are deemed to be non-business
+    days'' (Public Holidays section).'
+  windows:
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '07:00', end: '13:00', months: all}
+  - {period: peak, label: Peak, days: business_day, start: '13:00', end: '20:00', months: all}
+  - {period: shoulder, label: Shoulder, days: business_day, start: '20:00', end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak, days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off Peak, days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [N705]
+    applies_to: usage
+    locator: pdf:p41
+    quote: Res TOU (Interval data) N705 N705
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [N706]
+    applies_to: usage
+    locator: pdf:p15
+    quote: Residential Time of Use Tariff (Basic data) – N706
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [N84]
+    applies_to: usage
+    locator: pdf:p16
+    quote: General Supply Time of Use (Basic data) – N84
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [N845]
+    applies_to: usage
+    locator: pdf:p15
+    quote: General Supply Time of Use (Interval data) – N845
+    note: Heading of the tariff's section. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT5]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Net meter, GS TOU NFT5 ENF5
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT6]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Net meter GS TOU NFT6 ENF6
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT7]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Net meter, Res TOU NFT7 ENF7
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFT8]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Net meter, Res TOU NFT8 ENF8
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTL]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Gross DR meter, GS TOU NFTL ENFL
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTM]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Gross DR meter, GS TOU NFTM ENFM
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTP]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Gross DR meter, Res TOU NFTP ENFP
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NFTQ]
+    applies_to: usage
+    locator: pdf:p42
+    quote: Feed-In Credit, Gross DR meter, Res TOU NFTQ ENFQ
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG75]
+    applies_to: usage
+    locator: pdf:p41
+    quote: Res TOU (Interval data), Solar (Gross) NG75 GG75
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG76]
+    applies_to: usage
+    locator: pdf:p41
+    quote: Res TOU, (Basic data), Solar (Gross) NG76 GG76
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG84]
+    applies_to: usage
+    locator: pdf:p41
+    quote: GS TOU (Basic data), Solar (Gross) NG84 GG84
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NG85]
+    applies_to: usage
+    locator: pdf:p41
+    quote: GS TOU (Interval data), Solar (Gross) NG85 GG85
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS75]
+    applies_to: usage
+    locator: pdf:p41
+    quote: Res TOU (Interval data), Solar (Net) NS75 GN75
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS76]
+    applies_to: usage
+    locator: pdf:p41
+    quote: Res TOU (Basic data), Solar (Net) NS76 GN76
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS84]
+    applies_to: usage
+    locator: pdf:p41
+    quote: GS TOU (Basic data), Solar (Net) NS84 GN84
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
+  - codes: [NS85]
+    applies_to: usage
+    locator: pdf:p41
+    quote: GS TOU (Interval data), Solar (Net) NS85 GN85
+    note: Row of the network price table. Listed in Table 4b or Table 5 (obsolete, pre-1 July 2019 Time of Day Definitions),
+      whose notes state 'The old Time of Day definitions apply to ... (refer Network Price List section 6.2)'.
 - id: endeavour-2024-25-res-gs-tou
   doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2024-25_v10.pdf
   fin_year: 2024-25
@@ -3517,6 +5127,87 @@ eligibility:
   quote: An obsolete time of use energy tariff that has time of use energy consumption charges (under our existing, obsolete
     charging windows) and a fixed charge. This tariff is closed to new entrants.
 charge_rules:
+- codes: [N19, N29, N39, NS19, NS29, NS39]
+  doc: sources/archive/endeavour/2016-17/NUOS_Price_List_201617_v2.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: A monthly demand charge is payable, based on the highest demand (kVA), which occurred within any half hour interval
+    of that month falling into a time period defined as ‘Peak’.
+  note: 'Section 1.6.3 Demand Charges: ''A demand charge is applicable to all customers on a Demand TOU Pricing Option'';
+    demand rates are priced in $/kVA/month ''according to the season''.'
+- codes: [N19, N29, N39, NS19, NS29, NS39]
+  doc: sources/archive/endeavour/2017-18/NUOS_Price_List_201718_v2.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: A monthly demand charge is payable, based on the highest demand (kVA), which occurred within any half hour interval
+    of that month falling into a time period defined as ‘Peak’.
+  note: 'Section 1.6.3 Demand Charges: ''A demand charge is applicable to all customers on a Demand TOU Pricing Option'';
+    demand rates are priced in $/kVA/month ''according to the season''.'
+- codes: [N19, N29, N39, NS19, NS29, NS39]
+  doc: sources/archive/endeavour/2018-19/NUOS_Price_List_201819_v4.0.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: A monthly demand charge is payable, based on the highest demand (kVA), which occurred within any half hour interval
+    of that month falling into a time period defined as ‘Peak’.
+  note: 'Section 1.6.3 Demand Charges: ''A demand charge is applicable to all customers on a Demand TOU Pricing Option'';
+    demand rates are priced in $/kVA/month ''according to the season''.'
+- {codes: all, doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf, fin_year: 2019-20, charge_type: demand,
+  measure: kW, interval_min: 30, method: max, reset: month, locator: 'pdf:p20', quote: 'A monthly demand charge is payable,
+    based on the highest demand (kW or kVA), which occurred within any half hour interval of that month consumed in a time
+    period defined as ‘High season Peak’ or ‘Low season Peak’.', note: 'Demand Charges section, stated for every tariff priced
+    per kW or kVA. The Demand Metering section (p22) adds ''Endeavour Energy bills on a 30-minute demand interval.'''}
+- {codes: all, doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf, fin_year: 2019-20, charge_type: demand,
+  measure: kVA, interval_min: 30, method: max, reset: month, locator: 'pdf:p20', quote: 'A monthly demand charge is payable,
+    based on the highest demand (kW or kVA), which occurred within any half hour interval of that month consumed in a time
+    period defined as ‘High season Peak’ or ‘Low season Peak’.', note: 'Demand Charges section, stated for every tariff priced
+    per kW or kVA. The Demand Metering section (p22) adds ''Endeavour Energy bills on a 30-minute demand interval.'''}
+- {codes: all, doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf, fin_year: 2020-21,
+  charge_type: demand, measure: kW, interval_min: 30, method: max, reset: month, locator: 'pdf:p19', quote: 'A monthly demand
+    charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour interval of that month
+    consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.', note: 'Demand Charges section, stated
+    for every tariff priced per kW or kVA. The Demand Metering section (p21) adds ''Endeavour Energy bills on a 30-minute
+    demand interval.'''}
+- {codes: all, doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf, fin_year: 2020-21,
+  charge_type: demand, measure: kVA, interval_min: 30, method: max, reset: month, locator: 'pdf:p19', quote: 'A monthly demand
+    charge is payable, based on the highest demand (kW or kVA), which occurred within any half hour interval of that month
+    consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.', note: 'Demand Charges section, stated
+    for every tariff priced per kW or kVA. The Demand Metering section (p21) adds ''Endeavour Energy bills on a 30-minute
+    demand interval.'''}
+- {codes: all, doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf, fin_year: 2021-22, charge_type: demand,
+  measure: kW, interval_min: 30, method: max, reset: month, locator: 'pdf:p20', quote: 'A monthly demand charge is payable,
+    based on the highest demand (kW or kVA), which occurred within any half hour interval of that month consumed in a time
+    period defined as ‘High season Peak’ or ‘Low season Peak’.', note: 'Demand Charges section, stated for every tariff priced
+    per kW or kVA. The Demand Metering section (p22) adds ''Endeavour Energy bills on a 30-minute demand interval.'''}
+- {codes: all, doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf, fin_year: 2021-22, charge_type: demand,
+  measure: kVA, interval_min: 30, method: max, reset: month, locator: 'pdf:p20', quote: 'A monthly demand charge is payable,
+    based on the highest demand (kW or kVA), which occurred within any half hour interval of that month consumed in a time
+    period defined as ‘High season Peak’ or ‘Low season Peak’.', note: 'Demand Charges section, stated for every tariff priced
+    per kW or kVA. The Demand Metering section (p22) adds ''Endeavour Energy bills on a 30-minute demand interval.'''}
+- {codes: all, doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf, fin_year: 2022-23, charge_type: demand,
+  measure: kW, interval_min: 30, method: max, reset: month, locator: 'pdf:p20', quote: 'A monthly demand charge is payable,
+    based on the highest demand (kW or kVA), which occurred within any half hour interval of that month consumed in a time
+    period defined as ‘High season Peak’ or ‘Low season Peak’.', note: 'Demand Charges section, stated for every tariff priced
+    per kW or kVA. The Demand Metering section (p22) adds ''Endeavour Energy bills on a 30-minute demand interval.'''}
+- {codes: all, doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf, fin_year: 2022-23, charge_type: demand,
+  measure: kVA, interval_min: 30, method: max, reset: month, locator: 'pdf:p20', quote: 'A monthly demand charge is payable,
+    based on the highest demand (kW or kVA), which occurred within any half hour interval of that month consumed in a time
+    period defined as ‘High season Peak’ or ‘Low season Peak’.', note: 'Demand Charges section, stated for every tariff priced
+    per kW or kVA. The Demand Metering section (p22) adds ''Endeavour Energy bills on a 30-minute demand interval.'''}
 - codes: all
   doc: sources/dnsp/endeavour/Endeavour_NUOS_Price_List_2026-27.pdf
   fin_year: 2026-27

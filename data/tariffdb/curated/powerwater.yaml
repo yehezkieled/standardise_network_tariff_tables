@@ -1,5 +1,8 @@
 # Hand-curated TOU windows and eligibility for powerwater.
 # Every item cites a document locator and a verbatim quote; validate with scripts/tariffdb/curated.py.
+# 2016-17..2018-19: Schedule A and B peak/off-peak periods quote footnote [2] of each year's Network Tariffs and Charges
+# list; 2019-20..2022-23: Tariff 3/5/6/7 demand peak periods and demand rules quote each year's Network Pricing Proposal
+# (sources/archive/powerwater/); none of them states a clock basis.
 distributor: powerwater
 tou_schedules:
 - id: pwc-2324-sc-t3-demand
@@ -1043,6 +1046,458 @@ tou_schedules:
       demand (KVA) charge.
     note: 'pdf:p15: for the major customers (LV above 750MWh and all HV) the annual peak demand charge is applied as an ''On''
       season, 1 October to 31 March, and an ''Off'' season, 1 April to 30 September.'
+- id: pwc-1617-a-tou
+  doc: sources/archive/powerwater/2016-17/Power_and_Water_Corporation_Power_Networks_2016-17_Electricity_Network_Tariffs_and_Charges.pdf
+  fin_year: 2016-17
+  name: Schedule A peak and off-peak periods (energy and demand)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p19
+  quote: Peak and off-peak periods for demand and energy related charging rates will be as determined from time to time. The
+    peak period rates currently apply to usage between 6.00 am and 6.00 pm on any day.
+  note: Footnote [2] of the schedule; one set of periods for its energy and demand rates. 'On any day' takes in weekends and
+    public holidays. Times as printed (Northern Territory; the price list names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '00:00'
+    end: '06:00'
+    quote: Off-peak period rates apply at other times.
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '06:00'
+    end: '18:00'
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '18:00'
+    end: '24:00'
+    quote: Off-peak period rates apply at other times.
+  tariffs:
+  - codes: [A]
+    applies_to: usage
+    locator: pdf:p19
+    quote: Schedule A - All Regions 2016/17 EXCLUDING GST
+  - codes: [A]
+    applies_to: demand
+    locator: pdf:p19
+    quote: Schedule A - All Regions 2016/17 EXCLUDING GST
+- id: pwc-1617-b-tou
+  doc: sources/archive/powerwater/2016-17/Power_and_Water_Corporation_Power_Networks_2016-17_Electricity_Network_Tariffs_and_Charges.pdf
+  fin_year: 2016-17
+  name: Schedule B peak and off-peak periods (energy and demand)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p20
+  quote: Peak and off-peak periods for demand and energy related charging rates will be as determined from time to time. The
+    peak period rates currently apply to usage between 6.00 am and 6.00 pm on any day.
+  note: Footnote [2] of the schedule; one set of periods for its energy and demand rates. 'On any day' takes in weekends and
+    public holidays. Times as printed (Northern Territory; the price list names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '00:00'
+    end: '06:00'
+    quote: Off-peak period rates apply at other times.
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '06:00'
+    end: '18:00'
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '18:00'
+    end: '24:00'
+    quote: Off-peak period rates apply at other times.
+  tariffs:
+  - codes: [B]
+    applies_to: usage
+    locator: pdf:p20
+    quote: Schedule B - All Regions 2016/17 EXCLUDING GST
+  - codes: [B]
+    applies_to: demand
+    locator: pdf:p20
+    quote: Schedule B - All Regions 2016/17 EXCLUDING GST
+- id: pwc-1718-a-tou
+  doc: sources/archive/powerwater/2017-18/2017-18_Network_Tariffs_and_Charges_-_Ministerial_Direction.pdf
+  fin_year: 2017-18
+  name: Schedule A peak and off-peak periods (energy and demand)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p17
+  quote: Peak and off-peak periods for demand and energy related charging rates will be as determined from time to time. The
+    peak period rates currently apply to usage between 6.00 am and 6.00 pm on any day.
+  note: Footnote [2] of the schedule; one set of periods for its energy and demand rates. 'On any day' takes in weekends and
+    public holidays. Times as printed (Northern Territory; the price list names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '00:00'
+    end: '06:00'
+    quote: Off-peak period rates apply at other times.
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '06:00'
+    end: '18:00'
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '18:00'
+    end: '24:00'
+    quote: Off-peak period rates apply at other times.
+  tariffs:
+  - codes: [A]
+    applies_to: usage
+    locator: pdf:p17
+    quote: Schedule A - All Regions 2017/18 EXCLUDING GST
+  - codes: [A]
+    applies_to: demand
+    locator: pdf:p17
+    quote: Schedule A - All Regions 2017/18 EXCLUDING GST
+- id: pwc-1718-b-tou
+  doc: sources/archive/powerwater/2017-18/2017-18_Network_Tariffs_and_Charges_-_Ministerial_Direction.pdf
+  fin_year: 2017-18
+  name: Schedule B peak and off-peak periods (energy and demand)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p18
+  quote: Peak and off-peak periods for demand and energy related charging rates will be as determined from time to time. The
+    peak period rates currently apply to usage between 6.00 am and 6.00 pm on any day.
+  note: Footnote [2] of the schedule; one set of periods for its energy and demand rates. 'On any day' takes in weekends and
+    public holidays. Times as printed (Northern Territory; the price list names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '00:00'
+    end: '06:00'
+    quote: Off-peak period rates apply at other times.
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '06:00'
+    end: '18:00'
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '18:00'
+    end: '24:00'
+    quote: Off-peak period rates apply at other times.
+  tariffs:
+  - codes: [B]
+    applies_to: usage
+    locator: pdf:p18
+    quote: Schedule B - All Regions 2017/18 EXCLUDING GST
+  - codes: [B]
+    applies_to: demand
+    locator: pdf:p18
+    quote: Schedule B - All Regions 2017/18 EXCLUDING GST
+- id: pwc-1819-a-tou
+  doc: sources/archive/powerwater/2018-19/Power_and_Water_Corporation_Network_Tariff_Charges_-_2018-19_V2.pdf
+  fin_year: 2018-19
+  name: Schedule A peak and off-peak periods (energy and demand)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p17
+  quote: Peak and off-peak periods for demand and energy related charging rates will be as determined from time to time. The
+    peak period rates currently apply to usage between 6.00 am and 6.00 pm on any day.
+  note: Footnote [2] of the schedule; one set of periods for its energy and demand rates. 'On any day' takes in weekends and
+    public holidays. Times as printed (Northern Territory; the price list names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '00:00'
+    end: '06:00'
+    quote: Off-peak period rates apply at other times.
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '06:00'
+    end: '18:00'
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '18:00'
+    end: '24:00'
+    quote: Off-peak period rates apply at other times.
+  tariffs:
+  - codes: [A]
+    applies_to: usage
+    locator: pdf:p17
+    quote: Schedule A - All Regions 2018/19 EXCLUDING GST
+  - codes: [A]
+    applies_to: demand
+    locator: pdf:p17
+    quote: Schedule A - All Regions 2018/19 EXCLUDING GST
+- id: pwc-1819-b-tou
+  doc: sources/archive/powerwater/2018-19/Power_and_Water_Corporation_Network_Tariff_Charges_-_2018-19_V2.pdf
+  fin_year: 2018-19
+  name: Schedule B peak and off-peak periods (energy and demand)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p18
+  quote: Peak and off-peak periods for demand and energy related charging rates will be as determined from time to time. The
+    peak period rates currently apply to usage between 6.00 am and 6.00 pm on any day.
+  note: Footnote [2] of the schedule; one set of periods for its energy and demand rates. 'On any day' takes in weekends and
+    public holidays. Times as printed (Northern Territory; the price list names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '00:00'
+    end: '06:00'
+    quote: Off-peak period rates apply at other times.
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '06:00'
+    end: '18:00'
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '18:00'
+    end: '24:00'
+    quote: Off-peak period rates apply at other times.
+  tariffs:
+  - codes: [B]
+    applies_to: usage
+    locator: pdf:p18
+    quote: Schedule B - All Regions 2018/19 EXCLUDING GST
+  - codes: [B]
+    applies_to: demand
+    locator: pdf:p18
+    quote: Schedule B - All Regions 2018/19 EXCLUDING GST
+- id: pwc-1920-np-t3-demand
+  doc: sources/archive/powerwater/2019-20/PWC_-_AER_approved_Power_Services_Network_Pricing_Proposal_2019-20_-_21_May_2019_-_Public_-_June_2019.pdf
+  fin_year: 2019-20
+  name: Tariff 3 demand peak period (1 October – 31 March)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p18
+  quote: While the peak period is 12pm to 9pm weekdays, which includes public holidays
+  note: 'The footnote on ''public holidays'' reads ''All other times are off-peak.'' Weekdays include public holidays. Times
+    as printed (Northern Territory; the proposal names no clock basis). The proposal''s Table 5 (p17) names the tariffs: ''Tariff
+    3: LV Smart Meter Tariff'', ''Tariff 5: LV Majors Tariff'', ''Tariff 6: HV Minors Tariff'', ''Tariff 7: HV Majors Tariff''.'
+  windows:
+  - period: peak
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season_label: 1 October – 31 March
+    locator: pdf:p18
+    quote: for customers assigned to the LV Smart Meter the demand charge applies between 1 October and 31 March with the
+      rest of the year being off-peak (i.e. 6 months)
+  tariffs:
+  - codes:
+    - Tariff 3
+    applies_to: demand
+- id: pwc-1920-np-annual-demand
+  doc: sources/archive/powerwater/2019-20/PWC_-_AER_approved_Power_Services_Network_Pricing_Proposal_2019-20_-_21_May_2019_-_Public_-_June_2019.pdf
+  fin_year: 2019-20
+  name: Tariffs 5, 6 and 7 demand peak period (full year)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p18
+  quote: While the peak period is 12pm to 9pm weekdays, which includes public holidays
+  note: 'The footnote on ''public holidays'' reads ''All other times are off-peak.'' Weekdays include public holidays. Times
+    as printed (Northern Territory; the proposal names no clock basis). The proposal''s Table 5 (p17) names the tariffs: ''Tariff
+    3: LV Smart Meter Tariff'', ''Tariff 5: LV Majors Tariff'', ''Tariff 6: HV Minors Tariff'', ''Tariff 7: HV Majors Tariff''.'
+  windows:
+  - period: peak
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: all
+    season_label: full year
+    locator: pdf:p18
+    quote: for customers assigned to the LV Majors, HV Majors Tariffs or HV Minors Tariffs, the demand charge applies across
+      the year (i.e. 12 months).
+  tariffs:
+  - codes:
+    - Tariff 5
+    - Tariff 6
+    - Tariff 7
+    applies_to: demand
+- id: pwc-2021-np-t3-demand
+  doc: sources/archive/powerwater/2020-21/Power_and_Water_Corporation_-_Network_Pricing_Proposal_2020-21_-_31_March_2020_-_Public_0.pdf
+  fin_year: 2020-21
+  name: Tariff 3 demand peak period (1 October – 31 March)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p10
+  quote: While the peak period is 12pm to 9pm weekdays, which includes public holidays
+  note: The footnote on 'public holidays' reads 'All other times are off-peak.' Weekdays include public holidays. Times as
+    printed (Northern Territory; the proposal names no clock basis).
+  windows:
+  - period: peak
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season_label: 1 October – 31 March
+    locator: pdf:p10
+    quote: For customers assigned to the LV Smart Meter (Tariff 3), the demand charge applies between 1 October and 31 March
+      with the rest of the year being off-peak (i.e. 6 months)
+  tariffs:
+  - codes:
+    - Tariff 3
+    applies_to: demand
+- id: pwc-2021-np-annual-demand
+  doc: sources/archive/powerwater/2020-21/Power_and_Water_Corporation_-_Network_Pricing_Proposal_2020-21_-_31_March_2020_-_Public_0.pdf
+  fin_year: 2020-21
+  name: Tariffs 5, 6 and 7 demand peak period (full year)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p10
+  quote: While the peak period is 12pm to 9pm weekdays, which includes public holidays
+  note: The footnote on 'public holidays' reads 'All other times are off-peak.' Weekdays include public holidays. Times as
+    printed (Northern Territory; the proposal names no clock basis).
+  windows:
+  - period: peak
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: all
+    season_label: full year
+    locator: pdf:p10
+    quote: For customers assigned to the LV Majors (Tariff 5), HV Majors Tariffs (Tariff 7) or HV Minors Tariffs (Tariff 6),
+      the demand charge applies across the year (i.e. 12 months).
+  tariffs:
+  - codes:
+    - Tariff 5
+    - Tariff 6
+    - Tariff 7
+    applies_to: demand
+- id: pwc-2122-np-t3-demand
+  doc: sources/archive/powerwater/2021-22/Power_and_Water_Corporation_-_Network_Pricing_Proposal_2021-22_-_31_March_2021_-_UPDATED_0.pdf
+  fin_year: 2021-22
+  name: Tariff 3 demand peak period (1 October – 31 March)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p11
+  quote: While the peak period is 12pm to 9pm weekdays, which includes public holidays
+  note: The footnote on 'public holidays' reads 'All other times are off-peak.' Weekdays include public holidays. Times as
+    printed (Northern Territory; the proposal names no clock basis).
+  windows:
+  - period: peak
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season_label: 1 October – 31 March
+    locator: pdf:p11
+    quote: For customers assigned to the LV Smart Meter (Tariff 3), the demand charge applies between 1 October and 31 March
+      with the rest of the year being off-peak (i.e. 6 months).
+  tariffs:
+  - codes:
+    - Tariff 3
+    applies_to: demand
+- id: pwc-2122-np-annual-demand
+  doc: sources/archive/powerwater/2021-22/Power_and_Water_Corporation_-_Network_Pricing_Proposal_2021-22_-_31_March_2021_-_UPDATED_0.pdf
+  fin_year: 2021-22
+  name: Tariffs 5, 6 and 7 demand peak period (full year)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p11
+  quote: While the peak period is 12pm to 9pm weekdays, which includes public holidays
+  note: The footnote on 'public holidays' reads 'All other times are off-peak.' Weekdays include public holidays. Times as
+    printed (Northern Territory; the proposal names no clock basis).
+  windows:
+  - period: peak
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: all
+    season_label: full year
+    locator: pdf:p11
+    quote: For customers assigned to the LV Majors (Tariff 5), HV Majors Tariffs (Tariff 7) or HV Minors Tariffs (Tariff 6),
+      the demand charge applies across the year (i.e. 12 months).
+  tariffs:
+  - codes:
+    - Tariff 5
+    - Tariff 6
+    - Tariff 7
+    applies_to: demand
+- id: pwc-2223-np-t3-demand
+  doc: sources/archive/powerwater/2022-23/Power_and_Water_Corporation_-_Network_Pricing_Proposal_2022-23_-_updated_29_April_2022.pdf
+  fin_year: 2022-23
+  name: Tariff 3 demand peak period (1 October – 31 March)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p11
+  quote: The peak period is 12pm to 9pm weekdays, which includes public holidays
+  note: The footnote on 'public holidays' reads 'All other times are off-peak.' Weekdays include public holidays. Times as
+    printed (Northern Territory; the proposal names no clock basis).
+  windows:
+  - period: peak
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: 10,11,12,1,2,3
+    season_label: 1 October – 31 March
+    locator: pdf:p11
+    quote: For customers assigned to the LV Smart Meter (Tariff 3), the demand charge applies between 1 October and 31 March
+      with the rest of the year being off-peak (i.e. 6 months).
+  tariffs:
+  - codes:
+    - Tariff 3
+    applies_to: demand
+- id: pwc-2223-np-annual-demand
+  doc: sources/archive/powerwater/2022-23/Power_and_Water_Corporation_-_Network_Pricing_Proposal_2022-23_-_updated_29_April_2022.pdf
+  fin_year: 2022-23
+  name: Tariffs 5, 6 and 7 demand peak period (full year)
+  time_basis: not_stated
+  public_holidays: as_weekday
+  covers_full_day: false
+  locator: pdf:p11
+  quote: The peak period is 12pm to 9pm weekdays, which includes public holidays
+  note: The footnote on 'public holidays' reads 'All other times are off-peak.' Weekdays include public holidays. Times as
+    printed (Northern Territory; the proposal names no clock basis).
+  windows:
+  - period: peak
+    label: Peak period
+    days: weekday
+    start: '12:00'
+    end: '21:00'
+    months: all
+    season_label: full year
+    locator: pdf:p11
+    quote: For customers assigned to the LV Majors (Tariff 5), HV Majors Tariffs (Tariff 7) or HV Minors Tariffs (Tariff 6),
+      the demand charge applies across the year (i.e. 12 months).
+  tariffs:
+  - codes:
+    - Tariff 5
+    - Tariff 6
+    - Tariff 7
+    applies_to: demand
 eligibility:
 - codes:
   - Tariff 1
@@ -3012,3 +3467,43 @@ charge_rules:
     the neighbouring energy column (''Holidays) from 01 October to 31 March''). Section 2.2.3 (same page) calls it ''an annual
     peak demand charge'' applied as an ''On'' season (1 October to 31 March) and an ''Off'' season (1 April to 30 September);
     the per-month measurement is the table''s. The interval length is not stated.'
+- codes: [Tariff 3, Tariff 5, Tariff 6, Tariff 7]
+  doc: sources/archive/powerwater/2019-20/PWC_-_AER_approved_Power_Services_Network_Pricing_Proposal_2019-20_-_21_May_2019_-_Public_-_June_2019.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p18
+  quote: The demand charge is applied to the peak demand within a month, within the peak period.
+  note: The proposal prices the demand charge in $/kVA/month; the interval length is not stated.
+- codes: [Tariff 3, Tariff 5, Tariff 6, Tariff 7]
+  doc: sources/archive/powerwater/2020-21/Power_and_Water_Corporation_-_Network_Pricing_Proposal_2020-21_-_31_March_2020_-_Public_0.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p10
+  quote: The demand charge is applied to the peak demand within a month, within the peak period.
+  note: The proposal prices the demand charge in $/kVA/month; the interval length is not stated.
+- codes: [Tariff 3, Tariff 5, Tariff 6, Tariff 7]
+  doc: sources/archive/powerwater/2021-22/Power_and_Water_Corporation_-_Network_Pricing_Proposal_2021-22_-_31_March_2021_-_UPDATED_0.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p11
+  quote: The demand charge is applied to the peak demand within a month, within the peak period.
+  note: The proposal prices the demand charge in $/kVA/month; the interval length is not stated.
+- codes: [Tariff 3, Tariff 5, Tariff 6, Tariff 7]
+  doc: sources/archive/powerwater/2022-23/Power_and_Water_Corporation_-_Network_Pricing_Proposal_2022-23_-_updated_29_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p11
+  quote: The demand charge is applied to the peak demand within a month, within the peak period.
+  note: The proposal prices the demand charge in $/kVA/month; the interval length is not stated.

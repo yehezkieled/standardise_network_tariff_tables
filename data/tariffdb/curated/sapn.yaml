@@ -5742,6 +5742,1883 @@ tou_schedules:
       tariff, whose Table 6 (pdf:p25) High Voltage Business Annual Demand | HVAD block gives the peak demand row ''November
       – March: • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days''. [UNSURE] The document does not say in words
       that a site-specific tariff keeps the standard tariff''s windows; its prices sit in the same Table 9 columns.'
+- id: sapn-1617-actual-demand
+  doc: sources/archive/sapn/2016-17/SAPN_Tariffs_1_July_2016_id55342_20170224.pdf
+  fin_year: 2016-17
+  name: Business monthly actual kVA demand windows (BD, SBD, HBD, BDT, SBDT)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: 'Actual Demand charges for business customers are determined on the basis of the maximum half-hour trading interval
+    since the last meter read (Type 1-4 meters are assumed to be read each calendar month) for:'
+  note: Note 5 of 'Notes accompanying 2016/17 Tariffs' (p10). 'c. Off-peak Demand at all other times (the price is zero for
+    actual off-peak demand).' Shoulder is stated as 'CST or (when operating) CDST', i.e. local clock time; the peak window
+    is stated in CDST and falls wholly in November to March, all of which South Australia spends on daylight saving time,
+    so both read as local time. 'Work days' is not defined in the document.
+  windows:
+  - period: peak
+    label: Summer Peak Demand
+    days: business_day
+    start: '16:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November to March
+    season: summer
+    locator: pdf:p10
+    quote: a. Summer Peak Demand on work days between 1600 and 2100 CDST during November to March only;
+  - period: shoulder
+    label: Year-round Shoulder Demand
+    days: business_day
+    start: '12:00'
+    end: '16:00'
+    months: all
+    season_label: Year-round
+    locator: pdf:p10
+    quote: b. Year-round Shoulder Demand on work days between 1200 and 1600 CST or (when operating) CDST);
+  tariffs:
+  - codes:
+    - BD
+    applies_to: demand
+    locator: pdf-ocr:p1
+    quote: BD Business Monthly Actual kVA Demand $ 0.0505
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+  - codes:
+    - SBD
+    applies_to: demand
+    locator: pdf-ocr:p1
+    quote: SBD Business Monthly Actual kVA Demand
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+  - codes:
+    - HBD
+    applies_to: demand
+    locator: pdf-ocr:p1
+    quote: HBD Business Monthly Actual kVA Demand
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+  - codes:
+    - BDT
+    applies_to: demand
+    locator: pdf-ocr:p1
+    quote: BDT Business Monthly Actual kVA Demand Trans. (obs. July 2016)
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+  - codes:
+    - SBDT
+    applies_to: demand
+    locator: pdf-ocr:p1
+    quote: SBDT Business Monthly Actual kVA Demand Transition
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+- id: sapn-1617-mrd-demand
+  doc: sources/archive/sapn/2016-17/SAPN_Tariffs_1_July_2016_id55342_20170224.pdf
+  fin_year: 2016-17
+  name: Residential monthly actual kW demand windows (MRD)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: Actual Demand charges for residential customers are determined on the basis of the maximum half-hour trading interval
+    since the last meter read
+  note: 'Note 6 of ''Notes accompanying 2016/17 Tariffs'' (p10); note 2 j. (p8-9) gives the seasons: ''different prices applying
+    in the peak summer months (November to March) and the shoulder winter months (April to October)''. The summer window is
+    stated in CDST and falls wholly in South Australia''s daylight saving months; the winter one in ''CST or (when operating)
+    CDST'', so both read as local time.'
+  windows:
+  - period: peak
+    label: Summer Peak Demand
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November to March
+    season: summer
+    locator: pdf:p10
+    quote: a. Summer Peak Demand on all days between 1600 and 2100 CDST during November to March only;
+  - period: shoulder
+    label: Winter Shoulder Demand
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10
+    season_label: April to October
+    season: winter
+    locator: pdf:p9
+    quote: months (April to October), as detailed in the Tariff Schedule. The time period when the monthly peak demand is
+      measured is between 1600 and 2100 local SA time.
+  tariffs:
+  - codes:
+    - MRD
+    applies_to: demand
+    locator: pdf-ocr:p1
+    quote: MRD Residential Monthly Actual kW Demand (min demand 1.0 kW)
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+- id: sapn-1617-two-rate-energy
+  doc: sources/archive/sapn/2016-17/SAPN_Tariffs_1_July_2016_id55342_20170224.pdf
+  fin_year: 2016-17
+  name: Business two-rate peak and off-peak energy windows
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p10
+  quote: Peak energy is energy consumed on business days between the hours of 0700 and 2100 Central Standard Time.
+  note: 'Note 6 (p10): ''Type 6 meters typically measure this for week days whereas Type 1-5 meters will measure this in on
+    work days. For Distribution Network Users with Type 6 metering that does not recognize specific days, peak energy is energy
+    consumed on each day between the hours of 0700 and 2100 (Central Standard Time).'' The windows are those of business days;
+    a Type 6 meter that does not recognise days records peak on every day. BDT and SBDT are the two-rate parts of the demand
+    transition tariffs (their usage columns are Peak and Off-Peak).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: 00:00
+    end: 07:00
+    locator: pdf:p10
+    quote: 7. Off-peak energy is energy consumed other than peak energy.
+  - period: peak
+    label: Peak
+    days: business_day
+    start: 07:00
+    end: '21:00'
+    locator: pdf:p10
+    quote: Peak energy is energy consumed on business days between the hours of 0700 and 2100 Central Standard Time.
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p10
+    quote: 7. Off-peak energy is energy consumed other than peak energy.
+  - period: off_peak
+    label: Off-peak
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p10
+    quote: 7. Off-peak energy is energy consumed other than peak energy.
+  tariffs:
+  - codes:
+    - B2R
+    applies_to: usage
+    locator: pdf-ocr:p1
+    quote: B2R Business Two-Rate
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+  - codes:
+    - B2RN
+    applies_to: usage
+    locator: pdf-ocr:p1
+    quote: B2RN Business Two-Rate (negotiated service)
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+  - codes:
+    - LB2R
+    applies_to: usage
+    locator: pdf-ocr:p1
+    quote: LB2R Business Two-Rate Transition
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+  - codes:
+    - B2R124H
+    applies_to: usage
+    locator: pdf-ocr:p1
+    quote: B2R124H High Voltage Business Two-Rate (obsolete July 2015)
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+  - codes:
+    - BDT
+    applies_to: usage
+    locator: pdf-ocr:p1
+    quote: BDT Business Monthly Actual kVA Demand Trans. (obs. July 2016)
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+  - codes:
+    - SBDT
+    applies_to: usage
+    locator: pdf-ocr:p1
+    quote: SBDT Business Monthly Actual kVA Demand Transition
+    note: Row of the 2016/17 Final Network Prices schedule (p1, an image read by OCR), the page the rates come from.
+- id: sapn-1718-actual-demand
+  doc: sources/archive/sapn/2017-18/AER_approved_-_SA_Power_Networks_2017-18_Annual_Pricing_Proposal_-_12_May_2017.pdf
+  fin_year: 2017-18
+  name: Business monthly actual kVA demand windows (BD, SBD, HBD, BDT, SBDT)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p19
+  quote: 'Maximum demand charge based on actual monthly maximum kVA demand measured:'
+  note: 'The Business monthly actual kVA demand tariffs'' Demand row: ''Maximum demand charge based on actual monthly maximum
+    kVA demand measured: Over a 30 minute time period; and 12:00 to 16:00hrs local time, workdays, 12 months (Shoulder); 16:00
+    to 21:00hrs local time, workdays, Nov-March (Peak).'' The SBD, SBDT, BD, BDT and HBD rows of the tariff structure tables
+    state the same. ''Workdays'' is not defined in the document.'
+  windows:
+  - period: peak
+    label: Peak
+    days: business_day
+    start: '16:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: Nov-March
+    season: summer
+    locator: pdf:p19
+    quote: 16:00 to 21:00hrs local time, workdays, Nov- March (Peak).
+  - period: shoulder
+    label: Shoulder
+    days: business_day
+    start: '12:00'
+    end: '16:00'
+    months: all
+    season_label: 12 months
+    locator: pdf:p20
+    quote: 12:00 to 16:00hrs local time, workdays, 12 months (Shoulder); and
+  tariffs:
+  - codes:
+    - BD
+    applies_to: demand
+    locator: pdf:p55
+    quote: BD Business Monthly Actual kVA Demand
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - SBD
+    applies_to: demand
+    locator: pdf:p55
+    quote: SBD Business Monthly Actual kVA Demand
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - HBD
+    applies_to: demand
+    locator: pdf:p55
+    quote: HBD Business Monthly Actual kVA Demand
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - BDT
+    applies_to: demand
+    locator: pdf:p55
+    quote: BDT Business Monthly Actual kVA Demand Trans. (obs. July 2016)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - SBDT
+    applies_to: demand
+    locator: pdf:p55
+    quote: SBDT Business Monthly Actual kVA Demand Transition
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+- id: sapn-1718-mrd-demand
+  doc: sources/archive/sapn/2017-18/AER_approved_-_SA_Power_Networks_2017-18_Annual_Pricing_Proposal_-_12_May_2017.pdf
+  fin_year: 2017-18
+  name: Residential monthly actual kW demand windows (MRD)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p17
+  quote: 'Demand $/kW/day Maximum demand charge based on monthly maximum kW demand measured:  Over a 30 minute time period
+     Between 16:00-21:00hrs local time  All days except Christmas Day  Higher charge from November to March (Peak)  Lower
+    charge April to October (Shoulder)'
+  note: 'Residential monthly actual kW demand (MRD) Demand row. ''All days except Christmas Day'': the all-days windows also
+    cover Christmas Day, which the tariff excludes.'
+  windows:
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November to March
+    season: summer
+    locator: pdf:p17
+    quote: 'Demand $/kW/day Maximum demand charge based on monthly maximum kW demand measured:  Over a 30 minute time period
+       Between 16:00-21:00hrs local time  All days except Christmas Day  Higher charge from November to March (Peak) 
+      Lower charge April to October (Shoulder)'
+  - period: shoulder
+    label: Shoulder
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10
+    season_label: April to October
+    season: winter
+    locator: pdf:p17
+    quote: 'Demand $/kW/day Maximum demand charge based on monthly maximum kW demand measured:  Over a 30 minute time period
+       Between 16:00-21:00hrs local time  All days except Christmas Day  Higher charge from November to March (Peak) 
+      Lower charge April to October (Shoulder)'
+  tariffs:
+  - codes:
+    - MRD
+    applies_to: demand
+    locator: pdf:p55
+    quote: MRD Residential Monthly Actual kW Demand (min demand 1.0 kW)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+- id: sapn-1718-two-rate-energy
+  doc: sources/archive/sapn/2017-18/AER_approved_-_SA_Power_Networks_2017-18_Annual_Pricing_Proposal_-_12_May_2017.pdf
+  fin_year: 2017-18
+  name: Business two-rate peak and off-peak energy windows
+  time_basis: standard_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p21
+  quote: 'Based on usage:  Higher rate for peak 07:00-21:00hrs CST workdays; and'
+  note: 'Usage rows of the two-rate tariffs (B2R, LB2R, B2R124H) and of the demand transition tariffs (SBDT, BDT). Public
+    holidays: ''Where metering does not record public holidays or weekends, peak rates will apply at times on non-work days.''
+    (p18), so public holidays are non-work days where the meter records them.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: 00:00
+    end: 07:00
+    locator: pdf:p21
+    quote: Lower rate for off-peak 21:00-07:00hrs CST workdays and all hours non-work days
+  - period: peak
+    label: Peak
+    days: business_day
+    start: 07:00
+    end: '21:00'
+    locator: pdf:p21
+    quote: 'Based on usage:  Higher rate for peak 07:00-21:00hrs CST workdays; and'
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p21
+    quote: Lower rate for off-peak 21:00-07:00hrs CST workdays and all hours non-work days
+  - period: off_peak
+    label: Off-peak
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p21
+    quote: Lower rate for off-peak 21:00-07:00hrs CST workdays and all hours non-work days
+  tariffs:
+  - codes:
+    - B2R
+    applies_to: usage
+    locator: pdf:p55
+    quote: B2R Business Two-Rate
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - B2RN
+    applies_to: usage
+    locator: pdf:p55
+    quote: B2RN Business Two-Rate (negotiated service)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - LB2R
+    applies_to: usage
+    locator: pdf:p55
+    quote: LB2R Business Two-Rate Transition
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - B2R124H
+    applies_to: usage
+    locator: pdf:p55
+    quote: B2R124H High Voltage Business Two-Rate (obsolete July 2015)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - BDT
+    applies_to: usage
+    locator: pdf:p55
+    quote: BDT Business Monthly Actual kVA Demand Trans. (obs. July 2016)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - SBDT
+    applies_to: usage
+    locator: pdf:p55
+    quote: SBDT Business Monthly Actual kVA Demand Transition
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+- id: sapn-1819-actual-demand
+  doc: sources/archive/sapn/2018-19/SA_Power_Networks_Pricing_Proposal_2018_v2.2F.pdf
+  fin_year: 2018-19
+  name: Business monthly actual kVA demand windows (BD, SBD, HBD, BDT, SBDT)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p18
+  quote: 'Maximum demand charge based on actual monthly maximum kVA demand measured:'
+  note: 'The Business monthly actual kVA demand tariffs'' Demand row: ''Maximum demand charge based on actual monthly maximum
+    kVA demand measured: Over a 30 minute time period; and 12:00 to 16:00hrs local time, workdays, 12 months (Shoulder); 16:00
+    to 21:00hrs local time, workdays, Nov-March (Peak).'' The SBD, SBDT, BD, BDT and HBD rows of the tariff structure tables
+    state the same. ''Workdays'' is not defined in the document.'
+  windows:
+  - period: peak
+    label: Peak
+    days: business_day
+    start: '16:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: Nov-March
+    season: summer
+    locator: pdf:p18
+    quote: 16:00 to 21:00hrs local time, workdays, Nov-March (Peak).
+  - period: shoulder
+    label: Shoulder
+    days: business_day
+    start: '12:00'
+    end: '16:00'
+    months: all
+    season_label: 12 months
+    locator: pdf:p20
+    quote: 12:00 to 16:00hrs local time, workdays, 12 months (Shoulder); and
+  tariffs:
+  - codes:
+    - BD
+    applies_to: demand
+    locator: pdf:p52
+    quote: BD Business Monthly Actual kVA Demand
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - SBD
+    applies_to: demand
+    locator: pdf:p52
+    quote: SBD Business Monthly Actual kVA Demand
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - HBD
+    applies_to: demand
+    locator: pdf:p52
+    quote: HBD Business Monthly Actual kVA Demand
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - BDT
+    applies_to: demand
+    locator: pdf:p52
+    quote: BDT Business Monthly Actual kVA Demand Trans. (obs. July 2016)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - SBDT
+    applies_to: demand
+    locator: pdf:p52
+    quote: SBDT Business Monthly Actual kVA Demand Transition
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+- id: sapn-1819-mrd-demand
+  doc: sources/archive/sapn/2018-19/SA_Power_Networks_Pricing_Proposal_2018_v2.2F.pdf
+  fin_year: 2018-19
+  name: Residential monthly actual kW demand windows (MRD)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p17
+  quote: Between 16:00-21:00hrs local time
+  note: 'Residential monthly actual kW demand (MRD) Demand row. ''All days except Christmas Day'': the all-days windows also
+    cover Christmas Day, which the tariff excludes.'
+  windows:
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November to March
+    season: summer
+    locator: pdf:p17
+    quote: Higher charge from November to March (Peak)
+  - period: shoulder
+    label: Shoulder
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10
+    season_label: April to October
+    season: winter
+    locator: pdf:p17
+    quote: Lower charge April to October (Shoulder)
+  tariffs:
+  - codes:
+    - MRD
+    applies_to: demand
+    locator: pdf:p52
+    quote: MRD Residential Monthly Actual kW Demand
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+- id: sapn-1819-two-rate-energy
+  doc: sources/archive/sapn/2018-19/SA_Power_Networks_Pricing_Proposal_2018_v2.2F.pdf
+  fin_year: 2018-19
+  name: Business two-rate peak and off-peak energy windows
+  time_basis: standard_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p18
+  quote: Higher rate for peak 07:00 to 21:00 hrs CST workdays; and
+  note: 'Usage rows of the two-rate tariffs (B2R, LB2R, B2R124H) and of the demand transition tariffs (SBDT, BDT). Public
+    holidays: ''Where metering does not record public holidays or weekends, peak rates will apply at times on non-work days.''
+    (p18), so public holidays are non-work days where the meter records them.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: 00:00
+    end: 07:00
+    locator: pdf:p21
+    quote: Lower rate for off-peak 21:00- 07:00hrs CST workdays and all hours non-work days.
+  - period: peak
+    label: Peak
+    days: business_day
+    start: 07:00
+    end: '21:00'
+    locator: pdf:p18
+    quote: Higher rate for peak 07:00 to 21:00 hrs CST workdays; and
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p21
+    quote: Lower rate for off-peak 21:00- 07:00hrs CST workdays and all hours non-work days.
+  - period: off_peak
+    label: Off-peak
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p21
+    quote: Lower rate for off-peak 21:00- 07:00hrs CST workdays and all hours non-work days.
+  tariffs:
+  - codes:
+    - B2R
+    applies_to: usage
+    locator: pdf:p52
+    quote: B2R Business Two-Rate
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - B2RN
+    applies_to: usage
+    locator: pdf:p52
+    quote: B2RN Business Two-Rate (negotiated service)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - LB2R
+    applies_to: usage
+    locator: pdf:p52
+    quote: LB2R Business Two-Rate Transition
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - B2R124H
+    applies_to: usage
+    locator: pdf:p52
+    quote: B2R124H High Voltage Business Two-Rate (obsolete July 2015)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - BDT
+    applies_to: usage
+    locator: pdf:p52
+    quote: BDT Business Monthly Actual kVA Demand Trans. (obs. July 2016)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - SBDT
+    applies_to: usage
+    locator: pdf:p52
+    quote: SBDT Business Monthly Actual kVA Demand Transition
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+- id: sapn-1920-actual-demand
+  doc: sources/archive/sapn/2019-20/AER_APPROVED_-_SA_Power_Networks_Pricing_Proposal_2019-20_-_May_2019.pdf
+  fin_year: 2019-20
+  name: Business monthly actual kVA demand windows (BD, SBD, HBD, BDT, SBDT)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p17
+  quote: 'Maximum demand charge based on actual monthly maximum kVA demand measured:'
+  note: 'The Business monthly actual kVA demand tariffs'' Demand row: ''Maximum demand charge based on actual monthly maximum
+    kVA demand measured: Over a 30 minute time period; and 12:00 to 16:00hrs local time, workdays, 12 months (Shoulder); 16:00
+    to 21:00hrs local time, workdays, Nov-March (Peak).'' The SBD, SBDT, BD, BDT and HBD rows of the tariff structure tables
+    state the same. ''Workdays'' is not defined in the document.'
+  windows:
+  - period: peak
+    label: Peak
+    days: business_day
+    start: '16:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: Nov-March
+    season: summer
+    locator: pdf:p17
+    quote: 16:00 to 21:00hrs local time, workdays, Nov-March (Peak).
+  - period: shoulder
+    label: Shoulder
+    days: business_day
+    start: '12:00'
+    end: '16:00'
+    months: all
+    season_label: 12 months
+    locator: pdf:p18
+    quote: 12:00 to 16:00hrs local time, workdays, 12 months (Shoulder); and
+  tariffs:
+  - codes:
+    - BD
+    applies_to: demand
+    locator: pdf:p45
+    quote: BD Business Monthly Actual kVA Demand
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - SBD
+    applies_to: demand
+    locator: pdf:p45
+    quote: SBD Business Monthly Actual kVA Demand
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - HBD
+    applies_to: demand
+    locator: pdf:p45
+    quote: HBD Business Monthly Actual kVA Demand
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - BDT
+    applies_to: demand
+    locator: pdf:p45
+    quote: BDT Business Monthly Actual kVA Demand Trans. (obs. July 2016)$ 0.4198
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - SBDT
+    applies_to: demand
+    locator: pdf:p45
+    quote: SBDT Business Monthly Actual kVA Demand Transition
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+- id: sapn-1920-mrd-demand
+  doc: sources/archive/sapn/2019-20/AER_APPROVED_-_SA_Power_Networks_Pricing_Proposal_2019-20_-_May_2019.pdf
+  fin_year: 2019-20
+  name: Residential monthly actual kW demand windows (MRD)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p15
+  quote: minute time period  Between 16:00-21:00hrs local time  All days except Christmas Day  Higher charge from November
+    to March (Peak)  Lower charge April to October (Shoulder)
+  note: 'Residential monthly actual kW demand (MRD) Demand row. ''All days except Christmas Day'': the all-days windows also
+    cover Christmas Day, which the tariff excludes.'
+  windows:
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November to March
+    season: summer
+    locator: pdf:p15
+    quote: minute time period  Between 16:00-21:00hrs local time  All days except Christmas Day  Higher charge from November
+      to March (Peak)  Lower charge April to October (Shoulder)
+  - period: shoulder
+    label: Shoulder
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10
+    season_label: April to October
+    season: winter
+    locator: pdf:p15
+    quote: minute time period  Between 16:00-21:00hrs local time  All days except Christmas Day  Higher charge from November
+      to March (Peak)  Lower charge April to October (Shoulder)
+  tariffs:
+  - codes:
+    - MRD
+    applies_to: demand
+    locator: pdf:p45
+    quote: MRD Residential Monthly Actual kW Demand
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+- id: sapn-1920-two-rate-energy
+  doc: sources/archive/sapn/2019-20/AER_APPROVED_-_SA_Power_Networks_Pricing_Proposal_2019-20_-_May_2019.pdf
+  fin_year: 2019-20
+  name: Business two-rate peak and off-peak energy windows
+  time_basis: standard_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p19
+  quote:  Higher rate for peak 07:00-21:00hrs CST workdays; and
+  note: 'Usage rows of the two-rate tariffs (B2R, LB2R, B2R124H) and of the demand transition tariffs (SBDT, BDT). Public
+    holidays: ''Where metering does not record public holidays or weekends, peak rates will apply at times on non-work days.''
+    (p16), so public holidays are non-work days where the meter records them.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: 00:00
+    end: 07:00
+    locator: pdf:p16
+    quote: Lower rate for off-peak 21:00 to 07:00hrs CST workdays and all hours non-work days.
+  - period: peak
+    label: Peak
+    days: business_day
+    start: 07:00
+    end: '21:00'
+    locator: pdf:p19
+    quote:  Higher rate for peak 07:00-21:00hrs CST workdays; and
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p16
+    quote: Lower rate for off-peak 21:00 to 07:00hrs CST workdays and all hours non-work days.
+  - period: off_peak
+    label: Off-peak
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p16
+    quote: Lower rate for off-peak 21:00 to 07:00hrs CST workdays and all hours non-work days.
+  tariffs:
+  - codes:
+    - B2R
+    applies_to: usage
+    locator: pdf:p45
+    quote: B2R Business Two-Rate
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - B2RN
+    applies_to: usage
+    locator: pdf:p45
+    quote: B2RN Business Two-Rate (negotiated service)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - LB2R
+    applies_to: usage
+    locator: pdf:p45
+    quote: LB2R Business Two-Rate Transition
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - B2R124H
+    applies_to: usage
+    locator: pdf:p45
+    quote: B2R124H High Voltage Business Two-Rate (obsolete July 2015)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - BDT
+    applies_to: usage
+    locator: pdf:p45
+    quote: BDT Business Monthly Actual kVA Demand Trans. (obs. July 2016)$ 0.4198
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - SBDT
+    applies_to: usage
+    locator: pdf:p45
+    quote: SBDT Business Monthly Actual kVA Demand Transition
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+- id: sapn-2021-res-tou-energy
+  doc: sources/archive/sapn/2020-21/SAPN_Initial_Pricing_Proposal_June_2020-FINAL_17062020_0.pdf
+  fin_year: 2020-21
+  name: Residential Time of Use / Prosumer energy windows (RTOU, RPRO)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p19
+  quote: 1:00am to 6:00am (local time) at 50% of the
+  note: Peak is 'Peak Pricing for the 14 hours per day not captured in the off-peak/solar sponge windows'; off-peak and solar
+    sponge are 'Five-hour off-peak block every day' in local time.
+  windows:
+  - period: peak
+    label: Peak
+    days: all_days
+    start: 00:00
+    end: 01:00
+    locator: pdf:p19
+    quote: Usage – Peak $/kWh Peak Pricing for the 14 hours per day not
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 01:00
+    end: 06:00
+    locator: pdf:p19
+    quote: 1:00am to 6:00am (local time) at 50% of the
+  - period: peak
+    label: Peak
+    days: all_days
+    start: 06:00
+    end: '10:00'
+    locator: pdf:p19
+    quote: Usage – Peak $/kWh Peak Pricing for the 14 hours per day not
+  - period: solar_soak
+    label: Solar Sponge
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+    locator: pdf:p19
+    quote: Sponge 10:00am to 3:00pm (local time) at 25% of the
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '15:00'
+    end: '24:00'
+    locator: pdf:p19
+    quote: Usage – Peak $/kWh Peak Pricing for the 14 hours per day not
+  tariffs:
+  - codes:
+    - RTOU/RTOUCL
+    applies_to: usage
+    locator: pdf:p47
+    quote: RTOU/RTOUCL RTOU/RTOUCL Residential Time of Use
+    note: The schedule writes the code with its controlled load partner, as the price list does ('RTOU/RTOUCL'). Row of the
+      NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - RPRO/RPROCL
+    applies_to: usage
+    locator: pdf:p47
+    quote: RPRO/RPROCL RPRO/RPROCL Residential Prosumer
+    note: The schedule writes the code with its controlled load partner, as the price list does ('RTOU/RTOUCL'). Row of the
+      NUoS tariff schedule, the page the rates come from.
+- id: sapn-2021-rpro-demand
+  doc: sources/archive/sapn/2020-21/SAPN_Initial_Pricing_Proposal_June_2020-FINAL_17062020_0.pdf
+  fin_year: 2020-21
+  name: Residential Prosumer summer demand window (RPRO)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p19
+  quote: Between 17:00-21:00hrs local time
+  note: 'Demand – Summer Nov-March only row of the Residential Prosumer tariff: ''Monthly demand charge based on maximum kW
+    demand measured: Highest daily average demand over a four-hour period November to March. Between 17:00-21:00hrs local
+    time''.'
+  windows:
+  - period: peak
+    label: Demand – Summer
+    days: all_days
+    start: '17:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November to March
+    locator: pdf:p19
+    quote: Highest daily average demand over a four- hour period November to March.
+  tariffs:
+  - codes:
+    - RPRO/RPROCL
+    applies_to: demand
+    locator: pdf:p47
+    quote: RPRO/RPROCL RPRO/RPROCL Residential Prosumer
+    note: The schedule writes the code with its controlled load partner, as the price list does ('RTOU/RTOUCL'). Row of the
+      NUoS tariff schedule, the page the rates come from.
+- id: sapn-2021-sbd-demand
+  doc: sources/archive/sapn/2020-21/SAPN_Initial_Pricing_Proposal_June_2020-FINAL_17062020_0.pdf
+  fin_year: 2020-21
+  name: Small business actual kVA demand transition windows (SBD)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p20
+  quote: 16:00 to 21:00hrs local time, workdays, Nov-March (Peak).
+  note: Small business Actual kVA demand - Transition rows of Table 5. 'Workdays' is not defined in the document. BD and HBD
+    (Table 6) state the same windows without a time basis, so they get none here.
+  windows:
+  - period: peak
+    label: Demand – Peak Actual
+    days: business_day
+    start: '16:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: Nov-March
+    season: summer
+    locator: pdf:p20
+    quote: 16:00 to 21:00hrs local time, workdays, Nov-March (Peak).
+  - period: shoulder
+    label: Demand – Shoulder Actual
+    days: business_day
+    start: '12:00'
+    end: '16:00'
+    months: all
+    season_label: 12 months
+    locator: pdf:p20
+    quote: 12:00 to 16:00hrs local time, workdays, 12 months (Shoulder)
+  tariffs:
+  - codes:
+    - SBD
+    applies_to: demand
+    locator: pdf:p47
+    quote: SBD SBD Small Business Actual Monthly Demand (transition)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+- id: sapn-2122-res-tou-energy
+  doc: sources/archive/sapn/2021-22/SAPN_Annual_Pricing_Proposal_29_April_2021_0.pdf
+  fin_year: 2021-22
+  name: Residential Time of Use / Prosumer energy windows (RTOU, RPRO)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p17
+  quote: 1:00am to 6:00am (local time) at 50% of the
+  note: Peak is 'Peak Pricing for the 14 hours per day not captured in the off-peak/solar sponge windows'; off-peak and solar
+    sponge are 'Five-hour off-peak block every day' in local time.
+  windows:
+  - period: peak
+    label: Peak
+    days: all_days
+    start: 00:00
+    end: 01:00
+    locator: pdf:p17
+    quote: Usage – Peak $/kWh Peak Pricing for the 14 hours per day not
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 01:00
+    end: 06:00
+    locator: pdf:p17
+    quote: 1:00am to 6:00am (local time) at 50% of the
+  - period: peak
+    label: Peak
+    days: all_days
+    start: 06:00
+    end: '10:00'
+    locator: pdf:p17
+    quote: Usage – Peak $/kWh Peak Pricing for the 14 hours per day not
+  - period: solar_soak
+    label: Solar Sponge
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+    locator: pdf:p17
+    quote: Sponge 10:00am to 3:00pm (local time) at 25% of the
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '15:00'
+    end: '24:00'
+    locator: pdf:p17
+    quote: Usage – Peak $/kWh Peak Pricing for the 14 hours per day not
+  tariffs:
+  - codes:
+    - RTOU/RTOUCL
+    applies_to: usage
+    locator: pdf:p48
+    quote: RTOU/RTOUCL RTOU/RTOUCL Residential Time of Use
+    note: The schedule writes the code with its controlled load partner, as the price list does ('RTOU/RTOUCL'). Row of the
+      NUoS tariff schedule, the page the rates come from.
+  - codes:
+    - RPRO/RPROCL
+    applies_to: usage
+    locator: pdf:p48
+    quote: RPRO/RPROCL RPRO/RPROCL Residential Prosumer
+    note: The schedule writes the code with its controlled load partner, as the price list does ('RTOU/RTOUCL'). Row of the
+      NUoS tariff schedule, the page the rates come from.
+- id: sapn-2122-rpro-demand
+  doc: sources/archive/sapn/2021-22/SAPN_Annual_Pricing_Proposal_29_April_2021_0.pdf
+  fin_year: 2021-22
+  name: Residential Prosumer summer demand window (RPRO)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p17
+  quote: Between 17:00-21:00hrs local time
+  note: 'Demand – Summer Nov-March only row of the Residential Prosumer tariff: ''Monthly demand charge based on maximum kW
+    demand measured: Highest daily average demand over a four-hour period November to March. Between 17:00-21:00hrs local
+    time''.'
+  windows:
+  - period: peak
+    label: Demand – Summer
+    days: all_days
+    start: '17:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November to March
+    locator: pdf:p17
+    quote: Highest daily average demand over a four- hour period November to March.
+  tariffs:
+  - codes:
+    - RPRO/RPROCL
+    applies_to: demand
+    locator: pdf:p48
+    quote: RPRO/RPROCL RPRO/RPROCL Residential Prosumer
+    note: The schedule writes the code with its controlled load partner, as the price list does ('RTOU/RTOUCL'). Row of the
+      NUoS tariff schedule, the page the rates come from.
+- id: sapn-2122-sbd-demand
+  doc: sources/archive/sapn/2021-22/SAPN_Annual_Pricing_Proposal_29_April_2021_0.pdf
+  fin_year: 2021-22
+  name: Small business actual kVA demand transition windows (SBD)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p19
+  quote: 'Peak Actual Nov-March only monthly maximum kVA demand measured:  Over a 30-minute time period; and  16:00 to 21:00hrs
+    local time, workdays, Nov-March (Peak).'
+  note: Small business Actual kVA demand - Transition rows of Table 5. 'Workdays' is not defined in the document. BD and HBD
+    (Table 6) state the same windows without a time basis, so they get none here.
+  windows:
+  - period: peak
+    label: Demand – Peak Actual
+    days: business_day
+    start: '16:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: Nov-March
+    season: summer
+    locator: pdf:p19
+    quote: 'Demand – $/kVA/month Maximum demand charge based on actual Transition (Type 4) Peak Actual Nov-March only monthly
+      maximum kVA demand measured:  Over a 30-minute time period; and  16:00 to 21:00hrs local time, workdays, Nov-March
+      (Peak).'
+  - period: shoulder
+    label: Demand – Shoulder Actual
+    days: business_day
+    start: '12:00'
+    end: '16:00'
+    months: all
+    season_label: 12 months
+    locator: pdf:p19
+    quote: 'Shoulder Actual All year monthly maximum kVA demand measured:  Over a 30-minute time period; and  12:00 to 16:00hrs
+      local time, workdays, 12 months (Shoulder)'
+  tariffs:
+  - codes:
+    - SBD
+    applies_to: demand
+    locator: pdf:p48
+    quote: SBD SBD Small Business Actual Monthly Demand (transition)
+    note: Row of the NUoS tariff schedule, the page the rates come from.
+- id: sapn-2223-res-tou-energy
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  name: Residential Time of Use / Prosumer energy windows (RTOU, RPRO)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: Usage – Off-peak $/kWh Five hour window of 1:00am – 6:00am.
+  note: 'Peak is ''14 hours per day not captured in the Off-peak/Solar Sponge windows''. Time basis: ''Residential tariffs
+    are based on Local Time (CDT/CDST) unless otherwise stated.'' (Table 3).'
+  windows:
+  - period: peak
+    label: Peak
+    days: all_days
+    start: 00:00
+    end: 01:00
+    locator: pdf:p25
+    quote: Usage – Peak $/kWh 14 hours per day not captured in the Off- RTOU Interval meter, peak/Solar Sponge windows.
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 01:00
+    end: 06:00
+    locator: pdf:p25
+    quote: Usage – Off-peak $/kWh Five hour window of 1:00am – 6:00am.
+  - period: peak
+    label: Peak
+    days: all_days
+    start: 06:00
+    end: '10:00'
+    locator: pdf:p25
+    quote: Usage – Peak $/kWh 14 hours per day not captured in the Off- RTOU Interval meter, peak/Solar Sponge windows.
+  - period: solar_soak
+    label: Solar Sponge
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+    locator: pdf:p25
+    quote: Usage – Solar $/kWh Five hour window of 10:00am – 3:00pm.
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '15:00'
+    end: '24:00'
+    locator: pdf:p25
+    quote: Usage – Peak $/kWh 14 hours per day not captured in the Off- RTOU Interval meter, peak/Solar Sponge windows.
+  tariffs:
+  - codes:
+    - RTOU
+    applies_to: usage
+    locator: pdf:p61
+    quote: RTOU RTOU Residential Time of Use
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - RPRO
+    applies_to: usage
+    locator: pdf:p61
+    quote: RPRO RPRO Residential Prosumer
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+- id: sapn-2223-rpro-demand
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  name: Residential Prosumer summer demand window (RPRO)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: 'Demand – $/kW/day Highest daily average demand interval Summer Nov-March Only November – March: • 5:00pm – 9:00pm
+    CDST All days'
+  note: Window stated as '5:00pm – 9:00pm CDST All days', November–March (wholly within South Australia's daylight saving
+    months).
+  windows:
+  - period: peak
+    label: Demand – Summer
+    days: all_days
+    start: '17:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November – March
+    locator: pdf:p25
+    quote: 'Summer Nov-March Only November – March: • 5:00pm – 9:00pm CDST All days'
+  tariffs:
+  - codes:
+    - RPRO
+    applies_to: demand
+    locator: pdf:p61
+    quote: RPRO RPRO Residential Prosumer
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+- id: sapn-2223-electrify-energy
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  name: Residential Electrify trial energy windows (RELE)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: Usage – Peak $/kWh Four hour peak window of 5:00pm – 9:00pm.
+  note: 'Shoulder is ''Shoulder pricing for the 15 hours per day not captured in the Off-peak/Solar Sponge windows'' (Table
+    3); Electrify has no off-peak window. Time basis: ''Residential tariffs are based on Local Time (CDT/CDST) unless otherwise
+    stated.'''
+  windows:
+  - period: shoulder
+    label: Shoulder
+    days: all_days
+    start: 00:00
+    end: '10:00'
+    locator: pdf:p25
+    quote: Usage – Shoulder $/kWh Shoulder pricing for the 15 hours per day not
+  - period: solar_soak
+    label: Solar Sponge
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+    locator: pdf:p25
+    quote: (Type 5) Usage – Solar $/kWh Five hour window of 10:00am – 3:00pm.
+  - period: shoulder
+    label: Shoulder
+    days: all_days
+    start: '15:00'
+    end: '17:00'
+    locator: pdf:p25
+    quote: Usage – Shoulder $/kWh Shoulder pricing for the 15 hours per day not
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '17:00'
+    end: '21:00'
+    locator: pdf:p25
+    quote: Usage – Peak $/kWh Four hour peak window of 5:00pm – 9:00pm.
+  - period: shoulder
+    label: Shoulder
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p25
+    quote: Usage – Shoulder $/kWh Shoulder pricing for the 15 hours per day not
+  tariffs:
+  - codes:
+    - RELE
+    applies_to: usage
+    locator: pdf:p61
+    quote: RELE RELE Residential Electrify
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+- id: sapn-2223-cl-tou
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  name: Controlled Load (CL) interval-meter partner tariff windows
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p26
+  quote: Usage – Off-peak $/kWh Seven hour window of 11:30pm – 6:30am
+  note: Off-peak and Solar Sponge windows have 'a randomized start time of at least one hour'. 'Controlled Load partner tariffs
+    are based on CST.' (Table 4).
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 00:00
+    end: 06:30
+    locator: pdf:p26
+    quote: Usage – Off-peak $/kWh Seven hour window of 11:30pm – 6:30am
+  - period: peak
+    label: Peak
+    days: all_days
+    start: 06:30
+    end: 09:30
+    locator: pdf:p26
+    quote: Usage – Peak $/kWh 11 hours per day not captured in the Off- Residential | CL Interval meter peak/Solar Sponge
+      windows.
+  - period: solar_soak
+    label: Solar Sponge
+    days: all_days
+    start: 09:30
+    end: '15:30'
+    locator: pdf:p26
+    quote: Usage – Solar $/kWh Six hour window of 9:30am – 3:30pm with a
+  - period: peak
+    label: Peak
+    days: all_days
+    start: '15:30'
+    end: '23:30'
+    locator: pdf:p26
+    quote: Usage – Peak $/kWh 11 hours per day not captured in the Off- Residential | CL Interval meter peak/Solar Sponge
+      windows.
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '23:30'
+    end: '24:00'
+    locator: pdf:p26
+    quote: Usage – Off-peak $/kWh Seven hour window of 11:30pm – 6:30am
+  tariffs:
+  - codes:
+    - RTOU
+    applies_to: controlled_load
+    locator: pdf:p61
+    quote: RTOU RTOU Residential Time of Use
+    note: Row of the DUoS tariff schedule (Table 32, p61); the tariff schedules print this code's 'CL Single and TOU consumption'
+      Peak, Off-Peak and Solar Sponge prices, the Controlled Load | CL partner of an interval-metered tariff.
+  - codes:
+    - RPRO
+    applies_to: controlled_load
+    locator: pdf:p61
+    quote: RPRO RPRO Residential Prosumer
+    note: Row of the DUoS tariff schedule (Table 32, p61); the tariff schedules print this code's 'CL Single and TOU consumption'
+      Peak, Off-Peak and Solar Sponge prices, the Controlled Load | CL partner of an interval-metered tariff.
+  - codes:
+    - RELE
+    applies_to: controlled_load
+    locator: pdf:p61
+    quote: RELE RELE Residential Electrify
+    note: Row of the DUoS tariff schedule (Table 32, p61); the tariff schedules print this code's 'CL Single and TOU consumption'
+      Peak, Off-Peak and Solar Sponge prices, the Controlled Load | CL partner of an interval-metered tariff.
+- id: sapn-2223-sbtou-energy
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  name: Small Business Time of Use energy windows (SBTOU, SBTOUD)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p27
+  quote: Usage – Shoulder $/kWh 7:00am – 5:00pm WD November – March and
+  note: '''WD'' is defined in the document''s glossary (pdf:p101): ''WD Monday Tuesday Wednesday Thursday Friday excluding
+    Public Holidays'' and ''NWD Saturday, Sunday and Public Holidays'', so WD windows are business days and public holidays
+    take the non-business-day treatment. Time basis: ''Small Business tariffs are based on Local Time (CST/CDST).'' (Table
+    5).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: 00:00
+    end: 07:00
+    months: 11,12,1,2,3
+    season_label: November – March
+    locator: pdf:p27
+    quote: Usage – Off-peak $/kWh Off-peak pricing for all other times not
+  - period: shoulder
+    label: Shoulder
+    days: business_day
+    start: 07:00
+    end: '17:00'
+    months: 11,12,1,2,3
+    season_label: November – March
+    locator: pdf:p27
+    quote: Usage – Shoulder $/kWh 7:00am – 5:00pm WD November – March and
+  - period: peak
+    label: Peak
+    days: business_day
+    start: '17:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November – March
+    locator: pdf:p27
+    quote: Usage – Peak $/kWh 5:00pm – 9:00pm All days November – March.
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    months: 11,12,1,2,3
+    season_label: November – March
+    locator: pdf:p27
+    quote: Usage – Off-peak $/kWh Off-peak pricing for all other times not
+  - period: off_peak
+    label: Off-peak
+    days: non_business_day
+    start: 00:00
+    end: '17:00'
+    months: 11,12,1,2,3
+    season_label: November – March
+    locator: pdf:p27
+    quote: Usage – Off-peak $/kWh Off-peak pricing for all other times not
+  - period: peak
+    label: Peak
+    days: non_business_day
+    start: '17:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November – March
+    locator: pdf:p27
+    quote: Usage – Peak $/kWh 5:00pm – 9:00pm All days November – March.
+  - period: off_peak
+    label: Off-peak
+    days: non_business_day
+    start: '21:00'
+    end: '24:00'
+    months: 11,12,1,2,3
+    season_label: November – March
+    locator: pdf:p27
+    quote: Usage – Off-peak $/kWh Off-peak pricing for all other times not
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: 00:00
+    end: 07:00
+    months: 4,5,6,7,8,9,10
+    season_label: April – October
+    locator: pdf:p27
+    quote: Usage – Off-peak $/kWh Off-peak pricing for all other times not
+  - period: shoulder
+    label: Shoulder
+    days: business_day
+    start: 07:00
+    end: '21:00'
+    months: 4,5,6,7,8,9,10
+    season_label: April – October
+    locator: pdf:p27
+    quote: 7:00am – 9:00pm WD April – October.
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    months: 4,5,6,7,8,9,10
+    season_label: April – October
+    locator: pdf:p27
+    quote: Usage – Off-peak $/kWh Off-peak pricing for all other times not
+  - period: off_peak
+    label: Off-peak
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+    months: 4,5,6,7,8,9,10
+    season_label: April – October
+    locator: pdf:p27
+    quote: Usage – Off-peak $/kWh Off-peak pricing for all other times not
+  tariffs:
+  - codes:
+    - SBTOU
+    applies_to: usage
+    locator: pdf:p61
+    quote: SBTOU SBTOU Small Business Time of Use
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - SBTOUD
+    applies_to: usage
+    locator: pdf:p61
+    quote: SBTOUD SBTOUD Small Business Time of Use with Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+- id: sapn-2223-transition-demand
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  name: Actual monthly demand transition tariff windows (SBD, BD, HBD)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p27
+  quote: • 4:00pm – 9:00pm WD November – March
+  note: '''WD'' is defined in the document''s glossary (pdf:p101): ''WD Monday Tuesday Wednesday Thursday Friday excluding
+    Public Holidays'' and ''NWD Saturday, Sunday and Public Holidays'', so WD windows are business days and public holidays
+    take the non-business-day treatment. Time basis: ''Small Business tariffs are based on Local Time (CST/CDST).'' (Table
+    5) and ''Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated.'' (Table 6).'
+  windows:
+  - period: peak
+    label: Demand – Peak Actual
+    days: business_day
+    start: '16:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November – March
+    season: summer
+    locator: pdf:p27
+    quote: • 4:00pm – 9:00pm WD November – March
+  - period: shoulder
+    label: Demand – Shoulder Actual
+    days: business_day
+    start: '12:00'
+    end: '16:00'
+    months: all
+    season_label: 12 months
+    locator: pdf:p27
+    quote: • 12:00pm – 4:00pm WD 12 months
+  tariffs:
+  - codes:
+    - SBD
+    applies_to: demand
+    locator: pdf:p61
+    quote: SBD SBD Small Business Actual Monthly Demand (transition)
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - BD
+    applies_to: demand
+    locator: pdf:p61
+    quote: BD BD Large LV Business Actual Monthly Demand (transition)
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HBD
+    applies_to: demand
+    locator: pdf:p61
+    quote: HBD HBD HV Business Actual Monthly Demand (transition)
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+- id: sapn-2223-large-energy
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  name: Large LV and HV Business energy windows (annual and monthly demand tariffs)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Usage – Peak $/kWh 7:00am – 9:00pm WD.
+  note: '''WD'' is defined in the document''s glossary (pdf:p101): ''WD Monday Tuesday Wednesday Thursday Friday excluding
+    Public Holidays'' and ''NWD Saturday, Sunday and Public Holidays'', so WD windows are business days and public holidays
+    take the non-business-day treatment. Time basis: ''Large Business tariffs are based on Local Time (CST/CDST) unless otherwise
+    stated.'' (Table 6). Table 6 pairs each Large LV tariff with its HV counterpart (LBAD | HVAD | HVAD500, LBMD | HVMD).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: 00:00
+    end: 07:00
+    locator: pdf:p28
+    quote: Usage – Off-peak $/kWh At all other times not captured in the Peak
+  - period: peak
+    label: Peak
+    days: business_day
+    start: 07:00
+    end: '21:00'
+    locator: pdf:p28
+    quote: Usage – Peak $/kWh 7:00am – 9:00pm WD.
+  - period: off_peak
+    label: Off-peak
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: Usage – Off-peak $/kWh At all other times not captured in the Peak
+  - period: off_peak
+    label: Off-peak
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p28
+    quote: Usage – Off-peak $/kWh At all other times not captured in the Peak
+  tariffs:
+  - codes:
+    - LBAD
+    - LBADCBD
+    applies_to: usage
+    locator: pdf:p61
+    quote: LBAD LBADCBD Large LV Business Annual Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - LBMD
+    - LBMDCBD
+    applies_to: usage
+    locator: pdf:p61
+    quote: LBMD LBMDCBD Large LV Business Monthly Peak Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HVAD
+    - HVADCBD
+    applies_to: usage
+    locator: pdf:p61
+    quote: HVAD HVADCBD HV Business Annual Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HVMD
+    - HVMDCBD
+    applies_to: usage
+    locator: pdf:p61
+    quote: HVMD HVMDCBD HV Business Monthly Peak Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HVAD500
+    - HVAD500CBD
+    applies_to: usage
+    locator: pdf:p61
+    quote: HVAD500 HVAD500CBD HV Business Annual Demand <500kVA
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HVAD078
+    applies_to: usage
+    locator: pdf:p60
+    quote: HVAD078 HV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - HVAD265
+    applies_to: usage
+    locator: pdf:p60
+    quote: HVAD265 HV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - HVAD381
+    applies_to: usage
+    locator: pdf:p60
+    quote: HVAD381 HV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - HVAD439
+    applies_to: usage
+    locator: pdf:p60
+    quote: HVAD439 HV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD087
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD087 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD201
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD201 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD292
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD292 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD322
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD322 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD342
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD342 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD422
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD422 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD432
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD432 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD517
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD517 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD583
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD583 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD627
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD627 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD711
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD711 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD977
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBAD977 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBMD979
+    applies_to: usage
+    locator: pdf:p60
+    quote: LBMD979 Large LV Business Monthly Peak Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+- id: sapn-2223-cbd-peak-demand
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  name: Large Business peak demand window – CBD
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p28
+  quote: • CBD 11:00am – 5:00pm CDST WD
+  note: 'CBD-only codes take the CBD window and SA codes the non-CBD window, as the code columns of the tariff schedules are
+    headed ''SA'' and ''CBD only''. ''WD'' is defined in the document''s glossary (pdf:p101): ''WD Monday Tuesday Wednesday
+    Thursday Friday excluding Public Holidays'' and ''NWD Saturday, Sunday and Public Holidays'', so WD windows are business
+    days and public holidays take the non-business-day treatment.'
+  windows:
+  - period: peak
+    label: Demand – Peak (CBD)
+    days: business_day
+    start: '11:00'
+    end: '17:00'
+    months: 11,12,1,2,3
+    season_label: November – March
+    locator: pdf:p28
+    quote: • CBD 11:00am – 5:00pm CDST WD
+  tariffs:
+  - codes:
+    - LBADCBD
+    applies_to: demand
+    locator: pdf:p61
+    quote: LBAD LBADCBD Large LV Business Annual Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - LBMDCBD
+    applies_to: demand
+    locator: pdf:p61
+    quote: LBMD LBMDCBD Large LV Business Monthly Peak Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HVADCBD
+    applies_to: demand
+    locator: pdf:p61
+    quote: HVAD HVADCBD HV Business Annual Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HVMDCBD
+    applies_to: demand
+    locator: pdf:p61
+    quote: HVMD HVMDCBD HV Business Monthly Peak Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HVAD500CBD
+    applies_to: demand
+    locator: pdf:p61
+    quote: HVAD500 HVAD500CBD HV Business Annual Demand <500kVA
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+- id: sapn-2223-noncbd-peak-demand
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  name: Large Business peak demand window – non-CBD
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p28
+  quote: • Non CBD 5:00pm – 9:00pm CDST All days
+  note: SA codes (and the site-specific codes, all in the 'SA' column) take the non-CBD window. November – March lies wholly
+    in South Australia's daylight saving months, so CDST is local time.
+  windows:
+  - period: peak
+    label: Demand – Peak (non-CBD)
+    days: all_days
+    start: '17:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: November – March
+    locator: pdf:p28
+    quote: • Non CBD 5:00pm – 9:00pm CDST All days
+  tariffs:
+  - codes:
+    - LBAD
+    applies_to: demand
+    locator: pdf:p61
+    quote: LBAD LBADCBD Large LV Business Annual Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - LBMD
+    applies_to: demand
+    locator: pdf:p61
+    quote: LBMD LBMDCBD Large LV Business Monthly Peak Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HVAD
+    applies_to: demand
+    locator: pdf:p61
+    quote: HVAD HVADCBD HV Business Annual Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HVMD
+    applies_to: demand
+    locator: pdf:p61
+    quote: HVMD HVMDCBD HV Business Monthly Peak Demand
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HVAD500
+    applies_to: demand
+    locator: pdf:p61
+    quote: HVAD500 HVAD500CBD HV Business Annual Demand <500kVA
+    note: Row of the DUoS tariff schedule (Table 32, p61), whose two code columns are headed 'SA' and 'CBD only' (the NUoS
+      schedule, Table 31, p59, lists the same rows).
+  - codes:
+    - HVAD078
+    applies_to: demand
+    locator: pdf:p60
+    quote: HVAD078 HV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - HVAD265
+    applies_to: demand
+    locator: pdf:p60
+    quote: HVAD265 HV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - HVAD381
+    applies_to: demand
+    locator: pdf:p60
+    quote: HVAD381 HV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - HVAD439
+    applies_to: demand
+    locator: pdf:p60
+    quote: HVAD439 HV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD087
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD087 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD201
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD201 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD292
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD292 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD322
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD322 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD342
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD342 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD422
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD422 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD432
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD432 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD517
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD517 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD583
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD583 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD627
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD627 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD711
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD711 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBAD977
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBAD977 Large LV Business Annual Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
+  - codes:
+    - LBMD979
+    applies_to: demand
+    locator: pdf:p60
+    quote: LBMD979 Large LV Business Monthly Peak Demand
+    note: 'Row of the site-specific part of the NUoS tariff schedule (Table 31 continued, p60), with the code in the ''SA''
+      column; its description names the standard tariff [UNSURE: the document does not say in words that a site-specific tariff
+      keeps the standard tariff''s windows and measurement; its prices sit in the same columns].'
 eligibility:
 - codes:
   - RSR
@@ -13308,6 +15185,48 @@ rate_periods:
   note: "The 2026-27 Tariff Price List (p5) prints these tariffs' export charge under 'Export Charge' / 'Solar Sponge', but
     the Business Single Rate | BSR and Business Two-Rate | B2R accumulation-meter blocks of Table 4 (p18) charge all export
     above the 11kWh daily allowance at any time; SAPN states no export window for them."
+- codes:
+  - SBD
+  doc: sources/archive/sapn/2020-21/SAPN_Initial_Pricing_Proposal_June_2020-FINAL_17062020_0.pdf
+  fin_year: 2020-21
+  component: MONTHLY kVA DEMAND - Actual Monthly Demand - BD Summer 5
+  tou_period: peak
+  locator: pdf:p20
+  quote: 'Demand – $/kVA/month Maximum demand charge based on actual Transition (Type 4) Peak Actual Nov-March only monthly
+    maximum kVA demand measured:'
+  note: The price list's 'BD Summer 5' column is the Demand – Peak Actual (Nov-March only) charge.
+- codes:
+  - SBD
+  doc: sources/archive/sapn/2021-22/SAPN_Annual_Pricing_Proposal_29_April_2021_0.pdf
+  fin_year: 2021-22
+  component: MONTHLY kVA DEMAND - Actual Monthly Demand - BD Summer 5
+  tou_period: peak
+  locator: pdf:p19
+  quote: 'Demand – $/kVA/month Maximum demand charge based on actual Transition (Type 4) Peak Actual Nov-March only monthly
+    maximum kVA demand measured:  Over a 30-minute time period; and  16:00 to 21:00hrs local time, workdays, Nov-March (Peak).'
+  note: The price list's 'BD Summer 5' column is the Demand – Peak Actual (Nov-March only) charge.
+- codes:
+  - RELE
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  component: ENERGY BASED USAGE - Single and ToU consumption - Off-Peak
+  tou_period: shoulder
+  locator: pdf:p25
+  quote: Usage – Shoulder $/kWh Shoulder pricing for the 15 hours per day not
+  note: The tariff schedule prints RELE's general usage prices in the Peak, Off-Peak and Solar Sponge columns; Table 3 gives
+    Electrify Peak, Shoulder and Solar Sponge usage and no off-peak, so the Off-Peak column holds the shoulder price.
+- codes:
+  - SBD
+  - BD
+  - HBD
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  component: MONTHLY kVA DEMAND - Actual Monthly Demand - BD Summer 5
+  tou_period: peak
+  locator: pdf:p27
+  quote: Peak Actual Nov-March only • Over a 30-minute demand interval; and
+  note: The tariff schedule's 'BD Summer 5' column is the Demand – Peak Actual (Nov-March only) charge of SBD (Table 5) and
+    BD/HBD (Table 6).
 metering:
 - codes: all
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
@@ -14224,3 +16143,424 @@ charge_rules:
     Zone Substation / Sub Transmission kVA non-Locational tariff [UNSURE: the document does not say in words that a
     site-specific tariff keeps the standard tariff's measurement]. The flexible tariffs' 'Demand Firm/Flex – Anytime
     Agreed' rows say only 'Agreed demand interval (30 minutes).' (no reset), so they get no rule."
+- codes:
+  - BD
+  - SBD
+  - HBD
+  - BDT
+  - SBDT
+  doc: sources/archive/sapn/2016-17/SAPN_Tariffs_1_July_2016_id55342_20170224.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p10
+  quote: 'Actual Demand charges for business customers are determined on the basis of the maximum half-hour trading interval
+    since the last meter read (Type 1-4 meters are assumed to be read each calendar month) for:'
+  note: Note 5 (p10). kVA from the schedule's column heading 'Monthly actual kVA demand' (p1). The value is the maximum since
+    the last meter read, a calendar month for interval meters.
+- codes:
+  - MRD
+  doc: sources/archive/sapn/2016-17/SAPN_Tariffs_1_July_2016_id55342_20170224.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p10
+  quote: '6. Actual Demand charges for residential customers are determined on the basis of the maximum half-hour trading
+    interval since the last meter read (Type 1-4 meters are assumed to be read each calendar month) for:'
+  note: Note 6 (p10). kW from the schedule's column heading 'Monthly actual kW demand' (p1).
+- codes:
+  - BD
+  - SBD
+  - HBD
+  - BDT
+  - SBDT
+  doc: sources/archive/sapn/2017-18/AER_approved_-_SA_Power_Networks_2017-18_Annual_Pricing_Proposal_-_12_May_2017.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: 'Maximum demand charge based on actual monthly maximum kVA demand measured:  Over a 30 minute time period; and'
+  note: 'Demand row of the Business monthly actual kVA demand tariffs (the SBD, SBDT, BD, BDT and HBD rows state the same):
+    the highest 30-minute kVA demand in the month.'
+- codes:
+  - MRD
+  doc: sources/archive/sapn/2017-18/AER_approved_-_SA_Power_Networks_2017-18_Annual_Pricing_Proposal_-_12_May_2017.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p17
+  quote: 'Maximum demand charge based on monthly maximum kW demand measured:  Over a 30 minute time period'
+  note: Demand row of Residential monthly actual kW demand (MRD).
+- codes:
+  - BD
+  - SBD
+  - HBD
+  - BDT
+  - SBDT
+  doc: sources/archive/sapn/2018-19/SA_Power_Networks_Pricing_Proposal_2018_v2.2F.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p18
+  quote: Over a 30 minute time period; and
+  note: 'Demand row of the Business monthly actual kVA demand tariffs (the SBD, SBDT, BD, BDT and HBD rows state the same):
+    the highest 30-minute kVA demand in the month.'
+- codes:
+  - MRD
+  doc: sources/archive/sapn/2018-19/SA_Power_Networks_Pricing_Proposal_2018_v2.2F.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p17
+  quote: Over a 30 minute time period
+  note: Demand row of Residential monthly actual kW demand (MRD).
+- codes:
+  - BD
+  - SBD
+  - HBD
+  - BDT
+  - SBDT
+  doc: sources/archive/sapn/2019-20/AER_APPROVED_-_SA_Power_Networks_Pricing_Proposal_2019-20_-_May_2019.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: 'Maximum demand charge based on actual monthly maximum kVA demand measured:  Over a 30 minute time period;'
+  note: 'Demand row of the Business monthly actual kVA demand tariffs (the SBD, SBDT, BD, BDT and HBD rows state the same):
+    the highest 30-minute kVA demand in the month.'
+- codes:
+  - MRD
+  doc: sources/archive/sapn/2019-20/AER_APPROVED_-_SA_Power_Networks_Pricing_Proposal_2019-20_-_May_2019.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: 'demand measured:  Over a 30 minute time period'
+  note: Demand row of Residential monthly actual kW demand (MRD).
+- codes:
+  - RPRO/RPROCL
+  doc: sources/archive/sapn/2020-21/SAPN_Initial_Pricing_Proposal_June_2020-FINAL_17062020_0.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  tou_period: peak
+  measure: kW
+  method: max_daily_window_mean
+  reset: month
+  locator: pdf:p19
+  quote: Demand – $/kW/month Monthly demand charge based on maximum
+  note: 'Demand – Summer row of the Residential Prosumer tariff: ''Highest daily average demand over a four-hour period November
+    to March. Between 17:00-21:00hrs local time''; a monthly charge. No interval length is stated for the daily average.'
+- codes:
+  - SBD
+  doc: sources/archive/sapn/2020-21/SAPN_Initial_Pricing_Proposal_June_2020-FINAL_17062020_0.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: Over a 30-minute time period; and
+  note: Demand – Peak Actual row of SBD (Table 5).
+- codes:
+  - SBD
+  doc: sources/archive/sapn/2020-21/SAPN_Initial_Pricing_Proposal_June_2020-FINAL_17062020_0.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: Over a 30-minute time period; and
+  note: Demand – Shoulder Actual row of SBD (Table 5).
+- codes:
+  - RPRO/RPROCL
+  doc: sources/archive/sapn/2021-22/SAPN_Annual_Pricing_Proposal_29_April_2021_0.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  measure: kW
+  method: max_daily_window_mean
+  reset: month
+  locator: pdf:p17
+  quote: Demand – $/kW/month Monthly demand charge based on maximum
+  note: 'Demand – Summer row of the Residential Prosumer tariff: ''Highest daily average demand over a four-hour period November
+    to March. Between 17:00-21:00hrs local time''; a monthly charge. No interval length is stated for the daily average.'
+- codes:
+  - SBD
+  doc: sources/archive/sapn/2021-22/SAPN_Annual_Pricing_Proposal_29_April_2021_0.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: 'Demand – $/kVA/month Maximum demand charge based on actual Transition (Type 4) Peak Actual Nov-March only monthly
+    maximum kVA demand measured:  Over a 30-minute time period; and  16:00 to 21:00hrs local time, workdays, Nov-March (Peak).'
+  note: Demand – Peak Actual row of SBD (Table 5).
+- codes:
+  - SBD
+  doc: sources/archive/sapn/2021-22/SAPN_Annual_Pricing_Proposal_29_April_2021_0.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: 'Shoulder Actual All year monthly maximum kVA demand measured:  Over a 30-minute time period; and  12:00 to 16:00hrs
+    local time, workdays, 12 months (Shoulder)'
+  note: Demand – Shoulder Actual row of SBD (Table 5).
+- codes:
+  - RPRO
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kW
+  method: max_daily_window_mean
+  reset: month
+  locator: pdf:p25
+  quote: 'Demand – $/kW/day Highest daily average demand interval Summer Nov-March Only November – March: • 5:00pm – 9:00pm
+    CDST All days'
+  note: 'The ''Demand – Summer'' row of the Residential Prosumer | RPRO block (Table 3): the highest of the daily averages
+    over 5:00pm – 9:00pm CDST, all days, November – March. No interval length is stated for the daily average. The row states
+    no reset; the tariff schedule''s kW DEMAND column for RPRO is headed ''Actual Monthly'' / ''Mth Peak 5'' (Table 31, p59)
+    [UNSURE: the reset is not stated in the quoted row].'
+- codes:
+  - SBTOUD
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p27
+  quote: Demand – Annual $/kVA/pa Highest average demand interval (30 minutes)
+  note: 'Small Business Time of Use + Demand | SBTOUD block of Table 5: ''Demand – Annual $/kVA/pa Highest average demand
+    interval (30 minutes) All year during the last 12 months.'' Its only demand charge.'
+- codes:
+  - SBD
+  - BD
+  - HBD
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p27
+  quote: 'Demand – $/kVA/day Actual monthly highest demand measured: Transition | SBD ( Type 4) Peak Actual Nov-March only
+    • Over a 30-minute demand interval; and'
+  note: Demand – Peak Actual rows of SBD (Table 5) and BD/HBD (Table 6), which state the same.
+- codes:
+  - SBD
+  - BD
+  - HBD
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p27
+  quote: 'Demand – $/kVA/day Actual monthly highest demand: Shoulder Actual All year • Over a 30-minute demand interval; and
+    • 12:00pm – 4:00pm WD 12 months'
+  note: Demand – Shoulder Actual rows of SBD (Table 5) and BD/HBD (Table 6).
+- codes:
+  - LBAD
+  - LBADCBD
+  - HVAD
+  - HVADCBD
+  - HVAD500
+  - HVAD500CBD
+  - HVAD078
+  - HVAD265
+  - HVAD381
+  - HVAD439
+  - LBAD087
+  - LBAD201
+  - LBAD292
+  - LBAD322
+  - LBAD342
+  - LBAD422
+  - LBAD432
+  - LBAD517
+  - LBAD583
+  - LBAD627
+  - LBAD711
+  - LBAD977
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: anytime
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p28
+  quote: HV Business Demand – $/kVA/day Highest average demand interval (30 minutes) Annual Demand Anytime Annual during the
+    last 12 months.
+  note: 'The ''Demand – Anytime Annual'' row of the LBAD | HVAD | HVAD500 block of Table 6. Site-specific codes are rows of
+    Table 31 continued (p60) whose descriptions name the standard tariff [UNSURE: the document does not say in words that
+    a site-specific tariff keeps the standard tariff''s measurement].'
+- codes:
+  - LBAD
+  - LBADCBD
+  - HVAD
+  - HVADCBD
+  - HVAD500
+  - HVAD500CBD
+  - HVAD078
+  - HVAD265
+  - HVAD381
+  - HVAD439
+  - LBAD087
+  - LBAD201
+  - LBAD292
+  - LBAD322
+  - LBAD342
+  - LBAD422
+  - LBAD432
+  - LBAD517
+  - LBAD583
+  - LBAD627
+  - LBAD711
+  - LBAD977
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max_daily_window_mean
+  reset: rolling_12_months
+  locator: pdf:p28
+  quote: 'HV Business Demand – $/kVA/day Highest daily average demand interval during the Annual Demand | Peak Annual last
+    12 months November – March:'
+  note: 'The ''Demand – Peak Annual'' row of the LBAD | HVAD | HVAD500 block of Table 6: the highest of the daily averages
+    over the tariff''s peak demand window (CBD 11:00am – 5:00pm CDST WD, non-CBD 5:00pm – 9:00pm CDST all days, November –
+    March) during the last 12 months. No interval length is stated for the daily average. Site-specific codes are rows of
+    Table 31 continued (p60) whose descriptions name the standard tariff [UNSURE: the document does not say in words that
+    a site-specific tariff keeps the standard tariff''s measurement].'
+- codes:
+  - LBMD
+  - LBMDCBD
+  - HVMD
+  - HVMDCBD
+  - LBMD979
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: anytime
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p28
+  quote: Demand – $/kVA/day Highest average demand interval (30 minutes) Anytime Actual during the last 12 months.
+  note: 'The ''Demand – Anytime Actual'' row of the LBMD | HVMD block of Table 6. Site-specific codes are rows of Table 31
+    continued (p60) whose descriptions name the standard tariff [UNSURE: the document does not say in words that a site-specific
+    tariff keeps the standard tariff''s measurement].'
+- codes:
+  - LBMD
+  - LBMDCBD
+  - HVMD
+  - HVMDCBD
+  - LBMD979
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max_daily_window_mean
+  reset: month
+  locator: pdf:p28
+  quote: 'HV Business Demand – $/kVA/day Highest daily average demand interval during the Monthly Demand Peak Actual Nov-March
+    only month November – March:'
+  note: 'The ''Demand – Peak Actual'' row of the LBMD | HVMD block of Table 6: the highest of the daily averages over the
+    tariff''s peak demand window during the month, November – March. No interval length is stated for the daily average. Site-specific
+    codes are rows of Table 31 continued (p60) whose descriptions name the standard tariff [UNSURE: the document does not
+    say in words that a site-specific tariff keeps the standard tariff''s measurement].'
+- codes:
+  - STN
+  - STN018
+  - STN084
+  - STN161
+  - STN162
+  - STN378
+  - STN557
+  - STN609
+  - STN788
+  - STN999
+  - STR148
+  - STR610
+  - STR749
+  - ZSN
+  - ZSN021
+  - ZSN024
+  - ZSN035
+  - ZSN228
+  - ZSN272
+  - ZSN273
+  - ZSN438
+  - ZSN608
+  - ZSS025
+  - ZSS104
+  - ZSS196
+  - ZSS296
+  - ZSS408
+  - ZSS550
+  - ZSS766
+  - ZSS951
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: anytime
+  measure: kVA
+  interval_min: 30
+  method: max
+  minimum_value: 5000
+  reset: rolling_12_months
+  locator: pdf:p30
+  quote: Sub-Transmission requirements which vary across the State. Non-Locational | Demand – $/kVA day Highest average demand
+    interval (30 minutes) STN Anytime Actual during the last 12 months unless otherwise Agreed. Minimum of 5,000 kVA.
+  note: 'Table 7, Zone Substation Non-Locational | ZSN and Sub-Transmission Non-Locational | STN. ''unless otherwise Agreed''
+    allows an agreed value instead [UNSURE which applies to a given site]. The ''Demand – Peak Agreed'' rate (''during a time
+    window determined by transmission pricing requirements which vary across the State'') is left without a rule and without
+    windows. The numbered codes are site-specific rows of Table 31 continued (p60) described as ''Zone Substation kVA Locational''
+    / ''Sub Transmission kVA Locational'' [UNSURE: the document does not say in words that they keep this measurement].'

@@ -138,7 +138,8 @@ def notes(sha, stats, rows, first_stored, gaps, sums):
     out += [f"- **{name} {years[0]}" + (f" to {years[-1]}" if len(years) > 1 else "") + f"** not stored: {reason}."
             for (name, reason), years in gaps.items()]
     out += [(f"- **TOU windows** start {stats['windows_from']} and **eligibility** {stats['eligibility_from']}: "
-             "earlier years carry rates only.")]
+             "earlier tariffs have none; `scripts/billcalc.py sweep` lists each tariff-period a bill cannot yet price "
+             "and what is missing.")]
     out += ["", "## How it was built", "",
             (f"From commit [`{sha[:12]}`]({base}) with `scripts/release.py --ref {sha[:12]}`: "
              "the structure checks of `scripts/tariffdb/validate.py` (all PASS), then `scripts/tariffdb/load.py` into "

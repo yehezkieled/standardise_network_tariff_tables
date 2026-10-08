@@ -37,6 +37,8 @@ The recurring job (an issue labelled `source-release`, opened monthly by `.githu
 5. Every "Before you commit" box, then `check_releases.py --no-files --accept`.
 6. One PR per release with the evidence table; never merge it yourself. Unsure about a value: mark it `[UNSURE]` in
    the PR and leave it out of the data.
+7. After it merges: `scripts/release.py --publish` cuts the downloadable dataset release (SQLite + CSV zip, never
+   committed) from `origin/main`.
 
 ## Maintaining this file
 

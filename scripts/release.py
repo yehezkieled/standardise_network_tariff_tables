@@ -2,7 +2,7 @@
 
   .venv/bin/python scripts/release.py                  build from origin/main into out/release/<tag>/ (nothing published)
   .venv/bin/python scripts/release.py --ref <commit>   build from another commit
-  .venv/bin/python scripts/release.py --publish        also create the GitHub release (needs gh, logged in)
+  .venv/bin/python scripts/release.py --publish        fetch origin, then also create the GitHub release (needs gh, logged in)
 
 Assets (same names in every release, so .../releases/latest/download/<name> always points at the newest):
   tariffdb.sqlite    every table, loaded by scripts/tariffdb/load.py with all keys, foreign keys and CHECK constraints
@@ -11,8 +11,9 @@ Assets (same names in every release, so .../releases/latest/download/<name> alwa
 plus release-notes.md (coverage, known gaps, how it was built, checksums), used as the release body.
 
 Everything comes from the commit (git archive), never from the working tree, so local edits cannot leak into a release
-and a rebuild of the same commit gives the same CSV zip byte for byte. The tag is tariffdb-<commit date>. Needs only
-git and Python 3 (standard library, so any python3 runs it); the built files stay out of git (out/ is ignored).
+and a rebuild of the same commit gives the same CSV zip byte for byte. The tag is tariffdb-<commit date>; a second
+release from a later commit on the same day needs its own --tag (e.g. tariffdb-<date>.2), as the tag already exists.
+Needs only git and Python 3.12+ (standard library); the built files stay out of git (out/ is ignored).
 """
 import argparse
 import hashlib
@@ -140,9 +141,10 @@ def notes(sha, stats, rows, first_stored, gaps, sums):
              "earlier years carry rates only.")]
     out += ["", "## How it was built", "",
             (f"From commit [`{sha[:12]}`]({base}) with `scripts/release.py --ref {sha[:12]}`: "
-             "`scripts/tariffdb/validate.py` (all checks PASS), then `scripts/tariffdb/load.py` into SQLite. "
-             "The CSVs are the committed tables, generated from the source documents by `scripts/tariffdb/build.py` "
-             "and checked value by value against them (`validate.py --sources`)."), "",
+             "the structure checks of `scripts/tariffdb/validate.py` (all PASS), then `scripts/tariffdb/load.py` into "
+             "SQLite. The CSVs are the committed tables, generated from the source documents by "
+             "`scripts/tariffdb/build.py`; CI checks them value by value against those documents "
+             "(`validate.py --sources`), not this build."), "",
             "Check a download: `sha256sum -c SHA256SUMS`.", ""]
     return "\n".join(out)
 
@@ -186,6 +188,8 @@ def main():
     parser.add_argument("--out", default=str(ROOT / "out" / "release"), help="output directory (default out/release)")
     parser.add_argument("--publish", action="store_true", help="create the GitHub release (needs gh)")
     args = parser.parse_args()
+    if args.publish and args.ref == parser.get_default("ref"):
+        git("fetch", "origin")
     sha, tag, title, out = build(args.ref, args.out, args.tag)
     if args.publish:
         if not git("branch", "-r", "--contains", sha).strip():

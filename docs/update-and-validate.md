@@ -51,7 +51,7 @@ flowchart LR
 | 6 | Validate | "Before you commit" below, every box |
 | 7 | Accept | `.venv/bin/python scripts/check_releases.py --no-files --accept` records the current links in `sources/watch_seen.csv`, so the next check reports only what is newer. Accept irrelevant links the same way, and a page's links the first time it answers (a page never reached has no baseline) |
 | 8 | PR | One PR per release; the body has the evidence (below). It closes the `source-release` issue |
-| 9 | Publish | Once the PR is merged: `.venv/bin/python scripts/release.py --publish` builds the SQLite and the CSV zip from `origin/main` and publishes them as a GitHub release (the README's "Download" links follow the newest) |
+| 9 | Publish | Once the PR is merged: `.venv/bin/python scripts/release.py --publish` fetches origin, builds the SQLite and the CSV zip from `origin/main` and publishes them as a GitHub release (the README's "Download" links follow the newest) |
 
 PR evidence:
 
@@ -170,7 +170,7 @@ The distributor's own list, or a state regulator's published schedule, is `final
 | Same, committed files only (CI) | `.venv/bin/python scripts/tariffdb/validate.py --sources --committed-only` |
 | Gaps to fill | `.venv/bin/python scripts/tariffdb/validate.py --coverage` |
 | Build SQLite | `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` |
-| Release (SQLite + CSV zip + notes) | `.venv/bin/python scripts/release.py` (writes `out/release/<tag>/`; `--publish` creates the GitHub release; `--ref` another commit) |
+| Release (SQLite + CSV zip + notes) | `.venv/bin/python scripts/release.py` (writes `out/release/<tag>/`; `--publish` fetches origin and creates the GitHub release; `--ref` another commit; `--tag tariffdb-<date>.2` for a second release from a later commit on the same day) |
 | Schema docs | `.venv/bin/python scripts/tariffdb/schema_doc.py` (`--check` to verify) |
 | Tests | `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_release.py` |
 | New or changed source documents | `.venv/bin/python scripts/check_releases.py` (`--no-files`, `--archive`, `--accept`) |

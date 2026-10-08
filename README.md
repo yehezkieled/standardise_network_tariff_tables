@@ -18,7 +18,7 @@ known gaps and checksums in its notes.
 | [`tariffdb-csv.zip`](https://github.com/yehezkieled/standardise_network_tariff_tables/releases/latest/download/tariffdb-csv.zip) | the same tables as CSV, with the schema (`schema.json`, `schema.sqlite.sql`, `schema.md`) |
 | [`SHA256SUMS`](https://github.com/yehezkieled/standardise_network_tariff_tables/releases/latest/download/SHA256SUMS) | `sha256sum -c SHA256SUMS` |
 
-Built from `main` by `.venv/bin/python scripts/release.py --publish` (standard library only, so any Python 3 runs it;
+Built from `main` by `.venv/bin/python scripts/release.py --publish` (standard library only, Python 3.12+;
 `--ref` builds another commit).
 
 ![Every table with its keys and the tables they reference](docs/schema-erd.svg)

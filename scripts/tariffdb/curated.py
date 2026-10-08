@@ -25,8 +25,11 @@ tou_schedules:
     [note: ...]
     windows:
       - {period: <spec.TOU_PERIODS>, label: <as published>, days: <spec.DAY_TYPES>, start: "HH:MM", end: "HH:MM",
-         [months: "all" | "11,12,1,2,3" | not_stated], [season: <as published>], [locator: ..., quote: ...]}
-    (omit months only when the source names no season; not_stated = the source names a season but not its months)
+         [months: "all" | "11,12,1,2,3" | not_stated], [season: <spec.SEASONS>, season_label: <as published>],
+         [locator: ..., quote: ...]}
+    (period is the rate.tou_period the window prices, so windows and rates join; season is the rate.season it belongs
+    to, with the season named as published in season_label; omit months only when the source names no season;
+    not_stated = the source names a season but not its months)
     tariffs:
       - {codes: [<code>, ...], applies_to: <spec.TOU_APPLIES>, [locator, quote]}
 eligibility:
@@ -39,8 +42,19 @@ steps:
      [upper_bound: 60], lower_inclusive: true, upper_inclusive: true, quantity_unit: kWh,
      reset_period: <RESET_PERIODS>, locator, quote}
     (bounds go onto the usage rates with block = step_index, or the export rates when step_group names export)
+conditions:
+  - {codes: [...], doc, fin_year, component: <rate.component exactly as stored>, condition: opt_in:<name> |
+     meter_type:<spec.CRITERION_VALUES['meter_type']>, locator, quote, [note]}
+    (a price charged only when the site meets the condition, e.g. a rebate for customers who join a trial; the
+    quote states the condition. Every rate of those codes and year with that component gets rate.condition)
+charge_rules:
+  - {codes: [...], doc, fin_year, charge_type: <spec.RULE_CHARGES>, [tou_period: <spec.RATE_PERIODS>],
+     [season: <spec.SEASONS>], measure: <spec.RULE_MEASURES>, [interval_min: 30], method: <spec.RULE_METHODS>, [n: 4],
+     reset: <spec.RULE_RESETS>, [minimum_value], [threshold_value], [allowance_per_day], [allowance_rollover],
+     locator, quote, [note]}
+    (how the demand, capacity or export quantity is measured; omit tou_period / season for a rule that holds for every
+    rate of the charge type)
 """
-import csv
 import glob
 import os
 import re
@@ -63,7 +77,7 @@ DAY_TYPE_DAYS = {"weekday": DAYS[:5], "business_day": DAYS[:5], "weekend": DAYS[
                  "all_days": DAYS}
 
 
-SECTIONS = ("distributor", "tou_schedules", "eligibility", "steps")
+SECTIONS = ("distributor", "tou_schedules", "eligibility", "steps", "conditions", "charge_rules")
 # day: each day stands alone; billing_period_per_day: per-day bounds multiplied by the days in the billing period (an
 # unused allowance rolls over within the period); quarter: bounds accumulate per calendar quarter; unstated
 RESET_PERIODS = ("day", "billing_period_per_day", "quarter", "unstated")
@@ -190,19 +204,13 @@ def validate(data, check_quotes=True):
     if did is None:
         return ["missing distributor"]
     sched_ids = set()
-    inv = {}
-    with open(os.path.join(ROOT, "sources", "inventory.csv"), newline="") as f:
-        for r in csv.DictReader(f):
-            if r["local_path"]:
-                inv[r["local_path"]] = r
-    from build_support import EXTRA_DOCUMENTS  # documents added to the inventory by the tariff database
-    for d in EXTRA_DOCUMENTS:
-        if d.get("local_path"):
-            inv.setdefault(d["local_path"], d)
+    import build_support  # the documents the database registers: sources/inventory.csv and the archive's price documents
+    inv = {d["local_path"]: d for d in build_support.documents() if d["local_path"]}
 
     def check_doc(where, obj):
         if obj.get("doc") not in inv:
-            errors.append(f"{where}: doc {obj.get('doc')!r} is not a retrieved document in sources/inventory.csv")
+            errors.append(f"{where}: doc {obj.get('doc')!r} is not a retrieved price document in sources/inventory.csv "
+                          f"or sources/archive/inventory.csv")
         if obj.get("fin_year") not in spec.FIN_YEARS:
             errors.append(f"{where}: fin_year {obj.get('fin_year')!r}")
 
@@ -230,10 +238,13 @@ def validate(data, check_quotes=True):
             if times_ok and minutes(w["start"]) >= minutes(w["end"]):
                 errors.append(f"{ww}: start must be before end (split windows that cross midnight)")
             try:
-                if months_of(w.get("months")) is None and not w.get("season"):
-                    errors.append(f"{ww}: months not_stated needs the season name as published")
-                if w.get("season") and "months" not in w:
+                if months_of(w.get("months")) is None and not w.get("season_label"):
+                    errors.append(f"{ww}: months not_stated needs the season name as published (season_label)")
+                if w.get("season_label") and "months" not in w:
                     errors.append(f"{ww}: a window with a season needs months (the months listed, or not_stated)")
+                if w.get("season") and not w.get("season_label"):
+                    errors.append(f"{ww}: season needs the season name as published (season_label)")
+                _enum(errors, ww, w.get("season"), spec.SEASONS, "season")
             except ValueError as e:
                 errors.append(f"{ww}: {e}")
             if check_quotes and w.get("quote"):
@@ -292,6 +303,40 @@ def validate(data, check_quotes=True):
         if r.get("upper_bound") is not None and r.get("lower_bound") is not None and \
                 not r["lower_bound"] < r["upper_bound"]:
             errors.append(f"{where}: lower_bound must be below upper_bound")
+        if check_quotes:
+            _quote(errors, where, r, r.get("doc"))
+    for i, r in enumerate(data.get("conditions") or []):
+        where = f"conditions[{i}] {r.get('codes')} {r.get('component')}"
+        _req(errors, where, r, ["codes", "doc", "fin_year", "component", "condition", "locator", "quote"])
+        check_doc(where, r)
+        kind, _, value = str(r.get("condition", "")).partition(":")
+        if kind not in spec.CONDITION_KINDS or not re.fullmatch(r"[a-z0-9_]+", value):
+            errors.append(f"{where}: condition {r.get('condition')!r} is not <{'|'.join(spec.CONDITION_KINDS)}>:<name>")
+        elif kind == "meter_type" and value not in spec.CRITERION_VALUES["meter_type"]:
+            errors.append(f"{where}: meter type {value!r} not in {spec.CRITERION_VALUES['meter_type']}")
+        if check_quotes:
+            _quote(errors, where, r, r.get("doc"))
+    for i, r in enumerate(data.get("charge_rules") or []):
+        where = f"charge_rules[{i}] {r.get('codes')} {r.get('charge_type')} {r.get('tou_period') or ''}"
+        _req(errors, where, r, ["codes", "doc", "fin_year", "charge_type", "measure", "method", "reset", "locator",
+                                "quote"])
+        check_doc(where, r)
+        for key, allowed in (("charge_type", spec.RULE_CHARGES), ("tou_period", spec.RATE_PERIODS),
+                             ("season", spec.SEASONS), ("measure", spec.RULE_MEASURES),
+                             ("method", spec.RULE_METHODS), ("reset", spec.RULE_RESETS)):
+            _enum(errors, where, r.get(key), allowed, key)
+        if (r.get("n") is None) != (r.get("method") not in ("avg_top_n_days", "avg_top_n_intervals")):
+            errors.append(f"{where}: n goes with the avg_top_n methods, and only with them")
+        for key in ("interval_min", "n"):
+            if r.get(key) is not None and (not isinstance(r[key], int) or r[key] < 1):
+                errors.append(f"{where}: {key} must be a whole number >= 1")
+        if r.get("allowance_rollover") is not None and r.get("allowance_per_day") is None:
+            errors.append(f"{where}: allowance_rollover needs allowance_per_day")
+        unknown = set(r) - {"codes", "doc", "fin_year", "charge_type", "tou_period", "season", "measure",
+                            "interval_min", "method", "n", "reset", "minimum_value", "threshold_value",
+                            "allowance_per_day", "allowance_rollover", "locator", "quote", "note"}
+        if unknown:
+            errors.append(f"{where}: unknown keys {sorted(unknown)}")
         if check_quotes:
             _quote(errors, where, r, r.get("doc"))
     return errors

@@ -24,6 +24,8 @@ The checks, in order (docs/update-and-validate.md says what a failure means and 
   blocks        a stepped price numbers its blocks 1..n without gaps, with bounds that rise from block to block
   tou           windows of one tariff, charge group and published period name never overlap on the same day type
                 and month
+  joins         in a tariff-period with TOU windows, every rate priced in a period or season finds its windows and
+                every window prices a rate (scripts/tariffdb/joins.py)
   aliases       no provisional tariff is one a final tariff of the same distributor and period prices under its own
                 spelling or code (data/tariffdb/code_alias.csv), so no tariff is stored twice
   files         every held document is at its path with its recorded SHA-256 (--sources)
@@ -43,6 +45,7 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.dirname(HERE))
 import aliases  # noqa: E402
 import build_support as bs  # noqa: E402
+import joins  # noqa: E402
 import load as loader  # noqa: E402
 
 ROOT = bs.ROOT
@@ -153,7 +156,7 @@ def check_tou(db):
     for w in rows(db, "SELECT * FROM tou_window"):
         for m in (w["months"] or "season").split(","):
             spans[(w["distributor_id"], w["tariff_code"], w["effective_from"], w["applies_to"], w["period_label"],
-                   w["day_type"], m, w["season"] if w["months"] is None else None)].append(
+                   w["day_type"], m, w["season_label"] if w["months"] is None else None)].append(
                 (minutes(w["start_time"]), minutes(w["end_time"]), w["window_id"]))
     for key, ss in spans.items():
         ss.sort()
@@ -161,6 +164,42 @@ def check_tou(db):
             if b0 < a1:
                 bad.append(f"windows {aid} and {bid} overlap (month {key[6]})")
     return sorted(set(bad))
+
+
+# the charge groups a window of each applies_to can price (joins.group_windows: export and controlled-load rates fall
+# back to the usage windows when the tariff states none of their own)
+WINDOW_GROUPS = {"usage": {"usage", "controlled_load", "export"}, "all": {"usage", "controlled_load", "export", "demand"},
+                 "demand": {"demand"}, "export": {"export"}, "controlled_load": {"controlled_load"}}
+
+
+def check_joins(db):
+    """In a tariff-period with TOU windows, every rate priced in a period or season finds its windows, and every window
+    prices a rate (joins.py says how they join). A tariff-period without windows for a charge group is a gap that
+    --coverage lists, not a failure."""
+    windows, rates = defaultdict(list), defaultdict(list)
+    for w in rows(db, "SELECT * FROM tou_window"):
+        windows[(w["distributor_id"], w["tariff_code"], w["effective_from"])].append(w)
+    for r in rows(db, "SELECT * FROM rate"):
+        rates[(r["distributor_id"], r["tariff_code"], r["effective_from"])].append(r)
+    bad = []
+    for key, ws in sorted(windows.items()):
+        rs = [r for r in rates.get(key, []) if joins.group_of(r)]
+        for r in rs:
+            if r["tou_period"] not in joins.ALL_TIMES and joins.group_windows(joins.group_of(r), ws) \
+                    and not joins.rate_windows(r, ws):
+                bad.append(f"rate {r['rate_id']}: no {joins.group_of(r)} window for {r['tou_period']}"
+                           + (f" in season {r['season']}" if r["season"] else ""))
+            if r["season"] and joins.season_months(r["season"], ws) is None:
+                bad.append(f"rate {r['rate_id']}: no window states the months of season {r['season']}")
+        for w in ws:
+            if w["tou_period"] == joins.SUPPLY:
+                continue
+            want = joins.ALL_TIMES if w["tou_period"] == "anytime" else (w["tou_period"],)
+            if not any(joins.group_of(r) in WINDOW_GROUPS[w["applies_to"]] and r["tou_period"] in want
+                       and joins.same_season(r["season"], w["season"]) for r in rs):
+                bad.append(f"window {w['window_id']}: prices no rate (no {w['applies_to']} rate for "
+                           f"{w['tou_period']}" + (f" in season {w['season']})" if w["season"] else ")"))
+    return bad
 
 
 def check_aliases(db, rules=None):
@@ -243,7 +282,8 @@ def check_quotes(db, committed_only):
 
 # the checks main() runs after load, in order: (name, check); SOURCE_CHECKS only with --sources
 CHECKS = (("periods", check_periods), ("status", check_status), ("units", check_units),
-          ("magnitude", check_magnitude), ("blocks", check_blocks), ("tou", check_tou), ("aliases", check_aliases))
+          ("magnitude", check_magnitude), ("blocks", check_blocks), ("tou", check_tou), ("joins", check_joins),
+          ("aliases", check_aliases))
 SOURCE_CHECKS = (("files", check_files), ("values", check_values), ("quotes", check_quotes))
 
 

@@ -45,6 +45,7 @@ sys.path.insert(0, os.path.dirname(HERE))
 import aliases  # noqa: E402
 import build_support as bs  # noqa: E402
 import curated  # noqa: E402
+import joins  # noqa: E402
 import spec  # noqa: E402
 from units import to_std  # noqa: E402
 
@@ -69,6 +70,15 @@ BANDS = {"": (None, None), "anytime": ("anytime", None), "peak": ("peak", None),
 BLOCK_UNITS = {"day": "kWh/day", "billing_period_per_day": "kWh/billing_day", "quarter": "kWh/quarter",
                "unstated": "kWh"}
 APPLIES = {"energy": "usage"}  # curated applies_to -> tou_window.applies_to (the rest are the same word)
+# rate.register: a usage price is for the controlled-load register when its component names controlled load (SAPN 'CL
+# Peak usage', AusNet 'Dedicated circuit', Endeavour 'Controlled Load Flat'; not 'Uncontrolled'), or when the whole tariff
+# is a controlled-load tariff (Ausgrid 'Controlled Load 1', Energex 'Economy', Ergon 'Volume Night Controlled'): its name
+# says so and does not combine it with general supply ('General Supply Block + Controlled Load 1', '... & Dedicated
+# Circuit', 'Two Rate 5d - Controlled Load')
+CL_COMPONENT = re.compile(r"\bCL\b|(?<!un)controlled|\bcontrol load\b|dedicated|\beconomy\b", re.I)
+CL_TARIFF = re.compile(r"(?<!un)controlled|dedicated|economy|hot water|off.?peak heating|\bOPCL\b", re.I)
+COMBINED = re.compile(r"[&+,]|\bwith\b|\band\b|general supply|single rate|two rate|residential flat", re.I)
+REGISTER_OF = {"usage": "general", "demand": "general", "capacity": "general", "export": "export"}
 
 
 def slug(s):
@@ -319,12 +329,17 @@ class Builder:
             "distributor_id": did, "tariff_code": code, "effective_from": start, "effective_to": end,
             "tariff_name": name[0][0] if name else None, "customer_class": cls[0][0] if cls else None,
             "status": status, "document_id": doc_id})
+        cl_tariff = bool(name and CL_TARIFF.search(name[0][0]) and not COMBINED.search(name[0][0]))
         for r in sorted(rows, key=lambda r: (r["locator"], r["component"], r["time_band"], r["season"])):
             if r["component"] == NO_PRICES:
                 continue  # the AER lists the code with every price zero: a tariff with no rate rows
             tou, block = BANDS[r["time_band"]]
+            charge_type = CHARGE_TYPES[r["charge_type"]]
+            register = REGISTER_OF.get(charge_type)
+            if charge_type == "usage" and (cl_tariff or CL_COMPONENT.search(r["component"])):
+                register = "controlled_load"
             self.rate(did, code, start, end, status, doc_id, {
-                "charge_type": CHARGE_TYPES[r["charge_type"]], "tou_period": tou,
+                "charge_type": charge_type, "tou_period": tou, "register": register,
                 "season": r["season"] or None, "block": block, "region": region_of(r),
                 "value": r["value_std"], "unit": r["unit_std"], "value_published": r["value"],
                 "unit_published": r["unit"] or None, "component": r["component"], "locator": r["locator"],
@@ -340,6 +355,7 @@ class Builder:
             rid = f"{base}#{n}"
         self.add("rate", {"rate_id": rid, "distributor_id": did, "tariff_code": code, "effective_from": start,
                           "effective_to": end, "block_from": None, "block_to": None, "block_unit": None,
+                          "condition": None,
                           "status": status, "document_id": doc_id, **r})
 
     def metering_rates(self):
@@ -352,7 +368,8 @@ class Builder:
             for start, end, doc_id, status in self.periods.get((did, r["fin_year"], r["tariff_code"]), []):
                 if doc_id == doc["document_id"]:
                     self.rate(did, r["tariff_code"], start, end, status, doc_id, {
-                        "charge_type": "metering", "tou_period": None, "season": None, "block": None,
+                        "charge_type": "metering", "tou_period": None, "register": None, "season": None,
+                        "block": None,
                         "region": None, "value": value, "unit": unit, "value_published": r["value"],
                         "unit_published": r["unit"], "component": r["component"], "locator": r["locator"],
                         "note": r["note"] or None})
@@ -387,6 +404,8 @@ class Builder:
             self.tou_windows(did, data, f"curated/{name}.yaml")
             self.eligibility(did, data, f"curated/{name}.yaml")
             self.blocks(did, data, f"curated/{name}.yaml")
+            self.conditions(did, data, f"curated/{name}.yaml")
+            self.charge_rules(did, data, f"curated/{name}.yaml")
 
     def code_periods(self, did, code, fy, where):
         """[(stored code, start, end)] of the tariff periods a curated fact for that year applies to."""
@@ -413,6 +432,7 @@ class Builder:
                             "effective_to": end, "applies_to": applies, "tou_period": w["period"],
                             "period_label": str(w["label"]), "day_type": w["days"], "start_time": str(w["start"]),
                             "end_time": str(w["end"]), "months": months, "season": w.get("season"),
+                            "season_label": None if w.get("season_label") is None else str(w["season_label"]),
                             "time_basis": s["time_basis"], "public_holidays": s["public_holidays"],
                             "document_id": doc, "locator": w.get("locator") or s["locator"]})
 
@@ -457,11 +477,69 @@ class Builder:
                         row.update(block_from=r.get("lower_bound"), block_to=r.get("upper_bound"),
                                    block_unit=BLOCK_UNITS[r["reset_period"]])
 
+    def conditions(self, did, data, where):
+        """rate.condition from the curated conditions: every rate of the codes and year with that component."""
+        by_component = defaultdict(list)
+        for row in self.tables["rate"].values():
+            if row["distributor_id"] == did:
+                by_component[(row["tariff_code"], row["effective_from"], row["component"])].append(row)
+        for r in data.get("conditions") or []:
+            for named in r["codes"]:
+                for code, start, _ in self.code_periods(did, named, r["fin_year"], f"{where} conditions"):
+                    rows = by_component.get((code, start, r["component"]))
+                    if not rows:
+                        self.problems.append(f"{where} conditions: {code} {r['fin_year']} has no rate "
+                                             f"{r['component']!r}")
+                    for row in rows or []:
+                        row["condition"] = r["condition"]
+
+    def charge_rules(self, did, data, where):
+        for r in data.get("charge_rules") or []:
+            doc = self.doc(r["doc"], where)["document_id"]
+            for named in r["codes"]:
+                for code, start, end in self.code_periods(did, named, r["fin_year"], f"{where} charge_rules"):
+                    rid = ":".join([did, code, start, r["charge_type"], r.get("tou_period") or "all",
+                                    r.get("season") or "all"])
+                    row = {"rule_id": rid, "distributor_id": did, "tariff_code": code, "effective_from": start,
+                           "effective_to": end, "charge_type": r["charge_type"], "tou_period": r.get("tou_period"),
+                           "season": r.get("season"), "measure": r["measure"], "interval_min": r.get("interval_min"),
+                           "method": r["method"], "n": r.get("n"), "reset": r["reset"],
+                           "minimum_value": r.get("minimum_value"), "threshold_value": r.get("threshold_value"),
+                           "allowance_per_day": r.get("allowance_per_day"),
+                           "allowance_rollover": None if r.get("allowance_rollover") is None
+                           else int(r["allowance_rollover"]),
+                           "document_id": doc, "locator": r["locator"], "quote": str(r["quote"]),
+                           "note": r.get("note")}
+                    old = self.tables["charge_rule"].get((rid,))
+                    if old is None:
+                        self.add("charge_rule", row)
+                    elif {k: v for k, v in old.items() if k not in ("document_id", "locator", "quote", "note")} != \
+                            {k: v for k, v in row.items() if k not in ("document_id", "locator", "quote", "note")}:
+                        raise SystemExit(f"{where} charge_rules: two different rules for {rid}")
+
+    def periods_from_windows(self):
+        """A demand or capacity rate the price list prints without a period ('Demand charge') is measured in the
+        tariff's demand window: it takes the period of the tariff's windows for its charge group and season when they
+        name exactly one (Ausgrid 'Demand charge - high season' and its 'High season demand window')."""
+        windows = defaultdict(list)
+        for w in self.tables["tou_window"].values():
+            windows[(w["distributor_id"], w["tariff_code"], w["effective_from"])].append(w)
+        for r in self.tables["rate"].values():
+            ws = windows.get((r["distributor_id"], r["tariff_code"], r["effective_from"]))
+            if r["tou_period"] is not None or r["charge_type"] not in ("demand", "capacity") or not ws:
+                continue
+            named = {w["tou_period"] for w in joins.group_windows(joins.group_of(r), ws)
+                     if joins.same_season(r["season"], w["season"])}
+            if len(named) == 1 and named != {"anytime"}:
+                r["tou_period"] = named.pop()
+                r["note"] = "; ".join(x for x in (r["note"], "tou_period from the tariff's demand window") if x)
+
     def build(self):
         self.reference()
         self.tariffs_and_rates()
         self.metering_rates()
         self.curated_facts()
+        self.periods_from_windows()
         return self
 
 

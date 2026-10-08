@@ -11373,3 +11373,44 @@ eligibility:
   column_quote: The below table provides trial tariff revenues for SA Power Networks for 2024–25 and historical years
   note: Row of the 'Tariff trials' table (Proposal report!B117-B144); B118 introduces it. Tariff schedule!C138/E138
     give this name's code.
+conditions:
+- codes: [RSR, RTOU, RPRO, RELE]
+  doc: sources/archive/sapn/2022-23/SA_Power_Networks_-_Annual_Pricing_Proposal_-_updated_12_April_2022.pdf
+  fin_year: 2022-23
+  component: REBATE - Diversify
+  condition: opt_in:diversify
+  locator: pdf:p9
+  quote: Diversify rebate is available to opt-in from 1 July 2022 with a maximum of 7,500 customers eligible
+- codes: [RSR, RTOU, RPRO, RELE, RELE2W]
+  doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
+  fin_year: 2023-24
+  component: REBATE - Diversify
+  condition: opt_in:diversify
+  locator: pdf:p9
+  quote: Diversify (RIDIV) rebate is a Customer Choice tariff available from 1 July 2023
+  note: The price list (p5) prints the rebate column with 'Refer to 2.3.7 for eligibilty'.
+- codes: [RSR, RTOU, RPRO, RELE, RELE2W]
+  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
+  fin_year: 2024-25
+  component: REBATE - Diversify
+  condition: opt_in:diversify
+  locator: pdf:p75
+  quote: Residential Diversify - Opt-in Trial Tariff
+  note: The price list (p5) prints the rebate column with 'Refer to 2.3.6 for eligibilty'.
+- codes: [RTOU, RTOUNE, RESELE, RESELENE]
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2026-27
+  component: REBATE - Diversify Tier 1
+  condition: opt_in:diversify_tier_1
+  locator: pdf:p33
+  quote: 'Diversify 2.0 will have a two-tiered daily rebate for eligible smart devices: • Tier 1 | 1 or 2 eligible smart devices'
+  note: No held 2026-27 document describes the trial; the 2026-27 price list (p5) prints the same 'Diversify Tier 1'
+    and 'Diversify Tier 2' rebate columns that the 2025-26 overview describes.
+- codes: [RTOU, RTOUNE, RESELE, RESELENE]
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2026-27
+  component: REBATE - Diversify Tier 2
+  condition: opt_in:diversify_tier_2
+  locator: pdf:p33
+  quote: '• Tier 2 | 3 or more eligible smart devices'
+  note: As for Tier 1.

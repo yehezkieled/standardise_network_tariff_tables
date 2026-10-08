@@ -243,12 +243,32 @@ class TestRules(unittest.TestCase):
         self.assertNotIn("tou_rates_without_windows", plain.issues)
         self.assertEqual(plain.status, "input")
         self.assertIn("event_times_needed", plain.issues)
-        site = bc.Site(event_times=(("2025-07-15 16:00", "2025-07-15 20:00"),))
+        site = bc.Site(event_times={"critical_peak": (("2025-07-15 16:00", "2025-07-15 20:00"),)})
         evented = bc.bill("ausgrid", "EA374", *span, iv, site)
         usage = {x["label"]: x["quantity"] for x in evented.lines if x["kind"] == "usage:general"}
         self.assertEqual(usage, {"Network Energy Prices - Critical peak energy": 8.0,
                                  "Network Energy Prices - Off-peak": 1480.0})
         self.assertEqual(evented.status, "exact")
+
+    def test_each_event_period_takes_only_its_own_event_times(self):
+        """Ausgrid EA974 2026-27 prices dynamic maximum and dynamic minimum events beside an anytime rate: an event kWh
+        is charged under its own period only, and a period with no event times given asks for them."""
+        span = (date(2026, 7, 1), date(2026, 7, 31))
+        iv = profile(span, "Australia/Sydney", 1488, [(1.0, everywhere)])
+        site = bc.Site(event_times={"dynamic_maximum": (("2026-07-15 16:00", "2026-07-15 20:00"),),
+                                    "dynamic_minimum": (("2026-07-20 11:00", "2026-07-20 12:00"),)})
+        b = bc.bill("ausgrid", "EA974", *span, iv, site)
+        usage = {x["label"]: x["quantity"] for x in b.lines if x["kind"] == "usage:general"}
+        self.assertEqual(usage, {"Network Energy Prices - Dynamic (maximum)": 8.0,
+                                 "Network Energy Prices - Dynamic (minimum)": 2.0,
+                                 "Network Energy Prices - Anytime": 1478.0})
+        self.assertNotIn("event_times_needed", b.issues)
+        site = bc.Site(event_times={"dynamic_maximum": (("2026-07-15 16:00", "2026-07-15 20:00"),)})
+        b = bc.bill("ausgrid", "EA974", *span, iv, site)
+        usage = {x["label"]: x["quantity"] for x in b.lines if x["kind"] == "usage:general"}
+        self.assertEqual(usage, {"Network Energy Prices - Dynamic (maximum)": 8.0,
+                                 "Network Energy Prices - Anytime": 1480.0})
+        self.assertIn("event_times_needed", b.issues)
 
     def test_compare_ranks_tariffs(self):
         iv = profile(FY25, ADELAIDE, 4000, [(1.0, everywhere)])

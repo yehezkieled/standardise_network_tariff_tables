@@ -101,8 +101,9 @@ class Site:
     opt_in: frozenset = frozenset()  # opt-in names the customer joined (rate.condition opt_in:<name>)
     agreed_kva: float = None        # agreed, contracted or assigned demand, for capacity and agreed-demand charges
     event_days: frozenset = None    # the days the distributor nominated (critical peak), for avg_nominated_days
-    event_times: tuple = None       # (start, end) NEM times of the events the distributor announced (critical peak,
-                                    # dynamic ...), for rates in an event period with no fixed hours
+    event_times: dict = None        # {event period: ((start, end), ...)} NEM times of the events the distributor
+                                    # announced (critical_peak, dynamic_maximum ...), for rates in an event period
+                                    # with no fixed hours
     region: str = None              # pricing zone, for codes priced by zone
 
 
@@ -204,11 +205,12 @@ class Clock:
             }
         self.month = np.asarray(local.month)
         self.n = len(index)
-        self.event = None
-        if event_times is not None:
-            self.event = np.zeros(self.n, bool)
-            for t0, t1 in event_times:
-                self.event |= np.asarray((index >= pd.Timestamp(t0)) & (index < pd.Timestamp(t1)))
+        self.events = {}
+        for tou_period, spans in (event_times or {}).items():
+            mask = np.zeros(self.n, bool)
+            for t0, t1 in spans:
+                mask |= np.asarray((index >= pd.Timestamp(t0)) & (index < pd.Timestamp(t1)))
+            self.events[tou_period] = mask
 
 
 def minutes(hhmm):
@@ -365,8 +367,9 @@ def quantity(iv, column, rate, b, period):
 
 
 def event_times_unknown(rate, clock, windows):
-    """True when a rate applies in events with no fixed hours and the site gave no event times."""
-    return rate["tou_period"] in joins.EVENT_PERIODS and not joins.rate_windows(rate, windows) and clock.event is None
+    """True when a rate applies in events with no fixed hours and the site gave no event times for its period."""
+    return rate["tou_period"] in joins.EVENT_PERIODS and not joins.rate_windows(rate, windows) \
+        and rate["tou_period"] not in clock.events
 
 
 def rate_mask(b, period, rate, clock, windows, what):
@@ -381,7 +384,7 @@ def rate_mask(b, period, rate, clock, windows, what):
         return None
     ws = joins.rate_windows(rate, windows)
     if not ws and rate["tou_period"] in joins.EVENT_PERIODS:
-        return mask & clock.event
+        return mask & clock.events[rate["tou_period"]]
     if not ws:
         b.flag("tou_rates_without_windows", f"{period}: {what} {rate['tou_period']} has no window")
         return None
@@ -815,7 +818,18 @@ def site_args(a):
     return Site(meter_type=a.meter_type, meter_class=a.meter_class, opt_in=frozenset(a.opt_in or ()),
                 agreed_kva=a.agreed_kva, region=a.region,
                 event_days=frozenset(date.fromisoformat(d) for d in a.event_day) if a.event_day else None,
-                event_times=tuple(tuple(e.split("/")) for e in a.event_time) if a.event_time else None)
+                event_times=event_times_arg(a.event_time))
+
+
+def event_times_arg(values):
+    """{period: ((start, end), ...)} from repeated PERIOD=START/END."""
+    if not values:
+        return None
+    out = {}
+    for v in values:
+        tou_period, _, span = v.partition("=")
+        out.setdefault(tou_period, []).append(tuple(span.split("/")))
+    return {k: tuple(v) for k, v in out.items()}
 
 
 def main(argv=None):
@@ -834,7 +848,8 @@ def main(argv=None):
         p.add_argument("--agreed-kva", type=float, help="agreed, contracted or assigned demand")
         p.add_argument("--event-day", action="append", help="a day the distributor nominated (YYYY-MM-DD), repeatable")
         p.add_argument("--event-time", action="append",
-                       help="an event the distributor announced, START/END in NEM time (YYYY-MM-DDTHH:MM), repeatable")
+                       help="an event the distributor announced, PERIOD=START/END (e.g. critical_peak="
+                       "=2026-01-20T16:00/2026-01-20T20:00, NEM time), repeatable")
         p.add_argument("--region")
     p = sub.add_parser("sweep")
     p.add_argument("--write", action="store_true", help=f"record the counts in {os.path.relpath(SWEEP_FILE, ROOT)}")

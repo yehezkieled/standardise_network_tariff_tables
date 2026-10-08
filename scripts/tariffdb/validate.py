@@ -235,7 +235,7 @@ def check_quotes(db, committed_only):
         ok, why = locators.verify_quote(path, r["locator"], r["quote"])
         if not ok:
             bad.append(f"eligibility {r['criterion_id']}: {why}")
-    if not committed_only:  # the YAML quotes documents that are not committed
+    if not committed_only:  # every source is committed now; the skip only guards checkouts that lack them
         for name, data in curated.load_all().items():
             bad += [f"curated/{name}.yaml: {e}" for e in curated.validate(data)]
     return bad, n

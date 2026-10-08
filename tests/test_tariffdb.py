@@ -2,8 +2,8 @@
 
   .venv/bin/python -m unittest tests/test_tariffdb.py
 
-TARIFFDB_SOURCES=committed re-reads only the source documents committed to the repository (AER files and Wayback
-copies), as CI does: the other documents are fetched by ./run.sh, and the rebuild test needs the parser outputs in out/.
+TARIFFDB_SOURCES=committed re-reads only the source documents committed to the repository (every file under sources/),
+as CI does: the rebuild test needs the parser outputs in out/, which ./run.sh writes.
 """
 import contextlib
 import csv

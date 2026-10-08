@@ -77,6 +77,9 @@ Every file is committed: publishers replace documents in place and remove old on
 checksum shows that the publisher replaced the document; `scripts/fetch_sources.py --check` only reports what is
 missing or differs.
 
+Rows without a local path are documents that could not be obtained at all (the access note says why); the
+report treats those distributor-years as "no distributor-side data".
+
 Pricing years before 2023-24: `sources/archive/` holds every older public document found (AER-hosted proposals
 and price lists back to 2009-10, distributor and state-regulator documents), with its own inventory, a coverage table
 per distributor and year, and the reason for each gap (`sources/archive/README.md`). The parsers in
@@ -95,9 +98,6 @@ checks all years). To store them as well:
 
 A year whose documents print only parts and no total is never stored, whatever the cutoff; it is listed with its
 evidence in `sources/archive/gaps.csv` (Ergon 2016-17 to 2019-20, see above).
-
-Rows without a local path are documents that could not be obtained at all (the access note says why); the
-report treats those distributor-years as "no distributor-side data".
 
 ## Layout
 

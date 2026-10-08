@@ -173,7 +173,8 @@ class Builder:
         self.parsed = [r for r in self.parsed if bs.stored(r["fin_year"], first_day)]
         self.metering = [r for r in (metering if metering is not None else self.parser_rows("out/dnsp_metering/*.csv"))
                          if bs.stored(r["fin_year"], first_day)]
-        self.curated_files = curated_files if curated_files is not None else curated.load_all()
+        self.curated_files = {name: curated.per_year(data) for name, data in
+                              (curated_files if curated_files is not None else curated.load_all()).items()}
         self.aliases = code_aliases if code_aliases is not None else aliases.load()
         self.tables = {t: {} for t in spec.TABLE_ORDER}
         self.problems = []

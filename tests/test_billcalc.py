@@ -193,6 +193,63 @@ class TestRules(unittest.TestCase):
         _, b = self.demand_quantity("avg_nominated_days")
         self.assertIn("event_days_needed", b.issues)
 
+    def test_billing_period_reset_restarts_each_calendar_month(self):
+        """A 'billing_period' demand over two months is measured per month, not over the whole bill."""
+        idx = pd.date_range("2025-07-01 00:00", "2025-08-31 23:30", freq="30min")
+        e1 = pd.Series(1.0, index=idx)
+        e1["2025-07-10 12:00"] = 5.0
+        iv = pd.DataFrame({"E1": e1})
+        rate = {"charge_type": "demand", "register": None, "tou_period": None, "season": None, "block": None,
+                "unit": "c/kW/day", "value": "100", "component": "Demand", "condition": None}
+        rule = {"charge_type": "demand", "tou_period": None, "season": None, "measure": "kW", "interval_min": "30",
+                "method": "max", "n": None, "reset": "billing_period", "minimum_value": None, "threshold_value": None}
+        clock = bc.Clock(idx, "Australia/Sydney", "NSW")
+        b = bc.Bill("x", "X", date(2025, 7, 1), date(2025, 8, 31))
+        bc.bill_demand(b, "p", [rate], iv, clock, [], [rule], bc.Site(), 0.0)
+        self.assertEqual([x["quantity"] for x in b.lines], [10.0 * 31, 2.0 * 31])
+        self.assertIn("billing_period_assumed", b.issues)
+        one = bc.Bill("x", "X", date(2025, 8, 1), date(2025, 8, 31))
+        aug = idx.month == 8
+        bc.bill_demand(one, "p", [rate], iv[aug], bc.Clock(idx[aug], "Australia/Sydney", "NSW"), [], [rule],
+                       bc.Site(), 0.0)
+        self.assertEqual([x["quantity"] for x in one.lines], [2.0 * 31])
+        self.assertNotIn("billing_period_assumed", one.issues)
+
+    def test_export_allowance_pools_within_each_billing_period(self):
+        """An allowance that rolls over pools within a billing period, not across the whole bill: 10 kWh a day in
+        July and none in August against 5 kWh a day leaves 5 x 31 kWh charged."""
+        idx = pd.date_range("2025-07-01 00:00", "2025-08-31 23:30", freq="30min")
+        b1 = pd.Series(0.0, index=idx)
+        b1[(idx.month == 7) & (idx.hour == 12) & (idx.minute == 0)] = 10.0
+        iv = pd.DataFrame({"E1": 0.0, "B1": b1}, index=idx)
+        rate = {"charge_type": "export", "register": "export", "tou_period": None, "season": None, "block": None,
+                "unit": "c/kWh", "value": "1", "component": "Export", "condition": None}
+        rule = {"charge_type": "export", "tou_period": None, "season": None, "measure": "kWh",
+                "allowance_per_day": "5", "allowance_rollover": "1"}
+        b = bc.Bill("x", "X", date(2025, 7, 1), date(2025, 8, 31))
+        bc.bill_export(b, "p", [rate], iv, bc.Clock(idx, "Australia/Sydney", "NSW"), [], [rule], 0.0)
+        self.assertEqual(b.lines[0]["quantity"], 5.0 * 31)
+        self.assertIn("billing_period_assumed", b.issues)
+
+    def test_event_period_leaves_the_rest_rate_charged(self):
+        """Ausgrid EA374 2025-26: an anytime energy rate beside a critical peak rate with no fixed hours. Without event
+        times every kWh is charged at the anytime rate and only the input is asked for; with them the event kWh move
+        to the critical peak rate."""
+        span = (date(2025, 7, 1), date(2025, 7, 31))
+        iv = profile(span, "Australia/Sydney", 1488, [(1.0, everywhere)])
+        plain = bc.bill("ausgrid", "EA374", *span, iv)
+        usage = {x["label"]: x["quantity"] for x in plain.lines if x["kind"] == "usage:general"}
+        self.assertEqual(usage, {"Network Energy Prices - Off-peak": 1488.0})
+        self.assertNotIn("tou_rates_without_windows", plain.issues)
+        self.assertEqual(plain.status, "input")
+        self.assertIn("event_times_needed", plain.issues)
+        site = bc.Site(event_times=(("2025-07-15 16:00", "2025-07-15 20:00"),))
+        evented = bc.bill("ausgrid", "EA374", *span, iv, site)
+        usage = {x["label"]: x["quantity"] for x in evented.lines if x["kind"] == "usage:general"}
+        self.assertEqual(usage, {"Network Energy Prices - Critical peak energy": 8.0,
+                                 "Network Energy Prices - Off-peak": 1480.0})
+        self.assertEqual(evented.status, "exact")
+
     def test_compare_ranks_tariffs(self):
         iv = profile(FY25, ADELAIDE, 4000, [(1.0, everywhere)])
         table = bc.compare("sapn", ["RSR", "RTOU"], *FY25, iv, SITE["sapn"])

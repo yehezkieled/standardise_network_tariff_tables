@@ -76,6 +76,7 @@ ISSUES = {
     "public_holiday_rule_not_stated": "assumed",
     "block_reset_assumed": "assumed",
     "partial_month": "assumed",
+    "billing_period_assumed": "assumed",
     "rolling_history_short": "input",
     "annual_demand_prorated": "assumed",
     "window_gap": "assumed",
@@ -100,6 +101,8 @@ class Site:
     opt_in: frozenset = frozenset()  # opt-in names the customer joined (rate.condition opt_in:<name>)
     agreed_kva: float = None        # agreed, contracted or assigned demand, for capacity and agreed-demand charges
     event_days: frozenset = None    # the days the distributor nominated (critical peak), for avg_nominated_days
+    event_times: tuple = None       # (start, end) NEM times of the events the distributor announced (critical peak,
+                                    # dynamic ...), for rates in an event period with no fixed hours
     region: str = None              # pricing zone, for codes priced by zone
 
 
@@ -185,7 +188,7 @@ def holiday_dates(state, years):
 class Clock:
     """Each interval's NEM date, local clock time, local standard time, weekday and public-holiday flags."""
 
-    def __init__(self, index, tz_name, state):
+    def __init__(self, index, tz_name, state, event_times=None):
         tz = ZoneInfo(tz_name)
         utc = index.tz_localize(NEM).tz_convert("UTC")
         local = utc.tz_convert(tz).tz_localize(None)
@@ -201,6 +204,11 @@ class Clock:
             }
         self.month = np.asarray(local.month)
         self.n = len(index)
+        self.event = None
+        if event_times is not None:
+            self.event = np.zeros(self.n, bool)
+            for t0, t1 in event_times:
+                self.event |= np.asarray((index >= pd.Timestamp(t0)) & (index < pd.Timestamp(t1)))
 
 
 def minutes(hhmm):
@@ -301,7 +309,7 @@ def bill(did, code, start, end, intervals, site=Site(), db=None):
         covered |= {p0 + timedelta(days=i) for i in range((p1 - p0).days + 1)}
         day = np.array(intervals.index.date)
         iv = intervals[(day >= p0) & (day <= p1)]
-        clock = Clock(iv.index, dist["iana_timezone"], dist["state"])
+        clock = Clock(iv.index, dist["iana_timezone"], dist["state"], site.event_times)
         key = (did, code, t["effective_from"])
         bill_period(b, t, p0, p1, iv, clock, db.rates.get(key, []), db.windows.get(key, []), db.rules.get(key, []),
                     site)
@@ -356,17 +364,24 @@ def quantity(iv, column, rate, b, period):
     return iv[column]
 
 
+def event_times_unknown(rate, clock, windows):
+    """True when a rate applies in events with no fixed hours and the site gave no event times."""
+    return rate["tou_period"] in joins.EVENT_PERIODS and not joins.rate_windows(rate, windows) and clock.event is None
+
+
 def rate_mask(b, period, rate, clock, windows, what):
-    """Intervals a rate applies in (its period and season), or None when the database cannot say."""
+    """Intervals a rate applies in (its period and season), or None when the database or the site cannot say."""
     mask = season_mask(clock, rate["season"], windows, b, period, what)
     if mask is None:
         return None
     if rate["tou_period"] in joins.ALL_TIMES:
         return mask
-    ws = joins.rate_windows(rate, windows)
-    if not ws and rate["tou_period"] in joins.EVENT_PERIODS:
+    if event_times_unknown(rate, clock, windows):
         b.flag("event_times_needed", f"{period}: {rate['component']} applies in events the distributor announces")
         return None
+    ws = joins.rate_windows(rate, windows)
+    if not ws and rate["tou_period"] in joins.EVENT_PERIODS:
+        return mask & clock.event
     if not ws:
         b.flag("tou_rates_without_windows", f"{period}: {what} {rate['tou_period']} has no window")
         return None
@@ -375,7 +390,8 @@ def rate_mask(b, period, rate, clock, windows, what):
 
 def bill_usage(b, period, rates, register, iv, clock, windows, g):
     """Usage of one register. Rates priced in a period apply in their windows; a rate with no period beside them
-    prices the rest of the time (joins.is_rest); one with none beside it, all the time."""
+    prices the rest of the time (joins.is_rest); one with none beside it, all the time. Event times the site did not
+    give count as no event: the rest of the time is then every interval outside the known periods."""
     if not rates:
         return
     column = REGISTER_COLUMN[register]
@@ -389,6 +405,7 @@ def bill_usage(b, period, rates, register, iv, clock, windows, g):
     rest = [r for r in usable if r["tou_period"] in joins.ALL_TIMES]
     covered = np.zeros(clock.n, bool)
     known = True
+    events_unknown = False
     seen = {}
     for r in timed:
         if r["block"] is not None:
@@ -400,7 +417,10 @@ def bill_usage(b, period, rates, register, iv, clock, windows, g):
         seen[k] = r["component"]
         mask = rate_mask(b, period, r, clock, windows, f"{register} usage")
         if mask is None:
-            known = False
+            if event_times_unknown(r, clock, windows):
+                events_unknown = True
+            else:
+                known = False
             continue
         covered |= mask
         b.add(period, f"usage:{register}", r["component"], quantity(iv, column, r, b, period)[mask].sum(),
@@ -428,7 +448,7 @@ def bill_usage(b, period, rates, register, iv, clock, windows, g):
     blocks = [r for r in usable if r["block"] is not None]
     if blocks:
         bill_blocks(b, period, blocks, register, iv, clock, windows, g, rest_mask)
-    if timed and not rest and column in iv and known:
+    if timed and not rest and column in iv and known and not events_unknown:
         used = iv[column].to_numpy() > 0
         if (~covered & used).any():
             scratch = Bill(b.distributor_id, b.tariff_code, b.start, b.end)  # its flags are already on b
@@ -615,19 +635,31 @@ def measured(s, method, n):
     return float(daily.nlargest(n).mean())
 
 
+def calendar_months(index):
+    """(label, boolean index, days in the full month) per calendar month of the index."""
+    month = index.to_period("M")
+    return [(str(p), np.asarray(month == p), p.days_in_month) for p in sorted(set(month))]
+
+
+def billing_periods(index, b, period, component):
+    """(label, boolean index, days in the full period) per billing period: the bill's span when it lies in one calendar
+    month, else each calendar month (the database does not hold the site's billing cycle)."""
+    months = calendar_months(index)
+    if len(months) <= 1:
+        return [("billing period", np.ones(len(index), bool), len(set(index.date)))]
+    b.flag("billing_period_assumed", f"{period}: {component} restarts each billing period; billing period taken as "
+                                     f"the calendar month")
+    return months
+
+
 def reset_spans(index, reset, b, period, rate):
     """(label, boolean index, days in the span, days in a full span) per span the measured value restarts on."""
     day = pd.Index(index.date)
-    if reset in ("month", "billing_period") or reset not in ("day", "season", "year", "year_from_april",
-                                                             "rolling_12_months", "rolling_13_months"):
-        if reset == "billing_period":
-            months = [("billing period", np.ones(len(index), bool))]
-        else:
-            months = [(str(p), np.asarray(index.to_period("M") == p)) for p in sorted(set(index.to_period("M")))]
-        for label, idx in months:
-            days = len(set(day[idx]))
-            full = days if reset == "billing_period" else pd.Period(label).days_in_month
-            yield label, idx, days, full
+    if reset not in ("day", "season", "year", "year_from_april", "rolling_12_months", "rolling_13_months"):
+        spans = billing_periods(index, b, period, rate["component"]) if reset == "billing_period" \
+            else calendar_months(index)
+        for label, idx, full in spans:
+            yield label, idx, len(set(day[idx])), full
         return
     if reset == "day":
         for d in sorted(set(day)):
@@ -658,10 +690,11 @@ def bill_export(b, period, rates, iv, clock, windows, rules, g):
             kwh = exported.where(mask, 0.0)
             if rule and rule["allowance_per_day"] is not None:
                 allowance = float(rule["allowance_per_day"])
-                daily = kwh.groupby(kwh.index.date).sum()
                 if rule["allowance_rollover"] == "1":
-                    total = max(0.0, daily.sum() - allowance * len(daily))
+                    total = sum(max(0.0, kwh[idx].sum() - allowance * len(set(kwh.index[idx].date)))
+                                for _, idx, _ in billing_periods(kwh.index, b, period, r["component"]))
                 else:
+                    daily = kwh.groupby(kwh.index.date).sum()
                     total = (daily - allowance).clip(lower=0).sum()
             else:
                 total = kwh.sum()
@@ -781,7 +814,8 @@ def read_intervals(path):
 def site_args(a):
     return Site(meter_type=a.meter_type, meter_class=a.meter_class, opt_in=frozenset(a.opt_in or ()),
                 agreed_kva=a.agreed_kva, region=a.region,
-                event_days=frozenset(date.fromisoformat(d) for d in a.event_day) if a.event_day else None)
+                event_days=frozenset(date.fromisoformat(d) for d in a.event_day) if a.event_day else None,
+                event_times=tuple(tuple(e.split("/")) for e in a.event_time) if a.event_time else None)
 
 
 def main(argv=None):
@@ -799,6 +833,8 @@ def main(argv=None):
         p.add_argument("--opt-in", action="append")
         p.add_argument("--agreed-kva", type=float, help="agreed, contracted or assigned demand")
         p.add_argument("--event-day", action="append", help="a day the distributor nominated (YYYY-MM-DD), repeatable")
+        p.add_argument("--event-time", action="append",
+                       help="an event the distributor announced, START/END in NEM time (YYYY-MM-DDTHH:MM), repeatable")
         p.add_argument("--region")
     p = sub.add_parser("sweep")
     p.add_argument("--write", action="store_true", help=f"record the counts in {os.path.relpath(SWEEP_FILE, ROOT)}")

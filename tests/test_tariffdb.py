@@ -202,6 +202,18 @@ class TestValidate(unittest.TestCase):
                 self.assertEqual(check(load.load()), [], "the committed data passes")
                 self.assertNotEqual(check(self.broken(sql)), [], sql)
 
+    def test_joins_fails_a_window_no_rate_prices(self):
+        """A usage window in a period no rate prices fails; a demand window no rate prices is information only."""
+        copy = ("INSERT INTO tou_window SELECT window_id || '-{to}', distributor_id, tariff_code, effective_from, "
+                "effective_to, '{to}', 'critical_minimum', period_label, day_type, start_time, end_time, months, "
+                "season, season_label, time_basis, public_holidays, document_id, locator FROM tou_window "
+                "WHERE window_id = '{w}'")
+        w = next(w["window_id"] for w in rows("tou_window") if w["applies_to"] == "usage")
+        bad = validate.check_joins(self.broken(copy.format(to="usage", w=w)))
+        self.assertIn(f"window {w}-usage: no rate prices usage critical_minimum", bad)
+        bad = validate.check_joins(self.broken(copy.format(to="demand", w=w)))
+        self.assertFalse(any(f"{w}-demand" in b for b in bad))
+
 
 def parsed_row(side, doc, code, value, fin_year="2025-26", component="Daily charge", charge_type="fixed",
                name="Residential", note=""):

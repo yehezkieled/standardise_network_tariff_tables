@@ -13,7 +13,9 @@ tou_period is NULL or anytime applies at all times (its season, if any, still li
 except a usage rate beside usage rates of the same register priced in periods: it prices the rest of the time
 (Endeavour N72 'Block 1' beside 'Solar Soak Period'). A demand, capacity or export rate with no period beside windows
 stated for its own group that name a period is ambiguous (which window measures it is not stated); validate.py fails it.
-Windows of a period no rate prices (Endeavour's off-peak demand window) are information only.
+A window prices its group when a rate of the group takes it, or a rate with no period (the rest of the time, or all
+of it) shares its season. A demand window no rate prices (Endeavour's off-peak demand window) is information only;
+any other window no rate prices fails validate.py.
 controlled_load_supply windows price nothing: they state when a controlled-load circuit is switched on.
 """
 
@@ -61,6 +63,14 @@ def rate_windows(rate, windows):
     ws = [w for w in group_windows(group_of(rate), windows)
           if w["tou_period"] == rate["tou_period"] and same_season(rate["season"], w["season"])]
     return [w for w in ws if w["season"] == rate["season"]] or ws
+
+
+def priced_windows(rate, windows):
+    """The windows of one tariff-period a rate prices: its own windows, or for a rate with no period every window of
+    its group in its season."""
+    if rate["tou_period"] in ALL_TIMES:
+        return [w for w in group_windows(group_of(rate), windows) if same_season(rate["season"], w["season"])]
+    return rate_windows(rate, windows)
 
 
 def is_rest(rate, rates):

@@ -25,8 +25,9 @@ The checks, in order (docs/update-and-validate.md says what a failure means and 
   blocks        a stepped price numbers its blocks 1..n without gaps, with bounds that rise from block to block
   tou           windows of one tariff, charge group and published period name never overlap on the same day type
                 and month
-  joins         in a tariff-period with TOU windows, every rate priced in a period or season finds its windows, and
-                no demand or export rate lacks a period its windows name (scripts/tariffdb/joins.py)
+  joins         in a tariff-period with TOU windows, every rate priced in a period or season finds its windows, every
+                window but a demand window is priced by a rate, and no demand or export rate lacks a period its
+                windows name (scripts/tariffdb/joins.py)
   rules         every demand measurement rule (charge_rule) measures a rate of its tariff-period, in the quantity the
                 rate is priced in
   aliases       no provisional tariff is one a final tariff of the same distributor and period prices under its own
@@ -170,11 +171,11 @@ def check_tou(db):
 
 
 def check_joins(db):
-    """In a tariff-period with TOU windows, every rate priced in a period or season finds its windows, and no demand,
-    capacity or export rate without a period sits beside windows naming periods (joins.py says how they join). A
-    tariff-period without windows for a charge group, a season whose months no held document states (its window says
-    months not_stated) and an event period with no fixed hours are gaps the bill calculator reports (billcalc.py
-    sweep), not failures."""
+    """In a tariff-period with TOU windows, every rate priced in a period or season finds its windows, every window
+    except a demand window is priced by a rate of its charge group, and no demand, capacity or export rate without a
+    period sits beside windows naming periods (joins.py says how they join). A tariff-period without windows for a
+    charge group, a season whose months no held document states (its window says months not_stated) and an event
+    period with no fixed hours are gaps the bill calculator reports (billcalc.py sweep), not failures."""
     windows, rates = defaultdict(list), defaultdict(list)
     for w in rows(db, "SELECT * FROM tou_window"):
         windows[(w["distributor_id"], w["tariff_code"], w["effective_from"])].append(w)
@@ -192,6 +193,9 @@ def check_joins(db):
             if joins.ambiguous(r, ws):
                 bad.append(f"rate {r['rate_id']}: no period, but the tariff's {joins.group_of(r)} windows name "
                            f"{', '.join(joins.ambiguous(r, ws))}")
+        priced = {w["window_id"] for r in rates.get(key, []) if joins.group_of(r) for w in joins.priced_windows(r, ws)}
+        bad += [f"window {w['window_id']}: no rate prices {w['applies_to']} {w['tou_period']}" for w in ws
+                if w["window_id"] not in priced and w["applies_to"] != "demand" and w["tou_period"] != joins.SUPPLY]
     return bad
 
 

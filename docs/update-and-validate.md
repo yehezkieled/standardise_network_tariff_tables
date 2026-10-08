@@ -23,6 +23,10 @@ flowchart LR
 > ⚠ The AER report has rates only. **TOU windows and eligibility usually wait for the distributor's documents**:
 > until then a provisional tariff can have rates but no `tou_window` / `eligibility` rows.
 > `validate.py --coverage` lists those gaps.
+>
+> The pricing years before 2023-24 (stored from 1 January 2017: 2016-17 / Victoria 2017 through 2022-23) carry rates
+> only: TOU windows and eligibility criteria start 2023-07-01, so `--coverage` counts every tariff of those years as a gap.
+> Back-filling them for 2017 to 2023 is planned follow-up work.
 
 ## Find and load new releases
 
@@ -140,6 +144,7 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 
 The database stores only the years in effect on or after `build_support.FIRST_STORED_DAY` (2017-01-01); an older
 year is parsed and checked but not stored until that day is lowered (README, "Older years").
+Such a year is stored with rates only (no TOU windows or eligibility yet; see "The rule" above).
 A year whose documents print the price only as parts (DUOS / TUOS / jurisdictional, no total) is listed in
 `sources/archive/gaps.csv` rather than stored, for example Ergon 2016-17 to 2019-20.
 

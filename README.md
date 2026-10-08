@@ -3,7 +3,9 @@
 Australian electricity **network tariffs** for all 14 distributors, every pricing year in effect from 1 January 2017 to 2026-27
 (except Ergon, which starts at 2020-21: its 2016-17 to 2019-20 documents print the network price only as separate
 DUOS / TUOS / jurisdictional parts, and the dataset stores only printed totals), as one historical dataset:
-per tariff code, the final rate the customer is charged, with its TOU windows and eligibility.
+per tariff code, the final rate the customer is charged, with its TOU windows and eligibility. The pricing years
+before 2023-24 (2016-17 / Victoria 2017 through 2022-23) carry rates only: TOU windows and eligibility criteria start
+2023-07-01. Back-filling them for 2017 to 2023 is planned follow-up work.
 
 ![Every table with its keys and the tables they reference](docs/schema-erd.svg)
 

@@ -203,16 +203,25 @@ class TestValidate(unittest.TestCase):
                 self.assertNotEqual(check(self.broken(sql)), [], sql)
 
     def test_joins_fails_a_window_no_rate_prices(self):
-        """A usage window in a period no rate prices fails; a demand window no rate prices is information only."""
+        """A usage window of a period its rates price only in another season fails; a window of a period the price
+        list leaves unpriced, and a demand window no rate prices, are information only."""
         copy = ("INSERT INTO tou_window SELECT window_id || '-{to}', distributor_id, tariff_code, effective_from, "
-                "effective_to, '{to}', 'critical_minimum', period_label, day_type, start_time, end_time, months, "
-                "season, season_label, time_basis, public_holidays, document_id, locator FROM tou_window "
+                "effective_to, '{to}', {period}, period_label, day_type, start_time, end_time, months, "
+                "{season}, season_label, time_basis, public_holidays, document_id, locator FROM tou_window "
                 "WHERE window_id = '{w}'")
-        w = next(w["window_id"] for w in rows("tou_window") if w["applies_to"] == "usage")
-        bad = validate.check_joins(self.broken(copy.format(to="usage", w=w)))
-        self.assertIn(f"window {w}-usage: no rate prices usage critical_minimum", bad)
-        bad = validate.check_joins(self.broken(copy.format(to="demand", w=w)))
-        self.assertFalse(any(f"{w}-demand" in b for b in bad))
+        key = ("distributor_id", "tariff_code", "effective_from", "tou_period")
+        seasons = {}
+        for r in rows("rate"):
+            if r["charge_type"] == "usage":
+                seasons.setdefault(tuple(r[k] for k in key), set()).add(r["season"])
+        w = next(w["window_id"] for w in rows("tou_window") if w["applies_to"] == "usage" and w["season"] == "summer"
+                 and seasons.get(tuple(w[k] for k in key)) == {"summer"})
+        bad = validate.check_joins(self.broken(copy.format(to="usage", period="tou_period", season="'winter'", w=w)))
+        self.assertIn(f"window {w}-usage: no rate prices usage {w.split(':')[4]} in season winter", bad)
+        for to in ("usage", "demand"):
+            bad = validate.check_joins(self.broken(copy.format(to=to, period="'critical_minimum'", season="season",
+                                                               w=w)))
+            self.assertFalse(any(f"{w}-{to}" in b for b in bad), bad)
 
 
 def parsed_row(side, doc, code, value, fin_year="2025-26", component="Daily charge", charge_type="fixed",

@@ -169,7 +169,9 @@ the AER file states none.
 
 `scripts/tariffdb/joins.py` says how a rate finds its windows: a usage rate with no period beside period-priced usage
 rates prices the rest of the time; event periods (critical peak...) need no window; the `joins` check fails on a rate
-whose period has no window or whose window is ambiguous, and on a window (other than a demand window) no rate prices.
+whose period has no window or whose window is ambiguous, and on a window (other than a demand window) of a period
+its charge group prices in no season the window belongs to. A window of a period the price list leaves unpriced
+(no rate of its group in that period, e.g. Energex 92000 off-peak and shoulder at 0) is information only.
 
 ### Bill calculator
 
@@ -224,7 +226,7 @@ and kWh columns `E1` (import), `E2` (controlled load), `B1` (export), `Q1` (kvar
 | `magnitude` | no c/kWh rate outside `critical_peak` exceeds 200 c/kWh unless its note contains `confirmed high rate:` | a parser read a $/kWh cell as c/kWh, or a demand charge as usage; fix the parser (a real high price gets a parser note `confirmed high rate: ...` quoting its evidence) |
 | `blocks` | blocks number 1..n and their lower bounds rise | a block ladder in the curated `steps` that does not match the price list |
 | `tou` | windows of one tariff and period name never overlap on a day type and month | a mistyped window in the curated YAML |
-| `joins` | in a tariff-period with windows, each rate priced in a period or season finds its windows, each window but a demand window is priced by a rate of its charge group, and no demand or export rate without a period sits beside windows naming several | a window missing from the curated YAML, a rate whose period the price list names differently, or a rate missing for a window's period: add the window or a `rate_periods` fact, or find the missing rate |
+| `joins` | in a tariff-period with windows, each rate priced in a period or season finds its windows, each window but a demand window of a period its charge group prices is priced by a rate of that group in its season, and no demand or export rate without a period sits beside windows naming several | a window missing from the curated YAML, a rate whose period the price list names differently, or a window in a season no rate of its period covers: add the window or a `rate_periods` fact, or find the missing rate |
 | `rules` | each `charge_rule` measures a rate of its tariff-period, in the quantity the rate is priced in | a curated rule names the wrong charge type, period, season or measure |
 | `aliases` | no provisional tariff is a final tariff of the same distributor and period under another spelling or an alias | the AER spells a code differently: add a rule to `data/tariffdb/code_alias.csv` |
 | `files` | each held document matches its recorded SHA-256 (`--sources`) | the publisher replaced the file: record it as a new version |

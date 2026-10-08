@@ -14,8 +14,10 @@ except a usage rate beside usage rates of the same register priced in periods: i
 (Endeavour N72 'Block 1' beside 'Solar Soak Period'). A demand, capacity or export rate with no period beside windows
 stated for its own group that name a period is ambiguous (which window measures it is not stated); validate.py fails it.
 A window prices its group when a rate of the group takes it, or a rate with no period (the rest of the time, or all
-of it) shares its season. A demand window no rate prices (Endeavour's off-peak demand window) is information only;
-any other window no rate prices fails validate.py.
+of it) shares its season. A demand window no rate prices (Endeavour's off-peak demand window) and a window of a
+period no rate of its group prices (the price list leaves it unpriced: Energex 92000 lists off-peak and shoulder at 0,
+which the build stores as no rate) are information only; a window of a period its group prices, but in no season the
+window belongs to, fails validate.py.
 controlled_load_supply windows price nothing: they state when a controlled-load circuit is switched on.
 """
 

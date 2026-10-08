@@ -172,10 +172,11 @@ def check_tou(db):
 
 def check_joins(db):
     """In a tariff-period with TOU windows, every rate priced in a period or season finds its windows, every window
-    except a demand window is priced by a rate of its charge group, and no demand, capacity or export rate without a
-    period sits beside windows naming periods (joins.py says how they join). A tariff-period without windows for a
-    charge group, a season whose months no held document states (its window says months not_stated) and an event
-    period with no fixed hours are gaps the bill calculator reports (billcalc.py sweep), not failures."""
+    except a demand window of a period its charge group prices is priced by a rate of that group (in the window's
+    season), and no demand, capacity or export rate without a period sits beside windows naming periods (joins.py says
+    how they join). A tariff-period without windows for a charge group, a season whose months no held document states
+    (its window says months not_stated) and an event period with no fixed hours are gaps the bill calculator reports
+    (billcalc.py sweep), not failures."""
     windows, rates = defaultdict(list), defaultdict(list)
     for w in rows(db, "SELECT * FROM tou_window"):
         windows[(w["distributor_id"], w["tariff_code"], w["effective_from"])].append(w)
@@ -193,9 +194,13 @@ def check_joins(db):
             if joins.ambiguous(r, ws):
                 bad.append(f"rate {r['rate_id']}: no period, but the tariff's {joins.group_of(r)} windows name "
                            f"{', '.join(joins.ambiguous(r, ws))}")
-        priced = {w["window_id"] for r in rates.get(key, []) if joins.group_of(r) for w in joins.priced_windows(r, ws)}
-        bad += [f"window {w['window_id']}: no rate prices {w['applies_to']} {w['tou_period']}" for w in ws
-                if w["window_id"] not in priced and w["applies_to"] != "demand" and w["tou_period"] != joins.SUPPLY]
+        grouped = [r for r in rates.get(key, []) if joins.group_of(r)]
+        priced = {w["window_id"] for r in grouped for w in joins.priced_windows(r, ws)}
+        bad += [f"window {w['window_id']}: no rate prices {w['applies_to']} {w['tou_period']}"
+                + (f" in season {w['season']}" if w["season"] else "") for w in ws
+                if w["window_id"] not in priced and w["applies_to"] != "demand" and w["tou_period"] != joins.SUPPLY
+                and any(r["tou_period"] == w["tou_period"] and w in joins.group_windows(joins.group_of(r), ws)
+                        for r in grouped)]
     return bad
 
 

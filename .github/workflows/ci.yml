@@ -1,5 +1,5 @@
 # Runs the reconciliation regression suite. The suite works on synthetic fixtures and the source documents committed
-# in the repository (AER files, Wayback copies) and downloads nothing: the other documents are fetched by ./run.sh.
+# in the repository (every file under sources/) and downloads nothing.
 name: CI
 
 on:
@@ -27,8 +27,8 @@ jobs:
 
   tariffdb:
     # The tariff database tests: generated files current, constraints, validation rules, the build rules on synthetic
-    # documents, and every value and quote re-read from the source documents committed in the repository (the other
-    # documents are fetched by ./run.sh, so TARIFFDB_SOURCES=committed limits the re-reads to those files).
+    # documents, and every value and quote re-read from the source documents committed in the repository (the parser
+    # outputs in out/ are not committed, so TARIFFDB_SOURCES=committed skips the checks that need them).
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

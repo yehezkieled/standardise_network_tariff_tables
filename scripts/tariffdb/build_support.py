@@ -7,9 +7,14 @@ login-gated and so not retrievable, and the saved AER landing pages that hold th
 import csv
 import os
 import re
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import spec  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 INVENTORY = os.path.join(ROOT, "sources", "inventory.csv")
+ARCHIVE_INVENTORY = os.path.join(ROOT, "sources", "archive", "inventory.csv")  # pricing years before 2023-24
 INVENTORY_COMMIT_DATE = "2026-10-05"  # date sources/inventory.csv (with its sha256 values) was committed
 
 DISTRIBUTORS = [
@@ -36,8 +41,29 @@ BY_STATE = {}
 for _d in DISTRIBUTORS:
     BY_STATE.setdefault(_d["state"], []).append(_d["distributor_id"])
 
-FIN_YEAR_DATES = {"2023-24": ("2023-07-01", "2024-06-30"), "2024-25": ("2024-07-01", "2025-06-30"),
-                  "2025-26": ("2025-07-01", "2026-06-30"), "2026-27": ("2026-07-01", "2027-06-30")}
+
+
+def year_dates(key):
+    """(first day, last day) of a pricing year: 2025-26 (1 Jul - 30 Jun), 2005 (calendar year), 2021-H1, 2000-H2."""
+    y = int(key[:4])
+    if key.endswith("-H1"):
+        return f"{y}-01-01", f"{y}-06-30"
+    if key.endswith("-H2"):
+        return f"{y}-07-01", f"{y}-12-31"
+    if len(key) == 4:
+        return f"{y}-01-01", f"{y}-12-31"
+    return f"{y}-07-01", f"{y + 1}-06-30"
+
+
+YEAR_DATES = {k: year_dates(k) for k in spec.PRICING_YEARS}
+# the database stores the pricing years in effect on or after this day (the captain's cutoff); the archive and
+# scripts/history keep the older years, so lowering it and rebuilding stores them too (README, "Older years")
+FIRST_STORED_DAY = "2017-01-01"
+
+
+def stored(year, first_day=FIRST_STORED_DAY):
+    """Whether the database stores a pricing year: it ends on or after first_day (None stores every year)."""
+    return first_day is None or year_dates(year)[1] >= first_day
 
 # (distributor_id, fin_year) -> the price list customers are billed on, where a distributor publishes more than one for
 # the year (scripts/tariffdb/build.py fails until the choice is named here)
@@ -254,6 +280,53 @@ def read_inventory():
         return list(csv.DictReader(f))
 
 
+# archive document kinds that can carry network prices (sources/archive/README.md) -> source_document.document_type
+ARCHIVE_TYPES = {k: k for k in ("price_list", "pricing_proposal", "tariff_summary", "tariff_schedule", "price_guide",
+                                "annual_tariff_report", "pricing_model")}
+
+
+def read_archive():
+    with open(ARCHIVE_INVENTORY, newline="", encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+
+def archive_effective_from():
+    """local_path -> first day an archived re-issue's prices take effect (the archive inventory's effective_from)."""
+    return {r["local_path"]: r["effective_from"] for r in read_archive() if r.get("effective_from")}
+
+
+def archive_documents():
+    """source_document rows of the archived documents that can carry network prices (pricing years before 2023-24).
+    Status, dates and versions are the archive inventory's; one series per side, distributor, year and kind, its
+    versions numbered by publication (else retrieval) date."""
+    out = []
+    for r in read_archive():
+        if r["document_kind"] not in ARCHIVE_TYPES or r["price_status"] == "not_applicable":
+            continue
+        out.append({  # the id keeps the extension: some documents are held as both .xls and .xlsx
+            "document_id": slug(f"{r['distributor_id']}-{r['pricing_year']}-{os.path.basename(r['local_path'])}"),
+            "series_id": f"{r['side'].lower().replace('_', '')}-{r['distributor_id']}-{r['pricing_year']}-"
+                         f"{r['document_kind'].replace('_', '-')}",
+            "version_label": r["version_label"] or "as published", "author": "AER" if r["side"] == "AER" else
+            "regulator" if r["side"] == "REGULATOR_HOSTED" else "distributor",
+            "distributor_id": r["distributor_id"], "fin_year": r["pricing_year"],
+            "document_type": ARCHIVE_TYPES[r["document_kind"]], "recon_side": r["side"],
+            "price_status": r["price_status"], "title": r["title"], "publication_date": r["publication_date"] or None,
+            "publication_date_basis": r["publication_date_basis"] or None, "retrieval_status": "retrieved",
+            "local_path": r["local_path"], "source_url": r["source_url"], "access_note": r["note"] or None,
+            "sha256": r["sha256"], "retrieved_on": r["retrieved_on"], "retrieved_on_basis": r["retrieved_via"],
+            "committed_in_repo": 1,
+        })
+    series = {}
+    for d in out:
+        series.setdefault(d["series_id"], []).append(d)
+    for ds in series.values():
+        for i, d in enumerate(sorted(ds, key=lambda d: (d["publication_date"] or d["retrieved_on"] or "",
+                                                         d["local_path"])), 1):
+            d["version_seq"] = i
+    return out
+
+
 def documents():
     """All source_document rows (inventory + extras), each with its series."""
     out = []
@@ -300,6 +373,7 @@ def documents():
             "committed_in_repo": 1 if (path and (wb or r["side"] == "AER")) else 0,
         })
     out += [dict(d) for d in EXTRA_DOCUMENTS]
+    out += archive_documents()
     for d in out:
         if d["document_type"] == "aer_consolidated_stakeholder_report" and "landing" not in d["document_id"]:
             cov = dict((v[0], v[3]) for v in AER_VERSIONS[d["fin_year"]])[d["version_seq"]]

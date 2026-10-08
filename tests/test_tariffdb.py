@@ -2,8 +2,8 @@
 
   .venv/bin/python -m unittest tests/test_tariffdb.py
 
-TARIFFDB_SOURCES=committed re-reads only the source documents committed to the repository (AER files and Wayback
-copies), as CI does: the other documents are fetched by ./run.sh, and the rebuild test needs the parser outputs in out/.
+TARIFFDB_SOURCES=committed re-reads only the source documents committed to the repository (every file under sources/),
+as CI does: the rebuild test needs the parser outputs in out/, which ./run.sh writes.
 """
 import contextlib
 import csv
@@ -180,11 +180,13 @@ class TestValidate(unittest.TestCase):
                                     f"ELSE 'final' END WHERE {key}"),
             (validate.check_units, "UPDATE rate SET unit = 'c/kWh' WHERE charge_type = 'daily' AND rowid IN "
                                    "(SELECT rowid FROM rate WHERE charge_type = 'daily' LIMIT 1)"),
+            (validate.check_magnitude, "UPDATE rate SET value = 5000 WHERE rowid IN (SELECT rowid FROM rate WHERE "
+                                       "unit = 'c/kWh' AND tou_period != 'critical_peak' LIMIT 1)"),
             (validate.check_blocks, "UPDATE rate SET block = 3 WHERE block = 2 AND rowid IN "
                                     "(SELECT rowid FROM rate WHERE block = 2 LIMIT 1)"),
             (validate.check_aliases, "INSERT INTO tariff SELECT distributor_id, lower(tariff_code), effective_from, "
                                      "effective_to, tariff_name, customer_class, 'provisional', document_id FROM "
-                                     "tariff WHERE status = 'final' LIMIT 1"),
+                                     "tariff WHERE status = 'final' AND tariff_code <> lower(tariff_code) LIMIT 1"),
             (validate.check_tou, "INSERT INTO tou_window SELECT window_id || '-copy', distributor_id, tariff_code, "
                                  "effective_from, effective_to, applies_to, tou_period, period_label, day_type, "
                                  "start_time, end_time, months, season, time_basis, public_holidays, document_id, "
@@ -250,6 +252,22 @@ class TestBuildRules(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "FINAL_DOCUMENT"):
             self.run_build(docs, [parsed_row("DNSP", "sources/dist-a.pdf", "A1", "1"),
                                   parsed_row("DNSP", "sources/dist-b.pdf", "A1", "2")])
+
+    def test_years_before_the_cutoff_are_parsed_but_not_stored(self):
+        docs = [doc("old", "DNSP", fin_year="2015-16"), doc("edge", "DNSP", fin_year="2016-17")]
+        parsed = [parsed_row("DNSP", "sources/old.pdf", "A1", "1", fin_year="2015-16"),
+                  parsed_row("DNSP", "sources/edge.pdf", "A1", "2", fin_year="2016-17")]
+        for first_day, kept in ((bs.FIRST_STORED_DAY, {"edge"}), (None, {"old", "edge"})):
+            b = build.Builder(parsed=parsed, metering=[], curated_files={}, docs=docs, starts={}, code_aliases=[],
+                              first_day=first_day)
+            b.tariffs_and_rates()
+            self.assertEqual({v["document_id"] for v in b.tables["tariff"].values()}, kept)
+
+    def test_two_lists_pricing_different_codes_both_count(self):
+        tariffs, _ = self.run_build([doc("dist-a", "DNSP"), doc("dist-b", "DNSP")],
+                                    [parsed_row("DNSP", "sources/dist-a.pdf", "A1", "1"),
+                                     parsed_row("DNSP", "sources/dist-b.pdf", "B1", "2")])
+        self.assertEqual({(k[0], v["document_id"]) for k, v in tariffs.items()}, {("A1", "dist-a"), ("B1", "dist-b")})
 
     def test_joint_aer_codes_are_split_and_withdrawn_rows_dropped(self):
         tariffs, _ = self.run_build([doc("aer", "AER", "approved")], [
@@ -359,8 +377,13 @@ class TestDocs(unittest.TestCase):
         for name in ran + [name for name, _ in validate.SOURCE_CHECKS]:
             self.assertRegex(text, rf"\| `{name}` \|", f"docs/update-and-validate.md does not explain the {name} check")
 
-    def test_fin_year_lists_agree(self):
-        self.assertEqual(sorted(bs.FIN_YEAR_DATES), spec.FIN_YEARS)
+    def test_pricing_year_dates(self):
+        self.assertEqual(sorted(bs.YEAR_DATES), sorted(spec.PRICING_YEARS))
+        self.assertEqual(bs.year_dates("2025-26"), ("2025-07-01", "2026-06-30"))
+        self.assertEqual(bs.year_dates("1999-00"), ("1999-07-01", "2000-06-30"))
+        self.assertEqual(bs.year_dates("2005"), ("2005-01-01", "2005-12-31"))
+        self.assertEqual(bs.year_dates("2021-H1"), ("2021-01-01", "2021-06-30"))
+        self.assertEqual(bs.year_dates("2000-H2"), ("2000-07-01", "2000-12-31"))
 
 
 if __name__ == "__main__":

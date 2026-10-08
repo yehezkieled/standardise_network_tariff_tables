@@ -1,7 +1,11 @@
 # standardise_network_tariff_tables
 
-Australian electricity **network tariffs** for all 14 distributors, 2023-24 to 2026-27, as one historical dataset:
-per tariff code, the final rate the customer is charged, with its TOU windows and eligibility.
+Australian electricity **network tariffs** for all 14 distributors, every pricing year in effect from 1 January 2017 to 2026-27
+(except Ergon, which starts at 2020-21: its 2016-17 to 2019-20 documents print the network price only as separate
+DUOS / TUOS / jurisdictional parts, and the dataset stores only printed totals), as one historical dataset:
+per tariff code, the final rate the customer is charged, with its TOU windows and eligibility. The pricing years
+before 2023-24 (2016-17 / Victoria 2017 through 2022-23) carry rates only: TOU windows and eligibility criteria start
+2023-07-01. Back-filling them for 2017 to 2023 is planned follow-up work.
 
 ![Every table with its keys and the tables they reference](docs/schema-erd.svg)
 
@@ -65,20 +69,44 @@ exact URL it was retrieved from, an access note and the SHA-256 of the file that
   not, is a `source_document` row in the tariff database; the versions that are not held are listed as gaps in
   `REPORT.md`. `scripts/reconcile.py --aer-version <document_id>` reconciles any held version.
 - **Wayback Machine copies** (URL on `web.archive.org`): documents whose publisher blocks automated access
-  (energex.com.au, ergon.com.au, powerwater.com.au) or no longer serves the file. These are committed under
-  `sources/` because they cannot be re-fetched reliably.
-- **Everything else** is not committed. `scripts/fetch_sources.py` (run by `./run.sh`) downloads each missing
-  file from its recorded URL and verifies the checksum, so a changed checksum shows that the publisher replaced
-  the document in place. `scripts/fetch_sources.py --check` only reports what is missing or differs.
+  (energex.com.au, ergon.com.au, powerwater.com.au) or no longer serves the file.
+- **Distributor documents** fetched from the distributor's site.
+
+Every file is committed: publishers replace documents in place and remove old ones. `scripts/fetch_sources.py`
+(run by `./run.sh`) re-downloads a missing file from its recorded URL and verifies the checksum, so a changed
+checksum shows that the publisher replaced the document; `scripts/fetch_sources.py --check` only reports what is
+missing or differs.
 
 Rows without a local path are documents that could not be obtained at all (the access note says why); the
 report treats those distributor-years as "no distributor-side data".
+
+Pricing years before 2023-24: `sources/archive/` holds every older public document found (AER-hosted proposals
+and price lists back to 2009-10, distributor and state-regulator documents), with its own inventory, a coverage table
+per distributor and year, and the reason for each gap (`sources/archive/README.md`). The parsers in
+`scripts/history/` read them into the same tables (`sources/archive/` is committed in full, so every historical value
+is re-checked against its page in CI).
+
+### Older years (before 2017)
+
+The database stores the pricing years in effect on or after 1 January 2017 (2016-17, Victoria's 2017, and later). The
+archive and the parsers already cover 1996-97 to 2016 (every parser output passes `scripts/history/check.py`, which
+checks all years). To store them as well:
+
+1. Lower `FIRST_STORED_DAY` in `scripts/tariffdb/build_support.py` (e.g. `"1996-07-01"`).
+2. `./run.sh --no-fetch` (or run the `scripts/history/*.py` parsers), then rebuild and validate as in
+   [docs/update-and-validate.md](docs/update-and-validate.md).
+
+A year whose documents print only parts and no total is never stored, whatever the cutoff; it is listed with its
+evidence in `sources/archive/gaps.csv` (Ergon 2016-17 to 2019-20, see above).
 
 ## Layout
 
 - `scripts/parse_aer.py` - reads the AER files into one long table (`out/aer_long.csv`).
 - `scripts/dnsp/*.py` - one parser per distributor group, all emitting the `scripts/schema.py` columns
   (contract in `scripts/dnsp/CONTRACT.md`).
+- `scripts/history/*.py` - one parser per distributor group for the archived pricing years before 2023-24
+  (contract in `scripts/history/CONTRACT.md`; `check.py <slug> --sources` verifies one parser's output);
+  `scripts/archive_sources.py` adds, re-files and corrects archived documents.
 - `scripts/units.py` - unit normalisation (cents; fixed charges per day; demand per published period).
 - `scripts/reconcile.py` - code and component matching, difference classification, grid and discrepancy outputs
   (`--aer-version` for a superseded AER version; the default run also writes `out/version_grid.csv`).
@@ -93,4 +121,4 @@ report treats those distributor-years as "no distributor-side data".
   TOU and eligibility facts against their sources), `validate.py` (every rule and source check), `load.py` (SQLite
   load, `--out` to save a database), `schema_doc.py` (writes `docs/schema.md` and `docs/schema-erd.svg`),
   `build_support.py` (distributors and the document registry), `locators.py` (reads a value at its cell or page).
-  Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py`.
+  Tests: `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_archive.py`.

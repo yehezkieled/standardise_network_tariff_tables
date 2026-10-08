@@ -24,8 +24,8 @@ import schema
 import fetch_sources
 
 
-# The TasNetworks checks parse the published documents themselves. Those files are not committed (./run.sh fetches
-# them from the URLs in sources/inventory.csv), so the checks run only in a checkout that has them.
+# The TasNetworks checks parse the published documents themselves. Every source document is committed now; the skip
+# remains only as a guard for a checkout that lacks those files (./run.sh fetches them from sources/inventory.csv).
 TASNETWORKS_DOCUMENTS = [path for _, _, path, _ in tasnetworks.FILES[2:]]
 needs_tasnetworks_documents = unittest.skipUnless(
     all(os.path.exists(path) for path in TASNETWORKS_DOCUMENTS),

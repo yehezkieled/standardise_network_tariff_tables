@@ -7,15 +7,20 @@ the exit status is 1 when any check fails.
                                                              to the repository, as CI does)
   .venv/bin/python scripts/tariffdb/validate.py --coverage   also list the gaps to fill (never fails): per distributor,
                                                              year and status, the tariffs still without TOU windows or
-                                                             eligibility
+                                                             eligibility. The years before 2023-24 carry rates
+                                                             only (windows and eligibility start 2023-07-01;
+                                                             back-filling 2017 to 2023 is planned follow-up work)
 
 The checks, in order (docs/update-and-validate.md says what a failure means and what to do):
   load          the CSVs load into SQLite with every key, foreign key and CHECK constraint of schema.sqlite.sql
   periods       no two periods of one tariff code overlap; every rate, window and criterion lies inside its tariff's
                 period; a source document's year contains the period it prices
   status        a tariff is final exactly when its document is the distributor's own published list (not one the AER
-                hosts), and each rate carries its tariff's status and document
+                hosts) or a state regulator's published schedule, and each rate carries its tariff's status and
+                document
   units         every standard unit is one the docs list and fits its charge type (usage per kWh, demand per kW...)
+  magnitude     no c/kWh rate outside critical peak exceeds 200 c/kWh unless its note contains 'confirmed
+                high rate:'
   blocks        a stepped price numbers its blocks 1..n without gaps, with bounds that rise from block to block
   tou           windows of one tariff, charge group and published period name never overlap on the same day type
                 and month
@@ -46,6 +51,9 @@ UNIT_RE = re.compile(r"^c/(?:day|kWh|kVAh|(?:kW|kVA|k\?|lamp)/(?:day|month|year|
 UNITS_BY_CHARGE = {"daily": r"c/(day|lamp/day)$", "metering": r"c/(day|kWh)$", "usage": r"c/(kWh|kVAh)$",
                    "demand": r"c/k(W|VA|\?)/", "capacity": r"c/k(W|VA|\?)/",
                    "export": r"c/(kWh|kVAh)$|c/k(W|VA)/", "other": r"c/"}
+# above this a c/kWh price outside critical peak is a misread unless its note says 'confirmed high rate:' (the largest
+# ordinary energy price in the dataset is under 150 c/kWh)
+MAX_KWH_PRICE = 200
 # rates stored with the unit their document prints although it does not fit the charge: rate_id -> evidence
 KNOWN_MISPRINTS = {
     rid: "Evoenergy Statement of Tariff Classes and Tariffs 2023-24 p26 prints 'Net energy c/kVA/day' (123) and "
@@ -75,11 +83,11 @@ def check_periods(db):
             bad.append(f"{table} {r['distributor_id']} {r['tariff_code']} {r['effective_from']}: ends "
                        f"{r['effective_to']}, after its tariff ({r['tariff_to']})")
     for r in rows(db, """SELECT t.distributor_id, t.tariff_code, t.effective_from, t.effective_to, d.document_id,
-                         d.fin_year FROM tariff t JOIN source_document d USING (document_id)"""):
-        start, end = bs.FIN_YEAR_DATES[r["fin_year"]]
+                         d.pricing_year FROM tariff t JOIN source_document d USING (document_id)"""):
+        start, end = bs.YEAR_DATES[r["pricing_year"]]
         if not (start <= r["effective_from"] and r["effective_to"] <= end):
             bad.append(f"tariff {r['distributor_id']} {r['tariff_code']} {r['effective_from']}..{r['effective_to']}: "
-                       f"outside the {r['fin_year']} year of {r['document_id']}")
+                       f"outside the {r['pricing_year']} year of {r['document_id']}")
     return bad
 
 
@@ -88,10 +96,12 @@ def check_status(db):
     for r in rows(db, """SELECT t.distributor_id, t.tariff_code, t.effective_from, t.status, d.document_id,
                          d.publisher, d.hosted_by_aer, d.price_status FROM tariff t JOIN source_document d
                          USING (document_id)"""):
-        final = r["publisher"] == "distributor" and not r["hosted_by_aer"] and r["price_status"] == "published"
+        final = (r["publisher"] == "distributor" and not r["hosted_by_aer"] and r["price_status"] == "published") or (
+            r["publisher"] == "regulator" and r["price_status"] in ("published", "approved"))
         if (r["status"] == "final") != final:
             bad.append(f"tariff {r['distributor_id']} {r['tariff_code']} {r['effective_from']}: status {r['status']} "
-                       f"but {r['document_id']} is {'' if final else 'not '}the distributor's own published list")
+                       f"but {r['document_id']} is {'' if final else 'not '}the distributor's own published list "
+                       f"or a regulator's published schedule")
     for r in rows(db, """SELECT r.rate_id, r.status, r.document_id, t.status AS t_status, t.document_id AS t_doc
                          FROM rate r JOIN tariff t USING (distributor_id, tariff_code, effective_from)
                          WHERE r.status != t.status OR r.document_id != t.document_id"""):
@@ -108,6 +118,12 @@ def check_units(db):
         elif not re.match(UNITS_BY_CHARGE[r["charge_type"]], r["unit"]) and r["rate_id"] not in KNOWN_MISPRINTS:
             bad.append(f"rate {r['rate_id']}: a {r['charge_type']} charge in {r['unit']}")
     return bad
+
+
+def check_magnitude(db):
+    return [f"rate {r['rate_id']}: {r['value']} c/kWh" for r in rows(
+        db, f"""SELECT rate_id, value FROM rate WHERE unit = 'c/kWh' AND coalesce(tou_period, '') != 'critical_peak'
+                AND abs(value) > {MAX_KWH_PRICE} AND coalesce(note, '') NOT LIKE '%confirmed high rate:%'""")]
 
 
 def check_blocks(db):
@@ -219,15 +235,15 @@ def check_quotes(db, committed_only):
         ok, why = locators.verify_quote(path, r["locator"], r["quote"])
         if not ok:
             bad.append(f"eligibility {r['criterion_id']}: {why}")
-    if not committed_only:  # the YAML quotes documents that are not committed
+    if not committed_only:  # every source is committed now; the skip only guards checkouts that lack them
         for name, data in curated.load_all().items():
             bad += [f"curated/{name}.yaml: {e}" for e in curated.validate(data)]
     return bad, n
 
 
 # the checks main() runs after load, in order: (name, check); SOURCE_CHECKS only with --sources
-CHECKS = (("periods", check_periods), ("status", check_status), ("units", check_units), ("blocks", check_blocks),
-          ("tou", check_tou), ("aliases", check_aliases))
+CHECKS = (("periods", check_periods), ("status", check_status), ("units", check_units),
+          ("magnitude", check_magnitude), ("blocks", check_blocks), ("tou", check_tou), ("aliases", check_aliases))
 SOURCE_CHECKS = (("files", check_files), ("values", check_values), ("quotes", check_quotes))
 
 
@@ -235,7 +251,7 @@ def coverage(db):
     """One line per distributor-year and status: tariffs, those pricing a time-of-use period with no TOU window, and
     those with no eligibility criterion (the facts curated from the distributor's documents)."""
     out = []
-    for r in rows(db, """SELECT t.distributor_id, d.fin_year, t.status, count(*) AS n,
+    for r in rows(db, """SELECT t.distributor_id, d.pricing_year, t.status, count(*) AS n,
                          sum(EXISTS (SELECT 1 FROM rate r WHERE r.distributor_id = t.distributor_id
                                AND r.tariff_code = t.tariff_code AND r.effective_from = t.effective_from
                                AND r.tou_period IS NOT NULL AND r.tou_period != 'anytime')
@@ -245,7 +261,7 @@ def coverage(db):
                                AND e.tariff_code = t.tariff_code AND e.effective_from = t.effective_from)) AS no_elig
                          FROM tariff t JOIN source_document d USING (document_id)
                          GROUP BY 1, 2, 3 ORDER BY 1, 2, 3"""):
-        out.append(f"{r['distributor_id']:13} {r['fin_year']} {r['status']:11} {r['n']:4} tariffs, {r['no_tou']:3} "
+        out.append(f"{r['distributor_id']:13} {r['pricing_year']:7} {r['status']:11} {r['n']:4} tariffs, {r['no_tou']:3} "
                    f"pricing a TOU period without windows, {r['no_elig']:3} without eligibility")
     return out
 
@@ -255,7 +271,9 @@ def main(argv=None):
     ap.add_argument("--sources", action="store_true", help="also re-read every value and quote from its source file")
     ap.add_argument("--committed-only", action="store_true",
                     help="with --sources: re-read only the files committed to the repository (as CI does)")
-    ap.add_argument("--coverage", action="store_true", help="also list the gaps to fill (informational)")
+    ap.add_argument("--coverage", action="store_true",
+                    help="also list the gaps to fill (informational; the years before 2023-24 carry rates only, "
+                    "without TOU windows or eligibility)")
     ap.add_argument("--data", default=loader.DEFAULT_DATA, help="database directory (default data/tariffdb)")
     a = ap.parse_args(argv)
     failed = False

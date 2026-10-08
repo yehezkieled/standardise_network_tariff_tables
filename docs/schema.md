@@ -10,10 +10,10 @@
 |---|---|
 | Stores | the network price charged per tariff code: daily, usage, demand, capacity, export and metering rates, TOU windows, eligibility criteria |
 | Not stored | retail plans; the DUoS / TUoS / jurisdictional breakdown |
-| Years | 2023-24 to 2026-27 |
+| Years | 2016-17 to 2026-27 |
 | Distributors | 14 |
-| Tariff-years | 2,391 (2,046 final, 345 provisional) |
-| Rates | 8,823 |
+| Tariff-years | 6,381 (5,060 final, 1,321 provisional) |
+| Rates | 24,865 |
 | Data (canonical) | `data/tariffdb/tables/<table>.csv`, committed |
 | SQLite | `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` (built, not committed: a binary does not diff and would drift from the CSVs) |
 | Schema source | `scripts/tariffdb/spec.py` → `schema.json`, `schema.sqlite.sql`, this page |
@@ -24,9 +24,9 @@
 | Table | One row is | Key | Rows |
 |---|---|---|---|
 | [`distributor`](#distributor) | one distributor (DNSP) | distributor_id | 14 |
-| [`source_document`](#source_document) | one version of one source document, held or not | document_id | 116 |
-| [`tariff`](#tariff) | one tariff code of one distributor for one period (a financial year, or part of one after a mid-year change) | distributor_id, tariff_code, effective_from | 2,391 |
-| [`rate`](#rate) | one price of one tariff for one period: charge type x TOU period x season x block | rate_id | 8,823 |
+| [`source_document`](#source_document) | one version of one source document, held or not | document_id | 412 |
+| [`tariff`](#tariff) | one tariff code of one distributor for one period (a pricing year, or part of one after a mid-year change) | distributor_id, tariff_code, effective_from | 6,381 |
+| [`rate`](#rate) | one price of one tariff for one period: charge type x TOU period x season x block | rate_id | 24,865 |
 | [`tou_window`](#tou_window) | one time window that one tariff's charges use, for one period | window_id | 4,705 |
 | [`eligibility`](#eligibility) | one stated criterion of one tariff for one period | criterion_id | 7,432 |
 
@@ -82,7 +82,7 @@ FROM tariff WHERE distributor_id = 'essential' AND tariff_code = 'BLND4SB' ORDER
 
 ```sql
 SELECT document_id, publisher, version_label, price_status, published_on
-FROM source_document WHERE fin_year = '2025-26'
+FROM source_document WHERE pricing_year = '2025-26'
   AND (distributor_id = 'essential' OR distributor_id IS NULL) ORDER BY published_on;
 ```
 
@@ -176,8 +176,8 @@ Every document version the rates, TOU windows and criteria are read from, with w
 |---|---|
 | One row is | one version of one source document, held or not |
 | Primary key | `document_id` |
-| Rows | 116 |
-| Source | sources/inventory.csv read by build_support.documents(), plus the AER versions it registers |
+| Rows | 412 |
+| Source | sources/inventory.csv (2023-24 on) and sources/archive/inventory.csv (earlier years) read by build_support.documents(), plus the AER versions it registers |
 | File | `data/tariffdb/tables/source_document.csv` |
 | References | (distributor_id) → [`distributor`](#distributor) |
 | Referenced by | `tariff` (document_id); `rate` (document_id); `tou_window` (document_id); `eligibility` (document_id) |
@@ -187,9 +187,9 @@ Every document version the rates, TOU windows and criteria are read from, with w
 |---|---|---|---|---|---|---|
 | `document_id` | text | no | PK |  | slug derived from the file name | `essential-price-list-and-explanatory-notes-2025-26` |
 | `distributor_id` | text | yes | FK → distributor |  | distributor whose prices it carries; NULL for an AER report covering every distributor | `essential` |
-| `fin_year` | text | no |  | 2023-24, 2024-25, 2025-26, 2026-27 | pricing year | `2025-26` |
-| `publisher` | text | no |  | AER, distributor | who published the prices | `distributor` |
-| `document_type` | text | no |  | aer_consolidated_stakeholder_report, aer_stakeholder_report, aer_landing_page, pricing_proposal, pricing_proposal_overview, price_list, tariff_summary, tariff_schedule, schedule_of_charges, statement_of_tariff_classes, price_guide, pricing_schedule | kind of publication | `price_list` |
+| `pricing_year` | text | no |  | 1996-97, 1997-98, 1998-99, 1999-00, 2000-01, 2001-02, 2002-03, 2003-04, 2004-05, 2005-06, 2006-07, 2007-08, 2008-09, 2009-10, 2010-11, 2011-12, 2012-13, 2013-14, 2014-15, 2015-16, 2016-17, 2017-18, 2018-19, 2019-20, 2020-21, 2021-22, 2022-23, 2023-24, 2024-25, 2025-26, 2026-27, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2000-H2, 2008-H1, 2021-H1 | pricing year: a financial year (2025-26), or the calendar year (2005) or half year (2021-H1) a regulator priced by (Victoria 2000-H2 to 2021-H1, Tasmania to 2008-H1) | `2025-26` |
+| `publisher` | text | no |  | AER, distributor, regulator | who published the prices | `distributor` |
+| `document_type` | text | no |  | aer_consolidated_stakeholder_report, aer_stakeholder_report, aer_landing_page, pricing_proposal, pricing_proposal_overview, price_list, tariff_summary, tariff_schedule, schedule_of_charges, statement_of_tariff_classes, price_guide, pricing_schedule, annual_tariff_report, pricing_model | kind of publication | `price_list` |
 | `hosted_by_aer` | boolean | no |  | 0, 1 | 1 for a distributor document taken from aer.gov.au rather than the distributor's own site | `0` |
 | `version_label` | text | no |  |  | version as published, e.g. v1, v5, 'updated 17 Jul 2024' | `as published` |
 | `version_seq` | integer | no |  |  | order within its publication series (1 = first) | `1` |
@@ -205,10 +205,10 @@ A network tariff code in effect for a period, with its name and customer class a
 
 |  |  |
 |---|---|
-| One row is | one tariff code of one distributor for one period (a financial year, or part of one after a mid-year change) |
+| One row is | one tariff code of one distributor for one period (a pricing year, or part of one after a mid-year change) |
 | Primary key | `distributor_id`, `tariff_code`, `effective_from` |
-| Rows | 2,391 |
-| Source | built by scripts/tariffdb/build.py from the parsed price lists (out/aer_long.csv, out/dnsp/*.csv) |
+| Rows | 6,381 |
+| Source | built by scripts/tariffdb/build.py from the parsed price lists (out/aer_long.csv, out/dnsp/*.csv, out/history/*.csv) |
 | File | `data/tariffdb/tables/tariff.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document) |
 | Referenced by | `rate` (distributor_id, tariff_code, effective_from); `tou_window` (distributor_id, tariff_code, effective_from); `eligibility` (distributor_id, tariff_code, effective_from) |
@@ -222,7 +222,7 @@ A network tariff code in effect for a period, with its name and customer class a
 | `effective_to` | date | no |  | YYYY-MM-DD | last day the tariff applies (inclusive) | `2026-06-30` |
 | `tariff_name` | text | yes |  |  | name as published | `LV Small Scale Storage` |
 | `customer_class` | text | yes |  |  | tariff class or customer class heading as published | `Business Tariffs` |
-| `status` | text | no |  | provisional, final | provisional = rates from the AER's report; final = rates from the distributor's own published price list | `final` |
+| `status` | text | no |  | provisional, final | provisional = rates from the AER's report or a proposal; final = rates from the distributor's own published price list, or the schedule a state regulator published | `final` |
 | `document_id` | text | no | FK → source_document |  | document the tariff and its rates are read from | `essential-price-list-and-explanatory-notes-2025-26` |
 
 ### rate
@@ -233,7 +233,7 @@ The network price charged for one component of a tariff: the total network price
 |---|---|
 | One row is | one price of one tariff for one period: charge type x TOU period x season x block |
 | Primary key | `rate_id` |
-| Rows | 8,823 |
+| Rows | 24,865 |
 | Source | built by scripts/tariffdb/build.py from the parsed price lists (total network price, GST exclusive) and, for block bounds, data/tariffdb/curated/*.yaml |
 | File | `data/tariffdb/tables/rate.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document); (distributor_id, tariff_code, effective_from) → [`tariff`](#tariff) |
@@ -251,7 +251,7 @@ The network price charged for one component of a tariff: the total network price
 | `effective_to` | date | no |  | YYYY-MM-DD | last day the price applies (inclusive) | `2026-06-30` |
 | `charge_type` | text | no |  | daily, usage, demand, capacity, export, metering, other | daily = fixed charge per day; usage = per kWh or kVAh; demand / capacity = per kW or kVA; export = per exported kWh or kW (negative = a reward paid); metering = metering charge; other | `daily` |
 | `tou_period` | text | yes |  | anytime, peak, shoulder, off_peak, super_off_peak, critical_peak, solar_soak, capacity_minimum, capacity_remaining, critical_minimum, dynamic_maximum, dynamic_minimum | time-of-use period the price applies in (anytime = all times); NULL for daily and metering charges | `anytime` |
-| `season` | text | yes |  | summer, non_summer, high, low, winter | season the price applies in; NULL = all year | `high` |
+| `season` | text | yes |  | summer, non_summer, high, low, winter, spring, autumn | season the price applies in; NULL = all year | `high` |
 | `block` | integer | yes |  |  | consumption block number (1 = first) of a stepped price; NULL otherwise | `1` |
 | `block_from` | numeric | yes |  |  | lower bound of the block, from the curated block ladder | `0` |
 | `block_to` | numeric | yes |  |  | upper bound of the block; NULL = unbounded or not stated | `1020` |

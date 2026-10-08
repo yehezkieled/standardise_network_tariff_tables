@@ -23,6 +23,10 @@ flowchart LR
 > ⚠ The AER report has rates only. **TOU windows and eligibility usually wait for the distributor's documents**:
 > until then a provisional tariff can have rates but no `tou_window` / `eligibility` rows.
 > `validate.py --coverage` lists those gaps.
+>
+> The pricing years before 2023-24 (stored from 1 January 2017: 2016-17 / Victoria 2017 through 2022-23) carry rates
+> only: TOU windows and eligibility criteria start 2023-07-01, so `--coverage` counts every tariff of those years as a gap.
+> Back-filling them for 2017 to 2023 is planned follow-up work.
 
 ## Find and load new releases
 
@@ -126,8 +130,26 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 
 | # | Step |
 |---|---|
-| 1 | Add the year to `spec.FIN_YEARS` **and** `build_support.FIN_YEAR_DATES` (a test checks they agree) |
+| 1 | Raise `spec.LAST_FIN_YEAR` (pricing years and their dates follow from it) |
 | 2 | Follow "New AER version", then "Distributor publishes" |
+
+### A year before 2023-24
+
+| # | Step |
+|---|---|
+| 1 | Register the document in the archive: `scripts/archive_sources.py add ...` (`sources/archive/README.md`) |
+| 2 | Parse it in its group's `scripts/history/<slug>.py` (contract: `scripts/history/CONTRACT.md`) |
+| 3 | `.venv/bin/python scripts/history/check.py <slug> --sources`: all `PASS` |
+| 4 | Rebuild, then validate |
+
+The database stores only the years in effect on or after `build_support.FIRST_STORED_DAY` (2017-01-01); an older
+year is parsed and checked but not stored until that day is lowered (README, "Older years").
+Such a year is stored with rates only (no TOU windows or eligibility yet; see "The rule" above).
+A year whose documents print the price only as parts (DUOS / TUOS / jurisdictional, no total) is listed in
+`sources/archive/gaps.csv` rather than stored, for example Ergon 2016-17 to 2019-20.
+
+The distributor's own list, or a state regulator's published schedule, is `final`; an AER-hosted proposal stands in
+(`provisional`) only for a year with neither.
 
 ### Schema change
 
@@ -161,6 +183,7 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 | `periods` | one tariff's periods never overlap; rates, windows and criteria sit inside their tariff's period; the document's year holds the period | a wrong `EFFECTIVE_FROM`, or a document registered under the wrong year |
 | `status` | `final` exactly when the document is the distributor's own published list; each rate has its tariff's status and document | a document registered with the wrong side or price status in `sources/inventory.csv` |
 | `units` | each unit is a standard unit that fits its charge type | a parser read the wrong column or unit heading; fix the parser (a real misprint goes in `validate.KNOWN_MISPRINTS` with its evidence) |
+| `magnitude` | no c/kWh rate outside `critical_peak` exceeds 200 c/kWh unless its note contains `confirmed high rate:` | a parser read a $/kWh cell as c/kWh, or a demand charge as usage; fix the parser (a real high price gets a parser note `confirmed high rate: ...` quoting its evidence) |
 | `blocks` | blocks number 1..n and their lower bounds rise | a block ladder in the curated `steps` that does not match the price list |
 | `tou` | windows of one tariff and period name never overlap on a day type and month | a mistyped window in the curated YAML |
 | `aliases` | no provisional tariff is a final tariff of the same distributor and period under another spelling or an alias | the AER spells a code differently: add a rule to `data/tariffdb/code_alias.csv` |

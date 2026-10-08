@@ -5,7 +5,7 @@ Australian electricity **network tariffs** for all 14 distributors, every pricin
 DUOS / TUOS / jurisdictional parts, and the dataset stores only printed totals), as one historical dataset:
 per tariff code, the final rate the customer is charged, with what a bill needs besides it: TOU windows, eligibility,
 which sites pay a rate (opt-in, meter type), metering charges and how each demand charge is measured. Those billing
-rules cover 2023-24 to 2026-27: `scripts/billcalc.py sweep` bills 1,902 of that era's 2,391 tariff-periods (1,201
+rules cover 2023-24 to 2026-27: `scripts/billcalc.py sweep` bills 1,908 of that era's 2,391 tariff-periods (1,207
 with nothing assumed, 701 with an assumption it names, such as a clock basis the document leaves unstated); it lists
 the rest with what is missing (mostly locational, storage and trial tariffs whose windows no held document states).
 The pricing years before 2023-24 (2016-17 / Victoria 2017 through 2022-23) carry rates only; back-filling their

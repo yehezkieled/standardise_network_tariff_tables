@@ -15,8 +15,8 @@ Every bill says how far to trust it (Bill.status):
   exact     every number comes from the database with no assumption;
   assumed   a number comes out, but on a rule the database does not state (each one is in Bill.issues);
   blocked   the database lacks something the bill needs (e.g. TOU rates with no windows): the bill leaves it out.
-Site facts the database cannot hold (meter type, opt-ins, agreed kVA, pricing zone) are inputs (Site); a missing one
-is reported as `input` and never counted against the database.
+Site facts the database cannot hold (meter type, opt-ins, agreed kVA, pricing zone, event days and times) are inputs
+(Site); a missing one is reported as `input` and never counted against the database.
 
 Rules the calculator applies, all stated in the database except where an issue says otherwise:
   - prices are GST exclusive; GST is 10% from 1 July 2000 (A New Tax System (Goods and Services Tax) Act 1999);

@@ -7,12 +7,26 @@ per tariff code, the final rate the customer is charged, with its TOU windows an
 before 2023-24 (2016-17 / Victoria 2017 through 2022-23) carry rates only: TOU windows and eligibility criteria start
 2023-07-01. Back-filling them for 2017 to 2023 is planned follow-up work.
 
+## Download
+
+**[Latest release](https://github.com/yehezkieled/standardise_network_tariff_tables/releases/latest)**: coverage,
+known gaps and checksums in its notes.
+
+| File | Contents |
+|---|---|
+| [`tariffdb.sqlite`](https://github.com/yehezkieled/standardise_network_tariff_tables/releases/latest/download/tariffdb.sqlite) | SQLite database: every table with its keys and constraints |
+| [`tariffdb-csv.zip`](https://github.com/yehezkieled/standardise_network_tariff_tables/releases/latest/download/tariffdb-csv.zip) | the same tables as CSV, with the schema (`schema.json`, `schema.sqlite.sql`, `schema.md`) |
+| [`SHA256SUMS`](https://github.com/yehezkieled/standardise_network_tariff_tables/releases/latest/download/SHA256SUMS) | `sha256sum -c SHA256SUMS` |
+
+Built from `main` by `.venv/bin/python scripts/release.py --publish` (standard library only, Python 3.12+;
+`--ref` builds another commit).
+
 ![Every table with its keys and the tables they reference](docs/schema-erd.svg)
 
 | | |
 |---|---|
 | Data | `data/tariffdb/tables/*.csv` (canonical, committed) |
-| SQLite | `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` (built, not committed) |
+| SQLite | [download](#download), or `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` (built, not committed) |
 | Schema | [docs/schema.md](docs/schema.md): every table and column, examples, a worked tariff |
 | Update and validate | [docs/update-and-validate.md](docs/update-and-validate.md) |
 | Scope | network tariffs, metering and export (feed-in) network charges; not retail plans, not the DUoS/TUoS breakdown |
@@ -116,6 +130,7 @@ evidence in `sources/archive/gaps.csv` (Ergon 2016-17 to 2019-20, see above).
 - `scripts/report_tables.py` and `scripts/write_report.py` - report tables and report assembly from
   `notes/report_head.md` and `notes/report_sections/*.md`.
 - `notes/format_notes.json` - per distributor-year notes on document format changes.
+- `scripts/release.py` - builds the downloadable SQLite and CSV zip from a commit and publishes the GitHub release.
 - `scripts/tariffdb/` - the tariff database: `spec.py` (schema, single source of truth), `build.py` (builds
   `data/tariffdb/` from the parser outputs and `data/tariffdb/curated/*.yaml`), `curated.py` (checks the curated
   TOU and eligibility facts against their sources), `validate.py` (every rule and source check), `load.py` (SQLite

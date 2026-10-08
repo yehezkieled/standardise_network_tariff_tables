@@ -51,6 +51,7 @@ flowchart LR
 | 6 | Validate | "Before you commit" below, every box |
 | 7 | Accept | `.venv/bin/python scripts/check_releases.py --no-files --accept` records the current links in `sources/watch_seen.csv`, so the next check reports only what is newer. Accept irrelevant links the same way, and a page's links the first time it answers (a page never reached has no baseline) |
 | 8 | PR | One PR per release; the body has the evidence (below). It closes the `source-release` issue |
+| 9 | Publish | Once the PR is merged: `.venv/bin/python scripts/release.py --publish` fetches origin, builds the SQLite and the CSV zip from `origin/main` and publishes them as a GitHub release (the README's "Download" links follow the newest) |
 
 PR evidence:
 
@@ -169,8 +170,9 @@ The distributor's own list, or a state regulator's published schedule, is `final
 | Same, committed files only (CI) | `.venv/bin/python scripts/tariffdb/validate.py --sources --committed-only` |
 | Gaps to fill | `.venv/bin/python scripts/tariffdb/validate.py --coverage` |
 | Build SQLite | `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` |
+| Release (SQLite + CSV zip + notes) | `.venv/bin/python scripts/release.py` (writes `out/release/<tag>/`; `--publish` fetches origin and creates the GitHub release; `--ref` another commit; `--tag tariffdb-<date>.2` for a second release from a later commit on the same day) |
 | Schema docs | `.venv/bin/python scripts/tariffdb/schema_doc.py` (`--check` to verify) |
-| Tests | `.venv/bin/python -m unittest tests/test_tariffdb.py` |
+| Tests | `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_release.py` |
 | New or changed source documents | `.venv/bin/python scripts/check_releases.py` (`--no-files`, `--archive`, `--accept`) |
 
 ## Checks
@@ -196,7 +198,7 @@ The distributor's own list, or a state regulator's published schedule, is `final
 - [ ] `.venv/bin/python scripts/tariffdb/build.py` (no error; read the "not loaded" count)
 - [ ] `.venv/bin/python scripts/tariffdb/validate.py --sources`: all `PASS`
 - [ ] `.venv/bin/python scripts/tariffdb/schema_doc.py`
-- [ ] `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_reconciliation.py tests/test_check_releases.py`: OK
+- [ ] `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_release.py tests/test_reconciliation.py tests/test_check_releases.py`: OK
 - [ ] `git diff --stat data/tariffdb/tables/`: only the rows you expected changed
 
 ## Rules
@@ -206,5 +208,5 @@ The distributor's own list, or a state regulator's published schedule, is `final
 | CSVs are generated; only `data/tariffdb/curated/*.yaml` and `data/tariffdb/code_alias.csv` are hand-written | a rebuild must reproduce every row |
 | `sources/watch.csv` (pages to watch) is hand-written; `sources/watch_seen.csv` is written only by `check_releases.py --accept` | the baseline must be what the pages really showed |
 | Every curated fact carries a verbatim `quote` | `validate.py --sources` can prove it |
-| The `.sqlite` is never committed | build it with `load.py --out`; a binary does not diff |
+| The `.sqlite` and the release zip are never committed | build them with `load.py --out` or `release.py`; a binary does not diff, and releases carry them |
 | Superseded provisional rows are not kept as rows | `git log -p data/tariffdb/tables/rate.csv` has them |

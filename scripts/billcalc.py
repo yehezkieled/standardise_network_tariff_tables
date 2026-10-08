@@ -849,7 +849,7 @@ def main(argv=None):
         p.add_argument("--event-day", action="append", help="a day the distributor nominated (YYYY-MM-DD), repeatable")
         p.add_argument("--event-time", action="append",
                        help="an event the distributor announced, PERIOD=START/END (e.g. critical_peak="
-                       "=2026-01-20T16:00/2026-01-20T20:00, NEM time), repeatable")
+                       "2026-01-20T16:00/2026-01-20T20:00, NEM time), repeatable")
         p.add_argument("--region")
     p = sub.add_parser("sweep")
     p.add_argument("--write", action="store_true", help=f"record the counts in {os.path.relpath(SWEEP_FILE, ROOT)}")

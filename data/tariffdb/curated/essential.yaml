@@ -144,7 +144,7 @@ tou_schedules:
       Time periods!B7.
   - codes:
     - BLND3TO
-    applies_to: all
+    applies_to: usage
     locator: xlsx:Network Tariffs_excl GST!B18
     quote: BLND3TO
     note: D18 (column 'Time Period', header D5) on this row is 'PSO-Int', the time period code defined at
@@ -304,14 +304,14 @@ tou_schedules:
     unchanged when a public holiday falls on a weekday.'' B22: ''DAYLIGHT SAVINGS TIME will be applied to all customers with
     interval read meters and unmetered supplies''.'
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: Export Charge
     days: all_days
     start: '10:00'
     end: '15:00'
     locator: xlsx:Time periods!H13
     quote: Export Charge
-  - period: export_reward_window
+  - period: peak
     label: Export Rebate
     days: all_days
     start: '17:00'
@@ -615,14 +615,14 @@ tou_schedules:
     unchanged when a public holiday falls on a weekday.'' B22: ''DAYLIGHT SAVINGS TIME will be applied to all customers with
     interval read meters and unmetered supplies''.'
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: Export Charge
     days: all_days
     start: '10:00'
     end: '15:00'
     locator: xlsx:Time periods!H18
     quote: Export Charge
-  - period: export_reward_window
+  - period: peak
     label: Export Rebate
     days: all_days
     start: '17:00'
@@ -762,7 +762,7 @@ tou_schedules:
     quote: BLND3AO LV Large Business Demand PSO-Int
   - codes:
     - BLND3TO
-    applies_to: all
+    applies_to: usage
     locator: pdf:p1
     quote: BLND3TO LV Demand - Alternative tariff PSO-Int
   - codes:
@@ -805,6 +805,51 @@ tou_schedules:
     applies_to: all
     locator: pdf:p2
     quote: BHNS1AO HV TOU Avg Daily Demand PSO-Int
+- id: essential-2024-25-pl-blnd3to-demand
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  name: 'LV Demand - Alternative tariff (BLND3TO) demand charge: peak or shoulder periods'
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p3
+  quote: The Demand Charge is based on the highest measured half-hour kVA demand registered in either the peak or shoulder
+    periods during the month.
+  note: 'BLND3TO prices one demand charge (price list p1, column ''Demand Peak'', $/kVA/M), measured over both the peak and
+    the shoulder periods of its PSO-Int time periods (p6: weekday shoulder 7am-5pm, peak 5pm-8pm, shoulder 8pm-10pm; weekends
+    off-peak): every window here prices that peak-column rate. Time basis and public holidays as for the PSO-Int schedule
+    (essential-2024-25-pl-pso-int).'
+  windows:
+  - period: peak
+    label: Shoulder
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p6
+    quote: 12pm 7am 5pm 8pm 10pm Peak, shoulder & off-peak – Weekday Off-peak Shoulder Peak Shoulder Off-peak PSO-Int Interval
+      meter Weekend Off-peak
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p6
+    quote: 12pm 7am 5pm 8pm 10pm Peak, shoulder & off-peak – Weekday Off-peak Shoulder Peak Shoulder Off-peak PSO-Int Interval
+      meter Weekend Off-peak
+  - period: peak
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p6
+    quote: 12pm 7am 5pm 8pm 10pm Peak, shoulder & off-peak – Weekday Off-peak Shoulder Peak Shoulder Off-peak PSO-Int Interval
+      meter Weekend Off-peak
+  tariffs:
+  - codes:
+    - BLND3TO
+    applies_to: demand
+    locator: pdf:p3
+    quote: BLND3TO LV Demand - Alternative Tariff
 - id: essential-2024-25-pl-pso-b
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
   fin_year: 2024-25
@@ -884,12 +929,12 @@ tou_schedules:
     (which includes Daylight Saving Time or Summer Time). These times are unchanged when a public holiday falls on a weekday.''
     Times outside the two windows carry no export charge or rebate.'
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: Export Charge
     days: all_days
     start: '10:00'
     end: '15:00'
-  - period: export_reward_window
+  - period: peak
     label: Export Rebate
     days: all_days
     start: '17:00'
@@ -1055,12 +1100,12 @@ tou_schedules:
     (which includes Daylight Saving Time or Summer Time). These times are unchanged when a public holiday falls on a weekday.''
     Times outside the two windows carry no export charge or rebate.'
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: Export Charge
     days: all_days
     start: '10:00'
     end: '15:00'
-  - period: export_reward_window
+  - period: peak
     label: Export Rebate
     days: all_days
     start: '17:00'
@@ -1194,7 +1239,7 @@ tou_schedules:
     quote: BLND3AO LV Large Business Demand PSO-Int
   - codes:
     - BLND3TO
-    applies_to: all
+    applies_to: usage
     locator: pdf:p1
     quote: BLND3TO LV Demand - Alternative tariff PSO-Int
   - codes:
@@ -1232,6 +1277,51 @@ tou_schedules:
     applies_to: all
     locator: pdf:p2
     quote: BHNS1AO HV TOU Avg Daily Demand PSO-Int
+- id: essential-2025-26-pl-blnd3to-demand
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  name: 'LV Demand - Alternative tariff (BLND3TO) demand charge: peak or shoulder periods'
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p3
+  quote: The Demand Charge is based on the highest measured half-hour kVA demand registered in either the peak or shoulder
+    periods during the month.
+  note: 'BLND3TO prices one demand charge (price list p1, column ''Demand Peak'', $/kVA/M), measured over both the peak and
+    the shoulder periods of its PSO-Int time periods (p7: weekday shoulder 7am-5pm, peak 5pm-8pm, shoulder 8pm-10pm; weekends
+    off-peak): every window here prices that peak-column rate. Time basis and public holidays as for the PSO-Int schedule
+    (essential-2025-26-pl-pso-int).'
+  windows:
+  - period: peak
+    label: Shoulder
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p7
+    quote: 12am 7am 10am 3pm 5pm 8pm 10pm Weekday Off-peak Shoulder Peak Shoulder Off-peak PSO- Peak, shoulder & off-peak
+      Int – Interval meter Weekend Off-peak
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p7
+    quote: 12am 7am 10am 3pm 5pm 8pm 10pm Weekday Off-peak Shoulder Peak Shoulder Off-peak PSO- Peak, shoulder & off-peak
+      Int – Interval meter Weekend Off-peak
+  - period: peak
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p7
+    quote: 12am 7am 10am 3pm 5pm 8pm 10pm Weekday Off-peak Shoulder Peak Shoulder Off-peak PSO- Peak, shoulder & off-peak
+      Int – Interval meter Weekend Off-peak
+  tariffs:
+  - codes:
+    - BLND3TO
+    applies_to: demand
+    locator: pdf:p3
+    quote: BLND3TO LV Demand - Alternative Tariff
 - id: essential-2025-26-pl-pso-b
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
   fin_year: 2025-26
@@ -1312,12 +1402,12 @@ tou_schedules:
     TIME will be applied to all customers with interval read meters and unmetered supplies'; basic meters get Summer Time
     adjustments. Times outside the two windows carry no export charge or rebate.
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: Export Charge
     days: all_days
     start: '10:00'
     end: '15:00'
-  - period: export_reward_window
+  - period: peak
     label: Export Rebate
     days: all_days
     start: '17:00'
@@ -1529,12 +1619,12 @@ tou_schedules:
     TIME will be applied to all customers with interval read meters and unmetered supplies'; basic meters get Summer Time
     adjustments. Times outside the two windows carry no export charge or rebate.
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: Export Charge
     days: all_days
     start: '10:00'
     end: '15:00'
-  - period: export_reward_window
+  - period: peak
     label: Export Rebate
     days: all_days
     start: '17:00'
@@ -1668,7 +1758,7 @@ tou_schedules:
     quote: BLND3AO LV Large Business Demand PSO-Int
   - codes:
     - BLND3TO
-    applies_to: all
+    applies_to: usage
     locator: pdf:p1
     quote: BLND3TO LV Demand - Alternative tariff PSO-Int
   - codes:
@@ -1706,6 +1796,51 @@ tou_schedules:
     applies_to: all
     locator: pdf:p2
     quote: BHNS1AO HV TOU Avg Daily Demand PSO-Int
+- id: essential-2026-27-pl-blnd3to-demand
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  name: 'LV Demand - Alternative tariff (BLND3TO) demand charge: peak or shoulder periods'
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p3
+  quote: The Demand Charge is based on the highest measured half-hour kVA demand registered in either the peak or shoulder
+    periods during the month.
+  note: 'BLND3TO prices one demand charge (price list p1, column ''Demand Peak'', $/kVA/M), measured over both the peak and
+    the shoulder periods of its PSO-Int time periods (p6: weekday shoulder 7am-5pm, peak 5pm-8pm, shoulder 8pm-10pm; weekends
+    off-peak): every window here prices that peak-column rate. Time basis and public holidays as for the PSO-Int schedule
+    (essential-2026-27-pl-pso-int).'
+  windows:
+  - period: peak
+    label: Shoulder
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p6
+    quote: 12am 7am 10am 3pm 5pm 8pm 10pm Weekday Off-peak Shoulder Peak Shoulder Off-peak PSO- Peak, shoulder & off-peak
+      Int – Interval meter Weekend Off-peak
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p6
+    quote: 12am 7am 10am 3pm 5pm 8pm 10pm Weekday Off-peak Shoulder Peak Shoulder Off-peak PSO- Peak, shoulder & off-peak
+      Int – Interval meter Weekend Off-peak
+  - period: peak
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p6
+    quote: 12am 7am 10am 3pm 5pm 8pm 10pm Weekday Off-peak Shoulder Peak Shoulder Off-peak PSO- Peak, shoulder & off-peak
+      Int – Interval meter Weekend Off-peak
+  tariffs:
+  - codes:
+    - BLND3TO
+    applies_to: demand
+    locator: pdf:p3
+    quote: BLND3TO LV Demand - Alternative Tariff
 - id: essential-2026-27-pl-pso-b
   doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
   fin_year: 2026-27
@@ -1786,12 +1921,12 @@ tou_schedules:
     TIME will be applied to all customers with interval read meters and unmetered supplies'; basic meters get Summer Time
     adjustments. Times outside the two windows carry no export charge or rebate.
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: Export Charge
     days: all_days
     start: '10:00'
     end: '15:00'
-  - period: export_reward_window
+  - period: peak
     label: Export Rebate
     days: all_days
     start: '17:00'
@@ -2003,12 +2138,12 @@ tou_schedules:
     TIME will be applied to all customers with interval read meters and unmetered supplies'; basic meters get Summer Time
     adjustments. Times outside the two windows carry no export charge or rebate.
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: Export Charge
     days: all_days
     start: '10:00'
     end: '15:00'
-  - period: export_reward_window
+  - period: peak
     label: Export Rebate
     days: all_days
     start: '17:00'
@@ -2029,6 +2164,671 @@ tou_schedules:
     applies_to: export
     locator: pdf:p1
     quote: BHND4LS HV Storage/Hybrid STO
+- id: essential-2023-24-tss-interval
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  name: Residential and small business ToU (interval/smart meter) and ToU with Demand component
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p13
+  quote: Charging windows for interval/smart meters 7am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK SHOULDER PEAK SHOULDER Weekend
+    OFF-PEAK
+  note: '2019-24 Revised TSS (January 2019), which states the charging windows for each year of 2019-24; the 2023-24 price
+    list held (AER-hosted xlsx) prints no time periods. The TSS states no time basis and nothing on public holidays. p13 chart
+    (read from the rendered page: the off-peak band also runs from 10pm to midnight); p14 table, rows ''ToU (interval/smart
+    meter)'' and ''ToU with Demand component'': Peak weekdays 5–8pm, Shoulder weekdays 7am – 5pm and 8–10pm, Off-peak All
+    other times; demand ''One charge for maximum demand during the peak period in the month''.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p13
+    quote: Charging windows for interval/smart meters 7am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p13
+    quote: Charging windows for interval/smart meters 7am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p13
+    quote: Charging windows for interval/smart meters 7am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p13
+    quote: Charging windows for interval/smart meters 7am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p13
+    quote: Charging windows for interval/smart meters 7am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p13
+    quote: Charging windows for interval/smart meters 7am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  tariffs:
+  - codes:
+    - BLNT3AL
+    applies_to: all
+    locator: pdf:p14
+    quote: ToU ✓ (interval/smart meter)
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B11 and D11); the quote is the TSS row it falls under. ''LV Residential TOU_Interval meter'': the
+      TSS row ''ToU (interval/smart meter)''.'
+  - codes:
+    - BLNT2AL
+    applies_to: all
+    locator: pdf:p14
+    quote: ToU ✓ (interval/smart meter)
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B27 and D27); the quote is the TSS row it falls under. ''LV Business TOU_Interval meter'': the TSS
+      row ''ToU (interval/smart meter)''.'
+  - codes:
+    - BLND1AR
+    applies_to: all
+    locator: pdf:p14
+    quote: ToU with Demand component
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B12 and D12); the quote is the TSS row it falls under. ''Small Residential - Opt in Demand'': the
+      TSS row ''ToU with Demand component'' (the optional demand-based charge for interval/smart meters, p13).'
+  - codes:
+    - BLND1AB
+    applies_to: all
+    locator: pdf:p14
+    quote: ToU with Demand component
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B28 and D28); the quote is the TSS row it falls under. ''Small Business - Opt in Demand'': the TSS
+      row ''ToU with Demand component''.'
+- id: essential-2023-24-tss-lv-large
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  name: Low voltage large business ToU
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p15
+  quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  note: '2019-24 Revised TSS (January 2019), which states the charging windows for each year of 2019-24; the 2023-24 price
+    list held (AER-hosted xlsx) prints no time periods. The TSS states no time basis and nothing on public holidays. p15 table
+    header (Off-peak: All other times).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p15
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p15
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p15
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p15
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p15
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  tariffs:
+  - codes:
+    - BLND3AO
+    applies_to: all
+    locator: pdf:p15
+    quote: ToU three rate
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B31 and D31); the quote is the TSS row it falls under. ''LV TOU Demand 3 Rate'': TSS ''Low voltage
+      – ToU three rate Demand''.'
+  - codes:
+    - BLND3TO
+    applies_to: usage
+    locator: pdf:p15
+    quote: One charge based on the ToU Demand > Business premises where consumption exceeds 160MWh a year highest measured
+      half-hour alternative kVA demand registered in either the peak or shoulder periods during the month
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B32 and D32); the quote is the TSS row it falls under. ''LV TOU Demand Alternative tariff'': TSS
+      ''Low voltage – ToU Demand alternative''; its demand window is essential-2023-24-tss-blnd3to-demand.'
+  - codes:
+    - BLNDTRS
+    applies_to: all
+    locator: pdf:p15
+    quote: Transitional – > Eligible customers will be automatically assigned
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B30 and D30); the quote is the TSS row it falls under. ''Transitional Demand'': TSS ''Transitional
+      – Demand''.'
+  - codes:
+    - BLNS1AO
+    applies_to: all
+    locator: pdf:p15
+    quote: Low voltage – > Not available to new customers One charge for maximum ToU average > Low voltage connection demand
+      during either peak daily Demand
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B48 and C48); the quote is the TSS row it falls under. ''LV TOU avg daily Demand'' (obsolete section,
+      row 47): TSS ''Low voltage – ToU average daily Demand'', listed in this table under these windows.'
+- id: essential-2023-24-tss-hv
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  name: High voltage ToU
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p16
+  quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  note: '2019-24 Revised TSS (January 2019), which states the charging windows for each year of 2019-24; the 2023-24 price
+    list held (AER-hosted xlsx) prints no time periods. The TSS states no time basis and nothing on public holidays. p16 table
+    header (Off-peak: All other times).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p16
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p16
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p16
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p16
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p16
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p16
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  tariffs:
+  - codes:
+    - BHND3AO
+    applies_to: all
+    locator: pdf:p16
+    quote: High voltage – > Business premises connected and metered at high voltage network Charge based on the highest ToU
+      monthly measured half-hour kVA Demand
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B33 and D33); the quote is the TSS row it falls under. ''HV TOU mthly Demand'': TSS ''High voltage
+      – ToU monthly Demand''.'
+  - codes:
+    - BHNS1AO
+    applies_to: all
+    locator: pdf:p16
+    quote: High voltage – > Not available to new customers Demand charge calculated ToU average
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B49 and C49); the quote is the TSS row it falls under. ''HV TOU avg daily Demand'' (obsolete section,
+      row 47): TSS ''High voltage – ToU average daily Demand'', listed in this table under these windows.'
+- id: essential-2023-24-tss-subtransmission
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  name: Subtransmission ToU
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p17
+  quote: Peak Shoulder Off peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  note: '2019-24 Revised TSS (January 2019), which states the charging windows for each year of 2019-24; the 2023-24 price
+    list held (AER-hosted xlsx) prints no time periods. The TSS states no time basis and nothing on public holidays. p17 table
+    header (Off-peak: All other times).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p17
+    quote: Peak Shoulder Off peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p17
+    quote: Peak Shoulder Off peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p17
+    quote: Peak Shoulder Off peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p17
+    quote: Peak Shoulder Off peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p17
+    quote: Peak Shoulder Off peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p17
+    quote: Peak Shoulder Off peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  tariffs:
+  - codes:
+    - BSSD3AO
+    applies_to: all
+    locator: pdf:p17
+    quote: Subtransmission > Subtransmission connection (as defined by Essential Energy)
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B34 and D34); the quote is the TSS row it falls under. ''Sub Trans 3 Rate Demand'': TSS ''Subtransmission
+      – ToU monthly Demand''.'
+- id: essential-2023-24-tss-blnd3to-demand
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  name: 'LV ToU Demand alternative (BLND3TO) demand charge: peak or shoulder periods'
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p15
+  quote: One charge based on the ToU Demand > Business premises where consumption exceeds 160MWh a year highest measured half-hour
+    alternative kVA demand registered in either the peak or shoulder periods during the month
+  note: '2019-24 Revised TSS (January 2019), which states the charging windows for each year of 2019-24; the 2023-24 price
+    list held (AER-hosted xlsx) prints no time periods. The TSS states no time basis and nothing on public holidays. BLND3TO
+    prices one demand charge (price list K32, column ''Peak Demand'', $/kVA/M) measured over the peak and shoulder periods
+    of the p15 table (weekday shoulder 7am – 5pm, peak 5–8pm, shoulder 8–10pm): every window here prices that peak-column
+    rate.'
+  windows:
+  - period: peak
+    label: Shoulder
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p15
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p15
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  - period: peak
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p15
+    quote: Peak Shoulder Off-peak weekdays weekdays 5–8pm 7am – 5pm and All other 8–10pm times
+  tariffs:
+  - codes:
+    - BLND3TO
+    applies_to: demand
+    locator: pdf:p15
+    quote: One charge based on the ToU Demand > Business premises where consumption exceeds 160MWh a year highest measured
+      half-hour alternative kVA demand registered in either the peak or shoulder periods during the month
+    note: Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B32 and D32); the quote is the TSS row it falls under.
+- id: essential-2023-24-tss-type5
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  name: Residential and small business ToU (basic type 5 meter) < 100MWh
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p14
+  quote: ToU ✓ weekdays weekdays (basic type 5 meter) < 100MWh 7–9am and 9am – 5pm and All other Does not apply 5–8pm 8–10pm
+    times
+  note: 2019-24 Revised TSS (January 2019), which states the charging windows for each year of 2019-24; the 2023-24 price
+    list held (AER-hosted xlsx) prints no time periods. The TSS states no time basis and nothing on public holidays. p13 chart
+    'Charging windows for Type 5 meter' gives the same bands.
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p14
+    quote: ToU ✓ weekdays weekdays (basic type 5 meter) < 100MWh 7–9am and 9am – 5pm and All other Does not apply 5–8pm 8–10pm
+      times
+  - period: peak
+    label: Peak
+    days: weekday
+    start: 07:00
+    end: 09:00
+    locator: pdf:p14
+    quote: ToU ✓ weekdays weekdays (basic type 5 meter) < 100MWh 7–9am and 9am – 5pm and All other Does not apply 5–8pm 8–10pm
+      times
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p14
+    quote: ToU ✓ weekdays weekdays (basic type 5 meter) < 100MWh 7–9am and 9am – 5pm and All other Does not apply 5–8pm 8–10pm
+      times
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p14
+    quote: ToU ✓ weekdays weekdays (basic type 5 meter) < 100MWh 7–9am and 9am – 5pm and All other Does not apply 5–8pm 8–10pm
+      times
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p14
+    quote: ToU ✓ weekdays weekdays (basic type 5 meter) < 100MWh 7–9am and 9am – 5pm and All other Does not apply 5–8pm 8–10pm
+      times
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p14
+    quote: ToU ✓ weekdays weekdays (basic type 5 meter) < 100MWh 7–9am and 9am – 5pm and All other Does not apply 5–8pm 8–10pm
+      times
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p14
+    quote: ToU ✓ weekdays weekdays (basic type 5 meter) < 100MWh 7–9am and 9am – 5pm and All other Does not apply 5–8pm 8–10pm
+      times
+  tariffs:
+  - codes:
+    - BLNT2AU
+    applies_to: all
+    locator: pdf:p14
+    quote: (basic type 5 meter) < 100MWh
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B26 and D26); the quote is the TSS row it falls under. ''LV TOU <100MWh'': the TSS row ''ToU (basic
+      type 5 meter) < 100MWh'' (the interval-meter variant is BLNT2AL, row 27).'
+- id: essential-2023-24-tss-obsolete
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  name: 'Obsolete charges: Type 5 charging windows'
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p13
+  quote: This additional peak window also applies to our obsolete charges (historical charges that are not cost-reflective
+    and not available to new customers).
+  note: '2019-24 Revised TSS (January 2019), which states the charging windows for each year of 2019-24; the 2023-24 price
+    list held (AER-hosted xlsx) prints no time periods. The TSS states no time basis and nothing on public holidays. The tariffs
+    below are in the price list section ''Obsolete Tariffs - Not applicable to new connections'' (B47). Windows: p13 chart
+    ''Charging windows for Type 5 meter'' (read from the rendered page: the off-peak band also runs from 10pm to midnight;
+    p14 row ''ToU (basic type 5 meter)'': Off-peak All other times). Usage only: their single ''Demand Charge'' (H column)
+    names no period.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p13
+    quote: Charging windows for Type 5 meter 7–9am 9am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  - period: peak
+    label: Peak
+    days: weekday
+    start: 07:00
+    end: 09:00
+    locator: pdf:p13
+    quote: Charging windows for Type 5 meter 7–9am 9am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p13
+    quote: Charging windows for Type 5 meter 7–9am 9am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p13
+    quote: Charging windows for Type 5 meter 7–9am 9am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p13
+    quote: Charging windows for Type 5 meter 7–9am 9am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p13
+    quote: Charging windows for Type 5 meter 7–9am 9am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p13
+    quote: Charging windows for Type 5 meter 7–9am 9am – 5pm 5–8pm 8–10pm Weekday OFF-PEAK PEAK SHOULDER PEAK SHOULDER Weekend
+      OFF-PEAK
+  tariffs:
+  - codes:
+    - BLNT1SU
+    applies_to: usage
+    locator: pdf:p13
+    quote: This additional peak window also applies to our obsolete charges (historical charges that are not cost-reflective
+      and not available to new customers).
+    note: Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B50 and C50); the quote is the TSS row it falls under.
+  - codes:
+    - BLND1CO
+    applies_to: usage
+    locator: pdf:p13
+    quote: This additional peak window also applies to our obsolete charges (historical charges that are not cost-reflective
+      and not available to new customers).
+    note: Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B51 and C51); the quote is the TSS row it falls under.
+  - codes:
+    - BLND1NO
+    applies_to: usage
+    locator: pdf:p13
+    quote: This additional peak window also applies to our obsolete charges (historical charges that are not cost-reflective
+      and not available to new customers).
+    note: Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B51 and C51); the quote is the TSS row it falls under.
+  - codes:
+    - BLND1SR
+    applies_to: usage
+    locator: pdf:p13
+    quote: This additional peak window also applies to our obsolete charges (historical charges that are not cost-reflective
+      and not available to new customers).
+    note: Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B52 and C52); the quote is the TSS row it falls under.
+  - codes:
+    - BLND1SU
+    applies_to: usage
+    locator: pdf:p13
+    quote: This additional peak window also applies to our obsolete charges (historical charges that are not cost-reflective
+      and not available to new customers).
+    note: Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B53 and C53); the quote is the TSS row it falls under.
+  - codes:
+    - BHND1CO
+    applies_to: usage
+    locator: pdf:p13
+    quote: This additional peak window also applies to our obsolete charges (historical charges that are not cost-reflective
+      and not available to new customers).
+    note: Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B54 and C54); the quote is the TSS row it falls under.
+  - codes:
+    - BHND1SO
+    applies_to: usage
+    locator: pdf:p13
+    quote: This additional peak window also applies to our obsolete charges (historical charges that are not cost-reflective
+      and not available to new customers).
+    note: Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B55 and C55); the quote is the TSS row it falls under.
+  - codes:
+    - BHTD1SO
+    applies_to: usage
+    locator: pdf:p13
+    quote: This additional peak window also applies to our obsolete charges (historical charges that are not cost-reflective
+      and not available to new customers).
+    note: Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B55 and C55); the quote is the TSS row it falls under.
+- id: essential-2023-24-tss-public-lighting
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  name: LV public lighting ToU
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p17
+  quote: LV Public All new public street lighting Does not apply Peak Shoulder Off-peak Lighting ToU connections will have
+    this pricing weekdays weekdays 7–9am and 9am – 5pm All other 5–8pm and 8–10pm times
+  note: 2019-24 Revised TSS (January 2019), which states the charging windows for each year of 2019-24; the 2023-24 price
+    list held (AER-hosted xlsx) prints no time periods. The TSS states no time basis and nothing on public holidays.
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p17
+    quote: LV Public All new public street lighting Does not apply Peak Shoulder Off-peak Lighting ToU connections will have
+      this pricing weekdays weekdays 7–9am and 9am – 5pm All other 5–8pm and 8–10pm times
+  - period: peak
+    label: Peak
+    days: weekday
+    start: 07:00
+    end: 09:00
+    locator: pdf:p17
+    quote: LV Public All new public street lighting Does not apply Peak Shoulder Off-peak Lighting ToU connections will have
+      this pricing weekdays weekdays 7–9am and 9am – 5pm All other 5–8pm and 8–10pm times
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p17
+    quote: LV Public All new public street lighting Does not apply Peak Shoulder Off-peak Lighting ToU connections will have
+      this pricing weekdays weekdays 7–9am and 9am – 5pm All other 5–8pm and 8–10pm times
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p17
+    quote: LV Public All new public street lighting Does not apply Peak Shoulder Off-peak Lighting ToU connections will have
+      this pricing weekdays weekdays 7–9am and 9am – 5pm All other 5–8pm and 8–10pm times
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p17
+    quote: LV Public All new public street lighting Does not apply Peak Shoulder Off-peak Lighting ToU connections will have
+      this pricing weekdays weekdays 7–9am and 9am – 5pm All other 5–8pm and 8–10pm times
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p17
+    quote: LV Public All new public street lighting Does not apply Peak Shoulder Off-peak Lighting ToU connections will have
+      this pricing weekdays weekdays 7–9am and 9am – 5pm All other 5–8pm and 8–10pm times
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p17
+    quote: LV Public All new public street lighting Does not apply Peak Shoulder Off-peak Lighting ToU connections will have
+      this pricing weekdays weekdays 7–9am and 9am – 5pm All other 5–8pm and 8–10pm times
+  tariffs:
+  - codes:
+    - BLNP3AO
+    applies_to: usage
+    locator: pdf:p17
+    quote: LV Public All new public street lighting
+    note: 'Code and description from the 2023-24 price list (sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx,
+      Price List_Excl GST!B37 and D37); the quote is the TSS row it falls under. ''LV Public Street Lighting TOU NUOS'': TSS
+      ''LV Public Lighting ToU''.'
 eligibility:
 - codes:
   - BLNN2AU
@@ -7094,3 +7894,974 @@ eligibility:
   value_text: withdrawn
   locator: pdf:p5
   quote: BLNE25AU QLD Government Solar Bonus Scheme Discontinued 9 July 2012.
+rate_periods:
+- codes:
+  - BLND4SB
+  - BLND4LS
+  - BHND4LS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  component: Export - Charge >1.5KW
+  tou_period: solar_soak
+  locator: pdf:p6
+  quote: STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
+  note: 'Time periods table (p6), STO ''Storage – Interval meter Generation (B Channel)'' row: the ''Export Charge'' band
+    runs 10am to 3pm and the ''Export Rebate'' band 5pm to 8pm (window essential-2024-25-pl-sto-b). The price list (p1) prints
+    the export charge in columns ''Charge <=1.5KW'' and ''Charge >1.5KW'' ($/kW/M) beside ''Rebate'' (c/kWh), with no period.'
+- codes:
+  - BLND4SB
+  - BLND4LS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  component: Export - Rebate
+  tou_period: peak
+  locator: pdf:p6
+  quote: STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
+  note: 'Time periods table (p6), STO ''Storage – Interval meter Generation (B Channel)'' row: the ''Export Charge'' band
+    runs 10am to 3pm and the ''Export Rebate'' band 5pm to 8pm (window essential-2024-25-pl-sto-b). The price list (p1) prints
+    the export rebate (c/kWh) with no period.'
+- codes:
+  - BLND4SB
+  - BLND4LS
+  - BHND4LS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  component: Export - Charge >1.5KW
+  tou_period: solar_soak
+  locator: pdf:p7
+  quote: STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
+  note: 'Time periods table (p7), STO ''Storage – Interval meter Generation (B Channel)'' row: the ''Export Charge'' band
+    runs 10am to 3pm and the ''Export Rebate'' band 5pm to 8pm (window essential-2025-26-pl-sto-b). The price list (p1) prints
+    the export charge in columns ''Charge <=1.5KW'' and ''Charge >1.5KW'' ($/kW/M) beside ''Rebate'' (c/kWh), with no period.'
+- codes:
+  - BLND4SB
+  - BLND4LS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  component: Export - Rebate
+  tou_period: peak
+  locator: pdf:p7
+  quote: STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
+  note: 'Time periods table (p7), STO ''Storage – Interval meter Generation (B Channel)'' row: the ''Export Charge'' band
+    runs 10am to 3pm and the ''Export Rebate'' band 5pm to 8pm (window essential-2025-26-pl-sto-b). The price list (p1) prints
+    the export rebate (c/kWh) with no period.'
+- codes:
+  - BLND4SB
+  - BLND4LS
+  - BHND4LS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  component: Export - Charge >1.5KW
+  tou_period: solar_soak
+  locator: pdf:p6
+  quote: STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
+  note: 'Time periods table (p6), STO ''Storage – Interval meter Generation (B Channel)'' row: the ''Export Charge'' band
+    runs 10am to 3pm and the ''Export Rebate'' band 5pm to 8pm (window essential-2026-27-pl-sto-b). The price list (p1) prints
+    the export charge in columns ''Charge <=1.5KW'' and ''Charge >1.5KW'' ($/kW/M) beside ''Rebate'' (c/kWh), with no period.'
+- codes:
+  - BLND4SB
+  - BLND4LS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  component: Export - Rebate
+  tou_period: peak
+  locator: pdf:p6
+  quote: STO Storage – Interval meter Everyday Export Charge Export Rebate Generation (B Channel)
+  note: 'Time periods table (p6), STO ''Storage – Interval meter Generation (B Channel)'' row: the ''Export Charge'' band
+    runs 10am to 3pm and the ''Export Rebate'' band 5pm to 8pm (window essential-2026-27-pl-sto-b). The price list (p1) prints
+    the export rebate (c/kWh) with no period.'
+- codes:
+  - BLNREX2
+  - BLNBEX1
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  component: Export - Charge >7.5kWh
+  tou_period: solar_soak
+  locator: pdf:p4
+  quote: Cents per kWh charge for exports during the 10am and 3pm peak period and cents per kWh rebate for any energy exported
+    between 5pm and 8pm
+  note: p4 tariff descriptions of BLNREX2 and BLNBEX1. The 10am to 3pm charge band is the 'Export Charge' band and 5pm to
+    8pm the 'Export Rebate' band of the EXP time periods row (p7, window essential-2025-26-pl-exp, periods solar_soak and
+    peak). p4 calls 10am to 3pm a 'peak period', but the windows give it period solar_soak (peak is the 5pm to 8pm rebate
+    band).
+- codes:
+  - BLNREX2
+  - BLNBEX1
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  component: Export - Rebate
+  tou_period: peak
+  locator: pdf:p4
+  quote: Cents per kWh charge for exports during the 10am and 3pm peak period and cents per kWh rebate for any energy exported
+    between 5pm and 8pm
+  note: p4 tariff descriptions of BLNREX2 and BLNBEX1. The 10am to 3pm charge band is the 'Export Charge' band and 5pm to
+    8pm the 'Export Rebate' band of the EXP time periods row (p7, window essential-2025-26-pl-exp, periods solar_soak and
+    peak).
+- codes:
+  - BLNREX2
+  - BLNBEX1
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  component: Export - Charge >7.5kWh
+  tou_period: solar_soak
+  locator: pdf:p4
+  quote: Cents per kWh charge for exports during the 10am and 3pm peak period and cents per kWh rebate for any energy exported
+    between 5pm and 8pm
+  note: p4 tariff descriptions of BLNREX2 and BLNBEX1. The 10am to 3pm charge band is the 'Export Charge' band and 5pm to
+    8pm the 'Export Rebate' band of the EXP time periods row (p6, window essential-2026-27-pl-exp, periods solar_soak and
+    peak). p4 calls 10am to 3pm a 'peak period', but the windows give it period solar_soak (peak is the 5pm to 8pm rebate
+    band).
+- codes:
+  - BLNREX2
+  - BLNBEX1
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  component: Export - Rebate
+  tou_period: peak
+  locator: pdf:p4
+  quote: Cents per kWh charge for exports during the 10am and 3pm peak period and cents per kWh rebate for any energy exported
+    between 5pm and 8pm
+  note: p4 tariff descriptions of BLNREX2 and BLNBEX1. The 10am to 3pm charge band is the 'Export Charge' band and 5pm to
+    8pm the 'Export Rebate' band of the EXP time periods row (p6, window essential-2026-27-pl-exp, periods solar_soak and
+    peak).
+charge_rules:
+- codes:
+  - BLND3AO
+  - BHND3AO
+  - BSSD3AO
+  - BLND4SB
+  - BLND4LS
+  - BHND4LS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p10
+  quote: maximum half hour demand for the month occurring
+  note: 'Definitions, ''THREE RATE DEMAND'' (p10, a three-column page whose lines interleave): ''THREE RATE DEMAND are the
+    Demand charges ($/kVA/month) applied to the calendar monthly kVA demand measured by the meter for the peak, shoulder and
+    off-peak periods. The monthly kVA demand is the maximum half hour demand for the month occurring within the peak, shoulder
+    and off-peak periods ... The method of demand measurement is 30 minute clocked. LV ToU Average Daily Demand and HV ToU
+    Average Daily Demand tariffs are exceptions''. These tariffs price Peak, Shoulder and Off Peak demand in $/kVA/M (p1).'
+- codes:
+  - BLND3TO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p3
+  quote: The Demand Charge is based on the highest measured half-hour kVA demand registered in either the peak or shoulder
+    periods during the month.
+  note: BLND3TO tariff explanation. Its demand windows are schedule essential-2026-27-pl-blnd3to-demand.
+- codes:
+  - BLND1AR
+  - BLND1AB
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p23
+  quote: One charge for 8–10pm times maximum Applies from 1 July ToU with demand component Applies demand during 2028^ the
+    peak period (as per below) in the month
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), Residential and Small Business table, row ''ToU with demand component'',
+    DEMAND column (headed ''Dollars per kVA per month''): ''One charge for maximum demand during the peak period (as per below)
+    in the month'' (the table''s lines interleave). The 30 minutes: glossary p53, ''maximum demand The highest amount of electrical
+    power delivered in a 30-minute period''. BLND1AR and BLND1AB are the price list''s ''ToU Demand - Opt in'' tariffs.'
+- codes:
+  - BLND4SB
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2026-27
+  charge_type: export
+  measure: kW
+  method: max
+  reset: month
+  threshold_value: 1.5
+  locator: pdf:p24
+  quote: 'Dollars per KW charge* for maximum export during the 10am and 3pm peak Low-voltage – Small Applies Applies Applies
+    Applies period in the month storage two-way Cents per kWh rebate for any energy exported between 5pm and 8pm * Charge
+    is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW'
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), ''Low-voltage – Small storage two-way'' row, EXPORT column (the table''s
+    lines interleave): ''Dollars per KW charge* for maximum export during the 10am and 3pm peak period in the month'', ''*
+    Charge is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW''; the price list prices ''Export
+    Charge >1.5KW'' in $/kW/M. The metering interval is not stated.'
+- codes:
+  - BLND4LS
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2026-27
+  charge_type: export
+  measure: kW
+  method: max
+  reset: month
+  threshold_value: 1.5
+  locator: pdf:p25
+  quote: 'Dollars per KW charge* for maximum export during the 10am and 3pm peak period in the Low-voltage – Storage two-way
+    Applies Applies Applies Applies month Cents per kWh rebate for any energy exported between 5pm and 8pm * Charge is based
+    on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW'
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), ''Low-voltage – Storage two-way (Large Storage and Hybrid)'' row, EXPORT
+    column (the table''s lines interleave): ''Dollars per KW charge* for maximum export during the 10am and 3pm peak period
+    in the month'', ''* Charge is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW''; the price
+    list prices ''Export Charge >1.5KW'' in $/kW/M. The metering interval is not stated.'
+- codes:
+  - BHND4LS
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2026-27
+  charge_type: export
+  measure: kW
+  method: max
+  reset: month
+  threshold_value: 1.5
+  locator: pdf:p26
+  quote: 'Dollars per KW charge* for maximum export High-voltage – Storage two-way Applies Applies Applies Applies during
+    the 10am and 3pm peak period in the month * Charge is based on two pricing bands: 0-1.5kW free basic export level; Band
+    1: >1.5kW'
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), ''High-voltage – Storage two-way'' row, EXPORT column (the table''s lines
+    interleave): ''Dollars per KW charge* for maximum export during the 10am and 3pm peak period in the month'', ''* Charge
+    is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW''; the price list prices ''Export Charge
+    >1.5KW'' in $/kW/M. The metering interval is not stated.'
+- codes:
+  - BLND3AO
+  - BHND3AO
+  - BSSD3AO
+  - BLND4SB
+  - BLND4LS
+  - BHND4LS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p11
+  quote: maximum half hour demand for the month occurring
+  note: 'Definitions, ''THREE RATE DEMAND'' (p11, a three-column page whose lines interleave): ''THREE RATE DEMAND are the
+    Demand charges ($/kVA/month) applied to the calendar monthly kVA demand measured by the meter for the peak, shoulder and
+    off-peak periods. The monthly kVA demand is the maximum half hour demand for the month occurring within the peak, shoulder
+    and off-peak periods ... The method of demand measurement is 30 minute clocked. LV ToU Average Daily Demand and HV ToU
+    Average Daily Demand tariffs are exceptions''. These tariffs price Peak, Shoulder and Off Peak demand in $/kVA/M (p1).'
+- codes:
+  - BLND3TO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p3
+  quote: The Demand Charge is based on the highest measured half-hour kVA demand registered in either the peak or shoulder
+    periods during the month.
+  note: BLND3TO tariff explanation. Its demand windows are schedule essential-2025-26-pl-blnd3to-demand.
+- codes:
+  - BLND1AR
+  - BLND1AB
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p23
+  quote: One charge for 8–10pm times maximum Applies from 1 July ToU with demand component Applies demand during 2028^ the
+    peak period (as per below) in the month
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), Residential and Small Business table, row ''ToU with demand component'',
+    DEMAND column (headed ''Dollars per kVA per month''): ''One charge for maximum demand during the peak period (as per below)
+    in the month'' (the table''s lines interleave). The 30 minutes: glossary p53, ''maximum demand The highest amount of electrical
+    power delivered in a 30-minute period''. BLND1AR and BLND1AB are the price list''s ''ToU Demand - Opt in'' tariffs.'
+- codes:
+  - BLND4SB
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2025-26
+  charge_type: export
+  measure: kW
+  method: max
+  reset: month
+  threshold_value: 1.5
+  locator: pdf:p24
+  quote: 'Dollars per KW charge* for maximum export during the 10am and 3pm peak Low-voltage – Small Applies Applies Applies
+    Applies period in the month storage two-way Cents per kWh rebate for any energy exported between 5pm and 8pm * Charge
+    is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW'
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), ''Low-voltage – Small storage two-way'' row, EXPORT column (the table''s
+    lines interleave): ''Dollars per KW charge* for maximum export during the 10am and 3pm peak period in the month'', ''*
+    Charge is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW''; the price list prices ''Export
+    Charge >1.5KW'' in $/kW/M. The metering interval is not stated.'
+- codes:
+  - BLND4LS
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2025-26
+  charge_type: export
+  measure: kW
+  method: max
+  reset: month
+  threshold_value: 1.5
+  locator: pdf:p25
+  quote: 'Dollars per KW charge* for maximum export during the 10am and 3pm peak period in the Low-voltage – Storage two-way
+    Applies Applies Applies Applies month Cents per kWh rebate for any energy exported between 5pm and 8pm * Charge is based
+    on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW'
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), ''Low-voltage – Storage two-way (Large Storage and Hybrid)'' row, EXPORT
+    column (the table''s lines interleave): ''Dollars per KW charge* for maximum export during the 10am and 3pm peak period
+    in the month'', ''* Charge is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW''; the price
+    list prices ''Export Charge >1.5KW'' in $/kW/M. The metering interval is not stated.'
+- codes:
+  - BHND4LS
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2025-26
+  charge_type: export
+  measure: kW
+  method: max
+  reset: month
+  threshold_value: 1.5
+  locator: pdf:p26
+  quote: 'Dollars per KW charge* for maximum export High-voltage – Storage two-way Applies Applies Applies Applies during
+    the 10am and 3pm peak period in the month * Charge is based on two pricing bands: 0-1.5kW free basic export level; Band
+    1: >1.5kW'
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), ''High-voltage – Storage two-way'' row, EXPORT column (the table''s lines
+    interleave): ''Dollars per KW charge* for maximum export during the 10am and 3pm peak period in the month'', ''* Charge
+    is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW''; the price list prices ''Export Charge
+    >1.5KW'' in $/kW/M. The metering interval is not stated.'
+- codes:
+  - BLND3AO
+  - BHND3AO
+  - BSSD3AO
+  - BLND4SB
+  - BLND4LS
+  - BHND4LS
+  - BLNDTRS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p10
+  quote: maximum half hour demand for the month occurring
+  note: 'Definitions, ''THREE RATE DEMAND'' (p10, a three-column page whose lines interleave): ''THREE RATE DEMAND are the
+    Demand charges ($/kVA/month) applied to the calendar monthly kVA demand measured by the meter for the peak, shoulder and
+    off-peak periods. The monthly kVA demand is the maximum half hour demand for the month occurring within the peak, shoulder
+    and off-peak periods ... The method of demand measurement is 30 minute clocked. LV ToU Average Daily Demand and HV ToU
+    Average Daily Demand tariffs are exceptions''. These tariffs price Peak, Shoulder and Off Peak demand in $/kVA/M (p1).'
+- codes:
+  - BLND3TO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p3
+  quote: The Demand Charge is based on the highest measured half-hour kVA demand registered in either the peak or shoulder
+    periods during the month.
+  note: BLND3TO tariff explanation. Its demand windows are schedule essential-2024-25-pl-blnd3to-demand.
+- codes:
+  - BLND1AR
+  - BLND1AB
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p23
+  quote: One charge for 8–10pm times maximum Applies from 1 July ToU with demand component Applies demand during 2028^ the
+    peak period (as per below) in the month
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), Residential and Small Business table, row ''ToU with demand component'',
+    DEMAND column (headed ''Dollars per kVA per month''): ''One charge for maximum demand during the peak period (as per below)
+    in the month'' (the table''s lines interleave). The 30 minutes: glossary p53, ''maximum demand The highest amount of electrical
+    power delivered in a 30-minute period''. BLND1AR and BLND1AB are the price list''s ''ToU Demand - Opt in'' tariffs.'
+- codes:
+  - BLND4SB
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2024-25
+  charge_type: export
+  measure: kW
+  method: max
+  reset: month
+  threshold_value: 1.5
+  locator: pdf:p24
+  quote: 'Dollars per KW charge* for maximum export during the 10am and 3pm peak Low-voltage – Small Applies Applies Applies
+    Applies period in the month storage two-way Cents per kWh rebate for any energy exported between 5pm and 8pm * Charge
+    is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW'
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), ''Low-voltage – Small storage two-way'' row, EXPORT column (the table''s
+    lines interleave): ''Dollars per KW charge* for maximum export during the 10am and 3pm peak period in the month'', ''*
+    Charge is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW''; the price list prices ''Export
+    Charge >1.5KW'' in $/kW/M. The metering interval is not stated.'
+- codes:
+  - BLND4LS
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2024-25
+  charge_type: export
+  measure: kW
+  method: max
+  reset: month
+  threshold_value: 1.5
+  locator: pdf:p25
+  quote: 'Dollars per KW charge* for maximum export during the 10am and 3pm peak period in the Low-voltage – Storage two-way
+    Applies Applies Applies Applies month Cents per kWh rebate for any energy exported between 5pm and 8pm * Charge is based
+    on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW'
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), ''Low-voltage – Storage two-way (Large Storage and Hybrid)'' row, EXPORT
+    column (the table''s lines interleave): ''Dollars per KW charge* for maximum export during the 10am and 3pm peak period
+    in the month'', ''* Charge is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW''; the price
+    list prices ''Export Charge >1.5KW'' in $/kW/M. The metering interval is not stated.'
+- codes:
+  - BHND4LS
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2024-29_Nov2023_wayback.pdf
+  fin_year: 2024-25
+  charge_type: export
+  measure: kW
+  method: max
+  reset: month
+  threshold_value: 1.5
+  locator: pdf:p26
+  quote: 'Dollars per KW charge* for maximum export High-voltage – Storage two-way Applies Applies Applies Applies during
+    the 10am and 3pm peak period in the month * Charge is based on two pricing bands: 0-1.5kW free basic export level; Band
+    1: >1.5kW'
+  note: 'TSS 2024-29 (applies 2024-25 to 2028-29), ''High-voltage – Storage two-way'' row, EXPORT column (the table''s lines
+    interleave): ''Dollars per KW charge* for maximum export during the 10am and 3pm peak period in the month'', ''* Charge
+    is based on two pricing bands: 0-1.5kW free basic export level; Band 1: >1.5kW''; the price list prices ''Export Charge
+    >1.5KW'' in $/kW/M. The metering interval is not stated.'
+- codes:
+  - BLND3AO
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p15
+  quote: Charge based on the highest ToU three rate > Business premises where consumption exceeds 160MWh a year measured half-hour
+    kVA Demand demand registered in each of the peak, shoulder and off- peak periods during the month
+  note: TSS 2019-24 (applies 2019-20 to 2023-24), 'Low voltage – ToU three rate Demand' row, 'Demand charging' column (the
+    table's lines interleave; the DEMAND column is headed 'Dollars per kVA per month'). Tariff named as in the windows schedules'
+    notes.
+- codes:
+  - BLND3TO
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p15
+  quote: One charge based on the ToU Demand > Business premises where consumption exceeds 160MWh a year highest measured half-hour
+    alternative kVA demand registered in either the peak or shoulder periods during the month
+  note: TSS 2019-24 (applies 2019-20 to 2023-24), 'Low voltage – ToU Demand alternative' row, 'Demand charging' column (the
+    table's lines interleave; the DEMAND column is headed 'Dollars per kVA per month'). Tariff named as in the windows schedules'
+    notes.
+- codes:
+  - BLNDTRS
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p15
+  quote: Transitional – > Eligible customers will be automatically assigned—pricing not available Charge based on the highest
+    Demand on request measured half-hour kVA > Eligible customers on Anytime or ToU pricing but who no longer meet demand
+    registered in each of the associated eligibility requirements and are worse off under the peak, shoulder and off- equivalent
+    Low Voltage – ToU Demand pricing peak periods during the month
+  note: TSS 2019-24 (applies 2019-20 to 2023-24), 'Transitional – Demand' row, 'Demand charging' column (the table's lines
+    interleave; the DEMAND column is headed 'Dollars per kVA per month'). Tariff named as in the windows schedules' notes.
+- codes:
+  - BHND3AO
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p16
+  quote: High voltage – > Business premises connected and metered at high voltage network Charge based on the highest ToU
+    monthly measured half-hour kVA Demand demand registered in each of the peak, shoulder and off- peak periods during the
+    month
+  note: TSS 2019-24 (applies 2019-20 to 2023-24), 'High voltage – ToU monthly Demand' row, 'Demand charging' column (the table's
+    lines interleave; the DEMAND column is headed 'Dollars per kVA per month'). Tariff named as in the windows schedules'
+    notes.
+- codes:
+  - BSSD3AO
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p17
+  quote: Charge based on the highest – ToU monthly > Not applicable for connection to dual purpose subtransmission/ measured
+    half-hour kVA Demand distribution circuits demand registered in each of the peak, shoulder and off- peak periods during
+    the month
+  note: TSS 2019-24 (applies 2019-20 to 2023-24), 'Subtransmission – ToU monthly Demand' row, 'Demand charging' column (the
+    table's lines interleave; the DEMAND column is headed 'Dollars per kVA per month'). Tariff named as in the windows schedules'
+    notes.
+- codes:
+  - BLND1AR
+  - BLND1AB
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p14
+  quote: maximum demand during the peak period in the month
+  note: 'TSS 2019-24 (applies 2019-20 to 2023-24), Residential and Small Business table, row ''ToU with Demand component'',
+    DEMAND column: ''One charge for maximum demand during the peak period in the month''. The metering interval is not stated;
+    kVA is the price list''s unit ($/kVA/M, K12 and K28).'
+- codes:
+  - BLND1CO
+  - BLND1NO
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: xlsx:Price List_Excl GST!M51
+  quote: The charges include a monthly maximum demand charge.  The maximum demand charge is metered on a half hour basis in
+    kVA, which reflects the customer’s power factor.
+  note: Application column of the obsolete tariff row 51 (B51 'BLND1CO BLND1NO', 'LV TOU Demand 1 Rate').
+- codes:
+  - BHND1CO
+  doc: sources/aer/2023-24_price_lists/Essential_2023-24_Network_Price_List_31Mar2023.xlsx
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: xlsx:Price List_Excl GST!M54
+  quote: The charges include a monthly maximum demand charge.  The maximum demand is metered on a half hour basis in kVA,
+    which reflects the customer’s power factor.
+  note: Application column of the obsolete tariff row 54 (B54 'BHND1CO', 'HV 1 Rate Demand Cent Urban TOU').
+- codes:
+  - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BLNS1AO ''LV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The peak demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BLNS1AO ''LV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The shoulder demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: Off Peak Demand by the total number of days
+  note: 'BLNS1AO ''LV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The off_peak demand is divided by the total number of days. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BHNS1AO ''HV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The peak demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BHNS1AO ''HV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The shoulder demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: Off Peak Demand by the total number of days
+  note: 'BHNS1AO ''HV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The off_peak demand is divided by the total number of days. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BLNS1AO ''LV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The peak demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BLNS1AO ''LV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The shoulder demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: Off Peak Demand by the total number of days
+  note: 'BLNS1AO ''LV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The off_peak demand is divided by the total number of days. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BHNS1AO ''HV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The peak demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BHNS1AO ''HV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The shoulder demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: Off Peak Demand by the total number of days
+  note: 'BHNS1AO ''HV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The off_peak demand is divided by the total number of days. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BLNS1AO ''LV ToU Avg daily Demand'' tariff explanation (heading on p4): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The peak demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BLNS1AO ''LV ToU Avg daily Demand'' tariff explanation (heading on p4): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The shoulder demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BLNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: Off Peak Demand by the total number of days
+  note: 'BLNS1AO ''LV ToU Avg daily Demand'' tariff explanation (heading on p4): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The off_peak demand is divided by the total number of days. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BHNS1AO ''HV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The peak demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of weekdays
+  note: 'BHNS1AO ''HV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The shoulder demand is divided by the number of weekdays. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p5
+  quote: Off Peak Demand by the total number of days
+  note: 'BHNS1AO ''HV ToU Avg daily Demand'' tariff explanation (heading on p5): ''1. The daily kVA maximum demand in each
+    of the Peak, Shoulder and Off Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each
+    day of the Peak, Shoulder and Off-Peak periods will be summed for the month and divided by the number of days in the month
+    when the load occurs. This means that Peak and Shoulder Demand will be divided by the number of weekdays[,] Off Peak Demand
+    by the total number of days. 3. The average ToU Demand calculated above will be multiplied by the ToU Demand rates.''
+    The off_peak demand is divided by the total number of days. The metering interval is not stated for this tariff: the glossary''s
+    ''30 minute clocked'' (THREE RATE DEMAND) names the average daily demand tariffs as exceptions.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p16
+  quote: High voltage – > Not available to new customers Demand charge calculated ToU average > Monthly load factors greater
+    than 60% for at least four of the most on the average daily ToU daily Demand recent 12 months coinciding with a minimum
+    on-season Anytime demand for peak, shoulder monthly demand of 1500kVA. The minimum demand and load factor and off-peak
+    periods for the requirements will be waived where a generator supports a substantial month
+  note: 'TSS 2019-24 (applies 2019-20 to 2023-24), ''High voltage – ToU average daily Demand'' row, ''Demand charging'' column
+    (lines interleave with the eligibility column): ''Demand charge calculated on the average daily ToU demand for peak, shoulder
+    and off-peak periods for the month''; this rule is the peak one. BHNS1AO is the price list''s ''HV TOU avg daily Demand''
+    (2023-24 xlsx, Price List_Excl GST!B49). The TSS states neither the metering interval nor the days averaged over.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p16
+  quote: High voltage – > Not available to new customers Demand charge calculated ToU average > Monthly load factors greater
+    than 60% for at least four of the most on the average daily ToU daily Demand recent 12 months coinciding with a minimum
+    on-season Anytime demand for peak, shoulder monthly demand of 1500kVA. The minimum demand and load factor and off-peak
+    periods for the requirements will be waived where a generator supports a substantial month
+  note: 'TSS 2019-24 (applies 2019-20 to 2023-24), ''High voltage – ToU average daily Demand'' row, ''Demand charging'' column
+    (lines interleave with the eligibility column): ''Demand charge calculated on the average daily ToU demand for peak, shoulder
+    and off-peak periods for the month''; this rule is the shoulder one. BHNS1AO is the price list''s ''HV TOU avg daily Demand''
+    (2023-24 xlsx, Price List_Excl GST!B49). The TSS states neither the metering interval nor the days averaged over.'
+- codes:
+  - BHNS1AO
+  doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p16
+  quote: High voltage – > Not available to new customers Demand charge calculated ToU average > Monthly load factors greater
+    than 60% for at least four of the most on the average daily ToU daily Demand recent 12 months coinciding with a minimum
+    on-season Anytime demand for peak, shoulder monthly demand of 1500kVA. The minimum demand and load factor and off-peak
+    periods for the requirements will be waived where a generator supports a substantial month
+  note: 'TSS 2019-24 (applies 2019-20 to 2023-24), ''High voltage – ToU average daily Demand'' row, ''Demand charging'' column
+    (lines interleave with the eligibility column): ''Demand charge calculated on the average daily ToU demand for peak, shoulder
+    and off-peak periods for the month''; this rule is the off-peak one. BHNS1AO is the price list''s ''HV TOU avg daily Demand''
+    (2023-24 xlsx, Price List_Excl GST!B49). The TSS states neither the metering interval nor the days averaged over.'

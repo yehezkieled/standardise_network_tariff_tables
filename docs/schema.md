@@ -13,7 +13,7 @@
 | Years | 2016-17 to 2026-27 |
 | Distributors | 14 |
 | Tariff-years | 6,381 (5,060 final, 1,321 provisional) |
-| Rates | 24,865 |
+| Rates | 25,249 |
 | Data (canonical) | `data/tariffdb/tables/<table>.csv`, committed |
 | SQLite | `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` (built, not committed: a binary does not diff and would drift from the CSVs) |
 | Schema source | `scripts/tariffdb/spec.py` → `schema.json`, `schema.sqlite.sql`, this page |
@@ -24,11 +24,12 @@
 | Table | One row is | Key | Rows |
 |---|---|---|---|
 | [`distributor`](#distributor) | one distributor (DNSP) | distributor_id | 14 |
-| [`source_document`](#source_document) | one version of one source document, held or not | document_id | 412 |
+| [`source_document`](#source_document) | one version of one source document, held or not | document_id | 449 |
 | [`tariff`](#tariff) | one tariff code of one distributor for one period (a pricing year, or part of one after a mid-year change) | distributor_id, tariff_code, effective_from | 6,381 |
-| [`rate`](#rate) | one price of one tariff for one period: charge type x TOU period x season x block | rate_id | 24,865 |
-| [`tou_window`](#tou_window) | one time window that one tariff's charges use, for one period | window_id | 4,705 |
+| [`rate`](#rate) | one price of one tariff for one period: charge type x TOU period x season x block | rate_id | 25,249 |
+| [`tou_window`](#tou_window) | one time window that one tariff's charges use, for one period | window_id | 7,510 |
 | [`eligibility`](#eligibility) | one stated criterion of one tariff for one period | criterion_id | 7,432 |
+| [`charge_rule`](#charge_rule) | one stated measurement rule of one tariff's demand, capacity or export charges, for one period | rule_id | 1,632 |
 
 ## History
 
@@ -109,8 +110,8 @@ FROM rate WHERE distributor_id = 'essential' AND tariff_code = 'BLND4SB' AND '20
 | demand | off_peak | 449.43 | c/kVA/month | Demand - Off Peak | final | pdf:p1 |
 | demand | peak | 1436.02 | c/kVA/month | Demand - Peak | final | pdf:p1 |
 | demand | shoulder | 604.11 | c/kVA/month | Demand - Shoulder | final | pdf:p1 |
-| export | NULL | 117.98 | c/kW/month | Export - Charge >1.5KW | final | pdf:p1 |
-| export | NULL | -5.1247 | c/kWh | Export - Rebate | final | pdf:p1 |
+| export | peak | -5.1247 | c/kWh | Export - Rebate | final | pdf:p1 |
+| export | solar_soak | 117.98 | c/kW/month | Export - Charge >1.5KW | final | pdf:p1 |
 
 ### 5. TOU windows on 2025-10-01
 
@@ -128,8 +129,8 @@ FROM tou_window WHERE distributor_id = 'essential' AND tariff_code = 'BLND4SB' A
 | demand | peak | all_days | 17:00 | 20:00 | 1,2,3,4,5,6,7,8,9,10,11,12 |
 | demand | shoulder | all_days | 20:00 | 22:00 | 1,2,3,4,5,6,7,8,9,10,11,12 |
 | demand | off_peak | all_days | 22:00 | 24:00 | 1,2,3,4,5,6,7,8,9,10,11,12 |
-| export | export_charge_window | all_days | 10:00 | 15:00 | 1,2,3,4,5,6,7,8,9,10,11,12 |
-| export | export_reward_window | all_days | 17:00 | 20:00 | 1,2,3,4,5,6,7,8,9,10,11,12 |
+| export | solar_soak | all_days | 10:00 | 15:00 | 1,2,3,4,5,6,7,8,9,10,11,12 |
+| export | peak | all_days | 17:00 | 20:00 | 1,2,3,4,5,6,7,8,9,10,11,12 |
 
 ### 6. Eligibility on 2025-10-01
 
@@ -158,7 +159,7 @@ The electricity distribution network service providers whose tariffs are stored.
 | Source | reference data in scripts/tariffdb/build_support.py (DISTRIBUTORS) |
 | File | `data/tariffdb/tables/distributor.csv` |
 | References | none |
-| Referenced by | `source_document` (distributor_id); `tariff` (distributor_id); `rate` (distributor_id); `tou_window` (distributor_id); `eligibility` (distributor_id) |
+| Referenced by | `source_document` (distributor_id); `tariff` (distributor_id); `rate` (distributor_id); `tou_window` (distributor_id); `eligibility` (distributor_id); `charge_rule` (distributor_id) |
 
 | Column | Type | Null | Key | Allowed values / unit | Meaning | Example |
 |---|---|---|---|---|---|---|
@@ -176,11 +177,11 @@ Every document version the rates, TOU windows and criteria are read from, with w
 |---|---|
 | One row is | one version of one source document, held or not |
 | Primary key | `document_id` |
-| Rows | 412 |
+| Rows | 449 |
 | Source | sources/inventory.csv (2023-24 on) and sources/archive/inventory.csv (earlier years) read by build_support.documents(), plus the AER versions it registers |
 | File | `data/tariffdb/tables/source_document.csv` |
 | References | (distributor_id) → [`distributor`](#distributor) |
-| Referenced by | `tariff` (document_id); `rate` (document_id); `tou_window` (document_id); `eligibility` (document_id) |
+| Referenced by | `tariff` (document_id); `rate` (document_id); `tou_window` (document_id); `eligibility` (document_id); `charge_rule` (document_id) |
 | Check | `(local_path IS NULL) = (sha256 IS NULL)` |
 
 | Column | Type | Null | Key | Allowed values / unit | Meaning | Example |
@@ -189,7 +190,7 @@ Every document version the rates, TOU windows and criteria are read from, with w
 | `distributor_id` | text | yes | FK → distributor |  | distributor whose prices it carries; NULL for an AER report covering every distributor | `essential` |
 | `pricing_year` | text | no |  | 1996-97, 1997-98, 1998-99, 1999-00, 2000-01, 2001-02, 2002-03, 2003-04, 2004-05, 2005-06, 2006-07, 2007-08, 2008-09, 2009-10, 2010-11, 2011-12, 2012-13, 2013-14, 2014-15, 2015-16, 2016-17, 2017-18, 2018-19, 2019-20, 2020-21, 2021-22, 2022-23, 2023-24, 2024-25, 2025-26, 2026-27, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2000-H2, 2008-H1, 2021-H1 | pricing year: a financial year (2025-26), or the calendar year (2005) or half year (2021-H1) a regulator priced by (Victoria 2000-H2 to 2021-H1, Tasmania to 2008-H1) | `2025-26` |
 | `publisher` | text | no |  | AER, distributor, regulator | who published the prices | `distributor` |
-| `document_type` | text | no |  | aer_consolidated_stakeholder_report, aer_stakeholder_report, aer_landing_page, pricing_proposal, pricing_proposal_overview, price_list, tariff_summary, tariff_schedule, schedule_of_charges, statement_of_tariff_classes, price_guide, pricing_schedule, annual_tariff_report, pricing_model | kind of publication | `price_list` |
+| `document_type` | text | no |  | aer_consolidated_stakeholder_report, aer_stakeholder_report, aer_landing_page, pricing_proposal, pricing_proposal_overview, price_list, tariff_summary, tariff_schedule, schedule_of_charges, statement_of_tariff_classes, price_guide, pricing_schedule, annual_tariff_report, pricing_model, tariff_structure_statement, tariff_trial_notification | kind of publication | `price_list` |
 | `hosted_by_aer` | boolean | no |  | 0, 1 | 1 for a distributor document taken from aer.gov.au rather than the distributor's own site | `0` |
 | `version_label` | text | no |  |  | version as published, e.g. v1, v5, 'updated 17 Jul 2024' | `as published` |
 | `version_seq` | integer | no |  |  | order within its publication series (1 = first) | `1` |
@@ -211,7 +212,7 @@ A network tariff code in effect for a period, with its name and customer class a
 | Source | built by scripts/tariffdb/build.py from the parsed price lists (out/aer_long.csv, out/dnsp/*.csv, out/history/*.csv) |
 | File | `data/tariffdb/tables/tariff.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document) |
-| Referenced by | `rate` (distributor_id, tariff_code, effective_from); `tou_window` (distributor_id, tariff_code, effective_from); `eligibility` (distributor_id, tariff_code, effective_from) |
+| Referenced by | `rate` (distributor_id, tariff_code, effective_from); `tou_window` (distributor_id, tariff_code, effective_from); `eligibility` (distributor_id, tariff_code, effective_from); `charge_rule` (distributor_id, tariff_code, effective_from) |
 | Check | `effective_from <= effective_to` |
 
 | Column | Type | Null | Key | Allowed values / unit | Meaning | Example |
@@ -233,7 +234,7 @@ The network price charged for one component of a tariff: the total network price
 |---|---|
 | One row is | one price of one tariff for one period: charge type x TOU period x season x block |
 | Primary key | `rate_id` |
-| Rows | 24,865 |
+| Rows | 25,249 |
 | Source | built by scripts/tariffdb/build.py from the parsed price lists (total network price, GST exclusive) and, for block bounds, data/tariffdb/curated/*.yaml |
 | File | `data/tariffdb/tables/rate.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document); (distributor_id, tariff_code, effective_from) → [`tariff`](#tariff) |
@@ -241,10 +242,13 @@ The network price charged for one component of a tariff: the total network price
 | Check | `effective_from <= effective_to` |
 | Check | `block IS NULL OR block > 0` |
 | Check | `block_from IS NULL OR block_to IS NULL OR block_from < block_to` |
+| Check | `(register IS NULL) = (charge_type IN ('daily', 'metering', 'other'))` |
+| Check | `charge_type != 'export' OR register = 'export'` |
+| Check | `condition IS NULL OR condition GLOB 'opt_in:[a-z0-9]*' OR condition GLOB 'meter_type:[a-z0-9]*' OR condition GLOB 'meter_class:[a-z0-9]*'` |
 
 | Column | Type | Null | Key | Allowed values / unit | Meaning | Example |
 |---|---|---|---|---|---|---|
-| `rate_id` | text | no | PK |  | <distributor_id>:<tariff_code>:<effective_from>:<component>[:<region>] | `essential:BLND4SB:2025-07-01:daily:network-access` |
+| `rate_id` | text | no | PK |  | <distributor_id>:<tariff_code>:<effective_from>:<charge_type>:<component>[:<tou_period>][:<season>][:<block>][:<region>] | `essential:BLND4SB:2025-07-01:daily:network-access` |
 | `distributor_id` | text | no | FK → tariff |  | distributor | `essential` |
 | `tariff_code` | text | no | FK → tariff |  | tariff code | `BLND4SB` |
 | `effective_from` | date | no | FK → tariff | YYYY-MM-DD | first day the price applies | `2025-07-01` |
@@ -257,6 +261,8 @@ The network price charged for one component of a tariff: the total network price
 | `block_to` | numeric | yes |  |  | upper bound of the block; NULL = unbounded or not stated | `1020` |
 | `block_unit` | text | yes |  | kWh/day, kWh/billing_day, kWh/quarter, kWh | unit and reset period of the bounds | `kWh/quarter` |
 | `region` | text | yes |  |  | pricing zone, when the document prices one code by zone | `East` |
+| `register` | text | yes |  | general, controlled_load, export | meter register the quantity is measured on: general = general-supply import, controlled_load = a separately metered controlled-load circuit, export = energy sent out; NULL for daily, metering and other charges | `general` |
+| `condition` | text | yes |  |  | NULL = always charged; opt_in:<name> = only for a customer who opts in to <name>; meter_type:<type> = only at a site with that meter; meter_class:<class> = only at a site in that class of the distributor's metering schedule; a\|b = either (curated, quoted in data/tariffdb/curated/*.yaml) | `meter_class:network_meter_before_july_2015\|replaced_by_thir…` |
 | `value` | numeric | no |  | unit: see unit | price in standard units | `222.29` |
 | `unit` | text | no |  |  | standard unit: c/day, c/kWh, c/kVAh, c/kW/day, c/kW/month, c/kVA/month ... (? = billing period not stated) | `c/day` |
 | `value_published` | text | no |  |  | number exactly as printed | `2.2229` |
@@ -275,30 +281,32 @@ When each time-of-use period applies: day type, start and end time, months. Time
 |---|---|
 | One row is | one time window that one tariff's charges use, for one period |
 | Primary key | `window_id` |
-| Rows | 4,705 |
+| Rows | 7,510 |
 | Source | data/tariffdb/curated/*.yaml (tou_schedules), as stated in the distributor's documents |
 | File | `data/tariffdb/tables/tou_window.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document); (distributor_id, tariff_code, effective_from) → [`tariff`](#tariff) |
 | Referenced by | none |
 | Check | `effective_from <= effective_to` |
 | Check | `start_time < end_time` |
-| Check | `months IS NOT NULL OR season IS NOT NULL` |
+| Check | `months IS NOT NULL OR season_label IS NOT NULL` |
+| Check | `season IS NULL OR season_label IS NOT NULL` |
 
 | Column | Type | Null | Key | Allowed values / unit | Meaning | Example |
 |---|---|---|---|---|---|---|
-| `window_id` | text | no | PK |  | <distributor_id>:<tariff_code>:<effective_from>:<applies_to>:<tou_period>:<day_type>:<start>-<end>:<months> | `essential:BLND4SB:2025-07-01:demand:off_peak:all_days:00:00…` |
+| `window_id` | text | no | PK |  | <distributor_id>:<tariff_code>:<effective_from>:<applies_to>:<tou_period>:<day_type>:<start>-<end>:<months> (season-<season> or months-not-stated when the document names the season without its months) | `essential:BLND4SB:2025-07-01:demand:off_peak:all_days:00:00…` |
 | `distributor_id` | text | no | FK → tariff |  | distributor | `essential` |
 | `tariff_code` | text | no | FK → tariff |  | tariff code | `BLND4SB` |
 | `effective_from` | date | no | FK → tariff | YYYY-MM-DD | first day the window applies | `2025-07-01` |
 | `effective_to` | date | no |  | YYYY-MM-DD | last day the window applies (inclusive) | `2026-06-30` |
 | `applies_to` | text | no |  | usage, demand, export, controlled_load, all | which charges of the tariff the window prices | `demand` |
-| `tou_period` | text | no |  | peak, shoulder, off_peak, solar_soak, critical_peak, super_off_peak, demand_window, export_charge_window, export_reward_window, controlled_load_supply, anytime, high_season_peak, low_season_peak | period (peak, off_peak, demand_window, export_reward_window ...) | `off_peak` |
+| `tou_period` | text | no |  | anytime, peak, shoulder, off_peak, super_off_peak, critical_peak, solar_soak, capacity_minimum, capacity_remaining, critical_minimum, dynamic_maximum, dynamic_minimum, controlled_load_supply | the rate.tou_period the window prices (peak, off_peak, solar_soak ...); controlled_load_supply = the hours a controlled-load circuit is switched on (prices nothing) | `off_peak` |
 | `period_label` | text | no |  |  | period name as published | `Off-peak` |
 | `day_type` | text | no |  | weekday, weekend, all_days, business_day, non_business_day | days the window applies on | `all_days` |
 | `start_time` | time | no |  | HH:MM | inclusive | `00:00` |
 | `end_time` | time | no |  | HH:MM | exclusive; 24:00 = midnight at the end of the day | `07:00` |
 | `months` | text | yes |  |  | comma-separated months 1-12; NULL when the source names a season without its months | `1,2,3,4,5,6,7,8,9,10,11,12` |
-| `season` | text | yes |  |  | season name as published | `low season` |
+| `season` | text | yes |  | summer, non_summer, high, low, winter, spring, autumn | the rate.season the window belongs to; NULL = every season | `high` |
+| `season_label` | text | yes |  |  | season name as published | `High season (8 months)` |
 | `time_basis` | text | no |  | local_time, standard_time, daylight_time, not_stated | clock the times refer to, as stated | `local_time` |
 | `public_holidays` | text | no |  | as_weekday, as_non_business_day, not_stated, unchanged | how public holidays are treated | `unchanged` |
 | `document_id` | text | no | FK → source_document |  | source document version | `essential-price-list-and-explanatory-notes-2025-26` |
@@ -338,6 +346,47 @@ Who can or must be on the tariff: customer type, voltage, consumption or demand 
 | `locator` | text | no |  |  | where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py) | `pdf:p3` |
 | `quote` | text | no |  |  | verbatim wording at the locator | `New customers connected to the low-voltage distribution net…` |
 
+### charge_rule
+
+How the quantity a demand, capacity or export rate is applied to is measured: in kW or kVA, over which interval, highest or an average of the highest, reset when, with any minimum, threshold or free allowance the document states.
+
+|  |  |
+|---|---|
+| One row is | one stated measurement rule of one tariff's demand, capacity or export charges, for one period |
+| Primary key | `rule_id` |
+| Rows | 1,632 |
+| Source | data/tariffdb/curated/*.yaml (charge_rules), quoted from the distributor's documents |
+| File | `data/tariffdb/tables/charge_rule.csv` |
+| References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document); (distributor_id, tariff_code, effective_from) → [`tariff`](#tariff) |
+| Referenced by | none |
+| Check | `effective_from <= effective_to` |
+| Check | `(n IS NULL) = (method NOT IN ('avg_top_n_days', 'avg_top_n_intervals', 'avg_nominated_days'))` |
+| Check | `allowance_rollover IS NULL OR allowance_per_day IS NOT NULL` |
+
+| Column | Type | Null | Key | Allowed values / unit | Meaning | Example |
+|---|---|---|---|---|---|---|
+| `rule_id` | text | no | PK |  | <distributor_id>:<tariff_code>:<effective_from>:<charge_type>:<tou_period or all>:<season or all>:<measure> (a tariff priced both per kW and per kVA has a rule for each) | `essential:BLND4SB:2025-07-01:demand:all:all:kVA` |
+| `distributor_id` | text | no | FK → tariff |  | distributor | `essential` |
+| `tariff_code` | text | no | FK → tariff |  | tariff code | `BLND4SB` |
+| `effective_from` | date | no | FK → tariff | YYYY-MM-DD | first day the rule applies | `2025-07-01` |
+| `effective_to` | date | no |  | YYYY-MM-DD | last day the rule applies (inclusive) | `2026-06-30` |
+| `charge_type` | text | no |  | demand, capacity, export | the rates the rule measures for | `demand` |
+| `tou_period` | text | yes |  | anytime, peak, shoulder, off_peak, super_off_peak, critical_peak, solar_soak, capacity_minimum, capacity_remaining, critical_minimum, dynamic_maximum, dynamic_minimum | the rate.tou_period it measures for; NULL = every rate of the charge type | `solar_soak` |
+| `season` | text | yes |  | summer, non_summer, high, low, winter, spring, autumn | the rate.season it measures for; NULL = every season | `summer` |
+| `measure` | text | no |  | kW, kVA, kWh | quantity measured | `kVA` |
+| `interval_min` | integer | yes |  |  | length of the metering interval the demand is averaged over, minutes | `30` |
+| `method` | text | no |  | max, avg_top_n_days, avg_top_n_intervals, agreed, max_of_agreed_and_measured, sum, assigned, avg_nominated_days, max_daily_window_mean, excess_over_window_max, kva_at_max_kw, avg_daily_max | max = the highest interval; avg_top_n_days = the mean of the n highest daily maxima; avg_top_n_intervals = the mean of the n highest intervals; agreed = a value agreed with the distributor; max_of_agreed_and_measured = the greater of the two; sum = the total over the span (energy); assigned = a value the distributor sets (a rating); avg_nominated_days = the mean of the daily maxima on the n days the distributor nominates; max_daily_window_mean = the highest daily mean over the window; excess_over_window_max = the highest in the window less the highest in the peak window (floored at 0); kva_at_max_kw = the kVA of the interval with the highest kW; avg_daily_max = the mean of every day's maximum | `max` |
+| `n` | integer | yes |  |  | n of the avg_top_n methods and of avg_nominated_days | `5` |
+| `reset` | text | no |  | day, month, billing_period, season, year, year_from_april, rolling_12_months, rolling_13_months | span the measured value is taken over before it starts again | `month` |
+| `minimum_value` | numeric | yes |  |  | smallest quantity charged, when stated | `500` |
+| `threshold_value` | numeric | yes |  |  | the charge applies only to the quantity above this, when stated (e.g. export above 1.5 kW) | `450` |
+| `allowance_per_day` | numeric | yes |  |  | free quantity per day before the charge applies, when stated | `6.85` |
+| `allowance_rollover` | boolean | yes |  | 0, 1 | 1 when an unused daily allowance carries over within the billing period | `1` |
+| `document_id` | text | no | FK → source_document |  | source document version | `essential-price-list-and-explanatory-notes-2025-26` |
+| `locator` | text | no |  |  | where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py) | `pdf:p11` |
+| `quote` | text | no |  |  | verbatim wording at the locator | `maximum half hour demand for the month occurring` |
+| `note` | text | yes |  |  | caveat from the curator | `Definitions, 'THREE RATE DEMAND' (p11, a three-column page…` |
+
 ## Conventions
 
 | Type | SQLite | Values |
@@ -374,6 +423,9 @@ erDiagram
     distributor ||--o{ eligibility : "distributor_id"
     source_document ||--o{ eligibility : "document_id"
     tariff ||--o{ eligibility : "distributor_id, tariff_code, effective_from"
+    distributor ||--o{ charge_rule : "distributor_id"
+    source_document ||--o{ charge_rule : "document_id"
+    tariff ||--o{ charge_rule : "distributor_id, tariff_code, effective_from"
     distributor {
         text distributor_id PK
     }
@@ -403,6 +455,13 @@ erDiagram
     }
     eligibility {
         text criterion_id PK
+        text distributor_id FK
+        text tariff_code FK
+        date effective_from FK
+        text document_id FK
+    }
+    charge_rule {
+        text rule_id PK
         text distributor_id FK
         text tariff_code FK
         date effective_from FK

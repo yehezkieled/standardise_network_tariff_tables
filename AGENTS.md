@@ -18,6 +18,11 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   Pricing years are financial, except Victoria (calendar 2001-2020, `2000-H2`, `2021-H1`) and Tasmania (to `2008-H1`);
   a state regulator's published schedule is final like the distributor's own list. Only years in effect on or after
   `build_support.FIRST_STORED_DAY` (2017-01-01, the captain's cutoff) are stored; `check.py` still checks every year.
+- Billing rules (TOU windows, `rate.condition`, metering, `charge_rule` demand measurement) are curated YAML; price
+  lists rarely state them: the tariff structure statement and the network price/tariff guide do
+  (`docs/update-and-validate.md` > "Billing rules"). `scripts/billcalc.py` bills interval data on the tables;
+  `tests/test_billcalc.py` holds the published example bills and a sweep whose blocked/assumed counts may only fall
+  (`billcalc.py sweep --write` after curation lowers them).
 - `validate.py --sources` re-reads every value and quote (minutes); CI runs it with `--committed-only`
   (`TARIFFDB_SOURCES=committed`).
 - Explanations of AER-vs-distributor differences live only in `scripts/adjustments.py`; spreadsheet numbers are read

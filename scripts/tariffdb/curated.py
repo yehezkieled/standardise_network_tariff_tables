@@ -47,13 +47,28 @@ conditions:
      meter_type:<spec.CRITERION_VALUES['meter_type']>, locator, quote, [note]}
     (a price charged only when the site meets the condition, e.g. a rebate for customers who join a trial; the
     quote states the condition. Every rate of those codes and year with that component gets rate.condition)
+metering:
+  - {codes: [...] | all, doc, fin_year, schedule: <component of a metering schedule row (no tariff code) in
+     out/dnsp_metering>, [condition], locator, quote, [note]}
+    (which tariffs a network-wide metering schedule price applies to, and to which sites: the quote states it; all =
+    every tariff of that year, for a charge per NMI. Each tariff period whose rates come from the schedule's own
+    document gets a metering rate, with the condition)
+rate_periods:
+  - {codes: [...], doc, fin_year, component: <rate.component exactly as stored>, [tou_period: <spec.RATE_PERIODS>],
+     [season: <spec.SEASONS>], locator, quote, [note]}
+    (the period of a rate the price list prints without one, where the tariff's windows name several: e.g. an
+    export charge the document applies in the solar soak window; or the season of a rate whose price list column
+    names another, where the document defines it: e.g. a 'Summer incentive' column that prices a winter incentive
+    for tariffs ending in 3. Every rate of those codes and year with that component gets them; a period or season
+    the price list stated otherwise is replaced and the rate's note says so)
 charge_rules:
-  - {codes: [...], doc, fin_year, charge_type: <spec.RULE_CHARGES>, [tou_period: <spec.RATE_PERIODS>],
+  - {codes: [...] | all, doc, fin_year, charge_type: <spec.RULE_CHARGES>, [tou_period: <spec.RATE_PERIODS>],
      [season: <spec.SEASONS>], measure: <spec.RULE_MEASURES>, [interval_min: 30], method: <spec.RULE_METHODS>, [n: 4],
      reset: <spec.RULE_RESETS>, [minimum_value], [threshold_value], [allowance_per_day], [allowance_rollover],
      locator, quote, [note]}
     (how the demand, capacity or export quantity is measured; omit tou_period / season for a rule that holds for every
-    rate of the charge type)
+    rate of the charge type. `codes: all` = a rule the document states for every tariff (a glossary definition): it
+    covers each code of that year with a rate of the charge type that no rule naming the code covers)
 """
 import glob
 import os
@@ -77,7 +92,8 @@ DAY_TYPE_DAYS = {"weekday": DAYS[:5], "business_day": DAYS[:5], "weekend": DAYS[
                  "all_days": DAYS}
 
 
-SECTIONS = ("distributor", "tou_schedules", "eligibility", "steps", "conditions", "charge_rules")
+SECTIONS = ("distributor", "tou_schedules", "eligibility", "steps", "conditions", "metering", "rate_periods",
+            "charge_rules")
 # day: each day stands alone; billing_period_per_day: per-day bounds multiplied by the days in the billing period (an
 # unused allowance rolls over within the period); quarter: bounds accumulate per calendar quarter; unstated
 RESET_PERIODS = ("day", "billing_period_per_day", "quarter", "unstated")
@@ -198,6 +214,17 @@ def coverage_errors(windows):
     return errs
 
 
+def condition_errors(where, condition):
+    """rate.condition is <kind>:<value>[|<value>...]: met when the site's value is any of them."""
+    kind, _, values = str(condition or "").partition(":")
+    if kind not in spec.CONDITION_KINDS or not re.fullmatch(r"[a-z0-9_]+(\|[a-z0-9_]+)*", values):
+        return [f"{where}: condition {condition!r} is not <{'|'.join(spec.CONDITION_KINDS)}>:<name>[|<name>...]"]
+    if kind == "meter_type":
+        return [f"{where}: meter type {v!r} not in {spec.CRITERION_VALUES['meter_type']}"
+                for v in values.split("|") if v not in spec.CRITERION_VALUES["meter_type"]]
+    return []
+
+
 def validate(data, check_quotes=True):
     errors = [f"unknown section {k!r} (sections: {', '.join(SECTIONS)})" for k in data if k not in SECTIONS]
     did = data.get("distributor")
@@ -309,11 +336,25 @@ def validate(data, check_quotes=True):
         where = f"conditions[{i}] {r.get('codes')} {r.get('component')}"
         _req(errors, where, r, ["codes", "doc", "fin_year", "component", "condition", "locator", "quote"])
         check_doc(where, r)
-        kind, _, value = str(r.get("condition", "")).partition(":")
-        if kind not in spec.CONDITION_KINDS or not re.fullmatch(r"[a-z0-9_]+", value):
-            errors.append(f"{where}: condition {r.get('condition')!r} is not <{'|'.join(spec.CONDITION_KINDS)}>:<name>")
-        elif kind == "meter_type" and value not in spec.CRITERION_VALUES["meter_type"]:
-            errors.append(f"{where}: meter type {value!r} not in {spec.CRITERION_VALUES['meter_type']}")
+        errors += condition_errors(where, r.get("condition"))
+        if check_quotes:
+            _quote(errors, where, r, r.get("doc"))
+    for i, r in enumerate(data.get("metering") or []):
+        where = f"metering[{i}] {r.get('codes')} {r.get('schedule')}"
+        _req(errors, where, r, ["codes", "doc", "fin_year", "schedule", "locator", "quote"])
+        check_doc(where, r)
+        if r.get("condition") is not None:
+            errors += condition_errors(where, r["condition"])
+        if check_quotes:
+            _quote(errors, where, r, r.get("doc"))
+    for i, r in enumerate(data.get("rate_periods") or []):
+        where = f"rate_periods[{i}] {r.get('codes')} {r.get('component')}"
+        _req(errors, where, r, ["codes", "doc", "fin_year", "component", "locator", "quote"])
+        check_doc(where, r)
+        if r.get("tou_period") is None and r.get("season") is None:
+            errors.append(f"{where}: states neither tou_period nor season")
+        _enum(errors, where, r.get("tou_period"), spec.RATE_PERIODS, "tou_period")
+        _enum(errors, where, r.get("season"), spec.SEASONS, "season")
         if check_quotes:
             _quote(errors, where, r, r.get("doc"))
     for i, r in enumerate(data.get("charge_rules") or []):
@@ -325,11 +366,17 @@ def validate(data, check_quotes=True):
                              ("season", spec.SEASONS), ("measure", spec.RULE_MEASURES),
                              ("method", spec.RULE_METHODS), ("reset", spec.RULE_RESETS)):
             _enum(errors, where, r.get(key), allowed, key)
-        if (r.get("n") is None) != (r.get("method") not in ("avg_top_n_days", "avg_top_n_intervals")):
-            errors.append(f"{where}: n goes with the avg_top_n methods, and only with them")
+        if (r.get("n") is None) != (r.get("method") not in spec.RULE_N_METHODS):
+            errors.append(f"{where}: n goes with the methods {spec.RULE_N_METHODS}, and only with them")
+        if r.get("method") == "kva_at_max_kw" and r.get("measure") != "kVA":
+            errors.append(f"{where}: kva_at_max_kw measures kVA")
         for key in ("interval_min", "n"):
             if r.get(key) is not None and (not isinstance(r[key], int) or r[key] < 1):
                 errors.append(f"{where}: {key} must be a whole number >= 1")
+        if (r.get("method") == "sum") != (r.get("measure") == "kWh"):
+            errors.append(f"{where}: an energy (kWh) quantity is summed, and only it")
+        if not (r.get("codes") == "all" or isinstance(r.get("codes"), list)):
+            errors.append(f"{where}: codes must be a list or all")
         if r.get("allowance_rollover") is not None and r.get("allowance_per_day") is None:
             errors.append(f"{where}: allowance_rollover needs allowance_per_day")
         unknown = set(r) - {"codes", "doc", "fin_year", "charge_type", "tou_period", "season", "measure",

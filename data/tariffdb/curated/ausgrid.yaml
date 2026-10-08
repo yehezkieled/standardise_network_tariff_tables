@@ -26,97 +26,1097 @@ tou_schedules:
   tariffs:
   - codes: [EA958]
     applies_to: usage
-- id: ausgrid-2023-24-low-season-demand-window
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+- id: ausgrid-2023-24-residential-tou
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
   fin_year: 2023-24
-  name: Low season demand window (residential and small business demand tariffs)
-  time_basis: not_stated
-  public_holidays: not_stated
-  covers_full_day: false
-  locator: pdf:p27
-  quote: In other months (‘low season’) where the peak energy price does not apply, residential and small business charging
-    windows are aligned with the capacity charging windows for larger businesses (2-8 pm working weekdays).
-  note: 'Section 10.7. Section 10.3 (p25) says the same: ''In seasons where there is no peak energy on working weekdays, a
-    window of 2-8 pm applies for low season demand charging''. The months of the low season and the summer/winter peak energy
-    windows (which are the high-season demand windows) are not given in this document; it refers to the TSS and the ES7 Network
-    Price Guide.'
+  name: Residential TOU energy windows (Table 3.3)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p17
+  quote: 'Table 3.3. Energy consumption charge: TOU charging windows for residential customers Time period Time period definition
+    Peak period  From 2 pm to 8 pm on working weekdays during 1 November to 31 March (inclusive) – the ‘summer months’ 
+    From 5 pm to 9 pm on working weekdays during 1 June to 31 August (inclusive) – the ‘winter months’. Shoulder The shoulder
+    period applies from 7 am to 10 pm every day, except where period a peak period applies during that period. Specifically,
+    it applies:  on all weekends and public holidays from 7 am to 10 pm  on working weekdays in the ‘summer months’: o from
+    7 am to 2 pm and from 8 pm to 10 pm  on working weekdays in the ‘winter months’: o from 7 am to 5 pm and from 9 pm to
+    10 pm  on working weekdays in the non-summer and non-winter months: o from 7 am to 10 pm. Off-peak All other times that
+    are not Peak or Shoulder: 10 pm to 7 am. period Note: All times take into account daylight saving during the period gazetted
+    by the NSW Government, generally from 3 am on the first Sunday in October to 2 am on the first Sunday in April.'
+  note: 'Section 3.1 Table 3.3 (the 2019-24 TSS, which the 2023-24 pricing proposal p11 cites for the windows). Peak and the
+    split shoulder apply on working weekdays (business_day); weekends and public holidays have shoulder 7 am to 10 pm and
+    off-peak otherwise. Times are local time: the tables'' note says ''All times take into account daylight saving during
+    the period gazetted by the NSW Government''.'
   windows:
-  - period: demand_window
-    label: low season demand window (2-8 pm working weekdays)
+  - period: off_peak
+    label: Off-peak period (10 pm to 7 am)
+    days: all_days
+    start: 00:00
+    end: 07:00
+    months: all
+  - period: off_peak
+    label: Off-peak period (10 pm to 7 am)
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    months: all
+  - period: shoulder
+    label: Shoulder period (all weekends and public holidays)
+    days: non_business_day
+    start: 07:00
+    end: '22:00'
+    months: all
+  - period: shoulder
+    label: Shoulder period (working weekdays, summer months)
+    days: business_day
+    start: 07:00
+    end: '14:00'
+    months: 11,12,1,2,3
+  - period: peak
+    label: Peak period (summer months)
     days: business_day
     start: '14:00'
     end: '20:00'
-    months: not_stated
-    season: low season
+    months: 11,12,1,2,3
+  - period: shoulder
+    label: Shoulder period (working weekdays, summer months)
+    days: business_day
+    start: '20:00'
+    end: '22:00'
+    months: 11,12,1,2,3
+  - period: shoulder
+    label: Shoulder period (working weekdays, winter months)
+    days: business_day
+    start: 07:00
+    end: '17:00'
+    months: 6,7,8
+  - period: peak
+    label: Peak period (winter months)
+    days: business_day
+    start: '17:00'
+    end: '21:00'
+    months: 6,7,8
+  - period: shoulder
+    label: Shoulder period (working weekdays, winter months)
+    days: business_day
+    start: '21:00'
+    end: '22:00'
+    months: 6,7,8
+  - period: shoulder
+    label: Shoulder period (working weekdays, non-summer and non-winter months)
+    days: business_day
+    start: 07:00
+    end: '22:00'
+    months: 4,5,9,10
+  tariffs:
+  - codes: [EA011, EA025, EA111, EA115, EA116]
+    applies_to: usage
+    locator: pdf:p22
+    quote: '*See Tables 3.2 and 3.3 for definitions of peak, shoulder and off-peak periods for energy consumption charges,
+      and time periods for demand charges for residential tariffs, and Tables 3.5 and 3.6 for small business tariffs.'
+    note: Table 3.9 (p21) lists EA025, EA011, EA116, EA115 and EA111 as residential tariffs priced in peak, shoulder and off-peak;
+      its note (p22) points residential tariffs to Table 3.3.
+- id: ausgrid-2023-24-small-business-tou
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
+  fin_year: 2023-24
+  name: Small business TOU energy windows (Table 3.6)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p19
+  quote: 'Table 3.6. Energy consumption charge: TOU charging windows for small business customers Time period Time period
+    definition Peak period  From 2 pm to 8 pm on working weekdays during 1 November to 31 March (inclusive) – the ‘summer
+    months’  From 2 pm to 8 pm on working weekdays during 1 June to 31 August (inclusive) – the ‘winter months’. Shoulder
+    The shoulder period applies from 7 am to 10 pm every working weekday, period except where a peak period applies during
+    that period. Specifically, it applies:  on working weekdays in the ‘summer’ and ‘winter’ months: o from 7 am to 2 pm
+    and from 8 pm to 10 pm  on working weekdays in the non-summer and non-winter months: o from 7 am to 10 pm. Off-peak All
+    other times that are not Peak or Shoulder: 10 pm to 7 am on working period weekdays all year, and 24 hours on all weekends
+    and public holidays all year. Note: All times take into account daylight saving during the period gazetted by the NSW
+    Government, generally from 3 am on the first Sunday in October to 2 am on the first Sunday in April.'
+  note: 'Section 3.1 Table 3.6. Times are local time: the tables'' note says ''All times take into account daylight saving
+    during the period gazetted by the NSW Government''.'
+  windows:
+  - period: off_peak
+    label: Off-peak period (10 pm to 7 am on working weekdays)
+    days: business_day
+    start: 00:00
+    end: 07:00
+    months: all
+  - period: off_peak
+    label: Off-peak period (10 pm to 7 am on working weekdays)
+    days: business_day
+    start: '22:00'
+    end: '24:00'
+    months: all
+  - period: off_peak
+    label: Off-peak period (24 hours on all weekends and public holidays)
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+    months: all
+  - period: shoulder
+    label: Shoulder period (summer and winter months)
+    days: business_day
+    start: 07:00
+    end: '14:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: peak
+    label: Peak period (summer and winter months)
+    days: business_day
+    start: '14:00'
+    end: '20:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: shoulder
+    label: Shoulder period (summer and winter months)
+    days: business_day
+    start: '20:00'
+    end: '22:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: shoulder
+    label: Shoulder period (non-summer and non-winter months)
+    days: business_day
+    start: 07:00
+    end: '22:00'
+    months: 4,5,9,10
+  tariffs:
+  - codes: [EA051, EA225, EA251, EA255, EA256]
+    applies_to: usage
+    locator: pdf:p22
+    quote: '*See Tables 3.2 and 3.3 for definitions of peak, shoulder and off-peak periods for energy consumption charges,
+      and time periods for demand charges for residential tariffs, and Tables 3.5 and 3.6 for small business tariffs.'
+    note: Table 3.9 (p21) lists EA225, EA051, EA256, EA255 and EA251 as small business tariffs priced in peak, shoulder and
+      off-peak; its note (p22) points small business tariffs to Table 3.6.
+- id: ausgrid-2023-24-large-business-tou
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
+  fin_year: 2023-24
+  name: Medium to large LV, HV and subtransmission TOU energy windows (Table 3.8)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p20
+  quote: 'Table 3.8. Energy consumption charge: TOU charging windows for medium to large Low Voltage, High Voltage and Subtransmission
+    business customers Time period Time period definition Peak period  From 2 pm to 8 pm on working weekdays during 1 November
+    to 31 March (inclusive) – the ‘summer months’  From 2 pm to 8 pm on working weekdays during 1 June to 31 August (inclusive)
+    – the ‘winter months’. Shoulder The shoulder period applies from 7 am to 10 pm every working weekday, period except where
+    a peak period applies during that period. Specifically, it applies:  on working weekdays in the ‘summer’ and ‘winter’
+    months: o from 7 am to 2 pm and from 8 pm to 10 pm  on working weekdays in the non-summer and non-winter months: o from
+    7 am to 10 pm. Off-peak All other times that are not Peak or Shoulder: 10 pm to 7 am on working period weekdays all year,
+    and 24 hours on all weekends and public holidays all year. Note: All times take into account daylight saving during the
+    period gazetted by the NSW Government, generally from 3 am on the first Sunday in October to 2 am on the first Sunday
+    in April.'
+  note: 'Section 3.1 Table 3.8. Table 3.8 is the same as Table 3.6 (small business). Times are local time: the tables'' note
+    says ''All times take into account daylight saving during the period gazetted by the NSW Government''.'
+  windows:
+  - period: off_peak
+    label: Off-peak period (10 pm to 7 am on working weekdays)
+    days: business_day
+    start: 00:00
+    end: 07:00
+    months: all
+  - period: off_peak
+    label: Off-peak period (10 pm to 7 am on working weekdays)
+    days: business_day
+    start: '22:00'
+    end: '24:00'
+    months: all
+  - period: off_peak
+    label: Off-peak period (24 hours on all weekends and public holidays)
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+    months: all
+  - period: shoulder
+    label: Shoulder period (summer and winter months)
+    days: business_day
+    start: 07:00
+    end: '14:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: peak
+    label: Peak period (summer and winter months)
+    days: business_day
+    start: '14:00'
+    end: '20:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: shoulder
+    label: Shoulder period (summer and winter months)
+    days: business_day
+    start: '20:00'
+    end: '22:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: shoulder
+    label: Shoulder period (non-summer and non-winter months)
+    days: business_day
+    start: 07:00
+    end: '22:00'
+    months: 4,5,9,10
+  tariffs:
+  - codes: [EA302, EA305, EA310, EA316, EA317, EA325]
+    applies_to: usage
+    locator: pdf:p22
+    quote: '#See Table 3.8 for definitions of peak, shoulder and off-peak periods for energy consumption charges for medium
+      to large business customer tariffs (non-residential > 40 MWh usage a year).'
+    note: Table 3.9 (p22) rows EA302/EA316 and EA305/EA310/EA317/EA325 price peak, shoulder and off-peak energy 'during the
+      peak period#'.
+  - codes: [EA360, EA370, EA380, EA390, EA391]
+    applies_to: usage
+    locator: pdf:p23
+    quote: 'Note: See Table 3.8 for definitions of peak, shoulder and off-peak periods.'
+    note: 'Tables 3.10 (HV: EA370, EA380, EA360) and 3.11 (subtransmission: EA390, EA391) on p22-23 each end with this note.'
+  - codes: [EA501]
+    applies_to: usage
+    locator: pdf:p24
+    quote: 'Note: See Table 3.8 for definitions of peak, shoulder and off-peak periods.'
+    note: Table 3.12 (p24), transmission tariff class.
+- id: ausgrid-2023-24-residential-demand
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
+  fin_year: 2023-24
+  name: Residential demand charging windows (Table 3.2)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p17
+  quote: 'Table 3.2. Demand charge: charging windows for residential customers Demand Time period definition window High season
+     From 2 pm to 8 pm on working weekdays during 1 November to (8 months) 31 March (inclusive) – the ‘summer months’  From
+    5 pm to 9 pm on working weekdays during 1 June to 31 August (inclusive) – the ‘winter months’. Low season  From 2 pm
+    to 8 pm on working weekdays during 1 April to 31 May (4 months) and 1 September to 31 October (inclusive) – the non-summer
+    and non-winter months.'
+  note: 'Section 3.1. Demand window (Table 3.9 p21: ''the maximum kW demand1 over any half hour interval in the demand window
+    in a High season month'' / ''in a Low season month''). Working weekdays recorded as business_day; the table says nothing
+    more on public holidays. The daylight-saving note under Table 3.3 on the same page covers ''All times''. Replaces the
+    low-season-only window that wave 1 took from the 2023-24 pricing proposal (p27).'
+  windows:
+  - period: peak
+    label: High season demand window (summer months)
+    days: business_day
+    start: '14:00'
+    end: '20:00'
+    months: 11,12,1,2,3
+    season_label: High season (8 months)
+    season: high
+  - period: peak
+    label: High season demand window (winter months)
+    days: business_day
+    start: '17:00'
+    end: '21:00'
+    months: 6,7,8
+    season_label: High season (8 months)
+    season: high
+  - period: peak
+    label: Low season demand window (non-summer and non-winter months)
+    days: business_day
+    start: '14:00'
+    end: '20:00'
+    months: 4,5,9,10
+    season_label: Low season (4 months)
+    season: low
   tariffs:
   - codes: [EA111, EA115, EA116]
     applies_to: demand
-    locator: pdf:p12
-    quote: EA111 Residential demand (introductory) 35.8290 8.7829 8.7829 8.7829 1.0820 1.0820 EA115 Residential TOU demand 50.3369
-      24.7136 3.8465 3.0712 4.4617 4.4617 EA116 Residential demand 41.6874 1.8724 1.8724 1.8724 26.2662 15.5209
-    note: 'Table 4.1 (p12) row: these codes are priced in the ''Demand charge'' High season and Low season c/kW/day columns (x-positions
-      under the ''High season'' / ''Low season'' headings). Sections 10.3 (p25) and 10.7 (p27) give the low season demand window
-      for residential and small business demand tariffs: ''2-8 pm working weekdays''.'
-  - codes: [EA251, EA255, EA256]
-    applies_to: demand
-    locator: pdf:p12
-    quote: EA251 Small business demand (introductory) 126.0881 7.9673 7.9673 7.9673 1.0639 1.0639 EA255 Small business TOU demand
-      155.1363 20.0874 5.9712 2.3864 5.2379 5.2379 EA256 Small business demand 143.0936 1.7663 1.7663 1.7663 30.1950 22.6462
-    note: 'Table 4.1 (p12) row: these codes are priced in the ''Demand charge'' High season and Low season c/kW/day columns (x-positions
-      under the ''High season'' / ''Low season'' headings). Sections 10.3 (p25) and 10.7 (p27) give the low season demand window
-      for residential and small business demand tariffs: ''2-8 pm working weekdays''.'
-- id: ausgrid-2023-24-larger-business-capacity-window
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+    locator: pdf:p22
+    quote: '*See Tables 3.2 and 3.3 for definitions of peak, shoulder and off-peak periods for energy consumption charges,
+      and time periods for demand charges for residential tariffs, and Tables 3.5 and 3.6 for small business tariffs.'
+- id: ausgrid-2023-24-small-business-demand
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
   fin_year: 2023-24
-  name: Capacity charging window for larger businesses (2-8 pm working weekdays)
-  time_basis: not_stated
+  name: Small business demand charging windows (Table 3.5)
+  time_basis: local_time
   public_holidays: not_stated
   covers_full_day: false
-  locator: pdf:p27
-  quote: the capacity charging windows for larger businesses (2-8 pm working weekdays)
-  note: Section 10.7; the same wording is in the Section 2.1 key reforms list (p6). 'Working weekdays' is recorded as business_day.
-    The document does not list which codes are 'larger businesses'; the linked codes are the tariffs Table 4.1 (p12) prices
-    under the 'Capacity charge - Peak' heading (EA302/EA316 in c/kW/day, the rest in c/kVA/day). EA501 (Transmission-connected)
-    also carries a capacity charge there but is not a business tariff class, so it is not linked.
+  locator: pdf:p19
+  quote: 'Table 3.5. Demand charge: charging windows for small business customers Demand Time period definition window High
+    season  From 2 pm to 8 pm on working weekdays during 1 November to (8 months) 31 March (inclusive) – the ‘summer months’
+     From 2 pm to 8 pm on working weekdays during 1 June to 31 August (inclusive) – the ‘winter months’. Low season  From
+    2 pm to 8 pm on working weekdays during 1 April to 31 May and (4 months) 1 September to 31 October (inclusive) – the non-summer
+    and non- winter months.'
+  note: 'Section 3.1. Demand window (Table 3.9 p21: ''the maximum kW demand1 over any half hour interval in the demand window
+    in a High season month'' / ''in a Low season month''). Working weekdays recorded as business_day. The daylight-saving
+    note under Table 3.6 on the same page covers ''All times''. Replaces the low-season-only window wave 1 took from the 2023-24
+    pricing proposal (p27).'
   windows:
-  - period: demand_window
-    label: capacity charging window (2-8 pm working weekdays)
+  - period: peak
+    label: High season demand window (summer and winter months)
     days: business_day
     start: '14:00'
     end: '20:00'
+    months: 11,12,1,2,3,6,7,8
+    season_label: High season (8 months)
+    season: high
+  - period: peak
+    label: Low season demand window (non-summer and non-winter months)
+    days: business_day
+    start: '14:00'
+    end: '20:00'
+    months: 4,5,9,10
+    season_label: Low season (4 months)
+    season: low
   tariffs:
-  - codes: [EA302, EA305, EA310]
+  - codes: [EA251, EA255, EA256]
     applies_to: demand
-    locator: pdf:p12
-    quote: EA302 LV 40-160 MWh 470.7190 5.8100 1.9945 0.9489 33.7404 EA305 LV 160-750 MWh 1669.8393 5.7213 1.3161 0.9489 41.0048
-      EA310 LV >750 MWh 3361.8757 4.5004 1.3161 0.9489 44.2779
-    note: 'Table 4.1 (p12) rows: each code has a value in the last column group (''Capacity charge'' - Peak, c/kW/day for EA302/EA316,
-      c/kVA/day for the others, by x-position). Section 10.7 (p27) and 2.1 (p6) give ''the capacity charging windows for larger
-      businesses (2-8 pm working weekdays)''; the document does not list which codes are ''larger businesses''.'
-  - codes: [EA316, EA317, EA325]
+    locator: pdf:p22
+    quote: '*See Tables 3.2 and 3.3 for definitions of peak, shoulder and off-peak periods for energy consumption charges,
+      and time periods for demand charges for residential tariffs, and Tables 3.5 and 3.6 for small business tariffs.'
+- id: ausgrid-2023-24-capacity
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
+  fin_year: 2023-24
+  name: Capacity charging window, medium to large business (Table 3.7)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p20
+  quote: 'Table 3.7. Capacity charge: charging window for medium to large Low Voltage, High Voltage and Subtransmission business
+    customers Capacity Time period definition window All year  From 2 pm to 8 pm on working weekdays.'
+  note: 'Section 3.1 Table 3.7: ''All year round''. Working weekdays recorded as business_day. Times are local time per the
+    daylight-saving note under Table 3.8 on the same page (''All times take into account daylight saving''). Replaces the
+    wave-1 window from the 2023-24 pricing proposal (p27), which did not name EA501.'
+  windows:
+  - period: peak
+    label: Capacity window (all year round)
+    days: business_day
+    start: '14:00'
+    end: '20:00'
+    months: all
+  tariffs:
+  - codes: [EA302, EA305, EA310, EA316, EA317, EA325]
     applies_to: demand
-    locator: pdf:p12
-    quote: EA316 Transitional 40-160 MWh closed 470.7190 5.8100 1.9945 0.9489 33.7404 EA317 Transitional 160-750 MWh closed 1669.8393
-      5.7213 1.3161 0.9489 41.0048 EA325 LV Connection (standby) closed 2836.7725 9.3659 7.0604 2.0962 5.1586
-    note: 'Table 4.1 (p12) rows: each code has a value in the last column group (''Capacity charge'' - Peak, c/kW/day for EA302/EA316,
-      c/kVA/day for the others, by x-position). Section 10.7 (p27) and 2.1 (p6) give ''the capacity charging windows for larger
-      businesses (2-8 pm working weekdays)''; the document does not list which codes are ''larger businesses''.'
-  - codes: [EA360, EA370, EA380]
+    locator: pdf:p22
+    quote: Capacity charge – Peak c/kW/day Network use of system charge for the maximum kW demand1 over any half hour interval
+      between 2 pm and 8 pm on a working weekday in the previous 12 months
+  - codes: [EA360, EA370, EA380, EA390, EA391]
     applies_to: demand
-    locator: pdf:p12
-    quote: EA360 HV Connection (standby) closed 2159.1063 8.1824 3.9884 2.4368 0.8577 High Voltage EA370 HV Connection (system)
-      5200.9411 2.8427 1.8437 1.2504 22.5454 EA380 HV Connection (substation) 5200.9411 2.6395 1.7372 1.2079 18.8159
-    note: 'Table 4.1 (p12) rows: each code has a value in the last column group (''Capacity charge'' - Peak, c/kW/day for EA302/EA316,
-      c/kVA/day for the others, by x-position). Section 10.7 (p27) and 2.1 (p6) give ''the capacity charging windows for larger
-      businesses (2-8 pm working weekdays)''; the document does not list which codes are ''larger businesses''.'
-  - codes: [EA390, EA391]
+    locator: pdf:p23
+    quote: Capacity charge – Peak kVA c/kVA/day Network use of system charge applied to the maximum kVA demand1 recorded over
+      any half hour interval between 2 pm and 8 pm on a working weekday in the previous 12 months
+  - codes: [EA501]
     applies_to: demand
-    locator: pdf:p12
-    quote: Sub- EA390 ST Connection (system) 5646.0171 2.2894 1.8065 1.2244 5.9848 transmission EA391 ST Connection (substation)
-      5646.0171 2.1925 1.6394 1.1710 5.6580
-    note: 'Table 4.1 (p12) rows: each code has a value in the last column group (''Capacity charge'' - Peak, c/kW/day for EA302/EA316,
-      c/kVA/day for the others, by x-position). Section 10.7 (p27) and 2.1 (p6) give ''the capacity charging windows for larger
-      businesses (2-8 pm working weekdays)''; the document does not list which codes are ''larger businesses''.'
+    locator: pdf:p24
+    quote: Capacity charge – Peak kVA c/kVA/day Network use of system charge applied to the maximum kVA demand1 recorded over
+      any half hour interval between 2 pm and 8 pm on a working weekday in the previous 12 months
+- id: ausgrid-2024-25-residential-tou
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2024-25_July2024_wayback.pdf
+  fin_year: 2024-25
+  name: Residential TOU energy windows (Table 3.2)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p17
+  quote: 'Table 3.2. Energy consumption charge: TOU charging windows for residential customers Time period Time period definition
+    Peak period • From 3 pm to 9 pm on all days during 1 November to 31 March (inclusive) – the ‘summer months’ • From 3 pm
+    to 9 pm on all days during 1 June to 31 August (inclusive) – the ‘winter months’. Off-peak • All other times that are
+    not Peak. period Note: All times take into account daylight saving during the period gazetted by the NSW Government'
+  note: Section 3.5.2. Peak applies on all days, so public holidays are not treated differently.
+  windows:
+  - period: peak
+    label: Peak period (summer months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+  - period: peak
+    label: Peak period (winter months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+  - period: off_peak
+    label: Off-peak period (all other times)
+    days: all_days
+    start: 00:00
+    end: '15:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: off_peak
+    label: Off-peak period (all other times)
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: off_peak
+    label: Off-peak period (all other times)
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 4,5,9,10
+  tariffs:
+  - codes: [EA025, EA111, EA116]
+    applies_to: usage
+    locator: pdf:p16
+    quote: • EA025 Residential TOU • EA111 Residential demand (introductory) • EA116 Residential demand
+    note: 'Section 3.5.1 list of tariffs with TOU energy charges: these are the residential ones.'
+- id: ausgrid-2024-25-business-tou
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2024-25_July2024_wayback.pdf
+  fin_year: 2024-25
+  name: Small business, medium to large LV, HV and sub-transmission TOU energy windows (Table 3.3)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p17
+  quote: 'Table 3.3. Energy consumption charge: TOU charging windows for small business, medium to large Low Voltage, High
+    Voltage and Sub-transmission customers Time period Time period definition Peak period • From 3 pm to 9 pm on working weekdays
+    during 1 November to 31 March (inclusive) – the ‘summer months’ • From 3 pm to 9 pm on working weekdays during 1 June
+    to 31 August (inclusive) – the ‘winter months’. Off-peak • All other times that are not Peak: 9 pm to 3 pm on working
+    period weekdays all year, and 24 hours on all weekends and public holidays all year. Note: All times take into account
+    daylight saving during the period gazetted by the NSW Government'
+  note: Section 3.5.2. Off-peak is '24 hours on all weekends and public holidays all year'.
+  windows:
+  - period: peak
+    label: Peak period (summer months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+  - period: peak
+    label: Peak period (winter months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+  - period: off_peak
+    label: Off-peak period (9 pm to 3 pm on working weekdays)
+    days: business_day
+    start: 00:00
+    end: '15:00'
+    months: all
+  - period: off_peak
+    label: Off-peak period (9 pm to 3 pm on working weekdays)
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    months: all
+  - period: off_peak
+    label: Off-peak period (all other times that are not Peak)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,9,10
+  - period: off_peak
+    label: Off-peak period (24 hours on all weekends and public holidays)
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+    months: all
+  tariffs:
+  - codes: [EA225, EA251, EA256, EA302, EA305, EA310, EA314, EA315, EA365, EA370, EA390]
+    applies_to: usage
+    locator: pdf:p16
+    quote: • EA225 Small business TOU • EA251 Small business demand (introductory) • EA256 Small business demand • EA302 LV
+      60-160 MWh • EA305 LV 160-750 MWh (system) • EA310 LV >750 MWh (system) • EA314 LV 160-750 MWh (embedded network) •
+      EA315 LV >750 MWh (embedded network) • EA365 HV connection (embedded network) • EA370 HV connection (system) • EA390
+      ST connection
+    note: 'Section 3.5.1 list of tariffs with TOU energy charges: the small business, medium to large LV, HV and sub-transmission
+      ones. EA501 (transmission) is listed too but Table 3.3 does not name transmission customers, so it is not linked.'
+- id: ausgrid-2024-25-residential-demand
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2024-25_July2024_wayback.pdf
+  fin_year: 2024-25
+  name: Residential demand charging window (Table 3.4)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p18
+  quote: 'Table 3.4. Demand charge: charging windows for residential customers Demand Time period definition window High season
+    • From 3 pm to 9 pm on all days during 1 November to (8 months) 31 March (inclusive) – the ‘summer months’ • From 3 pm
+    to 9 pm on all days during 1 June to 31 August (inclusive) – the ‘winter months’. Low season • No demand charge applies'
+  note: 'Section 3.7.2: ''Demand charges are based on the monthly maximum amount of electricity consumed by a customer in
+    any half hour interval in the demand window.'' High season window on all days; no demand charge in the low season. Local
+    time per Appendix G (pdf:p43): ''The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time
+    in New South Wales.'''
+  windows:
+  - period: peak
+    label: High season demand window (summer months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: High season (8 months)
+    season: high
+  - period: peak
+    label: High season demand window (winter months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+    season_label: High season (8 months)
+    season: high
+  tariffs:
+  - codes: [EA111, EA116]
+    applies_to: demand
+    locator: pdf:p18
+    quote: • EA111 Residential demand (introductory) • EA116 Residential demand
+- id: ausgrid-2024-25-small-business-demand
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2024-25_July2024_wayback.pdf
+  fin_year: 2024-25
+  name: Small business demand charging window (Table 3.5)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p19
+  quote: High season • From 3 pm to 9 pm on working weekdays during 1 November to (8 months) 31 March (inclusive) – the ‘summer
+    months’ • From 3 pm to 9 pm on working weekdays during 1 June to 31 August (inclusive) – the ‘winter months’. Low season
+    • No demand charge applies
+  note: 'Section 3.7.2 Table 3.5 (demand window for small business customers). Working weekdays recorded as business_day;
+    the table says nothing more on public holidays. No demand charge in the low season. Local time per Appendix G (pdf:p43):
+    ''The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales.'''
+  windows:
+  - period: peak
+    label: High season demand window (summer months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: High season (8 months)
+    season: high
+  - period: peak
+    label: High season demand window (winter months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+    season_label: High season (8 months)
+    season: high
+  tariffs:
+  - codes: [EA251, EA256]
+    applies_to: demand
+    locator: pdf:p18
+    quote: • EA251 Small business demand (introductory) • EA256 Small business demand
+- id: ausgrid-2024-25-capacity
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2024-25_July2024_wayback.pdf
+  fin_year: 2024-25
+  name: Capacity window, medium to large LV, HV, sub-transmission and transmission (Table 3.6)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p20
+  quote: 'Table 3.6. Capacity charge: windows for medium to large Low Voltage, High Voltage, Sub-transmission and Transmission
+    business customers Capacity Time period definition window All year • From 3 pm to 9 pm on working weekdays.'
+  note: 'Section 3.8.2 Table 3.6: ''All year round''. Working weekdays recorded as business_day. Local time per Appendix G
+    (pdf:p43): ''The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales.'''
+  windows:
+  - period: peak
+    label: Capacity window (all year round)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: all
+  tariffs:
+  - codes: [EA302, EA305, EA310, EA314, EA315, EA365, EA370, EA390, EA501]
+    applies_to: demand
+    locator: pdf:p19
+    quote: 'Capacity charges apply to the following tariffs: • EA302 LV 60-160 MWh (system) • EA305 LV 160-750 MWh (system)
+      • EA310 LV >750 MWh (system) • EA314 LV 160-750 MWh (embedded network) • EA315 LV >750 MWh (embedded network) • EA365
+      HV connection (embedded network) • EA370 HV connection (system) • EA390 ST connection • EA501 Transmission connected'
+    note: Section 3.8.1.
+- id: ausgrid-2024-25-export
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2024-25_July2024_wayback.pdf
+  fin_year: 2024-25
+  name: EA029 small customer export tariff charge and reward windows
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p17
+  quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
+  note: 'Section 3.6. ''Every day'': public holidays are not treated differently. The charge window is recorded as solar_soak
+    and the reward window as peak (rate_periods). Local time per Appendix G (pdf:p43): ''The time periods defined in Ausgrid’s
+    Network Price List and ES7 apply to local time in New South Wales.'''
+  windows:
+  - period: solar_soak
+    label: Export charge (10am to 3pm every day)
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+    months: all
+  - period: peak
+    label: Export reward/rebate (4pm to 9pm every day)
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: all
+  tariffs:
+  - codes: [EA029]
+    applies_to: export
+    locator: pdf:p17
+    quote: The export tariff code is EA029 and will apply to applicable customers as a secondary tariff.
+- id: ausgrid-2025-26-residential-tou
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2025-26_July2025_wayback.pdf
+  fin_year: 2025-26
+  name: Residential TOU energy windows (Table 3.2)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p16
+  quote: 'Table 3.2. Energy consumption charge: TOU charging windows for residential customers Time period Time period definition
+    Peak period • From 3 pm to 9 pm on all days during 1 November to 31 March (inclusive) – the ‘summer months’ • From 3 pm
+    to 9 pm on all days during 1 June to 31 August (inclusive) – the ‘winter months’. Off-peak • All other times that are
+    not Peak. period Note: All times take into account daylight saving during the period gazetted by the NSW Government'
+  note: Section 3.5.2. Peak applies on all days, so public holidays are not treated differently.
+  windows:
+  - period: peak
+    label: Peak period (summer months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+  - period: peak
+    label: Peak period (winter months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+  - period: off_peak
+    label: Off-peak period (all other times)
+    days: all_days
+    start: 00:00
+    end: '15:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: off_peak
+    label: Off-peak period (all other times)
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: off_peak
+    label: Off-peak period (all other times)
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 4,5,9,10
+  tariffs:
+  - codes: [EA025, EA111, EA116]
+    applies_to: usage
+    locator: pdf:p16
+    quote: • EA025 Residential TOU • EA111 Residential demand (introductory) • EA116 Residential demand
+    note: 'Section 3.5.1 list of tariffs with TOU energy charges: these are the residential ones.'
+- id: ausgrid-2025-26-business-tou
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2025-26_July2025_wayback.pdf
+  fin_year: 2025-26
+  name: Small business, medium to large LV, HV and sub-transmission TOU energy windows (Table 3.3)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p17
+  quote: 'Table 3.3. Energy consumption charge: TOU charging windows for small business, medium to large Low Voltage, High
+    Voltage and Sub-transmission customers Time period Time period definition Peak period • From 3 pm to 9 pm on working weekdays
+    during 1 November to 31 March (inclusive) – the ‘summer months’ • From 3 pm to 9 pm on working weekdays during 1 June
+    to 31 August (inclusive) – the ‘winter months’. Off-peak • All other times that are not Peak: 9 pm to 3 pm on working
+    period weekdays all year, and 24 hours on all weekends and public holidays all year. Note: All times take into account
+    daylight saving during the period gazetted by the NSW Government'
+  note: Section 3.5.2. Off-peak is '24 hours on all weekends and public holidays all year'.
+  windows:
+  - period: peak
+    label: Peak period (summer months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+  - period: peak
+    label: Peak period (winter months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+  - period: off_peak
+    label: Off-peak period (9 pm to 3 pm on working weekdays)
+    days: business_day
+    start: 00:00
+    end: '15:00'
+    months: all
+  - period: off_peak
+    label: Off-peak period (9 pm to 3 pm on working weekdays)
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    months: all
+  - period: off_peak
+    label: Off-peak period (all other times that are not Peak)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,9,10
+  - period: off_peak
+    label: Off-peak period (24 hours on all weekends and public holidays)
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+    months: all
+  tariffs:
+  - codes: [EA225, EA251, EA256, EA302, EA305, EA310, EA314, EA315, EA365, EA370, EA390]
+    applies_to: usage
+    locator: pdf:p16
+    quote: • EA225 Small business TOU • EA251 Small business demand (introductory) • EA256 Small business demand • EA302 LV
+      80-160 MWh • EA305 LV 160-750 MWh (system) • EA310 LV >750 MWh (system) • EA314 LV 160-750 MWh (embedded network) •
+      EA315 LV >750 MWh (embedded network) • EA365 HV connection (embedded network) • EA370 HV connection (system) • EA390
+      ST connection
+    note: 'Section 3.5.1 list of tariffs with TOU energy charges: the small business, medium to large LV, HV and sub-transmission
+      ones. EA501 (transmission) is listed too but Table 3.3 does not name transmission customers, so it is not linked.'
+- id: ausgrid-2025-26-residential-demand
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2025-26_July2025_wayback.pdf
+  fin_year: 2025-26
+  name: Residential demand charging window (Table 3.4)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p18
+  quote: 'Table 3.4. Demand charge: charging windows for residential customers Demand Time period definition window High season
+    • From 3 pm to 9 pm on all days during 1 November to (8 months) 31 March (inclusive) – the ‘summer months’ • From 3 pm
+    to 9 pm on all days during 1 June to 31 August (inclusive) – the ‘winter months’. Low season • No demand charge applies'
+  note: 'Section 3.7.2: ''Demand charges are based on the monthly maximum amount of electricity consumed by a customer in
+    any half hour interval in the demand window.'' High season window on all days; no demand charge in the low season. Local
+    time per Appendix G (pdf:p40): ''The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time
+    in New South Wales.'''
+  windows:
+  - period: peak
+    label: High season demand window (summer months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: High season (8 months)
+    season: high
+  - period: peak
+    label: High season demand window (winter months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+    season_label: High season (8 months)
+    season: high
+  tariffs:
+  - codes: [EA111, EA116]
+    applies_to: demand
+    locator: pdf:p17
+    quote: • EA111 Residential demand (introductory) • EA116 Residential demand
+- id: ausgrid-2025-26-small-business-demand
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2025-26_July2025_wayback.pdf
+  fin_year: 2025-26
+  name: Small business demand charging window (Table 3.5)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p18
+  quote: High season • From 3 pm to 9 pm on working weekdays during 1 November to (8 months) 31 March (inclusive) – the ‘summer
+    months’ • From 3 pm to 9 pm on working weekdays during 1 June to 31 August (inclusive) – the ‘winter months’. Low season
+    • No demand charge applies
+  note: 'Section 3.7.2 Table 3.5 (demand window for small business customers). Working weekdays recorded as business_day;
+    the table says nothing more on public holidays. No demand charge in the low season. Local time per Appendix G (pdf:p40):
+    ''The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales.'''
+  windows:
+  - period: peak
+    label: High season demand window (summer months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: High season (8 months)
+    season: high
+  - period: peak
+    label: High season demand window (winter months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+    season_label: High season (8 months)
+    season: high
+  tariffs:
+  - codes: [EA251, EA256]
+    applies_to: demand
+    locator: pdf:p17
+    quote: • EA251 Small business demand (introductory) • EA256 Small business demand
+- id: ausgrid-2025-26-capacity
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2025-26_July2025_wayback.pdf
+  fin_year: 2025-26
+  name: Capacity window, medium to large LV, HV, sub-transmission and transmission (Table 3.6)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p19
+  quote: 'Table 3.6. Capacity charge: windows for medium to large Low Voltage, High Voltage, Sub- transmission and Transmission
+    business customers Capacity Time period definition window All year • From 3 pm to 9 pm on working weekdays.'
+  note: 'Section 3.8.2 Table 3.6: ''All year round''. Working weekdays recorded as business_day. Local time per Appendix G
+    (pdf:p40): ''The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales.'''
+  windows:
+  - period: peak
+    label: Capacity window (all year round)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: all
+  tariffs:
+  - codes: [EA302, EA305, EA310, EA314, EA315, EA365, EA370, EA390, EA501]
+    applies_to: demand
+    locator: pdf:p18
+    quote: 'Capacity charges apply to the following tariffs: • EA302 LV 80-160 MWh (system) • EA305 LV 160-750 MWh (system)
+      • EA310 LV >750 MWh (system) • EA314 LV 160-750 MWh (embedded network) • EA315 LV >750 MWh (embedded network) • EA365
+      HV connection (embedded network) • EA370 HV connection (system) • EA390 ST connection • EA501 Transmission connected'
+    note: Section 3.8.1.
+- id: ausgrid-2025-26-export
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2025-26_July2025_wayback.pdf
+  fin_year: 2025-26
+  name: EA029 small customer export tariff charge and reward windows
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p17
+  quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
+  note: 'Section 3.6. ''Every day'': public holidays are not treated differently. The charge window is recorded as solar_soak
+    and the reward window as peak (rate_periods). Local time per Appendix G (pdf:p40): ''The time periods defined in Ausgrid’s
+    Network Price List and ES7 apply to local time in New South Wales.'''
+  windows:
+  - period: solar_soak
+    label: Export charge (10am to 3pm every day)
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+    months: all
+  - period: peak
+    label: Export reward/rebate (4pm to 9pm every day)
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: all
+  tariffs:
+  - codes: [EA029]
+    applies_to: export
+    locator: pdf:p17
+    quote: The export tariff code is EA029 and will apply to applicable customers as a secondary tariff.
+- id: ausgrid-2026-27-residential-tou
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2026-27_July2026.pdf
+  fin_year: 2026-27
+  name: Residential TOU energy windows (Table 3.2)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p18
+  quote: 'Table 3.2. Energy consumption charge: TOU charging windows for residential customers Time period Time period definition
+    Peak period • From 3pm to 9pm on all days during 1 November to 31 March (inclusive) – the ‘summer months’ • From 3pm to
+    9pm on all days during 1 June to 31 August (inclusive) – the ‘winter months’. Off-peak • All other times that are not
+    Peak. period Note: All times account for daylight saving during the period gazetted by the NSW Government'
+  note: Section 3.5.2. Peak applies on all days, so public holidays are not treated differently.
+  windows:
+  - period: peak
+    label: Peak period (summer months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+  - period: peak
+    label: Peak period (winter months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+  - period: off_peak
+    label: Off-peak period (all other times)
+    days: all_days
+    start: 00:00
+    end: '15:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: off_peak
+    label: Off-peak period (all other times)
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    months: 11,12,1,2,3,6,7,8
+  - period: off_peak
+    label: Off-peak period (all other times)
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 4,5,9,10
+  tariffs:
+  - codes: [EA025, EA111, EA116]
+    applies_to: usage
+    locator: pdf:p17
+    quote: • EA025 Residential TOU • EA111 Residential demand (introductory) • EA116 Residential demand
+    note: 'Section 3.5.1 list of tariffs with TOU energy charges: these are the residential ones.'
+- id: ausgrid-2026-27-business-tou
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2026-27_July2026.pdf
+  fin_year: 2026-27
+  name: Small business, medium to large LV, HV and sub-transmission TOU energy windows (Table 3.3)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p18
+  quote: 'Table 3.3. Energy consumption charge: TOU charging windows for small business, medium to large Low Voltage, High
+    Voltage and Sub-transmission customers Time period Time period definition Peak period • From 3pm to 9pm on working weekdays
+    during 1 November to 31 March (inclusive) – the ‘summer months’ • From 3pm to 9pm on working weekdays during 1 June to
+    31 August (inclusive) – the ‘winter months’. Off-peak • All other times that are not Peak: 9pm to 3pm on working weekdays
+    period all year, and 24 hours on all weekends and public holidays all year. Note: All times account for daylight saving
+    during the period gazetted by the NSW Government'
+  note: Section 3.5.2. Off-peak is '24 hours on all weekends and public holidays all year'.
+  windows:
+  - period: peak
+    label: Peak period (summer months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+  - period: peak
+    label: Peak period (winter months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+  - period: off_peak
+    label: Off-peak period (9 pm to 3 pm on working weekdays)
+    days: business_day
+    start: 00:00
+    end: '15:00'
+    months: all
+  - period: off_peak
+    label: Off-peak period (9 pm to 3 pm on working weekdays)
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    months: all
+  - period: off_peak
+    label: Off-peak period (all other times that are not Peak)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,9,10
+  - period: off_peak
+    label: Off-peak period (24 hours on all weekends and public holidays)
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+    months: all
+  tariffs:
+  - codes: [EA225, EA251, EA256, EA302, EA305, EA310, EA314, EA315, EA365, EA370, EA390]
+    applies_to: usage
+    locator: pdf:p17
+    quote: • EA225 Small business TOU • EA251 Small business demand (introductory) • EA256 Small business demand • EA302 LV
+      100-160 MWh • EA305 LV 160-750 MWh (system) • EA310 LV >750 MWh (system) • EA314 LV 160-750 MWh (embedded network) •
+      EA315 LV >750 MWh (embedded network) • EA365 HV connection (embedded network) • EA370 HV connection (system) • EA390
+      ST connection
+    note: 'Section 3.5.1 list of tariffs with TOU energy charges: the small business, medium to large LV, HV and sub-transmission
+      ones. EA501 (transmission) is listed too but Table 3.3 does not name transmission customers, so it is not linked.'
+- id: ausgrid-2026-27-residential-demand
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2026-27_July2026.pdf
+  fin_year: 2026-27
+  name: Residential demand charging window (Table 3.4)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p19
+  quote: 'Table 3.4. Demand charge: charging windows for residential customers Demand Time period definition window High season
+    • From 3pm to 9pm on all days during 1 November to (8 months) 31 March (inclusive) – the ‘summer months’ • From 3pm to
+    9pm on all days during 1 June to 31 August (inclusive) – the ‘winter months’. Low season • No demand charge applies'
+  note: 'Section 3.7.2: ''Demand charges are based on the monthly maximum amount of electricity consumed by a customer in
+    any half hour interval in the demand window.'' High season window on all days; no demand charge in the low season. Local
+    time per Appendix G (pdf:p45): ''The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time
+    in New South Wales.'''
+  windows:
+  - period: peak
+    label: High season demand window (summer months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: High season (8 months)
+    season: high
+  - period: peak
+    label: High season demand window (winter months)
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+    season_label: High season (8 months)
+    season: high
+  tariffs:
+  - codes: [EA111, EA116]
+    applies_to: demand
+    locator: pdf:p19
+    quote: • EA111 Residential demand (introductory) • EA116 Residential demand
+- id: ausgrid-2026-27-small-business-demand
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2026-27_July2026.pdf
+  fin_year: 2026-27
+  name: Small business demand charging window (Table 3.5)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p20
+  quote: High season • From 3pm to 9pm on working weekdays during 1 November to (8 months) 31 March (inclusive) – the ‘summer
+    months’ • From 3pm to 9pm on working weekdays during 1 June to 31 August (inclusive) – the ‘winter months’. Low season
+    • No demand charge applies
+  note: 'Section 3.7.2 Table 3.5 (demand window for small business customers). Working weekdays recorded as business_day;
+    the table says nothing more on public holidays. No demand charge in the low season. Local time per Appendix G (pdf:p45):
+    ''The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales.'''
+  windows:
+  - period: peak
+    label: High season demand window (summer months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 11,12,1,2,3
+    season_label: High season (8 months)
+    season: high
+  - period: peak
+    label: High season demand window (winter months)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 6,7,8
+    season_label: High season (8 months)
+    season: high
+  tariffs:
+  - codes: [EA251, EA256]
+    applies_to: demand
+    locator: pdf:p19
+    quote: • EA251 Small business demand (introductory) • EA256 Small business demand
+- id: ausgrid-2026-27-capacity
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2026-27_July2026.pdf
+  fin_year: 2026-27
+  name: Capacity window, medium to large LV, HV, sub-transmission and transmission (Table 3.6)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p20
+  quote: 'Table 3.6. Capacity charge: windows for medium to large Low Voltage, High Voltage, Sub-transmission and Transmission
+    business customers Capacity Time period definition window All year • From 3pm to 9pm on working weekdays.'
+  note: 'Section 3.8.2 Table 3.6: ''All year round''. Working weekdays recorded as business_day. Local time per Appendix G
+    (pdf:p45): ''The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales.'''
+  windows:
+  - period: peak
+    label: Capacity window (all year round)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: all
+  tariffs:
+  - codes: [EA302, EA305, EA310, EA314, EA315, EA365, EA370, EA390, EA501]
+    applies_to: demand
+    locator: pdf:p20
+    quote: 'Capacity charges apply to the following tariffs: • EA302 LV 100-160 MWh (system) • EA305 LV 160-750 MWh (system)
+      • EA310 LV >750 MWh (system) • EA314 LV 160-750 MWh (embedded network) • EA315 LV >750 MWh (embedded network) • EA365
+      HV connection (embedded network) • EA370 HV connection (system) • EA390 ST connection • EA501 Transmission connected'
+    note: Section 3.8.1.
+- id: ausgrid-2026-27-export
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2026-27_July2026.pdf
+  fin_year: 2026-27
+  name: EA029 small customer export tariff charge and reward windows
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p19
+  quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
+  note: 'Section 3.6. ''Every day'': public holidays are not treated differently. The charge window is recorded as solar_soak
+    and the reward window as peak (rate_periods). Local time per Appendix G (pdf:p45): ''The time periods defined in Ausgrid’s
+    Network Price List and ES7 apply to local time in New South Wales.'''
+  windows:
+  - period: solar_soak
+    label: Export charge (10am to 3pm every day)
+    days: all_days
+    start: '10:00'
+    end: '15:00'
+    months: all
+  - period: peak
+    label: Export reward/rebate (4pm to 9pm every day)
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    months: all
+  tariffs:
+  - codes: [EA029]
+    applies_to: export
+    locator: pdf:p18
+    quote: The export tariff code is EA029 and will apply to applicable customers as a secondary tariff.
 eligibility:
 - codes: [EA010, EA025, EA111, EA116, EA029, EA030, EA040, EA050, EA225, EA251, EA256, EA302, EA305, EA310, EA314, EA315]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
@@ -3316,3 +4316,569 @@ eligibility:
   column_quote: Tariff trials
   note: 'Row label of the tariff-trial revenue table; B118: ''The below table provides trial tariff revenues for Ausgrid for
     2024–25 and historical years.'''
+rate_periods:
+- codes: [EA029]
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2024-25_July2024_wayback.pdf
+  fin_year: 2024-25
+  component: Network Energy Prices - Opt in export charge
+  tou_period: solar_soak
+  locator: pdf:p17
+  quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
+  note: The price list prints the export charge without a period; ES7 Section 3.6 applies it only in this window.
+- codes: [EA029]
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2024-25_July2024_wayback.pdf
+  fin_year: 2024-25
+  component: Network Energy Prices - Opt in export reward
+  tou_period: peak
+  locator: pdf:p17
+  quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
+  note: The price list prints the export reward/rebate without a period; ES7 Section 3.6 applies it only in this window.
+- codes: [EA029]
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2025-26_July2025_wayback.pdf
+  fin_year: 2025-26
+  component: Network Energy Prices - Export charge
+  tou_period: solar_soak
+  locator: pdf:p17
+  quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
+  note: The price list prints the export charge without a period; ES7 Section 3.6 applies it only in this window.
+- codes: [EA029]
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2025-26_July2025_wayback.pdf
+  fin_year: 2025-26
+  component: Network Energy Prices - Export reward
+  tou_period: peak
+  locator: pdf:p17
+  quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
+  note: The price list prints the export reward/rebate without a period; ES7 Section 3.6 applies it only in this window.
+- codes: [EA029]
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2026-27_July2026.pdf
+  fin_year: 2026-27
+  component: Network Energy Prices - Export charge
+  tou_period: solar_soak
+  locator: pdf:p19
+  quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
+  note: The price list prints the export charge without a period; ES7 Section 3.6 applies it only in this window.
+- codes: [EA029]
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2026-27_July2026.pdf
+  fin_year: 2026-27
+  component: Network Energy Prices - Export reward
+  tou_period: peak
+  locator: pdf:p19
+  quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
+  note: The price list prints the export reward/rebate without a period; ES7 Section 3.6 applies it only in this window.
+- codes: [EA964]
+  doc: sources/dnsp/ausgrid/Ausgrid_2025-26_Tariff_trial_notification_Feb2025.pdf
+  fin_year: 2025-26
+  component: Network Energy Prices - Off-peak
+  tou_period: anytime
+  locator: pdf:p9
+  quote: Proposed tariff The flexible load tariff will have three components; a critical peak price, an (structure and pricing)
+    anytime usage charge, and a fixed charge.
+  note: Table 7, Small business flexible load tariff (EA964). The price list prints the anytime usage charge in its 'Off-peak'
+    column; the notification names no off-peak window. Price list footnote '&' says the EA964/EA965 peak charges apply to
+    critical peaks only when called by Ausgrid.
+- codes: [EA965]
+  doc: sources/dnsp/ausgrid/Ausgrid_2025-26_Tariff_trial_notification_Feb2025.pdf
+  fin_year: 2025-26
+  component: Network Energy Prices - Off-peak
+  tou_period: anytime
+  locator: pdf:p10
+  quote: Proposed tariff The flexible load tariff will have three components, a critical peak price, an (structure and pricing)
+    anytime usage charge, and a low fixed charge.
+  note: Table 8, Residential flexible load tariff (EA965). The price list prints the anytime usage charge in its 'Off-peak'
+    column; the notification names no off-peak window.
+- codes: [EA374]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2024-25
+  component: Network Energy Prices - Off-peak
+  tou_period: anytime
+  locator: pdf:p25
+  quote: HV storage EA374 Fixed cents / day Access charge reflecting a fixed amount per tariff (import) day Off-peak cents / kWh
+    Charge applied to energy consumed outside energy critical peak periods Critical peak cents / kWh Charge applied during
+    critical maximum energy demand events
+  note: TSS 2024-29 Table 10. Off-peak energy is charged outside the critical peak events (whose times Ausgrid notifies; ES7
+    Section 3.9), so it is recorded as the rate for the rest of the time (anytime beside the event-priced critical peak rate),
+    not as a time window.
+- codes: [EA374]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2025-26
+  component: Network Energy Prices - Off-peak
+  tou_period: anytime
+  locator: pdf:p25
+  quote: HV storage EA374 Fixed cents / day Access charge reflecting a fixed amount per tariff (import) day Off-peak cents / kWh
+    Charge applied to energy consumed outside energy critical peak periods Critical peak cents / kWh Charge applied during
+    critical maximum energy demand events
+  note: TSS 2024-29 Table 10. Off-peak energy is charged outside the critical peak events (whose times Ausgrid notifies; ES7
+    Section 3.9), so it is recorded as the rate for the rest of the time (anytime beside the event-priced critical peak rate),
+    not as a time window.
+- codes: [EA374]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2026-27
+  component: Network Energy Prices - Off-peak
+  tou_period: anytime
+  locator: pdf:p25
+  quote: HV storage EA374 Fixed cents / day Access charge reflecting a fixed amount per tariff (import) day Off-peak cents / kWh
+    Charge applied to energy consumed outside energy critical peak periods Critical peak cents / kWh Charge applied during
+    critical maximum energy demand events
+  note: TSS 2024-29 Table 10. Off-peak energy is charged outside the critical peak events (whose times Ausgrid notifies; ES7
+    Section 3.9), so it is recorded as the rate for the rest of the time (anytime beside the event-priced critical peak rate),
+    not as a time window.
+charge_rules:
+- codes: [EA111, EA115, EA116, EA251, EA255, EA256]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p25
+  quote: Each demand tariff consists of a fixed daily charge (in cents per day), an energy consumption charge (in cents per
+    kWh) with a seasonal TOU structure, and a seasonal demand charge (in cents per kW per day). The demand measure is the
+    maximum energy consumption recorded over any 30-minute period within the defined seasonal demand window on a working
+    weekday in each month (measured in kW). The resulting demand charge applies for each day in the month (before being
+    reset for the next month)
+  note: Section 10.3, which introduces these as the demand tariffs for residential and small business customers; the codes
+    are the ones Table 4.1 (p12) prices in the 'Demand charge' High season and Low season c/kW/day columns. Holds for both
+    seasons' demand rates. Only working weekdays count, which the demand windows carry as business_day.
+- codes: [EA302, EA316]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: capacity
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p22
+  quote: Capacity charge – Peak c/kW/day Network use of system charge for the maximum kW demand1 over any half hour interval
+    between 2 pm and 8 pm on a working weekday in the previous 12 months
+  note: 'Section 3.2 charging parameters (the 2019-24 TSS). Table note: ''Demand is based on the highest energy consumption
+    recorded in a 30-minute interval.'''
+- codes: [EA305, EA310, EA317, EA325]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p22
+  quote: Capacity charge – Peak c/kVA/day Network use of system charge for the maximum kVA demand1 over any half hour interval
+    between 2 pm and 8 pm on a working weekday in the previous 12 months
+  note: 'Section 3.2 charging parameters (the 2019-24 TSS). Table note: ''Demand is based on the highest energy consumption
+    recorded in a 30-minute interval.'''
+- codes: [EA360, EA370, EA380]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p23
+  quote: Capacity charge – Peak kVA c/kVA/day Network use of system charge applied to the maximum kVA demand1 recorded over
+    any half hour interval between 2 pm and 8 pm on a working weekday in the previous 12 months
+  note: 'Section 3.2 charging parameters (the 2019-24 TSS). Table note: ''Demand is based on the highest energy consumption
+    recorded in a 30-minute interval.'''
+- codes: [EA390, EA391]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p23
+  quote: Capacity charge – Peak kVA c/kVA/day Network use of system charge applied to the maximum kVA demand1 recorded over
+    any half hour interval between 2 pm and 8 pm on a working weekday in the previous 12 months
+  note: 'Section 3.2 charging parameters (the 2019-24 TSS). Table note: ''Demand is based on the highest energy consumption
+    recorded in a 30-minute interval.'''
+- codes: [EA501]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
+  fin_year: 2023-24
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p24
+  quote: Capacity charge – Peak kVA c/kVA/day Network use of system charge applied to the maximum kVA demand1 recorded over
+    any half hour interval between 2 pm and 8 pm on a working weekday in the previous 12 months
+  note: 'Section 3.2 charging parameters (the 2019-24 TSS). Table note: ''Demand is based on the highest energy consumption
+    recorded in a 30-minute interval.'''
+- codes: [EA111, EA116]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: Peak demand cents / kW / Charge applied to the customer’s highest kW day demand in any half-hour period between 3-9pm
+    during Summer (November to March) and Winter (June to August) months, resetting monthly
+  note: 'TSS 2024-29 Section 4 Table 5 (residential); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.7.2: ''the monthly maximum amount of electricity consumed ... in any half hour interval''.'
+- codes: [EA251, EA256]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p21
+  quote: Peak demand cents / kW / Charge applied to the customer’s highest kW demand day in any half-hour period between 3-9pm
+    on working weekdays during Summer (November to March) and Winter (June to August) months, resetting monthly
+  note: 'TSS 2024-29 Section 4 Table 6 (small business); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.7.2: ''the monthly maximum amount of electricity consumed ... in any half hour interval''.'
+- codes: [EA302]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p23
+  quote: Peak capacity cents / kW / Charge applied to the customer’s highest kW of MWh day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 9 (medium business); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA305, EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p23
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 9 (medium business); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA310, EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p24
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 9 (medium business, continued); the TSS states the structure for every year of 2024-29.
+    ES7 Section 3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing
+    period ('billable maximum capacity').
+- codes: [EA365, EA370]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p25
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest day kVA of demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 10 (high voltage); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA390]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p26
+  quote: Peak cents / kVA / Charge applied to the customer’s highest kVA of capacity day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 11 (sub-transmission); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA501]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p27
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 13 (transmission-connected); the TSS states the structure for every year of 2024-29. ES7
+    Section 3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing
+    period ('billable maximum capacity').
+- codes: [EA111, EA116]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: Peak demand cents / kW / Charge applied to the customer’s highest kW day demand in any half-hour period between 3-9pm
+    during Summer (November to March) and Winter (June to August) months, resetting monthly
+  note: 'TSS 2024-29 Section 4 Table 5 (residential); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.7.2: ''the monthly maximum amount of electricity consumed ... in any half hour interval''.'
+- codes: [EA251, EA256]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p21
+  quote: Peak demand cents / kW / Charge applied to the customer’s highest kW demand day in any half-hour period between 3-9pm
+    on working weekdays during Summer (November to March) and Winter (June to August) months, resetting monthly
+  note: 'TSS 2024-29 Section 4 Table 6 (small business); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.7.2: ''the monthly maximum amount of electricity consumed ... in any half hour interval''.'
+- codes: [EA302]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p23
+  quote: Peak capacity cents / kW / Charge applied to the customer’s highest kW of MWh day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 9 (medium business); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA305, EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p23
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 9 (medium business); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA310, EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p24
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 9 (medium business, continued); the TSS states the structure for every year of 2024-29.
+    ES7 Section 3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing
+    period ('billable maximum capacity').
+- codes: [EA365, EA370]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p25
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest day kVA of demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 10 (high voltage); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA390]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p26
+  quote: Peak cents / kVA / Charge applied to the customer’s highest kVA of capacity day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 11 (sub-transmission); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA501]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p27
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 13 (transmission-connected); the TSS states the structure for every year of 2024-29. ES7
+    Section 3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing
+    period ('billable maximum capacity').
+- codes: [EA111, EA116]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: Peak demand cents / kW / Charge applied to the customer’s highest kW day demand in any half-hour period between 3-9pm
+    during Summer (November to March) and Winter (June to August) months, resetting monthly
+  note: 'TSS 2024-29 Section 4 Table 5 (residential); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.7.2: ''the monthly maximum amount of electricity consumed ... in any half hour interval''.'
+- codes: [EA251, EA256]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p21
+  quote: Peak demand cents / kW / Charge applied to the customer’s highest kW demand day in any half-hour period between 3-9pm
+    on working weekdays during Summer (November to March) and Winter (June to August) months, resetting monthly
+  note: 'TSS 2024-29 Section 4 Table 6 (small business); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.7.2: ''the monthly maximum amount of electricity consumed ... in any half hour interval''.'
+- codes: [EA302]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p23
+  quote: Peak capacity cents / kW / Charge applied to the customer’s highest kW of MWh day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 9 (medium business); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA305, EA314]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p23
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 9 (medium business); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA310, EA315]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p24
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 9 (medium business, continued); the TSS states the structure for every year of 2024-29.
+    ES7 Section 3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing
+    period ('billable maximum capacity').
+- codes: [EA365, EA370]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p25
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest day kVA of demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 10 (high voltage); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA390]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p26
+  quote: Peak cents / kVA / Charge applied to the customer’s highest kVA of capacity day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 11 (sub-transmission); the TSS states the structure for every year of 2024-29. ES7 Section
+    3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing period ('billable
+    maximum capacity').
+- codes: [EA501]
+  doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_Compliance_Document_2024-29_Nov2023.pdf
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p27
+  quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
+    between 3-9pm on working weekdays in the previous 12 months
+  note: TSS 2024-29 Section 4 Table 13 (transmission-connected); the TSS states the structure for every year of 2024-29. ES7
+    Section 3.8.2 adds that the 12 months are the billing periods of the previous 12 months including the current billing
+    period ('billable maximum capacity').
+- codes: [EA029]
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2024-25_July2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: export
+  tou_period: solar_soak
+  measure: kWh
+  method: sum
+  reset: billing_period
+  allowance_per_day: 6.85
+  allowance_rollover: true
+  locator: pdf:p17
+  quote: The charge component includes a free threshold where part of the total exported energy in a billing period is exempt
+    from receiving a charge. The amount of the free threshold is 6.85
+  note: Section 3.6; the sentence continues on p18 'kWh per number of days in the billing period', and p18 lists the monthly
+    amounts (212.4 kWh for 31 day months ...). The threshold is part of the charge component, which applies between 10am and
+    3pm (p17); it is pooled over the billing period, so an unused daily allowance rolls over within it.
+- codes: [EA029]
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2025-26_July2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: export
+  tou_period: solar_soak
+  measure: kWh
+  method: sum
+  reset: billing_period
+  allowance_per_day: 6.85
+  allowance_rollover: true
+  locator: pdf:p17
+  quote: The charge component includes a free threshold where part of the total exported energy in a billing period is exempt
+    from receiving a charge. The amount of the free threshold is 6.85 kWh per number of days in the billing period.
+  note: Section 3.6. The threshold is part of the charge component, which applies between 10am and 3pm; it is pooled over
+    the billing period (the daily amount times its days), so an unused daily allowance rolls over within it.
+- codes: [EA029]
+  doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2026-27_July2026.pdf
+  fin_year: 2026-27
+  charge_type: export
+  tou_period: solar_soak
+  measure: kWh
+  method: sum
+  reset: billing_period
+  allowance_per_day: 6.85
+  allowance_rollover: true
+  locator: pdf:p19
+  quote: The charge component includes a free threshold (defined in the TSS as the Basic Export Level or BEL) where part of
+    the total exported energy in a billing period is exempt from receiving a charge. The free threshold is 6.85 kWh per day
+    multiplied by the number of days in the relevant billing period.
+  note: Section 3.6. The threshold is part of the charge component, which applies between 10am and 3pm; it is pooled over
+    the billing period (the daily amount times its days), so an unused daily allowance rolls over within it.

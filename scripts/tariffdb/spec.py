@@ -20,6 +20,7 @@ DOCUMENT_TYPES = [
     "aer_consolidated_stakeholder_report", "aer_stakeholder_report", "aer_landing_page", "pricing_proposal",
     "pricing_proposal_overview", "price_list", "tariff_summary", "tariff_schedule", "schedule_of_charges",
     "statement_of_tariff_classes", "price_guide", "pricing_schedule", "annual_tariff_report", "pricing_model",
+    "tariff_structure_statement", "tariff_trial_notification",
 ]
 # unverified: a distributor document hosted by the AER whose regulatory status no held source states; mixed: one AER
 # version carrying approved prices for some distributors and proposed for others
@@ -36,9 +37,10 @@ DAY_TYPES = ["weekday", "weekend", "all_days", "business_day", "non_business_day
 TOU_PERIODS = RATE_PERIODS + ["controlled_load_supply"]
 # rate.register: the meter register the priced quantity is measured on (NULL for daily, metering and other charges)
 REGISTERS = ["general", "controlled_load", "export"]
-# rate.condition: NULL = always charged; '<kind>:<value>' = charged only when the site meets it (opt_in:diversify,
-# meter_type:accumulation); the curated YAML quotes the source for each
-CONDITION_KINDS = ["opt_in", "meter_type"]
+# rate.condition: NULL = always charged; '<kind>:<value>[|<value>...]' = charged only when the site meets it
+# (opt_in:diversify, meter_type:accumulation, meter_class:pre_2015_network_meter|...: a class the distributor's
+# metering schedule names); the curated YAML quotes the source for each
+CONDITION_KINDS = ["opt_in", "meter_type", "meter_class"]
 # daylight_time: the source states the times in daylight-saving time (e.g. 'ADST'); times are stored as stated
 TIME_BASES = ["local_time", "standard_time", "daylight_time", "not_stated"]
 HOLIDAY_RULES = ["as_weekday", "as_non_business_day", "not_stated", "unchanged"]
@@ -67,10 +69,20 @@ RULE_CHARGES = ["demand", "capacity", "export"]
 RULE_MEASURES = ["kW", "kVA", "kWh"]
 # max: the highest interval; avg_top_n_days: the mean of the n highest daily maxima; avg_top_n_intervals: the mean of
 # the n highest intervals; agreed: a value agreed with the distributor, not measured; max_of_agreed_and_measured: the
-# greater of the agreed value and the highest interval
-RULE_METHODS = ["max", "avg_top_n_days", "avg_top_n_intervals", "agreed", "max_of_agreed_and_measured"]
-# the span the measured value is taken over before it starts again
-RULE_RESETS = ["day", "month", "billing_period", "season", "year", "rolling_12_months"]
+# greater of the agreed value and the highest interval; sum: the total over the span (an energy quantity, e.g. export
+# kWh above a free daily allowance); assigned: a value the distributor sets (a transformer or connection rating), not
+# measured; avg_nominated_days: the mean of the daily maxima on the n days the distributor nominates (critical peak
+# days); max_daily_window_mean: the highest of the daily means over the rate's window; excess_over_window_max: the
+# highest interval in the rate's window less the highest in the peak window of the same season, floored at zero;
+# kva_at_max_kw: the kVA of the interval with the highest kW; avg_daily_max: the mean of every day's maximum
+RULE_METHODS = ["max", "avg_top_n_days", "avg_top_n_intervals", "agreed", "max_of_agreed_and_measured", "sum",
+                "assigned", "avg_nominated_days", "max_daily_window_mean", "excess_over_window_max", "kva_at_max_kw",
+                "avg_daily_max"]
+RULE_N_METHODS = ["avg_top_n_days", "avg_top_n_intervals", "avg_nominated_days"]
+# the span the measured value is taken over before it starts again (year_from_april: 1 April to 31 March;
+# rolling_13_months: the current billing month and the 12 before it)
+RULE_RESETS = ["day", "month", "billing_period", "season", "year", "year_from_april", "rolling_12_months",
+               "rolling_13_months"]
 
 
 def col(name, type_, desc, *, null=False, pk=False, fk=None, enum=None, unit=None):
@@ -169,7 +181,8 @@ TABLES = [
                        "DUoS/TUoS/jurisdictional breakdown), GST exclusive, in standard units next to the value as "
                        "published.",
         "columns": [
-            col("rate_id", "text", "<distributor_id>:<tariff_code>:<effective_from>:<component>[:<region>]", pk=True),
+            col("rate_id", "text", "<distributor_id>:<tariff_code>:<effective_from>:<charge_type>:<component>"
+                "[:<tou_period>][:<season>][:<block>][:<region>]", pk=True),
             col("distributor_id", "text", "distributor", fk="distributor.distributor_id"),
             col("tariff_code", "text", "tariff code"),
             *period("the price"),
@@ -189,7 +202,8 @@ TABLES = [
                 "controlled_load = a separately metered controlled-load circuit, export = energy sent out; NULL for "
                 "daily, metering and other charges", null=True, enum=REGISTERS),
             col("condition", "text", "NULL = always charged; opt_in:<name> = only for a customer who opts in to "
-                "<name>; meter_type:<type> = only at a site with that meter (curated, quoted in "
+                "<name>; meter_type:<type> = only at a site with that meter; meter_class:<class> = only at a site in "
+                "that class of the distributor's metering schedule; a|b = either (curated, quoted in "
                 "data/tariffdb/curated/*.yaml)", null=True),
             col("value", "numeric", "price in standard units", unit="see unit"),
             col("unit", "text", "standard unit: c/day, c/kWh, c/kVAh, c/kW/day, c/kW/month, c/kVA/month ... (? = "
@@ -216,7 +230,8 @@ TABLES = [
                        "clock times as the document states them.",
         "columns": [
             col("window_id", "text", "<distributor_id>:<tariff_code>:<effective_from>:<applies_to>:<tou_period>:"
-                "<day_type>:<start>-<end>:<months>", pk=True),
+                "<day_type>:<start>-<end>:<months> (season-<season> or months-not-stated when the document names "
+                "the season without its months)", pk=True),
             col("distributor_id", "text", "distributor", fk="distributor.distributor_id"),
             col("tariff_code", "text", "tariff code"),
             *period("the window"),
@@ -277,7 +292,7 @@ TABLES.append({
                    "free allowance the document states.",
     "columns": [
         col("rule_id", "text", "<distributor_id>:<tariff_code>:<effective_from>:<charge_type>:<tou_period or "
-            "all>:<season or all>", pk=True),
+            "all>:<season or all>:<measure> (a tariff priced both per kW and per kVA has a rule for each)", pk=True),
         col("distributor_id", "text", "distributor", fk="distributor.distributor_id"),
         col("tariff_code", "text", "tariff code"),
         *period("the rule"),
@@ -290,8 +305,13 @@ TABLES.append({
             null=True),
         col("method", "text", "max = the highest interval; avg_top_n_days = the mean of the n highest daily maxima; "
             "avg_top_n_intervals = the mean of the n highest intervals; agreed = a value agreed with the distributor; "
-            "max_of_agreed_and_measured = the greater of the two", enum=RULE_METHODS),
-        col("n", "integer", "n of the avg_top_n methods", null=True),
+            "max_of_agreed_and_measured = the greater of the two; sum = the total over the span (energy); assigned = a "
+            "value the distributor sets (a rating); avg_nominated_days = the mean of the daily maxima on the n days "
+            "the distributor nominates; max_daily_window_mean = the highest daily mean over the window; "
+            "excess_over_window_max = the highest in the window less the highest in the peak window (floored at 0); "
+            "kva_at_max_kw = the kVA of the interval with the highest kW; avg_daily_max = the mean of every day's "
+            "maximum", enum=RULE_METHODS),
+        col("n", "integer", "n of the avg_top_n methods and of avg_nominated_days", null=True),
         col("reset", "text", "span the measured value is taken over before it starts again", enum=RULE_RESETS),
         col("minimum_value", "numeric", "smallest quantity charged, when stated", null=True),
         col("threshold_value", "numeric", "the charge applies only to the quantity above this, when stated "
@@ -304,8 +324,9 @@ TABLES.append({
         col("note", "text", "caveat from the curator", null=True),
     ],
     "foreign_keys": [TARIFF_FK],
-    "checks": ["effective_from <= effective_to", "(n IS NULL) = (method NOT IN ('avg_top_n_days', "
-               "'avg_top_n_intervals'))", "allowance_rollover IS NULL OR allowance_per_day IS NOT NULL"],
+    "checks": ["effective_from <= effective_to",
+               f"(n IS NULL) = (method NOT IN ({', '.join(repr(m) for m in RULE_N_METHODS)}))",
+               "allowance_rollover IS NULL OR allowance_per_day IS NOT NULL"],
 })
 
 TABLE_ORDER = [t["name"] for t in TABLES]

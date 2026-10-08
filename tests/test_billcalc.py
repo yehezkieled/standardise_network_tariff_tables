@@ -106,8 +106,10 @@ CASES = [
 ]
 # a published bill rounds to whole dollars; the profile shares are rounded to the percent the document prints
 TOLERANCE = 0.50
-# the published SAPN bills are for a customer with a metering-coordinator meter on the standard tariff (no opt-in)
-SITE = {"citipower": bc.Site(meter_type="interval"), "sapn": bc.Site(meter_type="accumulation")}
+# the published SAPN bills include SA Power Networks' legacy metering charge (a meter SAPN installed before July 2015)
+# and no opt-in
+SITE = {"citipower": bc.Site(meter_type="interval"),
+        "sapn": bc.Site(meter_type="accumulation", meter_class="network_meter_before_july_2015")}
 
 
 class TestPublishedBills(unittest.TestCase):
@@ -125,7 +127,9 @@ class TestRules(unittest.TestCase):
     def test_opt_in_rebate_needs_the_opt_in(self):
         iv = profile(FY24, ADELAIDE, 4000, [(1.0, everywhere)])
         plain = bc.bill("sapn", "RSR", *FY24, iv, SITE["sapn"])
-        joined = bc.bill("sapn", "RSR", *FY24, iv, bc.Site(meter_type="accumulation", opt_in=frozenset({"diversify"})))
+        site = bc.Site(meter_type="accumulation", meter_class="network_meter_before_july_2015",
+                       opt_in=frozenset({"diversify"}))
+        joined = bc.bill("sapn", "RSR", *FY24, iv, site)
         self.assertAlmostEqual(plain.ex_gst - joined.ex_gst, 0.33 * 365, places=6)
 
     def test_gst_starts_1_july_2000(self):
@@ -152,6 +156,42 @@ class TestRules(unittest.TestCase):
         cats = bc.categorise("sapn", "RTOU", date(2025, 7, 1), date(2025, 7, 7), iv)
         self.assertEqual(len(cats), len(iv))
         self.assertTrue(cats["usage"].notna().all())
+
+    def demand_quantity(self, method, tou_period="off_peak", measure="kW", **site):
+        """Bill one 'demand' rate of 100 c/kW/month on two days of hand-made 30-minute data: day 1 imports 2 kWh an
+        interval except 6 kWh at 17:00 (peak window 16-21) and 4 kWh at 03:00; day 2 imports 1 kWh an interval."""
+        idx = pd.date_range("2025-08-01 00:00", "2025-08-02 23:30", freq="30min")
+        e1 = pd.Series(2.0, index=idx)
+        e1["2025-08-02"] = 1.0
+        e1["2025-08-01 17:00"], e1["2025-08-01 03:00"] = 6.0, 4.0
+        q1 = pd.Series(0.0, index=idx)
+        q1["2025-08-01 03:00"] = 3.0
+        iv = pd.DataFrame({"E1": e1, "Q1": q1})
+        window = {"applies_to": "demand", "day_type": "all_days", "months": ",".join(map(str, range(1, 13))),
+                  "season": None, "time_basis": "local_time", "public_holidays": "unchanged"}
+        windows = [dict(window, tou_period="peak", start_time="16:00", end_time="21:00", window_id="p"),
+                   dict(window, tou_period="off_peak", start_time="00:00", end_time="16:00", window_id="o1"),
+                   dict(window, tou_period="off_peak", start_time="21:00", end_time="24:00", window_id="o2")]
+        rate = {"charge_type": "demand", "register": None, "tou_period": tou_period, "season": None, "block": None,
+                "unit": f"c/{measure}/month", "value": "100", "component": "Demand", "condition": None}
+        rule = {"charge_type": "demand", "tou_period": None, "season": None, "measure": measure, "interval_min": "30",
+                "method": method, "n": None, "reset": "month", "minimum_value": None, "threshold_value": None}
+        b = bc.Bill("x", "X", date(2025, 8, 1), date(2025, 8, 2))
+        clock = bc.Clock(idx, "Australia/Brisbane", "QLD")
+        bc.bill_demand(b, "p", [rate], iv, clock, windows, [rule], bc.Site(**site), 0.0)
+        return b.lines[0]["quantity"] if b.lines else None, b
+
+    def test_demand_methods(self):
+        """kW = kWh x 2 on 30-minute data; kVA = sqrt(kWh^2 + kvarh^2) x 2."""
+        self.assertEqual(self.demand_quantity("max")[0], 8.0)  # 03:00 on day 1, outside the peak window
+        self.assertEqual(self.demand_quantity("excess_over_window_max")[0], 0.0)  # 8 kW less the 12 kW peak
+        self.assertEqual(self.demand_quantity("max_daily_window_mean", tou_period="peak")[0], 12.0 / 10 + 4.0 * 9 / 10)
+        self.assertEqual(self.demand_quantity("kva_at_max_kw", measure="kVA")[0], 10.0)  # 4 kWh, 3 kvarh at 03:00
+        self.assertEqual(self.demand_quantity("assigned", agreed_kva=50.0)[0], 50.0)
+        self.assertEqual(self.demand_quantity("avg_daily_max")[0], (8.0 + 2.0) / 2)
+        self.assertEqual(self.demand_quantity("avg_nominated_days", event_days=frozenset({date(2025, 8, 2)}))[0], 2.0)
+        _, b = self.demand_quantity("avg_nominated_days")
+        self.assertIn("event_days_needed", b.issues)
 
     def test_compare_ranks_tariffs(self):
         iv = profile(FY25, ADELAIDE, 4000, [(1.0, everywhere)])

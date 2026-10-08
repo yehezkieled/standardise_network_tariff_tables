@@ -51,7 +51,7 @@ tou_schedules:
   quote: Demand charging window 3PM - 9PM workdays (local time); reset monthly
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window
     days: business_day
     start: "15:00"
@@ -98,7 +98,7 @@ tou_schedules:
   quote: Demand charging window 10am-8pm workdays (local time)
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window
     days: business_day
     start: "10:00"
@@ -196,7 +196,7 @@ tou_schedules:
   locator: "pdf:p2"
   quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window set at any time
     days: all_days
     start: "00:00"
@@ -411,7 +411,7 @@ tou_schedules:
   locator: "pdf:p3"
   quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Annual demand charging window
     days: weekday
     start: "08:00"
@@ -544,13 +544,14 @@ tou_schedules:
   quote: Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Summer Demand Incentive Charge charging window
     days: business_day
     start: "16:00"
     end: "19:00"
     months: 12,1,2,3
-    season: December to March
+    season_label: December to March
+    season: summer
   tariffs:
   - codes: [A300, F300]
     applies_to: demand
@@ -719,7 +720,7 @@ tou_schedules:
   quote: Demand charging window 3PM - 9PM workdays (local time); reset monthly
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window
     days: business_day
     start: "15:00"
@@ -766,7 +767,7 @@ tou_schedules:
   quote: Demand charging window 10am-8pm workdays (local time)
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window
     days: business_day
     start: "10:00"
@@ -864,7 +865,7 @@ tou_schedules:
   locator: "pdf:p2"
   quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window set at any time
     days: all_days
     start: "00:00"
@@ -1079,7 +1080,7 @@ tou_schedules:
   locator: "pdf:p3"
   quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Annual demand charging window
     days: weekday
     start: "08:00"
@@ -1212,13 +1213,14 @@ tou_schedules:
   quote: Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Summer Demand Incentive Charge charging window
     days: business_day
     start: "16:00"
     end: "19:00"
     months: 12,1,2,3
-    season: December to March
+    season_label: December to March
+    season: summer
   tariffs:
   - codes: [A300, F300]
     applies_to: demand
@@ -1387,7 +1389,7 @@ tou_schedules:
   quote: Demand charging window 3PM - 9PM workdays (local time); reset monthly
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window
     days: business_day
     start: "15:00"
@@ -1434,7 +1436,7 @@ tou_schedules:
   quote: Demand charging window 10am-8pm workdays (local time)
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window
     days: business_day
     start: "10:00"
@@ -1532,7 +1534,7 @@ tou_schedules:
   locator: "pdf:p2"
   quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window set at any time
     days: all_days
     start: "00:00"
@@ -1747,7 +1749,7 @@ tou_schedules:
   locator: "pdf:p3"
   quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Annual demand charging window
     days: weekday
     start: "08:00"
@@ -1880,13 +1882,14 @@ tou_schedules:
   quote: Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Summer Demand Incentive Charge charging window
     days: business_day
     start: "16:00"
     end: "19:00"
     months: 12,1,2,3
-    season: December to March
+    season_label: December to March
+    season: summer
   tariffs:
   - codes: [A300, F300]
     applies_to: demand
@@ -2055,7 +2058,7 @@ tou_schedules:
   quote: Demand charging window 3PM - 9PM workdays (local time); reset monthly
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window
     days: business_day
     start: "15:00"
@@ -2102,7 +2105,7 @@ tou_schedules:
   quote: Demand charging window 10am-8pm workdays (local time)
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window
     days: business_day
     start: "10:00"
@@ -2200,7 +2203,7 @@ tou_schedules:
   locator: "pdf:p2"
   quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window set at any time
     days: all_days
     start: "00:00"
@@ -2415,7 +2418,7 @@ tou_schedules:
   locator: "pdf:p3"
   quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Annual demand charging window
     days: weekday
     start: "08:00"
@@ -2548,13 +2551,14 @@ tou_schedules:
   quote: Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Summer Demand Incentive Charge charging window
     days: business_day
     start: "16:00"
     end: "19:00"
     months: 12,1,2,3
-    season: December to March
+    season_label: December to March
+    season: summer
   tariffs:
   - codes: [A300, F300]
     applies_to: demand
@@ -2723,7 +2727,7 @@ tou_schedules:
   quote: Demand charging window 3PM - 9PM workdays (local time); reset monthly
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window
     days: business_day
     start: "15:00"
@@ -2770,7 +2774,7 @@ tou_schedules:
   quote: Demand charging window 10am-8pm workdays (local time)
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window
     days: business_day
     start: "10:00"
@@ -2868,7 +2872,7 @@ tou_schedules:
   locator: "pdf:p2"
   quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window set at any time
     days: all_days
     start: "00:00"
@@ -3083,7 +3087,7 @@ tou_schedules:
   locator: "pdf:p3"
   quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Annual demand charging window
     days: weekday
     start: "08:00"
@@ -3216,13 +3220,14 @@ tou_schedules:
   quote: Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Summer Demand Incentive Charge charging window
     days: business_day
     start: "16:00"
     end: "19:00"
     months: 12,1,2,3
-    season: December to March
+    season_label: December to March
+    season: summer
   tariffs:
   - codes: [A300]
     applies_to: demand
@@ -3400,12 +3405,12 @@ tou_schedules:
   quote: "Peak period: 4 pm to 9 pm every day (local time). Solar soak period: 11 am to 4 pm every day (local time). Off-peak period: All other times. - Standing charge $/customer p.a. 121.014 - Peak unit rate ¢/kWh 18.208 - Off-peak unit rate ¢/kWh 4.551 - Solar soak unit rate ¢/kWh 1.000 - Export charge unit rate (solar soak period) ¢/kWh 3.000 - Export reward unit rate (peak period)"
   note: "The A10E block prices the export charge for the solar soak period and the export reward for the peak period, and defines those periods (11 am to 4 pm and 4 pm to 9 pm every day) in the same block."
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: Export charge unit rate (solar soak period)
     days: all_days
     start: "11:00"
     end: "16:00"
-  - period: export_reward_window
+  - period: peak
     label: Export reward unit rate (peak period)
     days: all_days
     start: "16:00"
@@ -3529,7 +3534,7 @@ tou_schedules:
   locator: "pdf:p2"
   quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Demand charging window set at any time
     days: all_days
     start: "00:00"
@@ -3598,13 +3603,14 @@ tou_schedules:
   quote: Summer Demand Incentive Charge charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly
   note: "'workdays' recorded as business_day."
   windows:
-  - period: demand_window
+  - period: peak
     label: Summer Demand Incentive Charge charging window
     days: business_day
     start: "16:00"
     end: "19:00"
     months: 12,1,2,3
-    season: December to March
+    season_label: December to March
+    season: summer
   tariffs:
   - codes: [A30B]
     applies_to: demand
@@ -3796,7 +3802,7 @@ tou_schedules:
   locator: "pdf:p3"
   quote: Annual demand charging window is 8 am - 8 pm weekdays (local time), Rolling 12 months
   windows:
-  - period: demand_window
+  - period: peak
     label: Annual demand charging window
     days: weekday
     start: "08:00"
@@ -9704,3 +9710,2193 @@ eligibility:
   value_text: transitional
   locator: "xlsx:Tariff schedule!C108"
   quote: Large Business - LVMS 6.0+ GWh (Transitional)
+charge_rules:
+- codes:
+  - A230
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available
+  note: A230 tariff entry. The metering interval is not stated.
+- codes:
+  - A23N
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available
+  note: A23N tariff entry. The metering interval is not stated.
+- codes:
+  - A270
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  minimum_value: 60
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available.
+    - Standing charge $/customer p.a. 532.556 - Peak unit rate ¢/kWh 11.015 - Off-peak unit rate ¢/kWh 3.748 - Demand rate
+    $/kW p.a. 77.889 Minimum Chargeable Demand 60 kW
+  note: A270 tariff entry. The metering interval is not stated.
+- codes:
+  - A30C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p3
+  quote: Annual demand charging window is 8 am - 8 pm weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/customer p.a. 4,145.116 - Peak unit rate ¢/kWh 5.455 - Off-peak unit rate ¢/kWh 1.452 - Annual Demand charge $/kVA p.a.
+    97.107 - Summer Demand Incentive Charged ¢/kVA/day 56.133 Minimum Chargeable Annual Demand 120 kVA
+  note: 'A30C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A32C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p3
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/customer p.a. 7,397.195 - Peak unit rate ¢/kWh 5.006 - Off-peak unit rate ¢/kWh 1.442 - Annual Demand charge $/kVA p.a.
+    85.127 - Summer Demand Incentive Charged ¢/kVA/day 49.891 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A32C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A34C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p3
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/customer p.a. 13,709.068 - Peak unit rate ¢/kWh 5.002 - Off-peak unit rate ¢/kWh 1.366 - Annual Demand charge $/kVA
+    p.a. 81.705 - Summer Demand Incentive Charged ¢/kVA/day 48.859 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A34T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: '- Annual Demand charge $/kVA p.a. 60.797 - Summer Demand Incentive Charged ¢/kVA/day 33.503 Minimum Chargeable Annual
+    Demand 250 kVA'
+  note: 'A34T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated. The window
+    line is on the previous page.'
+- codes:
+  - A37C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/customer p.a. 21,984.091 - Peak unit rate ¢/kWh 4.466 - Off-peak unit rate ¢/kWh 1.321 - Annual Demand charge $/kVA
+    p.a. 81.835 - Summer Demand Incentive Charged ¢/kVA/day 45.975 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A37C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A37T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/customer p.a. 17,401.314 - Peak unit rate ¢/kWh 4.641 - Off-peak unit rate ¢/kWh 1.321 - Annual Demand charge $/kVA
+    p.a. 60.995 - Summer Demand Incentive Charged ¢/kVA/day 33.562 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A37T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A40C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/customer p.a. 32,255.677 - Peak unit rate ¢/kWh 4.311 - Off-peak unit rate ¢/kWh 0.890 - Annual Demand charge $/kVA
+    p.a. 72.564 - Summer Demand Incentive Charged ¢/kVA/day 39.769 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A40T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/customer p.a. 37,320.379 - Peak unit rate ¢/kWh 4.339 - Off-peak unit rate ¢/kWh 0.890 - Annual Demand charge $/kVA
+    p.a. 67.655 - Summer Demand Incentive Charged ¢/kVA/day 36.543 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A48C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 10000
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/customer p.a. 39,918.396 - Peak unit rate ¢/kWh 4.035 - Off-peak unit rate ¢/kWh 0.824 - Annual Demand charge $/kVA
+    p.a. 61.882 - Summer Demand Incentive Charged ¢/kVA/day 32.991 Minimum Chargeable Annual Demand 10,000 kVA
+  note: 'A48C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A50C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/p.a./connection 105,937.166 - Peak unit rate ¢/kWh 2.917 - Off-peak unit rate ¢/kWh 0.508 - Annual Demand charge $/kVA
+    p.a. 27.121 - Summer Demand Incentive Charged ¢/kVA/day 13.268 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A50M
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/p.a./connection 91,163.681 - Peak unit rate ¢/kWh 2.773 - Off-peak unit rate ¢/kWh 0.483 - Annual Demand charge $/kVA
+    p.a. 26.697 - Summer Demand Incentive Charged ¢/kVA/day 13.003 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50M tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A50T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p7
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/p.a./connection 103,706.354 - Peak unit rate ¢/kWh 2.917 - Off-peak unit rate ¢/kWh 0.508 - Annual Demand charge $/kVA
+    p.a. 26.089 - Summer Demand Incentive Charged ¢/kVA/day 12.602 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A50X
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2026-27.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p7
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months. Summer Demand Incentive Charge
+    charging window is 4 pm - 7 pm workdays (local time) each month in December to March, reset monthly. - Standing charge
+    $/p.a./connection 55,075.879 - Peak unit rate ¢/kWh 2.955 - Off-peak unit rate ¢/kWh 0.499 - Annual Demand charge $/kVA
+    p.a. 9.857 - Summer Demand Incentive Chargef ¢/kVA/day 1.879 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50X tariff entry. The schedule names the window and the rolling 12 months; the TSS 2026-31 (p21 note 3, and the
+    HV and subtransmission tables) states the measure: ''Maximum demand set to the maximum of the last 12 months of demand
+    (where available) during the hours of 8 am to 8 pm weekdays (local time)''. The metering interval is not stated.'
+- codes:
+  - A30B
+  - A30C
+  - A32C
+  - A34C
+  - A34T
+  - A37C
+  - A37T
+  - A40C
+  - A40T
+  - A48C
+  - A50C
+  - A50M
+  - A50T
+  - A50X
+  doc: sources/dnsp/jemena/Jemena_Tariff_Structure_Statement_2026-31_AER_final_decision_April2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p21
+  quote: Maximum demand for SDIC is set monthly from December to March to the maximum demand incurred during the hours of
+    4 pm to 7 pm workdays (local time).
+  note: 'Large business LV table notes (the HV and subtransmission tables repeat it, p22-23). No minimum: ''There is no minimum
+    demand for the summer demand incentive charge'' (p21 note 6; schedule footnote d). The metering interval is not stated.'
+- codes:
+  - A20D
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p1
+  quote: Demand charging window 10am-8pm workdays (local time) using the maximum level of the last 12 months where data is
+    available
+  note: A20D tariff entry. The metering interval is not stated.
+- codes:
+  - A230
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is
+  note: A230 tariff entry. The metering interval is not stated.
+- codes:
+  - A23N
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is
+  note: A23N tariff entry. The metering interval is not stated.
+- codes:
+  - A270
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  minimum_value: 60
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available
+    - Standing charge $/customer pa 366.854 - Peak Unit rate ¢/kWh 10.946 - Off Peak Unit rate ¢/kWh 3.815 - Demand rate $/kW
+    pa 78.736 Minimum Chargeable Demand 60 kW
+  note: A270 tariff entry. The metering interval is not stated.
+- codes:
+  - A20D
+  - F20D
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p1
+  quote: Demand charging window 10am-8pm workdays (local time) using the maximum level of the last 12 months where data is
+    available
+  note: A20D tariff entry. The metering interval is not stated.
+- codes:
+  - A230
+  - F230
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is
+  note: A230 tariff entry. The metering interval is not stated.
+- codes:
+  - A23N
+  - F23N
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is
+  note: A23N tariff entry. The metering interval is not stated.
+- codes:
+  - A270
+  - F270
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  minimum_value: 60
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available
+    - Standing charge $/customer pa 881.187 - Peak Unit rate ¢/kWh 11.471 - Off Peak Unit rate ¢/kWh 4.028 - Demand rate $/kW
+    pa 76.906 Minimum Chargeable Demand 60 kW
+  note: A270 tariff entry. The metering interval is not stated.
+- codes:
+  - A20D
+  - F20D
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p1
+  quote: Demand charging window 10am-8pm workdays (local time) using the maximum level of the last 12 months where data is
+    available
+  note: A20D tariff entry. The metering interval is not stated.
+- codes:
+  - A230
+  - F230
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is
+  note: A230 tariff entry. The metering interval is not stated.
+- codes:
+  - A23N
+  - F23N
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is
+  note: A23N tariff entry. The metering interval is not stated.
+- codes:
+  - A270
+  - F270
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: rolling_12_months
+  minimum_value: 60
+  locator: pdf:p2
+  quote: Demand charging window set at any time (local time) using the maximum level of the last 12 months where data is available
+    - Standing charge $/customer pa 702.616 - Peak Unit rate ¢/kWh 9.654 - Off Peak Unit rate ¢/kWh 3.434 - Demand rate $/kW
+    pa 73.689 Minimum Chargeable Demand 60 kW
+  note: A270 tariff entry. The metering interval is not stated.
+- codes:
+  - A10D
+  doc: sources/dnsp/jemena/Jemena_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021_erratum_July2021.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: month
+  locator: pdf:p11
+  quote: Maximum demand set 3pm-9pm (local time) work days and reset monthly.
+  note: Residential tariff class table, A10D or F10D 'Demand charge' charging parameter (TSS for 2021-22 to 2025-26). The
+    metering interval is not stated.
+- codes:
+  - A300
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p3
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 3,650.610 - Peak Unit rate ¢/kWh 5.257 - Off Peak Unit rate ¢/kWh 1.430 - Annual Demand charge $/kVA pa 98.370 - Summer
+    Demand Incentive Chargef ¢/kVA/day 57.279 Minimum Chargeable Annual Demand 120 kVA
+  note: 'A300 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A30E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p3
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 3,650.610 - Peak Unit rate ¢/kWh 5.257 - Off Peak Unit rate ¢/kWh 1.430 - Annual Demand charge $/kVA pa 98.370 - Summer
+    Demand Incentive Chargef ¢/kVA/day 57.279 Minimum Chargeable Annual Demand 120 kVA
+  note: 'A30E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A30C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p3
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 3,650.610 - Peak Unit rate ¢/kWh 5.257 - Off Peak Unit rate ¢/kWh 1.430 - Annual Demand charge $/kVA pa 98.370 - Summer
+    Demand Incentive Chargef ¢/kVA/day 57.279 Minimum Chargeable Annual Demand 120 kVA
+  note: 'A30C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A320
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 6,452.968 - Peak Unit rate ¢/kWh 4.762 - Off Peak Unit rate ¢/kWh 1.418 - Annual Demand charge $/kVA pa 86.160 - Summer
+    Demand Incentive Chargef ¢/kVA/day 50.909 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A320 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A32E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 6,452.968 - Peak Unit rate ¢/kWh 4.762 - Off Peak Unit rate ¢/kWh 1.418 - Annual Demand charge $/kVA pa 86.160 - Summer
+    Demand Incentive Chargef ¢/kVA/day 50.909 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A32E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A32C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 6,452.968 - Peak Unit rate ¢/kWh 4.762 - Off Peak Unit rate ¢/kWh 1.418 - Annual Demand charge $/kVA pa 86.160 - Summer
+    Demand Incentive Chargef ¢/kVA/day 50.909 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A32C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A340
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 11,754.252 - Peak Unit rate ¢/kWh 4.742 - Off Peak Unit rate ¢/kWh 1.337 - Annual Demand charge $/kVA pa 82.896 - Summer
+    Demand Incentive Chargef ¢/kVA/day 49.856 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A340 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 11,754.252 - Peak Unit rate ¢/kWh 4.742 - Off Peak Unit rate ¢/kWh 1.337 - Annual Demand charge $/kVA pa 82.896 - Summer
+    Demand Incentive Chargef ¢/kVA/day 49.856 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 11,754.252 - Peak Unit rate ¢/kWh 4.742 - Off Peak Unit rate ¢/kWh 1.337 - Annual Demand charge $/kVA pa 82.896 - Summer
+    Demand Incentive Chargef ¢/kVA/day 49.856 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34M
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 8,729.834 - Peak Unit rate ¢/kWh 4.993 - Off Peak Unit rate ¢/kWh 1.329 - Annual Demand charge $/kVA pa 61.097 - Summer
+    Demand Incentive Chargef ¢/kVA/day 34.187 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34M tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 8,729.834 - Peak Unit rate ¢/kWh 4.993 - Off Peak Unit rate ¢/kWh 1.329 - Annual Demand charge $/kVA pa 61.097 - Summer
+    Demand Incentive Chargef ¢/kVA/day 34.187 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A370
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 19,021.983 - Peak Unit rate ¢/kWh 4.259 - Off Peak Unit rate ¢/kWh 1.291 - Annual Demand charge $/kVA pa 82.419 - Summer
+    Demand Incentive Chargef ¢/kVA/day 46.913 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A370 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A37C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM work days (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 19,021.983 - Peak Unit rate ¢/kWh 4.259 - Off Peak Unit rate ¢/kWh 1.291 - Annual Demand charge $/kVA pa 82.419 - Summer
+    Demand Incentive Chargef ¢/kVA/day 46.913 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A37C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A37M
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 15,164.616 - Peak Unit rate ¢/kWh 4.415 - Off Peak Unit rate ¢/kWh 1.291 - Annual Demand charge $/kVA pa 61.285 - Summer
+    Demand Incentive Chargef ¢/kVA/day 34.247 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A37M tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A37T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 15,164.616 - Peak Unit rate ¢/kWh 4.415 - Off Peak Unit rate ¢/kWh 1.291 - Annual Demand charge $/kVA pa 61.285 - Summer
+    Demand Incentive Chargef ¢/kVA/day 34.247 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A37T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A400
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p7
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 26,156.019 - Peak Unit rate ¢/kWh 4.050 - Off Peak Unit rate ¢/kWh 0.880 - Annual Demand charge $/kVA pa 71.637 - Summer
+    Demand Incentive Chargef ¢/kVA/day 39.849 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A400 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p7
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 26,156.019 - Peak Unit rate ¢/kWh 4.050 - Off Peak Unit rate ¢/kWh 0.880 - Annual Demand charge $/kVA pa 71.637 - Summer
+    Demand Incentive Chargef ¢/kVA/day 39.849 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p7
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 26,156.019 - Peak Unit rate ¢/kWh 4.050 - Off Peak Unit rate ¢/kWh 0.880 - Annual Demand charge $/kVA pa 71.637 - Summer
+    Demand Incentive Chargef ¢/kVA/day 39.849 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40R
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 26,156.019 - Peak Unit rate ¢/kWh 4.057 - Off Peak Unit rate ¢/kWh 0.880 - Annual Demand charge $/kVA pa 66.762 - Summer
+    Demand Incentive Chargef ¢/kVA/day 36.616 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40R tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 26,156.019 - Peak Unit rate ¢/kWh 4.057 - Off Peak Unit rate ¢/kWh 0.880 - Annual Demand charge $/kVA pa 66.762 - Summer
+    Demand Incentive Chargef ¢/kVA/day 36.616 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A480
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 10000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 27,298.888 - Peak Unit rate ¢/kWh 3.784 - Off Peak Unit rate ¢/kWh 0.817 - Annual Demand charge $/kVA pa 60.989 - Summer
+    Demand Incentive Chargef ¢/kVA/day 33.057 Minimum Chargeable Annual Demand 10,000 kVA
+  note: 'A480 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A48C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 10000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 27,298.888 - Peak Unit rate ¢/kWh 3.784 - Off Peak Unit rate ¢/kWh 0.817 - Annual Demand charge $/kVA pa 60.989 - Summer
+    Demand Incentive Chargef ¢/kVA/day 33.057 Minimum Chargeable Annual Demand 10,000 kVA
+  note: 'A48C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A500
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    79,436.675 - Peak Unit rate ¢/kWh 2.716 - Off Peak Unit rate ¢/kWh 0.516 - Annual Demand charge $/kVA pa 26.562 - Summer
+    Demand Incentive Chargef ¢/kVA/day 13.321 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A500 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    83,502.412 - Peak Unit rate ¢/kWh 2.716 - Off Peak Unit rate ¢/kWh 0.516 - Annual Demand charge $/kVA pa 26.562 - Summer
+    Demand Incentive Chargef ¢/kVA/day 13.321 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50M
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    82,957.657 - Peak Unit rate ¢/kWh 2.587 - Off Peak Unit rate ¢/kWh 0.493 - Annual Demand charge $/kVA pa 26.136 - Summer
+    Demand Incentive Chargef ¢/kVA/day 13.055 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50M tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50A
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    79,436.675 - Peak Unit rate ¢/kWh 2.716 - Off Peak Unit rate ¢/kWh 0.516 - Annual Demand charge $/kVA pa 25.522 - Summer
+    Demand Incentive Chargef ¢/kVA/day 12.653 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50A tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p10
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    83,502.412 - Peak Unit rate ¢/kWh 2.716 - Off Peak Unit rate ¢/kWh 0.516 - Annual Demand charge $/kVA pa 25.522 - Summer
+    Demand Incentive Chargef ¢/kVA/day 12.653 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p10
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    46,819.064 - Peak Unit rate ¢/kWh 2.749 - Off Peak Unit rate ¢/kWh 0.506 - Annual Demand charge $/kVA pa 9.125 - Summer
+    Demand Incentive Chargef ¢/kVA/day 1.887 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50X
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p10
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    50,884.801 - Peak Unit rate ¢/kWh 2.749 - Off Peak Unit rate ¢/kWh 0.506 - Annual Demand charge $/kVA pa 9.125 - Summer
+    Demand Incentive Chargef ¢/kVA/day 1.887 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50X tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A300
+  - A30E
+  - A30C
+  - A320
+  - A32E
+  - A32C
+  - A340
+  - A34E
+  - A34C
+  - A34M
+  - A34T
+  - A370
+  - A37C
+  - A37M
+  - A37T
+  - A400
+  - A40E
+  - A40C
+  - A40R
+  - A40T
+  - A480
+  - A48C
+  - A500
+  - A50C
+  - A50M
+  - A50A
+  - A50T
+  - A50E
+  - A50X
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2025-26.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p3
+  quote: Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March,
+    reset monthly
+  note: 'Quoted from the A300 entry; every large business entry repeats it. The TSS 2021-26 states the measure (p15 and p16
+    note 2: ''Maximum demand for the SDIC set 4pm-7pm workdays (local time) each month in December to March and reset monthly'')
+    and ''There is no minimum demand for the summer demand incentive charge'' (p16 note 6). The metering interval is not stated.'
+- codes:
+  - A10D
+  - F10D
+  doc: sources/dnsp/jemena/Jemena_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021_erratum_July2021.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: month
+  locator: pdf:p11
+  quote: Maximum demand set 3pm-9pm (local time) work days and reset monthly.
+  note: Residential tariff class table, A10D or F10D 'Demand charge' charging parameter (TSS for 2021-22 to 2025-26). The
+    metering interval is not stated.
+- codes:
+  - A300
+  - F300
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p3
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 3,627.564 - Peak Unit rate ¢/kWh 5.093 - Off Peak Unit rate ¢/kWh 1.422 - Annual Demand charge $/kVA pa 124.013 - Summer
+    Demand Incentive Chargef ¢/kVA/day 42.640 Minimum Chargeable Annual Demand 120 kVA
+  note: 'A300 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A30E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p3
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 3,627.564 - Peak Unit rate ¢/kWh 5.093 - Off Peak Unit rate ¢/kWh 1.422 - Annual Demand charge $/kVA pa 135.504 - Summer
+    Demand Incentive Chargef ¢/kVA/day 42.640 Minimum Chargeable Annual Demand 120 kVA
+  note: 'A30E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A30C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p3
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 3,629.159 - Peak Unit rate ¢/kWh 5.266 - Off Peak Unit rate ¢/kWh 1.470 - Annual Demand charge $/kVA pa 97.772 - Summer
+    Demand Incentive Chargef ¢/kVA/day 56.853 Minimum Chargeable Annual Demand 120 kVA
+  note: 'A30C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A320
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 6,416.057 - Peak Unit rate ¢/kWh 4.599 - Off Peak Unit rate ¢/kWh 1.409 - Annual Demand charge $/kVA pa 111.397 - Summer
+    Demand Incentive Chargef ¢/kVA/day 37.898 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A320 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A32E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 6,416.057 - Peak Unit rate ¢/kWh 4.599 - Off Peak Unit rate ¢/kWh 1.409 - Annual Demand charge $/kVA pa 125.229 - Summer
+    Demand Incentive Chargef ¢/kVA/day 37.898 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A32E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A32C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 6,419.433 - Peak Unit rate ¢/kWh 4.776 - Off Peak Unit rate ¢/kWh 1.458 - Annual Demand charge $/kVA pa 85.650 - Summer
+    Demand Incentive Chargef ¢/kVA/day 50.530 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A32C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A340
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 11,798.885 - Peak Unit rate ¢/kWh 4.575 - Off Peak Unit rate ¢/kWh 1.329 - Annual Demand charge $/kVA pa 107.321 -
+    Summer Demand Incentive Chargef ¢/kVA/day 37.114 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A340 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 11,798.885 - Peak Unit rate ¢/kWh 4.575 - Off Peak Unit rate ¢/kWh 1.329 - Annual Demand charge $/kVA pa 112.236 -
+    Summer Demand Incentive Chargef ¢/kVA/day 37.114 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 11,821.324 - Peak Unit rate ¢/kWh 4.757 - Off Peak Unit rate ¢/kWh 1.378 - Annual Demand charge $/kVA pa 82.367 - Summer
+    Demand Incentive Chargef ¢/kVA/day 49.485 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34M
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 8,854.408 - Peak Unit rate ¢/kWh 4.813 - Off Peak Unit rate ¢/kWh 1.322 - Annual Demand charge $/kVA pa 80.386 - Summer
+    Demand Incentive Chargef ¢/kVA/day 25.450 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34M tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 8,884.388 - Peak Unit rate ¢/kWh 5.008 - Off Peak Unit rate ¢/kWh 1.370 - Annual Demand charge $/kVA pa 60.818 - Summer
+    Demand Incentive Chargef ¢/kVA/day 33.933 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A370
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 19,241.914 - Peak Unit rate ¢/kWh 4.117 - Off Peak Unit rate ¢/kWh 1.284 - Annual Demand charge $/kVA pa 111.512 -
+    Summer Demand Incentive Chargef ¢/kVA/day 34.923 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A370 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A37C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM work days (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 19,299.737 - Peak Unit rate ¢/kWh 4.275 - Off Peak Unit rate ¢/kWh 1.332 - Annual Demand charge $/kVA pa 82.008 - Summer
+    Demand Incentive Chargef ¢/kVA/day 46.564 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A37C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A37M
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 15,516.874 - Peak Unit rate ¢/kWh 4.265 - Off Peak Unit rate ¢/kWh 1.284 - Annual Demand charge $/kVA pa 80.434 - Summer
+    Demand Incentive Chargef ¢/kVA/day 25.494 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A37M tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A37T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 15,588.736 - Peak Unit rate ¢/kWh 4.431 - Off Peak Unit rate ¢/kWh 1.332 - Annual Demand charge $/kVA pa 61.007 - Summer
+    Demand Incentive Chargef ¢/kVA/day 33.992 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A37T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A400
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p7
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 27,095.800 - Peak Unit rate ¢/kWh 4.084 - Off Peak Unit rate ¢/kWh 0.918 - Annual Demand charge $/kVA pa 87.952 - Summer
+    Demand Incentive Chargef ¢/kVA/day 30.182 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A400 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p7
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 27,249.482 - Peak Unit rate ¢/kWh 4.084 - Off Peak Unit rate ¢/kWh 0.918 - Annual Demand charge $/kVA pa 89.752 - Summer
+    Demand Incentive Chargef ¢/kVA/day 30.182 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p7
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 27,249.482 - Peak Unit rate ¢/kWh 4.254 - Off Peak Unit rate ¢/kWh 0.954 - Annual Demand charge $/kVA pa 73.013 - Summer
+    Demand Incentive Chargef ¢/kVA/day 40.243 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40R
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 27,095.800 - Peak Unit rate ¢/kWh 4.087 - Off Peak Unit rate ¢/kWh 0.918 - Annual Demand charge $/kVA pa 79.552 - Summer
+    Demand Incentive Chargef ¢/kVA/day 27.734 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40R tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 27,249.482 - Peak Unit rate ¢/kWh 4.262 - Off Peak Unit rate ¢/kWh 0.954 - Annual Demand charge $/kVA pa 68.064 - Summer
+    Demand Incentive Chargef ¢/kVA/day 36.978 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A480
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 10000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 28,336.276 - Peak Unit rate ¢/kWh 3.814 - Off Peak Unit rate ¢/kWh 0.855 - Annual Demand charge $/kVA pa 74.684 - Summer
+    Demand Incentive Chargef ¢/kVA/day 25.038 Minimum Chargeable Annual Demand 10,000 kVA
+  note: 'A480 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A48C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 10000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 28,506.509 - Peak Unit rate ¢/kWh 3.976 - Off Peak Unit rate ¢/kWh 0.890 - Annual Demand charge $/kVA pa 62.226 - Summer
+    Demand Incentive Chargef ¢/kVA/day 33.384 Minimum Chargeable Annual Demand 10,000 kVA
+  note: 'A48C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A500
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    90,515.723 - Peak Unit rate ¢/kWh 2.753 - Off Peak Unit rate ¢/kWh 0.553 - Annual Demand charge $/kVA pa 29.202 - Summer
+    Demand Incentive Chargef ¢/kVA/day 10.754 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A500 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    90,781.546 - Peak Unit rate ¢/kWh 2.886 - Off Peak Unit rate ¢/kWh 0.577 - Annual Demand charge $/kVA pa 28.526 - Summer
+    Demand Incentive Chargef ¢/kVA/day 14.339 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50M
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    90,213.900 - Peak Unit rate ¢/kWh 2.750 - Off Peak Unit rate ¢/kWh 0.552 - Annual Demand charge $/kVA pa 28.067 - Summer
+    Demand Incentive Chargef ¢/kVA/day 14.053 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50M tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50A
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    90,515.723 - Peak Unit rate ¢/kWh 2.730 - Off Peak Unit rate ¢/kWh 0.549 - Annual Demand charge $/kVA pa 29.747 - Summer
+    Demand Incentive Chargef ¢/kVA/day 10.215 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50A tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p10
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    90,781.546 - Peak Unit rate ¢/kWh 2.886 - Off Peak Unit rate ¢/kWh 0.577 - Annual Demand charge $/kVA pa 27.405 - Summer
+    Demand Incentive Chargef ¢/kVA/day 13.620 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p10
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    56,527.004 - Peak Unit rate ¢/kWh 2.786 - Off Peak Unit rate ¢/kWh 0.543 - Annual Demand charge $/kVA pa 11.041 - Summer
+    Demand Incentive Chargef ¢/kVA/day 1.523 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50X
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p10
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    56,611.858 - Peak Unit rate ¢/kWh 2.921 - Off Peak Unit rate ¢/kWh 0.566 - Annual Demand charge $/kVA pa 9.745 - Summer
+    Demand Incentive Chargef ¢/kVA/day 2.031 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50X tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A300
+  - F300
+  - A30E
+  - A30C
+  - A320
+  - A32E
+  - A32C
+  - A340
+  - A34E
+  - A34C
+  - A34M
+  - A34T
+  - A370
+  - A37C
+  - A37M
+  - A37T
+  - A400
+  - A40E
+  - A40C
+  - A40R
+  - A40T
+  - A480
+  - A48C
+  - A500
+  - A50C
+  - A50M
+  - A50A
+  - A50T
+  - A50E
+  - A50X
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2024-25.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p3
+  quote: Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March,
+    reset monthly
+  note: 'Quoted from the A300 entry; every large business entry repeats it. The TSS 2021-26 states the measure (p15 and p16
+    note 2: ''Maximum demand for the SDIC set 4pm-7pm workdays (local time) each month in December to March and reset monthly'')
+    and ''There is no minimum demand for the summer demand incentive charge'' (p16 note 6). The metering interval is not stated.'
+- codes:
+  - A10D
+  - F10D
+  doc: sources/dnsp/jemena/Jemena_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021_erratum_July2021.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  method: max
+  reset: month
+  locator: pdf:p11
+  quote: Maximum demand set 3pm-9pm (local time) work days and reset monthly.
+  note: Residential tariff class table, A10D or F10D 'Demand charge' charging parameter (TSS for 2021-22 to 2025-26). The
+    metering interval is not stated.
+- codes:
+  - A300
+  - F300
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p3
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 3,011.376 - Peak Unit rate ¢/kWh 4.363 - Off Peak Unit rate ¢/kWh 1.245 - Annual Demand charge $/kVA pa 114.310 - Summer
+    Demand Incentive Chargef ¢/kVA/day 24.224 Minimum Chargeable Annual Demand 120 kVA
+  note: 'A300 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A30E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p3
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 3,011.376 - Peak Unit rate ¢/kWh 4.363 - Off Peak Unit rate ¢/kWh 1.245 - Annual Demand charge $/kVA pa 126.960 - Summer
+    Demand Incentive Chargef ¢/kVA/day 24.224 Minimum Chargeable Annual Demand 120 kVA
+  note: 'A30E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A30C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p3
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 3,012.603 - Peak Unit rate ¢/kWh 4.502 - Off Peak Unit rate ¢/kWh 1.283 - Annual Demand charge $/kVA pa 83.075 - Summer
+    Demand Incentive Chargef ¢/kVA/day 48.447 Minimum Chargeable Annual Demand 120 kVA
+  note: 'A30C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A320
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 5,322.168 - Peak Unit rate ¢/kWh 3.905 - Off Peak Unit rate ¢/kWh 1.232 - Annual Demand charge $/kVA pa 103.743 - Summer
+    Demand Incentive Chargef ¢/kVA/day 21.530 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A320 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A32E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 5,322.168 - Peak Unit rate ¢/kWh 3.905 - Off Peak Unit rate ¢/kWh 1.232 - Annual Demand charge $/kVA pa 116.051 - Summer
+    Demand Incentive Chargef ¢/kVA/day 21.530 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A32E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A32C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 5,324.765 - Peak Unit rate ¢/kWh 4.048 - Off Peak Unit rate ¢/kWh 1.271 - Annual Demand charge $/kVA pa 72.750 - Summer
+    Demand Incentive Chargef ¢/kVA/day 43.059 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A32C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A340
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p4
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 9,669.251 - Peak Unit rate ¢/kWh 3.876 - Off Peak Unit rate ¢/kWh 1.160 - Annual Demand charge $/kVA pa 102.817 - Summer
+    Demand Incentive Chargef ¢/kVA/day 21.085 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A340 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 9,669.251 - Peak Unit rate ¢/kWh 3.876 - Off Peak Unit rate ¢/kWh 1.160 - Annual Demand charge $/kVA pa 105.519 - Summer
+    Demand Incentive Chargef ¢/kVA/day 21.085 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 9,686.512 - Peak Unit rate ¢/kWh 4.022 - Off Peak Unit rate ¢/kWh 1.199 - Annual Demand charge $/kVA pa 70.029 - Summer
+    Demand Incentive Chargef ¢/kVA/day 42.169 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34M
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 7,160.700 - Peak Unit rate ¢/kWh 4.066 - Off Peak Unit rate ¢/kWh 1.154 - Annual Demand charge $/kVA pa 73.637 - Summer
+    Demand Incentive Chargef ¢/kVA/day 14.458 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34M tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A34T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 250
+  locator: pdf:p5
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 7,183.761 - Peak Unit rate ¢/kWh 4.223 - Off Peak Unit rate ¢/kWh 1.193 - Annual Demand charge $/kVA pa 51.510 - Summer
+    Demand Incentive Chargef ¢/kVA/day 28.916 Minimum Chargeable Annual Demand 250 kVA
+  note: 'A34T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A370
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 15,614.513 - Peak Unit rate ¢/kWh 3.504 - Off Peak Unit rate ¢/kWh 1.119 - Annual Demand charge $/kVA pa 104.150 -
+    Summer Demand Incentive Chargef ¢/kVA/day 19.840 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A370 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A37C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM work days (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 15,658.992 - Peak Unit rate ¢/kWh 3.631 - Off Peak Unit rate ¢/kWh 1.158 - Annual Demand charge $/kVA pa 69.518 - Summer
+    Demand Incentive Chargef ¢/kVA/day 39.680 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A37C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A37M
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 12,408.240 - Peak Unit rate ¢/kWh 3.623 - Off Peak Unit rate ¢/kWh 1.119 - Annual Demand charge $/kVA pa 74.881 - Summer
+    Demand Incentive Chargef ¢/kVA/day 14.483 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A37M tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A37T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 450
+  locator: pdf:p6
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 12,463.518 - Peak Unit rate ¢/kWh 3.757 - Off Peak Unit rate ¢/kWh 1.158 - Annual Demand charge $/kVA pa 51.667 - Summer
+    Demand Incentive Chargef ¢/kVA/day 28.966 Minimum Chargeable Annual Demand 450 kVA
+  note: 'A37T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A400
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p7
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 21,462.442 - Peak Unit rate ¢/kWh 3.455 - Off Peak Unit rate ¢/kWh 0.814 - Annual Demand charge $/kVA pa 82.159 - Summer
+    Demand Incentive Chargef ¢/kVA/day 17.147 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A400 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p7
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 21,580.659 - Peak Unit rate ¢/kWh 3.455 - Off Peak Unit rate ¢/kWh 0.814 - Annual Demand charge $/kVA pa 84.596 - Summer
+    Demand Incentive Chargef ¢/kVA/day 17.147 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p7
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 21,580.659 - Peak Unit rate ¢/kWh 3.592 - Off Peak Unit rate ¢/kWh 0.843 - Annual Demand charge $/kVA pa 61.770 - Summer
+    Demand Incentive Chargef ¢/kVA/day 34.293 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40R
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 21,462.442 - Peak Unit rate ¢/kWh 3.444 - Off Peak Unit rate ¢/kWh 0.814 - Annual Demand charge $/kVA pa 74.357 - Summer
+    Demand Incentive Chargef ¢/kVA/day 15.756 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40R tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A40T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 1000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 21,580.659 - Peak Unit rate ¢/kWh 3.585 - Off Peak Unit rate ¢/kWh 0.843 - Annual Demand charge $/kVA pa 57.571 - Summer
+    Demand Incentive Chargef ¢/kVA/day 31.511 Minimum Chargeable Annual Demand 1,000 kVA
+  note: 'A40T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A480
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 10000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 22,375.830 - Peak Unit rate ¢/kWh 3.222 - Off Peak Unit rate ¢/kWh 0.760 - Annual Demand charge $/kVA pa 70.958 - Summer
+    Demand Incentive Chargef ¢/kVA/day 14.224 Minimum Chargeable Annual Demand 10,000 kVA
+  note: 'A480 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A48C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 10000
+  locator: pdf:p8
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/customer
+    pa 22,506.778 - Peak Unit rate ¢/kWh 3.352 - Off Peak Unit rate ¢/kWh 0.788 - Annual Demand charge $/kVA pa 52.601 - Summer
+    Demand Incentive Chargef ¢/kVA/day 28.448 Minimum Chargeable Annual Demand 10,000 kVA
+  note: 'A48C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A500
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    73,497.014 - Peak Unit rate ¢/kWh 2.317 - Off Peak Unit rate ¢/kWh 0.502 - Annual Demand charge $/kVA pa 27.970 - Summer
+    Demand Incentive Chargef ¢/kVA/day 6.110 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A500 tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50C
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    73,701.493 - Peak Unit rate ¢/kWh 2.424 - Off Peak Unit rate ¢/kWh 0.521 - Annual Demand charge $/kVA pa 24.040 - Summer
+    Demand Incentive Chargef ¢/kVA/day 12.219 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50C tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50M
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    73,245.495 - Peak Unit rate ¢/kWh 2.314 - Off Peak Unit rate ¢/kWh 0.501 - Annual Demand charge $/kVA pa 23.649 - Summer
+    Demand Incentive Chargef ¢/kVA/day 11.975 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50M tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50A
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p9
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    73,497.014 - Peak Unit rate ¢/kWh 2.298 - Off Peak Unit rate ¢/kWh 0.498 - Annual Demand charge $/kVA pa 26.825 - Summer
+    Demand Incentive Chargef ¢/kVA/day 5.803 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50A tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50T
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p10
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    73,701.493 - Peak Unit rate ¢/kWh 2.424 - Off Peak Unit rate ¢/kWh 0.521 - Annual Demand charge $/kVA pa 23.084 - Summer
+    Demand Incentive Chargef ¢/kVA/day 11.606 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50T tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50E
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p10
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    46,488.880 - Peak Unit rate ¢/kWh 2.342 - Off Peak Unit rate ¢/kWh 0.490 - Annual Demand charge $/kVA pa 9.318 - Summer
+    Demand Incentive Chargef ¢/kVA/day 0.866 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50E tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A50X
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  minimum_value: 15000
+  locator: pdf:p10
+  quote: Annual demand charging window is 8AM - 8PM weekdays (local time), Rolling 12 months Summer Demand Incentive Charge
+    charging window is 4PM - 7PM workdays (local time) each month in December to March, reset monthly - Standing charge $/pa/connection
+    46,554.152 - Peak Unit rate ¢/kWh 2.451 - Off Peak Unit rate ¢/kWh 0.509 - Annual Demand charge $/kVA pa 7.994 - Summer
+    Demand Incentive Chargef ¢/kVA/day 1.731 Minimum Chargeable Annual Demand 15,000 kVA
+  note: 'A50X tariff entry. The schedule names the window and the rolling 12 months; the TSS 2021-26 states the measure (p15
+    note 1 for LV and HV, p16 note 1 for sub-transmission: ''Maximum demand for the demand charge set 8am-8pm Monday to Friday
+    (local time) using the maximum level of the last 12 months where data is available''). The metering interval is not stated.'
+- codes:
+  - A300
+  - F300
+  - A30E
+  - A30C
+  - A320
+  - A32E
+  - A32C
+  - A340
+  - A34E
+  - A34C
+  - A34M
+  - A34T
+  - A370
+  - A37C
+  - A37M
+  - A37T
+  - A400
+  - A40E
+  - A40C
+  - A40R
+  - A40T
+  - A480
+  - A48C
+  - A500
+  - A50C
+  - A50M
+  - A50A
+  - A50T
+  - A50E
+  - A50X
+  doc: sources/dnsp/jemena/Jemena_Network_Tariff_Schedule_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p3
+  quote: Summer Demand Incentive Charge charging window is 4PM - 7PM workdays (local time) each month in December to March,
+    reset monthly
+  note: 'Quoted from the A300 entry; every large business entry repeats it. The TSS 2021-26 states the measure (p15 and p16
+    note 2: ''Maximum demand for the SDIC set 4pm-7pm workdays (local time) each month in December to March and reset monthly'')
+    and ''There is no minimum demand for the summer demand incentive charge'' (p16 note 6). The metering interval is not stated.'

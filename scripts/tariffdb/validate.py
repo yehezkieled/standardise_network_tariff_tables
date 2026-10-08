@@ -6,10 +6,11 @@ the exit status is 1 when any check fails.
                                                              (minutes; with --committed-only, only the files committed
                                                              to the repository, as CI does)
   .venv/bin/python scripts/tariffdb/validate.py --coverage   also list the gaps to fill (never fails): per distributor,
-                                                             year and status, the tariffs still without TOU windows or
-                                                             eligibility. The years before 2023-24 carry rates
-                                                             only (windows and eligibility start 2023-07-01;
-                                                             back-filling 2017 to 2023 is planned follow-up work)
+                                                             year and status, the tariffs still without TOU windows,
+                                                             eligibility or demand measurement rules. The years
+                                                             before 2023-24 carry rates only (windows and eligibility
+                                                             start 2023-07-01; back-filling 2017 to 2023 is planned
+                                                             follow-up work)
 
 The checks, in order (docs/update-and-validate.md says what a failure means and what to do):
   load          the CSVs load into SQLite with every key, foreign key and CHECK constraint of schema.sqlite.sql
@@ -24,8 +25,10 @@ The checks, in order (docs/update-and-validate.md says what a failure means and 
   blocks        a stepped price numbers its blocks 1..n without gaps, with bounds that rise from block to block
   tou           windows of one tariff, charge group and published period name never overlap on the same day type
                 and month
-  joins         in a tariff-period with TOU windows, every rate priced in a period or season finds its windows and
-                every window prices a rate (scripts/tariffdb/joins.py)
+  joins         in a tariff-period with TOU windows, every rate priced in a period or season finds its windows, and
+                no demand or export rate lacks a period its windows name (scripts/tariffdb/joins.py)
+  rules         every demand measurement rule (charge_rule) measures a rate of its tariff-period, in the quantity the
+                rate is priced in
   aliases       no provisional tariff is one a final tariff of the same distributor and period prices under its own
                 spelling or code (data/tariffdb/code_alias.csv), so no tariff is stored twice
   files         every held document is at its path with its recorded SHA-256 (--sources)
@@ -65,8 +68,8 @@ KNOWN_MISPRINTS = {
                 "evoenergy:124:2023-07-01:usage:net-energy-consumption-charge:anytime")}
 
 
-def rows(db, sql):
-    cur = db.execute(sql)
+def rows(db, sql, params=()):
+    cur = db.execute(sql, params)
     names = [d[0] for d in cur.description]
     return [dict(zip(names, r)) for r in cur.fetchall()]
 
@@ -166,16 +169,12 @@ def check_tou(db):
     return sorted(set(bad))
 
 
-# the charge groups a window of each applies_to can price (joins.group_windows: export and controlled-load rates fall
-# back to the usage windows when the tariff states none of their own)
-WINDOW_GROUPS = {"usage": {"usage", "controlled_load", "export"}, "all": {"usage", "controlled_load", "export", "demand"},
-                 "demand": {"demand"}, "export": {"export"}, "controlled_load": {"controlled_load"}}
-
-
 def check_joins(db):
-    """In a tariff-period with TOU windows, every rate priced in a period or season finds its windows, and every window
-    prices a rate (joins.py says how they join). A tariff-period without windows for a charge group is a gap that
-    --coverage lists, not a failure."""
+    """In a tariff-period with TOU windows, every rate priced in a period or season finds its windows, and no demand,
+    capacity or export rate without a period sits beside windows naming periods (joins.py says how they join). A
+    tariff-period without windows for a charge group, a season whose months no held document states (its window says
+    months not_stated) and an event period with no fixed hours are gaps the bill calculator reports (billcalc.py
+    sweep), not failures."""
     windows, rates = defaultdict(list), defaultdict(list)
     for w in rows(db, "SELECT * FROM tou_window"):
         windows[(w["distributor_id"], w["tariff_code"], w["effective_from"])].append(w)
@@ -183,22 +182,33 @@ def check_joins(db):
         rates[(r["distributor_id"], r["tariff_code"], r["effective_from"])].append(r)
     bad = []
     for key, ws in sorted(windows.items()):
-        rs = [r for r in rates.get(key, []) if joins.group_of(r)]
-        for r in rs:
-            if r["tou_period"] not in joins.ALL_TIMES and joins.group_windows(joins.group_of(r), ws) \
-                    and not joins.rate_windows(r, ws):
+        for r in (r for r in rates.get(key, []) if joins.group_of(r)):
+            if r["tou_period"] not in joins.ALL_TIMES + joins.EVENT_PERIODS + joins.BANDS \
+                    and joins.group_windows(joins.group_of(r), ws) and not joins.rate_windows(r, ws):
                 bad.append(f"rate {r['rate_id']}: no {joins.group_of(r)} window for {r['tou_period']}"
                            + (f" in season {r['season']}" if r["season"] else ""))
-            if r["season"] and joins.season_months(r["season"], ws) is None:
-                bad.append(f"rate {r['rate_id']}: no window states the months of season {r['season']}")
-        for w in ws:
-            if w["tou_period"] == joins.SUPPLY:
-                continue
-            want = joins.ALL_TIMES if w["tou_period"] == "anytime" else (w["tou_period"],)
-            if not any(joins.group_of(r) in WINDOW_GROUPS[w["applies_to"]] and r["tou_period"] in want
-                       and joins.same_season(r["season"], w["season"]) for r in rs):
-                bad.append(f"window {w['window_id']}: prices no rate (no {w['applies_to']} rate for "
-                           f"{w['tou_period']}" + (f" in season {w['season']})" if w["season"] else ")"))
+            if r["season"] and not joins.season_named(r["season"], ws):
+                bad.append(f"rate {r['rate_id']}: no window belongs to season {r['season']}")
+            if joins.ambiguous(r, ws):
+                bad.append(f"rate {r['rate_id']}: no period, but the tariff's {joins.group_of(r)} windows name "
+                           f"{', '.join(joins.ambiguous(r, ws))}")
+    return bad
+
+
+def check_rules(db):
+    """Every charge_rule measures at least one rate of its tariff-period (same charge type, and the rule's period and
+    season when it names them), and its measure is the quantity those rates are priced in (kW, kVA or kWh)."""
+    bad = []
+    for c in rows(db, "SELECT * FROM charge_rule"):
+        units = [r["unit"] for r in rows(db, """SELECT unit FROM rate WHERE distributor_id = ? AND tariff_code = ?
+                     AND effective_from = ? AND charge_type = ? AND (? IS NULL OR tou_period = ?)
+                     AND (? IS NULL OR season = ?)""", (c["distributor_id"], c["tariff_code"], c["effective_from"],
+                                                       c["charge_type"], c["tou_period"], c["tou_period"],
+                                                       c["season"], c["season"]))]
+        if not units:
+            bad.append(f"charge_rule {c['rule_id']}: no {c['charge_type']} rate of its tariff-period to measure")
+        elif not any(re.search(rf"/{c['measure']}(/|$)", u) for u in units):
+            bad.append(f"charge_rule {c['rule_id']}: measures {c['measure']} but the rates are in {sorted(set(units))}")
     return bad
 
 
@@ -283,13 +293,14 @@ def check_quotes(db, committed_only):
 # the checks main() runs after load, in order: (name, check); SOURCE_CHECKS only with --sources
 CHECKS = (("periods", check_periods), ("status", check_status), ("units", check_units),
           ("magnitude", check_magnitude), ("blocks", check_blocks), ("tou", check_tou), ("joins", check_joins),
-          ("aliases", check_aliases))
+          ("rules", check_rules), ("aliases", check_aliases))
 SOURCE_CHECKS = (("files", check_files), ("values", check_values), ("quotes", check_quotes))
 
 
 def coverage(db):
-    """One line per distributor-year and status: tariffs, those pricing a time-of-use period with no TOU window, and
-    those with no eligibility criterion (the facts curated from the distributor's documents)."""
+    """One line per distributor-year and status: tariffs, those pricing a time-of-use period with no TOU window, those
+    with no eligibility criterion, and those with demand or capacity rates but no charge_rule (the facts curated from
+    the distributor's documents). billcalc.py sweep counts what each gap blocks."""
     out = []
     for r in rows(db, """SELECT t.distributor_id, d.pricing_year, t.status, count(*) AS n,
                          sum(EXISTS (SELECT 1 FROM rate r WHERE r.distributor_id = t.distributor_id
@@ -298,11 +309,17 @@ def coverage(db):
                              AND NOT EXISTS (SELECT 1 FROM tou_window w WHERE w.distributor_id = t.distributor_id
                                AND w.tariff_code = t.tariff_code AND w.effective_from = t.effective_from)) AS no_tou,
                          sum(NOT EXISTS (SELECT 1 FROM eligibility e WHERE e.distributor_id = t.distributor_id
-                               AND e.tariff_code = t.tariff_code AND e.effective_from = t.effective_from)) AS no_elig
+                               AND e.tariff_code = t.tariff_code AND e.effective_from = t.effective_from)) AS no_elig,
+                         sum(EXISTS (SELECT 1 FROM rate r WHERE r.distributor_id = t.distributor_id
+                               AND r.tariff_code = t.tariff_code AND r.effective_from = t.effective_from
+                               AND r.charge_type IN ('demand', 'capacity') AND NOT EXISTS (SELECT 1 FROM charge_rule c
+                                 WHERE c.distributor_id = r.distributor_id AND c.tariff_code = r.tariff_code
+                                 AND c.effective_from = r.effective_from AND c.charge_type = r.charge_type))) AS no_rule
                          FROM tariff t JOIN source_document d USING (document_id)
                          GROUP BY 1, 2, 3 ORDER BY 1, 2, 3"""):
         out.append(f"{r['distributor_id']:13} {r['pricing_year']:7} {r['status']:11} {r['n']:4} tariffs, {r['no_tou']:3} "
-                   f"pricing a TOU period without windows, {r['no_elig']:3} without eligibility")
+                   f"pricing a TOU period without windows, {r['no_elig']:3} without eligibility, {r['no_rule']:3} "
+                   f"with demand or capacity rates but no measurement rule")
     return out
 
 

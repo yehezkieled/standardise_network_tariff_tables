@@ -13,13 +13,13 @@ tou_schedules:
   quote: The peak period rates apply to usage between 12pm and 9pm on any weekday, including public holidays.
   note: Weekday windows explicitly include public holidays ('on any weekday, including public holidays').
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak period
     days: weekday
     start: '12:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p1
     quote: For Tariff 3 LV Smart Meter customers peak charges apply from 1 October through 31 March.
   tariffs:
@@ -38,13 +38,13 @@ tou_schedules:
   note: '''For all other customers annual peak charges apply''; Tariffs 5, 6 and 7 are the other tariffs with a Demand Charge*
     price. Weekdays include public holidays.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak period
     days: weekday
     start: '12:00'
     end: '21:00'
     months: all
-    season: annual
+    season_label: annual
     locator: pdf:p1
     quote: For all other customers annual peak charges apply.
   tariffs:
@@ -70,13 +70,13 @@ tou_schedules:
   quote: The current peak period is 12pm to 9pm weekdays, which includes public holidays
   note: '''All other times are off‐peak.'' Weekdays include public holidays.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak period
     days: weekday
     start: '12:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p13
     quote: For customers assigned to the LV Smart Meter (Tariff 3), the demand charge only applies between 1 October and 31
       March (6 months) each year
@@ -95,13 +95,13 @@ tou_schedules:
   quote: The current peak period is 12pm to 9pm weekdays, which includes public holidays
   note: '''All other times are off‐peak.'' Weekdays include public holidays.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak period
     days: weekday
     start: '12:00'
     end: '21:00'
     months: all
-    season: full year
+    season_label: full year
     locator: pdf:p13
     quote: For customers assigned to the LV Majors (Tariff 5), HV Majors (Tariff 7) or HV Minors (Tariff 6), the demand window
       applies across the full year (12 months).
@@ -129,7 +129,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
   - period: super_off_peak
@@ -138,7 +138,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
   - period: peak
@@ -147,7 +147,7 @@ tou_schedules:
     start: '15:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: High Period (Peak) Consumer are charged for the highest recorded demand during the peak period • 3pm to 9pm Monday
       to Friday (including public holidays) from (regardless of season) each month 01 October to 31 March
@@ -157,7 +157,7 @@ tou_schedules:
     start: '21:00'
     end: '24:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
   - period: off_peak
@@ -166,7 +166,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
   - period: super_off_peak
@@ -175,7 +175,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
   - period: off_peak
@@ -184,7 +184,7 @@ tou_schedules:
     start: '15:00'
     end: '24:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
   - period: off_peak
@@ -193,7 +193,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p2
     quote: 3pm to 9am Monday to Sunday (including public holidays) from September 01 April to 30 September, and
   - period: super_off_peak
@@ -202,7 +202,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p2
     quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
   - period: off_peak
@@ -211,7 +211,7 @@ tou_schedules:
     start: '15:00'
     end: '24:00'
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p2
     quote: 3pm to 9am Monday to Sunday (including public holidays) from September 01 April to 30 September, and
   tariffs:
@@ -278,23 +278,25 @@ tou_schedules:
     01 October to • 9am to 3pm Monday to Sunday (including public holidays), all 31 March
   note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)').
   windows:
-  - period: high_season_peak
+  - period: peak
     label: On Season - Peak Period
     days: weekday
     start: '15:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: On Season
+    season_label: On Season
+    season: high
     locator: pdf:p2
     quote: On Season - Peak Period Low Period (Super Off-Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from
       01 October to • 9am to 3pm Monday to Sunday (including public holidays), all 31 March
-  - period: low_season_peak
+  - period: peak
     label: Off Season - Peak Period
     days: weekday
     start: '15:00'
     end: '21:00'
     months: 4,5,6,7,8,9
-    season: Off Season
+    season_label: Off Season
+    season: low
     locator: pdf:p2
     quote: Off Season - Peak Period Mid Period (Off Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from 01
       April to 30 • 3pm to 9am Monday to Sunday (including public holidays) from September
@@ -326,7 +328,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
   - period: super_off_peak
@@ -335,7 +337,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
   - period: peak
@@ -344,7 +346,7 @@ tou_schedules:
     start: '15:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: High Period (Peak) Consumer are charged for the highest recorded demand during the peak period • 3pm to 9pm Monday
       to Friday (including public holidays) from (regardless of season) each month 01 October to 31 March
@@ -354,7 +356,7 @@ tou_schedules:
     start: '21:00'
     end: '24:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
   - period: off_peak
@@ -363,7 +365,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
   - period: super_off_peak
@@ -372,7 +374,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
   - period: off_peak
@@ -381,7 +383,7 @@ tou_schedules:
     start: '15:00'
     end: '24:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p2
     quote: 9pm to 9am Monday to Sunday (including public holidays) from 01 October to 31 March, and 3pm to 9pm on weekends
   - period: off_peak
@@ -390,7 +392,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p2
     quote: 3pm to 9am Monday to Sunday (including public holidays) from September 01 April to 30 September, and
   - period: super_off_peak
@@ -399,7 +401,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p2
     quote: 9am to 3pm Monday to Sunday (including public holidays), all 31 March year
   - period: off_peak
@@ -408,7 +410,7 @@ tou_schedules:
     start: '15:00'
     end: '24:00'
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p2
     quote: 3pm to 9am Monday to Sunday (including public holidays) from September 01 April to 30 September, and
   tariffs:
@@ -473,23 +475,25 @@ tou_schedules:
     01 October to • 9am to 3pm Monday to Sunday (including public holidays), all 31 March
   note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)').
   windows:
-  - period: high_season_peak
+  - period: peak
     label: On Season - Peak Period
     days: weekday
     start: '15:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: On Season
+    season_label: On Season
+    season: high
     locator: pdf:p2
     quote: On Season - Peak Period Low Period (Super Off-Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from
       01 October to • 9am to 3pm Monday to Sunday (including public holidays), all 31 March
-  - period: low_season_peak
+  - period: peak
     label: Off Season - Peak Period
     days: weekday
     start: '15:00'
     end: '21:00'
     months: 4,5,6,7,8,9
-    season: Off Season
+    season_label: Off Season
+    season: low
     locator: pdf:p2
     quote: Off Season - Peak Period Mid Period (Off Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from 01
       April to 30 • 3pm to 9am Monday to Sunday (including public holidays) from September
@@ -521,7 +525,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p15
     quote: From 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: super_off_peak
@@ -530,7 +534,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p15
     quote: Every day of the year between 9am and 3pm.
   - period: peak
@@ -539,7 +543,7 @@ tou_schedules:
     start: '15:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p14
     quote: From 1 October to 31 March weekdays, between 3pm and 9pm.
   - period: off_peak
@@ -548,7 +552,7 @@ tou_schedules:
     start: '21:00'
     end: '24:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p15
     quote: From 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: off_peak
@@ -557,7 +561,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p15
     quote: From 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: super_off_peak
@@ -566,7 +570,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p15
     quote: Every day of the year between 9am and 3pm.
   - period: off_peak
@@ -575,7 +579,7 @@ tou_schedules:
     start: '15:00'
     end: '24:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p15
     quote: From 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: off_peak
@@ -584,7 +588,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p14
     quote: From 1 April to 30 September Monday to Sunday between 3pm to 9am.
   - period: super_off_peak
@@ -593,7 +597,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p15
     quote: Every day of the year between 9am and 3pm.
   - period: off_peak
@@ -602,7 +606,7 @@ tou_schedules:
     start: '15:00'
     end: '24:00'
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p14
     quote: From 1 April to 30 September Monday to Sunday between 3pm to 9am.
   tariffs:
@@ -650,23 +654,25 @@ tou_schedules:
     01 October to 31 • 9am to 3pm Monday to Sunday, all year March
   note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)').
   windows:
-  - period: high_season_peak
+  - period: peak
     label: On Season - Peak Period
     days: weekday
     start: '15:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: On Season
+    season_label: On Season
+    season: high
     locator: pdf:p17
     quote: On Season - Peak Period Low Period (Super Off-Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from
       01 October to 31 • 9am to 3pm Monday to Sunday, all year March
-  - period: low_season_peak
+  - period: peak
     label: Off Season - Peak Period
     days: weekday
     start: '15:00'
     end: '21:00'
     months: 4,5,6,7,8,9
-    season: Off Season
+    season_label: Off Season
+    season: low
     locator: pdf:p17
     quote: Off Season - Peak Period Mid Period (Off Peak) • 3pm to 9pm Monday to Friday (including public Holidays) from 01
       April to 30 • 3pm to 9am Monday to Sunday from 01 April to 30 September
@@ -695,7 +701,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p12
     quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: super_off_peak
@@ -704,7 +710,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p12
     quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
   - period: peak
@@ -713,7 +719,7 @@ tou_schedules:
     start: '15:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p12
     quote: High (Peak) period, which is from 1 October to 31 March weekdays, between 3pm and 9pm.
   - period: off_peak
@@ -722,7 +728,7 @@ tou_schedules:
     start: '21:00'
     end: '24:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p12
     quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: off_peak
@@ -731,7 +737,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p12
     quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: super_off_peak
@@ -740,7 +746,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p12
     quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
   - period: off_peak
@@ -749,7 +755,7 @@ tou_schedules:
     start: '15:00'
     end: '24:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p12
     quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: off_peak
@@ -758,7 +764,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p12
     quote: Medium (Off-peak) period, which is from 1 April to 30 September Monday to Sunday between 3pm to 9am
   - period: super_off_peak
@@ -767,7 +773,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p12
     quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
   - period: off_peak
@@ -776,7 +782,7 @@ tou_schedules:
     start: '15:00'
     end: '24:00'
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p12
     quote: Medium (Off-peak) period, which is from 1 April to 30 September Monday to Sunday between 3pm to 9am
   tariffs:
@@ -824,23 +830,25 @@ tou_schedules:
     from 01 October to 31 March
   note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)').
   windows:
-  - period: high_season_peak
+  - period: peak
     label: On Season - Peak Period
     days: weekday
     start: '15:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: On Season
+    season_label: On Season
+    season: high
     locator: pdf:p13
     quote: On Season - Peak Period • 9am to 3pm Monday to Sunday, all year 3pm to 9pm Monday to Friday (including public Holidays)
       from 01 October to 31 March
-  - period: low_season_peak
+  - period: peak
     label: Off Season - Peak Period
     days: weekday
     start: '15:00'
     end: '21:00'
     months: 4,5,6,7,8,9
-    season: Off Season
+    season_label: Off Season
+    season: low
     locator: pdf:p13
     quote: Off Season - Peak Period • 3pm to 9am Monday to Sunday from 01 April to 30 3pm to 9pm Monday to Friday (including
       public September, and Holidays) from 01 April to 30 September
@@ -873,7 +881,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p14
     quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: super_off_peak
@@ -882,7 +890,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p14
     quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
   - period: peak
@@ -891,7 +899,7 @@ tou_schedules:
     start: '15:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p14
     quote: High (Peak) period, which is from 1 October to 31 March weekdays, between 3pm and 9pm.
   - period: off_peak
@@ -900,7 +908,7 @@ tou_schedules:
     start: '21:00'
     end: '24:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p14
     quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: off_peak
@@ -909,7 +917,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p14
     quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: super_off_peak
@@ -918,7 +926,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p14
     quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
   - period: off_peak
@@ -927,7 +935,7 @@ tou_schedules:
     start: '15:00'
     end: '24:00'
     months: 10,11,12,1,2,3
-    season: 1 October – 31 March
+    season_label: 1 October – 31 March
     locator: pdf:p14
     quote: and from 1 October to 31 March, Monday to Sunday between 9pm to 9am and 3pm to 9pm on weekends.
   - period: off_peak
@@ -936,7 +944,7 @@ tou_schedules:
     start: 00:00
     end: 09:00
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p14
     quote: Medium (Off-peak) period, which is from 1 April to 30 September Monday to Sunday between 3pm to 9am
   - period: super_off_peak
@@ -945,7 +953,7 @@ tou_schedules:
     start: 09:00
     end: '15:00'
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p14
     quote: Low (Super off-peak) period, which is every day of the year between 9am and 3pm.
   - period: off_peak
@@ -954,7 +962,7 @@ tou_schedules:
     start: '15:00'
     end: '24:00'
     months: 4,5,6,7,8,9
-    season: 1 April – 30 September
+    season_label: 1 April – 30 September
     locator: pdf:p14
     quote: Medium (Off-peak) period, which is from 1 April to 30 September Monday to Sunday between 3pm to 9am
   tariffs:
@@ -1002,23 +1010,25 @@ tou_schedules:
     from 01 October to 31 March
   note: Weekday windows explicitly include public holidays ('Monday to Friday (including public holidays)').
   windows:
-  - period: high_season_peak
+  - period: peak
     label: On Season - Peak Period
     days: weekday
     start: '15:00'
     end: '21:00'
     months: 10,11,12,1,2,3
-    season: On Season
+    season_label: On Season
+    season: high
     locator: pdf:p15
     quote: On Season - Peak Period • 9am to 3pm Monday to Sunday, all year 3pm to 9pm Monday to Friday (including public Holidays)
       from 01 October to 31 March
-  - period: low_season_peak
+  - period: peak
     label: Off Season - Peak Period
     days: weekday
     start: '15:00'
     end: '21:00'
     months: 4,5,6,7,8,9
-    season: Off Season
+    season_label: Off Season
+    season: low
     locator: pdf:p15
     quote: Off Season - Peak Period • 3pm to 9am Monday to Sunday from 01 April to 30 3pm to 9pm Monday to Friday (including
       public September, and Holidays) from 01 April to 30 September
@@ -2937,3 +2947,68 @@ eligibility:
   locator: xlsx:Tariff schedule!C95
   quote: HV Smart Meters
   note: 'tariff name column of row 95, whose Code cell E95 is ''Tariff 6''.'
+charge_rules:
+- codes:
+  - Tariff 3
+  - Tariff 5
+  - Tariff 6
+  - Tariff 7
+  doc: sources/aer/2023-24_price_lists/PWC_2023-24_Network_Pricing_Proposal_30Mar2023.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p12
+  quote: The demand charge is applied to the maximum demand value, within the defined peak period each month.
+  note: 'Section 2.2 (p12): ''a demand charge (KVA) for customers with smart meters''; p13 lists the tariffs with a demand
+    charge (Tariff 3: 1 October to 31 March; Tariffs 5, 6 and 7: the full year). The interval length is not stated.'
+- codes:
+  - Tariff 5
+  - Tariff 6
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2024-25_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p2
+  quote: Consumer are charged for the highest recorded demand during the peak period • 3pm to 9pm Monday to Friday (including
+    public holidays) from (regardless of season) each month
+  note: 'Table ''Breakdown of time-of-use energy and seasonal demand periods'', column ''Demand (kVA) detail and periods'',
+    cell ''Peak Demand Charging'': ''Consumer are charged for the highest recorded demand during the peak period (regardless
+    of season) each month''; the text layer interleaves the neighbouring energy column (''• 3pm to 9pm Monday to Friday (including
+    public holidays) from''). Holds for the On Season and Off Season demand rates ($/kVA). The interval length is not stated.'
+- codes:
+  - Tariff 5
+  - Tariff 6
+  doc: sources/dnsp/powerwater/PWC_SCS_Tariffs_2025-26_210525_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p2
+  quote: Consumer are charged for the highest recorded demand during the peak period • 3pm to 9pm Monday to Friday (including
+    public holidays) from (regardless of season) each month
+  note: 'Table ''Breakdown of time-of-use energy and seasonal demand periods'', column ''Demand (kVA) detail and periods'',
+    cell ''Peak Demand Charging'': ''Consumer are charged for the highest recorded demand during the peak period (regardless
+    of season) each month''; the text layer interleaves the neighbouring energy column (''• 3pm to 9pm Monday to Friday (including
+    public holidays) from''). Holds for the On Season and Off Season demand rates ($/kVA). The interval length is not stated.'
+- codes:
+  - Tariff 5
+  - Tariff 6
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  method: max
+  reset: month
+  locator: pdf:p15
+  quote: Consumer charged for the highest recorded Holidays) from 01 October to 31 March demand during the peak period (regardless
+    of season) each month
+  note: 'Table 2.3 (printed page 14), column ''Demand (kVA) detail and periods'', cell ''Peak Demand Charging'': ''Consumer
+    charged for the highest recorded demand during the peak period (regardless of season) each month''; the text layer interleaves
+    the neighbouring energy column (''Holidays) from 01 October to 31 March''). Section 2.2.3 (same page) calls it ''an annual
+    peak demand charge'' applied as an ''On'' season (1 October to 31 March) and an ''Off'' season (1 April to 30 September);
+    the per-month measurement is the table''s. The interval length is not stated.'

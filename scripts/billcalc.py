@@ -67,6 +67,8 @@ ISSUES = {
     "unit_unhandled": "blocked",
     "ambiguous_usage": "blocked",
     "other_charge": "blocked",
+    "period_not_stated": "blocked",
+    "capacity_bands_unhandled": "blocked",
     "window_months_not_stated": "blocked",
     "demand_rule_absent": "assumed",
     "time_basis_not_stated": "assumed",
@@ -74,14 +76,19 @@ ISSUES = {
     "public_holiday_rule_not_stated": "assumed",
     "block_reset_assumed": "assumed",
     "partial_month": "assumed",
-    "rolling_history_short": "assumed",
+    "rolling_history_short": "input",
     "annual_demand_prorated": "assumed",
     "window_gap": "assumed",
+    "interval_data_coarse": "input",
     "provisional_rates": "note",
+    "unpriced_period": "note",
     "region_needed": "input",
     "agreed_demand_needed": "input",
     "reactive_energy_needed": "input",
     "meter_type_needed": "input",
+    "event_times_needed": "input",
+    "event_days_needed": "input",
+    "meter_class_needed": "input",
 }
 
 
@@ -89,8 +96,10 @@ ISSUES = {
 class Site:
     """Facts about the site the database cannot hold."""
     meter_type: str = None          # interval, smart, basic, accumulation ... (rate.condition meter_type:<t>)
+    meter_class: str = None         # the class in the distributor's metering schedule (rate.condition meter_class:<c>)
     opt_in: frozenset = frozenset()  # opt-in names the customer joined (rate.condition opt_in:<name>)
-    agreed_kva: float = None        # agreed / contracted demand, for capacity and agreed-demand charges
+    agreed_kva: float = None        # agreed, contracted or assigned demand, for capacity and agreed-demand charges
+    event_days: frozenset = None    # the days the distributor nominated (critical peak), for avg_nominated_days
     region: str = None              # pricing zone, for codes priced by zone
 
 
@@ -259,18 +268,20 @@ def unit_parts(unit):
 
 
 def applies(rate, site, bill, period):
+    """Is a rate with a condition charged at this site? A site fact the caller did not give counts as not met and is
+    flagged as an input."""
     cond = rate["condition"]
     if cond is None:
         return True
-    kind, _, value = cond.partition(":")
+    kind, _, values = cond.partition(":")
+    values = values.split("|")
     if kind == "opt_in":
-        return value in site.opt_in
-    if kind == "meter_type":
-        if site.meter_type is None:
-            bill.flag("meter_type_needed", f"{period}: {rate['component']} applies to meter type {value}")
-            return False
-        return site.meter_type == value
-    return False
+        return any(v in site.opt_in for v in values)
+    have = {"meter_type": site.meter_type, "meter_class": site.meter_class}.get(kind)
+    if have is None:
+        bill.flag(f"{kind}_needed", f"{period}: {rate['component']} applies to {kind} {' or '.join(values)}")
+        return False
+    return have in values
 
 
 def bill(did, code, start, end, intervals, site=Site(), db=None):
@@ -353,6 +364,9 @@ def rate_mask(b, period, rate, clock, windows, what):
     if rate["tou_period"] in joins.ALL_TIMES:
         return mask
     ws = joins.rate_windows(rate, windows)
+    if not ws and rate["tou_period"] in joins.EVENT_PERIODS:
+        b.flag("event_times_needed", f"{period}: {rate['component']} applies in events the distributor announces")
+        return None
     if not ws:
         b.flag("tou_rates_without_windows", f"{period}: {what} {rate['tou_period']} has no window")
         return None
@@ -360,19 +374,46 @@ def rate_mask(b, period, rate, clock, windows, what):
 
 
 def bill_usage(b, period, rates, register, iv, clock, windows, g):
+    """Usage of one register. Rates priced in a period apply in their windows; a rate with no period beside them
+    prices the rest of the time (joins.is_rest); one with none beside it, all the time."""
     if not rates:
         return
     column = REGISTER_COLUMN[register]
-    blocks = [r for r in rates if r["block"] is not None]
-    plain = [r for r in rates if r["block"] is None]
-    for r in plain:
+    usable = []
+    for r in rates:
         if r["unit"] not in ("c/kWh", "c/kVAh"):
             b.flag("unit_unhandled", f"{period}: usage in {r['unit']}")
-            continue
-    # rates of one register that no period, season or block tells apart cannot all apply
+        else:
+            usable.append(r)
+    timed = [r for r in usable if r["tou_period"] not in joins.ALL_TIMES]
+    rest = [r for r in usable if r["tou_period"] in joins.ALL_TIMES]
+    covered = np.zeros(clock.n, bool)
+    known = True
     seen = {}
-    for r in plain:
-        k = (r["tou_period"] if r["tou_period"] not in joins.ALL_TIMES else None, r["season"])
+    for r in timed:
+        if r["block"] is not None:
+            continue
+        k = (r["tou_period"], r["season"])
+        if k in seen:  # two rates no period, season or block tells apart cannot both apply
+            b.flag("ambiguous_usage", f"{period}: {register} {seen[k]!r} and {r['component']!r}")
+            continue
+        seen[k] = r["component"]
+        mask = rate_mask(b, period, r, clock, windows, f"{register} usage")
+        if mask is None:
+            known = False
+            continue
+        covered |= mask
+        b.add(period, f"usage:{register}", r["component"], quantity(iv, column, r, b, period)[mask].sum(),
+              r["unit"][2:], r["value"], g)
+    rest_mask = None
+    if any(joins.is_rest(r, usable) for r in rest):
+        if not known:
+            b.flag("tou_rates_without_windows", f"{period}: {register} usage outside the priced periods is unknown")
+            return
+        rest_mask = ~covered
+    plain_rest = [r for r in rest if r["block"] is None]
+    for r in plain_rest:
+        k = (None, r["season"])
         if k in seen:
             b.flag("ambiguous_usage", f"{period}: {register} {seen[k]!r} and {r['component']!r}")
             continue
@@ -380,21 +421,26 @@ def bill_usage(b, period, rates, register, iv, clock, windows, g):
         mask = rate_mask(b, period, r, clock, windows, f"{register} usage")
         if mask is None:
             continue
-        kwh = quantity(iv, column, r, b, period)
-        b.add(period, f"usage:{register}", r["component"], kwh[mask].sum(), r["unit"][2:], r["value"], g)
+        if rest_mask is not None:
+            mask = mask & rest_mask
+        b.add(period, f"usage:{register}", r["component"], quantity(iv, column, r, b, period)[mask].sum(),
+              r["unit"][2:], r["value"], g)
+    blocks = [r for r in usable if r["block"] is not None]
     if blocks:
-        bill_blocks(b, period, blocks, register, iv, clock, windows, g)
-    if plain and not any(r["tou_period"] in joins.ALL_TIMES and r["season"] is None for r in plain) and not blocks:
-        covered = np.zeros(clock.n, bool)
-        for r in plain:
-            m = rate_mask(Bill(b.distributor_id, b.tariff_code, b.start, b.end), period, r, clock, windows, "")
-            if m is not None:
-                covered |= m
-        if column in iv and (~covered & (iv[column].to_numpy() > 0)).any():
-            b.flag("window_gap", f"{period}: {register} kWh outside every priced window")
+        bill_blocks(b, period, blocks, register, iv, clock, windows, g, rest_mask)
+    if timed and not rest and column in iv and known:
+        used = iv[column].to_numpy() > 0
+        if (~covered & used).any():
+            scratch = Bill(b.distributor_id, b.tariff_code, b.start, b.end)  # its flags are already on b
+            windowed = windows_mask(clock, joins.group_windows(joins.group_of(timed[0]), windows), scratch, period)
+            if (~windowed & used).any():
+                b.flag("window_gap", f"{period}: {register} kWh outside every window")
+            if (windowed & ~covered & used).any():
+                b.flag("unpriced_period", f"{period}: {register} kWh in windows of a period the price list prints no "
+                                          f"price for: charged nothing")
 
 
-def bill_blocks(b, period, blocks, register, iv, clock, windows, g):
+def bill_blocks(b, period, blocks, register, iv, clock, windows, g, rest_mask=None):
     column = REGISTER_COLUMN[register]
     ladders = {}
     for r in blocks:
@@ -404,6 +450,8 @@ def bill_blocks(b, period, blocks, register, iv, clock, windows, g):
         mask = rate_mask(b, period, ladder[0], clock, windows, f"{register} block usage")
         if mask is None:
             continue
+        if rest_mask is not None and ladder[0]["tou_period"] in joins.ALL_TIMES:
+            mask = mask & rest_mask
         kwh = (iv[column] if column in iv else pd.Series(0.0, index=iv.index))[mask]
         if len(ladder) == 1:
             r = ladder[0]
@@ -435,10 +483,12 @@ def bill_blocks(b, period, blocks, register, iv, clock, windows, g):
 
 
 def find_rule(rules, rate):
-    """The charge_rule for a rate: the most specific of (tou_period, season), (tou_period), (season), (all)."""
+    """The charge_rule for a rate: of the rules measuring the quantity the rate is priced in, the most specific of
+    (tou_period, season), (tou_period), (season), (all)."""
     best = None
+    q = unit_parts(rate["unit"])[0]
     for r in rules:
-        if r["charge_type"] != rate["charge_type"]:
+        if r["charge_type"] != rate["charge_type"] or r["measure"] != q:
             continue
         if r["tou_period"] not in (None, rate["tou_period"]) or r["season"] not in (None, rate["season"]):
             continue
@@ -471,6 +521,12 @@ def bill_demand(b, period, rates, iv, clock, windows, rules, site, g):
         if "?" in r["unit"]:
             b.flag("unit_unclear", f"{period}: {r['component']} in {r['unit']}")
             continue
+        if joins.ambiguous(r, windows):
+            b.flag("period_not_stated", f"{period}: {r['component']}: windows name {joins.ambiguous(r, windows)}")
+            continue
+        if r["tou_period"] in joins.BANDS:
+            b.flag("capacity_bands_unhandled", f"{period}: {r['component']}: where the minimum band ends is not stored")
+            continue
         rule = find_rule(rules, r)
         if rule is None:
             b.flag("demand_rule_absent", f"{period}: {r['component']}: highest 30-minute demand per calendar month")
@@ -480,19 +536,46 @@ def bill_demand(b, period, rates, iv, clock, windows, rules, site, g):
         if mask is None:
             continue
         method = rule["method"]
-        if method in ("agreed", "max_of_agreed_and_measured") and site.agreed_kva is None:
+        if method in ("agreed", "assigned", "max_of_agreed_and_measured") and site.agreed_kva is None:
             b.flag("agreed_demand_needed", f"{period}: {r['component']}")
             continue
+        if method == "avg_nominated_days" and site.event_days is None:
+            b.flag("event_days_needed", f"{period}: {r['component']} is measured on the days the distributor nominates")
+            continue
+        peak = None
+        if method == "excess_over_window_max":
+            peak = rate_mask(b, period, dict(r, tou_period="peak"), clock, windows, "demand")
+            if peak is None:
+                continue
+        resample = lambda m: m  # noqa: E731
         interval_min = int(rule["interval_min"] or data_min)
         series = demand_series(iv, rule["measure"], data_min, b, period, r["component"])
-        if interval_min != data_min:
+        kw = demand_series(iv, "kW", data_min, b, period, r["component"]) if method == "kva_at_max_kw" else None
+        if interval_min < data_min:
+            b.flag("interval_data_coarse", f"{period}: {r['component']} is measured over {interval_min} minutes; the "
+                                           f"data has {data_min}-minute intervals")
+        elif interval_min > data_min:
             series = series.resample(f"{interval_min}min").mean()
-            mask = pd.Series(mask, index=iv.index).resample(f"{interval_min}min").max().to_numpy()
+            kw = kw.resample(f"{interval_min}min").mean() if kw is not None else None
+            resample = lambda m: pd.Series(m, index=iv.index).resample(  # noqa: E731
+                f"{interval_min}min").max().astype(bool).to_numpy()
+        mask = resample(mask)
+        whole = series
         series = series.where(mask, np.nan)
         for label, idx, days, full_days in reset_spans(series.index, rule["reset"], b, period, r):
             s = series[idx].dropna()
-            if method == "agreed":
+            if method in ("agreed", "assigned"):
                 value = site.agreed_kva
+            elif method == "avg_nominated_days":
+                daily = s.groupby(s.index.date).max()
+                picked = daily[[d in site.event_days for d in daily.index]]
+                value = float(picked.mean()) if len(picked) else 0.0
+            elif method == "kva_at_max_kw":
+                k = kw.where(mask, np.nan)[idx].dropna()
+                value = float(whole[k.idxmax()]) if len(k) else 0.0
+            elif method == "excess_over_window_max":
+                in_peak = whole.where(resample(peak), np.nan)[idx].dropna()
+                value = max(0.0, measured(s, "max", None) - (float(in_peak.max()) if len(in_peak) else 0.0))
             else:
                 value = measured(s, method, rule["n"])
                 if method == "max_of_agreed_and_measured":
@@ -521,6 +604,10 @@ def measured(s, method, n):
         return 0.0
     if method in ("max", "max_of_agreed_and_measured"):
         return float(s.max())
+    if method == "max_daily_window_mean":
+        return float(s.groupby(s.index.date).mean().max())
+    if method == "avg_daily_max":
+        return float(s.groupby(s.index.date).max().mean())
     n = int(n)
     if method == "avg_top_n_intervals":
         return float(s.nlargest(n).mean())
@@ -531,7 +618,8 @@ def measured(s, method, n):
 def reset_spans(index, reset, b, period, rate):
     """(label, boolean index, days in the span, days in a full span) per span the measured value restarts on."""
     day = pd.Index(index.date)
-    if reset in ("month", "billing_period") or reset not in ("day", "season", "year", "rolling_12_months"):
+    if reset in ("month", "billing_period") or reset not in ("day", "season", "year", "year_from_april",
+                                                             "rolling_12_months", "rolling_13_months"):
         if reset == "billing_period":
             months = [("billing period", np.ones(len(index), bool))]
         else:
@@ -558,6 +646,9 @@ def reset_spans(index, reset, b, period, rate):
 def bill_export(b, period, rates, iv, clock, windows, rules, g):
     for r in rates:
         q, per = unit_parts(r["unit"])
+        if joins.ambiguous(r, windows):
+            b.flag("period_not_stated", f"{period}: {r['component']}: windows name {joins.ambiguous(r, windows)}")
+            continue
         mask = rate_mask(b, period, r, clock, windows, "export")
         if mask is None:
             continue
@@ -592,37 +683,35 @@ def bill_export(b, period, rates, iv, clock, windows, rules, g):
 
 # ------------------------------------------------------------------------------------------------- categorise, compare
 def categorise(did, code, start, end, intervals, db=None):
-    """One row per interval: the tariff period in force, the season, and the TOU period of each charge group."""
+    """One row per interval: the tariff period in force, the season, and the TOU period of each charge group (None
+    where no window covers it; 'anytime' where a rate with no period prices the rest of the time)."""
     db = db or default_db()
     start, end = pd.Timestamp(start).date(), pd.Timestamp(end).date()
     dist = db.distributor.loc[did]
-    out = pd.DataFrame(index=intervals.index)
-    out["effective_from"] = None
-    for group in ("usage", "controlled_load", "demand", "export"):
-        out[group] = None
-    out["season"] = None
+    groups = ("usage", "controlled_load", "demand", "export")
+    cols = {c: np.full(len(intervals), None, dtype=object) for c in ("effective_from", "season") + groups}
+    day = np.array(intervals.index.date)
     for t in db.periods(did, code, start, end):
         p0 = max(date.fromisoformat(t["effective_from"]), start)
         p1 = min(date.fromisoformat(t["effective_to"]), end)
-        day = np.array(intervals.index.date)
-        sel = (day >= p0) & (day <= p1)
+        sel = np.flatnonzero((day >= p0) & (day <= p1))
         clock = Clock(intervals.index[sel], dist["iana_timezone"], dist["state"])
-        windows = db.windows.get((did, code, t["effective_from"]), [])
-        out.loc[sel, "effective_from"] = t["effective_from"]
+        key = (did, code, t["effective_from"])
+        windows, rates = db.windows.get(key, []), db.rates.get(key, [])
+        cols["effective_from"][sel] = t["effective_from"]
         for w in sorted(windows, key=lambda w: w["window_id"]):
             if not w["months"]:
                 continue
-            m = window_mask(clock, w)
-            groups = ["usage", "controlled_load", "demand", "export"] if w["applies_to"] == "all" else [w["applies_to"]]
-            for gname in groups:
-                col = out.loc[sel, gname].to_numpy()
-                col[m] = w["tou_period"]
-                out.loc[sel, gname] = col
+            m = sel[window_mask(clock, w)]
+            for gname in (groups if w["applies_to"] == "all" else [w["applies_to"]]):
+                cols[gname][m] = w["tou_period"]
             if w["season"]:
-                col = out.loc[sel, "season"].to_numpy()
-                col[m] = w["season"]
-                out.loc[sel, "season"] = col
-    return out
+                cols["season"][m] = w["season"]
+        for r in rates:
+            if r["charge_type"] == "usage" and joins.group_of(r) in groups and joins.is_rest(r, rates):
+                col = cols[joins.group_of(r)]
+                col[sel[pd.isna(col[sel])]] = "anytime"
+    return pd.DataFrame(cols, index=intervals.index)
 
 
 def compare(did, codes, start, end, intervals, site=Site(), db=None):
@@ -636,10 +725,10 @@ def compare(did, codes, start, end, intervals, site=Site(), db=None):
 
 
 # -------------------------------------------------------------------------------------------------------------- sweep
-def synthetic_month(start, seed):
-    """A deterministic synthetic month of half-hour data from `start`: import shaped by time of day, controlled load
+def synthetic_month(start, end, seed):
+    """Deterministic synthetic half-hour data over [start, end] (dates): import shaped by time of day, controlled load
     overnight, export at midday, reactive energy at 0.3 x import. Not any real site's data."""
-    idx = pd.date_range(pd.Timestamp(start), periods=48 * 28, freq="30min")
+    idx = pd.date_range(pd.Timestamp(start), pd.Timestamp(end) + pd.Timedelta("23:30:00"), freq="30min")
     rng = np.random.default_rng(seed)
     hour = idx.hour + idx.minute / 60
     shape = 0.3 + 0.5 * np.exp(-((hour - 18) ** 2) / 8) + 0.3 * np.exp(-((hour - 8) ** 2) / 4)
@@ -650,20 +739,23 @@ def synthetic_month(start, seed):
 
 
 def sweep(db=None):
-    """Bill every tariff-period on 28 synthetic days from its first day, with every site input given (so only what
-    the database lacks or leaves unstated is counted). Returns per tariff-period (key, status, issue codes)."""
+    """Bill every tariff-period on synthetic data for the calendar month of its first day, with every site input given
+    (so only what the database lacks or leaves unstated is counted). Returns per tariff-period (key, status, issue
+    codes)."""
     db = db or default_db()
     out = []
     for t in db.tariff.sort_values(KEY).to_dict("records"):
         key = (t["distributor_id"], t["tariff_code"], t["effective_from"])
         start = date.fromisoformat(t["effective_from"])
-        end = min(start + timedelta(days=27), date.fromisoformat(t["effective_to"]))
+        month_end = (pd.Timestamp(start) + pd.offsets.MonthEnd(0)).date()
+        end = min(month_end, date.fromisoformat(t["effective_to"]))
         seed = int(hashlib.sha256(":".join(key).encode()).hexdigest()[:8], 16)
-        iv = synthetic_month(start, seed)
+        iv = synthetic_month(start, end, seed)
         rates = db.rates.get(key, [])
         regions = sorted({r["region"] for r in rates if r["region"]})
-        site = Site(meter_type=None, agreed_kva=50.0, region=regions[0] if regions else None)
-        bl = bill(*key, start, end, iv, site, db)
+        site = Site(meter_type=None, agreed_kva=50.0, region=regions[0] if regions else None,
+                    event_days=frozenset({start}))
+        bl = bill(key[0], key[1], start, end, iv, site, db)
         issues = sorted(c for c in bl.issues if ISSUES[c] in ("blocked", "assumed"))
         status = "blocked" if any(ISSUES[c] == "blocked" for c in issues) else "assumed" if issues else "exact"
         out.append({"key": ":".join(key), "status": status, "issues": issues})
@@ -687,7 +779,9 @@ def read_intervals(path):
 
 
 def site_args(a):
-    return Site(meter_type=a.meter_type, opt_in=frozenset(a.opt_in or ()), agreed_kva=a.agreed_kva, region=a.region)
+    return Site(meter_type=a.meter_type, meter_class=a.meter_class, opt_in=frozenset(a.opt_in or ()),
+                agreed_kva=a.agreed_kva, region=a.region,
+                event_days=frozenset(date.fromisoformat(d) for d in a.event_day) if a.event_day else None)
 
 
 def main(argv=None):
@@ -701,8 +795,10 @@ def main(argv=None):
         p.add_argument("end")
         p.add_argument("intervals", help="CSV: interval start (NEM time), E1[, E2, B1, Q1] kWh")
         p.add_argument("--meter-type")
+        p.add_argument("--meter-class")
         p.add_argument("--opt-in", action="append")
-        p.add_argument("--agreed-kva", type=float)
+        p.add_argument("--agreed-kva", type=float, help="agreed, contracted or assigned demand")
+        p.add_argument("--event-day", action="append", help="a day the distributor nominated (YYYY-MM-DD), repeatable")
         p.add_argument("--region")
     p = sub.add_parser("sweep")
     p.add_argument("--write", action="store_true", help=f"record the counts in {os.path.relpath(SWEEP_FILE, ROOT)}")

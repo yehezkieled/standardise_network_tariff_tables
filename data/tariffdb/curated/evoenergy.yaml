@@ -86,7 +86,7 @@ tou_schedules:
     ends at 17:30:00 AEST'' (p10); the window is recorded as stated in the charging-parameter cell (17:00-20:00). Table 2.1
     footnote (p10): ''All times refer to Australian Eastern Standard Time (AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Maximum demand charge (in billing period)
     days: all_days
     start: '17:00'
@@ -205,15 +205,30 @@ tou_schedules:
   quote: 3.75 kWh during any one-hour period between 11am – 3pm
   note: Table text is interleaved with the neighbouring column in the PDF text layer; the explanation reads 'The seasonal
     export charge is levied on exports in excess of 3.75 kWh during any one-hour period between 11am – 3pm (AEST) every day.
-    The export charge varies according to seasons.' Season months are not defined in this statement.
+    The export charge varies according to seasons.' Season months are not defined in this statement. Table 2.6 (p23) prices
+    027 and 028 with an 'Export Threshold Charge' row for the high season and one for the low season, so the window is
+    stated once per season, each quoting its row's season as printed there; the hours are this schedule's quote (p10).
   windows:
-  - period: export_charge_window
-    label: Seasonal export charge
+  - period: solar_soak
+    label: 'Export Threshold Charge : high season'
     days: all_days
     start: '11:00'
     end: '15:00'
-    locator: pdf:p10
-    quote: 3.75 kWh during any one-hour period between 11am – 3pm
+    months: not_stated
+    season_label: high season
+    season: high
+    locator: pdf:p23
+    quote: 'Charge : high season'
+  - period: solar_soak
+    label: 'Export Threshold Charge : low season'
+    days: all_days
+    start: '11:00'
+    end: '15:00'
+    months: not_stated
+    season_label: low season
+    season: low
+    locator: pdf:p23
+    quote: 'Charge : low season'
   tariffs:
   - codes:
     - '027'
@@ -479,7 +494,7 @@ tou_schedules:
     7:00am**, 7:30am, 8:00am, 8:30am, etc. up to 5:00pm)'' (Table 2.3, p14), and Table 2.3''s footnote defines business times
     as 7 am to 5 pm on weekdays (p16). Footnote: ''The first period starts at 07:00:01 and ends at 07:30:00 AEST''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Business Time
     days: weekday
     start: 07:00
@@ -544,7 +559,7 @@ tou_schedules:
     starts at 07:00:01 and ends at 07:30:00 AEST''). Table 2.5 footnote (p20): ''All times refer to Australian Eastern Standard
     Time (AEST).'''
   windows:
-  - period: demand_window
+  - period: peak
     label: Business Time
     days: weekday
     start: 07:00
@@ -843,13 +858,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''winter
     months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (High)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: winter months
+    season_label: winter months
+    season: high
     locator: pdf:p6
     quote: 5pm-9pm every day during winter months Seasonal kW Demand
   tariffs:
@@ -871,13 +887,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''non-winter
     months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (Low)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: non-winter months
+    season_label: non-winter months
+    season: low
     locator: pdf:p6
     quote: 5pm-9pm every day during non-winter months Seasonal kW Demand
   tariffs:
@@ -898,14 +915,14 @@ tou_schedules:
   quote: 9pm-9am every day Off-peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: '21:00'
     end: '24:00'
     locator: pdf:p6
     quote: 9pm-9am every day Off-peak kW Demand
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: 00:00
@@ -970,13 +987,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''winter
     months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (High)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: winter months
+    season_label: winter months
+    season: high
     locator: pdf:p7
     quote: 5pm-9pm every day during winter months Seasonal kW Demand
   tariffs:
@@ -998,13 +1016,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''non-winter
     months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (Low)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: non-winter months
+    season_label: non-winter months
+    season: low
     locator: pdf:p7
     quote: 5pm-9pm every day during non-winter months Seasonal kW Demand
   tariffs:
@@ -1025,14 +1044,14 @@ tou_schedules:
   quote: 9pm-9am every day Off-peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: '21:00'
     end: '24:00'
     locator: pdf:p7
     quote: 9pm-9am every day Off-peak kW Demand
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: 00:00
@@ -1096,7 +1115,7 @@ tou_schedules:
   quote: 5pm-8pm every day Peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: all_days
     start: '17:00'
@@ -1121,7 +1140,7 @@ tou_schedules:
   quote: 5pm-8pm every day Peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: all_days
     start: '17:00'
@@ -1330,7 +1349,7 @@ tou_schedules:
   quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -1410,7 +1429,7 @@ tou_schedules:
   quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -1490,7 +1509,7 @@ tou_schedules:
   quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -1570,7 +1589,7 @@ tou_schedules:
   quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -1650,7 +1669,7 @@ tou_schedules:
   quote: 7am-5pm weekdays Peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: weekday
     start: 07:00
@@ -1675,7 +1694,7 @@ tou_schedules:
   quote: 7am-5pm weekdays Peak kW Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: weekday
     start: 07:00
@@ -1701,13 +1720,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''summer
     and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: pdf:p12
     quote: 5pm-8pm every day during summer and spring months Seasonal kVA Demand
   tariffs:
@@ -1729,13 +1749,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''winter
     and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: pdf:p12
     quote: 5pm-8pm every day during winter and autumn months Seasonal kVA Demand
   tariffs:
@@ -1757,13 +1778,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''summer
     and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: pdf:p13
     quote: 7am-5pm weekdays during summer and spring months Seasonal kVA Demand
   tariffs:
@@ -1785,13 +1807,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''winter
     and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: pdf:p13
     quote: 7am-5pm weekdays during winter and autumn months Seasonal kVA Demand
   tariffs:
@@ -1812,7 +1835,7 @@ tou_schedules:
   quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -1892,7 +1915,7 @@ tou_schedules:
   quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -1972,7 +1995,7 @@ tou_schedules:
   quote: 7am-5pm weekdays Peak kVA Demand
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -2053,13 +2076,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''summer
     and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: pdf:p16
     quote: 5pm-8pm every day during summer and spring months Seasonal kVA Demand
   tariffs:
@@ -2081,13 +2105,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''winter
     and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: pdf:p16
     quote: 5pm-8pm every day during winter and autumn months Seasonal kVA Demand
   tariffs:
@@ -2109,13 +2134,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''spring
     and summer months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: spring and summer months
+    season_label: spring and summer months
+    season: high
     locator: pdf:p17
     quote: 7am-5pm weekdays during spring and summer months Seasonal kVA Demand
   tariffs:
@@ -2137,13 +2163,14 @@ tou_schedules:
   note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The document names the season (''autumn
     and winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: autumn and winter months
+    season_label: autumn and winter months
+    season: low
     locator: pdf:p17
     quote: 7am-5pm weekdays during autumn and winter months Seasonal kVA Demand
   tariffs:
@@ -2423,13 +2450,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 96): ''Charge applicability (times in AEST)''. The document names the season
     (''winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (High)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: winter months
+    season_label: winter months
+    season: high
     locator: xlsx:Network tariffs!D100
     quote: 5pm-9pm every day during winter months
   tariffs:
@@ -2452,13 +2480,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 96): ''Charge applicability (times in AEST)''. The document names the season
     (''non-winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (Low)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: non-winter months
+    season_label: non-winter months
+    season: low
     locator: xlsx:Network tariffs!D101
     quote: 5pm-9pm every day during non-winter months
   tariffs:
@@ -2480,14 +2509,14 @@ tou_schedules:
   quote: 9pm-9am every day
   note: 'Charge applicability column header (row 96): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: '21:00'
     end: '24:00'
     locator: xlsx:Network tariffs!D102
     quote: 9pm-9am every day
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: 00:00
@@ -2554,13 +2583,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 108): ''Charge applicability (times in AEST)''. The document names the season
     (''winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (High)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: winter months
+    season_label: winter months
+    season: high
     locator: xlsx:Network tariffs!D112
     quote: 5pm-9pm every day during winter months
   tariffs:
@@ -2583,13 +2613,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 108): ''Charge applicability (times in AEST)''. The document names the season
     (''non-winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (Low)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: non-winter months
+    season_label: non-winter months
+    season: low
     locator: xlsx:Network tariffs!D113
     quote: 5pm-9pm every day during non-winter months
   tariffs:
@@ -2611,14 +2642,14 @@ tou_schedules:
   quote: 9pm-9am every day
   note: 'Charge applicability column header (row 108): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: '21:00'
     end: '24:00'
     locator: xlsx:Network tariffs!D114
     quote: 9pm-9am every day
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: 00:00
@@ -2684,7 +2715,7 @@ tou_schedules:
   quote: 5pm-8pm every day
   note: 'Charge applicability column header (row 120): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: all_days
     start: '17:00'
@@ -2710,7 +2741,7 @@ tou_schedules:
   quote: 5pm-8pm every day
   note: 'Charge applicability column header (row 129): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: all_days
     start: '17:00'
@@ -2921,7 +2952,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 211): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -3002,7 +3033,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 222): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -3083,7 +3114,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 233): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -3164,7 +3195,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 245): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -3245,7 +3276,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 257): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: weekday
     start: 07:00
@@ -3271,7 +3302,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 266): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: weekday
     start: 07:00
@@ -3298,13 +3329,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 275): ''Charge applicability (times in AEST)''. The document names the season
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D278
     quote: 5pm-8pm every day during summer and spring months
   tariffs:
@@ -3327,13 +3359,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 275): ''Charge applicability (times in AEST)''. The document names the season
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D279
     quote: 5pm-8pm every day during winter and autumn months
   tariffs:
@@ -3356,13 +3389,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 287): ''Charge applicability (times in AEST)''. The document names the season
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D290
     quote: 7am-5pm weekdays during summer and spring months
   tariffs:
@@ -3385,13 +3419,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 287): ''Charge applicability (times in AEST)''. The document names the season
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D291
     quote: 7am-5pm weekdays during winter and autumn months
   tariffs:
@@ -3413,7 +3448,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 323): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -3494,7 +3529,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 335): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -3575,7 +3610,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 347): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -3657,13 +3692,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 359): ''Charge applicability (times in AEST)''. The document names the season
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D362
     quote: 5pm-8pm every day during summer and spring months
   tariffs:
@@ -3686,13 +3722,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 359): ''Charge applicability (times in AEST)''. The document names the season
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D363
     quote: 5pm-8pm every day during winter and autumn months
   tariffs:
@@ -3715,13 +3752,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 371): ''Charge applicability (times in AEST)''. The document names the season
     (''spring and summer months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: spring and summer months
+    season_label: spring and summer months
+    season: high
     locator: xlsx:Network tariffs!D374
     quote: 7am-5pm weekdays during spring and summer months
   tariffs:
@@ -3744,13 +3782,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 371): ''Charge applicability (times in AEST)''. The document names the season
     (''autumn and winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: autumn and winter months
+    season_label: autumn and winter months
+    season: low
     locator: xlsx:Network tariffs!D375
     quote: 7am-5pm weekdays during autumn and winter months
   tariffs:
@@ -4031,13 +4070,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 96): ''Charge applicability (times in AEST)''. The document names the season
     (''winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (High)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: winter months
+    season_label: winter months
+    season: high
     locator: xlsx:Network tariffs!D100
     quote: 5pm-9pm every day during winter months
   tariffs:
@@ -4060,13 +4100,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 96): ''Charge applicability (times in AEST)''. The document names the season
     (''non-winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (Low)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: non-winter months
+    season_label: non-winter months
+    season: low
     locator: xlsx:Network tariffs!D101
     quote: 5pm-9pm every day during non-winter months
   tariffs:
@@ -4088,14 +4129,14 @@ tou_schedules:
   quote: 9pm-9am every day
   note: 'Charge applicability column header (row 96): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: '21:00'
     end: '24:00'
     locator: xlsx:Network tariffs!D102
     quote: 9pm-9am every day
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: 00:00
@@ -4162,13 +4203,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 108): ''Charge applicability (times in AEST)''. The document names the season
     (''winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (High)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: winter months
+    season_label: winter months
+    season: high
     locator: xlsx:Network tariffs!D112
     quote: 5pm-9pm every day during winter months
   tariffs:
@@ -4191,13 +4233,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 108): ''Charge applicability (times in AEST)''. The document names the season
     (''non-winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (Low)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: non-winter months
+    season_label: non-winter months
+    season: low
     locator: xlsx:Network tariffs!D113
     quote: 5pm-9pm every day during non-winter months
   tariffs:
@@ -4219,14 +4262,14 @@ tou_schedules:
   quote: 9pm-9am every day
   note: 'Charge applicability column header (row 108): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: '21:00'
     end: '24:00'
     locator: xlsx:Network tariffs!D114
     quote: 9pm-9am every day
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: 00:00
@@ -4292,7 +4335,7 @@ tou_schedules:
   quote: 5pm-8pm every day
   note: 'Charge applicability column header (row 120): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: all_days
     start: '17:00'
@@ -4318,7 +4361,7 @@ tou_schedules:
   quote: 5pm-8pm every day
   note: 'Charge applicability column header (row 129): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: all_days
     start: '17:00'
@@ -4570,7 +4613,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 218): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -4651,7 +4694,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 229): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -4732,7 +4775,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 240): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -4813,7 +4856,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 252): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -4894,7 +4937,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 264): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: weekday
     start: 07:00
@@ -4920,7 +4963,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 273): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: weekday
     start: 07:00
@@ -4947,13 +4990,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 282): ''Charge applicability (times in AEST)''. The document names the season
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D285
     quote: 5pm-8pm every day during summer and spring months
   tariffs:
@@ -4976,13 +5020,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 282): ''Charge applicability (times in AEST)''. The document names the season
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D286
     quote: 5pm-8pm every day during winter and autumn months
   tariffs:
@@ -5005,13 +5050,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 294): ''Charge applicability (times in AEST)''. The document names the season
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D297
     quote: 7am-5pm weekdays during summer and spring months
   tariffs:
@@ -5034,13 +5080,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 294): ''Charge applicability (times in AEST)''. The document names the season
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D298
     quote: 7am-5pm weekdays during winter and autumn months
   tariffs:
@@ -5064,13 +5111,14 @@ tou_schedules:
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded. The workbook lists a second tariff block with code 108 (''LV
     Stand-Alone Small Battery Network (residential area)'', row 302); its windows and rules are recorded separately.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D308
     quote: 5pm-8pm every day during summer and spring months
   tariffs:
@@ -5094,13 +5142,14 @@ tou_schedules:
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded. The workbook lists a second tariff block with code 108 (''LV
     Stand-Alone Small Battery Network (residential area)'', row 302); its windows and rules are recorded separately.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D309
     quote: 5pm-8pm every day during winter and autumn months
   tariffs:
@@ -5124,13 +5173,14 @@ tou_schedules:
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded. The workbook lists a second tariff block with code 109 (''LV
     Stand-Alone Small Battery Network (commercial area)'', row 314); its windows and rules are recorded separately.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D320
     quote: 7am-5pm weekdays during summer and spring months
   tariffs:
@@ -5154,13 +5204,14 @@ tou_schedules:
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded. The workbook lists a second tariff block with code 109 (''LV
     Stand-Alone Small Battery Network (commercial area)'', row 314); its windows and rules are recorded separately.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D321
     quote: 7am-5pm weekdays during winter and autumn months
   tariffs:
@@ -5182,7 +5233,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 353): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -5263,7 +5314,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 365): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -5344,7 +5395,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 377): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -5426,13 +5477,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 389): ''Charge applicability (times in AEST)''. The document names the season
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D392
     quote: 5pm-8pm every day during summer and spring months
   tariffs:
@@ -5455,13 +5507,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 389): ''Charge applicability (times in AEST)''. The document names the season
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D393
     quote: 5pm-8pm every day during winter and autumn months
   tariffs:
@@ -5484,13 +5537,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 401): ''Charge applicability (times in AEST)''. The document names the season
     (''spring and summer months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: spring and summer months
+    season_label: spring and summer months
+    season: high
     locator: xlsx:Network tariffs!D404
     quote: 7am-5pm weekdays during spring and summer months
   tariffs:
@@ -5513,13 +5567,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 401): ''Charge applicability (times in AEST)''. The document names the season
     (''autumn and winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: autumn and winter months
+    season_label: autumn and winter months
+    season: low
     locator: xlsx:Network tariffs!D405
     quote: 7am-5pm weekdays during autumn and winter months
   tariffs:
@@ -5800,13 +5855,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 96): ''Charge applicability (times in AEST)''. The document names the season
     (''winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (High)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: winter months
+    season_label: winter months
+    season: high
     locator: xlsx:Network tariffs!D100
     quote: 5pm-9pm every day during winter months
   tariffs:
@@ -5829,13 +5885,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 96): ''Charge applicability (times in AEST)''. The document names the season
     (''non-winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (Low)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: non-winter months
+    season_label: non-winter months
+    season: low
     locator: xlsx:Network tariffs!D101
     quote: 5pm-9pm every day during non-winter months
   tariffs:
@@ -5857,14 +5914,14 @@ tou_schedules:
   quote: 9pm-9am every day
   note: 'Charge applicability column header (row 96): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: '21:00'
     end: '24:00'
     locator: xlsx:Network tariffs!D102
     quote: 9pm-9am every day
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: 00:00
@@ -5931,13 +5988,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 108): ''Charge applicability (times in AEST)''. The document names the season
     (''winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (High)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: winter months
+    season_label: winter months
+    season: high
     locator: xlsx:Network tariffs!D112
     quote: 5pm-9pm every day during winter months
   tariffs:
@@ -5960,13 +6018,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 108): ''Charge applicability (times in AEST)''. The document names the season
     (''non-winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kW Demand (Low)
     days: all_days
     start: '17:00'
     end: '21:00'
     months: not_stated
-    season: non-winter months
+    season_label: non-winter months
+    season: low
     locator: xlsx:Network tariffs!D113
     quote: 5pm-9pm every day during non-winter months
   tariffs:
@@ -5988,14 +6047,14 @@ tou_schedules:
   quote: 9pm-9am every day
   note: 'Charge applicability column header (row 108): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: '21:00'
     end: '24:00'
     locator: xlsx:Network tariffs!D114
     quote: 9pm-9am every day
-  - period: demand_window
+  - period: off_peak
     label: Off-peak kW Demand
     days: all_days
     start: 00:00
@@ -6061,7 +6120,7 @@ tou_schedules:
   quote: 5pm-8pm every day
   note: 'Charge applicability column header (row 120): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: all_days
     start: '17:00'
@@ -6087,7 +6146,7 @@ tou_schedules:
   quote: 5pm-8pm every day
   note: 'Charge applicability column header (row 129): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: all_days
     start: '17:00'
@@ -6339,7 +6398,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 218): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -6420,7 +6479,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 229): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -6501,7 +6560,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 240): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -6582,7 +6641,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 252): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -6663,7 +6722,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 264): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: weekday
     start: 07:00
@@ -6689,7 +6748,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 273): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kW Demand
     days: weekday
     start: 07:00
@@ -6716,13 +6775,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 282): ''Charge applicability (times in AEST)''. The document names the season
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D285
     quote: 5pm-8pm every day during summer and spring months
   tariffs:
@@ -6745,13 +6805,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 282): ''Charge applicability (times in AEST)''. The document names the season
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D286
     quote: 5pm-8pm every day during winter and autumn months
   tariffs:
@@ -6774,13 +6835,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 294): ''Charge applicability (times in AEST)''. The document names the season
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D297
     quote: 7am-5pm weekdays during summer and spring months
   tariffs:
@@ -6803,13 +6865,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 294): ''Charge applicability (times in AEST)''. The document names the season
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D298
     quote: 7am-5pm weekdays during winter and autumn months
   tariffs:
@@ -6833,13 +6896,14 @@ tou_schedules:
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded. The workbook lists a second tariff block with code 108 (''LV
     Stand-Alone Small Battery Network (residential area)'', row 302); its windows and rules are recorded separately.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D308
     quote: 5pm-8pm every day during summer and spring months
   tariffs:
@@ -6863,13 +6927,14 @@ tou_schedules:
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded. The workbook lists a second tariff block with code 108 (''LV
     Stand-Alone Small Battery Network (residential area)'', row 302); its windows and rules are recorded separately.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D309
     quote: 5pm-8pm every day during winter and autumn months
   tariffs:
@@ -6893,13 +6958,14 @@ tou_schedules:
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded. The workbook lists a second tariff block with code 109 (''LV
     Stand-Alone Small Battery Network (commercial area)'', row 314); its windows and rules are recorded separately.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D320
     quote: 7am-5pm weekdays during summer and spring months
   tariffs:
@@ -6923,13 +6989,14 @@ tou_schedules:
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded. The workbook lists a second tariff block with code 109 (''LV
     Stand-Alone Small Battery Network (commercial area)'', row 314); its windows and rules are recorded separately.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D321
     quote: 7am-5pm weekdays during winter and autumn months
   tariffs:
@@ -6951,7 +7018,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 353): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -7032,7 +7099,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 365): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -7113,7 +7180,7 @@ tou_schedules:
   quote: 7am-5pm weekdays
   note: 'Charge applicability column header (row 377): ''Charge applicability (times in AEST)''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Peak kVA Demand
     days: weekday
     start: 07:00
@@ -7195,13 +7262,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 389): ''Charge applicability (times in AEST)''. The document names the season
     (''summer and spring months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: summer and spring months
+    season_label: summer and spring months
+    season: high
     locator: xlsx:Network tariffs!D392
     quote: 5pm-8pm every day during summer and spring months
   tariffs:
@@ -7224,13 +7292,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 389): ''Charge applicability (times in AEST)''. The document names the season
     (''winter and autumn months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: all_days
     start: '17:00'
     end: '20:00'
     months: not_stated
-    season: winter and autumn months
+    season_label: winter and autumn months
+    season: low
     locator: xlsx:Network tariffs!D393
     quote: 5pm-8pm every day during winter and autumn months
   tariffs:
@@ -7253,13 +7322,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 401): ''Charge applicability (times in AEST)''. The document names the season
     (''spring and summer months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (High)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: spring and summer months
+    season_label: spring and summer months
+    season: high
     locator: xlsx:Network tariffs!D404
     quote: 7am-5pm weekdays during spring and summer months
   tariffs:
@@ -7282,13 +7352,14 @@ tou_schedules:
   note: 'Charge applicability column header (row 401): ''Charge applicability (times in AEST)''. The document names the season
     (''autumn and winter months'') but does not list its months; its months are not stated, so none are recorded.'
   windows:
-  - period: demand_window
+  - period: peak
     label: Seasonal kVA Demand (Low)
     days: weekday
     start: 07:00
     end: '17:00'
     months: not_stated
-    season: autumn and winter months
+    season_label: autumn and winter months
+    season: low
     locator: xlsx:Network tariffs!D405
     quote: 7am-5pm weekdays during autumn and winter months
   tariffs:
@@ -7299,6 +7370,291 @@ tou_schedules:
     quote: '124'
     note: B398 ('124') heads the tariff block for 'HV large-scale battery tariff (commercial area)' (C398); the block's Seasonal
       kVA Demand (Low) row (D405) holds these windows.
+- id: evo-2024-25-060-off-peak-energy
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  name: Off-Peak (1) Night Network off-peak energy charge times
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p8
+  quote: Off-peak 6 to 8 hours between 10pm-7am every day
+  note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The Off-peak energy charge row states
+    when the charge applies (''Off-peak 6 to 8 hours between 10pm-7am every day''); these are the times of the evo-2024-25-060-controlled-load
+    supply windows, stored here as the off_peak period the rate is priced in. The hours of supply within them are as the cell
+    states.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p8
+    quote: Off-peak 6 to 8 hours between 10pm-7am every day
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p8
+    quote: Off-peak 6 to 8 hours between 10pm-7am every day
+  tariffs:
+  - codes:
+    - '060'
+    applies_to: usage
+    locator: pdf:p8
+    quote: 060 Off-Peak (1) Night Network
+    note: The heading of the tariff block on p8; the block's Off-peak row (p8) holds these windows; the tariff's Off-peak
+      rate loads with register general (the usage charge group), so the windows apply to usage.
+- id: evo-2024-25-070-off-peak-energy
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  name: Off-Peak (3) Day & Night Network off-peak energy charge times
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p8
+  quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm Off-peak c/kWh 2.885 2.885 every day
+  note: 'Column header on each tariff table: ''Charge applicability (times in AEST)''. The Off-peak energy charge row states
+    when the charge applies (''8 hours between 10pm-7am and 5 hours between 9am-5pm Off-peak c/kWh 2.885 2.885 every day'');
+    these are the times of the evo-2024-25-070-controlled-load supply windows, stored here as the off_peak period the rate
+    is priced in. The hours of supply within them are as the cell states.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p8
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm Off-peak c/kWh 2.885 2.885 every day
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p8
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm Off-peak c/kWh 2.885 2.885 every day
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p8
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm Off-peak c/kWh 2.885 2.885 every day
+  tariffs:
+  - codes:
+    - '070'
+    applies_to: usage
+    locator: pdf:p8
+    quote: 070 Off-Peak (3) Day & Night Network
+    note: The heading of the tariff block on p8; the block's Off-peak row (p8) holds these windows; the tariff's Off-peak
+      rate loads with register general (the usage charge group), so the windows apply to usage.
+- id: evo-2025-26-soc-incl-lfit-060-off-peak-energy
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  name: Off-Peak (1) Night Network off-peak energy charge times
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: xlsx:Network tariffs!D157
+  quote: 6 to 8 hours between 10pm-7am every day
+  note: 'Charge applicability column header (row 156): ''Charge applicability (times in AEST)''. The Off-peak energy charge
+    row states when the charge applies (''6 to 8 hours between 10pm-7am every day''); these are the times of the evo-2025-26-soc-incl-lfit-060-controlled-load
+    supply windows, stored here as the off_peak period the rate is priced in. The hours of supply within them are as the cell
+    states.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: xlsx:Network tariffs!D157
+    quote: 6 to 8 hours between 10pm-7am every day
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: xlsx:Network tariffs!D157
+    quote: 6 to 8 hours between 10pm-7am every day
+  tariffs:
+  - codes:
+    - '060'
+    applies_to: usage
+    locator: xlsx:Network tariffs!B153
+    quote: '060'
+    note: B153 ('060') heads the tariff block for 'Off-Peak (1) Night Network' (C153); the block's Off-peak row (Network tariffs!D157)
+      holds these windows; the tariff's Off-peak rate loads with register general (the usage charge group), so the windows
+      apply to usage.
+- id: evo-2025-26-soc-incl-lfit-070-off-peak-energy
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  name: Off-Peak (3) Day & Night Network off-peak energy charge times
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: xlsx:Network tariffs!D164
+  quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm every day
+  note: 'Charge applicability column header (row 163): ''Charge applicability (times in AEST)''. The Off-peak energy charge
+    row states when the charge applies (''8 hours between 10pm-7am and 5 hours between 9am-5pm every day''); these are the
+    times of the evo-2025-26-soc-incl-lfit-070-controlled-load supply windows, stored here as the off_peak period the rate
+    is priced in. The hours of supply within them are as the cell states.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: xlsx:Network tariffs!D164
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm every day
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: xlsx:Network tariffs!D164
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm every day
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: xlsx:Network tariffs!D164
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm every day
+  tariffs:
+  - codes:
+    - '070'
+    applies_to: usage
+    locator: xlsx:Network tariffs!B160
+    quote: '070'
+    note: B160 ('070') heads the tariff block for 'Off-Peak (3) Day & Night Network' (C160); the block's Off-peak row (Network
+      tariffs!D164) holds these windows; the tariff's Off-peak rate loads with register general (the usage charge group),
+      so the windows apply to usage.
+- id: evo-2026-27-soc-incl-lfit-060-off-peak-energy
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  name: Off-Peak (1) Night Network off-peak energy charge times
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: xlsx:Network tariffs!D157
+  quote: 6 to 8 hours between 10pm-7am every day
+  note: 'Charge applicability column header (row 156): ''Charge applicability (times in AEST)''. The Off-peak energy charge
+    row states when the charge applies (''6 to 8 hours between 10pm-7am every day''); these are the times of the evo-2026-27-soc-incl-lfit-060-controlled-load
+    supply windows, stored here as the off_peak period the rate is priced in. The hours of supply within them are as the cell
+    states.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: xlsx:Network tariffs!D157
+    quote: 6 to 8 hours between 10pm-7am every day
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: xlsx:Network tariffs!D157
+    quote: 6 to 8 hours between 10pm-7am every day
+  tariffs:
+  - codes:
+    - '060'
+    applies_to: usage
+    locator: xlsx:Network tariffs!B153
+    quote: '060'
+    note: B153 ('060') heads the tariff block for 'Off-Peak (1) Night Network' (C153); the block's Off-peak row (Network tariffs!D157)
+      holds these windows; the tariff's Off-peak rate loads with register general (the usage charge group), so the windows
+      apply to usage.
+- id: evo-2026-27-soc-incl-lfit-070-off-peak-energy
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  name: Off-Peak (3) Day & Night Network off-peak energy charge times
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: xlsx:Network tariffs!D164
+  quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm every day
+  note: 'Charge applicability column header (row 163): ''Charge applicability (times in AEST)''. The Off-peak energy charge
+    row states when the charge applies (''8 hours between 10pm-7am and 5 hours between 9am-5pm every day''); these are the
+    times of the evo-2026-27-soc-incl-lfit-070-controlled-load supply windows, stored here as the off_peak period the rate
+    is priced in. The hours of supply within them are as the cell states.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: xlsx:Network tariffs!D164
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm every day
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: xlsx:Network tariffs!D164
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm every day
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: xlsx:Network tariffs!D164
+    quote: 8 hours between 10pm-7am and 5 hours between 9am-5pm every day
+  tariffs:
+  - codes:
+    - '070'
+    applies_to: usage
+    locator: xlsx:Network tariffs!B160
+    quote: '070'
+    note: B160 ('070') heads the tariff block for 'Off-Peak (3) Day & Night Network' (C160); the block's Off-peak row (Network
+      tariffs!D164) holds these windows; the tariff's Off-peak rate loads with register general (the usage charge group),
+      so the windows apply to usage.
+- id: evo-2026-27-soc-incl-lfit-065-off-peak-energy
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  name: Flexible Controlled Load off-peak energy charge times
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: xlsx:Network tariffs!D171
+  quote: Any duration between 10pm-7am and 9am-5pm every day
+  note: 'Charge applicability column header (row 170): ''Charge applicability (times in AEST)''. The Off-peak energy charge
+    row states when the charge applies (''Any duration between 10pm-7am and 9am-5pm every day''); these are the times of the
+    evo-2026-27-soc-incl-lfit-065-controlled-load supply windows, stored here as the off_peak period the rate is priced in.
+    The hours of supply within them are as the cell states.'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: xlsx:Network tariffs!D171
+    quote: Any duration between 10pm-7am and 9am-5pm every day
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: xlsx:Network tariffs!D171
+    quote: Any duration between 10pm-7am and 9am-5pm every day
+  - period: off_peak
+    label: Off-peak
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: xlsx:Network tariffs!D171
+    quote: Any duration between 10pm-7am and 9am-5pm every day
+  tariffs:
+  - codes:
+    - '065'
+    applies_to: usage
+    locator: xlsx:Network tariffs!B167
+    quote: '065'
+    note: B167 ('065') heads the tariff block for 'Flexible Controlled Load' (C167); the block's Off-peak row (Network tariffs!D171)
+      holds these windows; the tariff's Off-peak rate loads with register controlled_load and falls back to usage windows;
+      applies_to controlled_load would overlap the tariff's controlled_load_supply windows of the same times.
 eligibility:
 - codes:
   - '010'
@@ -12110,3 +12466,1161 @@ steps:
   upper_inclusive: false
   quantity_unit: kWh
   reset_period: day
+rate_periods:
+- codes:
+  - '027'
+  - '028'
+  doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
+  fin_year: 2023-24
+  component: 'Export Threshold Charge : high season'
+  tou_period: solar_soak
+  locator: pdf:p10
+  quote: 3.75 kWh during any one-hour period between 11am – 3pm
+  note: Table 2.1 row 'Residential battery (027)' (p10); text interleaved with the neighbouring column reads 'The seasonal
+    export charge is levied on exports in excess of 3.75 kWh during any one-hour period between 11am – 3pm (AEST) every
+    day. The export charge varies according to seasons.' The window is evo-2023-24-027-export-window (period solar_soak);
+    Table 2.6 (p23) prices 028 with the same 'Export Threshold Charge' rows as 027.
+- codes:
+  - '027'
+  - '028'
+  doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
+  fin_year: 2023-24
+  component: 'Export Threshold Charge : low season'
+  tou_period: solar_soak
+  locator: pdf:p10
+  quote: 3.75 kWh during any one-hour period between 11am – 3pm
+  note: Table 2.1 row 'Residential battery (027)' (p10); text interleaved with the neighbouring column reads 'The seasonal
+    export charge is levied on exports in excess of 3.75 kWh during any one-hour period between 11am – 3pm (AEST) every
+    day. The export charge varies according to seasons.' The window is evo-2023-24-027-export-window (period solar_soak);
+    Table 2.6 (p23) prices 028 with the same 'Export Threshold Charge' rows as 027.
+charge_rules:
+- codes: all
+  doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p6
+  quote: Maximum demand charges—these are a charge per unit of maximum demand (in c/kVA/day or c/kW/day11). The maximum demand
+    is the highest demand calculated coincident over a 30-minute clocked interval, starting on the full or half hour, during
+    the specified peak time within a billing period (generally per calendar month).
+  note: 'Section 2 definition of the maximum demand charging parameter, for every tariff''s maximum demand charge; this rule
+    covers the demand rates priced per kW (c/kW/day). ''11'' is a footnote marker. The tariff tables restate it per tariff
+    (e.g. p9 for 025: ''within the billing period (a calendar month)''). The capacity charge (''the previous 13 months inclusive
+    of the current billing month'', same page) has its own rule.'
+- codes: all
+  doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p6
+  quote: Maximum demand charges—these are a charge per unit of maximum demand (in c/kVA/day or c/kW/day11). The maximum demand
+    is the highest demand calculated coincident over a 30-minute clocked interval, starting on the full or half hour, during
+    the specified peak time within a billing period (generally per calendar month).
+  note: 'Section 2 definition of the maximum demand charging parameter, for every tariff''s maximum demand charge; this rule
+    covers the demand rates priced per kVA (c/kVA/day). ''11'' is a footnote marker. The tariff tables restate it per tariff
+    (e.g. p9 for 025: ''within the billing period (a calendar month)''). The capacity charge (''the previous 13 months inclusive
+    of the current billing month'', same page) has its own rule.'
+- codes:
+  - '023'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p6
+  quote: Highest demand in a clocked 30-minute interval, starting on c/kW/day 18.525 18.525 (High) full or half hour, within
+    bill period
+  note: 'Demand row of the ''023 New Residential Demand Network'' table (Charge applicability column, times in AEST): ''Highest
+    demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds for every c/kW/day
+    demand row of the tariff.'
+- codes:
+  - '024'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p7
+  quote: Highest demand in a clocked 30-minute interval, starting on c/kW/day 18.525 18.525 (High) full or half hour, within
+    bill period
+  note: 'Demand row of the ''024 New Residential Demand Network XMC*'' table (Charge applicability column, times in AEST):
+    ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds for every
+    c/kW/day demand row of the tariff.'
+- codes:
+  - '025'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p7
+  quote: Peak kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 15.881 15.881 full or half hour,
+    within bill period
+  note: 'Demand row of the ''025 Residential Demand Network (closed)'' table (Charge applicability column, times in AEST):
+    ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds for every
+    c/kW/day demand row of the tariff.'
+- codes:
+  - '026'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p7
+  quote: Peak kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 15.881 15.881 full or half hour,
+    within bill period
+  note: 'Demand row of the ''026 Residential Demand Network (closed) XMC*'' table (Charge applicability column, times in AEST):
+    ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds for every
+    c/kW/day demand row of the tariff.'
+- codes:
+  - '101'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p10
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 37.118 37.118 full or half
+    hour, within bill period
+  note: 'Demand row of the ''101 LV TOU kVA Demand Network'' table (Charge applicability column, times in AEST): ''Highest
+    demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds for every c/kVA/day
+    demand row of the tariff.'
+- codes:
+  - '104'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p10
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 37.118 37.118 full or half
+    hour, within bill period
+  note: 'Demand row of the ''104 LV TOU kVA Demand Network XMC*'' table (Charge applicability column, times in AEST): ''Highest
+    demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds for every c/kVA/day
+    demand row of the tariff.'
+- codes:
+  - '103'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p11
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 17.975 17.975 full or half
+    hour, within bill period
+  note: 'Demand row of the ''103 LV TOU Capacity Network'' table (Charge applicability column, times in AEST): ''Highest demand
+    in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds for every c/kVA/day demand
+    row of the tariff.'
+- codes:
+  - '105'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p11
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 17.975 17.975 full or half
+    hour, within bill period
+  note: 'Demand row of the ''105 LV TOU Capacity Network XMC*'' table (Charge applicability column, times in AEST): ''Highest
+    demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds for every c/kVA/day
+    demand row of the tariff.'
+- codes:
+  - '106'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p12
+  quote: Peak kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 36.450 36.450 full or half hour,
+    within bill period
+  note: 'Demand row of the ''106 LV Demand Network'' table (Charge applicability column, times in AEST): ''Highest demand
+    in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds for every c/kW/day demand
+    row of the tariff.'
+- codes:
+  - '107'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p12
+  quote: Peak kW Demand Highest demand in a clocked 30-minute interval, starting on c/kW/day 36.450 36.450 full or half hour,
+    within bill period
+  note: 'Demand row of the ''107 LV Demand Network XMC*'' table (Charge applicability column, times in AEST): ''Highest demand
+    in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds for every c/kW/day demand
+    row of the tariff.'
+- codes:
+  - '108'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p12
+  quote: Highest demand in a clocked 30-minute interval, starting on c/kVA/day 33.845 33.845 (High) full or half hour, within
+    bill period
+  note: 'Demand row of the ''108 LV large-scale battery tariff (residential area)'' table (Charge applicability column, times
+    in AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds
+    for every c/kVA/day demand row of the tariff.'
+- codes:
+  - '109'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p13
+  quote: Highest demand in a clocked 30-minute interval, starting on c/kVA/day 19.231 19.231 (High) full or half hour, within
+    bill period
+  note: 'Demand row of the ''109 LV large-scale battery tariff (commercial area)'' table (Charge applicability column, times
+    in AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds
+    for every c/kVA/day demand row of the tariff.'
+- codes:
+  - '111'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p15
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 17.554 17.554 full or half
+    hour, within bill period
+  note: 'Demand row of the ''111 HV TOU Demand Network (closed)'' table (Charge applicability column, times in AEST): ''Highest
+    demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds for every c/kVA/day
+    demand row of the tariff.'
+- codes:
+  - '121'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p15
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 17.554 17.554 full or half
+    hour, within bill period
+  note: 'Demand row of the ''121 HV TOU Demand Network – Customer LV (closed)'' table (Charge applicability column, times
+    in AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds
+    for every c/kVA/day demand row of the tariff.'
+- codes:
+  - '122'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p16
+  quote: Peak kVA Demand Highest demand in a clocked 30-minute interval, starting on c/kVA/day 15.917 15.917 full or half
+    hour, within bill period
+  note: 'Demand row of the ''122 HV TOU Demand Network – Customer HV and LV'' table (Charge applicability column, times in
+    AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds
+    for every c/kVA/day demand row of the tariff.'
+- codes:
+  - '123'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p16
+  quote: Highest demand in a clocked 30-minute interval, starting on c/kVA/day 23.170 23.170 (High) full or half hour, within
+    bill period
+  note: 'Demand row of the ''123 HV large-scale battery tariff (residential area)'' table (Charge applicability column, times
+    in AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds
+    for every c/kVA/day demand row of the tariff.'
+- codes:
+  - '124'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p17
+  quote: Highest demand in a clocked 30-minute interval, starting on c/kVA/day 15.361 15.361 (High) full or half hour, within
+    bill period
+  note: 'Demand row of the ''124 HV large-scale battery tariff (commercial area)'' table (Charge applicability column, times
+    in AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period''; it holds
+    for every c/kVA/day demand row of the tariff.'
+- codes:
+  - '023'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D100
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kW Demand (High)' row (c/kW/day) in the block headed B93 '023'
+    (New Residential Demand Network); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '024'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D112
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kW Demand (High)' row (c/kW/day) in the block headed B105 '024'
+    (New Residential Demand Network XMC*); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '025'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D123
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kW Demand' row (c/kW/day) in the block headed B117 '025' (Residential
+    Demand Network (closed)); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '026'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D132
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kW Demand' row (c/kW/day) in the block headed B126 '026' (Residential
+    Demand Network (closed) XMC*); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '101'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D213
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B208 '101' (LV TOU
+    kVA Demand Network); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '104'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D224
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B219 '104' (LV TOU
+    kVA Demand Network XMC*); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '103'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D235
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B230 '103' (LV TOU
+    Capacity Network); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '105'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D247
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B242 '105' (LV TOU
+    Capacity Network XMC*); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '106'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D260
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kW Demand' row (c/kW/day) in the block headed B254 '106' (LV Demand
+    Network); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '107'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D269
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kW Demand' row (c/kW/day) in the block headed B263 '107' (LV Demand
+    Network XMC*); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '108'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D278
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kVA Demand (High)' row (c/kVA/day) in the block headed B272
+    '108' (LV large-scale battery tariff (residential area)); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '109'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D290
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kVA Demand (High)' row (c/kVA/day) in the block headed B284
+    '109' (LV large-scale battery tariff (commercial area)); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '111'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D325
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B320 '111' (HV TOU
+    Demand Network (closed)); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '121'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D337
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B332 '121' (HV TOU
+    Demand Network – Customer LV (closed)); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '122'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D349
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B344 '122' (HV TOU
+    Demand Network – Customer HV and LV); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '123'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D362
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kVA Demand (High)' row (c/kVA/day) in the block headed B356
+    '123' (HV large-scale battery tariff (residential area)); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '124'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D374
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kVA Demand (High)' row (c/kVA/day) in the block headed B368
+    '124' (HV large-scale battery tariff (commercial area)); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '023'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D100
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kW Demand (High)' row (c/kW/day) in the block headed B93 '023'
+    (New Residential Demand Network); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '024'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D112
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kW Demand (High)' row (c/kW/day) in the block headed B105 '024'
+    (New Residential Demand Network XMC*); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '025'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D123
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kW Demand' row (c/kW/day) in the block headed B117 '025' (Residential
+    Demand Network (closed)); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '026'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D132
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kW Demand' row (c/kW/day) in the block headed B126 '026' (Residential
+    Demand Network (closed) XMC*); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '101'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D220
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B215 '101' (LV TOU
+    kVA Demand Network); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '104'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D231
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B226 '104' (LV TOU
+    kVA Demand Network XMC*); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '103'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D242
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B237 '103' (LV TOU
+    Capacity Network); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '105'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D254
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B249 '105' (LV TOU
+    Capacity Network XMC*); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '106'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D267
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kW Demand' row (c/kW/day) in the block headed B261 '106' (LV Demand
+    Network); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '107'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D276
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kW Demand' row (c/kW/day) in the block headed B270 '107' (LV Demand
+    Network XMC*); it holds for every c/kW/day demand row of the tariff.
+- codes:
+  - '108'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D285
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kVA Demand (High)' row (c/kVA/day) in the block headed B279
+    '108' (LV large-scale battery tariff (residential area)); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '109'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D297
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kVA Demand (High)' row (c/kVA/day) in the block headed B291
+    '109' (LV large-scale battery tariff (commercial area)); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '111'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D355
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B350 '111' (HV TOU
+    Demand Network (closed)); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '121'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D367
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B362 '121' (HV TOU
+    Demand Network – Customer LV (closed)); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '122'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D379
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Peak kVA Demand' row (c/kVA/day) in the block headed B374 '122' (HV TOU
+    Demand Network – Customer HV and LV); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '123'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D392
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kVA Demand (High)' row (c/kVA/day) in the block headed B386
+    '123' (HV large-scale battery tariff (residential area)); it holds for every c/kVA/day demand row of the tariff.
+- codes:
+  - '124'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: xlsx:Network tariffs!D404
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within bill period
+  note: Charge applicability (times in AEST) of the 'Seasonal kVA Demand (High)' row (c/kVA/day) in the block headed B398
+    '124' (HV large-scale battery tariff (commercial area)); it holds for every c/kVA/day demand row of the tariff.
+- codes: all
+  doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
+  fin_year: 2023-24
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p6
+  quote: Capacity charges—these are a charge per unit of maximum demand (in c/kVA/day). The maximum demand is the highest
+    demand recorded over a 30-minute clocked interval during the previous 13 months inclusive of the current billing month.
+  note: 'Section 2 definition of the capacity charging parameter, for every tariff''s capacity charge; the tariff tables restate
+    it per tariff (e.g. p14 for 103: ''The capacity charge is based on a customer''s maximum half hourly demand over the previous
+    13 months inclusive of the current billing month'').'
+- codes:
+  - '103'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p11
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 17.975 17.975 period
+  note: 'Capacity row of the ''103 LV TOU Capacity Network'' table (Charge applicability column, times in AEST): ''Highest
+    demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including current bill
+    period''; the text layer runs the row label and unit into the cell text.'
+- codes:
+  - '105'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p11
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 17.975 17.975 period
+  note: 'Capacity row of the ''105 LV TOU Capacity Network XMC*'' table (Charge applicability column, times in AEST): ''Highest
+    demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including current bill
+    period''; the text layer runs the row label and unit into the cell text.'
+- codes:
+  - '108'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p12
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 3.207 3.207 period
+  note: 'Capacity row of the ''108 LV large-scale battery tariff (residential area)'' table (Charge applicability column,
+    times in AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period,
+    including current bill period''; the text layer runs the row label and unit into the cell text.'
+- codes:
+  - '109'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p13
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 21.132 21.132 period
+  note: 'Capacity row of the ''109 LV large-scale battery tariff (commercial area)'' table (Charge applicability column, times
+    in AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period''; the text layer runs the row label and unit into the cell text.'
+- codes:
+  - '111'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p15
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 17.554 17.554 period
+  note: 'Capacity row of the ''111 HV TOU Demand Network (closed)'' table (Charge applicability column, times in AEST): ''Highest
+    demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including current bill
+    period''; the text layer runs the row label and unit into the cell text.'
+- codes:
+  - '121'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p15
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 17.554 17.554 period
+  note: 'Capacity row of the ''121 HV TOU Demand Network – Customer LV (closed)'' table (Charge applicability column, times
+    in AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period''; the text layer runs the row label and unit into the cell text.'
+- codes:
+  - '122'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p16
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 15.917 15.917 period
+  note: 'Capacity row of the ''122 HV TOU Demand Network – Customer HV and LV'' table (Charge applicability column, times
+    in AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period''; the text layer runs the row label and unit into the cell text.'
+- codes:
+  - '123'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p16
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 3.234 3.234 period
+  note: 'Capacity row of the ''123 HV large-scale battery tariff (residential area)'' table (Charge applicability column,
+    times in AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period,
+    including current bill period''; the text layer runs the row label and unit into the cell text.'
+- codes:
+  - '124'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2024-25_LFiT_adjusted.pdf
+  fin_year: 2024-25
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p17
+  quote: Highest demand in a clocked 30-minute interval, starting on Capacity full or half hour, within 13 month period, including
+    current bill c/kVA/day 10.851 10.851 period
+  note: 'Capacity row of the ''124 HV large-scale battery tariff (commercial area)'' table (Charge applicability column, times
+    in AEST): ''Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period''; the text layer runs the row label and unit into the cell text.'
+- codes:
+  - '103'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D236
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B230 '103' (LV TOU Capacity
+    Network).
+- codes:
+  - '105'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D248
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B242 '105' (LV TOU Capacity
+    Network XMC*).
+- codes:
+  - '108'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D276
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B272 '108' (LV large-scale
+    battery tariff (residential area)).
+- codes:
+  - '109'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D288
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B284 '109' (LV large-scale
+    battery tariff (commercial area)).
+- codes:
+  - '111'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D326
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B320 '111' (HV TOU Demand
+    Network (closed)).
+- codes:
+  - '121'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D338
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B332 '121' (HV TOU Demand
+    Network – Customer LV (closed)).
+- codes:
+  - '122'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D350
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B344 '122' (HV TOU Demand
+    Network – Customer HV and LV).
+- codes:
+  - '123'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D360
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B356 '123' (HV large-scale
+    battery tariff (residential area)).
+- codes:
+  - '124'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2025-26_incl_LFiT_May2025.xlsx
+  fin_year: 2025-26
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D372
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B368 '124' (HV large-scale
+    battery tariff (commercial area)).
+- codes:
+  - '103'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D243
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B237 '103' (LV TOU Capacity
+    Network).
+- codes:
+  - '105'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D255
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B249 '105' (LV TOU Capacity
+    Network XMC*).
+- codes:
+  - '108'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D283
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B279 '108' (LV large-scale
+    battery tariff (residential area)).
+- codes:
+  - '109'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D295
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B291 '109' (LV large-scale
+    battery tariff (commercial area)).
+- codes:
+  - '111'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D356
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B350 '111' (HV TOU Demand
+    Network (closed)).
+- codes:
+  - '121'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D368
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B362 '121' (HV TOU Demand
+    Network – Customer LV (closed)).
+- codes:
+  - '122'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D380
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B374 '122' (HV TOU Demand
+    Network – Customer HV and LV).
+- codes:
+  - '123'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D390
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B386 '123' (HV large-scale
+    battery tariff (residential area)).
+- codes:
+  - '124'
+  doc: sources/dnsp/evoenergy/Evoenergy_Schedule_of_Charges_2026-27_incl_LFiT_June2026.xlsx
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: xlsx:Network tariffs!D402
+  quote: Highest demand in a clocked 30-minute interval, starting on full or half hour, within 13 month period, including
+    current bill period
+  note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B398 '124' (HV large-scale
+    battery tariff (commercial area)).

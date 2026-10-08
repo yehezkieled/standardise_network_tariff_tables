@@ -25,8 +25,9 @@ flowchart LR
 > `validate.py --coverage` lists those gaps.
 >
 > The pricing years before 2023-24 (stored from 1 January 2017: 2016-17 / Victoria 2017 through 2022-23) carry rates
-> only: TOU windows and eligibility criteria start 2023-07-01, so `--coverage` counts every tariff of those years as a gap.
-> Back-filling them for 2017 to 2023 is planned follow-up work.
+> only: TOU windows, eligibility and the other billing rules start 2023-07-01, so `--coverage` counts every tariff of
+> those years as a gap. Back-filling them for 2017 to 2023 is planned follow-up work. `billcalc.py sweep` counts what
+> each gap blocks.
 
 ## Find and load new releases
 
@@ -152,6 +153,41 @@ A year whose documents print the price only as parts (DUOS / TUOS / jurisdiction
 The distributor's own list, or a state regulator's published schedule, is `final`; an AER-hosted proposal stands in
 (`provisional`) only for a year with neither.
 
+### Billing rules (curated)
+
+What a bill needs beyond the prices, each fact quoted from the distributor's documents (format: the docstring of
+`scripts/tariffdb/curated.py`). The tariff structure statement (TSS) and the network price guide state most of them;
+the AER file states none.
+
+| YAML section | Table | States |
+|---|---|---|
+| `tou_schedules` | `tou_window` | when each rate's period applies: `period` = the rate's `tou_period`; a seasonal window has `season` (the rate's) and `season_label` (as printed) |
+| `rate_periods` | `rate.tou_period`, `rate.season` | the period or season of a rate whose price list column names it differently (the rate's note records the change) |
+| `conditions` | `rate.condition` | a rate only some sites pay: `opt_in:<name>`, `meter_type:<type>`, `meter_class:<class>` (`a\|b` = either) |
+| `metering` | `rate` (`charge_type` metering) | a network-wide metering schedule row, applied to the codes (or `all`) the document says, with its condition |
+| `charge_rules` | `charge_rule` | how a demand, capacity or export quantity is measured: kW/kVA/kWh, interval, highest or mean of the n highest, reset, minimum, threshold, allowance (`codes: all` for a glossary definition) |
+
+`scripts/tariffdb/joins.py` says how a rate finds its windows: a usage rate with no period beside period-priced usage
+rates prices the rest of the time; event periods (critical peak...) need no window; the `joins` check fails on a rate
+whose period has no window or whose window is ambiguous.
+
+### Bill calculator
+
+`scripts/billcalc.py` bills interval data on the tables, says which facts it had to assume, and refuses (status
+`blocked`) where the tables cannot price a charge. Interval data: a CSV with the interval start in NEM time (UTC+10)
+and kWh columns `E1` (import), `E2` (controlled load), `B1` (export), `Q1` (kvarh, for kVA demand).
+
+| Do | Command |
+|---|---|
+| Bill | `.venv/bin/python scripts/billcalc.py bill sapn RTOU 2025-07-01 2025-09-30 data.csv --meter-type interval` |
+| Label every interval with its periods | `.venv/bin/python scripts/billcalc.py categorise sapn RTOU 2025-07-01 2025-07-31 data.csv` |
+| Compare tariffs | `.venv/bin/python scripts/billcalc.py compare sapn RSR,RTOU 2025-07-01 2026-06-30 data.csv` |
+| Gaps sweep | `.venv/bin/python scripts/billcalc.py sweep` (every tariff-period on a synthetic month; `--write` records the counts) |
+
+`tests/test_billcalc.py` bills the distributors' published example bills (within $0.50) and fails when the sweep's
+`blocked` or `assumed` counts rise above `tests/billcalc_sweep.json`. When curation lowers them, record them:
+`.venv/bin/python scripts/billcalc.py sweep --write`.
+
 ### Schema change
 
 | # | Step |
@@ -172,7 +208,7 @@ The distributor's own list, or a state regulator's published schedule, is `final
 | Build SQLite | `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` |
 | Release (SQLite + CSV zip + notes) | `.venv/bin/python scripts/release.py` (writes `out/release/<tag>/`; `--publish` fetches origin and creates the GitHub release; `--ref` another commit; `--tag tariffdb-<date>.2` for a second release from a later commit on the same day) |
 | Schema docs | `.venv/bin/python scripts/tariffdb/schema_doc.py` (`--check` to verify) |
-| Tests | `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_release.py` |
+| Tests | `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_release.py tests/test_billcalc.py` |
 | New or changed source documents | `.venv/bin/python scripts/check_releases.py` (`--no-files`, `--archive`, `--accept`) |
 
 ## Checks
@@ -188,6 +224,8 @@ The distributor's own list, or a state regulator's published schedule, is `final
 | `magnitude` | no c/kWh rate outside `critical_peak` exceeds 200 c/kWh unless its note contains `confirmed high rate:` | a parser read a $/kWh cell as c/kWh, or a demand charge as usage; fix the parser (a real high price gets a parser note `confirmed high rate: ...` quoting its evidence) |
 | `blocks` | blocks number 1..n and their lower bounds rise | a block ladder in the curated `steps` that does not match the price list |
 | `tou` | windows of one tariff and period name never overlap on a day type and month | a mistyped window in the curated YAML |
+| `joins` | in a tariff-period with windows, each rate priced in a period or season finds its windows, and no demand or export rate without a period sits beside windows naming several | a window missing from the curated YAML, or a rate whose period the price list names differently: add the window or a `rate_periods` fact |
+| `rules` | each `charge_rule` measures a rate of its tariff-period, in the quantity the rate is priced in | a curated rule names the wrong charge type, period, season or measure |
 | `aliases` | no provisional tariff is a final tariff of the same distributor and period under another spelling or an alias | the AER spells a code differently: add a rule to `data/tariffdb/code_alias.csv` |
 | `files` | each held document matches its recorded SHA-256 (`--sources`) | the publisher replaced the file: record it as a new version |
 | `values` | each rate's published value is at its cell or PDF page (`--sources`) | the parser or locator is wrong for that row |
@@ -198,7 +236,7 @@ The distributor's own list, or a state regulator's published schedule, is `final
 - [ ] `.venv/bin/python scripts/tariffdb/build.py` (no error; read the "not loaded" count)
 - [ ] `.venv/bin/python scripts/tariffdb/validate.py --sources`: all `PASS`
 - [ ] `.venv/bin/python scripts/tariffdb/schema_doc.py`
-- [ ] `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_release.py tests/test_reconciliation.py tests/test_check_releases.py`: OK
+- [ ] `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_release.py tests/test_billcalc.py tests/test_reconciliation.py tests/test_check_releases.py`: OK
 - [ ] `git diff --stat data/tariffdb/tables/`: only the rows you expected changed
 
 ## Rules

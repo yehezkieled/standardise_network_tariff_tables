@@ -143,20 +143,22 @@ tou_schedules:
   quote: Demand NDD Opt-in workdays 10am- workdays 10am- 6pm 6pm
   note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row: summer and non-summer demand columns both read ''workdays 10am-6pm'' on the NDD row; the NDM row reads ''workdays 10am- workdays 10am- Mediumbusinessdemand NDM Default √ <120KVA 6pm 6pm''. Notes: ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (non-summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - NDD
@@ -280,7 +282,7 @@ tou_schedules:
     Each tariff link quotes the code''s row of Table 6 (an image; rendered-page OCR, p11), whose 12-month rolling demand column
     reads ''workdays 7am-7pm''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: rolling demand 7am-7pm workdays
     days: business_day
     start: 07:00
@@ -329,12 +331,13 @@ tou_schedules:
   quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
   note: 'Kva section: summer incentive is the ''maximum monthly 15-minute kVA for the December to March months'' measured on each workday. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: summer incentive 1-4pm
     days: business_day
     start: '13:00'
     end: '16:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
     locator: pdf:p13
     quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
@@ -358,12 +361,13 @@ tou_schedules:
   quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
   note: 'Kva section: summer incentive is the ''maximum monthly 15-minute kVA for the December to March months'' measured on each workday. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: summer incentive 4-7pm
     days: business_day
     start: '16:00'
     end: '19:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
     locator: pdf:p13
     quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
@@ -431,7 +435,7 @@ tou_schedules:
   note: Window depends on location (one of the two). The windows quote is a note under the heading 'Generator storage:' (p6);
     the tariff link quotes the Table 2 row (rendered-page OCR, same page) that gives that tariff the code GT.
   windows:
-  - period: demand_window
+  - period: peak
     label: over 4-9pm every day
     days: all_days
     start: '16:00'
@@ -454,7 +458,7 @@ tou_schedules:
   note: Window depends on location (one of the two). The windows quote is a note under the heading 'Generator storage:' (p6);
     the tariff link quotes the Table 2 row (rendered-page OCR, same page) that gives that tariff the code GT.
   windows:
-  - period: demand_window
+  - period: peak
     label: over 11am-4pm every day
     days: all_days
     start: '11:00'
@@ -506,20 +510,22 @@ tou_schedules:
   quote: Opt-in workdays 3pm- workdays 3pm- Demand DD 9pm 9pm
   note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row: summer and non-summer demand columns both read ''workdays 3pm-9pm'' on the DD row. Notes: ''All times are local time''; ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 3pm-9pm (summer)
     days: business_day
     start: '15:00'
     end: '21:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 3pm-9pm (non-summer)
     days: business_day
     start: '15:00'
     end: '21:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - DD
@@ -658,7 +664,7 @@ tou_schedules:
     Each tariff link quotes the code''s row of Table 6 (an image; rendered-page OCR, p8), whose 12-month rolling demand column
     reads ''workdays 7am-7pm''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: rolling demand 7am-7pm workdays
     days: business_day
     start: 07:00
@@ -707,12 +713,13 @@ tou_schedules:
   quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
   note: 'Kva section: summer incentive is the ''maximum monthly 15-minute kVA for the December to March months'' measured on each workday. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: summer incentive 1-4pm
     days: business_day
     start: '13:00'
     end: '16:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
     locator: pdf:p10
     quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
@@ -736,12 +743,13 @@ tou_schedules:
   quote: Tariffs ending with "1" represent 1-4pm, tariffs ending with "2" represent 4-7pm summer incentive demand period
   note: 'Kva section: summer incentive is the ''maximum monthly 15-minute kVA for the December to March months'' measured on each workday. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: summer incentive 4-7pm
     days: business_day
     start: '16:00'
     end: '19:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
     locator: pdf:p10
     quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
@@ -809,7 +817,7 @@ tou_schedules:
   note: 'Window depends on location (one of the two). The windows quote (B21) is a note under the heading ''Generator storage:
     '' (B17); the tariff link quotes C11, the code on row 11 whose name (B11) is ''Generator storage''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: over 4-9pm every day
     days: all_days
     start: '16:00'
@@ -832,7 +840,7 @@ tou_schedules:
   note: 'Window depends on location (one of the two). The windows quote (B21) is a note under the heading ''Generator storage:
     '' (B17); the tariff link quotes C11, the code on row 11 whose name (B11) is ''Generator storage''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: over 11am-4pm every day
     days: all_days
     start: '11:00'
@@ -884,20 +892,22 @@ tou_schedules:
   quote: DD Opt-in workdays 3pm- workdays 3pm- Demand 9pm 9pm
   note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image): summer and non-summer demand columns both read ''workdays 3pm-9pm'' on the DD row. Notes (p6): ''All times are local time''; ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 3pm-9pm (summer)
     days: business_day
     start: '15:00'
     end: '21:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 3pm-9pm (non-summer)
     days: business_day
     start: '15:00'
     end: '21:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - DD
@@ -948,20 +958,22 @@ tou_schedules:
   quote: Demand workdays 10am- Workdays 10am- NDD Opt-in 6pm 6pm
   note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image): summer and non-summer demand columns both read ''workdays 10am-6pm'' on the NDD row; the NDM row reads ''workdays 10am- Medium business demand Default Workdays 10am- NDM <120kVA 6pm 6pm''. Notes (p7): ''All times are local time, except for PL2''; ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (non-summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - NDD
@@ -1052,7 +1064,7 @@ tou_schedules:
   quote: PRCER BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh
   note: 'PRCER (Table 4) ''Saver energy export'' column (image; rendered-page OCR): ''all days 11am-4pm during Sep-May with 1 kWh per day BEL''; the 2026-27 Tariff Summary heads the column ''Saver Export Sep-May''.'
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: exports between 11:00am - 4:00pm (1 kWh/day basic export level free)
     days: all_days
     start: '11:00'
@@ -1131,7 +1143,7 @@ tou_schedules:
   quote: PFS BEL is the total kWh exempt from export charges are determined by multiplying 1 kWh per day by the number of days in the billing period. If exports between 11:00am – 4:00pm are less than 1 kWh
   note: 'PFS (Table 5) ''Saver energy export'' column (image; rendered-page OCR): ''all days 11am-4pm during Sep-May with 1 kWh per day BEL''; the 2026-27 Tariff Summary heads the column ''Saver Export Sep-May''.'
   windows:
-  - period: export_charge_window
+  - period: solar_soak
     label: exports between 11:00am - 4:00pm (1 kWh/day basic export level free)
     days: all_days
     start: '11:00'
@@ -1155,12 +1167,13 @@ tou_schedules:
   quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer incentive demand period and "3" represent 4-7pm winter incentive demand period
   note: 'Same page: ''Summer incentive demand period is December to March and winter incentive demand period is May to August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: 1-4pm summer incentive
     days: business_day
     start: '13:00'
     end: '16:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
     locator: pdf:p11
     quote: 1-4pm local time workdays in summer (Dec-Mar), or
@@ -1180,12 +1193,13 @@ tou_schedules:
   quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer incentive demand period and "3" represent 4-7pm winter incentive demand period
   note: 'Same page: ''Summer incentive demand period is December to March and winter incentive demand period is May to August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: 4-7pm summer incentive
     days: business_day
     start: '16:00'
     end: '19:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
     locator: pdf:p11
     quote: 4-7pm local time workdays in summer (Dec-Mar), or
@@ -1205,12 +1219,13 @@ tou_schedules:
   quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm summer incentive demand period and "3" represent 4-7pm winter incentive demand period
   note: 'Same page: ''Summer incentive demand period is December to March and winter incentive demand period is May to August''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: 4-7pm winter incentive
     days: business_day
     start: '16:00'
     end: '19:00'
     months: 5,6,7,8
+    season_label: winter
     season: winter
     locator: pdf:p11
     quote: 4-7pm local time workdays in winter (May-Aug).
@@ -1232,7 +1247,7 @@ tou_schedules:
     Each tariff link quotes the code''s row of Table 6 (an image; rendered-page OCR, p8), whose 12-month rolling demand column
     reads ''workdays 7am-7pm''.'
   windows:
-  - period: demand_window
+  - period: peak
     label: rolling demand 7am-7pm workdays
     days: business_day
     start: 07:00
@@ -1404,7 +1419,7 @@ tou_schedules:
   quote: Residential CER PRCER Opt-in 9pm during Dec- 9pm during Dec- May and Sep- 11am 4pm Feb and Jun-AugFeb and Jun-Aug May with 1 kWh Nov per day BEL
   note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 4 is an image). PRCER row, ''Peak energy export credit'' column: ''all days 4pm-9pm during Dec-Feb and Jun-Aug''. Notes (p6): ''All times are local time''.'
   windows:
-  - period: export_reward_window
+  - period: peak
     label: peak energy export credit all days 4pm-9pm during Dec-Feb and Jun-Aug
     days: all_days
     start: '16:00'
@@ -1460,20 +1475,22 @@ tou_schedules:
   quote: Opt-in workdays 10am- workdays 10am- Small business demand NDD 6pm 6pm
   note: 'Table cells are printed rotated / as an image, so the quote is the rendered-page OCR of the row (Table 5 is an image): summer and non-summer demand columns both read ''workdays 10am-6pm'' on the NDD row; the NDM row reads ''≥ 40MWh pa Medium business demand NDM workdays 10am-workdays 10am- ≤160MWh 6pm 6pm''. Notes (p7): ''All times are local time, except for PL2 which is in AEST''. Same page: ''Summer period covers December to March, non-summer is April to November''. ''workdays'' is not defined in the document; mapped to business_day (Mon-Fri); public holiday treatment not stated'
   windows:
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 12,1,2,3
+    season_label: summer
     season: summer
-  - period: demand_window
+  - period: peak
     label: workdays 10am-6pm (non-summer)
     days: business_day
     start: '10:00'
     end: '18:00'
     months: 4,5,6,7,8,9,10,11
-    season: non-summer
+    season_label: non-summer
+    season: non_summer
   tariffs:
   - codes:
     - NDD
@@ -1608,7 +1625,7 @@ tou_schedules:
     Dec-Feb and Jun-Aug'' (the second ''all days 4pm-'' and second ''9pm during Dec-'' in the quote). Notes (p7): ''All times
     are local time, except for PL2 which is in AEST''.'
   windows:
-  - period: export_reward_window
+  - period: peak
     label: peak energy export credit all days 4pm-9pm during Dec-Feb and Jun-Aug
     days: all_days
     start: '16:00'
@@ -4770,3 +4787,499 @@ steps:
   quantity_unit: kWh
   reset_period: billing_period_per_day
   note: "Saver energy export column (Table 5, an image): 'all days 11am-4pm during Sep-May with 1 kWh per day BEL'. Mirrors the United Energy URCER/UFS steps."
+rate_periods:
+- codes:
+  - LLV3
+  - HV3
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  component: Demand Charges - Summer incentive
+  season: winter
+  locator: pdf:p9
+  quote: Tariffs ending with "1" represent 1-4pm summer incentive demand period, tariffs ending with "2" represent 4-7pm
+    summer incentive demand period and "3" represent 4-7pm winter incentive demand period
+  note: 'Table 6 notes (p9). The Tariff Summary prices the incentive demand of the tariffs ending in 3 only in its ''Summer
+    incentive'' column; the document measures it 4-7pm workdays in winter (May-Aug): window powercor-2627-pdf-large-incentive-3.'
+- codes:
+  - PRCER
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  component: Usage Charges - Peak import Mar-May, Sep-Nov
+  tou_period: shoulder
+  locator: pdf-ocr:p5
+  quote: Peak energy Peak energy Saver energy Tariff type Tariff Code Status Standing Anytime energy Peak energy Off-peak
+    energy voltage Saver energy threshold export credit (shoulder) export
+  note: 'Table 4 is an image, so the quote is the rendered-page OCR of the header (stacked header lines interleave). Table
+    4 (residential) has two peak energy columns: ''Peak energy'' (CER row: all days 4pm-9pm during Dec-Feb and Jun-Aug) and
+    ''Peak energy (shoulder)'' (CER row: all days 4pm-9pm during Mar-May and Sep-Nov). The Tariff Summary prints the second
+    as ''Peak import Mar-May, Sep-Nov''; it is priced in the shoulder window (schedule powercor-2627-pdf-prcer-import).'
+charge_rules:
+- codes:
+  - NDD
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p7
+  quote: NDD and NDM demand component is billed based on the highest 30-minute KW reading in the maximum demand period for
+    each month and is not based on a rolling 12-month period
+  note: Table 5 notes. Holds for the Summer and Non-Summer demand rates; the maximum demand period is the tariffs' demand
+    window.
+- codes:
+  - PFS
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p8
+  quote: PFS capacity charge applied to maximum 30-minute kW demand over the most recent rolling 12-months measured at all
+    times
+  note: Table 5 notes.
+- codes:
+  - LLV1
+  - LLV2
+  - LLV3
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months.
+  note: Section 2.5.2 'Rolling demand maximum kVA' (the 12-month rolling demand charge). No minimum chargeable demand for
+    large low voltage (the minimum is stated for high voltage and sub-transmission only).
+- codes:
+  - HV1
+  - HV2
+  - HV3
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 500
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months.
+    Minimum chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA' (the 12-month rolling demand charge); the minimum applies to the rolling
+    demand only (Table 6 notes, p9).
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p11
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the most recent 12 months.
+    Minimum chargeable demand of 500kVA for high voltage customers and 5,000kVA for sub-transmission customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA' (the 12-month rolling demand charge).
+- codes:
+  - LLV1
+  - LLV2
+  - HV1
+  - HV2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p11
+  quote: Incentive KVA is the maximum monthly 15-minute kVA for each of four months of the year. There is no charge for
+    the other eight months of the year.
+  note: Section 2.5.3 'Incentive demand kVA'; measured in the tariff's incentive demand window (Dec-Mar for tariffs ending
+    in 1 and 2).
+- codes:
+  - LLV3
+  - HV3
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  charge_type: demand
+  tou_period: peak
+  season: winter
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p11
+  quote: Incentive KVA is the maximum monthly 15-minute kVA for each of four months of the year. There is no charge for
+    the other eight months of the year.
+  note: Section 2.5.3 'Incentive demand kVA'; measured in the winter (May-Aug) incentive demand window for tariffs ending
+    in 3 (rate_periods sets the season).
+- codes:
+  - DD
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p6
+  quote: DD demand component will be billed based on the highest 30-minute KW reading in the maximum demand period for each
+    month
+  note: Table 4 notes. Holds for the Summer and Non-Summer demand rates; the maximum demand period is the tariff's demand
+    window.
+- codes:
+  - NDD
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p7
+  quote: NDD and NDM demand component will be billed based on the highest 30-minute KW reading in the maximum demand period
+    for each month and is not based on a rolling 12-month period
+  note: Table 5 notes. Holds for the Summer and Non-Summer demand rates; the maximum demand period is the tariff's demand
+    window.
+- codes:
+  - LLV1
+  - LLV2
+  - LLVT1
+  - LLVT2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p10
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - HV1
+  - HV2
+  - HVT1
+  - HVT2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 500
+  locator: pdf:p10
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p10
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500kVA for high voltage customers and 5,000kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - LLV1
+  - LLV2
+  - LLVT1
+  - LLVT2
+  - HV1
+  - HV2
+  - HVT1
+  - HVT2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p10
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
+    the other eight months of the year.
+  note: Section 2.5.3 'Summer incentive demand kVA'; prices the 'Demand Charges - Dec-Mar' rate, measured 1-4pm (tariffs ending
+    1) or 4-7pm (ending 2) workdays.
+- codes:
+  - DD
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: DD demand component will be billed based on the highest 30-minute KW reading in the maximum demand period for each
+    month
+  note: Table 4 notes. Holds for the Summer and Non-Summer demand rates; the maximum demand period is the tariff's demand
+    window.
+- codes:
+  - NDD
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p10
+  quote: NDD and NDM demand component will be billed based on the highest 30-minute KW reading in the maximum demand period
+    for each month and is not based on a rolling 12-month period
+  note: Table 5 notes. Holds for the Summer and Non-Summer demand rates; the maximum demand period is the tariff's demand
+    window.
+- codes:
+  - LLV1
+  - LLV2
+  - LLVT1
+  - LLVT2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p13
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - HV1
+  - HV2
+  - HVT1
+  - HVT2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 500
+  locator: pdf:p13
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p13
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section 2.5.2 'Rolling demand maximum kVA'; prices the 'Demand Charges - Jul-Jun' (12-month rolling demand) rate.
+- codes:
+  - LLV1
+  - LLV2
+  - LLVT1
+  - LLVT2
+  - HV1
+  - HV2
+  - HVT1
+  - HVT2
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p13
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months. There is no charge for
+    the other eight months of the year.
+  note: Section 2.5.3 'Summer incentive demand kVA'; prices the 'Demand Charges - Dec-Mar' rate, measured 1-4pm (tariffs ending
+    1) or 4-7pm (ending 2) workdays.
+- codes:
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Tariff_Summary_2025-26_31Mar2025_wayback.xlsx
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: xlsx:Trial tariffs!B21
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or over
+    11am-4pm depending on location, every day of the year, local time
+  note: Generator storage trial tariff notes.
+- codes:
+  - GT
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p6
+  quote: kW demand charge based on the highest 30-minute demand measured over the last 12 months either over 4-9pm or over
+    11am-4pm depending on location, every day of the year, local time
+  note: Generator storage trial tariff notes.
+- codes:
+  - PFL
+  doc: sources/dnsp/powercor/Powercor_Tariff_Structure_Statement_2026-31_AER_final_decision_April2026.pdf
+  fin_year: 2026-27
+  charge_type: capacity
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p17
+  quote: Charge applied to maximum 30-minute kW $/kW/ Capacity charge demand over the most month recent rolling 12-months
+    measured at all times
+  note: Table of large business tariffs, PFL row, 'Capacity charge' notes column (table cells interleave in the text layer).
+    The 2026-27 pricing proposal states this for the small flexible tariff only.
+- codes:
+  - NDD
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p13
+  quote: Demand is measured as the maximum half-hour kW demand between 10am and 6pm, local time, work days, resetting every
+    month.
+  note: Section 3.2 'Small and medium business tariffs' (TSS for 2021-22 to 2025-26); holds for the Dec-Mar and Apr-Nov demand
+    rates.
+- codes:
+  - LLV1
+  - LLV2
+  - LLVT1
+  - LLVT2
+  - HV1
+  - HV2
+  - HVT1
+  - HVT2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p14
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: 'Section 3.3 ''12-month rolling maximum kVA'' (the ''Jul-Jun'' demand rate). No minimum is given: the TSS says HV
+    and large LV customers are on a transition tariff for 2021-22 to 2024-25 and ''Minimum billable demand will be adjusted
+    during the transition to manage bill impacts'' (p8).'
+- codes:
+  - ST2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p14
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section 3.3 '12-month rolling maximum kVA' (the 'Jul-Jun' demand rate); sub-transmission is not in the transition.
+- codes:
+  - LLV1
+  - LLV2
+  - LLVT1
+  - LLVT2
+  - HV1
+  - HV2
+  - HVT1
+  - HVT2
+  doc: sources/dnsp/powercor/Powercor_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year: 2023-24
+  charge_type: demand
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p14
+  quote: Incentive KVA is the maximum monthly 15-minute kVA for four months of the year. There is no charge for the other
+    eight months of the year.
+  note: Section 3.3 'Incentive kVA' (the 'Dec-Mar' demand rate); the three-hour window is assigned per customer.
+- codes:
+  - STT
+  doc: sources/dnsp/powercor/Powercor_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year: 2025-26
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p14
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section 3.3 '12-month rolling maximum kVA'; Figure 7 (p12) lists STT as the default sub-transmission tariff. Its rates
+    are the AER's (provisional); no Powercor price list for the year names STT.
+- codes:
+  - STT
+  doc: sources/dnsp/powercor/Powercor_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year: 2024-25
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p14
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: Section 3.3 '12-month rolling maximum kVA'; Figure 7 (p12) lists STT as the default sub-transmission tariff. Its rates
+    are the AER's (provisional); no Powercor price list for the year names STT.

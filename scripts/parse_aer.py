@@ -11,7 +11,8 @@ parsed by the DNSP parsers with side=AER_HOSTED.
 import csv, re, sys, os
 import openpyxl
 sys.path.insert(0, os.path.dirname(__file__))
-from schema import COLUMNS, REPEATED_PRINTING, charge_type_from_label, time_band_from_label, season_from_label
+from schema import (COLUMNS, REPEATED_PRINTING, write_metering, charge_type_from_label, time_band_from_label,
+                    season_from_label)
 from units import period_stated, to_std
 from published import cell_value
 from tariffdb import build_support, locators
@@ -147,6 +148,32 @@ def parse_consolidated(fy, path, url, note_prefix=""):
     return out
 
 
+def parse_consolidated_metering(fy, path):
+    """Sheet 'Metering' of a consolidated report ('ALL PRICES ARE EXCLUDING GST'): each distributor's metering
+    prices per year, by meter or customer class. A schedule, not a tariff column: the rows carry no tariff code
+    (curated `metering` facts say which tariffs and sites each applies to). One-off exit fees are not stored."""
+    wb = openpyxl.load_workbook(os.path.join(ROOT, path), data_only=True)
+    ws = wb["Metering"]
+    out, dnsp = [], None
+    for rr in range(1, ws.max_row + 1):
+        title = ws.cell(rr, 2).value
+        if isinstance(title, str) and re.search(r"\d{4}.\d{2} Metering prices$", title.strip()):
+            dnsp = re.sub(r"\s+\d{4}.\d{2} Metering prices$", "", title.strip())
+            continue
+        label, code, unit, per, price = (ws.cell(rr, c).value for c in (3, 8, 9, 10, 12))
+        if dnsp is None or not isinstance(price, (int, float)) or per != "per year" or not isinstance(label, str):
+            continue
+        out.append({"distributor": dnsp, "fin_year": fy, "tariff_code": "",
+                    "meter_class": " ".join(label.split()), "component": " ".join(label.split()),
+                    "unit": "$/year", "value": cell_value(ws.cell(rr, 12)), "gst": "excl", "source_file": path,
+                    "locator": locators.xlsx(ws, ws.cell(rr, 12)),
+                    "note": "; ".join(x for x in ("sheet 'Metering': 'ALL PRICES ARE EXCLUDING GST'",
+                                                  f"AER tariff code {code}" if nz(code) else "",
+                                                  f"unit printed '{unit}'" if unit and unit != "$dollars" else "")
+                                      if x)})
+    return out
+
+
 def parse_stakeholder_2024_25(dnsp, fname, url):
     path = f"sources/aer/2024-25_stakeholder_reports/{fname}"
     wb = openpyxl.load_workbook(os.path.join(ROOT, path), data_only=True)
@@ -220,6 +247,9 @@ def main():
         rows += parse_consolidated(fy, path, url)
     for dnsp, (fname, url) in STAKEHOLDER_2024_25.items():
         rows += parse_stakeholder_2024_25(dnsp, fname, url)
+    metering = [m for fy, path, url in CONSOLIDATED for m in parse_consolidated_metering(fy, path)]
+    write_metering("aer_consolidated", metering)
+    print("metering rows", len(metering))
     os.makedirs(os.path.join(ROOT, "out"), exist_ok=True)
     with open(os.path.join(ROOT, "out/aer_long.csv"), "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=COLUMNS)

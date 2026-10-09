@@ -6,6 +6,9 @@
 # sub-threshold trial tariffs, Energex's tariff trial notifications 2024-25, 2025-26 and 2026-27 (AER-hosted). The
 # consolidated 2025-26 v5 rows labelled '(withdrawn from 1 Jul 25)*' carry the code HSAC (Historic SAC), not the
 # withdrawn tariff's own code, so no 'withdrawn' availability criterion is recorded for them.
+# 2016-17..2022-23: TOU windows, rate periods and demand rules quote the AER-approved Energex 2016-17 Annual Pricing
+# Proposal and the Energex Network Tariff Guides 2017-18..2022-23 (Wayback copies in sources/archive/energex/); none of
+# them states a clock basis.
 distributor: energex
 tou_schedules:
 - id: energex-2526-residential-tou
@@ -2316,6 +2319,2546 @@ tou_schedules:
     applies_to: demand
     locator: pdf:p28
     quote: 'Tariff: Demand Time-of-Use 11kV (Tariff code: 7400)'
+- id: energex-1617-residential-tou-8900
+  doc: sources/archive/energex/2016-17/AER_approved_-_Energex_2016-17_Annual_Pricing_Proposal_-_3_June_2016.pdf
+  fin_year: 2016-17
+  name: Residential ToU usage windows (8900)
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Table 4-2 – ToU usage charging timeframes
+  note: Table 4-2 has no note on public holidays. Times as printed (Queensland; the proposal names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p29
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '07:00'
+    end: '16:00'
+    locator: pdf:p29
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '16:00'
+    end: '20:00'
+    locator: pdf:p29
+    quote: Peak 4pm – 8pm No peak
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p29
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p29
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p29
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: '07:00'
+    end: '22:00'
+    locator: pdf:p29
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p29
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  tariffs:
+  - codes: ['8900']
+    applies_to: usage
+    locator: pdf:p29
+    quote: Residential ToU NTC8900
+- id: energex-1617-business-tou-8800
+  doc: sources/archive/energex/2016-17/AER_approved_-_Energex_2016-17_Annual_Pricing_Proposal_-_3_June_2016.pdf
+  fin_year: 2016-17
+  name: Business ToU usage windows (8800)
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Table 4-2 – ToU usage charging timeframes
+  note: Table 4-2 has no note on public holidays. Times as printed (Queensland; the proposal names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p29
+    quote: Off-Peak 9pm – 7am Anytime
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '21:00'
+    locator: pdf:p29
+    quote: Peak 7am – 9pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p29
+    quote: Off-Peak 9pm – 7am Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p29
+    quote: Off-Peak 9pm – 7am Anytime
+  tariffs:
+  - codes: ['8800']
+    applies_to: usage
+    locator: pdf:p29
+    quote: Business ToU NTC8800
+- id: energex-1617-cac-tou
+  doc: sources/archive/energex/2016-17/AER_approved_-_Energex_2016-17_Annual_Pricing_Proposal_-_3_June_2016.pdf
+  fin_year: 2016-17
+  name: ICC and CAC usage windows (3000, 4000, 4500)
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Table 4-2 – ToU usage charging timeframes
+  note: Table 4-2 has no note on public holidays. Times as printed (Queensland; the proposal names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p29
+    quote: Off-Peak 11pm – 7am Anytime
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p29
+    quote: Peak 7am – 11pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p29
+    quote: Off-Peak 11pm – 7am Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p29
+    quote: Off-Peak 11pm – 7am Anytime
+  tariffs:
+  - codes: ['3000', '4000', '4500']
+    applies_to: usage
+    locator: pdf:p29
+    quote: ICC, CAC NTC1000 Off-Peak 11pm – 7am Anytime NTC4000 NTC4500 Peak 7am – 11pm No peak NTC8000 NTC3000
+- id: energex-1617-7000-peak-demand
+  doc: sources/archive/energex/2016-17/AER_approved_-_Energex_2016-17_Annual_Pricing_Proposal_-_3_June_2016.pdf
+  fin_year: 2016-17
+  name: Residential Demand peak demand window (7000)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p106
+  quote: Maximum kilowatt demand measured as a single peak over a 30 minute period between 4pm and 8pm on workdays during
+    the billing period.1 Workdays are weekdays but exclude government public holidays.
+  note: Table 12-2. Times as printed (Queensland; the proposal names no clock basis).
+  windows:
+  - period: peak
+    label: Peak demand
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+  tariffs:
+  - codes: ['7000']
+    applies_to: demand
+    locator: pdf:p106
+    quote: Table 12-2 – Tariff structure for NTC7000
+- id: energex-1718-residential-tou-8900
+  doc: sources/archive/energex/2017-18/Network-Tariff-Guide-2017-18.pdf
+  fin_year: 2017-18
+  name: Residential ToU usage windows (8900)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p16
+  quote: Table 2.8 – Usage charging timeframes
+  note: 'Table 2.8 note ''1. Include government specified public holidays.'': public holidays keep their day of the week.
+    Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p16
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '07:00'
+    end: '16:00'
+    locator: pdf:p16
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '16:00'
+    end: '20:00'
+    locator: pdf:p16
+    quote: Peak 4pm – 8pm No peak
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p16
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p16
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p16
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: '07:00'
+    end: '22:00'
+    locator: pdf:p16
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p16
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  tariffs:
+  - codes: ['8900']
+    applies_to: usage
+    locator: pdf:p16
+    quote: Residential ToU NTC8900
+- id: energex-1718-business-tou-8800
+  doc: sources/archive/energex/2017-18/Network-Tariff-Guide-2017-18.pdf
+  fin_year: 2017-18
+  name: Business ToU usage windows (8800)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p16
+  quote: Table 2.8 – Usage charging timeframes
+  note: 'Table 2.8 note ''1. Include government specified public holidays.'': public holidays keep their day of the week.
+    Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p16
+    quote: Off-Peak 9pm – 7am Anytime
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '21:00'
+    locator: pdf:p16
+    quote: Peak 7am – 9pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p16
+    quote: Off-Peak 9pm – 7am Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p16
+    quote: Off-Peak 9pm – 7am Anytime
+  tariffs:
+  - codes: ['8800']
+    applies_to: usage
+    locator: pdf:p16
+    quote: Business ToU NTC8800
+- id: energex-1718-cac-tou
+  doc: sources/archive/energex/2017-18/Network-Tariff-Guide-2017-18.pdf
+  fin_year: 2017-18
+  name: ICC and CAC usage windows (3000, 4000, 4500)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p16
+  quote: Table 2.8 – Usage charging timeframes
+  note: 'Table 2.8 note ''1. Include government specified public holidays.'': public holidays keep their day of the week.
+    Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p16
+    quote: Off-Peak 11pm – 7am Anytime
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p16
+    quote: Peak 7am – 11pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p16
+    quote: Off-Peak 11pm – 7am Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p16
+    quote: Off-Peak 11pm – 7am Anytime
+  tariffs:
+  - codes: ['3000', '4000', '4500']
+    applies_to: usage
+    locator: pdf:p16
+    quote: ICC, CAC NTC1000 Off-Peak 11pm – 7am Anytime NTC4000 NTC4500 Peak 7am – 11pm No peak NTC8000 NTC3000
+- id: energex-1718-7000-demand
+  doc: sources/archive/energex/2017-18/Network-Tariff-Guide-2017-18.pdf
+  fin_year: 2017-18
+  name: Residential demand windows (7000)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p17
+  quote: Table 2.9 – Demand charging timeframes
+  note: Table 2.9 note '1. Workdays are weekdays but exclude government specified public holidays.'. Times as printed (Queensland;
+    the guide names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '00:00'
+    end: '16:00'
+    locator: pdf:p17
+    quote: Off-Peak 8pm – 4pm Anytime
+  - period: peak
+    label: Peak
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    locator: pdf:p17
+    quote: Peak 4pm – 8pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '20:00'
+    end: '24:00'
+    locator: pdf:p17
+    quote: Off-Peak 8pm – 4pm Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: non_business_day
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p17
+    quote: Off-Peak 8pm – 4pm Anytime
+  tariffs:
+  - codes: ['7000']
+    applies_to: demand
+    locator: pdf:p17
+    quote: Residential ToU NTC7000 Off-Peak 8pm – 4pm Anytime
+- id: energex-1718-business-demand
+  doc: sources/archive/energex/2017-18/Network-Tariff-Guide-2017-18.pdf
+  fin_year: 2017-18
+  name: Business ToU demand windows (7100, 7400)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p17
+  quote: Table 2.9 – Demand charging timeframes
+  note: Table 2.9 note '1. Workdays are weekdays but exclude government specified public holidays.'. Times as printed (Queensland;
+    the guide names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p17
+    quote: Off-Peak 9pm – 9am Anytime
+  - period: peak
+    label: Peak
+    days: business_day
+    start: '09:00'
+    end: '21:00'
+    locator: pdf:p17
+    quote: Peak 9am – 9pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p17
+    quote: Off-Peak 9pm – 9am Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: non_business_day
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p17
+    quote: Off-Peak 9pm – 9am Anytime
+  tariffs:
+  - codes: ['7100', '7400']
+    applies_to: demand
+    locator: pdf:p17
+    quote: Business ToU NTC7100 Off-Peak 9pm – 9am Anytime NTC7400
+- id: energex-1819-residential-tou-8900
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  name: Residential ToU usage windows (8900)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p18
+  quote: Table 2-9 – Time-of-use usage charging timeframes
+  note: 'Table 2-9 note ''a. Include government specified public holidays.'': public holidays keep their day of the week.
+    Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p18
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '07:00'
+    end: '16:00'
+    locator: pdf:p19
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '16:00'
+    end: '20:00'
+    locator: pdf:p19
+    quote: Peak 4pm – 8pm No peak
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p19
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p18
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p18
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: '07:00'
+    end: '22:00'
+    locator: pdf:p19
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p18
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  tariffs:
+  - codes: ['8900']
+    applies_to: usage
+    locator: pdf:p18
+    quote: Residential Time-of- NTC8900 Off-Peak 10pm – 7am 10pm – 7am
+- id: energex-1819-business-tou-8800
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  name: Business ToU usage windows (8800)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p18
+  quote: Table 2-9 – Time-of-use usage charging timeframes
+  note: 'Table 2-9 note ''a. Include government specified public holidays.'': public holidays keep their day of the week.
+    Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p19
+    quote: Off-Peak 9pm – 7am Anytime
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '21:00'
+    locator: pdf:p19
+    quote: Peak 7am – 9pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p19
+    quote: Off-Peak 9pm – 7am Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p19
+    quote: Off-Peak 9pm – 7am Anytime
+  tariffs:
+  - codes: ['8800']
+    applies_to: usage
+    locator: pdf:p19
+    quote: Business Time-of-Use NTC8800
+- id: energex-1819-cac-tou
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  name: ICC and CAC usage windows (3000, 4000, 4500)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p18
+  quote: Table 2-9 – Time-of-use usage charging timeframes
+  note: 'Table 2-9 note ''a. Include government specified public holidays.'': public holidays keep their day of the week.
+    Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p19
+    quote: Off-Peak 11pm – 7am Anytime
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p19
+    quote: Peak 7am – 11pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p19
+    quote: Off-Peak 11pm – 7am Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p19
+    quote: Off-Peak 11pm – 7am Anytime
+  tariffs:
+  - codes: ['3000', '4000', '4500']
+    applies_to: usage
+    locator: pdf:p19
+    quote: ICC, CAC NTC1000 Off-Peak 11pm – 7am Anytime NTC4000 NTC4500 Peak 7am – 11pm No peak NTC8000 NTC3000
+- id: energex-1819-7000-demand
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  name: Residential demand windows (7000)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p19
+  quote: Table 2-10 – Time-of-use demand charging windows
+  note: Table 2-10 note 'a. Workdays are weekdays but exclude government specified public holidays.'. Times as printed (Queensland;
+    the guide names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '00:00'
+    end: '16:00'
+    locator: pdf:p19
+    quote: Off-Peak 8pm – 4pm Anytime
+  - period: peak
+    label: Peak
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    locator: pdf:p19
+    quote: Peak 4pm – 8pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '20:00'
+    end: '24:00'
+    locator: pdf:p19
+    quote: Off-Peak 8pm – 4pm Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: non_business_day
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p19
+    quote: Off-Peak 8pm – 4pm Anytime
+  tariffs:
+  - codes: ['7000']
+    applies_to: demand
+    locator: pdf:p19
+    quote: Residential Time-of-Use NTC7000 Off-Peak 8pm – 4pm Anytime
+- id: energex-1819-business-demand
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  name: Business ToU demand windows (7100, 7200, 7400)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p19
+  quote: Table 2-10 – Time-of-use demand charging windows
+  note: Table 2-10 note 'a. Workdays are weekdays but exclude government specified public holidays.'. Times as printed (Queensland;
+    the guide names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p19
+    quote: Off-Peak 9pm – 9am Anytime
+  - period: peak
+    label: Peak
+    days: business_day
+    start: '09:00'
+    end: '21:00'
+    locator: pdf:p19
+    quote: Peak 9am – 9pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p19
+    quote: Off-Peak 9pm – 9am Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: non_business_day
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p19
+    quote: Off-Peak 9pm – 9am Anytime
+  tariffs:
+  - codes: ['7100', '7200', '7400']
+    applies_to: demand
+    locator: pdf:p19
+    quote: Business ToU NTC7100 Off-Peak 9pm – 9am Anytime NTC7200 NTC7400
+- id: energex-1920-residential-tou-8900
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  name: Residential ToU usage windows (8900)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p24
+  quote: Table 2-9 – Time-of-use usage charging timeframes
+  note: 'Table 2-9 note ''a. Include government specified public holidays.'': public holidays keep their day of the week.
+    Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p24
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '07:00'
+    end: '16:00'
+    locator: pdf:p24
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '16:00'
+    end: '20:00'
+    locator: pdf:p24
+    quote: Peak 4pm – 8pm No peak
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p24
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p24
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: '07:00'
+    end: '22:00'
+    locator: pdf:p24
+    quote: Shoulder 7am – 4pm, 7am – 10pm 8pm – 10pm
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: Off-Peak 10pm – 7am 10pm – 7am
+  tariffs:
+  - codes: ['8900']
+    applies_to: usage
+    locator: pdf:p24
+    quote: Residential Time- NTC8900 Off-Peak 10pm – 7am 10pm – 7am
+- id: energex-1920-business-tou-8800
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  name: Business ToU usage windows (8800)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p24
+  quote: Table 2-9 – Time-of-use usage charging timeframes
+  note: 'Table 2-9 note ''a. Include government specified public holidays.'': public holidays keep their day of the week.
+    Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p24
+    quote: Off-Peak 9pm – 7am Anytime
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '21:00'
+    locator: pdf:p24
+    quote: Peak 7am – 9pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: Off-Peak 9pm – 7am Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: Off-Peak 9pm – 7am Anytime
+  tariffs:
+  - codes: ['8800']
+    applies_to: usage
+    locator: pdf:p24
+    quote: Business Time-of- NTC8800 Off-Peak 9pm – 7am Anytime
+- id: energex-1920-cac-tou
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  name: ICC and CAC usage windows (3000, 4000, 4500)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p24
+  quote: Table 2-9 – Time-of-use usage charging timeframes
+  note: 'Table 2-9 note ''a. Include government specified public holidays.'': public holidays keep their day of the week.
+    Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p24
+    quote: Off-Peak 11pm – 7am Anytime
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p24
+    quote: Peak 7am – 11pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: Off-Peak 11pm – 7am Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: Off-Peak 11pm – 7am Anytime
+  tariffs:
+  - codes: ['3000', '4000', '4500']
+    applies_to: usage
+    locator: pdf:p24
+    quote: ICC, CAC NTC1000 Off-Peak 11pm – 7am Anytime NTC4000 Peak 7am – 11pm No peak NTC4500 NTC8000 NTC3000
+- id: energex-1920-7000-demand
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  name: Residential demand windows (7000)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p24
+  quote: Table 2-10 – Time-of-use demand charging windows
+  note: Table 2-10 note 'a. Workdays are weekdays but exclude government specified public holidays.'. Times as printed (Queensland;
+    the guide names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '00:00'
+    end: '16:00'
+    locator: pdf:p24
+    quote: Off-Peak 8pm – 4pm Anytime
+  - period: peak
+    label: Peak
+    days: business_day
+    start: '16:00'
+    end: '20:00'
+    locator: pdf:p24
+    quote: Peak 4pm – 8pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '20:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: Off-Peak 8pm – 4pm Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: non_business_day
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: Off-Peak 8pm – 4pm Anytime
+  tariffs:
+  - codes: ['7000']
+    applies_to: demand
+    locator: pdf:p24
+    quote: Residential Time- NTC7000 Off-Peak 8pm – 4pm Anytime
+- id: energex-1920-business-demand
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  name: Business ToU demand windows (7100, 7200, 7400)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p24
+  quote: Table 2-10 – Time-of-use demand charging windows
+  note: Table 2-10 note 'a. Workdays are weekdays but exclude government specified public holidays.'. Times as printed (Queensland;
+    the guide names no clock basis).
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p24
+    quote: Off-Peak 9pm – 9am Anytime
+  - period: peak
+    label: Peak
+    days: business_day
+    start: '09:00'
+    end: '21:00'
+    locator: pdf:p24
+    quote: Peak 9am – 9pm No peak
+  - period: off_peak
+    label: Off-Peak
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: Off-Peak 9pm – 9am Anytime
+  - period: off_peak
+    label: Off-Peak
+    days: non_business_day
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: Off-Peak 9pm – 9am Anytime
+  tariffs:
+  - codes: ['7100', '7200', '7400']
+    applies_to: demand
+    locator: pdf:p24
+    quote: Business ToU NTC7100 Off-Peak 9pm – 9am Anytime NTC7200
+- id: energex-2021-3950-peak-demand
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: Residential Transitional Demand peak demand window (3900, stored as 3950)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p17
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3950: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3950']
+    applies_to: demand
+    locator: pdf:p16
+    quote: 'Tariff: Residential Transitional Demand (Tariff code: 3900)'
+- id: energex-2021-3750-peak-demand
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: Residential Demand peak demand window (3700, stored as 3750)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p23
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3750: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3750']
+    applies_to: demand
+    locator: pdf:p23
+    quote: 'Tariff: Residential Demand (Tariff code: 3700)'
+- id: energex-2021-3850-peak-demand
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: Small Business Transitional Demand peak demand window (3800, stored as 3850)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p19
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3850: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3850']
+    applies_to: demand
+    locator: pdf:p19
+    quote: 'Tariff: Small Business Transitional Demand (Tariff code: 3800)'
+- id: energex-2021-3650-peak-demand
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: Small Business Demand peak demand window (3600, stored as 3650)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p24
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3650: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3650']
+    applies_to: demand
+    locator: pdf:p24
+    quote: 'Tariff: Small Business Demand (Tariff code: 3600)'
+- id: energex-2021-6950-tou-energy
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: Residential Time of Use Energy volume windows (6900, stored as 6950)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p23
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 6950: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: shoulder
+    label: Night (shoulder)
+    days: all_days
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p23
+    quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: all_days
+    start: '09:00'
+    end: '16:00'
+    locator: pdf:p23
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Evening (peak)
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    locator: pdf:p23
+    quote: 'Evening (peak): 4pm to 9pm on weekdays and weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p23
+    quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  tariffs:
+  - codes: ['6950']
+    applies_to: usage
+    locator: pdf:p23
+    quote: 'Tariff: Residential Time of Use (ToU) Energy (Tariff code: 6900)'
+- id: energex-2021-6850-tou-energy
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: Small Business Time of Use Energy volume windows (6800, stored as 6850)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p24
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 6850: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekday
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p24
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: weekday
+    start: '09:00'
+    end: '16:00'
+    locator: pdf:p24
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Evening (peak)
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+    locator: pdf:p24
+    quote: 'Evening (peak): 4pm to 9pm on weekdays'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekend
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p24
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: weekend
+    start: '09:00'
+    end: '16:00'
+    locator: pdf:p24
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekend
+    start: '16:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  tariffs:
+  - codes: ['6850']
+    applies_to: usage
+    locator: pdf:p24
+    quote: 'Tariff: Small Business Time of Use (ToU) Energy (Tariff code: 6800)'
+- id: energex-2021-residential-tou-8900
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: Residential Time of Use volume windows (8900, closed)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p27
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '07:00'
+    end: '16:00'
+    locator: pdf:p27
+    quote: 'Shoulder: 7am to 4pm and 8pm to 10pm on weekdays; 7am to 10pm on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '16:00'
+    end: '20:00'
+    locator: pdf:p27
+    quote: 'Peak: 4pm to 8pm on weekdays'
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p27
+    quote: 'Shoulder: 7am to 4pm and 8pm to 10pm on weekdays; 7am to 10pm on weekends'
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: '07:00'
+    end: '22:00'
+    locator: pdf:p27
+    quote: 'Shoulder: 7am to 4pm and 8pm to 10pm on weekdays; 7am to 10pm on weekends'
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  tariffs:
+  - codes: ['8900']
+    applies_to: usage
+    locator: pdf:p27
+    quote: 'Tariff: Residential Time of Use (Tariff code: 8900)'
+- id: energex-2021-7100-peak-demand
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: Small Business Demand peak demand window (7100, closed)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p27
+  quote: 'Peak demand window: 9am to 9pm on workdays'
+  note: 'Table 6 note b: ''Workdays exclude government gazetted full day public holidays but include bank, regional and local
+    holidays as well as part day gazetted public holidays''. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: business_day
+    start: '09:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['7100']
+    applies_to: demand
+    locator: pdf:p27
+    quote: 'Tariff: Small Business Demand (Tariff code: 7100)'
+- id: energex-2021-7200-demand
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: LV Demand Time of Use demand windows (7200)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p20
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Peak demand window from Table 9; the off-peak demand times (weekdays 9pm-4pm, weekends anytime) from the 7200 row
+    of Table 6 (p15). Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public
+    holidays keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak demand
+    days: weekday
+    start: '00:00'
+    end: '16:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm – 4pm Anytime
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: Off-peak demand
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm – 4pm Anytime
+  - period: off_peak
+    label: Off-peak demand
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm – 4pm Anytime
+  tariffs:
+  - codes: ['7200']
+    applies_to: demand
+    locator: pdf:p20
+    quote: 'Tariff: LV Demand Time of Use (Tariff code: 7200)'
+- id: energex-2021-7400-demand
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: Demand Time-of-Use 11kV demand windows (7400)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'Peak demand window: 9am to 9pm workdays'
+  note: 'Peak demand window from the tariff''s table. The off-peak demand times come from Table 6 (p15), whose row ''Demand
+    Time-of-Use 11kV (3000)'' gives ''Peak demand 9am -9pm Workdays'' and ''Off-peak demand 9pm -9am'' (workdays) and ''Anytime''
+    (weekends): the tariff''s table names 7400 ''Demand Time-of-Use 11kV'' with the same peak window, and gives EG 11kV (3000)
+    volume windows and a demand ''during the month'' only, so the row''s ''(3000)'' is read as 7400. Table 6 note b: ''Workdays
+    exclude government gazetted full day public holidays but include bank, regional and local holidays as well as part day
+    gazetted public holidays''. How a gazetted holiday on a weekday is priced is not stated (public_holidays as_non_business_day
+    reads it as a weekend day). Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak demand
+    days: business_day
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm -9am
+  - period: peak
+    label: Peak demand window
+    days: business_day
+    start: '09:00'
+    end: '21:00'
+  - period: off_peak
+    label: Off-peak demand
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm -9am
+  - period: off_peak
+    label: Off-peak demand
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm -9am
+  tariffs:
+  - codes: ['7400']
+    applies_to: demand
+    locator: pdf:p21
+    quote: 'Tariff: Demand Time-of-Use 11kV (Tariff code: 7400)'
+- id: energex-2021-4000-volume
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: 11kV Bus volume windows (4000)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p21
+  quote: 'Peak: 7am to 11pm on weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p21
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p21
+    quote: 'Peak: 7am to 11pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p21
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p21
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  tariffs:
+  - codes: ['4000']
+    applies_to: usage
+    locator: pdf:p21
+    quote: 'Tariff: 11kV Bus (Tariff code: 4000)'
+- id: energex-2021-4500-volume
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: 11kV Line volume windows (4500)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p28
+  quote: 'Peak: 7am to 11pm on weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p28
+    quote: 'Peak: 7am to 11pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  tariffs:
+  - codes: ['4500']
+    applies_to: usage
+    locator: pdf:p28
+    quote: 'Tariff: 11kV Line (Tariff code: 4500)'
+- id: energex-2021-3000-volume
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  name: EG 11kV volume windows (3000)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p28
+  quote: 'Peak: 7am to 11pm on weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p28
+    quote: 'Peak: 7am to 11pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  tariffs:
+  - codes: ['3000']
+    applies_to: usage
+    locator: pdf:p28
+    quote: 'Tariff: EG 11kV (Tariff code: 3000)'
+- id: energex-2122-3950-peak-demand
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: Residential Transitional Demand peak demand window (3900, stored as 3950)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p16
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3950: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3950']
+    applies_to: demand
+    locator: pdf:p16
+    quote: 'Tariff: Residential Transitional Demand (Tariff code: 3900)'
+- id: energex-2122-3750-peak-demand
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: Residential Demand peak demand window (3700, stored as 3750)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p22
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3750: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3750']
+    applies_to: demand
+    locator: pdf:p22
+    quote: 'Tariff: Residential Demand (Tariff code: 3700)'
+- id: energex-2122-3850-peak-demand
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: Small Business Transitional Demand peak demand window (3800, stored as 3850)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p18
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3850: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3850']
+    applies_to: demand
+    locator: pdf:p17
+    quote: 'Tariff: Small Business Transitional Demand (Tariff code: 3800)'
+- id: energex-2122-3650-peak-demand
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: Small Business Demand peak demand window (3600, stored as 3650)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p23
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3650: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3650']
+    applies_to: demand
+    locator: pdf:p23
+    quote: 'Tariff: Small Business Demand (Tariff code: 3600)'
+- id: energex-2122-6950-tou-energy
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: Residential Time of Use Energy volume windows (6900, stored as 6950)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p22
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 6950: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: shoulder
+    label: Night (shoulder)
+    days: all_days
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p22
+    quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: all_days
+    start: '09:00'
+    end: '16:00'
+    locator: pdf:p22
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Evening (peak)
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    locator: pdf:p22
+    quote: 'Evening (peak): 4pm to 9pm on weekdays and weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p22
+    quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  tariffs:
+  - codes: ['6950']
+    applies_to: usage
+    locator: pdf:p22
+    quote: 'Tariff: Residential Time of Use (ToU) Energy (Tariff code: 6900)'
+- id: energex-2122-6850-tou-energy
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: Small Business Time of Use Energy volume windows (6800, stored as 6850)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p23
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 6850: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekday
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p23
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: weekday
+    start: '09:00'
+    end: '16:00'
+    locator: pdf:p23
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Evening (peak)
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+    locator: pdf:p23
+    quote: 'Evening (peak): 4pm to 9pm on weekdays'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p23
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekend
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p23
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: weekend
+    start: '09:00'
+    end: '16:00'
+    locator: pdf:p23
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekend
+    start: '16:00'
+    end: '24:00'
+    locator: pdf:p23
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  tariffs:
+  - codes: ['6850']
+    applies_to: usage
+    locator: pdf:p23
+    quote: 'Tariff: Small Business Time of Use (ToU) Energy (Tariff code: 6800)'
+- id: energex-2122-residential-tou-8900
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: Residential Time of Use volume windows (8900, closed)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p27
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '07:00'
+    end: '16:00'
+    locator: pdf:p27
+    quote: 'Shoulder: 7am to 4pm and 8pm to 10pm on weekdays; 7am to 10pm on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '16:00'
+    end: '20:00'
+    locator: pdf:p27
+    quote: 'Peak: 4pm to 8pm on weekdays'
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p27
+    quote: 'Shoulder: 7am to 4pm and 8pm to 10pm on weekdays; 7am to 10pm on weekends'
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: '07:00'
+    end: '22:00'
+    locator: pdf:p27
+    quote: 'Shoulder: 7am to 4pm and 8pm to 10pm on weekdays; 7am to 10pm on weekends'
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  tariffs:
+  - codes: ['8900']
+    applies_to: usage
+    locator: pdf:p27
+    quote: 'Tariff: Residential Time of Use (Tariff code: 8900)'
+- id: energex-2122-7100-peak-demand
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: Small Business Demand peak demand window (7100, closed)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p27
+  quote: 'Peak demand window: 9am to 9pm on workdays'
+  note: 'Table 6 note b: ''Workdays exclude government gazetted full day public holidays but include bank, regional and local
+    holidays as well as part day gazetted public holidays''. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: business_day
+    start: '09:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['7100']
+    applies_to: demand
+    locator: pdf:p27
+    quote: 'Tariff: Small Business Demand (Tariff code: 7100)'
+- id: energex-2122-7200-demand
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: LV Demand Time of Use demand windows (7200)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p19
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Peak demand window from Table 9; the off-peak demand times (weekdays 9pm-4pm, weekends anytime) from the 7200 row
+    of Table 6 (p15). Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public
+    holidays keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak demand
+    days: weekday
+    start: '00:00'
+    end: '16:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm – 4pm Anytime
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: Off-peak demand
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm – 4pm Anytime
+  - period: off_peak
+    label: Off-peak demand
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm – 4pm Anytime
+  tariffs:
+  - codes: ['7200']
+    applies_to: demand
+    locator: pdf:p19
+    quote: 'Tariff: LV Demand Time of Use (Tariff code: 7200)'
+- id: energex-2122-7400-demand
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: Demand Time-of-Use 11kV demand windows (7400)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p21
+  quote: 'Peak demand window: 9am to 9pm workdays'
+  note: 'Peak demand window from the tariff''s table. The off-peak demand times come from Table 6 (p15), whose row ''Demand
+    Time-of-Use 11kV (3000)'' gives ''Peak demand 9am -9pm Workdays'' and ''Off-peak demand 9pm -9am'' (workdays) and ''Anytime''
+    (weekends): the tariff''s table names 7400 ''Demand Time-of-Use 11kV'' with the same peak window, and gives EG 11kV (3000)
+    volume windows and a demand ''during the month'' only, so the row''s ''(3000)'' is read as 7400. Table 6 note b: ''Workdays
+    exclude government gazetted full day public holidays but include bank, regional and local holidays as well as part day
+    gazetted public holidays''. How a gazetted holiday on a weekday is priced is not stated (public_holidays as_non_business_day
+    reads it as a weekend day). Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak demand
+    days: business_day
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm -9am
+  - period: peak
+    label: Peak demand window
+    days: business_day
+    start: '09:00'
+    end: '21:00'
+  - period: off_peak
+    label: Off-peak demand
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm -9am
+  - period: off_peak
+    label: Off-peak demand
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm -9am
+  tariffs:
+  - codes: ['7400']
+    applies_to: demand
+    locator: pdf:p20
+    quote: 'Tariff: Demand Time-of-Use 11kV (Tariff code: 7400)'
+- id: energex-2122-4000-volume
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: 11kV Bus volume windows (4000)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p20
+  quote: 'Peak: 7am to 11pm on weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p20
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p20
+    quote: 'Peak: 7am to 11pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p20
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p20
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  tariffs:
+  - codes: ['4000']
+    applies_to: usage
+    locator: pdf:p20
+    quote: 'Tariff: 11kV Bus (Tariff code: 4000)'
+- id: energex-2122-4500-volume
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: 11kV Line volume windows (4500)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p28
+  quote: 'Peak: 7am to 11pm on weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p28
+    quote: 'Peak: 7am to 11pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  tariffs:
+  - codes: ['4500']
+    applies_to: usage
+    locator: pdf:p28
+    quote: 'Tariff: 11kV Line (Tariff code: 4500)'
+- id: energex-2122-3000-volume
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  name: EG 11kV volume windows (3000)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p28
+  quote: 'Peak: 7am to 11pm on weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p28
+    quote: 'Peak: 7am to 11pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  tariffs:
+  - codes: ['3000']
+    applies_to: usage
+    locator: pdf:p28
+    quote: 'Tariff: EG 11kV (Tariff code: 3000)'
+- id: energex-2223-3950-peak-demand
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: Residential Transitional Demand peak demand window (3900, stored as 3950)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p16
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3950: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3950']
+    applies_to: demand
+    locator: pdf:p16
+    quote: 'Tariff: Residential Transitional Demand (Tariff code: 3900)'
+- id: energex-2223-3750-peak-demand
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: Residential Demand peak demand window (3700, stored as 3750)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p23
+  quote: 'Peak demand window: 4pm to 9pm weekdays and weekends'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3750: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3750']
+    applies_to: demand
+    locator: pdf:p23
+    quote: 'Tariff: Residential Demand (Tariff code: 3700)'
+- id: energex-2223-3850-peak-demand
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: Small Business Transitional Demand peak demand window (3800, stored as 3850)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p18
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3850: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3850']
+    applies_to: demand
+    locator: pdf:p17
+    quote: 'Tariff: Small Business Transitional Demand (Tariff code: 3800)'
+- id: energex-2223-3650-peak-demand
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: Small Business Demand peak demand window (3600, stored as 3650)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p24
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 3650: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['3650']
+    applies_to: demand
+    locator: pdf:p24
+    quote: 'Tariff: Small Business Demand (Tariff code: 3600)'
+- id: energex-2223-6950-tou-energy
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: Residential Time of Use Energy volume windows (6900, stored as 6950)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p23
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 6950: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: shoulder
+    label: Night (shoulder)
+    days: all_days
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p23
+    quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: all_days
+    start: '09:00'
+    end: '16:00'
+    locator: pdf:p23
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Evening (peak)
+    days: all_days
+    start: '16:00'
+    end: '21:00'
+    locator: pdf:p23
+    quote: 'Evening (peak): 4pm to 9pm on weekdays and weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p23
+    quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  tariffs:
+  - codes: ['6950']
+    applies_to: usage
+    locator: pdf:p23
+    quote: 'Tariff: Residential Time of Use (ToU) Energy (Tariff code: 6900)'
+- id: energex-2223-6850-tou-energy
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: Small Business Time of Use Energy volume windows (6800, stored as 6850)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p24
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis). The price list stores the tariff
+    under its ''50'' series code 6850: ''''50'' series Network Tariff Codes Standard network tariff rates (as per equivalent
+    standard Network Tariff Code)'' (sheet ''Network Tariff Classes & Codes'').'
+  windows:
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekday
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p24
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: weekday
+    start: '09:00'
+    end: '16:00'
+    locator: pdf:p24
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: peak
+    label: Evening (peak)
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+    locator: pdf:p24
+    quote: 'Evening (peak): 4pm to 9pm on weekdays'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekend
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p24
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  - period: off_peak
+    label: Day (off-peak)
+    days: weekend
+    start: '09:00'
+    end: '16:00'
+    locator: pdf:p24
+    quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  - period: shoulder
+    label: Night (shoulder)
+    days: weekend
+    start: '16:00'
+    end: '24:00'
+    locator: pdf:p24
+    quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  tariffs:
+  - codes: ['6850']
+    applies_to: usage
+    locator: pdf:p24
+    quote: 'Tariff: Small Business Time of Use (ToU) Energy (Tariff code: 6800)'
+- id: energex-2223-residential-tou-8900
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: Residential Time of Use volume windows (8900, closed)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p27
+  quote: 'The following time periods apply to volume charges:'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '07:00'
+    end: '16:00'
+    locator: pdf:p27
+    quote: 'Shoulder: 7am to 4pm and 8pm to 10pm on weekdays; 7am to 10pm on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '16:00'
+    end: '20:00'
+    locator: pdf:p27
+    quote: 'Peak: 4pm to 8pm on weekdays'
+  - period: shoulder
+    label: Shoulder
+    days: weekday
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p27
+    quote: 'Shoulder: 7am to 4pm and 8pm to 10pm on weekdays; 7am to 10pm on weekends'
+  - period: off_peak
+    label: Off-Peak
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  - period: shoulder
+    label: Shoulder
+    days: weekend
+    start: '07:00'
+    end: '22:00'
+    locator: pdf:p27
+    quote: 'Shoulder: 7am to 4pm and 8pm to 10pm on weekdays; 7am to 10pm on weekends'
+  - period: off_peak
+    label: Off-Peak
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p27
+    quote: 'Off-peak: 10pm to 7am on weekdays and weekends'
+  tariffs:
+  - codes: ['8900']
+    applies_to: usage
+    locator: pdf:p27
+    quote: 'Tariff: Residential Time of Use (Tariff code: 8900)'
+- id: energex-2223-7100-peak-demand
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: Small Business Demand peak demand window (7100, closed)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p27
+  quote: 'Peak demand window: 9am to 9pm on workdays'
+  note: 'Table 6 note b: ''Workdays exclude government gazetted full day public holidays but include bank, regional and local
+    holidays as well as part day gazetted public holidays''. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: peak
+    label: Peak demand window
+    days: business_day
+    start: '09:00'
+    end: '21:00'
+  tariffs:
+  - codes: ['7100']
+    applies_to: demand
+    locator: pdf:p27
+    quote: 'Tariff: Small Business Demand (Tariff code: 7100)'
+- id: energex-2223-7200-demand
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: LV Demand Time of Use demand windows (7200)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p19
+  quote: 'Peak demand window: 4pm to 9pm weekdays'
+  note: 'Peak demand window from Table 9; the off-peak demand times (weekdays 9pm-4pm, weekends anytime) from the 7200 row
+    of Table 6 (p15). Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public
+    holidays keep their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak demand
+    days: weekday
+    start: '00:00'
+    end: '16:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm – 4pm Anytime
+  - period: peak
+    label: Peak demand window
+    days: weekday
+    start: '16:00'
+    end: '21:00'
+  - period: off_peak
+    label: Off-peak demand
+    days: weekday
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm – 4pm Anytime
+  - period: off_peak
+    label: Off-peak demand
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm – 4pm Anytime
+  tariffs:
+  - codes: ['7200']
+    applies_to: demand
+    locator: pdf:p19
+    quote: 'Tariff: LV Demand Time of Use (Tariff code: 7200)'
+- id: energex-2223-7400-demand
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: Demand Time-of-Use 11kV demand windows (7400)
+  time_basis: not_stated
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p21
+  quote: 'Peak demand window: 9am to 9pm workdays'
+  note: 'Peak demand window from the tariff''s table. The off-peak demand times come from Table 6 (p15), whose row ''Demand
+    Time-of-Use 11kV (3000)'' gives ''Peak demand 9am -9pm Workdays'' and ''Off-peak demand 9pm -9am'' (workdays) and ''Anytime''
+    (weekends): the tariff''s table names 7400 ''Demand Time-of-Use 11kV'' with the same peak window, and gives EG 11kV (3000)
+    volume windows and a demand ''during the month'' only, so the row''s ''(3000)'' is read as 7400. Table 6 note b: ''Workdays
+    exclude government gazetted full day public holidays but include bank, regional and local holidays as well as part day
+    gazetted public holidays''. How a gazetted holiday on a weekday is priced is not stated (public_holidays as_non_business_day
+    reads it as a weekend day). Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak demand
+    days: business_day
+    start: '00:00'
+    end: '09:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm -9am
+  - period: peak
+    label: Peak demand window
+    days: business_day
+    start: '09:00'
+    end: '21:00'
+  - period: off_peak
+    label: Off-peak demand
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm -9am
+  - period: off_peak
+    label: Off-peak demand
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-peak demand 9pm -9am
+  tariffs:
+  - codes: ['7400']
+    applies_to: demand
+    locator: pdf:p20
+    quote: 'Tariff: Demand Time-of-Use 11kV (Tariff code: 7400)'
+- id: energex-2223-4000-volume
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: 11kV Bus volume windows (4000)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p20
+  quote: 'Peak: 7am to 11pm on weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p20
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p20
+    quote: 'Peak: 7am to 11pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p20
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p20
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  tariffs:
+  - codes: ['4000']
+    applies_to: usage
+    locator: pdf:p20
+    quote: 'Tariff: 11kV Bus (Tariff code: 4000)'
+- id: energex-2223-4500-volume
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: 11kV Line volume windows (4500)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p28
+  quote: 'Peak: 7am to 11pm on weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p28
+    quote: 'Peak: 7am to 11pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  tariffs:
+  - codes: ['4500']
+    applies_to: usage
+    locator: pdf:p28
+    quote: 'Tariff: 11kV Line (Tariff code: 4500)'
+- id: energex-2223-3000-volume
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  name: EG 11kV volume windows (3000)
+  time_basis: not_stated
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p28
+  quote: 'Peak: 7am to 11pm on weekdays'
+  note: 'Table 6 note a: ''Weekdays include government gazetted full day public and bank holidays'', so public holidays keep
+    their day of the week. Times as printed (Queensland; the guide names no clock basis).'
+  windows:
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '00:00'
+    end: '07:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: peak
+    label: Peak
+    days: weekday
+    start: '07:00'
+    end: '23:00'
+    locator: pdf:p28
+    quote: 'Peak: 7am to 11pm on weekdays'
+  - period: off_peak
+    label: Off-peak
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  - period: off_peak
+    label: Off-peak
+    days: weekend
+    start: '00:00'
+    end: '24:00'
+    locator: pdf:p28
+    quote: 'Off-peak: 11pm to 7am on weekdays; anytime on weekends'
+  tariffs:
+  - codes: ['3000']
+    applies_to: usage
+    locator: pdf:p28
+    quote: 'Tariff: EG 11kV (Tariff code: 3000)'
 eligibility:
 - codes: ['3700', '3900', '6900', '8400', '8900']
   doc: sources/aer/2023-24_price_lists/Energex_2023-24_Network_Price_List_27Apr2023.xlsx
@@ -4448,6 +6991,321 @@ rate_periods:
   note: 'Measured outside the peak demand window (9am-9pm workdays), which Table 6 names ''Off-peak demand'' (row printed
     under code 3000, read as 7400: see the 7400 demand windows). The quantity is that maximum minus the peak-window maximum
     (zero when negative), measured by its excess_over_window_max charge rule.'
+- codes: ['7000']
+  doc: sources/archive/energex/2017-18/Network-Tariff-Guide-2017-18.pdf
+  fin_year: 2017-18
+  component: Demand
+  tou_period: peak
+  locator: pdf:p14
+  quote: kilowatt demand measured as a single peak over a 30 minute period during peak charging window defined in Table 2.9.1
+  note: The price list prints this demand charge as 'Demand' without a period; Table 2.9 also states an off-peak window for
+    the tariff.
+- codes: ['7100']
+  doc: sources/archive/energex/2017-18/Network-Tariff-Guide-2017-18.pdf
+  fin_year: 2017-18
+  component: Demand
+  tou_period: peak
+  locator: pdf:p15
+  quote: measured as a single peak over a 30 minute period during peak charging window defined in
+  note: The price list prints this demand charge as 'Demand' without a period; Table 2.9 also states an off-peak window for
+    the tariff.
+- codes: ['7400']
+  doc: sources/archive/energex/2017-18/Network-Tariff-Guide-2017-18.pdf
+  fin_year: 2017-18
+  component: Excess Demand
+  tou_period: off_peak
+  locator: pdf:p13
+  quote: Maximum kilowatt demand measured as a single peak over a 30 minute period outside the peak charging windows defined
+    in Table 2.9, minus the peak demand quantity as described above.1
+  note: 'Excess demand is measured outside the peak windows of Table 2.9: its off-peak windows.'
+- codes: ['7000']
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  component: Demand
+  tou_period: peak
+  locator: pdf:p15
+  quote: kilowatt demand measured as a single peak over a 30 minute period during peak charging window defined in
+  note: The price list prints this demand charge as 'Demand' without a period; Table 2-10 also states an off-peak window for
+    the tariff.
+- codes: ['7100']
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  component: Demand
+  tou_period: peak
+  locator: pdf:p17
+  quote: measured as a single peak over a 30 minute period during peak charging window defined in
+  note: The price list prints this demand charge as 'Demand' without a period; Table 2-10 also states an off-peak window for
+    the tariff.
+- codes: ['7400']
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  component: Excess Demand
+  tou_period: off_peak
+  locator: pdf:p13
+  quote: Maximum kVA demand measured as a single peak over a 30 minute period outside the peak charging windows defined in
+    Table 2-10, minus the peak demand quantity as described above.b
+  note: 'Excess demand is measured outside the peak windows of Table 2-10: its off-peak windows.'
+- codes: ['7200']
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  component: Excess Demand
+  tou_period: off_peak
+  locator: pdf:p14
+  quote: Maximum kVA demand measured as a single peak over a 30 minute period outside the peak charging windows defined in
+    Table 2-10, minus the peak demand quantity as described above.a
+  note: 'Excess demand is measured outside the peak windows of Table 2-10: its off-peak windows.'
+- codes: ['7000']
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  component: Demand
+  tou_period: peak
+  locator: pdf:p20
+  quote: kilowatt demand measured as a single peak over a 30 minute period during peak charging window defined in
+  note: The price list prints this demand charge as 'Demand' without a period; Table 2-10 also states an off-peak window for
+    the tariff.
+- codes: ['7100']
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  component: Demand
+  tou_period: peak
+  locator: pdf:p22
+  quote: single peak over a 30 minute period during peak charging window defined in
+  note: The price list prints this demand charge as 'Demand' without a period; Table 2-10 also states an off-peak window for
+    the tariff.
+- codes: ['7400']
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  component: Excess Demand
+  tou_period: off_peak
+  locator: pdf:p16
+  quote: Maximum kVA demand measured as a single peak over a 30 minute period outside the peak charging windows defined in
+    Table 2-10, minus the peak demand quantity as described above.b
+  note: 'Excess demand is measured outside the peak windows of Table 2-10: its off-peak windows.'
+- codes: ['7200']
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  component: Excess Demand
+  tou_period: off_peak
+  locator: pdf:p18
+  quote: Maximum kVA demand measured as a single peak over a 30 minute period outside the peak charging windows defined in
+    Table 2-10, minus the peak demand quantity as described above.a
+  note: 'Excess demand is measured outside the peak windows of Table 2-10: its off-peak windows.'
+- codes: ['6950']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  component: Volume Evening Charge
+  tou_period: peak
+  locator: pdf:p23
+  quote: 'Evening (peak): 4pm to 9pm on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6950']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  component: Volume Overnight Charge
+  tou_period: shoulder
+  locator: pdf:p23
+  quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6950']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  component: Volume Day Charge
+  tou_period: off_peak
+  locator: pdf:p23
+  quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6850']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  component: Volume Evening Charge
+  tou_period: peak
+  locator: pdf:p24
+  quote: 'Evening (peak): 4pm to 9pm on weekdays'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6850']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  component: Volume Overnight Charge
+  tou_period: shoulder
+  locator: pdf:p24
+  quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6850']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  component: Volume Day Charge
+  tou_period: off_peak
+  locator: pdf:p24
+  quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['7200']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  component: Excess Demand
+  tou_period: off_peak
+  locator: pdf:p20
+  quote: It is measured as the single maximum demand outside the peak demand window minus the maximum demand during the peak
+    demand window.
+  note: 'Excess demand is measured outside the peak demand window: its off-peak windows.'
+- codes: ['7400']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  component: Excess Demand
+  tou_period: off_peak
+  locator: pdf:p22
+  quote: It is measured as the single maximum demand outside the peak demand window minus the maximum demand during the peak
+    demand window.
+  note: 'Excess demand is measured outside the peak demand window: its off-peak windows.'
+- codes: ['6950']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  component: Volume Evening Charge
+  tou_period: peak
+  locator: pdf:p22
+  quote: 'Evening (peak): 4pm to 9pm on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6950']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  component: Volume Overnight Charge
+  tou_period: shoulder
+  locator: pdf:p22
+  quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6950']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  component: Volume Day Charge
+  tou_period: off_peak
+  locator: pdf:p22
+  quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6850']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  component: Volume Evening Charge
+  tou_period: peak
+  locator: pdf:p23
+  quote: 'Evening (peak): 4pm to 9pm on weekdays'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6850']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  component: Volume Overnight Charge
+  tou_period: shoulder
+  locator: pdf:p23
+  quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6850']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  component: Volume Day Charge
+  tou_period: off_peak
+  locator: pdf:p23
+  quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['7200']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  component: Excess Demand
+  tou_period: off_peak
+  locator: pdf:p19
+  quote: It is measured as the single maximum demand outside the peak demand window minus the maximum demand during the peak
+    demand window.
+  note: 'Excess demand is measured outside the peak demand window: its off-peak windows.'
+- codes: ['7400']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  component: Excess Demand
+  tou_period: off_peak
+  locator: pdf:p21
+  quote: It is measured as the single maximum demand outside the peak demand window minus the maximum demand during the peak
+    demand window.
+  note: 'Excess demand is measured outside the peak demand window: its off-peak windows.'
+- codes: ['6950']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  component: Volume Evening Charge
+  tou_period: peak
+  locator: pdf:p23
+  quote: 'Evening (peak): 4pm to 9pm on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6950']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  component: Volume Overnight Charge
+  tou_period: shoulder
+  locator: pdf:p23
+  quote: 'Night (shoulder): 9pm to 9am on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6950']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  component: Volume Day Charge
+  tou_period: off_peak
+  locator: pdf:p23
+  quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6850']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  component: Volume Evening Charge
+  tou_period: peak
+  locator: pdf:p24
+  quote: 'Evening (peak): 4pm to 9pm on weekdays'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6850']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  component: Volume Overnight Charge
+  tou_period: shoulder
+  locator: pdf:p24
+  quote: 'Night (shoulder): 9pm to 9am on weekdays; 4pm to 9am on weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['6850']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  component: Volume Day Charge
+  tou_period: off_peak
+  locator: pdf:p24
+  quote: 'Day (off-peak): 9am to 4pm on weekdays and weekends'
+  note: 'The price list prints the volume prices in ''Volume Day/Evening/Overnight Charge'' columns without a period; the
+    guide names the periods ''Day (off-peak)'', ''Evening (peak)'' and ''Night (shoulder)'' (Table 6, p15: ''Overnight (Shoulder)'').'
+- codes: ['7200']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  component: Excess Demand
+  tou_period: off_peak
+  locator: pdf:p19
+  quote: It is measured as the single maximum demand outside the peak demand window minus the maximum demand during the peak
+    demand window.
+  note: 'Excess demand is measured outside the peak demand window: its off-peak windows.'
+- codes: ['7400']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  component: Excess Demand
+  tou_period: off_peak
+  locator: pdf:p21
+  quote: It is measured as the single maximum demand outside the peak demand window minus the maximum demand during the peak
+    demand window.
+  note: 'Excess demand is measured outside the peak demand window: its off-peak windows.'
 charge_rules:
 - codes: ['3900']
   doc: sources/dnsp/energex/Energex_Network_Tariff_Guide_2025-26_wayback.pdf
@@ -5036,4 +7894,670 @@ charge_rules:
   quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kW demand measured as a single peak
     over a 30-minute period during the month.'
   note: 'kVA: the same table says ''the demand charges are applied to the maximum half hourly kVA (Note: kW based versions
+    of these tariffs are not available)''; the sentence quoted says ''kW demand''.'
+- codes: ['7000']
+  doc: sources/archive/energex/2016-17/AER_approved_-_Energex_2016-17_Annual_Pricing_Proposal_-_3_June_2016.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p106
+  quote: 'Maximum kilowatt demand measured as a single peak over a 30 minute period between 4pm and 8pm on workdays during
+    the billing period.1 Workdays are weekdays but exclude government public holidays. Note: 1. The billing period is set
+    to be monthly.'
+- codes: ['3000', '4000', '4500', '8000', '8100', '8300']
+  doc: sources/archive/energex/2016-17/AER_approved_-_Energex_2016-17_Annual_Pricing_Proposal_-_3_June_2016.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p28
+  quote: It is based on the half hour interval during the month where demand is at its highest.
+  note: '''Monthly maximum demand charge'' (section 4.2). kVA: Table 5-1 (p32) prices these tariffs'' monthly maximum demand
+    in ''($/kVA/ month)'', and the price list in $/kVA/month.'
+- codes: ['7000']
+  doc: sources/archive/energex/2017-18/Network-Tariff-Guide-2017-18.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p14
+  quote: kilowatt demand measured as a single peak over a 30 minute period during peak charging window defined in Table 2.9.1
+  note: 'Monthly: the glossary (pdf:p41) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'' kW: the row gives ''Unit: $/kW/month.'' and ''Quantity: Maximum kilowatt demand''.'
+- codes: ['7100']
+  doc: sources/archive/energex/2017-18/Network-Tariff-Guide-2017-18.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p15
+  quote: measured as a single peak over a 30 minute period during peak charging window defined in
+  note: 'Monthly: the glossary (pdf:p41) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'' kW: the row gives ''Unit: $/kW/month.'' and ''Quantity: Maximum kilowatt demand''.'
+- codes: ['3000', '4000', '4500', '8000', '8100', '8300']
+  doc: sources/archive/energex/2017-18/Network-Tariff-Guide-2017-18.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p41
+  quote: The actual demand levied for billing purposes is the metered monthly maximum demand.
+  note: 'Glossary, ''Demand charge''; it goes on: ''a fixed dollar price per kVA per month for DUoS charges (ICC, CAC and
+    SAC demand based customers)''. kVA and 30 minutes: each tariff''s row of the tariff structure tables gives ''Demand charge
+    Unit: $/kVA/month'' and ''Quantity: Maximum kVA demand measured over a 30 minute period during the billing period'' (4000,
+    4500 p11; 8000 p11; 3000 p12; 8100, 8300 p13; in some rows the cells run into the description column in the page text).'
+- codes: ['7000']
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p15
+  quote: kilowatt demand measured as a single peak over a 30 minute period during peak charging window defined in
+  note: 'Monthly: the glossary (pdf:p44) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'' kW: the row gives ''Unit: $/kW/month.'' and ''Quantity: Maximum kilowatt demand''.'
+- codes: ['7100']
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p17
+  quote: measured as a single peak over a 30 minute period during peak charging window defined in
+  note: 'Monthly: the glossary (pdf:p44) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'' kW: the row gives ''Unit: $/kW/month.'' and ''Quantity: Maximum kilowatt demand''.'
+- codes: ['3000', '4000', '4500', '8000', '8100', '8300']
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p44
+  quote: The actual demand levied for billing purposes is the metered monthly maximum demand.
+  note: 'Glossary, ''Demand charge''; it goes on: ''a fixed dollar price per kVA per month for DUoS charges (ICC, CAC and
+    SAC demand based customers)''. kVA and 30 minutes: each tariff''s row of the tariff structure tables gives ''Demand charge
+    Unit: $/kVA/month'' and ''Quantity: Maximum kVA demand measured over a 30 minute period during the billing period'' (4000,
+    4500, 8000 p11; 3000 p12; 8100, 8300 p14; in some rows the cells run into the description column in the page text).'
+- codes: ['7400']
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p13
+  quote: Maximum kVA demand measured as a single peak over a 30 minute period outside the peak charging windows defined in
+    Table 2-10, minus the peak demand quantity as described above.b
+  note: 'Monthly: the glossary (pdf:p44) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'''
+- codes: ['7200']
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p14
+  quote: Maximum kVA demand measured as a single peak over a 30 minute period outside the peak charging windows defined in
+    Table 2-10, minus the peak demand quantity as described above.a
+  note: 'Monthly: the glossary (pdf:p44) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'''
+- codes: ['7400']
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p12
+  quote: 'Quantity: Maximum kVA demand measured as a single peak over a 30 minute period during'
+  note: 'Monthly: the glossary (pdf:p44) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'' The peak window is Table 2-10''s. kVA: the row gives ''Unit: $/kVA/month.'' and ''Maximum
+    kVA demand''.'
+- codes: ['7200']
+  doc: sources/archive/energex/2018-19/Energex-2018-19-Network-Tariff-Guide_Final.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p44
+  quote: The actual demand levied for billing purposes is the metered monthly maximum demand.
+  note: 'Monthly: the glossary (pdf:p44) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'' The peak window is Table 2-10''s. kVA: the row gives ''Unit: $/kVA/month.'' and ''Maximum
+    kVA demand''.'
+- codes: ['7000']
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: kilowatt demand measured as a single peak over a 30 minute period during peak charging window defined in
+  note: 'Monthly: the glossary (pdf:p54) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'' kW: the row gives ''Unit: $/kW/month.'' and ''Quantity: Maximum kilowatt demand''.'
+- codes: ['7100']
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p22
+  quote: single peak over a 30 minute period during peak charging window defined in
+  note: 'Monthly: the glossary (pdf:p54) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'' kW: the row gives ''Unit: $/kW/month.'' and ''Quantity: Maximum kilowatt demand''.'
+- codes: ['3000', '4000', '4500', '8000', '8100', '8300']
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p54
+  quote: The actual demand levied for billing purposes is the metered monthly maximum demand.
+  note: 'Glossary, ''Demand charge''; it goes on: ''a fixed dollar price per kVA per month for DUoS charges (ICC, CAC and
+    SAC demand based customers)''. kVA and 30 minutes: each tariff''s row of the tariff structure tables gives ''Demand charge
+    Unit: $/kVA/month'' and ''Quantity: Maximum kVA demand measured over a 30 minute period during the billing period'' (4000,
+    4500 p13; 8000 p14; 3000 p15; 8100, 8300 p17; in some rows the cells run into the description column in the page text).'
+- codes: ['7400']
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p16
+  quote: Maximum kVA demand measured as a single peak over a 30 minute period outside the peak charging windows defined in
+    Table 2-10, minus the peak demand quantity as described above.b
+  note: 'Monthly: the glossary (pdf:p54) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'''
+- codes: ['7200']
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p18
+  quote: Maximum kVA demand measured as a single peak over a 30 minute period outside the peak charging windows defined in
+    Table 2-10, minus the peak demand quantity as described above.a
+  note: 'Monthly: the glossary (pdf:p54) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'''
+- codes: ['7400']
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p15
+  quote: demand measured as a single peak over a 30 minute period during charging window defined in Table 2-10.
+  note: 'Monthly: the glossary (pdf:p54) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'' The peak window is Table 2-10''s. kVA: the row gives ''Unit: $/kVA/month.'' and ''Maximum
+    kVA demand''.'
+- codes: ['7200']
+  doc: sources/archive/energex/2019-20/Energex-2019-20-Network-Tariff-Guide_Final.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p54
+  quote: The actual demand levied for billing purposes is the metered monthly maximum demand.
+  note: 'Monthly: the glossary (pdf:p54) defines the demand charge: ''The actual demand levied for billing purposes is the
+    metered monthly maximum demand.'' The peak window is Table 2-10''s. kVA: the row gives ''Unit: $/kVA/month.'' and ''Maximum
+    kVA demand''.'
+- codes: ['3950']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p17
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['3750']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p23
+  quote: 'Demand charge: A monthly charge calculated as $/kW, based on the maximum kW demand measured as a single peak over
+    a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['3850']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['3650']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p24
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['7200']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p20
+  quote: 'Excess demand charge: A monthly charge calculated as $/kVA/month. It is measured as the single maximum demand outside
+    the peak demand window minus the maximum demand during the peak demand window.'
+- codes: ['7400']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p22
+  quote: 'Excess demand charge: A monthly charge calculated as $/kVA/month. It is measured as the single maximum demand outside
+    the peak demand window minus the maximum demand during the peak demand window.'
+- codes: ['7400']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p22
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['7200']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+  note: 'kVA: the same table says ''the demand charges are applied to the maximum half hourly kVA (Note: kW-based version
+    of this tariff is not available)''.'
+- codes: ['4000']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p21
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: ['4500']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: ['3000']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: ['8100', '8300']
+  doc: sources/archive/energex/2020-21/EGX-Network-Tariff-Guide-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p25
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the month.'
+  note: 'kVA: the same table says ''the demand charges are applied to the maximum half hourly kVA (Note: kW-based versions
+    of these tariffs are not available)''; the sentence quoted says ''kW demand''.'
+- codes: ['3950']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p16
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['3750']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p22
+  quote: 'Demand charge: A monthly charge calculated as $/kW, based on the maximum kW demand measured as a single peak over
+    a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['3850']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p18
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['3650']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p23
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['7200']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p19
+  quote: 'Excess demand charge: A monthly charge calculated as $/kVA/month. It is measured as the single maximum demand outside
+    the peak demand window minus the maximum demand during the peak demand window.'
+- codes: ['7400']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p21
+  quote: 'Excess demand charge: A monthly charge calculated as $/kVA/month. It is measured as the single maximum demand outside
+    the peak demand window minus the maximum demand during the peak demand window.'
+- codes: ['7400']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p21
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['7200']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['4000']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: ['4500']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: ['3000']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p29
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: ['8100', '8300']
+  doc: sources/archive/energex/2021-22/EGX-Network-Tariff-Guide-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p24
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the month.'
+  note: 'kVA: the same table says ''the demand charges are applied to the maximum half hourly kVA (Note: kW-based versions
+    of these tariffs are not available)''; the sentence quoted says ''kW demand''.'
+- codes: ['3950']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p16
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['3750']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p23
+  quote: 'Demand charge: A monthly charge calculated as $/kW, based on the maximum kW demand measured as a single peak over
+    a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['3850']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p18
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['3650']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p24
+  quote: 'Demand charge: A monthly charge calculated as $/kW/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['7200']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p19
+  quote: 'Excess demand charge: A monthly charge calculated as $/kVA/month. It is measured as the single maximum demand outside
+    the peak demand window minus the maximum demand during the peak demand window.'
+- codes: ['7400']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  interval_min: 30
+  method: excess_over_window_max
+  reset: month
+  locator: pdf:p21
+  quote: 'Excess demand charge: A monthly charge calculated as $/kVA/month. It is measured as the single maximum demand outside
+    the peak demand window minus the maximum demand during the peak demand window.'
+- codes: ['7400']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p21
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['7200']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p19
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the peak demand charging window/timeframe.'
+- codes: ['4000']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p20
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: ['4500']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p28
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: ['3000']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p29
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kVA demand measured as a single
+    peak over a 30-minute period during the month.'
+- codes: ['8100', '8300']
+  doc: sources/archive/energex/2022-23/EGX-Network-Tariff-Guide-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p25
+  quote: 'Demand charge: A monthly charge calculated as $/kVA/month, based on the maximum kW demand measured as a single peak
+    over a 30-minute period during the month.'
+  note: 'kVA: the same table says ''the demand charges are applied to the maximum half hourly kVA (Note: kW-based versions
     of these tariffs are not available)''; the sentence quoted says ''kW demand''.'

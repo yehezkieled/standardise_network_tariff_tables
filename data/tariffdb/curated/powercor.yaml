@@ -1675,6 +1675,4510 @@ tou_schedules:
   - codes:
     - PFL
     applies_to: usage
+- id: powercor-2017-pdf-res-flexible
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Residential flexible pricing (P13R, P13RDK) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p48
+  quote: P13R Flexible pricing - residential <1,000 <120 N/A Mon-Fri Mon-Fri 0700- Mon-Sun  Residential customers not connected
+    in Docklands 1500-2100 1500 2200-0700 area.  Requires an active market interval read meter Mon-Fri 2100-  Times are
+    in local time
+  note: 'Tables A.8-A.9 period columns: peak Mon-Fri 1500-2100; shoulder Mon-Fri 0700-1500, Mon-Fri 2100-2200 and Sat-Sun
+    0700-2200; off peak Mon-Sun 2200-0700. The row states ''Times are in local time''. Mon-Fri and Sat-Sun are read as weekdays
+    and weekends (public holidays not stated). Seasons: glossary (p77) ''For flexible pricing Summer is defined to be calendar
+    months December, January and February based on Day Light Saving Time''; non-summer is the other months.'
+  windows:
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Mon-Fri 0700-1500 (summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: peak
+    label: Mon-Fri 1500-2100 (summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Mon-Fri 2100-2200 (summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Sat-Sun 0700-2200 (summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Mon-Fri 0700-1500 (non-summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: peak
+    label: Mon-Fri 1500-2100 (non-summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Mon-Fri 2100-2200 (non-summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Sat-Sun 0700-2200 (non-summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  tariffs:
+  - codes:
+    - P13R
+    applies_to: usage
+  - codes:
+    - P13RDK
+    applies_to: usage
+    locator: pdf:p49
+    quote: P13RDK Flexible pricing – residential - <1,000 <120 N/A Mon-Fri Mon-Fri 0700- Mon-Sun  Residential customers connected
+      in the Docklands area Docklands 1500-2100 1500 2200-0700  Requires an active market interval read meter  Times are
+      in local time
+- id: powercor-2017-pdf-res-demand
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Residential demand (DD) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p49
+  quote: 'DD Residential Demand Tariff <1,000 <120 Summer: Dec 7 days, 24 hrs N/A N/A  Requires an active market interval
+    read meter – Mar  Times are in local time Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1500-2100'
+  note: 'Tables A.8-A.9 demand period column: ''Summer: Dec – Mar Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1500-2100''
+    (the cell''s lines interleave with the next columns). The row states ''Times are in local time''.'
+  windows:
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1500-2100 (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1500-2100 (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+  tariffs:
+  - codes:
+    - DD
+    applies_to: demand
+- id: powercor-2017-pdf-ndd-demand
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Small business demand (NDD) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p51
+  quote: 'NDD Non-Residential Demand Tariff <1,000 <120 Summer: Dec 7 days, 24 hrs N/A N/A  Annual consumption <60MWh – Mar
+     Non-residential customers or  Builder''s temporary supplies Non-summer:  Requires an active market interval read meter
+    Apr - Nov  Times are in local time Mon-Fri (excl. public holidays) 1000-1800'
+  note: 'Tables A.8-A.9 demand period column: ''Summer: Dec – Mar Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1000-1800''.
+    The row states ''Times are in local time''.'
+  windows:
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+  tariffs:
+  - codes:
+    - NDD
+    applies_to: demand
+- id: powercor-2017-pdf-ndm-energy
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Medium business (NDM, NDMO) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p51
+  quote: 'NDM Medium business <1,000 <120 Summer: Dec Mon-Fri N/A All other  Annual consumption >60MWh – Mar (work days)
+    times  Non-residential customers or  Builder''s temporary supplies Non-summer: 0700-2300  Requires an active market
+    interval read meter Apr - Nov  Times are in local time Mon-Fri (excl. public holidays) 1000-1800'
+  note: Table A.8 peak periods 'Mon-Fri (work days) 0700-2300', off peak 'All other times'. The row states 'Times are in local
+    time'. 'Work days' is not defined in this document; the tariff structure statement for 2017-2020 defines work days as
+    'any day of the week excluding public holidays and weekends' (TSS p9 notes).
+  windows:
+  - period: off_peak
+    label: All other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri (work days) 0700-2300
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: All other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: usage
+- id: powercor-2017-pdf-dedicated
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Dedicated circuit and two rate controlled load off peak (all day)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p50
+  quote: DD1 Dedicated Circuit <1,000 <120 N/A N/A N/A 7 days
+  note: 'Tables A.8-A.9 off peak period column: ''7 days'' (DD1, D3HW) and ''7 Days, 24 hours'' (D2OP, D2DKOP), with no peak
+    or shoulder period: the off-peak rate applies at all times on every day (the circuit is switched on at the typical times
+    the rows give). ''All times are in Eastern Standard Times unless otherwise specified'' (p48); the row states no local
+    time.'
+  windows:
+  - period: off_peak
+    label: 7 days
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - DD1
+    applies_to: controlled_load
+  - codes:
+    - D3HW
+    applies_to: controlled_load
+    locator: pdf:p49
+    quote: D3HW Hot Water Interval <1,000 <120 N/A N/A N/A 7 days
+  - codes:
+    - D2OP
+    applies_to: usage
+    locator: pdf:p50
+    quote: D2OP Residential Two Rate 5d – <1,000 <120 N/A N/A N/A 7 Days, 24  Available from 1 July 2016 controlled load
+      hours
+  - codes:
+    - D2DKOP
+    applies_to: usage
+    locator: pdf:p49
+    quote: D2DKOP Docklands Two Rate 5d – <1,000 <120 N/A N/A N/A 7 Days, 24  Available from 1 July 2016 controlled load
+      hours
+- id: powercor-2017-pdf-two-rate-5d
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Two rate 5 day tariffs peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p55
+  quote: 'D2 Residential Two Rate 5d <1,000 <120 Mon-Fri N/A Mon-Thurs  Residential customers who requested a 2-rate Existing
+    customers: 0700- 2300-0700 tariff  1-phase electric hot 2300 Fri 2300 -  Existing customers only water service with
+    a total Mon 0700'
+  note: 'Tables A.8-A.9: peak ''Mon-Fri 0700-2300''; off peak ''Mon-Thurs 2300-0700'' and ''Fri 2300 - Mon 0700'', i.e. every
+    weekday outside 0700-2300 and all weekend. ''All times are in Eastern Standard Times unless otherwise specified'' (p48);
+    the row states no local time. Mon-Fri is read as weekdays (public holidays not stated).'
+  windows:
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700-2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - D2
+    applies_to: usage
+  - codes:
+    - D2DK
+    applies_to: usage
+    locator: pdf:p56
+    quote: D2DK Docklands Two Rate 5d <1,000 <120 Mon-Fri N/A Mon-Thurs Existing 1-phase residential customers connected N/A
+      0700- 2300-0700 in the Docklands area. 2300 Fri 2300 - Mon 0700
+  - codes:
+    - D3
+    applies_to: usage
+    locator: pdf:p56
+    quote: D3 Residential <1,000 <120 Mon-Fri N/A Mon-Thurs  Existing Residential customers not in Docklands N/A 0700- 2300-0700
+      area 2300 Fri 2300 - Mon 0700
+  - codes:
+    - ND2
+    applies_to: usage
+    locator: pdf:p57
+    quote: 'ND2 Non-Residential Two Rate 5d <1,000 <120 Mon-Fri N/A Mon-Thurs  Existing customers only Existing customers:
+      0700- 2300-0700  Non residential customers with an annual 1-phase electric hot water 2300 Fri 2300 - consumption of
+      <60MWh service with a total load of <30Amps. Mon 0700'
+  - codes:
+    - ND5
+    applies_to: usage
+    locator: pdf:p57
+    quote: ND5 Non-Residential <1,000 <120 Mon-Fri N/A Mon-Thurs  Existing customers only None 0700- 2300-0700  Non-residential
+      customers not connected in Docklands area with an annual consumption of 2300 Fri 2300 - <60MWh Mon 0700
+- id: powercor-2017-pdf-two-rate-7d
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Two rate 7 day (ND3) peak / off-peak
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p57
+  quote: ND3 Non-Residential Two Rate 7d <1,000 <120 Mon-Sun N/A Mon-Sun  Existing customers only None 0700- 2300-0700 
+    Non residential customers with an annual consumption of <60MWh 2300
+  note: 'Tables A.8-A.9: peak ''Mon-Sun 0700-2300'', off peak ''Mon-Sun 2300-0700''. ''All times are in Eastern Standard Times
+    unless otherwise specified'' (p48); the row states no local time.'
+  windows:
+  - period: off_peak
+    label: Mon-Sun 2300-0700
+    days: all_days
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Sun 0700-2300
+    days: all_days
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Mon-Sun 2300-0700
+    days: all_days
+    start: '23:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - ND3
+    applies_to: usage
+- id: powercor-2017-pdf-bus-flexible
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Small business flexible pricing (P14G) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p58
+  quote: P14G Non-residential <1,000 <120 Mon-Fri Sat-Sun Mon-Sun  Existing customers only None 0700- 0700-1900 1900-0700
+     Non residential customers with an annual consumption of <60MWh 1900  Requires an AMI meter  Times are in local time
+  note: 'Tables A.8-A.9: peak Mon-Fri 0700-1900, shoulder Sat-Sun 0700-1900, off peak Mon-Sun 1900-0700; ''Times are in local
+    time''. Mon-Fri and Sat-Sun are read as weekdays and weekends (public holidays not stated). Seasons: glossary (p77) ''For
+    flexible pricing Summer is defined to be calendar months December, January and February based on Day Light Saving Time'';
+    non-summer is the other months.'
+  windows:
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: peak
+    label: Mon-Fri 0700-1900 (summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Sat-Sun 0700-1900 (summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: peak
+    label: Mon-Fri 0700-1900 (non-summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: shoulder
+    label: Sat-Sun 0700-1900 (non-summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p77
+    quote: For flexible pricing Summer is defined to be calendar months December, January and February based on Day Light
+      Saving Time
+  tariffs:
+  - codes:
+    - P14G
+    applies_to: usage
+- id: powercor-2017-pdf-climate-saver
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Climate Saver (D1CS, D3CS) peak / off-peak seasons
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p56
+  quote: D1CS ClimateSaver <1,000 <120 01 Nov – N/A 01 Apr – 31  Existing customers only (non-docklands) N/A 31 Mar Oct
+  note: 'Tables A.8-A.9: peak periods ''01 Nov – 31 Mar'', off peak periods ''01 Apr – 31 Oct'' (all day, every day). ''All
+    times are in Eastern Standard Times unless otherwise specified'' (p48); the row states no local time.'
+  windows:
+  - period: peak
+    label: 01 Nov – 31 Mar
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 11,12,1,2,3
+  - period: off_peak
+    label: 01 Apr – 31 Oct
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 4,5,6,7,8,9,10
+  tariffs:
+  - codes:
+    - D1CS
+    applies_to: usage
+  - codes:
+    - D3CS
+    applies_to: usage
+    locator: pdf:p57
+    quote: D3CS Climate Saver Interval <1,000 <120 01 Nov – N/A 01 Apr – 31  Existing customers only (non-docklands) N/A
+      31 Mar Oct
+- id: powercor-2017-pdf-pl2
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Unmetered supplies / public lighting (PL2) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p52
+  quote: 'PL2 Unmetered Supplies / Public <1,000 N/A N/A Mon-Fri N/A Mon-Thurs  Customers with an approved unmetered load
+    Lighting 0700-2300 2300-0700  Public Lighting to a public lighting customer  Note: New customer connections are required
+    to install Fri 2300 - a load-limiting device Mon 0700'
+  note: 'Tables A.8-A.9: peak ''Mon-Fri 0700-2300''; off peak ''Mon-Thurs 2300-0700'' and ''Fri 2300 - Mon 0700''. ''All times
+    are in Eastern Standard Times unless otherwise specified'' (p48); the row states no local time.'
+  windows:
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700-2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PL2
+    applies_to: usage
+- id: powercor-2017-pdf-large
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  name: Large kVA demand tariffs (LLV, HV, HVD, ST) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p52
+  quote: LLV Large low voltage (kVA demand <1,000 ≥120 7 days, 24 hrs Mon-Fri 0700 N/A All other  Billed demand is the maximum
+    kVA over a 12 month tariff) - 2300
+  note: 'Tables A.8-A.9: peak ''Mon-Fri 0700 - 2300'', off peak ''All other times''. ''All times are in Eastern Standard Times
+    unless otherwise specified'' (p48); the row states no local time. The 12-month rolling kVA demand applies at all times
+    (demand period ''7 days, 24 hrs''), so it needs no window.'
+  windows:
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700 - 2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: All other times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - LLV
+    applies_to: usage
+  - codes:
+    - HV
+    applies_to: usage
+    locator: pdf:p52
+    quote: HV High voltage (kVA demand tariff) ≥1,000 and N/A 7 days, 24 hrs Mon-Fri 0700 N/A All other  Billed demand is
+      the maximum kVA over a 12 month <66,000 - 2300
+  - codes:
+    - HVD
+    applies_to: usage
+    locator: pdf:p53
+    quote: HVD High Voltage Dockland ((kVA ≥1,000 and N/A 7 days, 24 hrs Mon-Fri 0700 N/A All other  High voltage customers
+      connected to the Docklands demand tariff) <66,000 - 2300
+  - codes:
+    - ST
+    applies_to: usage
+    locator: pdf:p53
+    quote: ST Sub-transmission (kVA demand ≥66,000 N/A Mon-Fri 0700 N/A All other  Sub-transmission voltage customers tariff)
+      - 2300
+- id: powercor-2018-pdf-res-flexible
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Residential flexible pricing (P13R, P13RDK) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p48
+  quote: P13R Flexible pricing - <1,000 <120 N/A Mon-Fri Mon-Fri Mon-Sun • Residential customers not residential 0700-1500
+    2200-0700 connected in Docklands area. 1500-2100 • Requires an active market Mon-Fri interval read meter 2100-2200 • Times
+    are in local time
+  note: 'Tables A.7-A.8 period columns: peak Mon-Fri 1500-2100; shoulder Mon-Fri 0700-1500, Mon-Fri 2100-2200 and Sat-Sun
+    0700-2200; off peak Mon-Sun 2200-0700. The row states ''Times are in local time''. Mon-Fri and Sat-Sun are read as weekdays
+    and weekends (public holidays not stated). Seasons: glossary ''Summer'' (p85: December, January and February for flexible
+    pricing) and ''Non Summer'' (p84: March through November).'
+  windows:
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Mon-Fri 0700-1500 (summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: peak
+    label: Mon-Fri 1500-2100 (summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Mon-Fri 2100-2200 (summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Sat-Sun 0700-2200 (summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Mon-Fri 0700-1500 (non-summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: peak
+    label: Mon-Fri 1500-2100 (non-summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Mon-Fri 2100-2200 (non-summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Sat-Sun 0700-2200 (non-summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 2200-0700 (non-summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  tariffs:
+  - codes:
+    - P13R
+    applies_to: usage
+  - codes:
+    - P13RDK
+    applies_to: usage
+    locator: pdf:p49
+    quote: P13RDK Flexible pricing – <1,000 <120 N/A Mon-Fri Mon-Fri Mon-Sun • Residential customers residential - 2200-0700
+      connected in the Docklands 1500-2100 0700-1500 Docklands area Mon-Fri • Requires an active market interval read meter
+      2100-2200 • Times are in local time
+- id: powercor-2018-pdf-res-demand
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Residential demand (DD) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p49
+  quote: 'DD Residential <1,000 <120 Summer: 7 days, 24 hrs N/A N/A • Requires an active market Demand Tariff interval read
+    meter Dec – Mar • Times are in local time Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1500-2100'
+  note: 'Tables A.7-A.8 demand period column: ''Summer: Dec – Mar Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1500-2100''
+    (the cell''s lines interleave with the next columns). The row states ''Times are in local time''.'
+  windows:
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1500-2100 (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1500-2100 (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+  tariffs:
+  - codes:
+    - DD
+    applies_to: demand
+  - codes:
+    - DDNEW
+    applies_to: demand
+    locator: pdf:p52
+    quote: 'DDNEW Newstead <1,000 <120 Summer: N/A N/A N/A • Requires an active market interval read Residential Trial meter
+      Dec – Mar • Times are in local time Non-summer: • Restricted to residential customers Apr - Nov located in postcode
+      3462 Mon-Fri (excl. public holidays) 1500-2100'
+- id: powercor-2018-pdf-ndd-demand
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Small business demand (NDD) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p52
+  quote: 'NDD Non-Residential <1,000 <120 Summer: Dec – 7 days, 24 hrs N/A N/A • Annual consumption <60MWh Demand Tariff Mar
+    • Non-residential customers or builder''s temporary supplies Non-summer: • Requires an active market interval read Apr
+    - Nov meter Mon-Fri (excl. • Times are in local time public holidays) 1000-1800'
+  note: 'Tables A.7-A.8 demand period column: ''Summer: Dec – Mar Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1000-1800''.
+    The row states ''Times are in local time''.'
+  windows:
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+  tariffs:
+  - codes:
+    - NDD
+    applies_to: demand
+- id: powercor-2018-pdf-ndm-demand
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Medium business (NDM) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p53
+  quote: 'NDM Medium <1,000 <120 Summer: Dec – Mon-Fri (excl. N/A All other • Annual consumption >60MWh business cost- Mar
+    public holidays) times • Non-residential customers or builder''s reflective temporary supplies Non-summer: 0700-2300 •
+    Requires an active market interval read Apr - Nov meter Mon-Fri (excl. • Times are in local time public holidays) 1000-1800'
+  note: 'Table A.7 demand period column: ''Summer: Dec – Mar Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1000-1800''.
+    The row states ''Times are in local time''.'
+  windows:
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 1000-1800 (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: demand
+- id: powercor-2018-pdf-ndm-energy
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Medium business (NDM, NDMO) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p53
+  quote: 'NDM Medium <1,000 <120 Summer: Dec – Mon-Fri (excl. N/A All other • Annual consumption >60MWh business cost- Mar
+    public holidays) times • Non-residential customers or builder''s reflective temporary supplies Non-summer: 0700-2300 •
+    Requires an active market interval read Apr - Nov meter Mon-Fri (excl. • Times are in local time public holidays) 1000-1800'
+  note: Table A.7 peak periods 'Mon-Fri (excl. public holidays) 0700-2300', off peak 'All other times'. The row states 'Times
+    are in local time'.
+  windows:
+  - period: off_peak
+    label: All other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri (excl. public holidays) 0700-2300
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: All other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: usage
+  - codes:
+    - NDMO
+    applies_to: usage
+    locator: pdf:p53
+    quote: NDMO Medium N/A N/A N/A Mon-Fri (excl. N/A All other • Annual consumption <160MWh business opt-out public holidays)
+      times • Non-residential customers or builder's temporary supplies 0700-2300 • Requires an active market interval read
+      meter • Times are in local time
+- id: powercor-2018-pdf-dedicated
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Dedicated circuit and two rate controlled load off peak (all day)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p51
+  quote: DD1 Dedicated <1,000 <120 N/A N/A N/A 7 days
+  note: 'Tables A.7-A.8 off peak period column: ''7 days'' (DD1, D3HW) and ''7 Days, 24 hours'' (D2OP, D2DKOP), with no peak
+    or shoulder period: the off-peak rate applies at all times on every day (the circuit is switched on at the typical times
+    the rows give). ''All times are in Eastern Standard Times unless otherwise specified'' (p47); the row states no local
+    time.'
+  windows:
+  - period: off_peak
+    label: 7 days
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - DD1
+    applies_to: controlled_load
+  - codes:
+    - D3HW
+    applies_to: controlled_load
+    locator: pdf:p49
+    quote: D3HW Hot Water <1,000 <120 N/A N/A N/A 7 days
+  - codes:
+    - D2OP
+    applies_to: usage
+    locator: pdf:p50
+    quote: D2OP Residential Two <1,000 <120 N/A N/A N/A 7 Days, 24 • Where GP&L is currently Rate 5d – hours
+  - codes:
+    - D2DKOP
+    applies_to: usage
+    locator: pdf:p50
+    quote: D2DKOP Docklands Two <1,000 <120 N/A N/A N/A 7 Days, 24 • Where GP&L is connected to Rate 5d – hours
+- id: powercor-2018-pdf-two-rate-5d
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Two rate 5 day tariffs peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p57
+  quote: 'D2 Residential Two Rate 5d <1,000 <120 Mon-Fri N/A Mon-Thurs • Residential customers who requested a Existing customers:
+    0700- 2300-0700 2-rate tariff -1-phase electric hot 2300 • Existing customers only Fri 2300 - water service with a Mon
+    0700'
+  note: 'Tables A.7-A.8: peak ''Mon-Fri 0700-2300''; off peak ''Mon-Thurs 2300-0700'' and ''Fri 2300 - Mon 0700'', i.e. every
+    weekday outside 0700-2300 and all weekend. ''All times are in Eastern Standard Times unless otherwise specified'' (p47);
+    the row states no local time. Mon-Fri is read as weekdays (public holidays not stated).'
+  windows:
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700-2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - D2
+    applies_to: usage
+  - codes:
+    - D2DK
+    applies_to: usage
+    locator: pdf:p58
+    quote: D2DK Docklands Two Rate 5d <1,000 <120 Mon-Fri N/A Mon-Thurs Existing 1-phase residential customers connected N/A
+      0700- 2300-0700 in the Docklands area. 2300 Fri 2300 - Mon 0700
+  - codes:
+    - D3
+    applies_to: usage
+    locator: pdf:p59
+    quote: D3 Residential <1,000 <120 Mon-Fri N/A Mon-Thurs • Existing Residential customers not in N/A 0700- 2300-0700 Docklands
+      area 2300 Fri 2300 - Mon 0700
+  - codes:
+    - ND2
+    applies_to: usage
+    locator: pdf:p60
+    quote: ND2 Non-Residential Two Rate <1,000 <120 Mon-Fri N/A Mon-Thurs • Existing customers only 5d 0700- 2300-0700 • Non-residential
+      customers with an 1-phase electric hot water 2300 annual consumption of <60MWh service with a total load of Fri 2300
+      - <30Amps. Mon 0700
+  - codes:
+    - ND5
+    applies_to: usage
+    locator: pdf:p61
+    quote: ND5 Non-Residential <1,000 <120 Mon-Fri N/A Mon-Thurs • Existing customers only None 0700- 2300-0700 • Non-residential
+      customers not 2300 Fri 2300 - connected in Docklands area with an Mon 0700
+- id: powercor-2018-pdf-two-rate-7d
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Two rate 7 day (ND3) peak / off-peak
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p60
+  quote: ND3 Non-Residential Two Rate <1,000 <120 Mon-Sun N/A Mon-Sun • Existing customers only None 7d 0700- 2300-0700 •
+    Non-residential customers with an 2300 annual
+  note: 'Tables A.7-A.8: peak ''Mon-Sun 0700-2300'', off peak ''Mon-Sun 2300-0700''. ''All times are in Eastern Standard Times
+    unless otherwise specified'' (p47); the row states no local time.'
+  windows:
+  - period: off_peak
+    label: Mon-Sun 2300-0700
+    days: all_days
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Sun 0700-2300
+    days: all_days
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Mon-Sun 2300-0700
+    days: all_days
+    start: '23:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - ND3
+    applies_to: usage
+- id: powercor-2018-pdf-bus-flexible
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Small business flexible pricing (P14G) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p61
+  quote: P14G Non-residential <1,000 <120 Mon-Fri Sat-Sun Mon-Sun • Existing customers only 0700- 0700-1900 1900-0700 • Non-residential
+    customers with an 1900 annual consumption of <60MWh • Requires an AMI meter • Times are in local time
+  note: 'Tables A.7-A.8: peak Mon-Fri 0700-1900, shoulder Sat-Sun 0700-1900, off peak Mon-Sun 1900-0700; ''Times are in local
+    time''. Mon-Fri and Sat-Sun are read as weekdays and weekends (public holidays not stated). Seasons: glossary ''Summer''
+    (p85: December, January and February for flexible pricing) and ''Non Summer'' (p84: March through November).'
+  windows:
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: peak
+    label: Mon-Fri 0700-1900 (summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Sat-Sun 0700-1900 (summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: peak
+    label: Mon-Fri 0700-1900 (non-summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: shoulder
+    label: Sat-Sun 0700-1900 (non-summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  - period: off_peak
+    label: Mon-Sun 1900-0700 (non-summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p85
+    quote: 'For flexible pricing tariffs: Summer is defined to be calendar months December, January and February based on
+      local time.'
+  tariffs:
+  - codes:
+    - P14G
+    applies_to: usage
+- id: powercor-2018-pdf-climate-saver
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Climate Saver (D1CS, D3CS) peak / off-peak seasons
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p59
+  quote: D1CS Climate Saver <1,000 <120 01 Nov – N/A 01 Apr – • Existing customers only (non-docklands) N/A 31 Mar 31 Oct
+  note: 'Tables A.7-A.8: peak periods ''01 Nov – 31 Mar'', off peak periods ''01 Apr – 31 Oct'' (all day, every day). ''All
+    times are in Eastern Standard Times unless otherwise specified'' (p47); the row states no local time.'
+  windows:
+  - period: peak
+    label: 01 Nov – 31 Mar
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 11,12,1,2,3
+  - period: off_peak
+    label: 01 Apr – 31 Oct
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 4,5,6,7,8,9,10
+  tariffs:
+  - codes:
+    - D1CS
+    applies_to: usage
+  - codes:
+    - D3CS
+    applies_to: usage
+    locator: pdf:p60
+    quote: D3CS Climate Saver Interval <1,000 <120 01 Nov – N/A 01 Apr – • Existing customers only (non-docklands) N/A 31
+      Mar 31 Oct
+- id: powercor-2018-pdf-pl2
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Unmetered supplies / public lighting (PL2) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p53
+  quote: PL2 Unmetered <1,000 N/A N/A Mon-Fri N/A Mon-Thurs • Customers with an approved Supplies / Public 2300-0700 unmetered
+    load 0700-2300 Lighting • Public Lighting to a public lighting Fri 2300 - customer Mon 0700
+  note: 'Tables A.7-A.8: peak ''Mon-Fri 0700-2300''; off peak ''Mon-Thurs 2300-0700'' and ''Fri 2300 - Mon 0700''. ''All times
+    are in Eastern Standard Times unless otherwise specified'' (p47); the row states no local time.'
+  windows:
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700-2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Mon-Thurs 2300-0700, Fri 2300 - Mon 0700
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PL2
+    applies_to: usage
+- id: powercor-2018-pdf-large
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  name: Large kVA demand tariffs (LLV, HV, HVD, ST) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p54
+  quote: LLV Large low <1,000 ≥120 7 days, 24 hrs Mon-Fri N/A All other • Billed demand is the maximum voltage (kVA times
+    kVA over a 12 month rolling 0700 - 2300
+  note: 'Tables A.7-A.8: peak ''Mon-Fri 0700 - 2300'', off peak ''All other times''. ''All times are in Eastern Standard Times
+    unless otherwise specified'' (p47); the row states no local time. The 12-month rolling kVA demand applies at all times
+    (demand period ''7 days, 24 hrs''), so it needs no window.'
+  windows:
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Mon-Fri 0700 - 2300
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: All other times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: All other times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - LLV
+    applies_to: usage
+  - codes:
+    - HV
+    applies_to: usage
+    locator: pdf:p54
+    quote: HV High voltage ≥1,000 and N/A 7 days, 24 hrs Mon-Fri N/A All other • Billed demand is the maximum (kVA demand
+      <66,000 times kVA over a 12 month rolling 0700 - 2300
+  - codes:
+    - HVD
+    applies_to: usage
+    locator: pdf:p54
+    quote: HVD High Voltage ≥1,000 and N/A 7 days, 24 hrs Mon-Fri N/A All other • High voltage customers Dockland (kVA <66,000
+      times connected to the Docklands 0700 - 2300
+  - codes:
+    - ST
+    applies_to: usage
+    locator: pdf:p55
+    quote: ST Sub- ≥66,000 N/A Mon-Fri N/A All other • Sub-transmission voltage transmission times customers 0700 - 2300
+- id: powercor-2019-pdf-res-flexible
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Residential flexible pricing (P13R, P13RDK) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p26
+  quote: Flexible pricing P13R, P13RDK [refer to seasonal tariffs] Week days Off peak energy Shoulder energy Peak energy SH
+    OP Weekends Off peak energy Shoulder energy OP Local time 12 AM 7 AM 3 PM 9 PM 10 PM 12 AM
+  note: 'Figure A.1 bar: week days off peak to 7 AM, shoulder 7 AM-3 PM, peak 3 PM-9 PM, shoulder (SH) 9 PM-10 PM, off peak
+    (OP) 10 PM-12 AM; weekends off peak, shoulder 7 AM-10 PM, off peak; ''Local time''. Week days and weekends (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (non-summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - P13R
+    - P13RDK
+    applies_to: usage
+- id: powercor-2019-pdf-two-rate-res
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Residential time of use (D2, D2DK, D3) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p26
+  quote: Time of use D2, D2DK, D3 Week days Off peak energy Peak energy OP Weekends Off peak energy AEST 12 AM 7 AM 11 PM
+    12 AM
+  note: 'Figure A.1: week days peak 7 AM-11 PM, off peak otherwise; weekends off peak; AEST (public holidays not stated).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - D2
+    - D2DK
+    - D3
+    applies_to: usage
+- id: powercor-2019-pdf-climate-saver
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Climate Saver (D1CS, D3CS, P13RCS) summer / non-summer
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p26
+  quote: Climate Saver D1CS, D3CS, P13RCS [refer to seasonal tariffs] Summer Peak energy Non-Summer Off peak energy AEST 12
+    AM 12 AM
+  note: 'Figure A.1: summer peak energy and non-summer off peak energy, 12 AM-12 AM every day, AEST. Figure A.4 ''Seasonal
+    windows'' (p30) shades the summer months: November to March (read from the figure; its text layer gives only the month
+    names).'
+  windows:
+  - period: peak
+    label: Summer peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 11,12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Climate Saver tariffs - residential D1CS, D3CS, P13RCS Season Non-summer Summer Non-summer Month Jul Aug Sep Oct
+      Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Non-Summer off peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 4,5,6,7,8,9,10
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Climate Saver tariffs - residential D1CS, D3CS, P13RCS Season Non-summer Summer Non-summer Month Jul Aug Sep Oct
+      Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - D1CS
+    - D3CS
+    - P13RCS
+    applies_to: usage
+- id: powercor-2019-pdf-dedicated
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Controlled load off peak (all day)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p26
+  quote: Controlled load D2OP, D2DKOP, DD1, D3HW All days Off peak energy AEST 12 AM 12 AM
+  note: 'Figure A.1: controlled load, all days off peak energy 12 AM-12 AM, AEST.'
+  windows:
+  - period: off_peak
+    label: All days off peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - D2OP
+    applies_to: usage
+  - codes:
+    - D2DKOP
+    applies_to: usage
+  - codes:
+    - DD1
+    applies_to: controlled_load
+  - codes:
+    - D3HW
+    applies_to: controlled_load
+- id: powercor-2019-pdf-res-demand
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Residential demand (DD, DDNEW) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p27
+  quote: Cost-reflective DD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local time 12 AM 3 PM
+    9 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.1: work days peak demand 3 PM-9 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - DD
+    applies_to: demand
+  - codes:
+    - DDNEW
+    applies_to: demand
+    locator: pdf:p27
+    quote: Newstead Trial DDNEW [refer to seasonal tariffs] Work days Peak demand Local time 12 AM 3 PM 9 PM 12 AM *Work days
+      are week days excluding public holidays
+- id: powercor-2019-pdf-two-rate-5d
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Small business time of use 5 day (ND2, ND5)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Time of use - 5 day ND2, ND5 Week days Off peak energy Peak energy OP Weekends Off peak energy AEST 12 AM 7 AM 11
+    PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST (public holidays not stated).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - ND2
+    - ND5
+    applies_to: usage
+- id: powercor-2019-pdf-two-rate-7d
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Small business time of use 7 day (ND3)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Time of use - 7 day ND3 All days Off peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: all days peak 7 AM-11 PM; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: All days peak energy
+    days: all_days
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: '23:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - ND3
+    applies_to: usage
+- id: powercor-2019-pdf-bus-flexible
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Small business flexible pricing (P14G)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Flexible pricing P14G [refer to seasonal tariffs] Week days Off peak energy Peak energy Off peak energy Weekends
+    Off peak energy Shoulder energy Off peak energy Local time 12 AM 7 AM 7 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-7 PM, weekends shoulder 7 AM-7 PM, off peak otherwise; ''Local time'' (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - P14G
+    applies_to: usage
+- id: powercor-2019-pdf-ndd-demand
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Small business demand (NDD) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p28
+  quote: Small business cost-reflective NDD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - NDD
+    applies_to: demand
+- id: powercor-2019-pdf-ndm-demand
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Medium business (NDM) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p29
+  quote: Medium business cost-reflective NDM [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy Peak
+    energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: demand
+- id: powercor-2019-pdf-ndm-energy
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Medium business (NDM, NDMO) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Medium business cost-reflective NDM [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy Peak
+    energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak energy 7 AM-11 PM, off peak otherwise, non work days off peak; ''Local time''; ''*Work
+    days are week days excluding public holidays''.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Work days peak energy
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: usage
+  - codes:
+    - NDMO
+    applies_to: usage
+    locator: pdf:p29
+    quote: Medium business opt-out NDMO Work days Off peak energy Peak energy OP Non work days Off peak energy Local time
+      12 AM 7 AM 11 PM 12 AM *Work days are week days excluding public holidays
+- id: powercor-2019-pdf-pl2
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Public lighting (PL2) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Public lighting PL2 Week days Off peak energy Peak energy OP Weekends Off peak energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PL2
+    applies_to: usage
+- id: powercor-2019-pdf-large
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  name: Large demand (LLV, HV, HVD, ST) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Large Demand LLV, HV, HVD, ST All days Rolling kVA demand Week days Off peak energy Peak energy OP Weekends Off peak
+    energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.3: all days rolling kVA demand (no window needed); week days peak energy 7 AM-11 PM, weekends off peak;
+    AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - LLV
+    - HV
+    - HVD
+    - ST
+    applies_to: usage
+- id: powercor-2020-pdf-res-flexible
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Residential flexible pricing (P13R, P13RDK) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p26
+  quote: Flexible pricing P13R, P13RDK [refer to seasonal tariffs] Week days Off peak energy Shoulder energy Peakenergy SH
+    OP Weekendsoff peak energy Shoulder energy OP Local time 12 AM 7 AM Wd E 9 PM10 PM 12 AM
+  note: 'Figure A.1 bar: week days off peak to 7 AM, shoulder 7 AM-3 PM, peak 3 PM-9 PM, shoulder (SH) 9 PM-10 PM, off peak
+    (OP) 10 PM-12 AM; weekends off peak, shoulder 7 AM-10 PM, off peak; ''Local time''. Week days and weekends (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names). Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (non-summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - P13R
+    - P13RDK
+    applies_to: usage
+- id: powercor-2020-pdf-two-rate-res
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Residential time of use (D2, D2DK, D3) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p26
+  quote: Time of use D2, D2DK, D3 Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12
+    AM
+  note: 'Figure A.1: week days peak 7 AM-11 PM, off peak otherwise; weekends off peak; AEST (public holidays not stated).
+    Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - D2
+    - D2DK
+    - D3
+    applies_to: usage
+- id: powercor-2020-pdf-climate-saver
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Climate Saver (D1CS, D3CS, P13RCS) summer / non-summer
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf-ocr:p26
+  quote: Climate Saver D1CS, D3CS, P13RCS [refer to seasonal tariffs] Summer Peak energy Non-Summer Off peak energy AEST 12
+    AM 12 AM
+  note: 'Figure A.1: summer peak energy and non-summer off peak energy, 12 AM-12 AM every day, AEST. Figure A.4 ''Seasonal
+    windows'' (p30) shades the summer months: November to March (read from the figure; its text layer gives only the month
+    names). Page read by OCR (the figure is an image).'
+  windows:
+  - period: peak
+    label: Summer peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 11,12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Climate Saver tariffs - residential D1CS, D3CS, P13RCS Season Non-summer Summer Non-summer Month Jul Aug Sep Oct
+      Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Non-Summer off peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 4,5,6,7,8,9,10
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Climate Saver tariffs - residential D1CS, D3CS, P13RCS Season Non-summer Summer Non-summer Month Jul Aug Sep Oct
+      Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - D1CS
+    - D3CS
+    - P13RCS
+    applies_to: usage
+- id: powercor-2020-pdf-dedicated
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Controlled load off peak (all day)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf-ocr:p26
+  quote: Controlled load DD1 All days Offpeakenergy AEST 12 AM 12 AM
+  note: 'Figure A.1: controlled load, all days off peak energy 12 AM-12 AM, AEST. Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: All days off peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - DD1
+    applies_to: controlled_load
+- id: powercor-2020-pdf-res-demand
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Residential demand (DD, DDNEW) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p27
+  quote: Cost-reflective DD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local time 12 AM 3 PM
+    9 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.1: work days peak demand 3 PM-9 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - DD
+    applies_to: demand
+  - codes:
+    - DDNEW
+    applies_to: demand
+    locator: pdf:p27
+    quote: Newstead Trial DDNEW [refer to seasonal tariffs] Work days Peak demand Local time 12 AM 3 PM 9 PM 12 AM *Work days
+      are week days excluding public holidays
+- id: powercor-2020-pdf-two-rate-5d
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Small business time of use 5 day (ND2, ND5)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Time of use - 5 day ND2, ND5 Week days Off peak energy Peak energy OP Weekends Off peak energy AEST 12 AM 7 AM 11
+    PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST (public holidays not stated).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - ND2
+    - ND5
+    applies_to: usage
+- id: powercor-2020-pdf-two-rate-7d
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Small business time of use 7 day (ND3)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Time of use - 7 day ND3 All days Off peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: all days peak 7 AM-11 PM; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: All days peak energy
+    days: all_days
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: '23:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - ND3
+    applies_to: usage
+- id: powercor-2020-pdf-bus-flexible
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Small business flexible pricing (P14G)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Flexible pricing P14G [refer to seasonal tariffs] Week days Off peak energy Peak energy Off peak energy Weekends
+    Off peak energy Shoulder energy Off peak energy Local time 12 AM 7 AM 7 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-7 PM, weekends shoulder 7 AM-7 PM, off peak otherwise; ''Local time'' (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - P14G
+    applies_to: usage
+- id: powercor-2020-pdf-ndd-demand
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Small business demand (NDD) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p28
+  quote: Small business cost-reflective NDD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - NDD
+    applies_to: demand
+- id: powercor-2020-pdf-ndm-demand
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Medium business (NDM) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p29
+  quote: Medium business cost-reflective NDM [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy Peak
+    energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: demand
+- id: powercor-2020-pdf-ndm-energy
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Medium business (NDM, NDMO) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Medium business cost-reflective NDM [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy Peak
+    energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak energy 7 AM-11 PM, off peak otherwise, non work days off peak; ''Local time''; ''*Work
+    days are week days excluding public holidays''.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Work days peak energy
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: usage
+  - codes:
+    - NDMO
+    applies_to: usage
+    locator: pdf:p29
+    quote: Medium business opt-out NDMO Work days Off peak energy Peak energy OP Non work days Off peak energy Local time
+      12 AM 7 AM 11 PM 12 AM *Work days are week days excluding public holidays
+- id: powercor-2020-pdf-pl2
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Public lighting (PL2) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Public lighting PL2 Week days Off peak energy Peak energy OP Weekends Off peak energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PL2
+    applies_to: usage
+- id: powercor-2020-pdf-large
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  name: Large demand (LLV, HV, HVD, ST) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Large Demand LLV, HV, HVD, ST All days Rolling kVA demand Week days Off peak energy Peak energy OP Weekends Off peak
+    energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.3: all days rolling kVA demand (no window needed); week days peak energy 7 AM-11 PM, weekends off peak;
+    AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - LLV
+    - HV
+    - HVD
+    - ST
+    applies_to: usage
+- id: powercor-2021-H1-pdf-res-flexible
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Residential flexible pricing (P13R, P13RDK) peak / shoulder / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p26
+  quote: Flexible pricing P13R, Pi3RDK [refer to seasonal tariffs] Week days Off peak energy Shoulder energy Peak energy SH
+    OP Weekends Off peak energy Shoulder energy OP Local time 12 AM 7 AM Wd E 9 PM10PM 12 AM
+  note: 'Figure A.1 bar: week days off peak to 7 AM, shoulder 7 AM-3 PM, peak 3 PM-9 PM, shoulder (SH) 9 PM-10 PM, off peak
+    (OP) 10 PM-12 AM; weekends off peak, shoulder 7 AM-10 PM, off peak; ''Local time''. Week days and weekends (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names). Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '15:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: '15:00'
+    end: '21:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Week days shoulder energy (SH) (non-summer)
+    days: weekday
+    start: '21:00'
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '22:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '22:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - P13R
+    - P13RDK
+    applies_to: usage
+- id: powercor-2021-H1-pdf-two-rate-res
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Residential time of use (D2, D2DK, D3) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf-ocr:p26
+  quote: Time of use D2, D2DK, D3 Week daysoff peak energy Peak energy OP Weekendsoffpeakenergy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.1: week days peak 7 AM-11 PM, off peak otherwise; weekends off peak; AEST (public holidays not stated).
+    Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - D2
+    - D2DK
+    - D3
+    applies_to: usage
+- id: powercor-2021-H1-pdf-climate-saver
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Climate Saver (D1CS, D3CS, P13RCS) summer / non-summer
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf-ocr:p26
+  quote: Climate Saver D1CS, D3CS, P13RCs [refer to seasonal tariffs] Summer Peakenergy Non-Summer Off peak energy AEST 12
+    AM 12 AM
+  note: 'Figure A.1: summer peak energy and non-summer off peak energy, 12 AM-12 AM every day, AEST. Figure A.4 ''Seasonal
+    windows'' (p30) shades the summer months: November to March (read from the figure; its text layer gives only the month
+    names). Page read by OCR (the figure is an image).'
+  windows:
+  - period: peak
+    label: Summer peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 11,12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Climate Saver tariffs - residential D1CS, D3CS, P13RCS Season Non-summer Summer Non-summer Month Jul Aug Sep Oct
+      Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Non-Summer off peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+    months: 4,5,6,7,8,9,10
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Climate Saver tariffs - residential D1CS, D3CS, P13RCS Season Non-summer Summer Non-summer Month Jul Aug Sep Oct
+      Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - D1CS
+    - D3CS
+    - P13RCS
+    applies_to: usage
+- id: powercor-2021-H1-pdf-dedicated
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Controlled load off peak (all day)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf-ocr:p26
+  quote: Controlled load DD1 All days Offpeakenergy AEST 12 AM 12 AM
+  note: 'Figure A.1: controlled load, all days off peak energy 12 AM-12 AM, AEST. Page read by OCR (the figure is an image).'
+  windows:
+  - period: off_peak
+    label: All days off peak energy
+    days: all_days
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - DD1
+    applies_to: controlled_load
+- id: powercor-2021-H1-pdf-res-demand
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Residential demand (DD, DDNEW) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p27
+  quote: Cost-reflective DD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local time 12 AM 3 PM
+    9 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.1: work days peak demand 3 PM-9 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - DD
+    applies_to: demand
+  - codes:
+    - DDNEW
+    applies_to: demand
+    locator: pdf:p27
+    quote: Newstead Trial DDNEW [refer to seasonal tariffs] Work days Peak demand Local time 12 AM 3 PM 9 PM 12 AM *Work days
+      are week days excluding public holidays
+- id: powercor-2021-H1-pdf-two-rate-5d
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Small business time of use 5 day (ND2, ND5)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Time of use - 5 day ND2, ND5 Week days Off peak energy Peak energy OP Weekends Off peak energy AEST 12 AM 7 AM 11
+    PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST (public holidays not stated).'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - ND2
+    - ND5
+    applies_to: usage
+- id: powercor-2021-H1-pdf-two-rate-7d
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Small business time of use 7 day (ND3)
+  time_basis: standard_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Time of use - 7 day ND3 All days Off peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: all days peak 7 AM-11 PM; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: All days peak energy
+    days: all_days
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: all_days
+    start: '23:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - ND3
+    applies_to: usage
+- id: powercor-2021-H1-pdf-bus-flexible
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Small business flexible pricing (P14G)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Flexible pricing P14G [refer to seasonal tariffs] Week days Off peak energy Peak energy Off peak energy Weekends
+    Off peak energy Shoulder energy Off peak energy Local time 12 AM 7 AM 7 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-7 PM, weekends shoulder 7 AM-7 PM, off peak otherwise; ''Local time'' (public holidays
+    not stated). Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December, January and February (read from
+    the figure; its text layer gives only the month names).'
+  windows:
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 12,1,2
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Week days peak energy (non-summer)
+    days: weekday
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekday
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: 00:00
+    end: 07:00
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: shoulder
+    label: Weekends shoulder energy (non-summer)
+    days: weekend
+    start: 07:00
+    end: '19:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: off_peak
+    label: Off peak energy (non-summer)
+    days: weekend
+    start: '19:00'
+    end: '24:00'
+    months: 3,4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Flexible pricing tariffs - Residential and Commercial P13R, P13RDK, P14G Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - P14G
+    applies_to: usage
+- id: powercor-2021-H1-pdf-ndd-demand
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Small business demand (NDD) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p28
+  quote: Small business cost-reflective NDD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - NDD
+    applies_to: demand
+- id: powercor-2021-H1-pdf-ndm-demand
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Medium business (NDM) maximum demand window
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: false
+  locator: pdf:p29
+  quote: Medium business cost-reflective NDM [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy Peak
+    energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak demand 10 AM-6 PM, ''Local time''; ''*Work days are week days excluding public holidays''.
+    Figure A.4 ''Seasonal windows'' (p30) shades the summer months: December to March (read from the figure; its text layer
+    gives only the month names).'
+  windows:
+  - period: peak
+    label: Work days peak demand (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  - period: peak
+    label: Work days peak demand (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p30
+    quote: Cost-reflective tariffs - Residential and Commercial DD, DDNEW, NDD, NDM Season Non-summer Summer Non-summer Month
+      Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: demand
+- id: powercor-2021-H1-pdf-ndm-energy
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Medium business (NDM, NDMO) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Medium business cost-reflective NDM [refer to seasonal tariffs] Work days Peak demand Work days Off peak energy Peak
+    energy OP Non work days Off peak energy Local time 12 AM 7 AM 10 AM 6 PM 11 PM 12 AM *Work days are week days excluding
+    public holidays
+  note: 'Figure A.2: work days peak energy 7 AM-11 PM, off peak otherwise, non work days off peak; ''Local time''; ''*Work
+    days are week days excluding public holidays''.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Work days peak energy
+    days: business_day
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: business_day
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDM
+    applies_to: usage
+  - codes:
+    - NDMO
+    applies_to: usage
+    locator: pdf:p29
+    quote: Medium business opt-out NDMO Work days Off peak energy Peak energy OP Non work days Off peak energy Local time
+      12 AM 7 AM 11 PM 12 AM *Work days are week days excluding public holidays
+- id: powercor-2021-H1-pdf-pl2
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Public lighting (PL2) peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Public lighting PL2 Week days Off peak energy Peak energy OP Weekends Off peak energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.2: week days peak 7 AM-11 PM, weekends off peak; AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PL2
+    applies_to: usage
+- id: powercor-2021-H1-pdf-large
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  name: Large demand (LLV, HV, HVD, ST) energy peak / off-peak
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p29
+  quote: Large Demand LLV, HV, HVD, ST All days Rolling kVA demand Week days Off peak energy Peak energy OP Weekends Off peak
+    energy AEST 12 AM 7 AM 11 PM 12 AM
+  note: 'Figure A.3: all days rolling kVA demand (no window needed); week days peak energy 7 AM-11 PM, weekends off peak;
+    AEST.'
+  windows:
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: Week days peak energy
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: Off peak energy
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - LLV
+    - HV
+    - HVD
+    - ST
+    applies_to: usage
+- id: powercor-2021-22-pdf-prtou
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Residential ToU (PRTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p23
+  quote: all days non-peak ToU PRTOU Default  3pm-9pm times
+  note: Residential tariff table; 'All times are local time' (same page).
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '15:00'
+  - period: peak
+    label: peak all days 3pm-9pm
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PRTOU
+    applies_to: usage
+- id: powercor-2021-22-pdf-dd-demand
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Residential demand (DD) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p23
+  quote: workdays workdays Demand DD Opt-in < 1kV N/A   3pm-9pm 3pm-9pm
+  note: Residential tariff table, summer and non-summer demand columns. 'workdays' is not defined in the document; mapped
+    to business_day (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: workdays 3pm-9pm (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p23
+    quote: ummer period covers December to March, non-summer is April to November
+  - period: peak
+    label: workdays 3pm-9pm (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p23
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - DD
+    applies_to: demand
+- id: powercor-2021-22-pdf-sb-tou
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Small business ToU (NDTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p24
+  quote: workdays Non-peak ToU NDTOU Default  9am-9pm times
+  note: Small and medium business tariff table; 'All times are local time, except for PL2'. 'workdays' is not defined in the
+    document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: 09:00
+  - period: peak
+    label: peak workdays 9am-9pm
+    days: business_day
+    start: 09:00
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDTOU
+    applies_to: usage
+- id: powercor-2021-22-pdf-ndd-ndm-demand
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Small and medium business demand (NDD, NDM) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p24
+  quote: workdays workdays Demand NDD Opt-in   10am-6pm 10am-6pm
+  note: Summer and non-summer demand columns. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  - period: peak
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - NDD
+    applies_to: demand
+  - codes:
+    - NDM
+    applies_to: demand
+    locator: pdf:p24
+    quote: Medium business demand NDM Default   < 120KVA 10am-6pm 10am-6pm
+- id: powercor-2021-22-pdf-ndmo21-tou
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Medium business opt-out (NDMO21) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p24
+  quote: Medium business opt-out NDMO21 Opt-out  pa 10am-6pm times
+  note: Peak energy 'workdays 10am-6pm', off-peak 'Non-peak times'. 'workdays' is not defined in the document; mapped to business_day
+    (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: peak
+    label: peak workdays 10am-6pm
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '18:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDMO21
+    applies_to: usage
+- id: powercor-2021-22-pdf-pl2-tou
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Unmetered supply (PL2) energy peak / off-peak
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p24
+  quote: weekdays Non-peak Unmetered supply PL2 Default unmetered 7am-11pm times
+  note: '''All times are local time, except for PL2'': PL2''s time basis is not stated in this document.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak weekdays 7am-11pm
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PL2
+    applies_to: usage
+- id: powercor-2021-22-pdf-large-energy
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Large business energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p27
+  quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other times.
+  note: '''Peak and off peak usage'' (kVA demand section). ''workdays'' is not defined in the document; mapped to business_day
+    (Mon-Fri); public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '19:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    - HVT1
+    - HVT2
+    - LLV1
+    - LLV2
+    - HV1
+    - HV2
+    - ST2
+    applies_to: usage
+- id: powercor-2021-22-pdf-large-rolling
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Large business 12-month rolling demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p27
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' rate. ''workdays'' is not defined in the document;
+    mapped to business_day (Mon-Fri); public holiday treatment not stated.'
+  windows:
+  - period: peak
+    label: rolling demand 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    - HVT1
+    - HVT2
+    - LLV1
+    - LLV2
+    - HV1
+    - HV2
+    - ST2
+    applies_to: demand
+- id: powercor-2021-22-pdf-large-incentive-1
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Large business summer incentive demand window (tariffs ending 1)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: ending 1 represent 1-4pm, tariffs ending 2 represent 4-7pm summer incentive demand period
+  note: Large tariff table notes; 'Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months'
+    (kVA demand section), measured on each workday. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: summer incentive 1-4pm
+    days: business_day
+    start: '13:00'
+    end: '16:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p23
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - LLV1
+    - HV1
+    applies_to: demand
+- id: powercor-2021-22-pdf-large-incentive-2
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  name: Large business summer incentive demand window (tariffs ending 2)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: ending 1 represent 1-4pm, tariffs ending 2 represent 4-7pm summer incentive demand period
+  note: Large tariff table notes; 'Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months'
+    (kVA demand section), measured on each workday. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: summer incentive 4-7pm
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p23
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - LLV2
+    - HV2
+    applies_to: demand
+- id: powercor-2022-23-pdf-prtou
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  name: Residential ToU (PRTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p24
+  quote: all days non-peak ToU PRTOU Default ✓ 3pm-9pm times
+  note: Residential tariff table; 'All times are local time' (same page).
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: 00:00
+    end: '15:00'
+  - period: peak
+    label: peak all days 3pm-9pm
+    days: all_days
+    start: '15:00'
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: all_days
+    start: '21:00'
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PRTOU
+    applies_to: usage
+- id: powercor-2022-23-pdf-dd-demand
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  name: Residential demand (DD) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p24
+  quote: workdays workdays Demand DD Opt-in < 1kV N/A ✓ ✓ 3pm-9pm 3pm-9pm
+  note: Residential tariff table, summer and non-summer demand columns. 'workdays' is not defined in the document; mapped
+    to business_day (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: workdays 3pm-9pm (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  - period: peak
+    label: workdays 3pm-9pm (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - DD
+    applies_to: demand
+- id: powercor-2022-23-pdf-sb-tou
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  name: Small business ToU (NDTOU) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: workdays Non-peak ToU NDTOU Default ✓ 9am-9pm times
+  note: Small and medium business tariff table; 'All times are local time, except for PL2'. 'workdays' is not defined in the
+    document; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: 09:00
+  - period: peak
+    label: peak workdays 9am-9pm
+    days: business_day
+    start: 09:00
+    end: '21:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '21:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDTOU
+    applies_to: usage
+- id: powercor-2022-23-pdf-ndd-ndm-demand
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  name: Small and medium business demand (NDD, NDM) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p25
+  quote: workdays workdays Demand NDD Opt-in ✓ ✓ 10am-6pm 10am-6pm
+  note: Summer and non-summer demand columns. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: workdays 10am-6pm (summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p25
+    quote: ummer period covers December to March, non-summer is April to November
+  - period: peak
+    label: workdays 10am-6pm (non-summer)
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p25
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - NDD
+    applies_to: demand
+  - codes:
+    - NDM
+    applies_to: demand
+    locator: pdf:p25
+    quote: Medium business demand NDM Default ✓ ✓ < 120KVA 10am-6pm 10am-6pm
+- id: powercor-2022-23-pdf-ndmo21-tou
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  name: Medium business opt-out (NDMO21) energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: Medium business opt-out NDMO21 Opt-out ✓ pa 10am-6pm times
+  note: Peak energy 'workdays 10am-6pm', off-peak 'Non-peak times'. 'workdays' is not defined in the document; mapped to business_day
+    (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: 00:00
+    end: '10:00'
+  - period: peak
+    label: peak workdays 10am-6pm
+    days: business_day
+    start: '10:00'
+    end: '18:00'
+  - period: off_peak
+    label: non-peak times
+    days: business_day
+    start: '18:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - NDMO21
+    applies_to: usage
+- id: powercor-2022-23-pdf-pl2-tou
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  name: Unmetered supply (PL2) energy peak / off-peak
+  time_basis: not_stated
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p25
+  quote: weekdays Non-peak Unmetered supply PL2 Default unmetered 7am-11pm times
+  note: '''All times are local time, except for PL2'': PL2''s time basis is not stated in this document.'
+  windows:
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak weekdays 7am-11pm
+    days: weekday
+    start: 07:00
+    end: '23:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekday
+    start: '23:00'
+    end: '24:00'
+  - period: off_peak
+    label: non-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - PL2
+    applies_to: usage
+- id: powercor-2022-23-pdf-large-energy
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  name: Large business energy peak / off-peak
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p28
+  quote: Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other times.
+  note: '''Peak and off peak usage'' (kVA demand section). ''workdays'' is not defined in the document; mapped to business_day
+    (Mon-Fri); public holiday treatment not stated.'
+  windows:
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: 00:00
+    end: 07:00
+  - period: peak
+    label: peak 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: business_day
+    start: '19:00'
+    end: '24:00'
+  - period: off_peak
+    label: off-peak all other times
+    days: non_business_day
+    start: 00:00
+    end: '24:00'
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    - HVT1
+    - HVT2
+    - LLV1
+    - LLV2
+    - HV1
+    - HV2
+    - ST2
+    applies_to: usage
+- id: powercor-2022-23-pdf-large-rolling
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  name: Large business 12-month rolling demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p28
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' rate. ''workdays'' is not defined in the document;
+    mapped to business_day (Mon-Fri); public holiday treatment not stated.'
+  windows:
+  - period: peak
+    label: rolling demand 7am-7pm workdays
+    days: business_day
+    start: 07:00
+    end: '19:00'
+  tariffs:
+  - codes:
+    - LLVT1
+    - LLVT2
+    - HVT1
+    - HVT2
+    - LLV1
+    - LLV2
+    - HV1
+    - HV2
+    - ST2
+    applies_to: demand
+- id: powercor-2022-23-pdf-large-incentive-1
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  name: Large business summer incentive demand window (tariffs ending 1)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p26
+  quote: ending 1 represent 1-4pm, tariffs ending 2 represent 4-7pm summer incentive demand period
+  note: Large tariff table notes; 'Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months'
+    (kVA demand section), measured on each workday. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: summer incentive 1-4pm
+    days: business_day
+    start: '13:00'
+    end: '16:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - LLVT1
+    - HVT1
+    - LLV1
+    - HV1
+    applies_to: demand
+- id: powercor-2022-23-pdf-large-incentive-2
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  name: Large business summer incentive demand window (tariffs ending 2)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p26
+  quote: ending 1 represent 1-4pm, tariffs ending 2 represent 4-7pm summer incentive demand period
+  note: Large tariff table notes; 'Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months'
+    (kVA demand section), measured on each workday. 'workdays' is not defined in the document; mapped to business_day (Mon-Fri);
+    public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: summer incentive 4-7pm
+    days: business_day
+    start: '16:00'
+    end: '19:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p24
+    quote: ummer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - LLVT2
+    - HVT2
+    - LLV2
+    - HV2
+    applies_to: demand
+- id: powercor-2021-22-tss-ddnew-demand
+  doc: sources/dnsp/powercor/Powercor_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year: 2021-22
+  name: Newstead residential trial (DDNEW) maximum demand window
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: Newstead Residential workdays workdays DDNEW Opt-in  Trial11 3pm-9pm 3pm-9pm
+  note: TSS 2021-26 Figure 5 (residential tariff class), summer and non-summer demand columns; footnote 9 'All times are local
+    time'; footnote 11 'Trial will continue into 2021/22 with possibility of changes to the trial tariff structure'. 'workdays'
+    is not defined; mapped to business_day (Mon-Fri); public holiday treatment not stated.
+  windows:
+  - period: peak
+    label: workdays 3pm-9pm (summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 12,1,2,3
+    season: summer
+    season_label: summer
+    locator: pdf:p10
+    quote: Summer period covers December to March, non-summer is April to November
+  - period: peak
+    label: workdays 3pm-9pm (non-summer)
+    days: business_day
+    start: '15:00'
+    end: '21:00'
+    months: 4,5,6,7,8,9,10,11
+    season: non_summer
+    season_label: non-summer
+    locator: pdf:p10
+    quote: Summer period covers December to March, non-summer is April to November
+  tariffs:
+  - codes:
+    - DDNEW
+    applies_to: demand
 eligibility:
 - codes:
   - PRTOU
@@ -4813,6 +9317,318 @@ rate_periods:
     4 (residential) has two peak energy columns: ''Peak energy'' (CER row: all days 4pm-9pm during Dec-Feb and Jun-Aug) and
     ''Peak energy (shoulder)'' (CER row: all days 4pm-9pm during Mar-May and Sep-Nov). The Tariff Summary prints the second
     as ''Peak import Mar-May, Sep-Nov''; it is priced in the shoulder window (schedule powercor-2627-pdf-prcer-import).'
+- codes:
+  - DD
+  - NDD
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  component: Demand Dec-Mar
+  tou_period: peak
+  locator: pdf:p49
+  quote: 'DD Residential Demand Tariff <1,000 <120 Summer: Dec 7 days, 24 hrs N/A N/A  Requires an active market interval
+    read meter – Mar  Times are in local time Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1500-2100'
+  note: 'Tables A.8-A.9 ''Demand periods'' column: the demand is measured only in the stated window (Mon-Fri excl. public
+    holidays 1500-2100 for DD/DDNEW, 1000-1800 for NDD/NDM), which the schedules give as the peak period.'
+- codes:
+  - DD
+  - NDD
+  doc: sources/archive/powercor/2017/AER_approved_-_Pricing_proposal_2017_-_21_October_2016.pdf
+  fin_year: '2017'
+  component: Demand Apr-Nov
+  tou_period: peak
+  locator: pdf:p49
+  quote: 'DD Residential Demand Tariff <1,000 <120 Summer: Dec 7 days, 24 hrs N/A N/A  Requires an active market interval
+    read meter – Mar  Times are in local time Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1500-2100'
+  note: 'Tables A.8-A.9 ''Demand periods'' column: the demand is measured only in the stated window (Mon-Fri excl. public
+    holidays 1500-2100 for DD/DDNEW, 1000-1800 for NDD/NDM), which the schedules give as the peak period.'
+- codes:
+  - DD
+  - DDNEW
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  component: Demand Dec-Mar
+  tou_period: peak
+  locator: pdf:p49
+  quote: 'DD Residential <1,000 <120 Summer: 7 days, 24 hrs N/A N/A • Requires an active market Demand Tariff interval read
+    meter Dec – Mar • Times are in local time Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1500-2100'
+  note: 'Tables A.7-A.8 ''Demand periods'' column: the demand is measured only in the stated window (Mon-Fri excl. public
+    holidays 1500-2100 for DD/DDNEW, 1000-1800 for NDD/NDM), which the schedules give as the peak period.'
+- codes:
+  - DD
+  - DDNEW
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2018/AER_approved_-_Powercor_-_2018_Pricing_Proposal_-_12_October_2017.pdf
+  fin_year: '2018'
+  component: Demand Apr-Nov
+  tou_period: peak
+  locator: pdf:p49
+  quote: 'DD Residential <1,000 <120 Summer: 7 days, 24 hrs N/A N/A • Requires an active market Demand Tariff interval read
+    meter Dec – Mar • Times are in local time Non-summer: Apr - Nov Mon-Fri (excl. public holidays) 1500-2100'
+  note: 'Tables A.7-A.8 ''Demand periods'' column: the demand is measured only in the stated window (Mon-Fri excl. public
+    holidays 1500-2100 for DD/DDNEW, 1000-1800 for NDD/NDM), which the schedules give as the peak period.'
+- codes:
+  - DD
+  - DDNEW
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  component: Demand Dec-Mar
+  tou_period: peak
+  locator: pdf:p28
+  quote: Small business cost-reflective NDD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (DD, DDNEW) or
+    10 AM-6 PM (NDD, NDM).
+- codes:
+  - DD
+  - DDNEW
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  component: Demand Apr-Nov
+  tou_period: peak
+  locator: pdf:p28
+  quote: Small business cost-reflective NDD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (DD, DDNEW) or
+    10 AM-6 PM (NDD, NDM).
+- codes:
+  - P13RCS
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  component: Summer Time of Use Pk
+  tou_period: anytime
+  locator: pdf:p26
+  quote: Climate Saver D1CS, D3CS, P13RCS [refer to seasonal tariffs] Summer Peak energy Non-Summer Off peak energy AEST 12
+    AM 12 AM
+  note: 'Figure A.1 ''Climate Saver D1CS, D3CS, P13RCS'': one energy rate per season, 12 AM-12 AM every day (summer November
+    to March, Figure A.4), so the per-season ''Pk'' price applies at all times of its season.'
+- codes:
+  - P13RCS
+  doc: sources/archive/powercor/2019/AER_approved_-_Powercor_-_Pricing_proposal_2019_-_31_October_2018.pdf
+  fin_year: '2019'
+  component: Non-Summer Time of Use Pk
+  tou_period: anytime
+  locator: pdf:p26
+  quote: Climate Saver D1CS, D3CS, P13RCS [refer to seasonal tariffs] Summer Peak energy Non-Summer Off peak energy AEST 12
+    AM 12 AM
+  note: 'Figure A.1 ''Climate Saver D1CS, D3CS, P13RCS'': one energy rate per season, 12 AM-12 AM every day (summer November
+    to March, Figure A.4), so the per-season ''Pk'' price applies at all times of its season.'
+- codes:
+  - DD
+  - DDNEW
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  component: Demand Dec-Mar
+  tou_period: peak
+  locator: pdf:p28
+  quote: Small business cost-reflective NDD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (DD, DDNEW) or
+    10 AM-6 PM (NDD, NDM).
+- codes:
+  - DD
+  - DDNEW
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  component: Demand Apr-Nov
+  tou_period: peak
+  locator: pdf:p28
+  quote: Small business cost-reflective NDD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (DD, DDNEW) or
+    10 AM-6 PM (NDD, NDM).
+- codes:
+  - P13RCS
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  component: Summer Time of Use Pk
+  tou_period: anytime
+  locator: pdf-ocr:p26
+  quote: Climate Saver D1CS, D3CS, P13RCS [refer to seasonal tariffs] Summer Peak energy Non-Summer Off peak energy AEST 12
+    AM 12 AM
+  note: 'Figure A.1 ''Climate Saver D1CS, D3CS, P13RCS'': one energy rate per season, 12 AM-12 AM every day (summer November
+    to March, Figure A.4), so the per-season ''Pk'' price applies at all times of its season. Page read by OCR (the figure
+    is an image).'
+- codes:
+  - P13RCS
+  doc: sources/archive/powercor/2020/AER_-_Approved_Powercor_PricingProposal_2020_-_November_2019.pdf
+  fin_year: '2020'
+  component: Non-Summer Time of Use Pk
+  tou_period: anytime
+  locator: pdf-ocr:p26
+  quote: Climate Saver D1CS, D3CS, P13RCS [refer to seasonal tariffs] Summer Peak energy Non-Summer Off peak energy AEST 12
+    AM 12 AM
+  note: 'Figure A.1 ''Climate Saver D1CS, D3CS, P13RCS'': one energy rate per season, 12 AM-12 AM every day (summer November
+    to March, Figure A.4), so the per-season ''Pk'' price applies at all times of its season. Page read by OCR (the figure
+    is an image).'
+- codes:
+  - DD
+  - DDNEW
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  component: Demand Charges Dec-Mar
+  tou_period: peak
+  locator: pdf:p28
+  quote: Small business cost-reflective NDD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (DD, DDNEW) or
+    10 AM-6 PM (NDD, NDM).
+- codes:
+  - DD
+  - DDNEW
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  component: Demand Charges Apr-Nov
+  tou_period: peak
+  locator: pdf:p28
+  quote: Small business cost-reflective NDD [refer to seasonal tariffs] Work days Peak demand All times Peak energy Local
+    time 12 AM 10 AM 6 PM 12 AM *Work days are week days excluding public holidays
+  note: Figures A.1 and A.2 name the cost-reflective demand 'Peak demand', measured on work days 3 PM-9 PM (DD, DDNEW) or
+    10 AM-6 PM (NDD, NDM).
+- codes:
+  - DD
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  component: Demand Charges Dec-Mar
+  tou_period: peak
+  locator: pdf:p24
+  quote: workdays workdays Demand NDD Opt-in   10am-6pm 10am-6pm
+  note: 'Summer and non-summer demand columns: the demand is measured in the workday window (DD 3pm-9pm, NDD and NDM 10am-6pm),
+    which the schedules give as the peak period.'
+- codes:
+  - DD
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  component: Demand Charges Apr-Nov
+  tou_period: peak
+  locator: pdf:p24
+  quote: workdays workdays Demand NDD Opt-in   10am-6pm 10am-6pm
+  note: 'Summer and non-summer demand columns: the demand is measured in the workday window (DD 3pm-9pm, NDD and NDM 10am-6pm),
+    which the schedules give as the peak period.'
+- codes:
+  - LLVT1
+  - LLVT2
+  - HVT1
+  - HVT2
+  - LLV1
+  - LLV2
+  - HV1
+  - HV2
+  - ST2
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  component: Demand Charges Jan-Dec
+  tou_period: peak
+  locator: pdf:p27
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: The 12-month rolling demand is measured 7am-7pm workdays (window powercor-2021-22-pdf-large-rolling).
+- codes:
+  - LLV1
+  - LLV2
+  - HV1
+  - HV2
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  component: Demand Charges Dec-Mar
+  tou_period: peak
+  locator: pdf:p27
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months.
+  note: The summer incentive demand is measured 1-4pm or 4-7pm on workdays (windows powercor-2021-22-pdf-large-incentive-1/-2).
+- codes:
+  - DD
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  component: Demand Charges Dec-Mar
+  tou_period: peak
+  locator: pdf:p25
+  quote: workdays workdays Demand NDD Opt-in ✓ ✓ 10am-6pm 10am-6pm
+  note: 'Summer and non-summer demand columns: the demand is measured in the workday window (DD 3pm-9pm, NDD and NDM 10am-6pm),
+    which the schedules give as the peak period.'
+- codes:
+  - DD
+  - NDD
+  - NDM
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  component: Demand Charges Apr-Nov
+  tou_period: peak
+  locator: pdf:p25
+  quote: workdays workdays Demand NDD Opt-in ✓ ✓ 10am-6pm 10am-6pm
+  note: 'Summer and non-summer demand columns: the demand is measured in the workday window (DD 3pm-9pm, NDD and NDM 10am-6pm),
+    which the schedules give as the peak period.'
+- codes:
+  - LLVT1
+  - LLVT2
+  - HVT1
+  - HVT2
+  - LLV1
+  - LLV2
+  - HV1
+  - HV2
+  - ST2
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  component: Demand Charges Jan-Dec
+  tou_period: peak
+  locator: pdf:p28
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months.
+  note: The 12-month rolling demand is measured 7am-7pm workdays (window powercor-2022-23-pdf-large-rolling).
+- codes:
+  - LLVT1
+  - LLVT2
+  - HVT1
+  - HVT2
+  - LLV1
+  - LLV2
+  - HV1
+  - HV2
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  component: Demand Charges Dec-Mar
+  tou_period: peak
+  locator: pdf:p28
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months.
+  note: The summer incentive demand is measured 1-4pm or 4-7pm on workdays (windows powercor-2022-23-pdf-large-incentive-1/-2).
+- codes:
+  - DDNEW
+  doc: sources/dnsp/powercor/Powercor_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year: 2021-22
+  component: Demand Charges Dec-Mar
+  tou_period: peak
+  locator: pdf:p10
+  quote: Newstead Residential workdays workdays DDNEW Opt-in  Trial11 3pm-9pm 3pm-9pm
+  note: 'TSS 2021-26 Figure 5: the Newstead trial demand is measured in the workday 3pm-9pm window, which the schedule gives
+    as the peak period.'
+- codes:
+  - DDNEW
+  doc: sources/dnsp/powercor/Powercor_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year: 2021-22
+  component: Demand Charges Apr-Nov
+  tou_period: peak
+  locator: pdf:p10
+  quote: Newstead Residential workdays workdays DDNEW Opt-in  Trial11 3pm-9pm 3pm-9pm
+  note: 'TSS 2021-26 Figure 5: the Newstead trial demand is measured in the workday 3pm-9pm window, which the schedule gives
+    as the peak period.'
 charge_rules:
 - codes:
   - NDD
@@ -5283,3 +10099,256 @@ charge_rules:
     customers.
   note: Section 3.3 '12-month rolling maximum kVA'; Figure 7 (p12) lists STT as the default sub-transmission tariff. Its rates
     are the AER's (provisional); no Powercor price list for the year names STT.
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p27
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - HVT1
+  - HVT2
+  - HV1
+  - HV2
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 500
+  locator: pdf:p27
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - ST2
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p27
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - LLV1
+  - LLV2
+  - HV1
+  - HV2
+  doc: sources/archive/powercor/2021-22/Powercor_-_2021-22_Pricing_Proposal_-_June_2021.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p27
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months.
+  note: '''Summer incentive demand kVA''; prices the ''Demand Charges Dec-Mar'' rate.'
+- codes:
+  - LLVT1
+  - LLVT2
+  - LLV1
+  - LLV2
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 120
+  locator: pdf:p28
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - HVT1
+  - HVT2
+  - HV1
+  - HV2
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 500
+  locator: pdf:p28
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - ST2
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  minimum_value: 5000
+  locator: pdf:p28
+  quote: Maximum 15-minute kVA demand measured between 7am and 7pm local time on workdays over the prior 12 months. Minimum
+    chargeable demand of 120kVA for low voltage large customers, 500 kVA for high voltage customers and 5,000 kVA for sub-transmission
+    customers.
+  note: '''Rolling demand maximum kVA''; prices the ''Demand Charges Jan-Dec'' (12-month rolling demand) rate.'
+- codes:
+  - LLVT1
+  - LLVT2
+  - HVT1
+  - HVT2
+  - LLV1
+  - LLV2
+  - HV1
+  - HV2
+  doc: sources/archive/powercor/2022-23/Powercor_FINAL_2022-23_Pricing_Proposal_updated_3_May_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  season: summer
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: month
+  locator: pdf:p28
+  quote: Summer incentive KVA is the maximum monthly 15-minute kVA for the December to March months.
+  note: '''Summer incentive demand kVA''; prices the ''Demand Charges Dec-Mar'' rate.'
+- codes:
+  - NDD
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Tariff_Structure_Statement_2021-26_AER_final_decision_April2021.pdf
+  fin_year:
+  - 2021-22
+  - 2022-23
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p13
+  quote: Demand is measured as the maximum half-hour kW demand between 10am and 6pm, local time, work days, resetting every
+    month.
+  note: Section 3.2 'Small and medium business tariffs' (TSS for 2021-22 to 2025-26); holds for the Dec-Mar and Apr-Nov demand
+    rates.
+- codes:
+  - DD
+  doc: sources/archive/powercor/2017/Powercor_-_Amended_Tariff_Structure_Statement_-_September_2017.pdf
+  fin_year:
+  - '2017'
+  - '2018'
+  - '2019'
+  - '2020'
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p8
+  quote: 'Maximum demand charge based on monthly maximum kilowatt demand, measured:  over a 30-minute period;  between 3:00PM
+    to 9:00PM (local time);'
+  note: Tariff structure statement 2017-2020; Table 1.1 'Residential cost-reflective'.
+    Holds for the Dec-Mar and Apr-Nov demand rates.
+- codes:
+  - NDD
+  doc: sources/archive/powercor/2017/Powercor_-_Amended_Tariff_Structure_Statement_-_September_2017.pdf
+  fin_year:
+  - '2017'
+  - '2018'
+  - '2019'
+  - '2020'
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: 'Maximum demand charge based on monthly maximum kilowatt demand, measured:  over a 30-minute period;  between 10:00AM
+    to 6:00PM (local time);'
+  note: Tariff structure statement 2017-2020; Table 1.2 'Small business cost-reflective'.
+    Holds for the Dec-Mar and Apr-Nov demand rates.
+- codes:
+  - NDM
+  doc: sources/archive/powercor/2017/Powercor_-_Amended_Tariff_Structure_Statement_-_September_2017.pdf
+  fin_year:
+  - '2018'
+  - '2019'
+  - '2020'
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: 'Maximum demand charge based on monthly maximum kilowatt demand, measured:  over a 30-minute period;  between 10:00AM
+    to 6:00PM (local time);'
+  note: Tariff structure statement 2017-2020; Table 1.3 'Medium business cost-reflective'.
+    Holds for the Dec-Mar and Apr-Nov demand rates.
+- codes:
+  - LLV
+  - HV
+  - HVD
+  - ST
+  doc: sources/archive/powercor/2017/Powercor_-_Amended_Tariff_Structure_Statement_-_September_2017.pdf
+  fin_year:
+  - '2017'
+  - '2018'
+  - '2019'
+  - '2020'
+  charge_type: demand
+  measure: kVA
+  interval_min: 15
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p10
+  quote: Maximum demand charge based on 12-month rolling maximum kVA demand over a 15-minute period, calculated on a monthly
+    basis
+  note: 'Tariff structure statement 2017-2020, Table 1.4 ''Large low voltage'' (high voltage
+    and sub-transmission ''As for large low voltage tariff''). The pricing proposals: ''Billed demand is the maximum kVA over
+    a 12 month rolling period''.'
+- codes:
+  - LLV
+  - HV
+  - HVD
+  - ST
+  doc: sources/archive/powercor/2021-H1/HY_2021_Powercor_PricingProposal.pdf
+  fin_year: 2021-H1
+  charge_type: demand
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p37
+  quote: Demand charge ($ per kVA pa x 12 month rolling maximum kVA) / 12
+  note: Appendix A.6.1 'Calculation of the kVA demand tariff for a monthly bill', which applies to large low voltage,
+    high voltage and sub-transmission customers. The interval is not stated here.

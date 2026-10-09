@@ -6,6 +6,7 @@ The fixtures are the worked bills the distributors publish. Each profile is synt
 same document prints (quoted below), not from tou_window, so a match also checks the stored windows and the time
 handling. No client data.
 """
+import csv
 import json
 import sys
 import unittest
@@ -278,18 +279,36 @@ class TestRules(unittest.TestCase):
 
 
 class TestSweep(unittest.TestCase):
-    """Every tariff-period billed on one synthetic month: the blocked and assumed counts may only fall."""
+    """Every tariff-period billed on one synthetic month: no tariff-period's status may worsen (exact < assumed <
+    blocked) and the blocked count may only fall. A blocked tariff-period that curation makes computable on a rule
+    its documents leave unstated becomes `assumed`, so the assumed count may rise. The only tariff-periods that may
+    worsen are those billcalc_sweep_exceptions.csv names, each with its reason (a status that rested on an unsourced
+    fact)."""
 
-    def test_counts_never_rise(self):
-        recorded = json.loads(Path(bc.SWEEP_FILE).read_text())
-        now = bc.sweep_counts(bc.sweep())
-        risen = {k: (recorded.get(k, 0), v) for k, v in now.items()
-                 if k != "exact" and v > recorded.get(k, 0)}
-        self.assertEqual(risen, {}, "counts rose (recorded, now); fix the data or the calculator. When they fall, "
-                                    "record them: .venv/bin/python scripts/billcalc.py sweep --write")
-        self.assertEqual(sum(now[s] for s in ("exact", "assumed", "blocked")),
-                         sum(recorded[s] for s in ("exact", "assumed", "blocked")),
-                         "the number of tariff-periods changed: record the sweep again")
+    def test_no_tariff_period_worsens(self):
+        record = ".venv/bin/python scripts/billcalc.py sweep --write"
+        with open(bc.SWEEP_STATUS_FILE, newline="", encoding="utf-8") as f:
+            recorded = {r["tariff_period"]: r["status"] for r in csv.DictReader(f)}
+        with open(Path(bc.SWEEP_STATUS_FILE).with_name("billcalc_sweep_exceptions.csv"), newline="",
+                  encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+        self.assertEqual([r["tariff_period"] for r in rows if not r["reason"].strip()], [], "exceptions need a reason")
+        exceptions = {r["tariff_period"]: (r["from_status"], r["to_status"]) for r in rows}
+        results = bc.sweep()
+        now = {r["key"]: r["status"] for r in results}
+        self.assertEqual(sorted(now), sorted(recorded), f"the tariff-periods changed: record the sweep ({record})")
+        rank = {"exact": 0, "assumed": 1, "blocked": 2}
+        for k, (was, to) in exceptions.items():
+            self.assertGreater(rank[to], rank[was], f"exception {k} is not a worsening")
+            self.assertEqual((now.get(k), recorded.get(k) in (was, to)), (to, True),
+                             f"exception {k}: not at {to} (now {now.get(k)}, recorded {recorded.get(k)})")
+        worse = {k: (recorded[k], s) for k, s in now.items()
+                 if rank[s] > rank[recorded[k]] and exceptions.get(k) != (recorded[k], s)}
+        self.assertEqual(worse, {}, "tariff-periods got worse (recorded, now); fix the data or the calculator. When "
+                                    f"they improve, record them: {record}")
+        recorded_blocked = json.loads(Path(bc.SWEEP_FILE).read_text())["blocked"]
+        self.assertLessEqual(bc.sweep_counts(results)["blocked"], recorded_blocked,
+                             f"the blocked count rose; when it falls, record it: {record}")
 
 
 if __name__ == "__main__":

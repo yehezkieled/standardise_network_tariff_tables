@@ -24,10 +24,10 @@ flowchart LR
 > until then a provisional tariff can have rates but no `tou_window` / `eligibility` rows.
 > `validate.py --coverage` lists those gaps.
 >
-> The pricing years before 2023-24 (stored from 1 January 2017: 2016-17 / Victoria 2017 through 2022-23) carry rates
-> only: TOU windows, eligibility and the other billing rules start 2023-07-01, so `--coverage` counts every tariff of
-> those years as a gap. Back-filling them for 2017 to 2023 is planned follow-up work. `billcalc.py sweep` counts what
-> each gap blocks.
+> The pricing years before 2023-24 (stored from 1 January 2017: 2016-17 / Victoria 2017 through 2022-23) carry TOU
+> windows, demand measurement rules and block bounds from each year's own price list, pricing proposal or tariff guide,
+> or the tariff structure statement for its period; eligibility starts 2023-07-01, so `--coverage` lists every tariff
+> of those years without it. `billcalc.py sweep` counts what each gap blocks.
 
 ## Find and load new releases
 
@@ -146,7 +146,8 @@ tariff X   2025-07-01 ─────────── 2025-09-30 │ 2025-10-0
 
 The database stores only the years in effect on or after `build_support.FIRST_STORED_DAY` (2017-01-01); an older
 year is parsed and checked but not stored until that day is lowered (README, "Older years").
-Such a year is stored with rates only (no TOU windows or eligibility yet; see "The rule" above).
+Such a year is stored with rates only until its billing rules are curated ("Billing rules" below); eligibility is
+curated from 2023-24 only.
 A year whose documents print the price only as parts (DUOS / TUOS / jurisdictional, no total) is listed in
 `sources/archive/gaps.csv` rather than stored, for example Ergon 2016-17 to 2019-20.
 
@@ -167,6 +168,11 @@ the AER file states none.
 | `metering` | `rate` (`charge_type` metering) | a network-wide metering schedule row, applied to the codes (or `all`) the document says, with its condition |
 | `charge_rules` | `charge_rule` | how a demand, capacity or export quantity is measured: kW/kVA/kWh, interval, highest or mean of the n highest, reset, minimum, threshold, allowance (`codes: all` for a glossary definition) |
 
+A fact's `fin_year` may list several pricing years (`[2019-20, 2020-21]`) when one document states it for each of
+them, e.g. a tariff structure statement for its regulatory period; a year's own price list states only that year.
+An archived tariff structure statement is registered like any archived document (`archive_sources.py add --kind
+tariff_structure_statement`).
+
 `scripts/tariffdb/joins.py` says how a rate finds its windows: a usage rate with no period beside period-priced usage
 rates prices the rest of the time; event periods (critical peak...) need no window; the `joins` check fails on a rate
 whose period has no window or whose window is ambiguous, and on a window (other than a demand window) of a period
@@ -186,9 +192,13 @@ and kWh columns `E1` (import), `E2` (controlled load), `B1` (export), `Q1` (kvar
 | Compare tariffs | `.venv/bin/python scripts/billcalc.py compare sapn RSR,RTOU 2025-07-01 2026-06-30 data.csv` |
 | Gaps sweep | `.venv/bin/python scripts/billcalc.py sweep` (every tariff-period on a synthetic month; `--write` records the counts) |
 
-`tests/test_billcalc.py` bills the distributors' published example bills (within $0.50) and fails when the sweep's
-`blocked` or `assumed` counts rise above `tests/billcalc_sweep.json`. When curation lowers them, record them:
-`.venv/bin/python scripts/billcalc.py sweep --write`.
+`tests/test_billcalc.py` bills the distributors' published example bills (within $0.50) and fails when a
+tariff-period's sweep status worsens from the one recorded in `tests/billcalc_sweep_status.csv` (exact < assumed <
+blocked) or the `blocked` count rises above `tests/billcalc_sweep.json`. A blocked tariff-period that curation makes
+computable on a fact its documents leave unstated (e.g. the clock basis) becomes `assumed`, so `assumed` may rise.
+When statuses improve, record them: `.venv/bin/python scripts/billcalc.py sweep --write`. A status that rested on an
+unsourced fact may worsen only when `tests/billcalc_sweep_exceptions.csv` names the tariff-period, its from and to
+status and the reason.
 
 ### Schema change
 

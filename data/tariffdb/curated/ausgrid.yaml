@@ -1,5 +1,194 @@
 distributor: ausgrid
 tou_schedules:
+- id: ausgrid-2016-18-residential-small-business-tou
+  doc: sources/archive/ausgrid/2016-17/ES7.pdf
+  fin_year: [2016-17, 2017-18]
+  name: ToU time periods, EA025 Residential ToU and EA225 Small Business ToU (ES7 Table 3.2)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p12
+  quote: 'Table 3.2: Ausgrid NUoS ToU time periods ToU Tariff codes Clock time* and day-type** Period Peak All ToU tariffs
+    2pm – 8pm on working weekdays EA025 Residential ToU and 7am – 2pm and 8pm – 10pm on working weekdays, and Shoulder EA225
+    Small Business ToU 7am – 10pm on weekends and public holidays All other ToU tariffs 7am – 2pm and 8pm – 10pm on working
+    weekdays Off-Peak All ToU tariffs All other times *All times take into account Daylight Saving Time during the period
+    gazette by the NSW Government, which is generally from 3am on the first Sunday in October through to 2am on the first
+    Sunday in April.'
+  note: 'ES7 version 1.8 (April 2017). Section 1.2 applies it to the 2016/17 tariffs (set under the Regulatory Undertaking);
+    version 1.9 (July 2018) is the next version in its amendment history, so it also stated the 2017-18 periods, which the
+    2017-18 pricing proposal Table 4.5 (p15) states the same way. Times are local time (the table note and Appendix G). Footnote
+    **: ''Any public holidays that do not apply to the whole of the state of NSW are not considered to be public holidays''.'
+  windows:
+  - {period: off_peak, label: Off-Peak (all other times), days: all_days, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder (7am – 2pm on working weekdays), days: business_day, start: '07:00', end: '14:00',
+    months: all}
+  - {period: peak, label: Peak (2pm – 8pm on working weekdays), days: business_day, start: '14:00', end: '20:00', months: all}
+  - {period: shoulder, label: Shoulder (8pm – 10pm on working weekdays), days: business_day, start: '20:00', end: '22:00',
+    months: all}
+  - {period: shoulder, label: Shoulder (7am – 10pm on weekends and public holidays), days: non_business_day, start: '07:00',
+    end: '22:00', months: all}
+  - {period: off_peak, label: Off-Peak (all other times), days: all_days, start: '22:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [EA025, EA225]
+    applies_to: usage
+    locator: pdf:p12
+    quote: EA025 Residential ToU and 7am – 2pm and 8pm – 10pm on working weekdays, and Shoulder EA225 Small Business ToU
+- id: ausgrid-2016-18-other-tou
+  doc: sources/archive/ausgrid/2016-17/ES7.pdf
+  fin_year: [2016-17, 2017-18]
+  name: ToU time periods, all other ToU tariffs (ES7 Table 3.2)
+  time_basis: local_time
+  public_holidays: as_non_business_day
+  covers_full_day: true
+  locator: pdf:p12
+  quote: 'Table 3.2: Ausgrid NUoS ToU time periods ToU Tariff codes Clock time* and day-type** Period Peak All ToU tariffs
+    2pm – 8pm on working weekdays EA025 Residential ToU and 7am – 2pm and 8pm – 10pm on working weekdays, and Shoulder EA225
+    Small Business ToU 7am – 10pm on weekends and public holidays All other ToU tariffs 7am – 2pm and 8pm – 10pm on working
+    weekdays Off-Peak All ToU tariffs All other times *All times take into account Daylight Saving Time during the period
+    gazette by the NSW Government, which is generally from 3am on the first Sunday in October through to 2am on the first
+    Sunday in April.'
+  note: ES7 version 1.8 (April 2017). Section 1.2 applies it to the 2016/17 tariffs (set under the Regulatory Undertaking);
+    version 1.9 (July 2018) is the next version in its amendment history, so it also stated the 2017-18 periods, which the
+    2017-18 pricing proposal Table 4.5 (p15) states the same way. Times are local time (the table note and Appendix G).
+  windows:
+  - {period: off_peak, label: Off-Peak (all other times), days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: shoulder, label: Shoulder (7am – 2pm on working weekdays), days: business_day, start: '07:00', end: '14:00',
+    months: all}
+  - {period: peak, label: Peak (2pm – 8pm on working weekdays), days: business_day, start: '14:00', end: '20:00', months: all}
+  - {period: shoulder, label: Shoulder (8pm – 10pm on working weekdays), days: business_day, start: '20:00', end: '22:00',
+    months: all}
+  - {period: off_peak, label: Off-Peak (all other times), days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off-Peak (all other times), days: non_business_day, start: '00:00', end: '24:00', months: all}
+  tariffs:
+  - codes: [EA302, EA305, EA310, EA316, EA317, EA325, EA360, EA370, EA380, EA390]
+    applies_to: usage
+    locator: pdf:p12
+    quote: 'ToU energy charges apply to the following tariffs:  EA025 Residential ToU  EA225 Small Business ToU  EA302
+      LV 40-160 MWh (System)  EA305 LV 160-750 MWh (System)'
+    note: Section 3.6.1 lists EA302, EA305, EA310, EA316, EA317, EA325, EA360, EA370, EA380 and EA390 as ToU tariffs.
+  - codes: [EA391]
+    applies_to: usage
+    locator: pdf:p10
+    quote: EA391 ST Connection (Substation)
+    note: Table 3.1 lists EA391 among the NUoS tariffs; section 3.6.1 omits it, but the price list prices it in peak, shoulder
+      and off-peak and Table 3.2 defines the periods for 'All ToU tariffs' and 'All other ToU tariffs'.
+- id: ausgrid-2016-18-capacity
+  doc: sources/archive/ausgrid/2016-17/ES7.pdf
+  fin_year: [2016-17, 2017-18]
+  name: Capacity charge period (ES7 3.7.2)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p13
+  quote: A capacity charge is a price applied (in cents per kW or kVA per day) to the maximum half hourly kW or kVA demand
+    reading2 that occurred in the peak period (that is, between 2pm and 8pm on a working weekday)
+  note: ES7 version 1.8 (April 2017). Section 1.2 applies it to the 2016/17 tariffs (set under the Regulatory Undertaking);
+    version 1.9 (July 2018) is the next version in its amendment history, so it also stated the 2017-18 periods, which the
+    2017-18 pricing proposal Table 4.5 (p15) states the same way. Times are local time (the table note and Appendix G).
+  windows:
+  - {period: peak, label: Peak period (between 2pm and 8pm on a working weekday), days: business_day, start: '14:00', end: '20:00',
+    months: all}
+  tariffs:
+  - codes: [EA302, EA305, EA310, EA316, EA317, EA325, EA360, EA370, EA380, EA390, EA391]
+    applies_to: demand
+    note: Section 3.7.1 lists the capacity tariffs (EA302 to EA390); EA391, which the price list also prices with a capacity
+      charge, is not listed there.
+- id: ausgrid-2018-19-residential-tou
+  doc: sources/archive/ausgrid/2018-19/ES7-Network-Price-Guide.pdf
+  fin_year: [2018-19]
+  name: Seasonal TOU time periods, residential customers (ES7 Table 3.2)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p14
+  quote: 'Table 3.2: Ausgrid’s Seasonal TOU Time Periods: Residential Customers Season TOU Time Period - Residential Shoulder
+    period Off-peak period Peak period ‘Summer’ months (from From 2 pm to 8 pm 1 November to 31 March inclusive) on working
+    weekdays From 7 am to 10 pm All other times From 5 pm to 9 pm (except where a seasonal ‘Winter’ months (from 1 June to
+    (10 pm to 7 am) on working weekdays peak period applies) 31 August inclusive) Other (non-Summer and non-Winter) N/A From
+    7 am to 10 pm'
+  note: 'ES7 version 1.9 (July 2018): ''From 1 July 2018, seasonal TOU pricing applies as approved by the AER'' (p14); the
+    2018-19 pricing proposal Tables 4.5-4.6 (p15-16) state the same periods. Times are local time: ''Time periods take into
+    account daylight saving time'' (3.6.2, p13) and Appendix G. Figure 3.1 shows shoulder 7am-10pm on ''All weekends and days
+    in non-summer and non-winter months''.'
+  windows:
+  - {period: off_peak, label: Off-peak period (10 pm to 7 am), days: all_days, start: '00:00', end: '07:00', months: all}
+  - {period: off_peak, label: Off-peak period (10 pm to 7 am), days: all_days, start: '22:00', end: '24:00', months: all}
+  - {period: shoulder, label: Shoulder period (weekends), days: non_business_day, start: '07:00', end: '22:00', months: all}
+  - {period: shoulder, label: 'Shoulder period (summer months, working weekdays)', days: business_day, start: '07:00', end: '14:00',
+    months: '11,12,1,2,3'}
+  - {period: peak, label: Peak period ('Summer' months), days: business_day, start: '14:00', end: '20:00', months: '11,12,1,2,3'}
+  - {period: shoulder, label: 'Shoulder period (summer months, working weekdays)', days: business_day, start: '20:00', end: '22:00',
+    months: '11,12,1,2,3'}
+  - {period: shoulder, label: 'Shoulder period (winter months, working weekdays)', days: business_day, start: '07:00', end: '17:00',
+    months: '6,7,8'}
+  - {period: peak, label: Peak period ('Winter' months), days: business_day, start: '17:00', end: '21:00', months: '6,7,8'}
+  - {period: shoulder, label: 'Shoulder period (winter months, working weekdays)', days: business_day, start: '21:00', end: '22:00',
+    months: '6,7,8'}
+  - {period: shoulder, label: Shoulder period (other months), days: business_day, start: '07:00', end: '22:00', months: '4,5,9,10'}
+  tariffs:
+  - codes: [EA011, EA025]
+    applies_to: usage
+    locator: pdf:p13
+    quote: 'ToU energy charges apply to the following tariffs:  EA011 Residential Transitional ToU  EA025 Residential ToU'
+- id: ausgrid-2018-19-business-tou
+  doc: sources/archive/ausgrid/2018-19/ES7-Network-Price-Guide.pdf
+  fin_year: [2018-19]
+  name: Seasonal TOU time periods, business customers (ES7 Table 3.3)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p15
+  quote: 'Table 3.3: Ausgrid’s Seasonal TOU Time Periods: Business Customers Season TOU Time Period – Residential Shoulder
+    period Off-peak Peak period period ‘Summer’ months (from 1 November to 31 March inclusive) From 2 pm to 8 pm on From 7
+    am to 10 pm All other times working weekdays on working weekdays'
+  note: 'ES7 version 1.9 (July 2018): ''From 1 July 2018, seasonal TOU pricing applies as approved by the AER'' (p14); the
+    2018-19 pricing proposal Tables 4.5-4.6 (p15-16) state the same periods. Times are local time: ''Time periods take into
+    account daylight saving time'' (3.6.2, p13) and Appendix G. Table 3.3''s column heading repeats ''Residential'' but the
+    table is titled Business Customers; Figure 3.2 shows off-peak on ''All weekends'' and shoulder 7am-10pm on ''Working weekdays
+    in non-summer and non-winter months''.'
+  windows:
+  - {period: off_peak, label: Off-peak (all other times), days: business_day, start: '00:00', end: '07:00', months: all}
+  - {period: off_peak, label: Off-peak (all other times), days: business_day, start: '22:00', end: '24:00', months: all}
+  - {period: off_peak, label: Off-peak (all weekends), days: non_business_day, start: '00:00', end: '24:00', months: all}
+  - {period: shoulder, label: Shoulder period (summer and winter months), days: business_day, start: '07:00', end: '14:00',
+    months: '11,12,1,2,3,6,7,8'}
+  - {period: peak, label: Peak period ('Summer' and 'Winter' months), days: business_day, start: '14:00', end: '20:00', months: '11,12,1,2,3,6,7,8'}
+  - {period: shoulder, label: Shoulder period (summer and winter months), days: business_day, start: '20:00', end: '22:00',
+    months: '11,12,1,2,3,6,7,8'}
+  - {period: shoulder, label: Shoulder period (other months), days: business_day, start: '07:00', end: '22:00', months: '4,5,9,10'}
+  tariffs:
+  - codes: [EA051, EA225, EA302, EA305, EA310, EA316, EA317, EA325, EA360, EA370, EA380, EA390, EA501]
+    applies_to: usage
+    locator: pdf:p13
+    quote: EA051 Small Business Transitional ToU  EA225 Small Business ToU  EA302 LV 40-160 MWh (System)
+    note: 'Section 3.6.1 lists the ToU tariffs: residential EA011 and EA025, and EA051, EA225, EA302 to EA390 and EA501.'
+  - codes: [EA391]
+    applies_to: usage
+    locator: pdf:p15
+    quote: EA391 ST Connection (Substation)
+    note: Listed under capacity charges (3.7.1) but not under 3.6.1; the price list prices it in peak, shoulder and off-peak,
+      as for the other subtransmission tariff EA390.
+- id: ausgrid-2018-19-capacity
+  doc: sources/archive/ausgrid/2018-19/ES7-Network-Price-Guide.pdf
+  fin_year: [2018-19]
+  name: Capacity charge period (ES7 3.7.2)
+  time_basis: local_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p16
+  quote: A capacity charge is a price applied (in cents per kW or kVA per day) to the maximum half hourly kW or kVA demand
+    reading2 that occurred in the period between 2pm and 8pm on a working weekday
+  note: 'ES7 version 1.9 (July 2018): ''From 1 July 2018, seasonal TOU pricing applies as approved by the AER'' (p14); the
+    2018-19 pricing proposal Tables 4.5-4.6 (p15-16) state the same periods. Times are local time: ''Time periods take into
+    account daylight saving time'' (3.6.2, p13) and Appendix G.'
+  windows:
+  - {period: peak, label: Capacity period (between 2pm and 8pm on a working weekday), days: business_day, start: '14:00',
+    end: '20:00', months: all}
+  tariffs:
+  - codes: [EA302, EA305, EA310, EA316, EA317, EA325, EA360, EA370, EA380, EA390, EA391, EA501]
+    applies_to: demand
+    locator: pdf:p15
+    quote: EA390 ST Connection  EA391 ST Connection (Substation)  EA501 Transmission Connected
 - id: ausgrid-2024-25-ea958-tou
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
   fin_year: 2024-25
@@ -26,9 +215,9 @@ tou_schedules:
   tariffs:
   - codes: [EA958]
     applies_to: usage
-- id: ausgrid-2023-24-residential-tou
+- id: ausgrid-2019-24-residential-tou
   doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Residential TOU energy windows (Table 3.3)
   time_basis: local_time
   public_holidays: as_non_business_day
@@ -116,9 +305,9 @@ tou_schedules:
       and time periods for demand charges for residential tariffs, and Tables 3.5 and 3.6 for small business tariffs.'
     note: Table 3.9 (p21) lists EA025, EA011, EA116, EA115 and EA111 as residential tariffs priced in peak, shoulder and off-peak;
       its note (p22) points residential tariffs to Table 3.3.
-- id: ausgrid-2023-24-small-business-tou
+- id: ausgrid-2019-24-small-business-tou
   doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Small business TOU energy windows (Table 3.6)
   time_basis: local_time
   public_holidays: as_non_business_day
@@ -186,9 +375,9 @@ tou_schedules:
       and time periods for demand charges for residential tariffs, and Tables 3.5 and 3.6 for small business tariffs.'
     note: Table 3.9 (p21) lists EA225, EA051, EA256, EA255 and EA251 as small business tariffs priced in peak, shoulder and
       off-peak; its note (p22) points small business tariffs to Table 3.6.
-- id: ausgrid-2023-24-large-business-tou
+- id: ausgrid-2019-24-large-business-tou
   doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Medium to large LV, HV and subtransmission TOU energy windows (Table 3.8)
   time_basis: local_time
   public_holidays: as_non_business_day
@@ -267,9 +456,9 @@ tou_schedules:
     locator: pdf:p24
     quote: 'Note: See Table 3.8 for definitions of peak, shoulder and off-peak periods.'
     note: Table 3.12 (p24), transmission tariff class.
-- id: ausgrid-2023-24-residential-demand
+- id: ausgrid-2019-24-residential-demand
   doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Residential demand charging windows (Table 3.2)
   time_basis: local_time
   public_holidays: not_stated
@@ -315,9 +504,9 @@ tou_schedules:
     locator: pdf:p22
     quote: '*See Tables 3.2 and 3.3 for definitions of peak, shoulder and off-peak periods for energy consumption charges,
       and time periods for demand charges for residential tariffs, and Tables 3.5 and 3.6 for small business tariffs.'
-- id: ausgrid-2023-24-small-business-demand
+- id: ausgrid-2019-24-small-business-demand
   doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Small business demand charging windows (Table 3.5)
   time_basis: local_time
   public_holidays: not_stated
@@ -355,9 +544,9 @@ tou_schedules:
     locator: pdf:p22
     quote: '*See Tables 3.2 and 3.3 for definitions of peak, shoulder and off-peak periods for energy consumption charges,
       and time periods for demand charges for residential tariffs, and Tables 3.5 and 3.6 for small business tariffs.'
-- id: ausgrid-2023-24-capacity
+- id: ausgrid-2019-24-capacity
   doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Capacity charging window, medium to large business (Table 3.7)
   time_basis: local_time
   public_holidays: not_stated
@@ -4423,6 +4612,115 @@ rate_periods:
     Section 3.9), so it is recorded as the rate for the rest of the time (anytime beside the event-priced critical peak rate),
     not as a time window.
 charge_rules:
+- codes: [EA302, EA316]
+  doc: sources/archive/ausgrid/2016-17/ES7.pdf
+  fin_year: [2016-17, 2017-18]
+  charge_type: capacity
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p13
+  quote: A capacity charge is a price applied (in cents per kW or kVA per day) to the maximum half hourly kW or kVA demand
+    reading2 that occurred in the peak period (that is, between 2pm and 8pm on a working weekday) at a customer’s connection
+    point over the billing periods that relate to the previous 12 months including the current billing period.
+  note: ES7 3.7.2; kW or kVA as the price list prices the capacity charge (c/kW/day or c/kVA/day).
+- codes: [EA305, EA310, EA317, EA325, EA360, EA370, EA380, EA390, EA391]
+  doc: sources/archive/ausgrid/2016-17/ES7.pdf
+  fin_year: [2016-17, 2017-18]
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p13
+  quote: A capacity charge is a price applied (in cents per kW or kVA per day) to the maximum half hourly kW or kVA demand
+    reading2 that occurred in the peak period (that is, between 2pm and 8pm on a working weekday) at a customer’s connection
+    point over the billing periods that relate to the previous 12 months including the current billing period.
+  note: ES7 3.7.2; kW or kVA as the price list prices the capacity charge (c/kW/day or c/kVA/day). EA391 is not in the 3.7.1
+    list but is priced with a capacity charge.
+- codes: [EA302, EA316]
+  doc: sources/archive/ausgrid/2018-19/ES7-Network-Price-Guide.pdf
+  fin_year: [2018-19]
+  charge_type: capacity
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p16
+  quote: A capacity charge is a price applied (in cents per kW or kVA per day) to the maximum half hourly kW or kVA demand
+    reading2 that occurred in the period between 2pm and 8pm on a working weekday at a customer’s connection point over the
+    billing periods that relate to the previous 12 months including the current billing period.
+  note: ES7 3.7.2; kW or kVA as the price list prices the capacity charge (c/kW/day or c/kVA/day).
+- codes: [EA305, EA310, EA317, EA325, EA360, EA370, EA380, EA390, EA391, EA501]
+  doc: sources/archive/ausgrid/2018-19/ES7-Network-Price-Guide.pdf
+  fin_year: [2018-19]
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p16
+  quote: A capacity charge is a price applied (in cents per kW or kVA per day) to the maximum half hourly kW or kVA demand
+    reading2 that occurred in the period between 2pm and 8pm on a working weekday at a customer’s connection point over the
+    billing periods that relate to the previous 12 months including the current billing period.
+  note: ES7 3.7.2; kW or kVA as the price list prices the capacity charge (c/kW/day or c/kVA/day).
+- codes: [EA111, EA115, EA116, EA251, EA255, EA256]
+  doc: sources/archive/ausgrid/2019-20/Ausgrid_-_AER_approved_2019-20_Initial_Pricing_Proposal_-_REVISED_-_29_May_2019_-_June_2019.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p21
+  quote: The demand measure is the maximum energy consumption recorded over any 30-minute period within the defined seasonal
+    demand window on a working weekday in each month (measured in kW). The resulting demand charge applies for each day in
+    the month (before being reset for the next month)
+  note: The residential and small business demand tariffs section of the 2019-20 pricing proposal; the same wording as the
+    2023-24 rule. Holds for both seasons' demand rates. Only working weekdays count, which the demand windows carry as business_day.
+- codes: [EA111, EA115, EA116, EA251, EA255, EA256]
+  doc: sources/archive/ausgrid/2020-21/Ausgrid_2020-21_Pricing_Proposal_-_Revised_-_May_2020_-_PUBLIC_0.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p23
+  quote: The demand measure is the maximum energy consumption recorded over any 30-minute period within the defined seasonal
+    demand window on a working weekday in each month (measured in kW). The resulting demand charge applies for each day in
+    the month (before being reset for the next month)
+  note: The residential and small business demand tariffs section of the 2020-21 pricing proposal; the same wording as the
+    2023-24 rule. Holds for both seasons' demand rates. Only working weekdays count, which the demand windows carry as business_day.
+- codes: [EA111, EA115, EA116, EA251, EA255, EA256]
+  doc: sources/archive/ausgrid/2021-22/02._Ausgrid_2021-22_Pricing_Proposal_-_March_2021_-_PUBLIC_0.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p23
+  quote: The demand measure is the maximum energy consumption recorded over any 30-minute period within the defined seasonal
+    demand window on a working weekday in each month (measured in kW). The resulting demand charge applies for each day in
+    the month (before being reset for the next month)
+  note: The residential and small business demand tariffs section of the 2021-22 pricing proposal; the same wording as the
+    2023-24 rule. Holds for both seasons' demand rates. Only working weekdays count, which the demand windows carry as business_day.
+- codes: [EA111, EA115, EA116, EA251, EA255, EA256]
+  doc: sources/archive/ausgrid/2022-23/Ausgrid_-_2022-23_Pricing_Proposal_-_updated_April_2022.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p23
+  quote: The demand measure is the maximum energy consumption recorded over any 30-minute period within the defined seasonal
+    demand window on a working weekday in each month (measured in kW). The resulting demand charge applies for each day in
+    the month (before being reset for the next month)
+  note: The residential and small business demand tariffs section of the 2022-23 pricing proposal; the same wording as the
+    2023-24 rule. Holds for both seasons' demand rates. Only working weekdays count, which the demand windows carry as business_day.
 - codes: [EA111, EA115, EA116, EA251, EA255, EA256]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
@@ -4442,7 +4740,7 @@ charge_rules:
     seasons' demand rates. Only working weekdays count, which the demand windows carry as business_day.
 - codes: [EA302, EA316]
   doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   charge_type: capacity
   measure: kW
   interval_min: 30
@@ -4455,7 +4753,7 @@ charge_rules:
     recorded in a 30-minute interval.'''
 - codes: [EA305, EA310, EA317, EA325]
   doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   charge_type: capacity
   measure: kVA
   interval_min: 30
@@ -4468,7 +4766,7 @@ charge_rules:
     recorded in a 30-minute interval.'''
 - codes: [EA360, EA370, EA380]
   doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   charge_type: capacity
   measure: kVA
   interval_min: 30
@@ -4481,7 +4779,7 @@ charge_rules:
     recorded in a 30-minute interval.'''
 - codes: [EA390, EA391]
   doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   charge_type: capacity
   measure: kVA
   interval_min: 30
@@ -4494,7 +4792,7 @@ charge_rules:
     recorded in a 30-minute interval.'''
 - codes: [EA501]
   doc: sources/dnsp/ausgrid/Ausgrid_Tariff_Structure_Statement_2019-24_approved_April2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   charge_type: capacity
   measure: kVA
   interval_min: 30

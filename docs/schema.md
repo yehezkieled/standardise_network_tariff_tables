@@ -24,12 +24,12 @@
 | Table | One row is | Key | Rows |
 |---|---|---|---|
 | [`distributor`](#distributor) | one distributor (DNSP) | distributor_id | 14 |
-| [`source_document`](#source_document) | one version of one source document, held or not | document_id | 449 |
+| [`source_document`](#source_document) | one version of one source document, held or not | document_id | 464 |
 | [`tariff`](#tariff) | one tariff code of one distributor for one period (a pricing year, or part of one after a mid-year change) | distributor_id, tariff_code, effective_from | 6,381 |
 | [`rate`](#rate) | one price of one tariff for one period: charge type x TOU period x season x block | rate_id | 25,249 |
-| [`tou_window`](#tou_window) | one time window that one tariff's charges use, for one period | window_id | 7,510 |
+| [`tou_window`](#tou_window) | one time window that one tariff's charges use, for one period | window_id | 19,595 |
 | [`eligibility`](#eligibility) | one stated criterion of one tariff for one period | criterion_id | 7,432 |
-| [`charge_rule`](#charge_rule) | one stated measurement rule of one tariff's demand, capacity or export charges, for one period | rule_id | 1,632 |
+| [`charge_rule`](#charge_rule) | one stated measurement rule of one tariff's demand, capacity or export charges, for one period | rule_id | 3,261 |
 
 ## History
 
@@ -177,7 +177,7 @@ Every document version the rates, TOU windows and criteria are read from, with w
 |---|---|
 | One row is | one version of one source document, held or not |
 | Primary key | `document_id` |
-| Rows | 449 |
+| Rows | 464 |
 | Source | sources/inventory.csv (2023-24 on) and sources/archive/inventory.csv (earlier years) read by build_support.documents(), plus the AER versions it registers |
 | File | `data/tariffdb/tables/source_document.csv` |
 | References | (distributor_id) → [`distributor`](#distributor) |
@@ -281,7 +281,7 @@ When each time-of-use period applies: day type, start and end time, months. Time
 |---|---|
 | One row is | one time window that one tariff's charges use, for one period |
 | Primary key | `window_id` |
-| Rows | 7,510 |
+| Rows | 19,595 |
 | Source | data/tariffdb/curated/*.yaml (tou_schedules), as stated in the distributor's documents |
 | File | `data/tariffdb/tables/tou_window.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document); (distributor_id, tariff_code, effective_from) → [`tariff`](#tariff) |
@@ -354,7 +354,7 @@ How the quantity a demand, capacity or export rate is applied to is measured: in
 |---|---|
 | One row is | one stated measurement rule of one tariff's demand, capacity or export charges, for one period |
 | Primary key | `rule_id` |
-| Rows | 1,632 |
+| Rows | 3,261 |
 | Source | data/tariffdb/curated/*.yaml (charge_rules), quoted from the distributor's documents |
 | File | `data/tariffdb/tables/charge_rule.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document); (distributor_id, tariff_code, effective_from) → [`tariff`](#tariff) |

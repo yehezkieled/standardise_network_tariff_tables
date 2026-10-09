@@ -7,10 +7,9 @@ the exit status is 1 when any check fails.
                                                              to the repository, as CI does)
   .venv/bin/python scripts/tariffdb/validate.py --coverage   also list the gaps to fill (never fails): per distributor,
                                                              year and status, the tariffs still without TOU windows,
-                                                             eligibility or demand measurement rules. The years
-                                                             before 2023-24 carry rates only (windows and eligibility
-                                                             start 2023-07-01; back-filling 2017 to 2023 is planned
-                                                             follow-up work)
+                                                             eligibility or demand measurement rules. Eligibility
+                                                             starts 2023-07-01, so every tariff of an earlier year
+                                                             is listed without it
 
 The checks, in order (docs/update-and-validate.md says what a failure means and what to do):
   load          the CSVs load into SQLite with every key, foreign key and CHECK constraint of schema.sqlite.sql
@@ -338,8 +337,8 @@ def main(argv=None):
     ap.add_argument("--committed-only", action="store_true",
                     help="with --sources: re-read only the files committed to the repository (as CI does)")
     ap.add_argument("--coverage", action="store_true",
-                    help="also list the gaps to fill (informational; the years before 2023-24 carry rates only, "
-                    "without TOU windows or eligibility)")
+                    help="also list the gaps to fill (informational; eligibility starts 2023-07-01, so every "
+                    "tariff of an earlier year is listed without it)")
     ap.add_argument("--data", default=loader.DEFAULT_DATA, help="database directory (default data/tariffdb)")
     a = ap.parse_args(argv)
     failed = False

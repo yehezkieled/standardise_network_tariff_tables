@@ -7655,6 +7655,2735 @@ tou_schedules:
     note: B167 ('065') heads the tariff block for 'Flexible Controlled Load' (C167); the block's Off-peak row (Network tariffs!D171)
       holds these windows; the tariff's Off-peak rate loads with register controlled_load and falls back to usage windows;
       applies_to controlled_load would overlap the tariff's controlled_load_supply windows of the same times.
+- id: evo-2016-17-res-tou-energy
+  doc: sources/archive/evoenergy/2016-17/Electricity-network-prices-2016-17.ashx.pdf
+  fin_year: 2016-17
+  name: Residential TOU energy (max, mid and economy times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p6
+  quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours
+  note: 'Time periods section of the schedule of charges; p6: ''to are in Australian Eastern Standard Time.''. Definitions:
+    ''Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+    (8.00pm) every day.'' ''Mid times are defined as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm)
+    to 2200 hours (10.00pm) every day.'' ''Economy times are defined as all other times.'' (the two-column layout splits these
+    sentences in the PDF text layer, so each window quotes the part stating its hours).'
+  windows:
+  - period: peak
+    label: Max times
+    days: all_days
+    start: 07:00
+    end: 09:00
+    locator: pdf:p6
+    quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p6
+    quote: Mid times are defined as from 0900 hours (9.00am) to 1700 hours
+  - period: peak
+    label: Max times
+    days: all_days
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p6
+    quote: (9.00am) and from 1700 hours (5.00pm) to 2000 hours (8.00pm)
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p6
+    quote: (5.00pm) and from 2000 hours (8.00pm) to 2200 hours (10.00pm) every day.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p6
+    quote: Economy times are defined as all other times.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p6
+    quote: Economy times are defined as all other times.
+  tariffs:
+  - codes:
+    - '015'
+    applies_to: usage
+    locator: pdf:p1
+    quote: 015 Residential TOU Network
+    note: '015 Residential TOU Network: priced ''at max times'', ''at mid times'' and ''at economy times'' (as defined), which
+      the Time periods section defines; economy times are the complement (''all other times'').'
+  - codes:
+    - '016'
+    applies_to: usage
+    locator: pdf:p1
+    quote: 016 Residential TOU Network XMC
+    note: '016 Residential TOU Network XMC: priced ''at max times'', ''at mid times'' and ''at economy times'' (as defined),
+      which the Time periods section defines; economy times are the complement (''all other times'').'
+  - codes:
+    - '702'
+    applies_to: usage
+    locator: pdf:p9
+    quote: 702 Residential TOU Network with Feed-in tariff code 302
+    note: '702 Residential TOU Network with Feed-in tariff code 302: priced ''at max times'', ''at mid times'' and ''at economy
+      times'' (as defined), which the Time periods section defines; economy times are the complement (''all other times'').'
+- id: evo-2016-17-com-tou-energy
+  doc: sources/archive/evoenergy/2016-17/Electricity-network-prices-2016-17.ashx.pdf
+  fin_year: 2016-17
+  name: Commercial TOU energy (business, evening and off-peak times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p5
+  quote: to 1700 hours (5.00pm) on weekdays.
+  note: 'Time periods section of the schedule of charges; p6: ''to are in Australian Eastern Standard Time.''. Definitions:
+    ''Business times are defined as from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.'' ''Evening times are defined
+    as from 1700 hours (5.00pm) to 2200 hours (10.00pm) on weekdays.'' ''Off-Peak times are defined as all other times.''
+    (the two-column layout splits these sentences in the PDF text layer, so each window quotes the part stating its hours).
+    ''Weekdays are Monday to Friday.'''
+  windows:
+  - period: peak
+    label: Business times
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p5
+    quote: to 1700 hours (5.00pm) on weekdays.
+  - period: shoulder
+    label: Evening times
+    days: weekday
+    start: '17:00'
+    end: '22:00'
+    locator: pdf:p5
+    quote: to 2200 hours (10.00pm) on weekdays.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p5
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p5
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p5
+    quote: Off-Peak times are defined as all other times.
+  tariffs:
+  - codes:
+    - 090
+    applies_to: usage
+    locator: pdf:p2
+    quote: 090 General TOU Network
+    note: '090 General TOU Network: priced at business, evening and off-peak times (as defined), which the Time periods section
+      defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - 091
+    applies_to: usage
+    locator: pdf:p2
+    quote: 091 General TOU Network XMC
+    note: '091 General TOU Network XMC: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '101'
+    applies_to: usage
+    locator: pdf:p2
+    quote: 101 LV TOU kVA Demand Network
+    note: '101 LV TOU kVA Demand Network: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '103'
+    applies_to: usage
+    locator: pdf:p2
+    quote: 103 LV TOU Capacity Network
+    note: '103 LV TOU Capacity Network: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '104'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 104 LV TOU kVA Demand Network XMC
+    note: '104 LV TOU kVA Demand Network XMC: priced at business, evening and off-peak times (as defined), which the Time
+      periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '105'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 105 LV TOU Capacity Network XMC
+    note: '105 LV TOU Capacity Network XMC: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '111'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 111 HV TOU Demand Network
+    note: '111 HV TOU Demand Network: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '112'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 112 HV TOU Demand Network – Customer HV
+    note: '112 HV TOU Demand Network – Customer HV: priced at business, evening and off-peak times (as defined), which the
+      Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '121'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 121 HV TOU Demand Network – Customer LV
+    note: '121 HV TOU Demand Network – Customer LV: priced at business, evening and off-peak times (as defined), which the
+      Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '122'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 122 HV TOU Demand Network – Customer HV and LV
+    note: '122 HV TOU Demand Network – Customer HV and LV: priced at business, evening and off-peak times (as defined), which
+      the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '901'
+    applies_to: usage
+    locator: pdf:p10
+    quote: 901 General TOU Network with Feed-in tariff code 201
+    note: '901 General TOU Network with Feed-in tariff code 201 (obsolete): priced at business, evening and off-peak times
+      (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '902'
+    applies_to: usage
+    locator: pdf:p10
+    quote: 902 General TOU Network with Feed-in tariff code 302
+    note: '902 General TOU Network with Feed-in tariff code 302: priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '903'
+    applies_to: usage
+    locator: pdf:p10
+    quote: 903 General TOU Network with Feed-in tariff code 304
+    note: '903 General TOU Network with Feed-in tariff code 304: priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1001'
+    applies_to: usage
+    locator: pdf:p10
+    quote: 1001 LV TOU kVA Demand Network with Feed-in tariff code 201
+    note: '1001 LV TOU kVA Demand Network with Feed-in tariff code 201 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1002'
+    applies_to: usage
+    locator: pdf:p10
+    quote: 1002 LV TOU kVA Demand Network with Feed-in tariff code 301
+    note: '1002 LV TOU kVA Demand Network with Feed-in tariff code 301 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1004'
+    applies_to: usage
+    locator: pdf:p10
+    quote: 1004 LV TOU kVA Demand Network with Feed-in tariff code 303
+    note: '1004 LV TOU kVA Demand Network with Feed-in tariff code 303: priced at business, evening and off-peak times (as
+      defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1005'
+    applies_to: usage
+    locator: pdf:p11
+    quote: 1005 LV TOU kVA Demand Network with Feed-in tariff code 304
+    note: '1005 LV TOU kVA Demand Network with Feed-in tariff code 304: priced at business, evening and off-peak times (as
+      defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1006'
+    applies_to: usage
+    locator: pdf:p11
+    quote: 1006 LV TOU kVA Demand Network with Feed-in tariff code 302
+    note: '1006 LV TOU kVA Demand Network with Feed-in tariff code 302: priced at business, evening and off-peak times (as
+      defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+- id: evo-2016-17-060-controlled-load
+  doc: sources/archive/evoenergy/2016-17/Electricity-network-prices-2016-17.ashx.pdf
+  fin_year: 2016-17
+  name: Off-Peak (1) Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p5
+  quote: a minimum of six hours and a maximum of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours
+    (7.00am).
+  note: 'Time periods section of the schedule of charges; p6: ''to are in Australian Eastern Standard Time.''. Text: ''The
+    Off-Peak (1) Night Network charge shall provide operation for a minimum of six hours and a maximum of eight hours within
+    any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p5
+    quote: a minimum of six hours and a maximum of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours
+      (7.00am).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p5
+    quote: a minimum of six hours and a maximum of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours
+      (7.00am).
+  tariffs:
+  - codes:
+    - '060'
+    applies_to: controlled_load
+    locator: pdf:p2
+    quote: 060 Off-Peak (1 ) Night Network
+    note: '060 Off-Peak (1 ) Night Network: the controlled-load circuit is supplied only at these times (6 to 8 hours within
+      the windows).'
+- id: evo-2016-17-070-controlled-load
+  doc: sources/archive/evoenergy/2016-17/Electricity-network-prices-2016-17.ashx.pdf
+  fin_year: 2016-17
+  name: Off-Peak (3) Day & Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p5
+  quote: comprised of eight hours between 2200 hours (10.00pm) and 0700
+  note: 'Time periods section of the schedule of charges; p6: ''to are in Australian Eastern Standard Time.''. Text: ''The
+    Off-Peak (3) Day & Night Network charge shall provide operation for a total of 13 hours in any one day. The said 13 hours
+    shall be comprised of eight hours between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours
+    (9.00am) and 1700 hours (5.00pm).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p5
+    quote: comprised of eight hours between 2200 hours (10.00pm) and 0700
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p5
+    quote: comprised of eight hours between 2200 hours (10.00pm) and 0700
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p5
+    quote: hours (7.00am) and five hours between 0900 hours (9.00am) and
+  tariffs:
+  - codes:
+    - '070'
+    applies_to: controlled_load
+    locator: pdf:p2
+    quote: 070 Off-Peak (3) Day & Night Network
+    note: '070 Off-Peak (3) Day & Night Network: the controlled-load circuit is supplied only at these times (13 hours within
+      the windows).'
+- id: evo-2017-18-res-tou-energy
+  doc: sources/archive/evoenergy/2017-18/Evoenergy-electricity-schedule-of-charges-2017-18.pdf
+  fin_year: 2017-18
+  name: Residential TOU energy (max, mid and economy times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p7
+  quote: Max times are defined as from 0700 hours (7.00am) to
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Definitions:
+    ''Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+    (8.00pm) every day.'' ''Mid times are defined as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm)
+    to 2200 hours (10.00pm) every day.'' ''Economy times are defined as all other times.'' (the two-column layout splits these
+    sentences in the PDF text layer, so each window quotes the part stating its hours).'
+  windows:
+  - period: peak
+    label: Max times
+    days: all_days
+    start: 07:00
+    end: 09:00
+    locator: pdf:p7
+    quote: Max times are defined as from 0700 hours (7.00am) to
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p7
+    quote: Mid times are defined as from 0900 hours (9.00am) to
+  - period: peak
+    label: Max times
+    days: all_days
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p7
+    quote: from 1700 hours (5.00pm) to 2000 hours (8.00pm) every day.
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p7
+    quote: 1700 hours (5.00pm) and from 2000 hours (8.00pm) to
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p7
+    quote: Economy times are defined as all other times.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p7
+    quote: Economy times are defined as all other times.
+  tariffs:
+  - codes:
+    - '015'
+    applies_to: usage
+    locator: pdf:p1
+    quote: 015 Residential TOU Network
+    note: '015 Residential TOU Network: priced ''at max times'', ''at mid times'' and ''at economy times'' (as defined), which
+      the Time periods section defines; economy times are the complement (''all other times'').'
+  - codes:
+    - '016'
+    applies_to: usage
+    locator: pdf:p1
+    quote: 016 Residential TOU Network XMC*
+    note: '016 Residential TOU Network XMC: priced ''at max times'', ''at mid times'' and ''at economy times'' (as defined),
+      which the Time periods section defines; economy times are the complement (''all other times'').'
+  - codes:
+    - '702'
+    applies_to: usage
+    locator: pdf:p11
+    quote: 702 Residential TOU Network with Feed-in tariff code 302
+    note: '702 Residential TOU Network with Feed-in tariff code 302 (obsolete): priced ''at max times'', ''at mid times''
+      and ''at economy times'' (as defined), which the Time periods section defines; economy times are the complement (''all
+      other times'').'
+- id: evo-2017-18-com-tou-energy
+  doc: sources/archive/evoenergy/2017-18/Evoenergy-electricity-schedule-of-charges-2017-18.pdf
+  fin_year: 2017-18
+  name: Commercial TOU energy (business, evening and off-peak times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p7
+  quote: to 1700 hours (5.00pm) on weekdays.
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Definitions:
+    ''Business times are defined as from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.'' ''Evening times are defined
+    as from 1700 hours (5.00pm) to 2200 hours (10.00pm) on weekdays.'' ''Off-Peak times are defined as all other times.''
+    (the two-column layout splits these sentences in the PDF text layer, so each window quotes the part stating its hours).
+    ''Weekdays are Monday to Friday.'''
+  windows:
+  - period: peak
+    label: Business times
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p7
+    quote: to 1700 hours (5.00pm) on weekdays.
+  - period: shoulder
+    label: Evening times
+    days: weekday
+    start: '17:00'
+    end: '22:00'
+    locator: pdf:p7
+    quote: Evening times are defined as from 1700 hours (5.00pm) to 2200 hours (10.00pm) on weekdays.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p7
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p7
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p7
+    quote: Off-Peak times are defined as all other times.
+  tariffs:
+  - codes:
+    - 090
+    applies_to: usage
+    locator: pdf:p2
+    quote: 090 General TOU Network
+    note: '090 General TOU Network: priced at business, evening and off-peak times (as defined), which the Time periods section
+      defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - 091
+    applies_to: usage
+    locator: pdf:p2
+    quote: 091 General TOU Network XMC*
+    note: '091 General TOU Network XMC: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '101'
+    applies_to: usage
+    locator: pdf:p2
+    quote: 101 LV TOU kVA Demand Network
+    note: '101 LV TOU kVA Demand Network: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '103'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 103 LV TOU Capacity Network
+    note: '103 LV TOU Capacity Network: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '104'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 104 LV TOU kVA Demand Network XMC*
+    note: '104 LV TOU kVA Demand Network XMC: priced at business, evening and off-peak times (as defined), which the Time
+      periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '105'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 105 LV TOU Capacity Network XMC*
+    note: '105 LV TOU Capacity Network XMC: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '111'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 111 HV TOU Demand Network
+    note: '111 HV TOU Demand Network: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '121'
+    applies_to: usage
+    locator: pdf:p4
+    quote: 121 HV TOU Demand Network – Customer LV
+    note: '121 HV TOU Demand Network – Customer LV: priced at business, evening and off-peak times (as defined), which the
+      Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '122'
+    applies_to: usage
+    locator: pdf:p4
+    quote: 122 HV TOU Demand Network – Customer HV and LV
+    note: '122 HV TOU Demand Network – Customer HV and LV: priced at business, evening and off-peak times (as defined), which
+      the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '901'
+    applies_to: usage
+    locator: pdf:p11
+    quote: 901 General TOU Network with Feed-in tariff code 201
+    note: '901 General TOU Network with Feed-in tariff code 201 (obsolete): priced at business, evening and off-peak times
+      (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '902'
+    applies_to: usage
+    locator: pdf:p11
+    quote: 902 General TOU Network with Feed-in tariff code 302
+    note: '902 General TOU Network with Feed-in tariff code 302 (obsolete): priced at business, evening and off-peak times
+      (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '903'
+    applies_to: usage
+    locator: pdf:p11
+    quote: 903 General TOU Network with Feed-in tariff code 304
+    note: '903 General TOU Network with Feed-in tariff code 304 (obsolete): priced at business, evening and off-peak times
+      (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1001'
+    applies_to: usage
+    locator: pdf:p12
+    quote: 1001 LV TOU kVA Demand Network with Feed-in tariff code 201
+    note: '1001 LV TOU kVA Demand Network with Feed-in tariff code 201 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1002'
+    applies_to: usage
+    locator: pdf:p12
+    quote: 1002 LV TOU kVA Demand Network with Feed-in tariff code 301
+    note: '1002 LV TOU kVA Demand Network with Feed-in tariff code 301 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1004'
+    applies_to: usage
+    locator: pdf:p12
+    quote: 1004 LV TOU kVA Demand Network with Feed-in tariff code 303
+    note: '1004 LV TOU kVA Demand Network with Feed-in tariff code 303 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1005'
+    applies_to: usage
+    locator: pdf:p12
+    quote: 1005 LV TOU kVA Demand Network with Feed-in tariff code 304
+    note: '1005 LV TOU kVA Demand Network with Feed-in tariff code 304 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1006'
+    applies_to: usage
+    locator: pdf:p12
+    quote: 1006 LV TOU kVA Demand Network with Feed-in tariff code 302
+    note: '1006 LV TOU kVA Demand Network with Feed-in tariff code 302 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+- id: evo-2017-18-res-demand-window
+  doc: sources/archive/evoenergy/2017-18/Evoenergy-electricity-schedule-of-charges-2017-18.pdf
+  fin_year: 2017-18
+  name: Residential kW Demand peak time
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p7
+  quote: from 1700 hours (5.00pm) to 2000 hours (8.00pm) every day.
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Definitions:
+    ''Peak times (for Residential kW Demand) are defined as from 1700 hours (5.00pm) to 2000 hours (8.00pm) every day.'' (the
+    two-column layout splits these sentences in the PDF text layer, so each window quotes the part stating its hours).'
+  windows:
+  - period: peak
+    label: Peak times
+    days: all_days
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p7
+    quote: from 1700 hours (5.00pm) to 2000 hours (8.00pm) every day.
+  tariffs:
+  - codes:
+    - '025'
+    applies_to: demand
+    locator: pdf:p1
+    quote: 025 Residential kW Demand Network
+    note: '025 Residential kW Demand Network: maximum demand charge ''at peak times (as defined)'', which the Time periods
+      section defines for Residential kW Demand.'
+  - codes:
+    - '026'
+    applies_to: demand
+    locator: pdf:p2
+    quote: 026 Residential kW Demand Network XMC*
+    note: '026 Residential kW Demand Network XMC: maximum demand charge ''at peak times (as defined)'', which the Time periods
+      section defines for Residential kW Demand.'
+- id: evo-2017-18-lv-kw-demand-window
+  doc: sources/archive/evoenergy/2017-18/Evoenergy-electricity-schedule-of-charges-2017-18.pdf
+  fin_year: 2017-18
+  name: LV kW Demand business-time maximum demand window
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p7
+  quote: to 1700 hours (5.00pm) on weekdays.
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Definitions:
+    ''Business times are defined as from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.'' (the two-column layout
+    splits these sentences in the PDF text layer, so each window quotes the part stating its hours).'
+  windows:
+  - period: peak
+    label: Business times
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p7
+    quote: to 1700 hours (5.00pm) on weekdays.
+  tariffs:
+  - codes:
+    - '106'
+    applies_to: demand
+    locator: pdf:p3
+    quote: 106 LV kW Demand Network
+    note: '106 LV kW Demand Network: maximum demand charge ''at business times (as defined)''; the Maximum demand charges
+      section bases the 106 and 107 maximum demand on the business times.'
+  - codes:
+    - '107'
+    applies_to: demand
+    locator: pdf:p3
+    quote: 107 LV kW Demand Network XMC*
+    note: '107 LV kW Demand Network XMC: maximum demand charge ''at business times (as defined)''; the Maximum demand charges
+      section bases the 106 and 107 maximum demand on the business times.'
+- id: evo-2017-18-060-controlled-load
+  doc: sources/archive/evoenergy/2017-18/Evoenergy-electricity-schedule-of-charges-2017-18.pdf
+  fin_year: 2017-18
+  name: Off-Peak (1) Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p6
+  quote: of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Text:
+    ''The Off-Peak (1) Night Network charge shall provide operation for a minimum of six hours and a maximum of eight hours
+    within any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p6
+    quote: of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p6
+    quote: of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  tariffs:
+  - codes:
+    - '060'
+    applies_to: controlled_load
+    locator: pdf:p2
+    quote: 060 Off-Peak (1) Night Network
+    note: '060 Off-Peak (1) Night Network: the controlled-load circuit is supplied only at these times (6 to 8 hours within
+      the windows).'
+- id: evo-2017-18-070-controlled-load
+  doc: sources/archive/evoenergy/2017-18/Evoenergy-electricity-schedule-of-charges-2017-18.pdf
+  fin_year: 2017-18
+  name: Off-Peak (3) Day & Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p6
+  quote: between 2200 hours (10.00pm) and 0700 hours (7.00am)
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Text:
+    ''The Off-Peak (3) Day & Night Network charge shall provide operation for a total of 13 hours in any one day. The said
+    13 hours shall be comprised of eight hours between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between
+    0900 hours (9.00am) and 1700 hours (5.00pm).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p6
+    quote: between 2200 hours (10.00pm) and 0700 hours (7.00am)
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p6
+    quote: between 2200 hours (10.00pm) and 0700 hours (7.00am)
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p6
+    quote: between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  tariffs:
+  - codes:
+    - '070'
+    applies_to: controlled_load
+    locator: pdf:p2
+    quote: 070 Off-Peak (3) Day & Night Network
+    note: '070 Off-Peak (3) Day & Night Network: the controlled-load circuit is supplied only at these times (13 hours within
+      the windows).'
+- id: evo-2018-19-res-tou-energy
+  doc: sources/archive/evoenergy/2018-19/evoenergy-electricity-schedule-of-charges-2018-19.pdf
+  fin_year: 2018-19
+  name: Residential TOU energy (max, mid and economy times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p6
+  quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Definitions:
+    ''Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+    (8.00pm) every day.'' ''Mid times are defined as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm)
+    to 2200 hours (10.00pm) every day.'' ''Economy times are defined as all other times.'' (the two-column layout splits these
+    sentences in the PDF text layer, so each window quotes the part stating its hours).'
+  windows:
+  - period: peak
+    label: Max times
+    days: all_days
+    start: 07:00
+    end: 09:00
+    locator: pdf:p6
+    quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p6
+    quote: Mid times are defined as from 0900 hours (9.00am) to
+  - period: peak
+    label: Max times
+    days: all_days
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p6
+    quote: from 1700 hours (5.00pm) to 2000 hours (8.00pm)
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p6
+    quote: 1700 hours (5.00pm) and from 2000 hours (8.00pm) to
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p6
+    quote: Economy times are defined as all other times.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p6
+    quote: Economy times are defined as all other times.
+  tariffs:
+  - codes:
+    - '015'
+    applies_to: usage
+    locator: pdf:p1
+    quote: 015 Residential TOU Network
+    note: '015 Residential TOU Network: priced ''at max times'', ''at mid times'' and ''at economy times'' (as defined), which
+      the Time periods section defines; economy times are the complement (''all other times'').'
+  - codes:
+    - '016'
+    applies_to: usage
+    locator: pdf:p1
+    quote: 016 Residential TOU Network XMC
+    note: '016 Residential TOU Network XMC: priced ''at max times'', ''at mid times'' and ''at economy times'' (as defined),
+      which the Time periods section defines; economy times are the complement (''all other times'').'
+  - codes:
+    - '702'
+    applies_to: usage
+    locator: pdf:p11
+    quote: 702 Residential TOU Network with Feed-in tariff code 302
+    note: '702 Residential TOU Network with Feed-in tariff code 302 (obsolete): priced ''at max times'', ''at mid times''
+      and ''at economy times'' (as defined), which the Time periods section defines; economy times are the complement (''all
+      other times'').'
+- id: evo-2018-19-com-tou-energy
+  doc: sources/archive/evoenergy/2018-19/evoenergy-electricity-schedule-of-charges-2018-19.pdf
+  fin_year: 2018-19
+  name: Commercial TOU energy (business, evening and off-peak times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p7
+  quote: to 1700 hours (5.00pm) on weekdays.
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Definitions:
+    ''Business times are defined as from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.'' ''Evening times are defined
+    as from 1700 hours (5.00pm) to 2200 hours (10.00pm) on weekdays.'' ''Off-Peak times are defined as all other times.''
+    (the two-column layout splits these sentences in the PDF text layer, so each window quotes the part stating its hours).
+    ''Weekdays are Monday to Friday.'''
+  windows:
+  - period: peak
+    label: Business times
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p7
+    quote: to 1700 hours (5.00pm) on weekdays.
+  - period: shoulder
+    label: Evening times
+    days: weekday
+    start: '17:00'
+    end: '22:00'
+    locator: pdf:p7
+    quote: to 2200 hours (10.00pm) on weekdays.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p7
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p7
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p7
+    quote: Off-Peak times are defined as all other times.
+  tariffs:
+  - codes:
+    - 090
+    applies_to: usage
+    locator: pdf:p2
+    quote: 090 General TOU Network
+    note: '090 General TOU Network: priced at business, evening and off-peak times (as defined), which the Time periods section
+      defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - 091
+    applies_to: usage
+    locator: pdf:p2
+    quote: 091 General TOU Network XMC
+    note: '091 General TOU Network XMC: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '101'
+    applies_to: usage
+    locator: pdf:p2
+    quote: 101 LV TOU kVA Demand Network
+    note: '101 LV TOU kVA Demand Network: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '103'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 103 LV TOU Capacity Network
+    note: '103 LV TOU Capacity Network: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '104'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 104 LV TOU kVA Demand Network XMC
+    note: '104 LV TOU kVA Demand Network XMC: priced at business, evening and off-peak times (as defined), which the Time
+      periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '105'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 105 LV TOU Capacity Network XMC
+    note: '105 LV TOU Capacity Network XMC: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '111'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 111 HV TOU Demand Network
+    note: '111 HV TOU Demand Network: priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '121'
+    applies_to: usage
+    locator: pdf:p3
+    quote: 121 HV TOU Demand Network – Customer LV
+    note: '121 HV TOU Demand Network – Customer LV: priced at business, evening and off-peak times (as defined), which the
+      Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '122'
+    applies_to: usage
+    locator: pdf:p4
+    quote: 122 HV TOU Demand Network – Customer HV and LV
+    note: '122 HV TOU Demand Network – Customer HV and LV: priced at business, evening and off-peak times (as defined), which
+      the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '901'
+    applies_to: usage
+    locator: pdf:p11
+    quote: 901 General TOU Network with Feed-in tariff code 201
+    note: '901 General TOU Network with Feed-in tariff code 201 (obsolete): priced at business, evening and off-peak times
+      (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '902'
+    applies_to: usage
+    locator: pdf:p11
+    quote: 902 General TOU Network with Feed-in tariff code 302
+    note: '902 General TOU Network with Feed-in tariff code 302 (obsolete): priced at business, evening and off-peak times
+      (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '903'
+    applies_to: usage
+    locator: pdf:p11
+    quote: 903 General TOU Network with Feed-in tariff code 304
+    note: '903 General TOU Network with Feed-in tariff code 304 (obsolete): priced at business, evening and off-peak times
+      (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1001'
+    applies_to: usage
+    locator: pdf:p12
+    quote: 1001 LV TOU kVA Demand Network with Feed-in tariff code 201
+    note: '1001 LV TOU kVA Demand Network with Feed-in tariff code 201 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1002'
+    applies_to: usage
+    locator: pdf:p12
+    quote: 1002 LV TOU kVA Demand Network with Feed-in tariff code 301
+    note: '1002 LV TOU kVA Demand Network with Feed-in tariff code 301 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1004'
+    applies_to: usage
+    locator: pdf:p12
+    quote: 1004 LV TOU kVA Demand Network with Feed-in tariff code 303
+    note: '1004 LV TOU kVA Demand Network with Feed-in tariff code 303 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1005'
+    applies_to: usage
+    locator: pdf:p12
+    quote: 1005 LV TOU kVA Demand Network with Feed-in tariff code 304
+    note: '1005 LV TOU kVA Demand Network with Feed-in tariff code 304 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '1006'
+    applies_to: usage
+    locator: pdf:p12
+    quote: 1006 LV TOU kVA Demand Network with Feed-in tariff code 302
+    note: '1006 LV TOU kVA Demand Network with Feed-in tariff code 302 (obsolete): priced at business, evening and off-peak
+      times (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+- id: evo-2018-19-res-demand-window
+  doc: sources/archive/evoenergy/2018-19/evoenergy-electricity-schedule-of-charges-2018-19.pdf
+  fin_year: 2018-19
+  name: Residential kW Demand peak time
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p6
+  quote: as from 1700 hours (5.00pm) to 2000 hours (8.00pm)
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Definitions:
+    ''Peak times (for Residential kW Demand) are defined as from 1700 hours (5.00pm) to 2000 hours (8.00pm) every day.'' (the
+    two-column layout splits these sentences in the PDF text layer, so each window quotes the part stating its hours).'
+  windows:
+  - period: peak
+    label: Peak times
+    days: all_days
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p6
+    quote: as from 1700 hours (5.00pm) to 2000 hours (8.00pm)
+  tariffs:
+  - codes:
+    - '025'
+    applies_to: demand
+    locator: pdf:p1
+    quote: 025 Residential kW Demand Network
+    note: '025 Residential kW Demand Network: maximum demand charge ''at peak times (as defined)'', which the Time periods
+      section defines for Residential kW Demand.'
+  - codes:
+    - '026'
+    applies_to: demand
+    locator: pdf:p2
+    quote: 026 Residential kW Demand Network XMC
+    note: '026 Residential kW Demand Network XMC: maximum demand charge ''at peak times (as defined)'', which the Time periods
+      section defines for Residential kW Demand.'
+- id: evo-2018-19-lv-kw-demand-window
+  doc: sources/archive/evoenergy/2018-19/evoenergy-electricity-schedule-of-charges-2018-19.pdf
+  fin_year: 2018-19
+  name: LV kW Demand business-time maximum demand window
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p7
+  quote: to 1700 hours (5.00pm) on weekdays.
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Definitions:
+    ''Business times are defined as from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.'' (the two-column layout
+    splits these sentences in the PDF text layer, so each window quotes the part stating its hours).'
+  windows:
+  - period: peak
+    label: Business times
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p7
+    quote: to 1700 hours (5.00pm) on weekdays.
+  tariffs:
+  - codes:
+    - '106'
+    applies_to: demand
+    locator: pdf:p3
+    quote: 106 LV kW Demand Network
+    note: '106 LV kW Demand Network: maximum demand charge ''at business times (as defined)''; the Maximum demand charges
+      section bases the 106 and 107 maximum demand on the business times.'
+  - codes:
+    - '107'
+    applies_to: demand
+    locator: pdf:p3
+    quote: 107 LV kW Demand Network XMC
+    note: '107 LV kW Demand Network XMC: maximum demand charge ''at business times (as defined)''; the Maximum demand charges
+      section bases the 106 and 107 maximum demand on the business times.'
+- id: evo-2018-19-060-controlled-load
+  doc: sources/archive/evoenergy/2018-19/evoenergy-electricity-schedule-of-charges-2018-19.pdf
+  fin_year: 2018-19
+  name: Off-Peak (1) Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p6
+  quote: of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Text:
+    ''The Off-Peak (1) Night Network charge shall provide operation for a minimum of six hours and a maximum of eight hours
+    within any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p6
+    quote: of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p6
+    quote: of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  tariffs:
+  - codes:
+    - '060'
+    applies_to: controlled_load
+    locator: pdf:p2
+    quote: 060 Off-Peak (1) Night Network
+    note: '060 Off-Peak (1) Night Network: the controlled-load circuit is supplied only at these times (6 to 8 hours within
+      the windows).'
+- id: evo-2018-19-070-controlled-load
+  doc: sources/archive/evoenergy/2018-19/evoenergy-electricity-schedule-of-charges-2018-19.pdf
+  fin_year: 2018-19
+  name: Off-Peak (3) Day & Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p6
+  quote: between 2200 hours (10.00pm) and 0700 hours (7.00am)
+  note: 'Time periods section of the schedule of charges; p7: ''referred to are in Australian Eastern Standard Time.''. Text:
+    ''The Off-Peak (3) Day & Night Network charge shall provide operation for a total of 13 hours in any one day. The said
+    13 hours shall be comprised of eight hours between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between
+    0900 hours (9.00am) and 1700 hours (5.00pm).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p6
+    quote: between 2200 hours (10.00pm) and 0700 hours (7.00am)
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p6
+    quote: between 2200 hours (10.00pm) and 0700 hours (7.00am)
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p6
+    quote: between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  tariffs:
+  - codes:
+    - '070'
+    applies_to: controlled_load
+    locator: pdf:p2
+    quote: 070 Off-Peak (3) Day & Night Network
+    note: '070 Off-Peak (3) Day & Night Network: the controlled-load circuit is supplied only at these times (13 hours within
+      the windows).'
+- id: evo-2019-20-res-tou-energy
+  doc: sources/archive/evoenergy/2019-20/evoenergy-electricity-schedule-of-charges-2019-20.pdf
+  fin_year: 2019-20
+  name: Residential TOU energy (max, mid and economy times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p12
+  quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+    (8.00pm) every day.
+  note: 'Time periods section of the schedule of charges; p12: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Definitions: ''Max times are defined as from 0700 hours (7.00am) to 0900
+    hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours (8.00pm) every day.'' ''Mid times are defined as from 0900 hours
+    (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours (10.00pm) every day.'' ''Economy times are
+    defined as all other times.'''
+  windows:
+  - period: peak
+    label: Max times
+    days: all_days
+    start: 07:00
+    end: 09:00
+    locator: pdf:p12
+    quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+      (8.00pm) every day.
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p12
+    quote: Mid times are defined as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours
+      (10.00pm) every day.
+  - period: peak
+    label: Max times
+    days: all_days
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p12
+    quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+      (8.00pm) every day.
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p12
+    quote: Mid times are defined as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours
+      (10.00pm) every day.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p12
+    quote: Economy times are defined as all other times.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p12
+    quote: Economy times are defined as all other times.
+  tariffs:
+  - codes:
+    - '015'
+    applies_to: usage
+    locator: pdf:p5
+    quote: 015 9.020
+    note: '015 Residential TOU: row ''015'' of the price table on p5; priced ''at max times'', ''at mid times'' and ''at economy
+      times'' (as defined), which the Time periods section defines; economy times are the complement (''all other times'').'
+  - codes:
+    - '016'
+    applies_to: usage
+    locator: pdf:p5
+    quote: 016*
+    note: '016 Residential TOU XMC: row ''016'' of the price table on p5; priced ''at max times'', ''at mid times'' and ''at
+      economy times'' (as defined), which the Time periods section defines; economy times are the complement (''all other
+      times'').'
+  - codes:
+    - '702'
+    applies_to: usage
+    locator: pdf:p23
+    quote: 702 Residential TOU Network with Feed-in tariff code 302
+    note: '702 Residential TOU Network with Feed-in tariff code 302 (obsolete): row ''702'' of the price table on p23; priced
+      ''at max times'', ''at mid times'' and ''at economy times'' (as defined), which the Time periods section defines; economy
+      times are the complement (''all other times'').'
+- id: evo-2019-20-com-tou-energy
+  doc: sources/archive/evoenergy/2019-20/evoenergy-electricity-schedule-of-charges-2019-20.pdf
+  fin_year: 2019-20
+  name: Commercial TOU energy (business, evening and off-peak times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p12
+  quote: Business times are defined as from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.
+  note: 'Time periods section of the schedule of charges; p12: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Definitions: ''Business times are defined as from 0700 hours (7.00am) to
+    1700 hours (5.00pm) on weekdays.'' ''Evening times are defined as from 1700 hours (5.00pm) to 2200 hours (10.00pm) on
+    weekdays.'' ''Off-Peak times are defined as all other times.'' ''Weekdays are Monday to Friday.'''
+  windows:
+  - period: peak
+    label: Business times
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p12
+    quote: Business times are defined as from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.
+  - period: shoulder
+    label: Evening times
+    days: weekday
+    start: '17:00'
+    end: '22:00'
+    locator: pdf:p12
+    quote: Evening times are defined as from 1700 hours (5.00pm) to 2200 hours (10.00pm) on weekdays.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p12
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p12
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p12
+    quote: Off-Peak times are defined as all other times.
+  tariffs:
+  - codes:
+    - 090
+    applies_to: usage
+    locator: pdf:p6
+    quote: 090 15.770
+    note: '090 General TOU: row ''090'' of the price table on p6; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - 091
+    applies_to: usage
+    locator: pdf:p6
+    quote: 091*
+    note: '091 General TOU XMC: row ''091'' of the price table on p6; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '101'
+    applies_to: usage
+    locator: pdf:p6
+    quote: '2019/20 Network Use of System charges (excluding GST): Low Voltage Commercial'
+    note: '101 LV TOU kVA Demand: the price table on p6 (''2019/20 Network Use of System charges (excluding GST): Low Voltage
+      Commercial'') has a row for 101; priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '103'
+    applies_to: usage
+    locator: pdf:p6
+    quote: '2019/20 Network Use of System charges (excluding GST): Low Voltage Commercial'
+    note: '103 LV TOU Capacity: the price table on p6 (''2019/20 Network Use of System charges (excluding GST): Low Voltage
+      Commercial'') has a row for 103; priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '104'
+    applies_to: usage
+    locator: pdf:p6
+    quote: '2019/20 Network Use of System charges (excluding GST): Low Voltage Commercial'
+    note: '104 LV TOU kVA Demand XMC: the price table on p6 (''2019/20 Network Use of System charges (excluding GST): Low
+      Voltage Commercial'') has a row for 104; priced at business, evening and off-peak times (as defined), which the Time
+      periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '105'
+    applies_to: usage
+    locator: pdf:p6
+    quote: '2019/20 Network Use of System charges (excluding GST): Low Voltage Commercial'
+    note: '105 LV TOU Capacity XMC: the price table on p6 (''2019/20 Network Use of System charges (excluding GST): Low Voltage
+      Commercial'') has a row for 105; priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '111'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 111 20.357
+    note: '111 HV TOU Demand: row ''111'' of the price table on p7; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '121'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 121 20.357
+    note: '121 HV TOU Demand Network – Customer LV: row ''121'' of the price table on p7; priced at business, evening and
+      off-peak times (as defined), which the Time periods section defines; off-peak times are the complement (''all other
+      times'').'
+  - codes:
+    - '122'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 122 20.357
+    note: '122 HV TOU Demand Network – Customer LV & HV: row ''122'' of the price table on p7; priced at business, evening
+      and off-peak times (as defined), which the Time periods section defines; off-peak times are the complement (''all other
+      times'').'
+  - codes:
+    - '901'
+    applies_to: usage
+    locator: pdf:p23
+    quote: 901 General TOU Network with Feed-in tariff code 201
+    note: '901 General TOU Network with Feed-in tariff code 201 (obsolete): row ''901'' of the price table on p23; priced
+      at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times are the
+      complement (''all other times'').'
+  - codes:
+    - '902'
+    applies_to: usage
+    locator: pdf:p23
+    quote: 902 General TOU Network with Feed-in tariff code 302
+    note: '902 General TOU Network with Feed-in tariff code 302 (obsolete): row ''902'' of the price table on p23; priced
+      at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times are the
+      complement (''all other times'').'
+  - codes:
+    - '903'
+    applies_to: usage
+    locator: pdf:p23
+    quote: 903 General TOU Network with Feed-in tariff code 304
+    note: '903 General TOU Network with Feed-in tariff code 304 (obsolete): row ''903'' of the price table on p23; priced
+      at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times are the
+      complement (''all other times'').'
+  - codes:
+    - '1001'
+    applies_to: usage
+    locator: pdf:p24
+    quote: 1001 LV TOU kVA Demand Network with Feed-in tariff code 201
+    note: '1001 LV TOU kVA Demand Network with Feed-in tariff code 201 (obsolete): row ''1001'' of the price table on p24;
+      priced at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times
+      are the complement (''all other times'').'
+  - codes:
+    - '1002'
+    applies_to: usage
+    locator: pdf:p24
+    quote: 1002 LV TOU kVA Demand Network with Feed-in tariff code 301
+    note: '1002 LV TOU kVA Demand Network with Feed-in tariff code 301 (obsolete): row ''1002'' of the price table on p24;
+      priced at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times
+      are the complement (''all other times'').'
+  - codes:
+    - '1004'
+    applies_to: usage
+    locator: pdf:p24
+    quote: 1004 LV TOU kVA Demand Network with Feed-in tariff code 303
+    note: '1004 LV TOU kVA Demand Network with Feed-in tariff code 303 (obsolete): row ''1004'' of the price table on p24;
+      priced at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times
+      are the complement (''all other times'').'
+  - codes:
+    - '1005'
+    applies_to: usage
+    locator: pdf:p24
+    quote: 1005 LV TOU kVA Demand Network with Feed-in tariff code 304
+    note: '1005 LV TOU kVA Demand Network with Feed-in tariff code 304 (obsolete): row ''1005'' of the price table on p24;
+      priced at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times
+      are the complement (''all other times'').'
+  - codes:
+    - '1006'
+    applies_to: usage
+    locator: pdf:p25
+    quote: 1006 LV TOU kVA Demand Network with Feed-in tariff code 302
+    note: '1006 LV TOU kVA Demand Network with Feed-in tariff code 302 (obsolete): row ''1006'' of the price table on p25;
+      priced at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times
+      are the complement (''all other times'').'
+- id: evo-2019-20-060-controlled-load
+  doc: sources/archive/evoenergy/2019-20/evoenergy-electricity-schedule-of-charges-2019-20.pdf
+  fin_year: 2019-20
+  name: Off-Peak (1) Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+    any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  note: 'Time periods section of the schedule of charges; p12: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Text: ''The Off-Peak (1) Night tariff shall provide operation for a minimum
+    of six hours and a maximum of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p10
+    quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+      any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p10
+    quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+      any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  tariffs:
+  - codes:
+    - '060'
+    applies_to: controlled_load
+    locator: pdf:p5
+    quote: 060 2.170
+    note: '060 Off-peak (1) Night: the controlled-load circuit is supplied only at these times (6 to 8 hours within the windows).'
+- id: evo-2019-20-070-controlled-load
+  doc: sources/archive/evoenergy/2019-20/evoenergy-electricity-schedule-of-charges-2019-20.pdf
+  fin_year: 2019-20
+  name: Off-Peak (3) Day & Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+    between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  note: 'Time periods section of the schedule of charges; p12: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Text: ''The Off-Peak (3) Day & Night Network charge shall provide operation
+    for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours between 2200 hours (10.00pm)
+    and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p10
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p10
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p10
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  tariffs:
+  - codes:
+    - '070'
+    applies_to: controlled_load
+    locator: pdf:p5
+    quote: 070 3.336
+    note: '070 Off-peak (3) Day & Night: the controlled-load circuit is supplied only at these times (13 hours within the
+      windows).'
+- id: evo-2019-20-lv-kva-demand-window
+  doc: sources/archive/evoenergy/2019-20/evoenergy-statement-of-tariff-classes-and-tariffs-2019-20.pdf
+  fin_year: 2019-20
+  name: LV commercial kVA business-time maximum demand window
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p13
+  quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  note: 'Section 2.2: the maximum demand of the LV TOU kVA Demand and LV TOU Capacity tariffs changed from 1 July 2019 from
+    ''anytime'' to ''peak-period'' maximum demand; the peak period is the Business Time (AEST).'
+  windows:
+  - period: peak
+    label: Business Time
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p13
+    quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  tariffs:
+  - codes:
+    - '101'
+    applies_to: demand
+    locator: pdf:p21
+    quote: 101 LV TOU kVA Demand Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p13).
+  - codes:
+    - '103'
+    applies_to: demand
+    locator: pdf:p21
+    quote: 103 LV TOU Capacity Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p13).
+  - codes:
+    - '104'
+    applies_to: demand
+    locator: pdf:p21
+    quote: 104 LV TOU kVA Demand Network XMC
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p13).
+  - codes:
+    - '105'
+    applies_to: demand
+    locator: pdf:p22
+    quote: 105 LV TOU Capacity Network XMC
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p13).
+- id: evo-2019-20-hv-kva-demand-window
+  doc: sources/archive/evoenergy/2019-20/evoenergy-statement-of-tariff-classes-and-tariffs-2019-20.pdf
+  fin_year: 2019-20
+  name: HV commercial kVA business-time maximum demand window
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p16
+  quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am24 to 5:00pm on weekdays.
+  note: 'Section 2.3: the maximum demand charge of the HV tariffs is ''peak-period'' maximum demand in the Business Time;
+    ''24'' is a footnote marker (''The first period starts at 07:00:01 and ends at 07:30:00 AEST''). Table 2.5 footnote: ''Business
+    times are between 7 am and 5 pm Australian Eastern Standard Time on weekdays''.'
+  windows:
+  - period: peak
+    label: Business Time
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p16
+    quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am24 to 5:00pm on weekdays.
+  tariffs:
+  - codes:
+    - '111'
+    applies_to: demand
+    locator: pdf:p22
+    quote: 111 HV TOU Demand Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p16).
+  - codes:
+    - '121'
+    applies_to: demand
+    locator: pdf:p22
+    quote: 121 HV TOU Demand Network – Customer LV
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p16).
+  - codes:
+    - '122'
+    applies_to: demand
+    locator: pdf:p22
+    quote: 122 HV TOU Demand Network – Customer HV and LV
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p16).
+- id: evo-2020-21-res-tou-energy
+  doc: sources/archive/evoenergy/2020-21/evoenergy-electricity-schedule-of-charges-2020-21.pdf
+  fin_year: 2020-21
+  name: Residential TOU energy (max, mid and economy times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p12
+  quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+    (8.00pm) every day.
+  note: 'Time periods section of the schedule of charges; p12: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Definitions: ''Max times are defined as from 0700 hours (7.00am) to 0900
+    hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours (8.00pm) every day.'' ''Mid times are defined as from 0900 hours
+    (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours (10.00pm) every day.'' ''Economy times are
+    defined as all other times.'''
+  windows:
+  - period: peak
+    label: Max times
+    days: all_days
+    start: 07:00
+    end: 09:00
+    locator: pdf:p12
+    quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+      (8.00pm) every day.
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p12
+    quote: Mid times are defined as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours
+      (10.00pm) every day.
+  - period: peak
+    label: Max times
+    days: all_days
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p12
+    quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+      (8.00pm) every day.
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p12
+    quote: Mid times are defined as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours
+      (10.00pm) every day.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p12
+    quote: Economy times are defined as all other times.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p12
+    quote: Economy times are defined as all other times.
+  tariffs:
+  - codes:
+    - '015'
+    applies_to: usage
+    locator: pdf:p5
+    quote: 015 9.190
+    note: '015 Residential TOU: row ''015'' of the price table on p5; priced ''at max times'', ''at mid times'' and ''at economy
+      times'' (as defined), which the Time periods section defines; economy times are the complement (''all other times'').'
+  - codes:
+    - '016'
+    applies_to: usage
+    locator: pdf:p5
+    quote: 016*
+    note: '016 Residential TOU XMC: row ''016'' of the price table on p5; priced ''at max times'', ''at mid times'' and ''at
+      economy times'' (as defined), which the Time periods section defines; economy times are the complement (''all other
+      times'').'
+  - codes:
+    - '702'
+    applies_to: usage
+    locator: pdf:p22
+    quote: 702 Residential TOU Network with Feed-in tariff code 302
+    note: '702 Residential TOU Network with Feed-in tariff code 302 (obsolete): row ''702'' of the price table on p22; priced
+      ''at max times'', ''at mid times'' and ''at economy times'' (as defined), which the Time periods section defines; economy
+      times are the complement (''all other times'').'
+- id: evo-2020-21-com-tou-energy
+  doc: sources/archive/evoenergy/2020-21/evoenergy-electricity-schedule-of-charges-2020-21.pdf
+  fin_year: 2020-21
+  name: Commercial TOU energy (business, evening and off-peak times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p12
+  quote: Business times are defined as from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.
+  note: 'Time periods section of the schedule of charges; p12: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Definitions: ''Business times are defined as from 0700 hours (7.00am) to
+    1700 hours (5.00pm) on weekdays.'' ''Evening times are defined as from 1700 hours (5.00pm) to 2200 hours (10.00pm) on
+    weekdays.'' ''Off-Peak times are defined as all other times.'' ''Weekdays are Monday to Friday.'''
+  windows:
+  - period: peak
+    label: Business times
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p12
+    quote: Business times are defined as from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.
+  - period: shoulder
+    label: Evening times
+    days: weekday
+    start: '17:00'
+    end: '22:00'
+    locator: pdf:p12
+    quote: Evening times are defined as from 1700 hours (5.00pm) to 2200 hours (10.00pm) on weekdays.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p12
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p12
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p12
+    quote: Off-Peak times are defined as all other times.
+  tariffs:
+  - codes:
+    - 090
+    applies_to: usage
+    locator: pdf:p6
+    quote: 090 16.060
+    note: '090 General TOU: row ''090'' of the price table on p6; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - 091
+    applies_to: usage
+    locator: pdf:p6
+    quote: 091*
+    note: '091 General TOU XMC: row ''091'' of the price table on p6; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '101'
+    applies_to: usage
+    locator: pdf:p6
+    quote: '2020/21 Network Use of System charges (excluding GST): Low Voltage Commercial'
+    note: '101 LV TOU kVA Demand: the price table on p6 (''2020/21 Network Use of System charges (excluding GST): Low Voltage
+      Commercial'') has a row for 101; priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '103'
+    applies_to: usage
+    locator: pdf:p6
+    quote: '2020/21 Network Use of System charges (excluding GST): Low Voltage Commercial'
+    note: '103 LV TOU Capacity: the price table on p6 (''2020/21 Network Use of System charges (excluding GST): Low Voltage
+      Commercial'') has a row for 103; priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '104'
+    applies_to: usage
+    locator: pdf:p6
+    quote: '2020/21 Network Use of System charges (excluding GST): Low Voltage Commercial'
+    note: '104 LV TOU kVA Demand XMC: the price table on p6 (''2020/21 Network Use of System charges (excluding GST): Low
+      Voltage Commercial'') has a row for 104; priced at business, evening and off-peak times (as defined), which the Time
+      periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '105'
+    applies_to: usage
+    locator: pdf:p6
+    quote: '2020/21 Network Use of System charges (excluding GST): Low Voltage Commercial'
+    note: '105 LV TOU Capacity XMC: the price table on p6 (''2020/21 Network Use of System charges (excluding GST): Low Voltage
+      Commercial'') has a row for 105; priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '111'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 111 20.823
+    note: '111 HV TOU Demand: row ''111'' of the price table on p7; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '121'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 121 20.823
+    note: '121 HV TOU Demand Network – Customer LV: row ''121'' of the price table on p7; priced at business, evening and
+      off-peak times (as defined), which the Time periods section defines; off-peak times are the complement (''all other
+      times'').'
+  - codes:
+    - '122'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 122 20.823
+    note: '122 HV TOU Demand Network – Customer LV & HV: row ''122'' of the price table on p7; priced at business, evening
+      and off-peak times (as defined), which the Time periods section defines; off-peak times are the complement (''all other
+      times'').'
+  - codes:
+    - '901'
+    applies_to: usage
+    locator: pdf:p22
+    quote: 901 General TOU Network with Feed-in tariff code 201
+    note: '901 General TOU Network with Feed-in tariff code 201 (obsolete): row ''901'' of the price table on p22; priced
+      at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times are the
+      complement (''all other times'').'
+  - codes:
+    - '902'
+    applies_to: usage
+    locator: pdf:p22
+    quote: 902 General TOU Network with Feed-in tariff code 302
+    note: '902 General TOU Network with Feed-in tariff code 302 (obsolete): row ''902'' of the price table on p22; priced
+      at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times are the
+      complement (''all other times'').'
+  - codes:
+    - '903'
+    applies_to: usage
+    locator: pdf:p22
+    quote: 903 General TOU Network with Feed-in tariff code 304
+    note: '903 General TOU Network with Feed-in tariff code 304 (obsolete): row ''903'' of the price table on p22; priced
+      at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times are the
+      complement (''all other times'').'
+  - codes:
+    - '1001'
+    applies_to: usage
+    locator: pdf:p23
+    quote: 1001 LV TOU kVA Demand Network with Feed-in tariff code 201
+    note: '1001 LV TOU kVA Demand Network with Feed-in tariff code 201 (obsolete): row ''1001'' of the price table on p23;
+      priced at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times
+      are the complement (''all other times'').'
+  - codes:
+    - '1002'
+    applies_to: usage
+    locator: pdf:p23
+    quote: 1002 LV TOU kVA Demand Network with Feed-in tariff code 301
+    note: '1002 LV TOU kVA Demand Network with Feed-in tariff code 301 (obsolete): row ''1002'' of the price table on p23;
+      priced at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times
+      are the complement (''all other times'').'
+  - codes:
+    - '1004'
+    applies_to: usage
+    locator: pdf:p23
+    quote: 1004 LV TOU kVA Demand Network with Feed-in tariff code 303
+    note: '1004 LV TOU kVA Demand Network with Feed-in tariff code 303 (obsolete): row ''1004'' of the price table on p23;
+      priced at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times
+      are the complement (''all other times'').'
+  - codes:
+    - '1005'
+    applies_to: usage
+    locator: pdf:p23
+    quote: 1005 LV TOU kVA Demand Network with Feed-in tariff code 304
+    note: '1005 LV TOU kVA Demand Network with Feed-in tariff code 304 (obsolete): row ''1005'' of the price table on p23;
+      priced at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times
+      are the complement (''all other times'').'
+  - codes:
+    - '1006'
+    applies_to: usage
+    locator: pdf:p24
+    quote: 1006 LV TOU kVA Demand Network with Feed-in tariff code 302
+    note: '1006 LV TOU kVA Demand Network with Feed-in tariff code 302 (obsolete): row ''1006'' of the price table on p24;
+      priced at business, evening and off-peak times (as defined), which the Time periods section defines; off-peak times
+      are the complement (''all other times'').'
+- id: evo-2020-21-060-controlled-load
+  doc: sources/archive/evoenergy/2020-21/evoenergy-electricity-schedule-of-charges-2020-21.pdf
+  fin_year: 2020-21
+  name: Off-Peak (1) Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+    any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  note: 'Time periods section of the schedule of charges; p12: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Text: ''The Off-Peak (1) Night tariff shall provide operation for a minimum
+    of six hours and a maximum of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p10
+    quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+      any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p10
+    quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+      any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  tariffs:
+  - codes:
+    - '060'
+    applies_to: controlled_load
+    locator: pdf:p5
+    quote: 060 2.211
+    note: '060 Off-peak (1) Night: the controlled-load circuit is supplied only at these times (6 to 8 hours within the windows).'
+- id: evo-2020-21-070-controlled-load
+  doc: sources/archive/evoenergy/2020-21/evoenergy-electricity-schedule-of-charges-2020-21.pdf
+  fin_year: 2020-21
+  name: Off-Peak (3) Day & Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p10
+  quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+    between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  note: 'Time periods section of the schedule of charges; p12: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Text: ''The Off-Peak (3) Day & Night Network charge shall provide operation
+    for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours between 2200 hours (10.00pm)
+    and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p10
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p10
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p10
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  tariffs:
+  - codes:
+    - '070'
+    applies_to: controlled_load
+    locator: pdf:p5
+    quote: 070 3.399
+    note: '070 Off-peak (3) Day & Night: the controlled-load circuit is supplied only at these times (13 hours within the
+      windows).'
+- id: evo-2020-21-lv-kva-demand-window
+  doc: sources/archive/evoenergy/2020-21/evoenergy-statement-of-tariff-classes-and-tariffs-2020-21.pdf
+  fin_year: 2020-21
+  name: LV commercial kVA business-time maximum demand window
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p13
+  quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  note: 'Section 2.2: the maximum demand of the LV TOU kVA Demand and LV TOU Capacity tariffs changed from 1 July 2019 from
+    ''anytime'' to ''peak-period'' maximum demand; the peak period is the Business Time (AEST).'
+  windows:
+  - period: peak
+    label: Business Time
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p13
+    quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  tariffs:
+  - codes:
+    - '101'
+    applies_to: demand
+    locator: pdf:p21
+    quote: 101 LV TOU kVA Demand Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p13).
+  - codes:
+    - '103'
+    applies_to: demand
+    locator: pdf:p21
+    quote: 103 LV TOU Capacity Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p13).
+  - codes:
+    - '104'
+    applies_to: demand
+    locator: pdf:p21
+    quote: 104 LV TOU kVA Demand Network XMC
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p13).
+  - codes:
+    - '105'
+    applies_to: demand
+    locator: pdf:p21
+    quote: 105 LV TOU Capacity Network XMC
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p13).
+- id: evo-2020-21-hv-kva-demand-window
+  doc: sources/archive/evoenergy/2020-21/evoenergy-statement-of-tariff-classes-and-tariffs-2020-21.pdf
+  fin_year: 2020-21
+  name: HV commercial kVA business-time maximum demand window
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p16
+  quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am23 to 5:00pm on weekdays.
+  note: 'Section 2.3: the maximum demand charge of the HV tariffs is ''peak-period'' maximum demand in the Business Time;
+    ''23'' is a footnote marker (''The first period starts at 07:00:01 and ends at 07:30:00 AEST''). Table 2.5 footnote: ''Business
+    times are between 7 am and 5 pm Australian Eastern Standard Time on weekdays''.'
+  windows:
+  - period: peak
+    label: Business Time
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p16
+    quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am23 to 5:00pm on weekdays.
+  tariffs:
+  - codes:
+    - '111'
+    applies_to: demand
+    locator: pdf:p22
+    quote: 111 HV TOU Demand Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p16).
+  - codes:
+    - '121'
+    applies_to: demand
+    locator: pdf:p22
+    quote: 121 HV TOU Demand Network – Customer LV
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p16).
+  - codes:
+    - '122'
+    applies_to: demand
+    locator: pdf:p22
+    quote: 122 HV TOU Demand Network – Customer HV and LV
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p16).
+- id: evo-2021-22-res-tou-energy
+  doc: sources/archive/evoenergy/2021-22/evoenergy-electricity-schedule-of-charges-2021-22.pdf
+  fin_year: 2021-22
+  name: Residential TOU energy (max, mid and economy times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p13
+  quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+    (8.00pm) every day.
+  note: 'Time periods section of the schedule of charges; p15: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Definitions: ''Max times are defined as from 0700 hours (7.00am) to 0900
+    hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours (8.00pm) every day.'' ''Mid times are defined as from 0900 hours
+    (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours (10.00pm) every day.'' ''Economy times are
+    defined as all other times.'''
+  windows:
+  - period: peak
+    label: Max times
+    days: all_days
+    start: 07:00
+    end: 09:00
+    locator: pdf:p13
+    quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+      (8.00pm) every day.
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p14
+    quote: Mid times are defined as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours
+      (10.00pm) every day.
+  - period: peak
+    label: Max times
+    days: all_days
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p13
+    quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+      (8.00pm) every day.
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p14
+    quote: Mid times are defined as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours
+      (10.00pm) every day.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p14
+    quote: Economy times are defined as all other times.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p14
+    quote: Economy times are defined as all other times.
+  tariffs:
+  - codes:
+    - '015'
+    applies_to: usage
+    locator: pdf:p5
+    quote: 015 9.270
+    note: '015 Residential TOU: row ''015'' of the price table on p5; priced ''at max times'', ''at mid times'' and ''at economy
+      times'' (as defined), which the Time periods section defines; economy times are the complement (''all other times'').'
+  - codes:
+    - '016'
+    applies_to: usage
+    locator: pdf:p5
+    quote: 016*
+    note: '016 Residential TOU XMC: row ''016'' of the price table on p5; priced ''at max times'', ''at mid times'' and ''at
+      economy times'' (as defined), which the Time periods section defines; economy times are the complement (''all other
+      times'').'
+- id: evo-2021-22-com-tou-energy
+  doc: sources/archive/evoenergy/2021-22/evoenergy-electricity-schedule-of-charges-2021-22.pdf
+  fin_year: 2021-22
+  name: Commercial TOU energy (business, evening and off-peak times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p15
+  quote: Business times are defined as from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.
+  note: 'Time periods section of the schedule of charges; p15: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Definitions: ''Business times are defined as from 0700 hours (7.00am) to
+    1700 hours (5.00pm) on weekdays.'' ''Evening times are defined as from 1700 hours (5.00pm) to 2200 hours (10.00pm) on
+    weekdays.'' ''Off-Peak times are defined as all other times.'' ''Weekdays are Monday to Friday.'''
+  windows:
+  - period: peak
+    label: Business times
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p15
+    quote: Business times are defined as from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.
+  - period: shoulder
+    label: Evening times
+    days: weekday
+    start: '17:00'
+    end: '22:00'
+    locator: pdf:p15
+    quote: Evening times are defined as from 1700 hours (5.00pm) to 2200 hours (10.00pm) on weekdays.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p15
+    quote: Off-Peak times are defined as all other times.
+  - period: off_peak
+    label: Off-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p15
+    quote: Off-Peak times are defined as all other times.
+  tariffs:
+  - codes:
+    - 090
+    applies_to: usage
+    locator: pdf:p6
+    quote: 090 16.200
+    note: '090 General TOU: row ''090'' of the price table on p6; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - 091
+    applies_to: usage
+    locator: pdf:p6
+    quote: 091*
+    note: '091 General TOU XMC: row ''091'' of the price table on p6; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '101'
+    applies_to: usage
+    locator: pdf:p6
+    quote: 101 130.760
+    note: '101 LV TOU kVA Demand: row ''101'' of the price table on p6; priced at business, evening and off-peak times (as
+      defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '103'
+    applies_to: usage
+    locator: pdf:p6
+    quote: '2021/22 Network Use of System charges (excluding GST): Low Voltage Commercial'
+    note: '103 LV TOU Capacity: the price table on p6 (''2021/22 Network Use of System charges (excluding GST): Low Voltage
+      Commercial'') has a row for 103; priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '104'
+    applies_to: usage
+    locator: pdf:p6
+    quote: 104*
+    note: '104 LV TOU kVA Demand XMC: row ''104'' of the price table on p6; priced at business, evening and off-peak times
+      (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '105'
+    applies_to: usage
+    locator: pdf:p6
+    quote: '2021/22 Network Use of System charges (excluding GST): Low Voltage Commercial'
+    note: '105 LV TOU Capacity XMC: the price table on p6 (''2021/22 Network Use of System charges (excluding GST): Low Voltage
+      Commercial'') has a row for 105; priced at business, evening and off-peak times (as defined), which the Time periods
+      section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '111'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 111 21.864
+    note: '111 HV TOU Demand: row ''111'' of the price table on p7; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '121'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 121 21.864
+    note: '121 HV TOU Demand Network – Customer LV: row ''121'' of the price table on p7; priced at business, evening and
+      off-peak times (as defined), which the Time periods section defines; off-peak times are the complement (''all other
+      times'').'
+  - codes:
+    - '122'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 122 21.864
+    note: '122 HV TOU Demand Network – Customer LV & HV: row ''122'' of the price table on p7; priced at business, evening
+      and off-peak times (as defined), which the Time periods section defines; off-peak times are the complement (''all other
+      times'').'
+- id: evo-2021-22-060-controlled-load
+  doc: sources/archive/evoenergy/2021-22/evoenergy-electricity-schedule-of-charges-2021-22.pdf
+  fin_year: 2021-22
+  name: Off-Peak (1) Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p11
+  quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+    any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  note: 'Time periods section of the schedule of charges; p15: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Text: ''The Off-Peak (1) Night tariff shall provide operation for a minimum
+    of six hours and a maximum of eight hours within any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p11
+    quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+      any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p11
+    quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+      any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  tariffs:
+  - codes:
+    - '060'
+    applies_to: controlled_load
+    locator: pdf:p5
+    quote: 060 3.543
+    note: '060 Off-peak (1) Night: the controlled-load circuit is supplied only at these times (6 to 8 hours within the windows).'
+- id: evo-2021-22-070-controlled-load
+  doc: sources/archive/evoenergy/2021-22/evoenergy-electricity-schedule-of-charges-2021-22.pdf
+  fin_year: 2021-22
+  name: Off-Peak (3) Day & Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p12
+  quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+    between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  note: 'Time periods section of the schedule of charges; p15: ''No change is made for Daylight Savings Time. All times referred
+    to are in Australian Eastern Standard Time.''. Text: ''The Off-Peak (3) Day & Night Network charge shall provide operation
+    for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours between 2200 hours (10.00pm)
+    and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p12
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p12
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p12
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  tariffs:
+  - codes:
+    - '070'
+    applies_to: controlled_load
+    locator: pdf:p5
+    quote: 070 5.204
+    note: '070 Off-peak (3) Day & Night: the controlled-load circuit is supplied only at these times (13 hours within the
+      windows).'
+- id: evo-2021-22-lv-kva-demand-window
+  doc: sources/archive/evoenergy/2021-22/evoenergy-statement-of-tariff-classes-and-tariffs-2021-22.pdf
+  fin_year: 2021-22
+  name: LV commercial kVA business-time maximum demand window
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p14
+  quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  note: 'Section 2.2: the maximum demand of the LV TOU kVA Demand and LV TOU Capacity tariffs changed from 1 July 2019 from
+    ''anytime'' to ''peak-period'' maximum demand; the peak period is the Business Time (AEST).'
+  windows:
+  - period: peak
+    label: Business Time
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p14
+    quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  tariffs:
+  - codes:
+    - '101'
+    applies_to: demand
+    locator: pdf:p23
+    quote: 101 LV TOU kVA Demand Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p14).
+  - codes:
+    - '103'
+    applies_to: demand
+    locator: pdf:p24
+    quote: 103 LV TOU Capacity Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p14).
+  - codes:
+    - '104'
+    applies_to: demand
+    locator: pdf:p24
+    quote: 104 LV TOU kVA Demand Network XMC
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p14).
+  - codes:
+    - '105'
+    applies_to: demand
+    locator: pdf:p24
+    quote: 105 LV TOU Capacity Network XMC
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p14).
+- id: evo-2021-22-hv-kva-demand-window
+  doc: sources/archive/evoenergy/2021-22/evoenergy-statement-of-tariff-classes-and-tariffs-2021-22.pdf
+  fin_year: 2021-22
+  name: HV commercial kVA business-time maximum demand window
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p17
+  quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am28 to 5:00pm on weekdays.
+  note: 'Section 2.3: the maximum demand charge of the HV tariffs is ''peak-period'' maximum demand in the Business Time;
+    ''28'' is a footnote marker (''The first period starts at 07:00:01 and ends at 07:30:00 AEST''). Table 2.5 footnote: ''Business
+    times are between 7 am and 5 pm Australian Eastern Standard Time on weekdays''.'
+  windows:
+  - period: peak
+    label: Business Time
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p17
+    quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am28 to 5:00pm on weekdays.
+  tariffs:
+  - codes:
+    - '111'
+    applies_to: demand
+    locator: pdf:p24
+    quote: 111 HV TOU Demand Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p17).
+  - codes:
+    - '121'
+    applies_to: demand
+    locator: pdf:p25
+    quote: 121 HV TOU Demand Network – Customer LV
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p17).
+  - codes:
+    - '122'
+    applies_to: demand
+    locator: pdf:p25
+    quote: 122 HV TOU Demand Network – Customer HV and LV
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p17).
+- id: evo-2022-23-res-tou-energy
+  doc: sources/archive/evoenergy/2022-23/evoenergy-electricity-schedule-of-charges-2022-23.pdf
+  fin_year: 2022-23
+  name: Residential TOU energy (max, mid and economy times)
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: true
+  locator: pdf:p15
+  quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+    (8.00pm) every day.
+  note: 'Time periods section of the schedule of charges; p15: ''No change is made for Daylight Savings Time or public holidays.
+    All times referred to are in Australian Eastern Standard Time.''. Definitions: ''Max times are defined as from 0700 hours
+    (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours (8.00pm) every day.'' ''Mid times are defined
+    as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours (10.00pm) every day.'' ''Economy
+    times are defined as all other times.'''
+  windows:
+  - period: peak
+    label: Max times
+    days: all_days
+    start: 07:00
+    end: 09:00
+    locator: pdf:p15
+    quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+      (8.00pm) every day.
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p15
+    quote: Mid times are defined as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours
+      (10.00pm) every day.
+  - period: peak
+    label: Max times
+    days: all_days
+    start: '17:00'
+    end: '20:00'
+    locator: pdf:p15
+    quote: Max times are defined as from 0700 hours (7.00am) to 0900 hours (9.00am) and from 1700 hours (5.00pm) to 2000 hours
+      (8.00pm) every day.
+  - period: shoulder
+    label: Mid times
+    days: all_days
+    start: '20:00'
+    end: '22:00'
+    locator: pdf:p15
+    quote: Mid times are defined as from 0900 hours (9.00am) to 1700 hours (5.00pm) and from 2000 hours (8.00pm) to 2200 hours
+      (10.00pm) every day.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: Economy times are defined as all other times.
+  - period: off_peak
+    label: Economy times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p15
+    quote: Economy times are defined as all other times.
+  tariffs:
+  - codes:
+    - '015'
+    applies_to: usage
+    locator: pdf:p5
+    quote: 015 9.610
+    note: '015 Residential TOU: row ''015'' of the price table on p5; priced ''at max times'', ''at mid times'' and ''at economy
+      times'' (as defined), which the Time periods section defines; economy times are the complement (''all other times'').'
+  - codes:
+    - '016'
+    applies_to: usage
+    locator: pdf:p5
+    quote: 016*
+    note: '016 Residential TOU XMC: row ''016'' of the price table on p5; priced ''at max times'', ''at mid times'' and ''at
+      economy times'' (as defined), which the Time periods section defines; economy times are the complement (''all other
+      times'').'
+- id: evo-2022-23-com-tou-energy
+  doc: sources/archive/evoenergy/2022-23/evoenergy-electricity-schedule-of-charges-2022-23.pdf
+  fin_year: 2022-23
+  name: Commercial TOU energy (business, evening and off-peak times)
+  time_basis: standard_time
+  public_holidays: as_weekday
+  covers_full_day: true
+  locator: pdf:p15
+  quote: 'Business times: from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.'
+  note: 'Time periods section of the schedule of charges; p15: ''No change is made for Daylight Savings Time or public holidays.
+    All times referred to are in Australian Eastern Standard Time.''. Public holidays: ''No change is made for Daylight Savings
+    Time or public holidays'', so they take their day of the week. Definitions: ''Business times: from 0700 hours (7.00am)
+    to 1700 hours (5.00pm) on weekdays.'' ''Evening times: from 1700 hours (5.00pm) to 2200 hours (10.00pm) on weekdays.''
+    ''Off-Peak times: all other times.'' ''Weekdays are Monday to Friday.'''
+  windows:
+  - period: peak
+    label: Business times
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p15
+    quote: 'Business times: from 0700 hours (7.00am) to 1700 hours (5.00pm) on weekdays.'
+  - period: shoulder
+    label: Evening times
+    days: weekday
+    start: '17:00'
+    end: '22:00'
+    locator: pdf:p15
+    quote: 'Evening times: from 1700 hours (5.00pm) to 2200 hours (10.00pm) on weekdays.'
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p15
+    quote: 'Off-Peak times: all other times.'
+  - period: off_peak
+    label: Off-peak times
+    days: weekday
+    start: 00:00
+    end: 07:00
+    locator: pdf:p15
+    quote: 'Off-Peak times: all other times.'
+  - period: off_peak
+    label: Off-peak times
+    days: weekend
+    start: 00:00
+    end: '24:00'
+    locator: pdf:p15
+    quote: 'Off-Peak times: all other times.'
+  tariffs:
+  - codes:
+    - 090
+    applies_to: usage
+    locator: pdf:p6
+    quote: 090 16.810
+    note: '090 General TOU: row ''090'' of the price table on p6; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - 091
+    applies_to: usage
+    locator: pdf:p6
+    quote: 091*
+    note: '091 General TOU XMC: row ''091'' of the price table on p6; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '101'
+    applies_to: usage
+    locator: pdf:p6
+    quote: 101 135.700
+    note: '101 LV TOU kVA Demand: row ''101'' of the price table on p6; priced at business, evening and off-peak times (as
+      defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '103'
+    applies_to: usage
+    locator: pdf:p6
+    quote: 103 135.700
+    note: '103 LV TOU Capacity: row ''103'' of the price table on p6; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '104'
+    applies_to: usage
+    locator: pdf:p6
+    quote: 104*
+    note: '104 LV TOU kVA Demand XMC: row ''104'' of the price table on p6; priced at business, evening and off-peak times
+      (as defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '105'
+    applies_to: usage
+    locator: pdf:p6
+    quote: 105* 67.000
+    note: '105 LV TOU Capacity XMC: row ''105'' of the price table on p6; priced at business, evening and off-peak times (as
+      defined), which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '111'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 111 21.865
+    note: '111 HV TOU Demand: row ''111'' of the price table on p7; priced at business, evening and off-peak times (as defined),
+      which the Time periods section defines; off-peak times are the complement (''all other times'').'
+  - codes:
+    - '121'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 121 21.865
+    note: '121 HV TOU Demand Network – Customer LV: row ''121'' of the price table on p7; priced at business, evening and
+      off-peak times (as defined), which the Time periods section defines; off-peak times are the complement (''all other
+      times'').'
+  - codes:
+    - '122'
+    applies_to: usage
+    locator: pdf:p7
+    quote: 122 21.865
+    note: '122 HV TOU Demand Network – Customer LV & HV: row ''122'' of the price table on p7; priced at business, evening
+      and off-peak times (as defined), which the Time periods section defines; off-peak times are the complement (''all other
+      times'').'
+- id: evo-2022-23-060-controlled-load
+  doc: sources/archive/evoenergy/2022-23/evoenergy-electricity-schedule-of-charges-2022-23.pdf
+  fin_year: 2022-23
+  name: Off-Peak (1) Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p12
+  quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+    any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  note: 'Time periods section of the schedule of charges; p15: ''No change is made for Daylight Savings Time or public holidays.
+    All times referred to are in Australian Eastern Standard Time.''. Text: ''The Off-Peak (1) Night tariff shall provide
+    operation for a minimum of six hours and a maximum of eight hours within any one day, between 2200 hours (10.00pm) and
+    0700 hours (7.00am).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p12
+    quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+      any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p12
+    quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+      any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  tariffs:
+  - codes:
+    - '060'
+    applies_to: controlled_load
+    locator: pdf:p5
+    quote: 060*
+    note: '060 Off-peak (1) Night: the controlled-load circuit is supplied only at these times (6 to 8 hours within the windows).'
+- id: evo-2022-23-070-controlled-load
+  doc: sources/archive/evoenergy/2022-23/evoenergy-electricity-schedule-of-charges-2022-23.pdf
+  fin_year: 2022-23
+  name: Off-Peak (3) Day & Night controlled load supply
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p13
+  quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+    between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  note: 'Time periods section of the schedule of charges; p15: ''No change is made for Daylight Savings Time or public holidays.
+    All times referred to are in Australian Eastern Standard Time.''. Text: ''The Off-Peak (3) Day & Night Network charge
+    shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours between
+    2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).'''
+  windows:
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: '22:00'
+    end: '24:00'
+    locator: pdf:p13
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 00:00
+    end: 07:00
+    locator: pdf:p13
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  - period: controlled_load_supply
+    label: Energy at controlled times
+    days: all_days
+    start: 09:00
+    end: '17:00'
+    locator: pdf:p13
+    quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+      between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  tariffs:
+  - codes:
+    - '070'
+    applies_to: controlled_load
+    locator: pdf:p5
+    quote: 070*
+    note: '070 Off-peak (3) Day & Night: the controlled-load circuit is supplied only at these times (13 hours within the
+      windows).'
+- id: evo-2022-23-lv-kva-demand-window
+  doc: sources/archive/evoenergy/2022-23/evoenergy-statement-of-tariff-classes-and-tariffs-2022-23.pdf
+  fin_year: 2022-23
+  name: LV commercial kVA business-time maximum demand window
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p14
+  quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  note: 'Section 2.2: the maximum demand of the LV TOU kVA Demand and LV TOU Capacity tariffs changed from 1 July 2019 from
+    ''anytime'' to ''peak-period'' maximum demand; the peak period is the Business Time (AEST).'
+  windows:
+  - period: peak
+    label: Business Time
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p14
+    quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  tariffs:
+  - codes:
+    - '101'
+    applies_to: demand
+    locator: pdf:p26
+    quote: 101 LV TOU kVA Demand Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p14).
+  - codes:
+    - '103'
+    applies_to: demand
+    locator: pdf:p26
+    quote: 103 LV TOU Capacity Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p14).
+  - codes:
+    - '104'
+    applies_to: demand
+    locator: pdf:p26
+    quote: 104 LV TOU kVA Demand Network XMC
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p14).
+  - codes:
+    - '105'
+    applies_to: demand
+    locator: pdf:p27
+    quote: 105 LV TOU Capacity Network XMC
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p14).
+- id: evo-2022-23-hv-kva-demand-window
+  doc: sources/archive/evoenergy/2022-23/evoenergy-statement-of-tariff-classes-and-tariffs-2022-23.pdf
+  fin_year: 2022-23
+  name: HV commercial kVA business-time maximum demand window
+  time_basis: standard_time
+  public_holidays: not_stated
+  covers_full_day: false
+  locator: pdf:p19
+  quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am28 to 5:00pm on weekdays.
+  note: 'Section 2.3: the maximum demand charge of the HV tariffs is ''peak-period'' maximum demand in the Business Time;
+    ''28'' is a footnote marker (''The first period starts at 07:00:01 and ends at 07:30:00 AEST''). Table 2.5 footnote: ''Business
+    times are between 7 am and 5 pm Australian Eastern Standard Time on weekdays''.'
+  windows:
+  - period: peak
+    label: Business Time
+    days: weekday
+    start: 07:00
+    end: '17:00'
+    locator: pdf:p19
+    quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am28 to 5:00pm on weekdays.
+  tariffs:
+  - codes:
+    - '111'
+    applies_to: demand
+    locator: pdf:p27
+    quote: 111 HV TOU Demand Network
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p19).
+  - codes:
+    - '121'
+    applies_to: demand
+    locator: pdf:p27
+    quote: 121 HV TOU Demand Network – Customer LV
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p19).
+  - codes:
+    - '122'
+    applies_to: demand
+    locator: pdf:p27
+    quote: 122 HV TOU Demand Network – Customer HV and LV
+    note: Table 2.6 row; its maximum demand charge is 'peak-period' maximum demand in the Business Time (p19).
 eligibility:
 - codes:
   - '010'
@@ -12493,6 +15222,277 @@ rate_periods:
     export charge is levied on exports in excess of 3.75 kWh during any one-hour period between 11am – 3pm (AEST) every
     day. The export charge varies according to seasons.' The window is evo-2023-24-027-export-window (period solar_soak);
     Table 2.6 (p23) prices 028 with the same 'Export Threshold Charge' rows as 027.
+- codes:
+  - '026'
+  doc: sources/archive/evoenergy/2017-18/Evoenergy-electricity-schedule-of-charges-2017-18.pdf
+  fin_year: 2017-18
+  component: for maximum half hourly demand at prak times (as defined) in a billing period, a charge per day of
+  tou_period: peak
+  locator: pdf:p7
+  quote: For tariff codes 025 and 026 (Residential kW Demand
+  note: 'The 026 row prints the period as ''prak times (as defined)'' (a misprint of ''peak''); the Maximum demand charges
+    section: ''For tariff codes 025 and 026 (Residential kW Demand tariff), the maximum demand charge is based on the maximum
+    demand within the specified Peak time (as defined).''.'
+- codes:
+  - '101'
+  - '103'
+  - '104'
+  - '105'
+  doc: sources/archive/evoenergy/2019-20/evoenergy-statement-of-tariff-classes-and-tariffs-2019-20.pdf
+  fin_year: 2019-20
+  component: Peak maximum demand
+  tou_period: peak
+  locator: pdf:p13
+  quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  note: The price list prints the 'Peak maximum demand' charge without a period; the statement bases it on 'peak-period' maximum
+    demand in the Business Time (window evo-2019-20-lv-kva-demand-window).
+- codes:
+  - '111'
+  - '121'
+  - '122'
+  doc: sources/archive/evoenergy/2019-20/evoenergy-statement-of-tariff-classes-and-tariffs-2019-20.pdf
+  fin_year: 2019-20
+  component: Peak maximum demand
+  tou_period: peak
+  locator: pdf:p16
+  quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am24 to 5:00pm on weekdays.
+  note: The price list prints the 'Peak maximum demand' charge without a period; the statement bases it on 'peak-period' maximum
+    demand in the Business Time (window evo-2019-20-hv-kva-demand-window).
+- codes:
+  - '103'
+  - '105'
+  - '111'
+  - '121'
+  - '122'
+  doc: sources/archive/evoenergy/2019-20/evoenergy-statement-of-tariff-classes-and-tariffs-2019-20.pdf
+  fin_year: 2019-20
+  component: Capacity
+  tou_period: anytime
+  locator: pdf:p8
+  quote: Capacity charges—these are a charge per unit of maximum demand (in c/kVA/day). The maximum demand is the highest
+    demand recorded over a 30-minute clocked interval during the previous 13 months inclusive of the current billing month.
+  note: The capacity charge is measured over all 30-minute intervals of the previous 13 months, with no time-of-day restriction
+    (unlike the maximum demand charge, 'during the specified peak time'), so it is not measured in the business-time demand
+    window.
+- codes:
+  - '060'
+  doc: sources/archive/evoenergy/2019-20/evoenergy-electricity-schedule-of-charges-2019-20.pdf
+  fin_year: 2019-20
+  component: Energy consumption Economy
+  tou_period: anytime
+  locator: pdf:p10
+  quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+    any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  note: The price table prints the 060 off-peak energy rate in its 'Economy' column; the off-peak tariff prices the controlled-load
+    circuit's energy, supplied only at the controlled times quoted here (window evo-2019-20-060-controlled-load), so it applies
+    to all of that register's energy, as 'Energy at controlled times' does from 2023-24.
+- codes:
+  - '070'
+  doc: sources/archive/evoenergy/2019-20/evoenergy-electricity-schedule-of-charges-2019-20.pdf
+  fin_year: 2019-20
+  component: Energy consumption Economy
+  tou_period: anytime
+  locator: pdf:p10
+  quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+    between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  note: The price table prints the 070 off-peak energy rate in its 'Economy' column; the off-peak tariff prices the controlled-load
+    circuit's energy, supplied only at the controlled times quoted here (window evo-2019-20-070-controlled-load), so it applies
+    to all of that register's energy, as 'Energy at controlled times' does from 2023-24.
+- codes:
+  - '101'
+  - '103'
+  - '104'
+  - '105'
+  doc: sources/archive/evoenergy/2020-21/evoenergy-statement-of-tariff-classes-and-tariffs-2020-21.pdf
+  fin_year: 2020-21
+  component: Peak maximum demand
+  tou_period: peak
+  locator: pdf:p13
+  quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  note: The price list prints the 'Peak maximum demand' charge without a period; the statement bases it on 'peak-period' maximum
+    demand in the Business Time (window evo-2020-21-lv-kva-demand-window).
+- codes:
+  - '111'
+  - '121'
+  - '122'
+  doc: sources/archive/evoenergy/2020-21/evoenergy-statement-of-tariff-classes-and-tariffs-2020-21.pdf
+  fin_year: 2020-21
+  component: Peak maximum demand
+  tou_period: peak
+  locator: pdf:p16
+  quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am23 to 5:00pm on weekdays.
+  note: The price list prints the 'Peak maximum demand' charge without a period; the statement bases it on 'peak-period' maximum
+    demand in the Business Time (window evo-2020-21-hv-kva-demand-window).
+- codes:
+  - '103'
+  - '105'
+  - '111'
+  - '121'
+  - '122'
+  doc: sources/archive/evoenergy/2020-21/evoenergy-statement-of-tariff-classes-and-tariffs-2020-21.pdf
+  fin_year: 2020-21
+  component: Capacity
+  tou_period: anytime
+  locator: pdf:p8
+  quote: Capacity charges—these are a charge per unit of maximum demand (in c/kVA/day). The maximum demand is the highest
+    demand recorded over a 30-minute clocked interval during the previous 13 months inclusive of the current billing month.
+  note: The capacity charge is measured over all 30-minute intervals of the previous 13 months, with no time-of-day restriction
+    (unlike the maximum demand charge, 'during the specified peak time'), so it is not measured in the business-time demand
+    window.
+- codes:
+  - '060'
+  doc: sources/archive/evoenergy/2020-21/evoenergy-electricity-schedule-of-charges-2020-21.pdf
+  fin_year: 2020-21
+  component: Energy consumption Economy
+  tou_period: anytime
+  locator: pdf:p10
+  quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+    any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  note: The price table prints the 060 off-peak energy rate in its 'Economy' column; the off-peak tariff prices the controlled-load
+    circuit's energy, supplied only at the controlled times quoted here (window evo-2020-21-060-controlled-load), so it applies
+    to all of that register's energy, as 'Energy at controlled times' does from 2023-24.
+- codes:
+  - '070'
+  doc: sources/archive/evoenergy/2020-21/evoenergy-electricity-schedule-of-charges-2020-21.pdf
+  fin_year: 2020-21
+  component: Energy consumption Economy
+  tou_period: anytime
+  locator: pdf:p10
+  quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+    between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  note: The price table prints the 070 off-peak energy rate in its 'Economy' column; the off-peak tariff prices the controlled-load
+    circuit's energy, supplied only at the controlled times quoted here (window evo-2020-21-070-controlled-load), so it applies
+    to all of that register's energy, as 'Energy at controlled times' does from 2023-24.
+- codes:
+  - '101'
+  - '103'
+  - '104'
+  - '105'
+  doc: sources/archive/evoenergy/2021-22/evoenergy-statement-of-tariff-classes-and-tariffs-2021-22.pdf
+  fin_year: 2021-22
+  component: Peak maximum demand
+  tou_period: peak
+  locator: pdf:p14
+  quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  note: The price list prints the 'Peak maximum demand' charge without a period; the statement bases it on 'peak-period' maximum
+    demand in the Business Time (window evo-2021-22-lv-kva-demand-window).
+- codes:
+  - '111'
+  - '121'
+  - '122'
+  doc: sources/archive/evoenergy/2021-22/evoenergy-statement-of-tariff-classes-and-tariffs-2021-22.pdf
+  fin_year: 2021-22
+  component: Peak maximum demand
+  tou_period: peak
+  locator: pdf:p17
+  quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am28 to 5:00pm on weekdays.
+  note: The price list prints the 'Peak maximum demand' charge without a period; the statement bases it on 'peak-period' maximum
+    demand in the Business Time (window evo-2021-22-hv-kva-demand-window).
+- codes:
+  - '103'
+  - '105'
+  - '111'
+  - '121'
+  - '122'
+  doc: sources/archive/evoenergy/2021-22/evoenergy-statement-of-tariff-classes-and-tariffs-2021-22.pdf
+  fin_year: 2021-22
+  component: Capacity
+  tou_period: anytime
+  locator: pdf:p8
+  quote: Capacity charges—these are a charge per unit of maximum demand (in c/kVA/day). The maximum demand is the highest
+    demand recorded over a 30-minute clocked interval during the previous 13 months inclusive of the current billing month.
+  note: The capacity charge is measured over all 30-minute intervals of the previous 13 months, with no time-of-day restriction
+    (unlike the maximum demand charge, 'during the specified peak time'), so it is not measured in the business-time demand
+    window.
+- codes:
+  - '060'
+  doc: sources/archive/evoenergy/2021-22/evoenergy-electricity-schedule-of-charges-2021-22.pdf
+  fin_year: 2021-22
+  component: Energy consumption Economy
+  tou_period: anytime
+  locator: pdf:p11
+  quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+    any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  note: The price table prints the 060 off-peak energy rate in its 'Economy' column; the off-peak tariff prices the controlled-load
+    circuit's energy, supplied only at the controlled times quoted here (window evo-2021-22-060-controlled-load), so it applies
+    to all of that register's energy, as 'Energy at controlled times' does from 2023-24.
+- codes:
+  - '070'
+  doc: sources/archive/evoenergy/2021-22/evoenergy-electricity-schedule-of-charges-2021-22.pdf
+  fin_year: 2021-22
+  component: Energy consumption Economy
+  tou_period: anytime
+  locator: pdf:p12
+  quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+    between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  note: The price table prints the 070 off-peak energy rate in its 'Economy' column; the off-peak tariff prices the controlled-load
+    circuit's energy, supplied only at the controlled times quoted here (window evo-2021-22-070-controlled-load), so it applies
+    to all of that register's energy, as 'Energy at controlled times' does from 2023-24.
+- codes:
+  - '101'
+  - '103'
+  - '104'
+  - '105'
+  doc: sources/archive/evoenergy/2022-23/evoenergy-statement-of-tariff-classes-and-tariffs-2022-23.pdf
+  fin_year: 2022-23
+  component: Peak maximum demand
+  tou_period: peak
+  locator: pdf:p14
+  quote: The peak period for these LV Commercial tariffs is the Business Time, specified as 7:00am to 5:00pm (AEST) on weekdays.
+  note: The price list prints the 'Peak maximum demand' charge without a period; the statement bases it on 'peak-period' maximum
+    demand in the Business Time (window evo-2022-23-lv-kva-demand-window).
+- codes:
+  - '111'
+  - '121'
+  - '122'
+  doc: sources/archive/evoenergy/2022-23/evoenergy-statement-of-tariff-classes-and-tariffs-2022-23.pdf
+  fin_year: 2022-23
+  component: Peak maximum demand
+  tou_period: peak
+  locator: pdf:p19
+  quote: The peak period for these HV Commercial tariffs is the Business Time, specified as 7:00am28 to 5:00pm on weekdays.
+  note: The price list prints the 'Peak maximum demand' charge without a period; the statement bases it on 'peak-period' maximum
+    demand in the Business Time (window evo-2022-23-hv-kva-demand-window).
+- codes:
+  - '103'
+  - '105'
+  - '111'
+  - '121'
+  - '122'
+  doc: sources/archive/evoenergy/2022-23/evoenergy-statement-of-tariff-classes-and-tariffs-2022-23.pdf
+  fin_year: 2022-23
+  component: Capacity
+  tou_period: anytime
+  locator: pdf:p8
+  quote: Capacity charges—these are a charge per unit of maximum demand (in c/kVA/day). The maximum demand is the highest
+    demand recorded over a 30-minute clocked interval during the previous 13 months inclusive of the current billing month.
+  note: The capacity charge is measured over all 30-minute intervals of the previous 13 months, with no time-of-day restriction
+    (unlike the maximum demand charge, 'during the specified peak time'), so it is not measured in the business-time demand
+    window.
+- codes:
+  - '060'
+  doc: sources/archive/evoenergy/2022-23/evoenergy-electricity-schedule-of-charges-2022-23.pdf
+  fin_year: 2022-23
+  component: Energy consumption Economy
+  tou_period: anytime
+  locator: pdf:p12
+  quote: The Off-Peak (1) Night tariff shall provide operation for a minimum of six hours and a maximum of eight hours within
+    any one day, between 2200 hours (10.00pm) and 0700 hours (7.00am).
+  note: The price table prints the 060 off-peak energy rate in its 'Economy' column; the off-peak tariff prices the controlled-load
+    circuit's energy, supplied only at the controlled times quoted here (window evo-2022-23-060-controlled-load), so it applies
+    to all of that register's energy, as 'Energy at controlled times' does from 2023-24.
+- codes:
+  - '070'
+  doc: sources/archive/evoenergy/2022-23/evoenergy-electricity-schedule-of-charges-2022-23.pdf
+  fin_year: 2022-23
+  component: Energy consumption Economy
+  tou_period: anytime
+  locator: pdf:p13
+  quote: shall provide operation for a total of 13 hours in any one day. The said 13 hours shall be comprised of eight hours
+    between 2200 hours (10.00pm) and 0700 hours (7.00am) and five hours between 0900 hours (9.00am) and 1700 hours (5.00pm).
+  note: The price table prints the 070 off-peak energy rate in its 'Economy' column; the off-peak tariff prices the controlled-load
+    circuit's energy, supplied only at the controlled times quoted here (window evo-2022-23-070-controlled-load), so it applies
+    to all of that register's energy, as 'Energy at controlled times' does from 2023-24.
 charge_rules:
 - codes: all
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
@@ -13624,3 +16624,305 @@ charge_rules:
     current bill period
   note: Charge applicability (times in AEST) of the 'Capacity' row (c/kVA/day) in the block headed B398 '124' (HV large-scale
     battery tariff (commercial area)).
+- codes: all
+  doc: sources/archive/evoenergy/2016-17/Electricity-network-prices-2016-17.ashx.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p6
+  quote: The maximum demand is the highest demand calculated coincident over a 30-minute clocked interval
+  note: 'Maximum demand charges section: ''The maximum demand is the highest demand calculated coincident over a 30-minute
+    clocked interval during the billing period.'' (the two-column layout splits the sentence in the PDF text layer); it covers
+    every kVA maximum demand charge (c/kVA/day).'
+- codes: all
+  doc: sources/archive/evoenergy/2016-17/Electricity-network-prices-2016-17.ashx.pdf
+  fin_year: 2016-17
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p6
+  quote: Capacity charges shall be applied on the same basis as maximum demand charges and calculated on a daily rate for
+    the maximum demand recorded over the previous 13 months inclusive of the current
+  note: 'Capacity charges section: ''Capacity charges shall be applied on the same basis as maximum demand charges and calculated
+    on a daily rate for the maximum demand recorded over the previous 13 months inclusive of the current billing month. The
+    maximum demand is the highest demand calculated coincident over a 30-minute clocked interval over the relevant period.''
+    (the two-column layout splits the sentence in the PDF text layer).'
+- codes: all
+  doc: sources/archive/evoenergy/2017-18/Evoenergy-electricity-schedule-of-charges-2017-18.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p7
+  quote: highest demand calculated over a 30-minute clocked interval during the billing period.
+  note: 'Maximum demand charges section: ''The maximum demand is the highest demand calculated over a 30-minute clocked interval
+    during the billing period.'' (the two-column layout splits the sentence in the PDF text layer); it covers every kVA maximum
+    demand charge (c/kVA/day).'
+- codes: all
+  doc: sources/archive/evoenergy/2017-18/Evoenergy-electricity-schedule-of-charges-2017-18.pdf
+  fin_year: 2017-18
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p7
+  quote: rate for the maximum demand recorded over the previous 13 months inclusive of the current billing month. The
+  note: 'Capacity charges section: ''Capacity charges shall be applied on the same basis as maximum demand charges and calculated
+    on a daily rate for the maximum demand recorded over the previous 13 months inclusive of the current billing month. The
+    maximum demand is the highest demand calculated coincident over a 30-minute clocked interval over the relevant period.''
+    (the two-column layout splits the sentence in the PDF text layer).'
+- codes:
+  - '025'
+  - '026'
+  - '106'
+  - '107'
+  doc: sources/archive/evoenergy/2017-18/Evoenergy-electricity-schedule-of-charges-2017-18.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p7
+  quote: For these tariffs (025, 026, 106 and 107), the maximum
+  note: 'Maximum demand charges section: ''For these tariffs (025, 026, 106 and 107), the maximum demand is the highest demand
+    calculated over a 30-minute clocked interval during the peak or business period, within the billing period.'' (the two-column
+    layout splits the sentence in the PDF text layer).'
+- codes: all
+  doc: sources/archive/evoenergy/2018-19/evoenergy-electricity-schedule-of-charges-2018-19.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p7
+  quote: coincident over a 30-minute clocked interval
+  note: 'Maximum demand charges section: ''The maximum demand is the highest demand calculated coincident over a 30-minute
+    clocked interval during the billing period or calendar month.'' (the two-column layout splits the sentence in the PDF
+    text layer); it covers every kVA maximum demand charge (c/kVA/day). ''Billing period or calendar month'': the bill''s
+    period is recorded.'
+- codes: all
+  doc: sources/archive/evoenergy/2018-19/evoenergy-electricity-schedule-of-charges-2018-19.pdf
+  fin_year: 2018-19
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p7
+  quote: 13 months inclusive of the current billing month. The
+  note: 'Capacity charges section: ''Capacity charges shall be applied on the same basis as maximum demand charges and calculated
+    on a daily rate for the maximum demand recorded over the previous 13 months inclusive of the current billing month. The
+    maximum demand is the highest demand calculated coincident over a 30-minute clocked interval over the relevant period.''
+    (the two-column layout splits the sentence in the PDF text layer).'
+- codes:
+  - '025'
+  - '026'
+  doc: sources/archive/evoenergy/2018-19/evoenergy-electricity-schedule-of-charges-2018-19.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p7
+  quote: demand within the specified Peak time during a calendar
+  note: 'Maximum demand charges section: ''For tariff codes 025 and 026 (Residential kW Demand tariff), the maximum demand
+    charge is based on the maximum demand within the specified Peak time during a calendar month.'' ''For these tariffs (025,
+    026, 106 and 107), the maximum demand is the highest demand calculated over a 30-minute clocked interval during peak times
+    (i.e. 5:30pm, 6:00pm, 6:30pm, 7:00pm, 7:30pm and 8pm) within a calendar month, or during business times (i.e. 7:30am,
+    8:00am, 8:30am, etc.), within the billing period.'' (the two-column layout splits the sentence in the PDF text layer).'
+- codes:
+  - '106'
+  - '107'
+  doc: sources/archive/evoenergy/2018-19/evoenergy-electricity-schedule-of-charges-2018-19.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p7
+  quote: demand within the Business times of the billing period.
+  note: 'Maximum demand charges section: ''For tariff codes 106 and 107 (LV kW Demand tariff), the maximum demand charge is
+    based on the maximum demand within the Business times of the billing period.'' ''For these tariffs (025, 026, 106 and
+    107), the maximum demand is the highest demand calculated over a 30-minute clocked interval during peak times (i.e. 5:30pm,
+    6:00pm, 6:30pm, 7:00pm, 7:30pm and 8pm) within a calendar month, or during business times (i.e. 7:30am, 8:00am, 8:30am,
+    etc.), within the billing period.'' (the two-column layout splits the sentence in the PDF text layer).'
+- codes: all
+  doc: sources/archive/evoenergy/2019-20/evoenergy-statement-of-tariff-classes-and-tariffs-2019-20.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p8
+  quote: Maximum demand charges—these are a charge per unit of maximum demand (in c/kVA/day or c/kW/day10). The maximum demand
+    is the highest demand calculated coincident over a 30-minute clocked interval, starting on the full or half hour, during
+    the specified peak time within a billing period (generally per calendar month).
+  note: Section 2 definition of the maximum demand charging parameter, for every tariff's maximum demand charge; '10' is a
+    footnote marker. The tariff tables restate it per tariff ('within the billing period (generally a calendar month)'). This
+    rule covers the demand rates priced per kW (c/kW/day).
+- codes: all
+  doc: sources/archive/evoenergy/2019-20/evoenergy-statement-of-tariff-classes-and-tariffs-2019-20.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p8
+  quote: Maximum demand charges—these are a charge per unit of maximum demand (in c/kVA/day or c/kW/day10). The maximum demand
+    is the highest demand calculated coincident over a 30-minute clocked interval, starting on the full or half hour, during
+    the specified peak time within a billing period (generally per calendar month).
+  note: Section 2 definition of the maximum demand charging parameter, for every tariff's maximum demand charge; '10' is a
+    footnote marker. The tariff tables restate it per tariff ('within the billing period (generally a calendar month)'). This
+    rule covers the demand rates priced per kVA (c/kVA/day).
+- codes: all
+  doc: sources/archive/evoenergy/2019-20/evoenergy-statement-of-tariff-classes-and-tariffs-2019-20.pdf
+  fin_year: 2019-20
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p8
+  quote: Capacity charges—these are a charge per unit of maximum demand (in c/kVA/day). The maximum demand is the highest
+    demand recorded over a 30-minute clocked interval during the previous 13 months inclusive of the current billing month.
+  note: Section 2 definition of the capacity charging parameter, for every tariff's capacity charge.
+- codes: all
+  doc: sources/archive/evoenergy/2020-21/evoenergy-statement-of-tariff-classes-and-tariffs-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p8
+  quote: Maximum demand charges—these are a charge per unit of maximum demand (in c/kVA/day or c/kW/day9). The maximum demand
+    is the highest demand calculated coincident over a 30-minute clocked interval, starting on the full or half hour, during
+    the specified peak time within a billing period (generally per calendar month).
+  note: Section 2 definition of the maximum demand charging parameter, for every tariff's maximum demand charge; '9' is a
+    footnote marker. The tariff tables restate it per tariff ('within the billing period (generally a calendar month)'). This
+    rule covers the demand rates priced per kW (c/kW/day).
+- codes: all
+  doc: sources/archive/evoenergy/2020-21/evoenergy-statement-of-tariff-classes-and-tariffs-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p8
+  quote: Maximum demand charges—these are a charge per unit of maximum demand (in c/kVA/day or c/kW/day9). The maximum demand
+    is the highest demand calculated coincident over a 30-minute clocked interval, starting on the full or half hour, during
+    the specified peak time within a billing period (generally per calendar month).
+  note: Section 2 definition of the maximum demand charging parameter, for every tariff's maximum demand charge; '9' is a
+    footnote marker. The tariff tables restate it per tariff ('within the billing period (generally a calendar month)'). This
+    rule covers the demand rates priced per kVA (c/kVA/day).
+- codes: all
+  doc: sources/archive/evoenergy/2020-21/evoenergy-statement-of-tariff-classes-and-tariffs-2020-21.pdf
+  fin_year: 2020-21
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p8
+  quote: Capacity charges—these are a charge per unit of maximum demand (in c/kVA/day). The maximum demand is the highest
+    demand recorded over a 30-minute clocked interval during the previous 13 months inclusive of the current billing month.
+  note: Section 2 definition of the capacity charging parameter, for every tariff's capacity charge.
+- codes: all
+  doc: sources/archive/evoenergy/2021-22/evoenergy-statement-of-tariff-classes-and-tariffs-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p8
+  quote: Maximum demand charges—these are a charge per unit of maximum demand (in c/kVA/day or c/kW/day9). The maximum demand
+    is the highest demand calculated coincident over a 30-minute clocked interval, starting on the full or half hour, during
+    the specified peak time within a billing period (generally per calendar month).
+  note: Section 2 definition of the maximum demand charging parameter, for every tariff's maximum demand charge; '9' is a
+    footnote marker. The tariff tables restate it per tariff ('within the billing period (generally a calendar month)'). This
+    rule covers the demand rates priced per kW (c/kW/day).
+- codes: all
+  doc: sources/archive/evoenergy/2021-22/evoenergy-statement-of-tariff-classes-and-tariffs-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p8
+  quote: Maximum demand charges—these are a charge per unit of maximum demand (in c/kVA/day or c/kW/day9). The maximum demand
+    is the highest demand calculated coincident over a 30-minute clocked interval, starting on the full or half hour, during
+    the specified peak time within a billing period (generally per calendar month).
+  note: Section 2 definition of the maximum demand charging parameter, for every tariff's maximum demand charge; '9' is a
+    footnote marker. The tariff tables restate it per tariff ('within the billing period (generally a calendar month)'). This
+    rule covers the demand rates priced per kVA (c/kVA/day).
+- codes: all
+  doc: sources/archive/evoenergy/2021-22/evoenergy-statement-of-tariff-classes-and-tariffs-2021-22.pdf
+  fin_year: 2021-22
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p8
+  quote: Capacity charges—these are a charge per unit of maximum demand (in c/kVA/day). The maximum demand is the highest
+    demand recorded over a 30-minute clocked interval during the previous 13 months inclusive of the current billing month.
+  note: Section 2 definition of the capacity charging parameter, for every tariff's capacity charge.
+- codes: all
+  doc: sources/archive/evoenergy/2022-23/evoenergy-statement-of-tariff-classes-and-tariffs-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kW
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p8
+  quote: Maximum demand charges—these are a charge per unit of maximum demand (in c/kVA/day or c/kW/day9). The maximum demand
+    is the highest demand calculated coincident over a 30-minute clocked interval, starting on the full or half hour, during
+    the specified peak time within a billing period (generally per calendar month).
+  note: Section 2 definition of the maximum demand charging parameter, for every tariff's maximum demand charge; '9' is a
+    footnote marker. The tariff tables restate it per tariff ('within the billing period (generally a calendar month)'). This
+    rule covers the demand rates priced per kW (c/kW/day).
+- codes: all
+  doc: sources/archive/evoenergy/2022-23/evoenergy-statement-of-tariff-classes-and-tariffs-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: billing_period
+  locator: pdf:p8
+  quote: Maximum demand charges—these are a charge per unit of maximum demand (in c/kVA/day or c/kW/day9). The maximum demand
+    is the highest demand calculated coincident over a 30-minute clocked interval, starting on the full or half hour, during
+    the specified peak time within a billing period (generally per calendar month).
+  note: Section 2 definition of the maximum demand charging parameter, for every tariff's maximum demand charge; '9' is a
+    footnote marker. The tariff tables restate it per tariff ('within the billing period (generally a calendar month)'). This
+    rule covers the demand rates priced per kVA (c/kVA/day).
+- codes: all
+  doc: sources/archive/evoenergy/2022-23/evoenergy-statement-of-tariff-classes-and-tariffs-2022-23.pdf
+  fin_year: 2022-23
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_13_months
+  locator: pdf:p8
+  quote: Capacity charges—these are a charge per unit of maximum demand (in c/kVA/day). The maximum demand is the highest
+    demand recorded over a 30-minute clocked interval during the previous 13 months inclusive of the current billing month.
+  note: Section 2 definition of the capacity charging parameter, for every tariff's capacity charge.

@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import build  # noqa: E402
 import aliases  # noqa: E402
 import build_support as bs  # noqa: E402
+import curated  # noqa: E402
 import load  # noqa: E402
 import schema_doc  # noqa: E402
 import spec  # noqa: E402
@@ -387,6 +388,38 @@ class TestCuratedRateFacts(unittest.TestCase):
         # the rule naming A1 wins over the one for every tariff; B1 has no demand rate, so no rule
         self.assertEqual([(r["rule_id"], r["interval_min"]) for r in b.tables["charge_rule"].values()],
                          [("essential:A1:2025-07-01:demand:all:all:kW", 15)])
+
+    def test_a_fact_stated_for_several_years_reaches_each_year(self):
+        """A fin_year list (a tariff structure statement for its period) states the fact for each of those years."""
+        parsed = []
+        for fy in ("2024-25", "2025-26"):
+            dist = f"sources/dist-{fy}.pdf"
+            parsed += [parsed_row("DNSP", dist, "A1", "100", fin_year=fy),
+                       dict(parsed_row("DNSP", dist, "A1", "5", fin_year=fy, component="Peak demand",
+                                       charge_type="demand"), unit="c/kW/day", unit_std="c/kW/day", time_band="peak")]
+        fact = {"doc": "sources/tss.pdf", "fin_year": ["2024-25", "2025-26"], "locator": "pdf:p1", "quote": "q"}
+        files = {"essential": {
+            "distributor": "essential",
+            "tou_schedules": [dict(fact, id="essential-peak", name="peak", time_basis="local_time",
+                                   public_holidays="as_weekday", covers_full_day=False,
+                                   windows=[{"period": "peak", "label": "Peak", "days": "weekday", "start": "16:00",
+                                             "end": "20:00"}],
+                                   tariffs=[{"codes": ["A1"], "applies_to": "demand"}])],
+            "charge_rules": [dict(fact, codes=["A1"], charge_type="demand", measure="kW", method="max",
+                                  reset="month")]}}
+        year_errors = lambda years: [e for e in curated.validate(dict(files["essential"], charge_rules=[
+            dict(files["essential"]["charge_rules"][0], fin_year=years)]), check_quotes=False) if "fin_year" in e]
+        self.assertEqual(year_errors(["2024-25", "2025-26"]), [])
+        self.assertEqual(year_errors(2019), [])  # a Victorian calendar year
+        self.assertEqual(len(year_errors(["2025-26", "2025-26"]) + year_errors(["2025"]) + year_errors([])), 3)
+        docs = [doc("dist-2024-25", "DNSP", fin_year="2024-25"), doc("dist-2025-26", "DNSP"), doc("tss", "DNSP")]
+        b = build.Builder(parsed=parsed, metering=[], curated_files=files, docs=docs, starts={}, code_aliases=[])
+        b.tariffs_and_rates()
+        b.curated_facts()
+        self.assertEqual(sorted({w["effective_from"] for w in b.tables["tou_window"].values()}),
+                         ["2024-07-01", "2025-07-01"])
+        self.assertEqual(sorted(r["effective_from"] for r in b.tables["charge_rule"].values()),
+                         ["2024-07-01", "2025-07-01"])
 
 
 def alias(aer_code, distributor_code, distributor_id="essential", valid_from="", valid_to=""):

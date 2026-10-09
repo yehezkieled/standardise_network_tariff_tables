@@ -5,7 +5,8 @@ label each interval with the time-of-use period it falls in, and compare tariffs
   .venv/bin/python scripts/billcalc.py categorise sapn RTOU 2025-07-01 2025-07-31 intervals.csv
   .venv/bin/python scripts/billcalc.py compare sapn RSR,RTOU 2025-07-01 2026-06-30 intervals.csv
   .venv/bin/python scripts/billcalc.py sweep [--write]   every tariff-period on one synthetic month; --write records
-                                                         the counts in tests/billcalc_sweep.json
+                                                         the counts in tests/billcalc_sweep.json and each
+                                                         tariff-period's status in tests/billcalc_sweep_status.csv
 
 Interval data: a CSV (or DataFrame) indexed by the interval START in NEM time (AEST, UTC+10 all year, as NEM12 stores
 it), with kWh columns E1 = general import, E2 = controlled-load import (optional), B1 = export (optional) and Q1 = kvarh
@@ -49,6 +50,7 @@ import joins  # noqa: E402
 ROOT = os.path.dirname(HERE)
 TABLES = os.path.join(ROOT, "data", "tariffdb", "tables")
 SWEEP_FILE = os.path.join(ROOT, "tests", "billcalc_sweep.json")
+SWEEP_STATUS_FILE = os.path.join(ROOT, "tests", "billcalc_sweep_status.csv")
 NEM = timezone(timedelta(hours=10))
 GST_START = date(2000, 7, 1)
 KEY = ["distributor_id", "tariff_code", "effective_from"]
@@ -808,6 +810,15 @@ def sweep_counts(results):
     return dict(sorted(counts.items()))
 
 
+def write_sweep(results):
+    """Record the sweep: its counts (SWEEP_FILE) and each tariff-period's status and issues (SWEEP_STATUS_FILE)."""
+    with open(SWEEP_FILE, "w", encoding="utf-8") as f:
+        json.dump(sweep_counts(results), f, indent=1)
+        f.write("\n")
+    pd.DataFrame([{"tariff_period": r["key"], "status": r["status"], "issues": " ".join(r["issues"])}
+                  for r in results]).to_csv(SWEEP_STATUS_FILE, index=False, lineterminator="\n")
+
+
 # ---------------------------------------------------------------------------------------------------------------- CLI
 def read_intervals(path):
     df = pd.read_csv(path, index_col=0, parse_dates=True)
@@ -852,16 +863,15 @@ def main(argv=None):
                        "2026-01-20T16:00/2026-01-20T20:00, NEM time), repeatable")
         p.add_argument("--region")
     p = sub.add_parser("sweep")
-    p.add_argument("--write", action="store_true", help=f"record the counts in {os.path.relpath(SWEEP_FILE, ROOT)}")
+    p.add_argument("--write", action="store_true", help=f"record the counts in {os.path.relpath(SWEEP_FILE, ROOT)} "
+                   f"and each tariff-period's status in {os.path.relpath(SWEEP_STATUS_FILE, ROOT)}")
     a = ap.parse_args(argv)
     pd.set_option("display.width", 200)
     if a.cmd == "sweep":
-        counts = sweep_counts(sweep())
-        print(json.dumps(counts, indent=1))
+        results = sweep()
+        print(json.dumps(sweep_counts(results), indent=1))
         if a.write:
-            with open(SWEEP_FILE, "w", encoding="utf-8") as f:
-                json.dump(counts, f, indent=1)
-                f.write("\n")
+            write_sweep(results)
         return 0
     iv = read_intervals(a.intervals)
     if a.cmd == "bill":

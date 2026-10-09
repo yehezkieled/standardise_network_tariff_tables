@@ -284,7 +284,7 @@ def read_inventory():
 
 # archive document kinds that can carry network prices (sources/archive/README.md) -> source_document.document_type
 ARCHIVE_TYPES = {k: k for k in ("price_list", "pricing_proposal", "tariff_summary", "tariff_schedule", "price_guide",
-                                "annual_tariff_report", "pricing_model")}
+                                "annual_tariff_report", "pricing_model", "tariff_structure_statement")}
 
 
 def read_archive():
@@ -298,13 +298,17 @@ def archive_effective_from():
 
 
 def archive_documents():
-    """source_document rows of the archived documents that can carry network prices (pricing years before 2023-24).
-    Status, dates and versions are the archive inventory's; one series per side, distributor, year and kind, its
-    versions numbered by publication (else retrieval) date."""
+    """source_document rows of the archived documents that can carry network prices (pricing years before 2023-24),
+    and of the tariff structure statements, which print no prices but state the billing rules (TOU windows). Status,
+    dates and versions are the archive inventory's (a statement's status follows its side, as in documents()); one
+    series per side, distributor, year and kind, its versions numbered by publication (else retrieval) date."""
     out = []
     for r in read_archive():
-        if r["document_kind"] not in ARCHIVE_TYPES or r["price_status"] == "not_applicable":
+        tss = r["document_kind"] == "tariff_structure_statement"
+        if r["document_kind"] not in ARCHIVE_TYPES or (r["price_status"] == "not_applicable" and not tss):
             continue
+        status = r["price_status"] if r["price_status"] != "not_applicable" else \
+            "unverified" if r["side"] == "AER_HOSTED" else "published"
         out.append({  # the id keeps the extension: some documents are held as both .xls and .xlsx
             "document_id": slug(f"{r['distributor_id']}-{r['pricing_year']}-{os.path.basename(r['local_path'])}"),
             "series_id": f"{r['side'].lower().replace('_', '')}-{r['distributor_id']}-{r['pricing_year']}-"
@@ -313,7 +317,7 @@ def archive_documents():
             "regulator" if r["side"] == "REGULATOR_HOSTED" else "distributor",
             "distributor_id": r["distributor_id"], "fin_year": r["pricing_year"],
             "document_type": ARCHIVE_TYPES[r["document_kind"]], "recon_side": r["side"],
-            "price_status": r["price_status"], "title": r["title"], "publication_date": r["publication_date"] or None,
+            "price_status": status, "title": r["title"], "publication_date": r["publication_date"] or None,
             "publication_date_basis": r["publication_date_basis"] or None, "retrieval_status": "retrieved",
             "local_path": r["local_path"], "source_url": r["source_url"], "access_note": r["note"] or None,
             "sha256": r["sha256"], "retrieved_on": r["retrieved_on"], "retrieved_on_basis": r["retrieved_via"],

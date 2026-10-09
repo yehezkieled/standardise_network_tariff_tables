@@ -1,5 +1,1508 @@
 distributor: essential
 tou_schedules:
+- id: essential-2016-17-pl-basic-tou
+  doc: sources/archive/essential/2016-17/PriceListAndExplanatoryNotes2016-17.pdf
+  fin_year: 2016-17
+  name: Time periods (all ToU charges)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p10
+  quote: PEAK PERIOD is from 7.00am–9.00am and 5.00pm–
+  note: 'Read by column (the page''s three columns interleave in its text layer, so each window quotes its own line): ''PEAK
+    PERIOD is from 7.00am–9.00am and 5.00pm– 8.00pm on weekdays. SHOULDER PERIOD is from 9.00am–5.00pm and 8.00pm–10.00pm
+    on weekdays. OFF-PEAK PERIOD is at all other times. DAYLIGHT SAVINGS TIME will be applied to all'' Time Periods (explanatory
+    notes, read by column): ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer
+    Time as defined in these Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT
+    SAVINGS TIME will be applied to all customers with interval read meters and unmetered supplies in determining Network
+    charges. Other customers will have Summer Time applied, see definition below. SUMMER TIME is the period from the last
+    Sunday in October at 2am to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered
+    and interval-read sites use the clock in force (local time). [UNSURE] Basic and accumulation meters ''will have Summer
+    Time applied'' (last Sunday in October to last Sunday in March), which differs by up to a few weeks from NSW daylight
+    saving; the windows are stored as local clock time.'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: peak, label: Peak, days: weekday, start: '07:00', end: '09:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm–}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '09:00', end: '17:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm–}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AU LV Residential TOU
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BLNT2AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AU LV TOU <100MWh
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BLNT1AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT1AO LV TOU <160MWh
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BLND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND3AO LV TOU Demand 3 Rate
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BLNS1AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLNS1AO LV TOU avg daily Demand
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BLND3TO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLND3TO LV TOU Demand Alternative tariff
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BHND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BHND3AO HV TOU mthly Demand
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BHNS1AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BHNS1AO HV TOU avg daily Demand
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BSSD3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BSSD3AO Sub Trans 3 Rate Demand
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BLNP3AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNP3AO LV Public Street Lighting TOU NUOS -
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BLNT1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLNT1SU LV TOU <160 MWh
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BLND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO The charges include a monthly maximum demand charge. The maximum demand LV TOU Demand 1 Rate
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BLND1NO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO The charges include a monthly maximum demand charge. The maximum demand LV TOU Demand 1 Rate
+    note: The obsolete-tariff row prints BLND1CO and BLND1NO together (one description and one set of prices); the quote is
+      that row as the text layer reads it. The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BLND1SR]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SR LV 1 Rate Demand Sth Rural
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BLND1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SU LV 1 Rate Demand Sth Urban
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BHND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1CO HV 1 Rate Demand Cent Urban TOU
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BHND1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO To business premises whose consumption is connected to the HV Distribution HV 1 Rate Demand Sth Urban
+    note: The 2016-17 price list has one set of time periods for every ToU charge.
+  - codes: [BHTD1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO To business premises whose consumption is connected to the HV Distribution HV 1 Rate Demand Sth Urban
+    note: The obsolete-tariff row prints BHND1SO and BHTD1SO together (one description and one set of prices); the quote is
+      that row as the text layer reads it. The 2016-17 price list has one set of time periods for every ToU charge.
+- id: essential-2016-17-pl-peak-shoulder-demand
+  doc: sources/archive/essential/2016-17/PriceListAndExplanatoryNotes2016-17.pdf
+  fin_year: 2016-17
+  name: One demand charge over the peak and shoulder periods
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p9
+  quote: The Demand Charge for BLND3TO is based on the
+  note: 'Read by column: ''The Demand Charge for BLND3TO is based on the highest measured half-hour kVA demand registered
+    in either the peak or shoulder periods during the month.'' Each window below prices the demand rate the price list prints
+    (stored as the peak demand rate), measured over the peak and the shoulder periods of the time periods (weekday peak 7am-9am
+    and 5pm-8pm, shoulder 9am-5pm and 8pm-10pm). Time Periods (explanatory notes, read by column): ''TIME PERIODS All times
+    are Eastern Standard Time (which includes Daylight Saving Time or Summer Time as defined in these Explanatory Notes).
+    These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT SAVINGS TIME will be applied to all
+    customers with interval read meters and unmetered supplies in determining Network charges. Other customers will have Summer
+    Time applied, see definition below. SUMMER TIME is the period from the last Sunday in October at 2am to the last Sunday
+    in March at 3am of the following year. Summer time adjustments will be'' Unmetered and interval-read sites use the clock
+    in force (local time).'
+  windows:
+  - {period: peak, label: Peak, days: weekday, start: '07:00', end: '09:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm–}
+  - {period: peak, label: Shoulder, days: weekday, start: '09:00', end: '17:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm–}
+  - {period: peak, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  tariffs:
+  - codes: [BLND3TO]
+    applies_to: demand
+    locator: pdf:p1
+    quote: BLND3TO LV TOU Demand Alternative tariff
+    note: ''
+- id: essential-2017-18-pl-basic-tou
+  doc: sources/archive/essential/2017-18/PriceListAndExplanatoryNotes2017-18.pdf
+  fin_year: 2017-18
+  name: Time periods for basic and accumulation meters and obsolete tariffs
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p10
+  quote: For Basic and Accumulation meters, and premises
+  note: 'Read by column (the page''s three columns interleave in its text layer, so each window quotes its own line): ''For
+    Basic and Accumulation meters, and premises on Obsolete Tariffs; PEAK PERIOD is from 7.00am–9.00am and 5.00pm– 8.00pm
+    on weekdays. SHOULDER PERIOD is from 9.00am–5.00pm and 8.00pm–10.00pm on weekdays. OFF-PEAK PERIOD is at all other times.
+    DAYLIGHT SAVINGS TIME will be applied to all customers with interval read meters and unmetered'' Time Periods (explanatory
+    notes, read by column): ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer
+    Time as defined in these Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT
+    SAVINGS TIME will be applied to all customers with interval read meters and unmetered supplies in determining Network
+    charges. Other customers will have Summer Time applied, see definition below. SUMMER TIME is the period from the last
+    Sunday in October at 2am to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered
+    and interval-read sites use the clock in force (local time). [UNSURE] Basic and accumulation meters ''will have Summer
+    Time applied'' (last Sunday in October to last Sunday in March), which differs by up to a few weeks from NSW daylight
+    saving; the windows are stored as local clock time.'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: peak, label: Peak, days: weekday, start: '07:00', end: '09:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm–}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '09:00', end: '17:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm–}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AU LV Residential TOU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT2AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AU LV TOU <100MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNP3AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNP3AO LV Public Street Lighting TOU NUOS No -
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLNT1SU LV TOU <160 MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO The charges include a monthly maximum demand charge. The maximum demand LV TOU Demand 1 Rate No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1NO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO The charges include a monthly maximum demand charge. The maximum demand LV TOU Demand 1 Rate No
+    note: 'The obsolete-tariff row prints BLND1CO and BLND1NO together (one description and one set of prices); the quote
+      is that row as the text layer reads it. Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff
+      table p5).'
+  - codes: [BLND1SR]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SR LV 1 Rate Demand Sth Rural No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SU LV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1CO HV 1 Rate Demand Cent Urban TOU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO To business premises whose consumption is connected to the HV Distribution HV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHTD1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO To business premises whose consumption is connected to the HV Distribution HV 1 Rate Demand Sth Urban No
+    note: 'The obsolete-tariff row prints BHND1SO and BHTD1SO together (one description and one set of prices); the quote
+      is that row as the text layer reads it. Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff
+      table p5).'
+- id: essential-2017-18-pl-interval-tou
+  doc: sources/archive/essential/2017-18/PriceListAndExplanatoryNotes2017-18.pdf
+  fin_year: 2017-18
+  name: Interval meter time periods (from 1 July 2017)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p10
+  quote: Interval Meter time periods;
+  note: 'Read by column (the page''s columns interleave in its text layer, so each window quotes its own line): ''Interval
+    Meter time periods; PEAK PERIOD is from 5.00pm–8.00pm on weekdays only. SHOULDER PERIOD is from 7.00am–5.00pm and 8.00pm–10.00pm
+    on weekdays. OFF-PEAK PERIOD is at all other times. For Basic and Accumulation meters, and premises on Obsolete Tariffs;
+    PEAK PERIOD is from 7.00am–9.00am and 5.00pm–'' Time Periods (explanatory notes, read by column): ''TIME PERIODS All times
+    are Eastern Standard Time (which includes Daylight Saving Time or Summer Time as defined in these Explanatory Notes).
+    These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT SAVINGS TIME will be applied to all
+    customers with interval read meters and unmetered supplies in determining Network charges. Other customers will have Summer
+    Time applied, see definition below. SUMMER TIME is the period from the last Sunday in October at 2am to the last Sunday
+    in March at 3am of the following year. Summer time adjustments will be'' Unmetered and interval-read sites use the clock
+    in force (local time).'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AL LV Residential TOU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AR]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLND1AR Small Residential - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNT2AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AL LV Business TOU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AB]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLND1AB Small Business - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNT1AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT1AO LV TOU <160MWh Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNDTRS]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLNDTRS Transitional Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND3AO LV TOU Demand 3 Rate Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNS1AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLNS1AO LV TOU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND3TO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLND3TO LV TOU Demand - Alternative tariff Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BHND3AO HV TOU mthly Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHNS1AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BHNS1AO HV TOU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BSSD3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BSSD3AO Sub Trans 3 Rate Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+- id: essential-2017-18-pl-peak-shoulder-demand
+  doc: sources/archive/essential/2017-18/PriceListAndExplanatoryNotes2017-18.pdf
+  fin_year: 2017-18
+  name: One demand charge over the peak and shoulder periods
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p9
+  quote: The Demand Charge for BLND3TO is based on the
+  note: 'Read by column: ''The Demand Charge for BLND3TO is based on the highest measured half-hour kVA demand registered
+    in either the peak or shoulder periods during the month.'' Each window below prices the demand rate the price list prints
+    (stored as the peak demand rate), measured over the peak and the shoulder periods of the interval meter time periods (weekday
+    shoulder 7am-5pm, peak 5pm-8pm, shoulder 8pm-10pm). Time Periods (explanatory notes, read by column): ''TIME PERIODS All
+    times are Eastern Standard Time (which includes Daylight Saving Time or Summer Time as defined in these Explanatory Notes).
+    These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT SAVINGS TIME will be applied to all
+    customers with interval read meters and unmetered supplies in determining Network charges. Other customers will have Summer
+    Time applied, see definition below. SUMMER TIME is the period from the last Sunday in October at 2am to the last Sunday
+    in March at 3am of the following year. Summer time adjustments will be'' Unmetered and interval-read sites use the clock
+    in force (local time).'
+  windows:
+  - {period: peak, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: peak, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  tariffs:
+  - codes: [BLND3TO]
+    applies_to: demand
+    locator: pdf:p1
+    quote: BLND3TO LV TOU Demand - Alternative tariff Yes
+    note: ''
+  - codes: [BLND1AR]
+    applies_to: demand
+    locator: pdf:p1
+    quote: BLND1AR Small Residential - Opt in Demand Yes
+    note: The price list prints its one demand price across the Demand Peak and Demand Shoulder columns. The 2017-18 pricing
+      proposal's tariff table (Prices Report p14, Residential and Business Demand) states 'Maximum demand charge based on
+      the highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.'
+  - codes: [BLND1AB]
+    applies_to: demand
+    locator: pdf:p1
+    quote: BLND1AB Small Business - Opt in Demand Yes
+    note: The price list prints its one demand price across the Demand Peak and Demand Shoulder columns. The 2017-18 pricing
+      proposal's tariff table (Prices Report p14, Residential and Business Demand) states 'Maximum demand charge based on
+      the highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.'
+- id: essential-2018-19-pl-basic-tou
+  doc: sources/archive/essential/2018-19/PriceListAndExplanatoryNotes2018-19.pdf
+  fin_year: 2018-19
+  name: Time periods for basic and accumulation meters and obsolete tariffs
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p9
+  quote: For Basic and Accumulation meters, and premises
+  note: 'Read by column (the page''s three columns interleave in its text layer, so each window quotes its own line): ''For
+    Basic and Accumulation meters, and premises on Obsolete Tariffs (applied to all ToU charges prior to 1st July 2017); PEAK
+    PERIOD is from 7.00am–9.00am and 5.00pm– 8.00pm on weekdays. SHOULDER PERIOD is from 9.00am–5.00pm and 8.00pm–10.00pm
+    on weekdays. OFF-PEAK PERIOD is at all other times. DAYLIGHT SAVINGS TIME will be applied to all'' Time Periods (explanatory
+    notes, read by column): ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer
+    Time as defined in these Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT
+    SAVINGS TIME will be applied to all customers with interval read meters and unmetered supplies in determining Network
+    charges. Other customers will have Summer Time applied, see definition below. SUMMER TIME is the period from the last
+    Sunday in October at 2am to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered
+    and interval-read sites use the clock in force (local time). [UNSURE] Basic and accumulation meters ''will have Summer
+    Time applied'' (last Sunday in October to last Sunday in March), which differs by up to a few weeks from NSW daylight
+    saving; the windows are stored as local clock time.'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: peak, label: Peak, days: weekday, start: '07:00', end: '09:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm–}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '09:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm–}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AU LV Residential ToU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT2AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AU LV ToU <100MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNP3AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNP3AO LV Public Street Lighting ToU NUOS No -
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLNT1SU LV ToU <160 MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO The charges include a monthly maximum demand charge. The maximum demand LV ToU Demand 1 Rate No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1NO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO The charges include a monthly maximum demand charge. The maximum demand LV ToU Demand 1 Rate No
+    note: 'The obsolete-tariff row prints BLND1CO and BLND1NO together (one description and one set of prices); the quote
+      is that row as the text layer reads it. Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff
+      table p5).'
+  - codes: [BLND1SR]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SR LV 1 Rate Demand Sth Rural No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SU LV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1CO HV 1 Rate Demand Cent Urban ToU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO To business premises whose consumption is connected to the HV Distribution HV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHTD1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO To business premises whose consumption is connected to the HV Distribution HV 1 Rate Demand Sth Urban No
+    note: 'The obsolete-tariff row prints BHND1SO and BHTD1SO together (one description and one set of prices); the quote
+      is that row as the text layer reads it. Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff
+      table p5).'
+- id: essential-2018-19-pl-interval-tou
+  doc: sources/archive/essential/2018-19/PriceListAndExplanatoryNotes2018-19.pdf
+  fin_year: 2018-19
+  name: Interval meter time periods (from 1 July 2017)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p9
+  quote: Interval Meter time periods (from 1st July 2017); PEAK PERIOD is from 5.00pm–8.00pm on weekdays
+  note: 'Read by column (the page''s columns interleave in its text layer, so each window quotes its own line): ''Interval
+    Meter time periods (from 1st July 2017); PEAK PERIOD is from 5.00pm–8.00pm on weekdays only. SHOULDER PERIOD is from 7.00am–5.00pm
+    and 8.00pm–10.00pm on weekdays. OFF-PEAK PERIOD is at all other times. For Basic and Accumulation meters, and premises
+    on Obsolete Tariffs (applied to all ToU charges prior to 1st July 2017);'' Time Periods (explanatory notes, read by column):
+    ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer Time as defined in these
+    Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT SAVINGS TIME will
+    be applied to all customers with interval read meters and unmetered supplies in determining Network charges. Other customers
+    will have Summer Time applied, see definition below. SUMMER TIME is the period from the last Sunday in October at 2am
+    to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered and interval-read
+    sites use the clock in force (local time).'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AL LV Residential ToU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AR]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLND1AR Small Residential - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNT2AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AL LV Business ToU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AB]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLND1AB Small Business - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNT1AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT1AO LV ToU <160MWh Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNDTRS]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLNDTRS Transitional Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND3AO LV ToU Demand 3 Rate Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNS1AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLNS1AO LV ToU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND3TO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLND3TO LV ToU Demand - Alternative tariff Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BHND3AO HV ToU mthly Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHNS1AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BHNS1AO HV ToU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BSSD3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BSSD3AO Subtransmission 3 Rate Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+- id: essential-2018-19-pl-peak-shoulder-demand
+  doc: sources/archive/essential/2018-19/PriceListAndExplanatoryNotes2018-19.pdf
+  fin_year: 2018-19
+  name: One demand charge over the peak and shoulder periods
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p9
+  quote: Where one Demand Charge is provided across both the
+  note: 'Read by column: ''Where one Demand Charge is provided across both the Peak and Shoulder periods it is based on the
+    highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.'' Each window
+    below prices the demand rate the price list prints (stored as the peak demand rate), measured over the peak and the shoulder
+    periods of the interval meter time periods (weekday shoulder 7am-5pm, peak 5pm-8pm, shoulder 8pm-10pm). Time Periods (explanatory
+    notes, read by column): ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer
+    Time as defined in these Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT
+    SAVINGS TIME will be applied to all customers with interval read meters and unmetered supplies in determining Network
+    charges. Other customers will have Summer Time applied, see definition below. SUMMER TIME is the period from the last
+    Sunday in October at 2am to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered
+    and interval-read sites use the clock in force (local time).'
+  windows:
+  - {period: peak, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: peak, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  tariffs:
+  - codes: [BLND3TO]
+    applies_to: demand
+    locator: pdf:p1
+    quote: BLND3TO LV ToU Demand - Alternative tariff Yes
+    note: The price list prints its one demand price across the Demand Peak and Demand Shoulder columns.
+  - codes: [BLND1AR]
+    applies_to: demand
+    locator: pdf:p1
+    quote: BLND1AR Small Residential - Opt in Demand Yes
+    note: The price list prints its one demand price across the Demand Peak and Demand Shoulder columns.
+  - codes: [BLND1AB]
+    applies_to: demand
+    locator: pdf:p1
+    quote: BLND1AB Small Business - Opt in Demand Yes
+    note: The price list prints its one demand price across the Demand Peak and Demand Shoulder columns.
+- id: essential-2019-20-pl-basic-tou
+  doc: sources/archive/essential/2019-20/EssentialEnergyPriceListAndExplanatoryNotes2019-20.pdf
+  fin_year: 2019-20
+  name: Time periods for basic and accumulation meters and obsolete tariffs
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p9
+  quote: For Basic and Accumulation meters, and premises
+  note: 'Read by column (the page''s three columns interleave in its text layer, so each window quotes its own line): ''For
+    Basic and Accumulation meters, and premises on Obsolete Tariffs (applied to all ToU charges prior to 1st July 2017); PEAK
+    PERIOD is from 7.00am–9.00am and 5.00pm– 8.00pm on weekdays. SHOULDER PERIOD is from 9.00am–5.00pm and 8.00pm–10.00pm
+    on weekdays. OFF-PEAK PERIOD is at all other times.'' Time Periods (explanatory notes, read by column): ''TIME PERIODS
+    All times are Eastern Standard Time (which includes Daylight Saving Time or Summer Time as defined in these Explanatory
+    Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT SAVINGS TIME will be applied
+    to all customers with interval read meters and unmetered supplies in determining Network charges. Other customers will
+    have Summer Time applied, see definition below. SUMMER TIME is the period from the last Sunday in October at 2am to the
+    last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered and interval-read sites
+    use the clock in force (local time). [UNSURE] Basic and accumulation meters ''will have Summer Time applied'' (last Sunday
+    in October to last Sunday in March), which differs by up to a few weeks from NSW daylight saving; the windows are stored
+    as local clock time.'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: peak, label: Peak, days: weekday, start: '07:00', end: '09:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm–}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '09:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm–}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AU LV Residential ToU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT2AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AU LV ToU <100MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNP3AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNP3AO LV Public Street Lighting ToU NUOS No -
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLNT1SU LV ToU <160 MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO LV ToU Demand 1 Rate No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1NO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO LV ToU Demand 1 Rate No
+    note: 'The obsolete-tariff row prints BLND1CO and BLND1NO together (one description and one set of prices); the quote
+      is that row as the text layer reads it. Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff
+      table p5).'
+  - codes: [BLND1SR]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SR LV 1 Rate Demand Sth Rural No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SU LV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1CO HV 1 Rate Demand Cent Urban ToU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO HV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHTD1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO HV 1 Rate Demand Sth Urban No
+    note: 'The obsolete-tariff row prints BHND1SO and BHTD1SO together (one description and one set of prices); the quote
+      is that row as the text layer reads it. Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff
+      table p5).'
+- id: essential-2019-20-pl-interval-tou
+  doc: sources/archive/essential/2019-20/EssentialEnergyPriceListAndExplanatoryNotes2019-20.pdf
+  fin_year: 2019-20
+  name: Interval meter time periods (from 1 July 2017)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p9
+  quote: Interval Meter time periods (from 1st July 2017); PEAK PERIOD is from 5.00pm–8.00pm on weekdays
+  note: 'Read by column (the page''s columns interleave in its text layer, so each window quotes its own line): ''Interval
+    Meter time periods (from 1st July 2017); PEAK PERIOD is from 5.00pm–8.00pm on weekdays only. SHOULDER PERIOD is from 7.00am–5.00pm
+    and 8.00pm–10.00pm on weekdays. OFF-PEAK PERIOD is at all other times. For Basic and Accumulation meters, and premises
+    on Obsolete Tariffs (applied to all ToU charges prior to 1st July 2017);'' Time Periods (explanatory notes, read by column):
+    ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer Time as defined in these
+    Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT SAVINGS TIME will
+    be applied to all customers with interval read meters and unmetered supplies in determining Network charges. Other customers
+    will have Summer Time applied, see definition below. SUMMER TIME is the period from the last Sunday in October at 2am
+    to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered and interval-read
+    sites use the clock in force (local time).'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AL LV Residential ToU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AR]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND1AR Small Residential - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. Its one demand price sits in the Demand Peak column (2019-20 on).'
+  - codes: [BLNT2AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AL LV Business ToU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AB]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND1AB Small Business - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. Its one demand price sits in the Demand Peak column (2019-20 on).'
+  - codes: [BLNT1AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT1AO LV ToU <160MWh Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNDTRS]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLNDTRS Transitional Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND3AO LV ToU Demand 3 Rate Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNS1AO]
+    applies_to: all
+    locator: pdf:p5
+    quote: BLNS1AO LV TOU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. [UNSURE] Listed in the obsolete-tariff table, whose heading the Time Periods
+      text groups with basic meters (''premises on Obsolete Tariffs''), but its row says Yes; the row is followed.'
+  - codes: [BLND3TO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLND3TO LV ToU Demand - Alternative tariff Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BHND3AO HV ToU mthly Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHNS1AO]
+    applies_to: all
+    locator: pdf:p5
+    quote: BHNS1AO HV TOU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. [UNSURE] Listed in the obsolete-tariff table, whose heading the Time Periods
+      text groups with basic meters (''premises on Obsolete Tariffs''), but its row says Yes; the row is followed.'
+  - codes: [BSSD3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BSSD3AO Subtransmission 3 Rate Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+- id: essential-2019-20-pl-peak-shoulder-demand
+  doc: sources/archive/essential/2019-20/EssentialEnergyPriceListAndExplanatoryNotes2019-20.pdf
+  fin_year: 2019-20
+  name: One demand charge over the peak and shoulder periods
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p9
+  quote: Where one Demand Charge is provided across both the
+  note: 'Read by column: ''Where one Demand Charge is provided across both the Peak and Shoulder periods it is based on the
+    highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.'' Each window
+    below prices the demand rate the price list prints (stored as the peak demand rate), measured over the peak and the shoulder
+    periods of the interval meter time periods (weekday shoulder 7am-5pm, peak 5pm-8pm, shoulder 8pm-10pm). Time Periods (explanatory
+    notes, read by column): ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer
+    Time as defined in these Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT
+    SAVINGS TIME will be applied to all customers with interval read meters and unmetered supplies in determining Network
+    charges. Other customers will have Summer Time applied, see definition below. SUMMER TIME is the period from the last
+    Sunday in October at 2am to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered
+    and interval-read sites use the clock in force (local time).'
+  windows:
+  - {period: peak, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: peak, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  tariffs:
+  - codes: [BLND3TO]
+    applies_to: demand
+    locator: pdf:p1
+    quote: BLND3TO LV ToU Demand - Alternative tariff Yes
+    note: The price list prints its one demand price across the Demand Peak and Demand Shoulder columns.
+- id: essential-2020-21-pl-basic-tou
+  doc: sources/archive/essential/2020-21/NetworkPriceListandExplanatoryNotes202021.pdf
+  fin_year: 2020-21
+  name: Time periods for basic and accumulation meters and obsolete tariffs
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p10
+  quote: For Basic and Accumulation meters, and premises
+  note: 'Read by column (the page''s three columns interleave in its text layer, so each window quotes its own line): ''For
+    Basic and Accumulation meters, and premises on Obsolete Tariffs (applied to all ToU charges prior to 1st July 2017); PEAK
+    PERIOD is from 7.00am–9.00am and 5.00pm– 8.00pm on weekdays. SHOULDER PERIOD is from 9.00am–5.00pm and 8.00pm–10.00pm
+    on weekdays. OFF-PEAK PERIOD is at all other times. DAYLIGHT SAVINGS TIME will be applied to all'' Time Periods (explanatory
+    notes, read by column): ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer
+    Time as defined in these Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT
+    SAVINGS TIME will be applied to all customers with interval read meters and unmetered supplies in determining Network
+    charges. Other customers will have Summer Time applied, see definition below. SUMMER TIME is the period from the last
+    Sunday in October at 2am to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered
+    and interval-read sites use the clock in force (local time). [UNSURE] Basic and accumulation meters ''will have Summer
+    Time applied'' (last Sunday in October to last Sunday in March), which differs by up to a few weeks from NSW daylight
+    saving; the windows are stored as local clock time.'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: peak, label: Peak, days: weekday, start: '07:00', end: '09:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm– 8.00pm on weekdays.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '09:00', end: '17:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm– 8.00pm on weekdays.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AU LV Residential ToU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT2AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AU LV ToU <100MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNP3AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNP3AO LV Public Street Lighting ToU NUOS No -
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLNT1SU LV ToU <160 MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO LV ToU Demand 1 Rate No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1NO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO LV ToU Demand 1 Rate No
+    note: 'The obsolete-tariff row prints BLND1CO and BLND1NO together (one description and one set of prices); the quote
+      is that row as the text layer reads it. Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff
+      table p5).'
+  - codes: [BLND1SR]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SR LV 1 Rate Demand Sth Rural No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SU LV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1CO HV 1 Rate Demand Cent Urban ToU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO HV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHTD1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO HV 1 Rate Demand Sth Urban No
+    note: 'The obsolete-tariff row prints BHND1SO and BHTD1SO together (one description and one set of prices); the quote
+      is that row as the text layer reads it. Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff
+      table p5).'
+- id: essential-2020-21-pl-interval-tou
+  doc: sources/archive/essential/2020-21/NetworkPriceListandExplanatoryNotes202021.pdf
+  fin_year: 2020-21
+  name: Interval meter time periods (from 1 July 2017)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p9
+  quote: Interval Meter time periods (from 1st July 2017);
+  note: 'Read by column (the page''s columns interleave in its text layer, so each window quotes its own line): ''Interval
+    Meter time periods (from 1st July 2017); PEAK PERIOD is from 5.00pm–8.00pm on weekdays only. SHOULDER PERIOD is from 7.00am–5.00pm
+    and 8.00pm–10.00pm on weekdays. OFF-PEAK PERIOD is at all other times.'' Time Periods (explanatory notes, read by column):
+    ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer Time as defined in these
+    Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT SAVINGS TIME will
+    be applied to all customers with interval read meters and unmetered supplies in determining Network charges. Other customers
+    will have Summer Time applied, see definition below. SUMMER TIME is the period from the last Sunday in October at 2am
+    to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered and interval-read
+    sites use the clock in force (local time).'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AL LV Residential ToU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AR]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND1AR Small Residential - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. Its one demand price sits in the Demand Peak column (2019-20 on).'
+  - codes: [BLNT2AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AL LV Business ToU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AB]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND1AB Small Business - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. Its one demand price sits in the Demand Peak column (2019-20 on).'
+  - codes: [BLNT1AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT1AO LV ToU <160MWh Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNDTRS]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLNDTRS Transitional Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND3AO LV ToU Demand 3 Rate Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNS1AO]
+    applies_to: all
+    locator: pdf:p5
+    quote: BLNS1AO LV TOU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. [UNSURE] Listed in the obsolete-tariff table, whose heading the Time Periods
+      text groups with basic meters (''premises on Obsolete Tariffs''), but its row says Yes; the row is followed.'
+  - codes: [BLND3TO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLND3TO LV ToU Demand - Alternative tariff Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BHND3AO HV ToU mthly Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHNS1AO]
+    applies_to: all
+    locator: pdf:p5
+    quote: BHNS1AO HV TOU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. [UNSURE] Listed in the obsolete-tariff table, whose heading the Time Periods
+      text groups with basic meters (''premises on Obsolete Tariffs''), but its row says Yes; the row is followed.'
+  - codes: [BSSD3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BSSD3AO Subtransmission 3 Rate Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+- id: essential-2020-21-pl-peak-shoulder-demand
+  doc: sources/archive/essential/2020-21/NetworkPriceListandExplanatoryNotes202021.pdf
+  fin_year: 2020-21
+  name: One demand charge over the peak and shoulder periods
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p9
+  quote: Where one Demand Charge is provided across both the
+  note: 'Read by column: ''Where one Demand Charge is provided across both the Peak and Shoulder periods it is based on the
+    highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.'' Each window
+    below prices the demand rate the price list prints (stored as the peak demand rate), measured over the peak and the shoulder
+    periods of the interval meter time periods (weekday shoulder 7am-5pm, peak 5pm-8pm, shoulder 8pm-10pm). Time Periods (explanatory
+    notes, read by column): ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer
+    Time as defined in these Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT
+    SAVINGS TIME will be applied to all customers with interval read meters and unmetered supplies in determining Network
+    charges. Other customers will have Summer Time applied, see definition below. SUMMER TIME is the period from the last
+    Sunday in October at 2am to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered
+    and interval-read sites use the clock in force (local time).'
+  windows:
+  - {period: peak, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: peak, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  tariffs:
+  - codes: [BLND3TO]
+    applies_to: demand
+    locator: pdf:p1
+    quote: BLND3TO LV ToU Demand - Alternative tariff Yes
+    note: The price list prints its one demand price across the Demand Peak and Demand Shoulder columns.
+- id: essential-2021-22-pl-basic-tou
+  doc: sources/archive/essential/2021-22/NetworkPriceListandExplanatoryNotes202122.pdf
+  fin_year: 2021-22
+  name: Time periods for basic and accumulation meters and obsolete tariffs
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p10
+  quote: For Basic and Accumulation meters, and premises
+  note: 'Read by column (the page''s three columns interleave in its text layer, so each window quotes its own line): ''For
+    Basic and Accumulation meters, and premises on Obsolete Tariffs (applied to all ToU charges prior to 1st July 2017); PEAK
+    PERIOD is from 7.00am–9.00am and 5.00pm– 8.00pm on weekdays. SHOULDER PERIOD is from 9.00am–5.00pm and 8.00pm–10.00pm
+    on weekdays. OFF-PEAK PERIOD is at all other times. DAYLIGHT SAVINGS TIME will be applied to all'' Time Periods (explanatory
+    notes, read by column): ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer
+    Time as defined in these Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT
+    SAVINGS TIME will be applied to all customers with interval read meters and unmetered supplies in determining Network
+    charges. Other customers will have Summer Time applied, see definition below. SUMMER TIME is the period from the last
+    Sunday in October at 2am to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered
+    and interval-read sites use the clock in force (local time). [UNSURE] Basic and accumulation meters ''will have Summer
+    Time applied'' (last Sunday in October to last Sunday in March), which differs by up to a few weeks from NSW daylight
+    saving; the windows are stored as local clock time.'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: peak, label: Peak, days: weekday, start: '07:00', end: '09:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm– 8.00pm on weekdays.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '09:00', end: '17:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm– 8.00pm on weekdays.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AU LV Residential ToU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT2AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AU LV ToU <100MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNP3AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNP3AO LV Public Street Lighting ToU NUOS No -
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLNT1SU LV ToU <160 MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO LV ToU Demand 1 Rate No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1NO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO LV ToU Demand 1 Rate No
+    note: 'The obsolete-tariff row prints BLND1CO and BLND1NO together (one description and one set of prices); the quote
+      is that row as the text layer reads it. Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff
+      table p5).'
+  - codes: [BLND1SR]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SR LV 1 Rate Demand Sth Rural No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SU LV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1CO HV 1 Rate Demand Cent Urban ToU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO HV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHTD1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO HV 1 Rate Demand Sth Urban No
+    note: 'The obsolete-tariff row prints BHND1SO and BHTD1SO together (one description and one set of prices); the quote
+      is that row as the text layer reads it. Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff
+      table p5).'
+- id: essential-2021-22-pl-interval-tou
+  doc: sources/archive/essential/2021-22/NetworkPriceListandExplanatoryNotes202122.pdf
+  fin_year: 2021-22
+  name: Interval meter time periods (from 1 July 2017)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p9
+  quote: Interval Meter time periods (from 1st July 2017);
+  note: 'Read by column (the page''s columns interleave in its text layer, so each window quotes its own line): ''Interval
+    Meter time periods (from 1st July 2017); PEAK PERIOD is from 5.00pm–8.00pm on weekdays only. SHOULDER PERIOD is from 7.00am–5.00pm
+    and 8.00pm–10.00pm on weekdays. OFF-PEAK PERIOD is at all other times.'' Time Periods (explanatory notes, read by column):
+    ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer Time as defined in these
+    Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT SAVINGS TIME will
+    be applied to all customers with interval read meters and unmetered supplies in determining Network charges. Other customers
+    will have Summer Time applied, see definition below. SUMMER TIME is the period from the last Sunday in October at 2am
+    to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered and interval-read
+    sites use the clock in force (local time).'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AL LV Residential ToU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AR]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND1AR Small Residential - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. Its one demand price sits in the Demand Peak column (2019-20 on).'
+  - codes: [BLNT2AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AL LV Business ToU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AB]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND1AB Small Business - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. Its one demand price sits in the Demand Peak column (2019-20 on).'
+  - codes: [BLNT1AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT1AO LV ToU <160MWh Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNDTRS]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLNDTRS Transitional Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND3AO LV ToU Demand 3 Rate Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNS1AO]
+    applies_to: all
+    locator: pdf:p5
+    quote: BLNS1AO LV TOU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. [UNSURE] Listed in the obsolete-tariff table, whose heading the Time Periods
+      text groups with basic meters (''premises on Obsolete Tariffs''), but its row says Yes; the row is followed.'
+  - codes: [BLND3TO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLND3TO LV ToU Demand - Alternative tariff Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BHND3AO HV ToU mthly Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHNS1AO]
+    applies_to: all
+    locator: pdf:p5
+    quote: BHNS1AO HV TOU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. [UNSURE] Listed in the obsolete-tariff table, whose heading the Time Periods
+      text groups with basic meters (''premises on Obsolete Tariffs''), but its row says Yes; the row is followed.'
+  - codes: [BSSD3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BSSD3AO Subtransmission 3 Rate Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+- id: essential-2021-22-pl-peak-shoulder-demand
+  doc: sources/archive/essential/2021-22/NetworkPriceListandExplanatoryNotes202122.pdf
+  fin_year: 2021-22
+  name: One demand charge over the peak and shoulder periods
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p9
+  quote: Where one Demand Charge is provided across both the
+  note: 'Read by column: ''Where one Demand Charge is provided across both the Peak and Shoulder periods it is based on the
+    highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.'' Each window
+    below prices the demand rate the price list prints (stored as the peak demand rate), measured over the peak and the shoulder
+    periods of the interval meter time periods (weekday shoulder 7am-5pm, peak 5pm-8pm, shoulder 8pm-10pm). Time Periods (explanatory
+    notes, read by column): ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer
+    Time as defined in these Explanatory Notes). These times are unchanged when a public holiday falls on a week day.'' ''DAYLIGHT
+    SAVINGS TIME will be applied to all customers with interval read meters and unmetered supplies in determining Network
+    charges. Other customers will have Summer Time applied, see definition below. SUMMER TIME is the period from the last
+    Sunday in October at 2am to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered
+    and interval-read sites use the clock in force (local time).'
+  windows:
+  - {period: peak, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: peak, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  tariffs:
+  - codes: [BLND3TO]
+    applies_to: demand
+    locator: pdf:p1
+    quote: BLND3TO LV ToU Demand - Alternative tariff Yes
+    note: The price list prints its one demand price across the Demand Peak and Demand Shoulder columns.
+- id: essential-2022-23-pl-basic-tou
+  doc: sources/archive/essential/2022-23/NetworkPriceListandExplanatoryNotes202223.pdf
+  fin_year: 2022-23
+  name: Time periods for basic and accumulation meters and obsolete tariffs
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p10
+  quote: For Basic and Accumulation meters, and premises
+  note: 'Read by column (the page''s three columns interleave in its text layer, so each window quotes its own line): ''For
+    Basic and Accumulation meters, and premises on Obsolete Tariffs (applied to all ToU charges prior to 1st July 2017); PEAK
+    PERIOD is from 7.00am–9.00am and 5.00pm– 8.00pm on weekdays. SHOULDER PERIOD is from 9.00am–5.00pm and 8.00pm–10.00pm
+    on weekdays. OFF-PEAK PERIOD is at all other times. DAYLIGHT SAVINGS TIME will be applied to all'' Time Periods (explanatory
+    notes, read by column): ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer
+    Time as defined in these Explanatory Notes). These times are unchanged when a public holiday falls on a weekday.'' ''DAYLIGHT
+    SAVINGS TIME will be applied to all customers with interval read meters and unmetered supplies in determining Network
+    charges. Other customers will have Summer Time applied, see definition below. SUMMER TIME is the period from the last
+    Sunday in October at 2am to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered
+    and interval-read sites use the clock in force (local time). [UNSURE] Basic and accumulation meters ''will have Summer
+    Time applied'' (last Sunday in October to last Sunday in March), which differs by up to a few weeks from NSW daylight
+    saving; the windows are stored as local clock time.'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: peak, label: Peak, days: weekday, start: '07:00', end: '09:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm– 8.00pm on weekdays.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '09:00', end: '17:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p10', quote: PEAK PERIOD is from
+      7.00am–9.00am and 5.00pm– 8.00pm on weekdays.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p10', quote: SHOULDER PERIOD
+      is from 9.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p10', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AU LV Residential ToU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT2AU]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AU LV ToU <100MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNP3AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNP3AO LV Public Street Lighting ToU NUOS No -
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLNT1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLNT1SU LV ToU <160 MWh No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1CO LV ToU Demand 1 Rate No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1SR]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SR LV 1 Rate Demand Sth Rural No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BLND1SU]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BLND1SU LV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1CO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1CO HV 1 Rate Demand Cent Urban ToU No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+  - codes: [BHND1SO]
+    applies_to: usage
+    locator: pdf:p5
+    quote: BHND1SO HV 1 Rate Demand Sth Urban No
+    note: 'Interval Meter Time Periods column: No (price list p1 and the obsolete-tariff table p5).'
+- id: essential-2022-23-pl-interval-tou
+  doc: sources/archive/essential/2022-23/NetworkPriceListandExplanatoryNotes202223.pdf
+  fin_year: 2022-23
+  name: Interval meter time periods (from 1 July 2017)
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: true
+  locator: pdf:p9
+  quote: Interval Meter time periods (from 1st July 2017);
+  note: 'Read by column (the page''s columns interleave in its text layer, so each window quotes its own line): ''Interval
+    Meter time periods (from 1st July 2017); PEAK PERIOD is from 5.00pm–8.00pm on weekdays only. SHOULDER PERIOD is from 7.00am–5.00pm
+    and 8.00pm–10.00pm on weekdays. OFF-PEAK PERIOD is at all other times.'' Time Periods (explanatory notes, read by column):
+    ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer Time as defined in these
+    Explanatory Notes). These times are unchanged when a public holiday falls on a weekday.'' ''DAYLIGHT SAVINGS TIME will
+    be applied to all customers with interval read meters and unmetered supplies in determining Network charges. Other customers
+    will have Summer Time applied, see definition below. SUMMER TIME is the period from the last Sunday in October at 2am
+    to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered and interval-read
+    sites use the clock in force (local time).'
+  windows:
+  - {period: off_peak, label: Off-peak, days: weekday, start: '00:00', end: '07:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: shoulder, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: off_peak, label: Off-peak, days: weekday, start: '22:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  - {period: off_peak, label: Off-peak, days: weekend, start: '00:00', end: '24:00', locator: 'pdf:p9', quote: OFF-PEAK PERIOD
+      is at all other times.}
+  tariffs:
+  - codes: [BLNT3AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT3AL LV Residential ToU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AR]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND1AR Small Residential - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. Its one demand price sits in the Demand Peak column (2019-20 on).'
+  - codes: [BLNT2AL]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT2AL LV Business ToU_Interval meter Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND1AB]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND1AB Small Business - Opt in Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. Its one demand price sits in the Demand Peak column (2019-20 on).'
+  - codes: [BLNT1AO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLNT1AO LV ToU <160MWh Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNDTRS]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLNDTRS Transitional Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BLND3AO LV ToU Demand 3 Rate Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BLNS1AO]
+    applies_to: all
+    locator: pdf:p5
+    quote: BLNS1AO LV TOU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. [UNSURE] Listed in the obsolete-tariff table, whose heading the Time Periods
+      text groups with basic meters (''premises on Obsolete Tariffs''), but its row says Yes; the row is followed.'
+  - codes: [BLND3TO]
+    applies_to: usage
+    locator: pdf:p1
+    quote: BLND3TO LV ToU Demand - Alternative tariff Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHND3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BHND3AO HV ToU mthly Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+  - codes: [BHNS1AO]
+    applies_to: all
+    locator: pdf:p5
+    quote: BHNS1AO HV TOU avg daily Demand Yes
+    note: 'Interval Meter Time Periods column: Yes. [UNSURE] Listed in the obsolete-tariff table, whose heading the Time Periods
+      text groups with basic meters (''premises on Obsolete Tariffs''), but its row says Yes; the row is followed.'
+  - codes: [BSSD3AO]
+    applies_to: all
+    locator: pdf:p1
+    quote: BSSD3AO Subtransmission 3 Rate Demand Yes
+    note: 'Interval Meter Time Periods column: Yes.'
+- id: essential-2022-23-pl-peak-shoulder-demand
+  doc: sources/archive/essential/2022-23/NetworkPriceListandExplanatoryNotes202223.pdf
+  fin_year: 2022-23
+  name: One demand charge over the peak and shoulder periods
+  time_basis: local_time
+  public_holidays: unchanged
+  covers_full_day: false
+  locator: pdf:p9
+  quote: Where one Demand Charge is provided across both the
+  note: 'Read by column: ''Where one Demand Charge is provided across both the Peak and Shoulder periods it is based on the
+    highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.'' Each window
+    below prices the demand rate the price list prints (stored as the peak demand rate), measured over the peak and the shoulder
+    periods of the interval meter time periods (weekday shoulder 7am-5pm, peak 5pm-8pm, shoulder 8pm-10pm). Time Periods (explanatory
+    notes, read by column): ''TIME PERIODS All times are Eastern Standard Time (which includes Daylight Saving Time or Summer
+    Time as defined in these Explanatory Notes). These times are unchanged when a public holiday falls on a weekday.'' ''DAYLIGHT
+    SAVINGS TIME will be applied to all customers with interval read meters and unmetered supplies in determining Network
+    charges. Other customers will have Summer Time applied, see definition below. SUMMER TIME is the period from the last
+    Sunday in October at 2am to the last Sunday in March at 3am of the following year. Summer time adjustments will be'' Unmetered
+    and interval-read sites use the clock in force (local time).'
+  windows:
+  - {period: peak, label: Shoulder, days: weekday, start: '07:00', end: '17:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  - {period: peak, label: Peak, days: weekday, start: '17:00', end: '20:00', locator: 'pdf:p9', quote: PEAK PERIOD is from
+      5.00pm–8.00pm on weekdays}
+  - {period: peak, label: Shoulder, days: weekday, start: '20:00', end: '22:00', locator: 'pdf:p9', quote: SHOULDER PERIOD
+      is from 7.00am–5.00pm and}
+  tariffs:
+  - codes: [BLND3TO]
+    applies_to: demand
+    locator: pdf:p1
+    quote: BLND3TO LV ToU Demand - Alternative tariff Yes
+    note: The price list prints its one demand price across the Demand Peak and Demand Shoulder columns.
 - id: essential-2024-25-nuos-ss
   doc: sources/aer/dnsp_copies/Essential_2024-25_NUoS_Price_List_20May2024.xlsx
   fin_year: 2024-25
@@ -8025,6 +9528,801 @@ rate_periods:
     8pm the 'Export Rebate' band of the EXP time periods row (p6, window essential-2026-27-pl-exp, periods solar_soak and
     peak).
 charge_rules:
+- codes: [BLND3AO, BHND3AO, BSSD3AO]
+  doc: sources/archive/essential/2016-17/PriceListAndExplanatoryNotes2016-17.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: THREE RATE DEMAND the Demand charge
+  note: 'Definitions, read by column: ''THREE RATE DEMAND the Demand charge ($/kVA/month) is applied to the calendar monthly
+    kVA demand measured by the meter for the peak, shoulder and off-peak periods. The monthly kVA demand is the maximum half
+    hour demand for the month occurring within the peak, shoulder and off-peak periods and is calculated using the kWh and
+    kVArh energy components recorded by the NER compliant meter. The method of demand measurement is 30 minute clocked. LV
+    TOU Average Daily Demand and HV TOU Average Daily Demand tariffs are exceptions to this description. Demand charges for
+    these tariffs are'' These tariffs price peak, shoulder and off-peak demand in $/kVA/M.'
+- codes: [BLND1CO, BLND1NO, BHND1CO, BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2016-17/PriceListAndExplanatoryNotes2016-17.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: SINGLE RATE DEMAND the Demand Charge is based
+  note: 'Definitions, read by column: ''SINGLE RATE DEMAND the Demand Charge is based on the highest measured half-hour kVA
+    demand during the month. A separate demand will apply at each'' These obsolete ''1 Rate'' demand tariffs price one demand
+    charge ($/kVA/M) for any time of the month.'
+- codes: [BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2016-17/PriceListAndExplanatoryNotes2016-17.pdf
+  fin_year: 2016-17
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p8
+  quote: CAPACITY CHARGES are monthly charges based on
+  note: 'Definitions, read by column: ''CAPACITY CHARGES are monthly charges based on the required capacity of the connection
+    (measured in $/KVA) whereby the charges are applied to the maximum half hourly KVA power reading that occurred at a customer’s
+    connection point over the 12 months prior to a bill being calculated. Demand is rounded up to 20, 40, 60, 80, 100, 150,
+    200, 300, 400, 500kVA and so on in 100kVA increments.'' [UNSURE] The rounding up of the demand to 20, 40, 60 ... kVA steps
+    is not stored (no charge_rule field holds it).'
+- codes: [BLND3TO]
+  doc: sources/archive/essential/2016-17/PriceListAndExplanatoryNotes2016-17.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: The Demand Charge for BLND3TO is based on the
+  note: 'Definitions, read by column: ''The Demand Charge for BLND3TO is based on the highest measured half-hour kVA demand
+    registered in either the peak or shoulder periods during the month.'' Its windows are schedule essential-2016-17-pl-peak-shoulder-demand.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2016-17/PriceListAndExplanatoryNotes2016-17.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p3
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the 3. The average TOU Demand calculated above will be multiplied
+    by the TOU Demand rates.'' The peak demand is divided by the number of weekdays. The metering interval is not stated for
+    these tariffs: the THREE RATE DEMAND definition''s ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2016-17/PriceListAndExplanatoryNotes2016-17.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p3
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the 3. The average TOU Demand calculated above will be multiplied
+    by the TOU Demand rates.'' The shoulder demand is divided by the number of weekdays. The metering interval is not stated
+    for these tariffs: the THREE RATE DEMAND definition''s ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2016-17/PriceListAndExplanatoryNotes2016-17.pdf
+  fin_year: 2016-17
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p3
+  quote: Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the 3. The average TOU Demand calculated above will be multiplied
+    by the TOU Demand rates.'' The off_peak demand is divided by the total number of days. The metering interval is not stated
+    for these tariffs: the THREE RATE DEMAND definition''s ''30 minute clocked'' names them as exceptions.'
+- codes: [BLND3AO, BHND3AO, BSSD3AO, BLNDTRS]
+  doc: sources/archive/essential/2017-18/PriceListAndExplanatoryNotes2017-18.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: THREE RATE DEMAND the Demand charge
+  note: 'Definitions, read by column: ''THREE RATE DEMAND the Demand charge ($/kVA/month) is applied to the calendar monthly
+    kVA demand measured by the meter for the peak, shoulder and off-peak periods. The monthly kVA demand is the maximum half
+    hour demand for the month occurring within the peak, shoulder and off-peak periods and is calculated using the kWh and
+    kVArh energy components recorded by the NER compliant meter. The method of demand measurement is 30 minute clocked. LV
+    TOU Average Daily Demand and HV TOU Average Daily Demand tariffs are exceptions to this description. Demand charges for
+    these tariffs are'' These tariffs price peak, shoulder and off-peak demand in $/kVA/M.'
+- codes: [BLND1CO, BLND1NO, BHND1CO, BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2017-18/PriceListAndExplanatoryNotes2017-18.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: SINGLE RATE DEMAND the Demand Charge is based
+  note: 'Definitions, read by column: ''SINGLE RATE DEMAND the Demand Charge is based on the highest measured half-hour kVA
+    demand during the month. A separate demand will apply at each'' These obsolete ''1 Rate'' demand tariffs price one demand
+    charge ($/kVA/M) for any time of the month.'
+- codes: [BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2017-18/PriceListAndExplanatoryNotes2017-18.pdf
+  fin_year: 2017-18
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p8
+  quote: CAPACITY CHARGES are monthly charges based on
+  note: 'Definitions, read by column: ''CAPACITY CHARGES are monthly charges based on the required capacity of the connection
+    (measured in $/KVA) whereby the charges are applied to the maximum half hourly KVA power reading that occurred at a customer’s
+    connection point over the 12 months prior to a bill being calculated. Demand is rounded up to 20, 40, 60, 80, 100, 150,
+    200, 300, 400, 500kVA and so on in 100kVA increments. DISTRIBUTION LOSS FACTORS are used by the'' [UNSURE] The rounding
+    up of the demand to 20, 40, 60 ... kVA steps is not stored (no charge_rule field holds it).'
+- codes: [BLND3TO]
+  doc: sources/archive/essential/2017-18/PriceListAndExplanatoryNotes2017-18.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: The Demand Charge for BLND3TO is based on the
+  note: 'Definitions, read by column: ''The Demand Charge for BLND3TO is based on the highest measured half-hour kVA demand
+    registered in either the peak or shoulder periods during the month.'' Its windows are schedule essential-2017-18-pl-peak-shoulder-demand.'
+- codes: [BLND1AR, BLND1AB]
+  doc: sources/archive/essential/2017-18/AER_approved_-_Essential_Energy_2017-18_Annual_Pricing_Proposal_-_Prices_Report_-_5_May_2017.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p14
+  quote: Maximum demand charge based on the highest measured half-hour kVA Demand $/kVA demand registered in either the peak
+    or shoulder periods during the month.
+  note: 'AER-approved 2017-18 pricing proposal, tariff structure table: the Demand row of ''Residential – Demand'' (continued
+    from p13) and ''Business – Demand''. Windows: schedule essential-2017-18-pl-peak-shoulder-demand.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2017-18/PriceListAndExplanatoryNotes2017-18.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p3
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. Effective 1 July 2017 - 3 - Network Price List FOR PUBLIC RELEASE
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. Effective 1 July 2017 - 3 - Network Price List FOR PUBLIC RELEASE
+    3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The peak demand is divided by
+    the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s ''30
+    minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2017-18/PriceListAndExplanatoryNotes2017-18.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p3
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. Effective 1 July 2017 - 3 - Network Price List FOR PUBLIC RELEASE
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. Effective 1 July 2017 - 3 - Network Price List FOR PUBLIC RELEASE
+    3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The shoulder demand is divided
+    by the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2017-18/PriceListAndExplanatoryNotes2017-18.pdf
+  fin_year: 2017-18
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. Effective 1 July 2017 - 3 - Network Price List FOR PUBLIC RELEASE
+    3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The off_peak demand is divided
+    by the total number of days. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLND3AO, BHND3AO, BSSD3AO, BLNDTRS]
+  doc: sources/archive/essential/2018-19/PriceListAndExplanatoryNotes2018-19.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: THREE RATE DEMAND the Demand charge
+  note: 'Definitions, read by column: ''THREE RATE DEMAND the Demand charge ($/kVA/month) is applied to the calendar monthly
+    kVA demand measured by the meter for the peak, shoulder and off-peak periods. The monthly kVA demand is the maximum half
+    hour demand for the month occurring within the peak, shoulder and off-peak periods and is calculated using the kWh and
+    kVArh energy components recorded by the NER compliant meter. The method of demand measurement is 30 minute clocked. LV
+    ToU Average Daily Demand and HV ToU - 9 -'' These tariffs price peak, shoulder and off-peak demand in $/kVA/M.'
+- codes: [BLND1CO, BLND1NO, BHND1CO, BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2018-19/PriceListAndExplanatoryNotes2018-19.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: SINGLE RATE DEMAND is the Demand Charge is
+  note: 'Definitions, read by column: ''SINGLE RATE DEMAND is the Demand Charge is based on the highest measured half-hour
+    kVA demand during the month. A separate demand will apply at each'' These obsolete ''1 Rate'' demand tariffs price one
+    demand charge ($/kVA/M) for any time of the month.'
+- codes: [BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2018-19/PriceListAndExplanatoryNotes2018-19.pdf
+  fin_year: 2018-19
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p8
+  quote: CAPACITY CHARGES are monthly charges based on the required capacity of the connection (measured in
+  note: 'Definitions, read by column: ''CAPACITY CHARGES are monthly charges based on the required capacity of the connection
+    (measured in $/KVA) whereby the charges are applied to the maximum half hourly KVA power reading that occurred at a customer’s
+    connection point over the 12 months prior to a bill being calculated. Demand is rounded up to 20, 40, 60, 80, 100, 150,
+    200, 300, 400, 500kVA and so on in 100kVA increments. These charges only exist for Obsolete tariffs.'' [UNSURE] The rounding
+    up of the demand to 20, 40, 60 ... kVA steps is not stored (no charge_rule field holds it).'
+- codes: [BLND3TO, BLND1AR, BLND1AB]
+  doc: sources/archive/essential/2018-19/PriceListAndExplanatoryNotes2018-19.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: Where one Demand Charge is provided across both the
+  note: 'Definitions, read by column: ''Where one Demand Charge is provided across both the Peak and Shoulder periods it is
+    based on the highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.''
+    Its windows are schedule essential-2018-19-pl-peak-shoulder-demand.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2018-19/PriceListAndExplanatoryNotes2018-19.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of week days, and Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The peak demand is divided
+    by the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2018-19/PriceListAndExplanatoryNotes2018-19.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of week days, and Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The shoulder demand
+    is divided by the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2018-19/PriceListAndExplanatoryNotes2018-19.pdf
+  fin_year: 2018-19
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The off_peak demand
+    is divided by the total number of days. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLND3AO, BHND3AO, BSSD3AO, BLNDTRS]
+  doc: sources/archive/essential/2019-20/EssentialEnergyPriceListAndExplanatoryNotes2019-20.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: THREE RATE DEMAND the Demand charge
+  note: 'Definitions, read by column: ''THREE RATE DEMAND the Demand charge ($/kVA/month) is applied to the calendar monthly
+    kVA demand measured by the meter for the peak, shoulder and off-peak periods. The monthly kVA demand is the maximum half
+    hour demand for the month occurring within the peak, shoulder and off-peak periods and is calculated using the kWh and
+    kVArh energy components recorded by the NER compliant meter. The method of demand measurement is 30 minute clocked. LV
+    ToU Average Daily Demand and HV ToU Average Daily Demand tariffs are exceptions to this description. Demand charges for
+    these tariffs are'' These tariffs price peak, shoulder and off-peak demand in $/kVA/M.'
+- codes: [BLND1CO, BLND1NO, BHND1CO, BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2019-20/EssentialEnergyPriceListAndExplanatoryNotes2019-20.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: SINGLE RATE DEMAND is the Demand Charge is
+  note: 'Definitions, read by column: ''SINGLE RATE DEMAND is the Demand Charge is based on the highest measured half-hour
+    kVA demand during the month. A separate demand will apply at each'' These obsolete ''1 Rate'' demand tariffs price one
+    demand charge ($/kVA/M) for any time of the month.'
+- codes: [BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2019-20/EssentialEnergyPriceListAndExplanatoryNotes2019-20.pdf
+  fin_year: 2019-20
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p8
+  quote: CAPACITY CHARGES are monthly charges based on
+  note: 'Definitions, read by column: ''CAPACITY CHARGES are monthly charges based on the required capacity of the connection
+    (measured in $/KVA) whereby the charges are applied to the maximum half hourly KVA power reading that occurred at a customer’s
+    connection point over the 12 months prior to a bill being calculated. Demand is rounded up to 20, 40, 60, 80, 100, 150,
+    200, 300, 400, 500kVA and so on in 100kVA increments. These charges only exist for Obsolete tariffs.'' [UNSURE] The rounding
+    up of the demand to 20, 40, 60 ... kVA steps is not stored (no charge_rule field holds it).'
+- codes: [BLND3TO]
+  doc: sources/archive/essential/2019-20/EssentialEnergyPriceListAndExplanatoryNotes2019-20.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: Where one Demand Charge is provided across both the
+  note: 'Definitions, read by column: ''Where one Demand Charge is provided across both the Peak and Shoulder periods it is
+    based on the highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.''
+    Its windows are schedule essential-2019-20-pl-peak-shoulder-demand.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2019-20/EssentialEnergyPriceListAndExplanatoryNotes2019-20.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of week days, and Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The peak demand is divided
+    by the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2019-20/EssentialEnergyPriceListAndExplanatoryNotes2019-20.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of week days, and Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The shoulder demand
+    is divided by the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2019-20/EssentialEnergyPriceListAndExplanatoryNotes2019-20.pdf
+  fin_year: 2019-20
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The off_peak demand
+    is divided by the total number of days. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLND3AO, BHND3AO, BSSD3AO, BLNDTRS]
+  doc: sources/archive/essential/2020-21/NetworkPriceListandExplanatoryNotes202021.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: THREE RATE DEMAND the Demand charge
+  note: 'Definitions, read by column: ''THREE RATE DEMAND the Demand charge ($/kVA/month) is applied to the calendar monthly
+    kVA demand measured by the meter for the peak, shoulder and off-peak periods. The monthly kVA demand is the maximum half
+    hour demand for the month occurring within the peak, shoulder and off-peak periods and is calculated using the kWh and
+    kVArh energy components recorded by the NER compliant meter. The method of demand measurement is 30 minute clocked. LV
+    ToU Average Daily Demand and HV ToU Average Daily Demand tariffs are exceptions to this description. Demand charges for
+    these tariffs are'' These tariffs price peak, shoulder and off-peak demand in $/kVA/M.'
+- codes: [BLND1CO, BLND1NO, BHND1CO, BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2020-21/NetworkPriceListandExplanatoryNotes202021.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: SINGLE RATE DEMAND is the Demand Charge is
+  note: 'Definitions, read by column: ''SINGLE RATE DEMAND is the Demand Charge is based on the highest measured half-hour
+    kVA demand during the month. A separate demand will apply at each'' These obsolete ''1 Rate'' demand tariffs price one
+    demand charge ($/kVA/M) for any time of the month.'
+- codes: [BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2020-21/NetworkPriceListandExplanatoryNotes202021.pdf
+  fin_year: 2020-21
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p8
+  quote: CAPACITY CHARGES are monthly charges based on
+  note: 'Definitions, read by column: ''CAPACITY CHARGES are monthly charges based on the required capacity of the connection
+    (measured in $/KVA) whereby the charges are applied to the maximum half hourly KVA power reading that occurred at a customer’s
+    connection point over the 12 months prior to a bill being calculated. Demand is rounded up to 20, 40, 60, 80, 100, 150,
+    200, 300, 400, 500kVA and so on in 100kVA increments. These charges only exist for Obsolete tariffs.'' [UNSURE] The rounding
+    up of the demand to 20, 40, 60 ... kVA steps is not stored (no charge_rule field holds it).'
+- codes: [BLND3TO]
+  doc: sources/archive/essential/2020-21/NetworkPriceListandExplanatoryNotes202021.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: Where one Demand Charge is provided across both the
+  note: 'Definitions, read by column: ''Where one Demand Charge is provided across both the Peak and Shoulder periods it is
+    based on the highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.''
+    Its windows are schedule essential-2020-21-pl-peak-shoulder-demand.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2020-21/NetworkPriceListandExplanatoryNotes202021.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of week days, and Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The peak demand is divided
+    by the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2020-21/NetworkPriceListandExplanatoryNotes202021.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of week days, and Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The shoulder demand
+    is divided by the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2020-21/NetworkPriceListandExplanatoryNotes202021.pdf
+  fin_year: 2020-21
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The off_peak demand
+    is divided by the total number of days. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLND3AO, BHND3AO, BSSD3AO, BLNDTRS]
+  doc: sources/archive/essential/2021-22/NetworkPriceListandExplanatoryNotes202122.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: THREE RATE DEMAND the Demand charge
+  note: 'Definitions, read by column: ''THREE RATE DEMAND the Demand charge ($/kVA/month) is applied to the calendar monthly
+    kVA demand measured by the meter for the peak, shoulder and off-peak periods. The monthly kVA demand is the maximum half
+    hour demand for the month occurring within the peak, shoulder and off-peak periods and is calculated using the kWh and
+    kVArh energy components recorded by the NER compliant meter. The method of demand measurement is 30 minute clocked. LV
+    ToU Average Daily Demand and HV ToU Average Daily Demand tariffs are exceptions to this description. Demand charges for
+    these tariffs are'' These tariffs price peak, shoulder and off-peak demand in $/kVA/M.'
+- codes: [BLND1CO, BLND1NO, BHND1CO, BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2021-22/NetworkPriceListandExplanatoryNotes202122.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: SINGLE RATE DEMAND is the Demand Charge is
+  note: 'Definitions, read by column: ''SINGLE RATE DEMAND is the Demand Charge is based on the highest measured half-hour
+    kVA demand during the month. A separate demand will apply at each'' These obsolete ''1 Rate'' demand tariffs price one
+    demand charge ($/kVA/M) for any time of the month.'
+- codes: [BLND1SR, BLND1SU, BHND1SO, BHTD1SO]
+  doc: sources/archive/essential/2021-22/NetworkPriceListandExplanatoryNotes202122.pdf
+  fin_year: 2021-22
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p8
+  quote: CAPACITY CHARGES are monthly charges based on
+  note: 'Definitions, read by column: ''CAPACITY CHARGES are monthly charges based on the required capacity of the connection
+    (measured in $/KVA) whereby the charges are applied to the maximum half hourly KVA power reading that occurred at a customer’s
+    connection point over the 12 months prior to a bill being calculated. Demand is rounded up to 20, 40, 60, 80, 100, 150,
+    200, 300, 400, 500kVA and so on in 100kVA increments. These charges only exist for Obsolete tariffs.'' [UNSURE] The rounding
+    up of the demand to 20, 40, 60 ... kVA steps is not stored (no charge_rule field holds it).'
+- codes: [BLND3TO]
+  doc: sources/archive/essential/2021-22/NetworkPriceListandExplanatoryNotes202122.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: Where one Demand Charge is provided across both the
+  note: 'Definitions, read by column: ''Where one Demand Charge is provided across both the Peak and Shoulder periods it is
+    based on the highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.''
+    Its windows are schedule essential-2021-22-pl-peak-shoulder-demand.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2021-22/NetworkPriceListandExplanatoryNotes202122.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of week days, and Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The peak demand is divided
+    by the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2021-22/NetworkPriceListandExplanatoryNotes202122.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of week days, and Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The shoulder demand
+    is divided by the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2021-22/NetworkPriceListandExplanatoryNotes202122.pdf
+  fin_year: 2021-22
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The off_peak demand
+    is divided by the total number of days. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLND3AO, BHND3AO, BSSD3AO, BLNDTRS]
+  doc: sources/archive/essential/2022-23/NetworkPriceListandExplanatoryNotes202223.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: THREE RATE DEMAND the Demand charge
+  note: 'Definitions, read by column: ''THREE RATE DEMAND the Demand charge ($/kVA/month) is applied to the calendar monthly
+    kVA demand measured by the meter for the peak, shoulder and off-peak periods. The monthly kVA demand is the maximum half
+    hour demand for the month occurring within the peak, shoulder and off-peak periods and is calculated using the kWh and
+    kVArh energy components recorded by the NER compliant meter. The method of demand measurement is 30 minute clocked. LV
+    ToU Average Daily Demand and HV ToU Average Daily Demand tariffs are exceptions to this description. Demand charges for
+    these tariffs are'' These tariffs price peak, shoulder and off-peak demand in $/kVA/M.'
+- codes: [BLND1CO, BHND1CO, BLND1SR, BLND1SU, BHND1SO]
+  doc: sources/archive/essential/2022-23/NetworkPriceListandExplanatoryNotes202223.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: SINGLE RATE DEMAND is the Demand Charge is
+  note: 'Definitions, read by column: ''SINGLE RATE DEMAND is the Demand Charge is based on the highest measured half-hour
+    kVA demand during the month. A separate demand will apply at each'' These obsolete ''1 Rate'' demand tariffs price one
+    demand charge ($/kVA/M) for any time of the month.'
+- codes: [BLND1SR, BLND1SU, BHND1SO]
+  doc: sources/archive/essential/2022-23/NetworkPriceListandExplanatoryNotes202223.pdf
+  fin_year: 2022-23
+  charge_type: capacity
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p8
+  quote: CAPACITY CHARGES are monthly charges based on
+  note: 'Definitions, read by column: ''CAPACITY CHARGES are monthly charges based on the required capacity of the connection
+    (measured in $/KVA) whereby the charges are applied to the maximum half hourly KVA power reading that occurred at a customer’s
+    connection point over the 12 months prior to a bill being calculated. Demand is rounded up to 20, 40, 60, 80, 100, 150,
+    200, 300, 400, 500kVA and so on in 100kVA increments. These charges only exist for Obsolete tariffs.'' [UNSURE] The rounding
+    up of the demand to 20, 40, 60 ... kVA steps is not stored (no charge_rule field holds it).'
+- codes: [BLND3TO]
+  doc: sources/archive/essential/2022-23/NetworkPriceListandExplanatoryNotes202223.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  measure: kVA
+  interval_min: 30
+  method: max
+  reset: month
+  locator: pdf:p9
+  quote: Where one Demand Charge is provided across both the
+  note: 'Definitions, read by column: ''Where one Demand Charge is provided across both the Peak and Shoulder periods it is
+    based on the highest measured half-hour kVA demand registered in either the peak or shoulder periods during the month.''
+    Its windows are schedule essential-2022-23-pl-peak-shoulder-demand.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2022-23/NetworkPriceListandExplanatoryNotes202223.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of week days, and Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The peak demand is divided
+    by the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2022-23/NetworkPriceListandExplanatoryNotes202223.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: shoulder
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: 1. The daily kVA maximum demand in each of the Peak, Shoulder and Off Peak periods will be metered for each day of
+    the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and Off-Peak periods will be summed for the month
+    and divided by the number of days in the month when the load occurs. This means that Peak and Shoulder Demand will be
+    divided by the number of week days, and Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The shoulder demand
+    is divided by the number of weekdays. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
+- codes: [BLNS1AO, BHNS1AO]
+  doc: sources/archive/essential/2022-23/NetworkPriceListandExplanatoryNotes202223.pdf
+  fin_year: 2022-23
+  charge_type: demand
+  tou_period: off_peak
+  measure: kVA
+  method: avg_daily_max
+  reset: month
+  locator: pdf:p4
+  quote: Off Peak Demand by the total number of days.
+  note: 'Tariff explanations of BLNS1AO and BHNS1AO: ''1. The daily kVA maximum demand in each of the Peak, Shoulder and Off
+    Peak periods will be metered for each day of the month. 2. The metered kVA Demand for each day of the Peak, Shoulder and
+    Off-Peak periods will be summed for the month and divided by the number of days in the month when the load occurs. This
+    means that Peak and Shoulder Demand will be divided by the number of week days, and Off Peak Demand by the total number
+    of days. 3. The average TOU Demand calculated above will be multiplied by the TOU Demand rates.'' The off_peak demand
+    is divided by the total number of days. The metering interval is not stated for these tariffs: the THREE RATE DEMAND definition''s
+    ''30 minute clocked'' names them as exceptions.'
 - codes:
   - BLND3AO
   - BHND3AO
@@ -8414,7 +10712,7 @@ charge_rules:
   - BLND1AR
   - BLND1AB
   doc: sources/dnsp/essential/Essential_Revised_Tariff_Structure_Statement_2019-24_Jan2019_wayback.pdf
-  fin_year: 2023-24
+  fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   charge_type: demand
   measure: kVA
   method: max
@@ -8423,7 +10721,8 @@ charge_rules:
   quote: maximum demand during the peak period in the month
   note: 'TSS 2019-24 (applies 2019-20 to 2023-24), Residential and Small Business table, row ''ToU with Demand component'',
     DEMAND column: ''One charge for maximum demand during the peak period in the month''. The metering interval is not stated;
-    kVA is the price list''s unit ($/kVA/M, K12 and K28).'
+    kVA is the price list''s unit ($/kVA/M, K12 and K28; 2019-20 to 2022-23: the price list and explanatory notes price
+    BLND1AR and BLND1AB in its Demand Peak column only, $/kVA/M).'
 - codes:
   - BLND1CO
   - BLND1NO

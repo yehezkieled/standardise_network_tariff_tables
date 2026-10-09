@@ -69,6 +69,9 @@ charge_rules:
     (how the demand, capacity or export quantity is measured; omit tou_period / season for a rule that holds for every
     rate of the charge type. `codes: all` = a rule the document states for every tariff (a glossary definition): it
     covers each code of that year with a rate of the charge type that no rule naming the code covers)
+
+Any fact's fin_year may be a list ([2019-20, 2020-21]) when its document states it for each of those pricing years,
+e.g. a tariff structure statement for its regulatory period; Victoria's calendar years are 2017 .. 2020 and 2021-H1.
 """
 import glob
 import os
@@ -132,6 +135,13 @@ def boundary_operators(quote, value, unit):
         if matches(m[1], m[2]):
             operators.add("ge" if m[3] == "more" else "le")
     return operators
+
+
+def per_year(data):
+    """The file with each fact whose fin_year is a list split into one fact per year (what the build loads)."""
+    return {k: [dict(f, fin_year=str(y)) for f in v for y in (f["fin_year"] if isinstance(f.get("fin_year"), list)
+                                                         else [f.get("fin_year")])]
+            if isinstance(v, list) else v for k, v in data.items()}
 
 
 def minutes(t):
@@ -238,7 +248,8 @@ def validate(data, check_quotes=True):
         if obj.get("doc") not in inv:
             errors.append(f"{where}: doc {obj.get('doc')!r} is not a retrieved price document in sources/inventory.csv "
                           f"or sources/archive/inventory.csv")
-        if obj.get("fin_year") not in spec.FIN_YEARS:
+        years = obj.get("fin_year") if isinstance(obj.get("fin_year"), list) else [obj.get("fin_year")]
+        if not years or len(set(years)) != len(years) or any(str(y) not in spec.PRICING_YEARS for y in years):
             errors.append(f"{where}: fin_year {obj.get('fin_year')!r}")
 
     for i, s in enumerate(data.get("tou_schedules") or []):

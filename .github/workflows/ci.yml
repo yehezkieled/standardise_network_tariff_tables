@@ -46,7 +46,7 @@ jobs:
 
   billcalc:
     # The bill calculator on the committed tables: the distributors' published example bills, the billing rules, and
-    # the gaps sweep (its blocked / assumed counts may only fall).
+    # the gaps sweep (no tariff-period's status may worsen, its blocked count may only fall).
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

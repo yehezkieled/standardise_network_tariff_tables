@@ -11,14 +11,16 @@ find:
 | Pricing years | Tariff-periods | Exact | Assumed | Blocked |
 |---|---|---|---|---|
 | 2023-24 to 2026-27 | 2,391 | 1,207 | 701 | 483 (mostly locational, storage and trial tariffs whose windows no held document states) |
-| 2016-17 / Victoria 2017 to 2022-23 | 3,990 | 2,158 | 1,209 | 623 (306 TOU rates without a stated window, 222 block bounds, 138 seasons without months) |
+| 2016-17 / Victoria 2017 to 2022-23 | 3,990 | 2,149 | 1,218 | 623 (306 TOU rates without a stated window, 222 block bounds, 138 seasons without months) |
 
 The older years' TOU windows, demand rules and block bounds come from each year's own price list, pricing proposal or
 tariff guide, or the tariff structure statement for its period; Ergon's 2016-17 to 2019-20 stay unstored (above). Most
 of their `assumed` bills rest on a fact the documents leave unstated: the clock basis of the windows (1,032
 tariff-periods over all years), a c/kW/year demand price spread over the days (548), a demand window stated in
 daylight time all year (190), whether a quarterly block resets by calendar or billing quarter (179), or a window that
-leaves part of the day unpriced (21).
+leaves part of the day unpriced (21). CitiPower's and Powercor's 2021-H1 kW demand tariffs (CR, CRB, CG, CGB, CMG, CMGB;
+DD, NDD, NDM) bill as `assumed`: no held 2021-H1 document states how their demand is measured, and the 2017-2020
+tariff structure statement does not cover 2021-H1 (`tests/billcalc_sweep_exceptions.csv`).
 
 ## Download
 

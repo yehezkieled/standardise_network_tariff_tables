@@ -196,7 +196,9 @@ and kWh columns `E1` (import), `E2` (controlled load), `B1` (export), `Q1` (kvar
 tariff-period's sweep status worsens from the one recorded in `tests/billcalc_sweep_status.csv` (exact < assumed <
 blocked) or the `blocked` count rises above `tests/billcalc_sweep.json`. A blocked tariff-period that curation makes
 computable on a fact its documents leave unstated (e.g. the clock basis) becomes `assumed`, so `assumed` may rise.
-When statuses improve, record them: `.venv/bin/python scripts/billcalc.py sweep --write`.
+When statuses improve, record them: `.venv/bin/python scripts/billcalc.py sweep --write`. A status that rested on an
+unsourced fact may worsen only when `tests/billcalc_sweep_exceptions.csv` names the tariff-period, its from and to
+status and the reason.
 
 ### Schema change
 

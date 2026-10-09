@@ -10770,7 +10770,6 @@ charge_rules:
   - '2018'
   - '2019'
   - '2020'
-  - 2021-H1
   charge_type: demand
   measure: kW
   interval_min: 30
@@ -10779,7 +10778,7 @@ charge_rules:
   locator: pdf:p8
   quote: 'Maximum demand charge based on monthly maximum kilowatt demand, measured:  over a 30-minute period;  between 3:00PM
     to 9:00PM (local time);'
-  note: Tariff structure statement 2017-2020, which the AER extended to 2021-H1; Table 1.1 'Residential cost-reflective'.
+  note: Tariff structure statement 2017-2020; Table 1.1 'Residential cost-reflective'.
     Holds for the Dec-Mar and Apr-Nov demand rates.
 - codes:
   - CG
@@ -10790,7 +10789,6 @@ charge_rules:
   - '2018'
   - '2019'
   - '2020'
-  - 2021-H1
   charge_type: demand
   measure: kW
   interval_min: 30
@@ -10799,7 +10797,7 @@ charge_rules:
   locator: pdf:p9
   quote: 'Maximum demand charge based on monthly maximum kilowatt demand, measured:  over a 30-minute period;  between 10:00AM
     to 6:00PM (local time);'
-  note: Tariff structure statement 2017-2020, which the AER extended to 2021-H1; Table 1.2 'Small business cost-reflective'.
+  note: Tariff structure statement 2017-2020; Table 1.2 'Small business cost-reflective'.
     Holds for the Dec-Mar and Apr-Nov demand rates.
 - codes:
   - CMG
@@ -10809,7 +10807,6 @@ charge_rules:
   - '2018'
   - '2019'
   - '2020'
-  - 2021-H1
   charge_type: demand
   measure: kW
   interval_min: 30
@@ -10818,7 +10815,7 @@ charge_rules:
   locator: pdf:p9
   quote: 'Maximum demand charge based on monthly maximum kilowatt demand, measured:  over a 30-minute period;  between 10:00AM
     to 6:00PM (local time);'
-  note: Tariff structure statement 2017-2020, which the AER extended to 2021-H1; Table 1.3 'Medium business cost-reflective'.
+  note: Tariff structure statement 2017-2020; Table 1.3 'Medium business cost-reflective'.
     Holds for the Dec-Mar and Apr-Nov demand rates.
 - codes:
   - CLLV
@@ -10831,7 +10828,6 @@ charge_rules:
   - '2018'
   - '2019'
   - '2020'
-  - 2021-H1
   charge_type: demand
   measure: kVA
   interval_min: 15
@@ -10840,6 +10836,21 @@ charge_rules:
   locator: pdf:p10
   quote: Maximum demand charge based on 12-month rolling maximum kVA demand over a 15-minute period, calculated on a monthly
     basis
-  note: 'Tariff structure statement 2017-2020 (extended by the AER to 2021-H1), Table 1.4 ''Large low voltage'' (high voltage
+  note: 'Tariff structure statement 2017-2020, Table 1.4 ''Large low voltage'' (high voltage
     and sub-transmission ''As for large low voltage tariff''). The pricing proposals: ''Billed demand is the maximum kVA over
     a 12 month rolling period''.'
+- codes:
+  - CLLV
+  - CLLVB
+  - CHV
+  - CST
+  doc: sources/archive/citipower/2021-H1/HY_2021_CitiPower_PricingProposal_05112020.pdf
+  fin_year: 2021-H1
+  charge_type: demand
+  measure: kVA
+  method: max
+  reset: rolling_12_months
+  locator: pdf:p35
+  quote: Demand charge ($ per kVA pa x 12 month rolling maximum kVA) / 12
+  note: Appendix A.6.1 'Calculation of the kVA demand tariff for a monthly bill', which applies to large low voltage,
+    high voltage and sub-transmission customers. The interval is not stated here.

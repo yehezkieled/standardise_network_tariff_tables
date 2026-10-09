@@ -29,7 +29,7 @@
 | [`rate`](#rate) | one price of one tariff for one period: charge type x TOU period x season x block | rate_id | 25,249 |
 | [`tou_window`](#tou_window) | one time window that one tariff's charges use, for one period | window_id | 19,595 |
 | [`eligibility`](#eligibility) | one stated criterion of one tariff for one period | criterion_id | 7,432 |
-| [`charge_rule`](#charge_rule) | one stated measurement rule of one tariff's demand, capacity or export charges, for one period | rule_id | 3,270 |
+| [`charge_rule`](#charge_rule) | one stated measurement rule of one tariff's demand, capacity or export charges, for one period | rule_id | 3,261 |
 
 ## History
 
@@ -354,7 +354,7 @@ How the quantity a demand, capacity or export rate is applied to is measured: in
 |---|---|
 | One row is | one stated measurement rule of one tariff's demand, capacity or export charges, for one period |
 | Primary key | `rule_id` |
-| Rows | 3,270 |
+| Rows | 3,261 |
 | Source | data/tariffdb/curated/*.yaml (charge_rules), quoted from the distributor's documents |
 | File | `data/tariffdb/tables/charge_rule.csv` |
 | References | (distributor_id) → [`distributor`](#distributor); (document_id) → [`source_document`](#source_document); (distributor_id, tariff_code, effective_from) → [`tariff`](#tariff) |

@@ -220,7 +220,7 @@ status and the reason.
 | Same, committed files only (CI) | `.venv/bin/python scripts/tariffdb/validate.py --sources --committed-only` |
 | Gaps to fill | `.venv/bin/python scripts/tariffdb/validate.py --coverage` |
 | Build SQLite | `.venv/bin/python scripts/tariffdb/load.py --out out/tariffdb.sqlite` |
-| Release (SQLite + CSV zip + notes) | `.venv/bin/python scripts/release.py` (writes `out/release/<tag>/`; `--publish` fetches origin and creates the GitHub release; `--ref` another commit; `--tag tariffdb-<date>.2` for a second release from a later commit on the same day) |
+| Release (SQLite + CSV zip + xlsx of the views + notes) | `.venv/bin/python scripts/release.py` (writes `out/release/<tag>/`; `--publish` fetches origin and creates the GitHub release; `--ref` another commit; `--tag tariffdb-<date>.2` for a second release from a later commit on the same day) |
 | Schema docs | `.venv/bin/python scripts/tariffdb/schema_doc.py` (`--check` to verify) |
 | Tests | `.venv/bin/python -m unittest tests/test_tariffdb.py tests/test_release.py tests/test_billcalc.py` |
 | New or changed source documents | `.venv/bin/python scripts/check_releases.py` (`--no-files`, `--archive`, `--accept`) |
@@ -241,6 +241,7 @@ status and the reason.
 | `joins` | in a tariff-period with windows, each rate priced in a period or season finds its windows, each window but a demand window of a period its charge group prices is priced by a rate of that group in its season, and no demand or export rate without a period sits beside windows naming several | a window missing from the curated YAML, a rate whose period the price list names differently, or a window in a season no rate of its period covers: add the window or a `rate_periods` fact, or find the missing rate |
 | `rules` | each `charge_rule` measures a rate of its tariff-period, in the quantity the rate is priced in | a curated rule names the wrong charge type, period, season or measure |
 | `aliases` | no provisional tariff is a final tariff of the same distributor and period under another spelling or an alias | the AER spells a code differently: add a rule to `data/tariffdb/code_alias.csv` |
+| `views` | each view (`tariff_flat`, `tou_flat`, `unit_spelling`) has its spec.py columns; the two tariff views return every tariff-period and `tariff_flat` every rate | a view's SQL in `spec.VIEWS` drifted from its columns or lost rows: fix the SQL |
 | `files` | each held document matches its recorded SHA-256 (`--sources`) | the publisher replaced the file: record it as a new version |
 | `values` | each rate's published value is at its cell or PDF page (`--sources`) | the parser or locator is wrong for that row |
 | `quotes` | each eligibility, tariff_assignment, tariff_link and rate_condition quote, and each window set's time-basis and public-holiday statement, is at its locator; each curated YAML validates (`--sources`) | a curated fact does not match its source |

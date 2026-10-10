@@ -132,6 +132,8 @@ CRITERIA = {
     "agreement": "an agreement the customer or retailer must have (agreement_value)",
     "other": "a stated condition no other criterion covers (value_text as stated)",
 }
+OBJECT_TYPES = {"table": "a stored table (data/tariffdb/tables/<name>.csv)",
+                "view": "a query over the tables, flattened for reading (in the SQLite database and the .xlsx)"}
 # tariff_link: how a tariff relates to another code (linked_code) or to the tariffs of a customer class
 LINK_TYPES = {"alias": "the AER prints this tariff as linked_code (a spelling or code_alias.csv rule)",
               "zone_variant_of": "this tariff is one pricing zone of linked_code as the AER prints it",
@@ -275,6 +277,7 @@ VALUE_LISTS = {
     "block_unit": BLOCK_UNITS, "rule_charge": RULE_CHARGES, "rule_measure": RULE_MEASURES,
     "rule_method": RULE_METHODS, "rule_reset": RULE_RESETS, "unit_quantity": UNIT_QUANTITIES,
     "billing_period": BILLING_PERIODS, "calendar_factor": CALENDAR_FACTORS, "link_type": LINK_TYPES,
+    "object_type": OBJECT_TYPES,
     "season_anchor": SEASON_ANCHORS,
     **{f"{k}_value": v for k, v in CRITERION_VALUES.items()},
 }
@@ -324,17 +327,18 @@ TABLES = [
     },
     {
         "name": "data_dictionary",
-        "grain": "one column of one table",
-        "source": "generated from scripts/tariffdb/spec.py (TABLES)",
-        "description": "Every column of every table: its type, whether it is required, the fixed list or unit it "
-                       "takes, and its meaning.",
+        "grain": "one column of one table or view",
+        "source": "generated from scripts/tariffdb/spec.py (TABLES, VIEWS)",
+        "description": "Every column of every table and view: its type, whether it is required, the fixed list or "
+                       "unit it takes, and its meaning.",
         "columns": [
-            col("table_name", "text", "table", pk=True),
+            col("object_name", "text", "table or view", pk=True),
             col("column_name", "text", "column", pk=True),
-            col("ordinal", "integer", "position of the column in the table (1 = first)"),
+            col("object_type", "text", "table or view", enum="object_type"),
+            col("ordinal", "integer", "position of the column in the table or view (1 = first)"),
             col("data_type", "text", "text, integer, numeric, date (YYYY-MM-DD), time (HH:MM) or boolean (0/1)"),
             col("required", "boolean", "1 when the column may not be NULL"),
-            col("is_primary_key", "boolean", "1 when the column is part of the table's primary key"),
+            col("is_primary_key", "boolean", "1 when the column is part of the table's primary key (0 in a view)"),
             col("references_table", "text", "table the column refers to (foreign key)", null=True),
             col("value_list", "text", "the value_list.list_name the column's values come from", null=True),
             col("unit", "text", "unit of a numeric column", null=True),
@@ -746,6 +750,222 @@ TABLES.append({
                "minimum_unit IS NOT 'kva_else_kw' AND threshold_unit IS NOT 'kva_else_kw'"],
 })
 
+# ------------------------------------------------------------------------------------------------------------ views
+# Store strict, show simple: each view flattens the tables for reading (a spreadsheet, a quick query). They hold no
+# facts of their own and are rebuilt by SQLite on every query; the release also writes each one to a sheet of
+# tariffdb.xlsx. Every tariff appears in tariff_flat and tou_flat, with NULL columns where it has no rate or window.
+def vcol(name, type_, desc, *, enum=None, unit=None, fk=None):
+    return col(name, type_, desc, null=True, enum=enum, unit=unit, fk=fk)
+
+
+TARIFF_COLUMNS = [
+    vcol("distributor_id", "text", "distributor"), vcol("distributor_name", "text", "distributor's name"),
+    vcol("state", "text", "jurisdiction", enum="state"),
+    vcol("tariff_code", "text", "network tariff code"),
+    vcol("effective_from", "date", "first day the tariff-period applies"),
+    vcol("effective_to", "date", "last day it applies"),
+    vcol("pricing_year", "text", "pricing year of the tariff's source document"),
+    vcol("tariff_name", "text", "tariff name as published"),
+    vcol("customer_class", "text", "customer class", enum="customer_class"),
+    vcol("customer_class_published", "text", "customer class as published"),
+    vcol("pricing_basis", "text", "how the prices apply", enum="pricing_basis"),
+    vcol("status", "text", "provisional (AER) or final (the distributor's own list)", enum="status"),
+    vcol("is_default", "boolean", "1 when a quoted statement makes the tariff a default (assigned unless the customer "
+         "chooses otherwise), 0 when its statements make it something else only, NULL when none is held"),
+    vcol("assignments", "text", "every assignment stated for the tariff (who it applies to in brackets), '; '-joined"),
+]
+WINDOW_JOIN = """
+tw AS MATERIALIZED (  -- each tariff's windows (controlled-load supply hours price nothing)
+  SELECT s.distributor_id, s.tariff_code, s.effective_from, s.applies_to, w.window_set_id, w.tou_period,
+         w.period_label, w.day_type, w.start_time, w.end_time, se.season, se.season_label, w.season_id,
+         ws.time_basis, ws.public_holidays
+  FROM tariff_window_set s JOIN time_window w USING (window_set_id) JOIN window_set ws USING (window_set_id)
+  JOIN season se ON se.season_id = w.season_id
+  WHERE w.tou_period != 'controlled_load_supply'),
+season_dates AS MATERIALIZED (  -- a season's dates as 'MM-DD to MM-DD' (or a daylight-saving anchor), parts ', '-joined
+  SELECT season_id, group_concat(coalesce(start_anchor, printf('%02d-%02d', start_month, start_day)) || ' to '
+         || coalesce(end_anchor, printf('%02d-%02d', end_month, end_day)), ', ') AS dates
+  FROM (SELECT * FROM season_part ORDER BY season_id, part_no) GROUP BY season_id)"""
+ASSIGNMENTS_CTE = """
+asg AS MATERIALIZED (  -- each tariff-period's assignment statements
+  SELECT distributor_id, tariff_code, effective_from, max(assignment = 'default') AS is_default,
+         group_concat(x, '; ') AS assignments
+  FROM (SELECT DISTINCT distributor_id, tariff_code, effective_from, assignment,
+               assignment || coalesce(' (' || applies_to || ')', '') AS x
+        FROM tariff_assignment ORDER BY distributor_id, tariff_code, effective_from, x)
+  GROUP BY distributor_id, tariff_code, effective_from)"""
+TARIFF_SELECT = """t.distributor_id, d.name, d.state, t.tariff_code, t.effective_from, t.effective_to, sd.pricing_year,
+  t.tariff_name, t.customer_class, t.customer_class_published, t.pricing_basis, t.status, asg.is_default,
+  asg.assignments"""
+TARIFF_FROM = """tariff t JOIN distributor d USING (distributor_id)
+JOIN source_document sd ON sd.document_id = t.document_id
+LEFT JOIN asg ON asg.distributor_id = t.distributor_id AND asg.tariff_code = t.tariff_code
+  AND asg.effective_from = t.effective_from"""
+
+VIEWS = [
+    {
+        "name": "tariff_flat",
+        "grain": "one rate of one tariff-period and one window it applies in (one row for a rate that applies at all "
+                 "times, and one with empty rate columns for a tariff with no rate)",
+        "description": "Every tariff with its rates, each rate's price per day where its unit allows (value_std), "
+                       "the windows it applies in (as joins.py matches them: the rate's charge group, period and "
+                       "season), its conditions and its measurement rule (the most specific charge_rule).",
+        "columns": TARIFF_COLUMNS + [
+            vcol("rate_id", "text", "rate"), vcol("component", "text", "price-list label of the charge"),
+            vcol("charge_type", "text", "kind of charge", enum="charge_type"),
+            vcol("tou_period", "text", "time-of-use period; NULL or anytime = at all times", enum="rate_period"),
+            vcol("season", "text", "season the rate applies in", enum="season"),
+            vcol("register", "text", "meter register", enum="register"),
+            vcol("block", "integer", "consumption block number"),
+            vcol("block_from", "numeric", "block lower bound", unit="see block_unit"),
+            vcol("block_to", "numeric", "block upper bound", unit="see block_unit"),
+            vcol("block_unit", "text", "unit of the block bounds", enum="block_unit"),
+            vcol("value", "numeric", "price as stored", unit="see unit"),
+            vcol("unit", "text", "unit of value", fk="unit.unit"),
+            vcol("value_std", "numeric", "value in unit_std (value x unit.multiplier); NULL for a per-month or "
+                 "per-year unit (see calendar_factor) or a billing period no document states", unit="see unit_std"),
+            vcol("unit_std", "text", "standard unit (per day, per kWh)"),
+            vcol("calendar_factor", "text", "how a per-month or per-year price becomes per day", enum="calendar_factor"),
+            vcol("value_published", "text", "price as printed"), vcol("unit_published", "text", "unit as printed"),
+            vcol("conditions", "text", "who pays the rate: condition_kind:value, '; '-joined (values of one kind = "
+                 "either)"),
+            vcol("window_period_label", "text", "the window's period as printed"),
+            vcol("window_day_type", "text", "days the window applies on", enum="day_type"),
+            vcol("window_start", "time", "window start (HH:MM)"), vcol("window_end", "time", "window end (HH:MM, end-exclusive)"),
+            vcol("window_season_label", "text", "the window's season as printed"),
+            vcol("window_season_dates", "text", "the season's dates: MM-DD to MM-DD, or dst_start / dst_end; NULL = all "
+                 "year, or a season the document does not date"),
+            vcol("time_basis", "text", "clock of the window's times; NULL = not stated", enum="time_basis"),
+            vcol("public_holidays", "text", "how the window treats public holidays; NULL = not stated",
+                 enum="holiday_rule"),
+            vcol("rule_measure", "text", "what the measurement rule measures", enum="rule_measure"),
+            vcol("rule_interval_min", "integer", "interval length the demand is averaged over", unit="minutes"),
+            vcol("rule_method", "text", "how the charged quantity is taken", enum="rule_method"),
+            vcol("rule_n", "integer", "the n of an n-highest method"),
+            vcol("rule_reset", "text", "span the measured value restarts after", enum="rule_reset"),
+            vcol("rule_lookback_months", "integer", "months a rolling reset looks back over", unit="months"),
+            vcol("rule_minimum_value", "numeric", "smallest quantity charged", unit="see rule_minimum_unit"),
+            vcol("rule_minimum_unit", "text", "unit of rule_minimum_value", enum="rule_measure"),
+            vcol("rule_threshold_value", "numeric", "only the quantity above it is charged",
+                 unit="see rule_threshold_unit"),
+            vcol("rule_threshold_unit", "text", "unit of rule_threshold_value", enum="rule_measure"),
+        ],
+        "sql": f"""
+WITH {WINDOW_JOIN.strip()},{ASSIGNMENTS_CTE}
+,flags AS MATERIALIZED (  -- tariff-periods with windows stated for controlled load or export (joins.group_windows)
+  SELECT distributor_id, tariff_code, effective_from, max(applies_to = 'controlled_load') AS has_cl,
+         max(applies_to = 'export') AS has_export
+  FROM tw GROUP BY distributor_id, tariff_code, effective_from),
+rg AS MATERIALIZED (  -- each priced period's rate with the window sets (applies_to) of its charge group
+  SELECT r.rate_id, r.distributor_id, r.tariff_code, r.effective_from, r.tou_period, r.season,
+    CASE WHEN r.charge_type = 'usage' AND r.register = 'controlled_load'
+           THEN CASE WHEN f.has_cl THEN 'controlled_load' ELSE 'usage' END
+         WHEN r.charge_type = 'export' THEN CASE WHEN f.has_export THEN 'export' ELSE 'usage' END
+         WHEN r.charge_type = 'usage' THEN 'usage' WHEN r.charge_type IN ('demand', 'capacity') THEN 'demand'
+    END AS applies
+  FROM rate r JOIN flags f USING (distributor_id, tariff_code, effective_from)
+  WHERE r.tou_period != 'anytime'),
+matched AS (  -- the windows of that group with the rate's period, in its season (joins.rate_windows)
+  SELECT rg.rate_id, tw.*, (tw.season IS rg.season) AS exact
+  FROM rg JOIN tw ON tw.distributor_id = rg.distributor_id AND tw.tariff_code = rg.tariff_code
+    AND tw.effective_from = rg.effective_from AND tw.tou_period = rg.tou_period
+    AND (rg.season IS NULL OR tw.season IS NULL OR rg.season = tw.season)
+    AND (tw.applies_to = rg.applies OR (tw.applies_to = 'all' AND rg.applies IN ('usage', 'demand')))),
+win AS MATERIALIZED (  -- the windows stated for the rate's own season when there are any; identical windows once
+  SELECT DISTINCT m.rate_id, m.period_label, m.day_type, m.start_time, m.end_time, m.season_label, sdt.dates,
+         m.time_basis, m.public_holidays
+  FROM (SELECT matched.*, max(exact) OVER (PARTITION BY rate_id) AS any_exact FROM matched) m
+  LEFT JOIN season_dates sdt ON sdt.season_id = m.season_id
+  WHERE m.exact OR NOT m.any_exact),
+rule AS MATERIALIZED (  -- the most specific rule measuring the rate's quantity (billcalc.find_rule)
+  SELECT * FROM (
+    SELECT r.rate_id, c.*, row_number() OVER (PARTITION BY r.rate_id
+             ORDER BY (c.tou_period IS NOT NULL) * 2 + (c.season IS NOT NULL) DESC) AS rank
+    FROM rate r JOIN unit u ON u.unit = r.unit
+    JOIN charge_rule c ON c.distributor_id = r.distributor_id AND c.tariff_code = r.tariff_code
+      AND c.effective_from = r.effective_from AND c.charge_type = r.charge_type
+      AND (c.measure = u.quantity OR (c.measure = 'kva_else_kw' AND u.quantity = 'kVA'))
+      AND (c.tou_period IS NULL OR c.tou_period = r.tou_period) AND (c.season IS NULL OR c.season = r.season))
+  WHERE rank = 1),
+cond AS MATERIALIZED (
+  SELECT rate_id, group_concat(condition_kind || ':' || value, '; ') AS conditions
+  FROM (SELECT * FROM rate_condition ORDER BY rate_id, condition_kind, value) GROUP BY rate_id)
+SELECT {TARIFF_SELECT},
+  r.rate_id, r.component, r.charge_type, r.tou_period, r.season, r.register, r.block, r.block_from, r.block_to,
+  r.block_unit, r.value, r.unit, CASE WHEN u.multiplier IS NOT NULL THEN r.value * u.multiplier END, u.unit_std,
+  u.calendar_factor, r.value_published, r.unit_published, cond.conditions,
+  win.period_label, win.day_type, win.start_time, win.end_time, win.season_label, win.dates, win.time_basis,
+  win.public_holidays,
+  rule.measure, rule.interval_min, rule.method, rule.n, rule.reset, rule.lookback_months, rule.minimum_value,
+  rule.minimum_unit, rule.threshold_value, rule.threshold_unit
+FROM {TARIFF_FROM}
+LEFT JOIN rate r ON r.distributor_id = t.distributor_id AND r.tariff_code = t.tariff_code
+  AND r.effective_from = t.effective_from
+LEFT JOIN unit u ON u.unit = r.unit
+LEFT JOIN cond ON cond.rate_id = r.rate_id
+LEFT JOIN win ON win.rate_id = r.rate_id
+LEFT JOIN rule ON rule.rate_id = r.rate_id
+ORDER BY t.distributor_id, t.tariff_code, t.effective_from, r.rate_id, win.season_label, win.day_type, win.start_time
+""",
+    },
+    {
+        "name": "tou_flat",
+        "grain": "one time window of one window set a tariff-period uses, in one part of its season (one row with "
+                 "empty window columns for a tariff with no window set)",
+        "description": "Every tariff with the TOU windows of its window sets: which charges each set prices, its "
+                       "clock and holiday rules, and each window's period, days, times and season dates.",
+        "columns": TARIFF_COLUMNS + [
+            vcol("applies_to", "text", "charges of the tariff the window set prices", enum="tou_applies"),
+            vcol("window_set_id", "text", "window set"), vcol("window_set_name", "text", "the schedule's name"),
+            vcol("covers_full_day", "boolean", "1 when the set's windows cover every hour of every day"),
+            vcol("time_basis", "text", "clock the times refer to; NULL = not stated", enum="time_basis"),
+            vcol("public_holidays", "text", "how public holidays are priced; NULL = not stated", enum="holiday_rule"),
+            vcol("tou_period", "text", "the window's period", enum="tou_period"),
+            vcol("period_label", "text", "period as printed"),
+            vcol("day_type", "text", "days the window applies on", enum="day_type"),
+            vcol("start_time", "time", "window start (HH:MM)"), vcol("end_time", "time", "window end (HH:MM, end-exclusive)"),
+            vcol("season", "text", "season of the window; NULL = all year", enum="season"),
+            vcol("season_label", "text", "season as printed"),
+            vcol("season_part", "integer", "part of the season (a season over the new year can have two)"),
+            vcol("season_start_month", "integer", "first month of the part"), vcol("season_start_day", "integer", "first day"),
+            vcol("season_start_anchor", "text", "or a daylight-saving start", enum="season_anchor"),
+            vcol("season_end_month", "integer", "last month of the part"), vcol("season_end_day", "integer", "last day"),
+            vcol("season_end_anchor", "text", "or a daylight-saving end", enum="season_anchor"),
+        ],
+        "sql": f"""
+WITH {ASSIGNMENTS_CTE.strip()}
+SELECT {TARIFF_SELECT},
+  s.applies_to, ws.window_set_id, ws.name, ws.covers_full_day, ws.time_basis, ws.public_holidays, w.tou_period,
+  w.period_label, w.day_type, w.start_time, w.end_time, se.season, se.season_label, sp.part_no, sp.start_month,
+  sp.start_day, sp.start_anchor, sp.end_month, sp.end_day, sp.end_anchor
+FROM {TARIFF_FROM}
+LEFT JOIN tariff_window_set s ON s.distributor_id = t.distributor_id AND s.tariff_code = t.tariff_code
+  AND s.effective_from = t.effective_from
+LEFT JOIN window_set ws ON ws.window_set_id = s.window_set_id
+LEFT JOIN time_window w ON w.window_set_id = s.window_set_id
+LEFT JOIN season se ON se.season_id = w.season_id
+LEFT JOIN season_part sp ON sp.season_id = w.season_id
+ORDER BY t.distributor_id, t.tariff_code, t.effective_from, s.applies_to, ws.window_set_id, se.season_label,
+  w.tou_period, w.day_type, w.start_time, sp.part_no
+""",
+    },
+    {
+        "name": "unit_spelling",
+        "grain": "one printed spelling of one stored unit",
+        "description": "How the price lists print each stored unit, with how many rates print it that way.",
+        "columns": [
+            vcol("unit", "text", "stored unit", fk="unit.unit"),
+            vcol("unit_published", "text", "the unit as printed"),
+            vcol("rates", "integer", "rates printing the unit this way"),
+        ],
+        "sql": """
+SELECT unit, unit_published, count(*) FROM rate GROUP BY unit, unit_published ORDER BY unit, unit_published
+""",
+    },
+]
+VIEW_ORDER = [v["name"] for v in VIEWS]
+
+
 TABLE_ORDER = [t["name"] for t in TABLES]
 BY_NAME = {t["name"]: t for t in TABLES}
 SQL_TYPES = {"text": "TEXT", "integer": "INTEGER", "numeric": "NUMERIC", "date": "TEXT", "time": "TEXT",
@@ -758,12 +978,13 @@ def value_list_rows():
 
 
 def data_dictionary_rows():
-    return [{"table_name": t["name"], "column_name": c["name"], "ordinal": i, "data_type": c["type"],
-             "required": int(not c["nullable"]), "is_primary_key": int(c["primary_key"]),
+    return [{"object_name": t["name"], "column_name": c["name"], "object_type": kind, "ordinal": i,
+             "data_type": c["type"], "required": int(not c["nullable"]), "is_primary_key": int(c["primary_key"]),
              "references_table": (c["references"] or "").split(".")[0] or next(
                  (rt for rt, cols in t.get("foreign_keys", []) if c["name"] in cols), None),
              "value_list": c["enum"], "unit": c["unit"], "definition": c["description"]}
-            for t in TABLES for i, c in enumerate(t["columns"], 1)]
+            for kind, objects in (("table", TABLES), ("view", VIEWS)) for t in objects
+            for i, c in enumerate(t["columns"], 1)]
 
 
 def unit_rows():
@@ -802,6 +1023,10 @@ def ddl():
         for ch in t.get("checks", []):
             lines.append(f"  CHECK ({ch})")
         out.append(f"\nCREATE TABLE {t['name']} (\n" + ",\n".join(lines) + "\n);")
+    out.append("\n-- Views: the tables flattened for reading (data_dictionary describes their columns).")
+    for v in VIEWS:
+        out.append(f"\nCREATE VIEW {v['name']} ({', '.join(c['name'] for c in v['columns'])}) AS\n"
+                   f"{v['sql'].strip()};")
     return "\n".join(out) + "\n"
 
 
@@ -810,4 +1035,6 @@ def json_spec():
         {"name": t["name"], "grain": t["grain"], "source": t["source"], "description": t["description"],
          "file": f"tables/{t['name']}.csv", "primary_key": [c["name"] for c in t["columns"] if c["primary_key"]],
          "foreign_keys": [{"columns": cols, "references": rt} for rt, cols in t.get("foreign_keys", [])],
-         "checks": t.get("checks", []), "columns": t["columns"]} for t in TABLES]}
+         "checks": t.get("checks", []), "columns": t["columns"]} for t in TABLES],
+        "views": [{"name": v["name"], "grain": v["grain"], "description": v["description"], "columns": v["columns"]}
+                  for v in VIEWS]}

@@ -48,26 +48,26 @@
     },
     {
       "name": "data_dictionary",
-      "grain": "one column of one table",
-      "source": "generated from scripts/tariffdb/spec.py (TABLES)",
-      "description": "Every column of every table: its type, whether it is required, the fixed list or unit it takes, and its meaning.",
+      "grain": "one column of one table or view",
+      "source": "generated from scripts/tariffdb/spec.py (TABLES, VIEWS)",
+      "description": "Every column of every table and view: its type, whether it is required, the fixed list or unit it takes, and its meaning.",
       "file": "tables/data_dictionary.csv",
       "primary_key": [
-        "table_name",
+        "object_name",
         "column_name"
       ],
       "foreign_keys": [],
       "checks": [],
       "columns": [
         {
-          "name": "table_name",
+          "name": "object_name",
           "type": "text",
           "nullable": false,
           "primary_key": true,
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "table"
+          "description": "table or view"
         },
         {
           "name": "column_name",
@@ -80,6 +80,16 @@
           "description": "column"
         },
         {
+          "name": "object_type",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": "object_type",
+          "unit": null,
+          "description": "table or view"
+        },
+        {
           "name": "ordinal",
           "type": "integer",
           "nullable": false,
@@ -87,7 +97,7 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "position of the column in the table (1 = first)"
+          "description": "position of the column in the table or view (1 = first)"
         },
         {
           "name": "data_type",
@@ -117,7 +127,7 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "1 when the column is part of the table's primary key"
+          "description": "1 when the column is part of the table's primary key (0 in a view)"
         },
         {
           "name": "references_table",
@@ -2171,6 +2181,899 @@
           "enum": null,
           "unit": null,
           "description": "caveat from the curator"
+        }
+      ]
+    }
+  ],
+  "views": [
+    {
+      "name": "tariff_flat",
+      "grain": "one rate of one tariff-period and one window it applies in (one row for a rate that applies at all times, and one with empty rate columns for a tariff with no rate)",
+      "description": "Every tariff with its rates, each rate's price per day where its unit allows (value_std), the windows it applies in (as joins.py matches them: the rate's charge group, period and season), its conditions and its measurement rule (the most specific charge_rule).",
+      "columns": [
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "distributor"
+        },
+        {
+          "name": "distributor_name",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "distributor's name"
+        },
+        {
+          "name": "state",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "state",
+          "unit": null,
+          "description": "jurisdiction"
+        },
+        {
+          "name": "tariff_code",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "network tariff code"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first day the tariff-period applies"
+        },
+        {
+          "name": "effective_to",
+          "type": "date",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "last day it applies"
+        },
+        {
+          "name": "pricing_year",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "pricing year of the tariff's source document"
+        },
+        {
+          "name": "tariff_name",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "tariff name as published"
+        },
+        {
+          "name": "customer_class",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "customer_class",
+          "unit": null,
+          "description": "customer class"
+        },
+        {
+          "name": "customer_class_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "customer class as published"
+        },
+        {
+          "name": "pricing_basis",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "pricing_basis",
+          "unit": null,
+          "description": "how the prices apply"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "status",
+          "unit": null,
+          "description": "provisional (AER) or final (the distributor's own list)"
+        },
+        {
+          "name": "is_default",
+          "type": "boolean",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1 when a quoted statement makes the tariff a default (assigned unless the customer chooses otherwise), 0 when its statements make it something else only, NULL when none is held"
+        },
+        {
+          "name": "assignments",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "every assignment stated for the tariff (who it applies to in brackets), '; '-joined"
+        },
+        {
+          "name": "rate_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "rate"
+        },
+        {
+          "name": "component",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "price-list label of the charge"
+        },
+        {
+          "name": "charge_type",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "charge_type",
+          "unit": null,
+          "description": "kind of charge"
+        },
+        {
+          "name": "tou_period",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "rate_period",
+          "unit": null,
+          "description": "time-of-use period; NULL or anytime = at all times"
+        },
+        {
+          "name": "season",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "season",
+          "unit": null,
+          "description": "season the rate applies in"
+        },
+        {
+          "name": "register",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "register",
+          "unit": null,
+          "description": "meter register"
+        },
+        {
+          "name": "block",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "consumption block number"
+        },
+        {
+          "name": "block_from",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": "see block_unit",
+          "description": "block lower bound"
+        },
+        {
+          "name": "block_to",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": "see block_unit",
+          "description": "block upper bound"
+        },
+        {
+          "name": "block_unit",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "block_unit",
+          "unit": null,
+          "description": "unit of the block bounds"
+        },
+        {
+          "name": "value",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": "see unit",
+          "description": "price as stored"
+        },
+        {
+          "name": "unit",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "unit.unit",
+          "enum": null,
+          "unit": null,
+          "description": "unit of value"
+        },
+        {
+          "name": "value_std",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": "see unit_std",
+          "description": "value in unit_std (value x unit.multiplier); NULL for a per-month or per-year unit (see calendar_factor) or a billing period no document states"
+        },
+        {
+          "name": "unit_std",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "standard unit (per day, per kWh)"
+        },
+        {
+          "name": "calendar_factor",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "calendar_factor",
+          "unit": null,
+          "description": "how a per-month or per-year price becomes per day"
+        },
+        {
+          "name": "value_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "price as printed"
+        },
+        {
+          "name": "unit_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "unit as printed"
+        },
+        {
+          "name": "conditions",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "who pays the rate: condition_kind:value, '; '-joined (values of one kind = either)"
+        },
+        {
+          "name": "window_period_label",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the window's period as printed"
+        },
+        {
+          "name": "window_day_type",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "day_type",
+          "unit": null,
+          "description": "days the window applies on"
+        },
+        {
+          "name": "window_start",
+          "type": "time",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "window start (HH:MM)"
+        },
+        {
+          "name": "window_end",
+          "type": "time",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "window end (HH:MM, end-exclusive)"
+        },
+        {
+          "name": "window_season_label",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the window's season as printed"
+        },
+        {
+          "name": "window_season_dates",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the season's dates: MM-DD to MM-DD, or dst_start / dst_end; NULL = all year, or a season the document does not date"
+        },
+        {
+          "name": "time_basis",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "time_basis",
+          "unit": null,
+          "description": "clock of the window's times; NULL = not stated"
+        },
+        {
+          "name": "public_holidays",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "holiday_rule",
+          "unit": null,
+          "description": "how the window treats public holidays; NULL = not stated"
+        },
+        {
+          "name": "rule_measure",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "rule_measure",
+          "unit": null,
+          "description": "what the measurement rule measures"
+        },
+        {
+          "name": "rule_interval_min",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": "minutes",
+          "description": "interval length the demand is averaged over"
+        },
+        {
+          "name": "rule_method",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "rule_method",
+          "unit": null,
+          "description": "how the charged quantity is taken"
+        },
+        {
+          "name": "rule_n",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the n of an n-highest method"
+        },
+        {
+          "name": "rule_reset",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "rule_reset",
+          "unit": null,
+          "description": "span the measured value restarts after"
+        },
+        {
+          "name": "rule_lookback_months",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": "months",
+          "description": "months a rolling reset looks back over"
+        },
+        {
+          "name": "rule_minimum_value",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": "see rule_minimum_unit",
+          "description": "smallest quantity charged"
+        },
+        {
+          "name": "rule_minimum_unit",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "rule_measure",
+          "unit": null,
+          "description": "unit of rule_minimum_value"
+        },
+        {
+          "name": "rule_threshold_value",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": "see rule_threshold_unit",
+          "description": "only the quantity above it is charged"
+        },
+        {
+          "name": "rule_threshold_unit",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "rule_measure",
+          "unit": null,
+          "description": "unit of rule_threshold_value"
+        }
+      ]
+    },
+    {
+      "name": "tou_flat",
+      "grain": "one time window of one window set a tariff-period uses, in one part of its season (one row with empty window columns for a tariff with no window set)",
+      "description": "Every tariff with the TOU windows of its window sets: which charges each set prices, its clock and holiday rules, and each window's period, days, times and season dates.",
+      "columns": [
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "distributor"
+        },
+        {
+          "name": "distributor_name",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "distributor's name"
+        },
+        {
+          "name": "state",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "state",
+          "unit": null,
+          "description": "jurisdiction"
+        },
+        {
+          "name": "tariff_code",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "network tariff code"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first day the tariff-period applies"
+        },
+        {
+          "name": "effective_to",
+          "type": "date",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "last day it applies"
+        },
+        {
+          "name": "pricing_year",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "pricing year of the tariff's source document"
+        },
+        {
+          "name": "tariff_name",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "tariff name as published"
+        },
+        {
+          "name": "customer_class",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "customer_class",
+          "unit": null,
+          "description": "customer class"
+        },
+        {
+          "name": "customer_class_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "customer class as published"
+        },
+        {
+          "name": "pricing_basis",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "pricing_basis",
+          "unit": null,
+          "description": "how the prices apply"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "status",
+          "unit": null,
+          "description": "provisional (AER) or final (the distributor's own list)"
+        },
+        {
+          "name": "is_default",
+          "type": "boolean",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1 when a quoted statement makes the tariff a default (assigned unless the customer chooses otherwise), 0 when its statements make it something else only, NULL when none is held"
+        },
+        {
+          "name": "assignments",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "every assignment stated for the tariff (who it applies to in brackets), '; '-joined"
+        },
+        {
+          "name": "applies_to",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "tou_applies",
+          "unit": null,
+          "description": "charges of the tariff the window set prices"
+        },
+        {
+          "name": "window_set_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "window set"
+        },
+        {
+          "name": "window_set_name",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the schedule's name"
+        },
+        {
+          "name": "covers_full_day",
+          "type": "boolean",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1 when the set's windows cover every hour of every day"
+        },
+        {
+          "name": "time_basis",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "time_basis",
+          "unit": null,
+          "description": "clock the times refer to; NULL = not stated"
+        },
+        {
+          "name": "public_holidays",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "holiday_rule",
+          "unit": null,
+          "description": "how public holidays are priced; NULL = not stated"
+        },
+        {
+          "name": "tou_period",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "tou_period",
+          "unit": null,
+          "description": "the window's period"
+        },
+        {
+          "name": "period_label",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "period as printed"
+        },
+        {
+          "name": "day_type",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "day_type",
+          "unit": null,
+          "description": "days the window applies on"
+        },
+        {
+          "name": "start_time",
+          "type": "time",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "window start (HH:MM)"
+        },
+        {
+          "name": "end_time",
+          "type": "time",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "window end (HH:MM, end-exclusive)"
+        },
+        {
+          "name": "season",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "season",
+          "unit": null,
+          "description": "season of the window; NULL = all year"
+        },
+        {
+          "name": "season_label",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "season as printed"
+        },
+        {
+          "name": "season_part",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "part of the season (a season over the new year can have two)"
+        },
+        {
+          "name": "season_start_month",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first month of the part"
+        },
+        {
+          "name": "season_start_day",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first day"
+        },
+        {
+          "name": "season_start_anchor",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "season_anchor",
+          "unit": null,
+          "description": "or a daylight-saving start"
+        },
+        {
+          "name": "season_end_month",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "last month of the part"
+        },
+        {
+          "name": "season_end_day",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "last day"
+        },
+        {
+          "name": "season_end_anchor",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "season_anchor",
+          "unit": null,
+          "description": "or a daylight-saving end"
+        }
+      ]
+    },
+    {
+      "name": "unit_spelling",
+      "grain": "one printed spelling of one stored unit",
+      "description": "How the price lists print each stored unit, with how many rates print it that way.",
+      "columns": [
+        {
+          "name": "unit",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "unit.unit",
+          "enum": null,
+          "unit": null,
+          "description": "stored unit"
+        },
+        {
+          "name": "unit_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the unit as printed"
+        },
+        {
+          "name": "rates",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "rates printing the unit this way"
         }
       ]
     }

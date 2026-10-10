@@ -55,7 +55,7 @@ class TestRelease(unittest.TestCase):
 
     def test_checksums_and_notes(self):
         sums = dict(reversed(line.split("  ")) for line in (self.out / "SHA256SUMS").read_text().splitlines())
-        self.assertEqual(sorted(sums), ["tariffdb-csv.zip", "tariffdb.sqlite"])
+        self.assertEqual(sorted(sums), ["tariffdb-csv.zip", "tariffdb.sqlite", "tariffdb.xlsx"])
         notes = (self.out / "release-notes.md").read_text()
         for name, digest in sums.items():
             self.assertEqual(hashlib.sha256((self.out / name).read_bytes()).hexdigest(), digest)
@@ -64,9 +64,33 @@ class TestRelease(unittest.TestCase):
         self.assertIn("Ergon Energy 2016-17 to 2019-20", notes)
         self.assertRegex(notes, r"\| QLD \| Energex \| \d{4}-\d\d to \d{4}-\d\d \|")
 
-    def test_rebuild_gives_the_same_zip(self):
+    def test_xlsx_holds_every_view_row_and_column(self):
+        import openpyxl
+        con = sqlite3.connect(self.out / "tariffdb.sqlite")
+        try:
+            views = [r[0] for r in con.execute("SELECT name FROM sqlite_master WHERE type = 'view' ORDER BY rowid")]
+            book = openpyxl.load_workbook(self.out / "tariffdb.xlsx", read_only=True)
+            self.assertEqual(book.sheetnames, views + ["columns"])
+            columns = []
+            for view in views:
+                cur = con.execute(f"SELECT * FROM {view}")
+                header, rows = [d[0] for d in cur.description], cur.fetchall()
+                sheet = list(book[view].iter_rows(values_only=True))
+                with self.subTest(view=view):
+                    self.assertEqual(list(sheet[0]), header)
+                    self.assertEqual(len(sheet) - 1, len(rows))
+                    self.assertEqual(sheet[1], rows[0])
+                columns += [(view, c) for c in header]
+            described = [r[:2] for r in book["columns"].iter_rows(min_row=2, values_only=True)]
+            self.assertEqual(described, columns)
+            book.close()
+        finally:
+            con.close()
+
+    def test_rebuild_gives_the_same_zip_and_xlsx(self):
         _, _, _, again = build(Path(self.tmp.name) / "b")
-        self.assertEqual((again / "tariffdb-csv.zip").read_bytes(), (self.out / "tariffdb-csv.zip").read_bytes())
+        for name in ("tariffdb-csv.zip", "tariffdb.xlsx"):
+            self.assertEqual((again / name).read_bytes(), (self.out / name).read_bytes(), name)
 
 
 if __name__ == "__main__":

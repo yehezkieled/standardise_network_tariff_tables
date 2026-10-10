@@ -30,10 +30,13 @@ The checks, in order (docs/update-and-validate.md says what a failure means and 
                 rate is priced in
   aliases       no provisional tariff is one a final tariff of the same distributor and period prices under its own
                 spelling or code (data/tariffdb/code_alias.csv), so no tariff is stored twice
+  views         each view (tariff_flat, tou_flat, unit_spelling) has the columns spec.py gives it; tariff_flat and
+                tou_flat return every tariff-period, and tariff_flat every rate
   files         every held document is at its path with its recorded SHA-256 (--sources)
   values        every rate's published value is at its locator: the cell as Excel displays it, or the PDF page
                 (--sources)
-  quotes        every eligibility, assignment, tariff link and rate condition quote is at its locator, and every
+  quotes        every eligibility, assignment, tariff link and rate condition quote, and every window set's time
+                basis and public-holiday statement, is at its locator, and every
                 curated YAML file validates (which re-reads the TOU window quotes)
                 (--sources)
 """
@@ -51,6 +54,7 @@ import aliases  # noqa: E402
 import build_support as bs  # noqa: E402
 import joins  # noqa: E402
 import load as loader  # noqa: E402
+import spec  # noqa: E402
 
 ROOT = bs.ROOT
 # above this a c/kWh price outside critical peak is a misread unless its note says 'confirmed high rate:' (the largest
@@ -312,10 +316,31 @@ def check_quotes(db, committed_only):
     return bad, n
 
 
+def check_views(db):
+    """Each view has the columns spec.py gives it, tariff_flat and tou_flat return every tariff-period, and tariff_flat
+    every rate."""
+    bad = []
+    for v in spec.VIEWS:
+        got = [c[0] for c in db.execute(f"SELECT * FROM {v['name']} LIMIT 0").description]
+        if got != [c["name"] for c in v["columns"]]:
+            bad.append(f"view {v['name']}: columns {got} differ from spec.py")
+    for view in ("tariff_flat", "tou_flat"):
+        missing = db.execute(f"""SELECT count(*) FROM tariff t WHERE NOT EXISTS (SELECT 1 FROM {view} v
+            WHERE v.distributor_id = t.distributor_id AND v.tariff_code = t.tariff_code
+            AND v.effective_from = t.effective_from)""").fetchone()[0]
+        if missing:
+            bad.append(f"view {view}: {missing} tariff-periods missing")
+    missing = db.execute("""SELECT count(*) FROM rate r WHERE NOT EXISTS (SELECT 1 FROM tariff_flat v
+        WHERE v.rate_id = r.rate_id)""").fetchone()[0]
+    if missing:
+        bad.append(f"view tariff_flat: {missing} rates missing")
+    return bad
+
+
 # the checks main() runs after load, in order: (name, check); SOURCE_CHECKS only with --sources
 CHECKS = (("periods", check_periods), ("status", check_status), ("units", check_units),
           ("magnitude", check_magnitude), ("blocks", check_blocks), ("tou", check_tou), ("joins", check_joins),
-          ("rules", check_rules), ("aliases", check_aliases))
+          ("rules", check_rules), ("aliases", check_aliases), ("views", check_views))
 SOURCE_CHECKS = (("files", check_files), ("values", check_values), ("quotes", check_quotes))
 
 

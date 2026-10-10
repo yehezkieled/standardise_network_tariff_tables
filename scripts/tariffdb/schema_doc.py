@@ -56,7 +56,8 @@ def md_table(header, rows):
 class Data:
     def __init__(self):
         with open(os.path.join(DB_DIR, "schema.json"), encoding="utf-8") as f:
-            self.tables = json.load(f)["tables"]
+            schema = json.load(f)
+        self.tables, self.views = schema["tables"], schema["views"]
         self.rows = {}
         for t in self.tables:
             with open(os.path.join(DB_DIR, t["file"]), newline="", encoding="utf-8") as f:
@@ -73,6 +74,9 @@ class Data:
             for fk in t["foreign_keys"]:
                 out.append((t["name"], fk["columns"], fk["references"], False))
         return out
+
+    def count(self, view):
+        return f"{self.db.execute(f'SELECT count(*) FROM {view}').fetchone()[0]:,}"
 
     def query(self, sql):
         cur = self.db.execute(sql)
@@ -242,6 +246,35 @@ def reference(data):
     return out
 
 
+def views(data):
+    """The flat views: what a row is, how many there are, and each column with a value from the walk-through tariff."""
+    out = ["## Views", "",
+           "Read-only queries over the tables, for a spreadsheet or a quick look: every tariff appears in `tariff_flat` "
+           "and `tou_flat` (empty columns where it has no rate or window). The release writes each to a sheet of "
+           "`tariffdb.xlsx`.", "",
+           *md_table(["View", "One row is", "Rows"], [
+               (f"[`{v['name']}`](#{v['name']}-view)", v["grain"],
+                data.count(v["name"]))
+               for v in data.views]), ""]
+    start = f"{WALK['fin_year'][:4]}-07-01"
+    for v in data.views:
+        names, rows = data.query(f"SELECT * FROM {v['name']}")
+        walk_rows = [r for r in rows if "tariff_code" not in names
+                     or (r[names.index("distributor_id")], r[names.index("tariff_code")],
+                         r[names.index("effective_from")]) == (WALK["distributor_id"], WALK["tariff_code"], start)]
+        cols = []
+        for i, c in enumerate(v["columns"]):
+            ex = next((r[i] for r in walk_rows + rows if r[i] is not None), None)
+            allowed = f"list `{c['enum']}`" if c["enum"] else (f"→ {c['references']}" if c["references"] else "")
+            if c["unit"]:
+                allowed = (allowed + "; " if allowed else "") + f"unit: {c['unit']}"
+            cols.append((f"`{c['name']}`", c["type"], allowed, c["description"],
+                         "*always NULL*" if ex is None else f"`{short(str(ex))}`"))
+        out += [f"### {v['name']} (view)", "", v["description"], "", f"One row is {v['grain']}.", "",
+                *md_table(["Column", "Type", "Allowed values / unit", "Meaning", "Example"], cols), ""]
+    return out
+
+
 def conventions():
     return ["## Conventions", "",
             *md_table(["Type", "SQLite", "Values"], TYPES), "",
@@ -273,6 +306,7 @@ def markdown(data):
            *history(),
            *walk(data),
            *reference(data),
+           *views(data),
            *conventions(),
            "## Diagram as Mermaid", "", *mermaid_erd(data), ""]
     return "\n".join(out).rstrip() + "\n"

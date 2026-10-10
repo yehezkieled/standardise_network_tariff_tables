@@ -9,8 +9,9 @@ CREATE TABLE value_list (
 );
 
 CREATE TABLE data_dictionary (
-  table_name TEXT NOT NULL,
+  object_name TEXT NOT NULL,
   column_name TEXT NOT NULL,
+  object_type TEXT NOT NULL CHECK (object_type IN ('table', 'view')),
   ordinal INTEGER NOT NULL CHECK (typeof(ordinal) IN ('integer', 'null')),
   data_type TEXT NOT NULL,
   required INTEGER NOT NULL CHECK (required IN (0, 1)),
@@ -19,7 +20,7 @@ CREATE TABLE data_dictionary (
   value_list TEXT,
   unit TEXT,
   definition TEXT NOT NULL,
-  PRIMARY KEY (table_name, column_name)
+  PRIMARY KEY (object_name, column_name)
 );
 
 CREATE TABLE unit (
@@ -336,3 +337,114 @@ CREATE TABLE charge_rule (
   CHECK ((threshold_value IS NULL) = (threshold_unit IS NULL)),
   CHECK (minimum_unit IS NOT 'kva_else_kw' AND threshold_unit IS NOT 'kva_else_kw')
 );
+
+-- Views: the tables flattened for reading (data_dictionary describes their columns).
+
+CREATE VIEW tariff_flat (distributor_id, distributor_name, state, tariff_code, effective_from, effective_to, pricing_year, tariff_name, customer_class, customer_class_published, pricing_basis, status, is_default, assignments, rate_id, component, charge_type, tou_period, season, register, block, block_from, block_to, block_unit, value, unit, value_std, unit_std, calendar_factor, value_published, unit_published, conditions, window_period_label, window_day_type, window_start, window_end, window_season_label, window_season_dates, time_basis, public_holidays, rule_measure, rule_interval_min, rule_method, rule_n, rule_reset, rule_lookback_months, rule_minimum_value, rule_minimum_unit, rule_threshold_value, rule_threshold_unit) AS
+WITH tw AS MATERIALIZED (  -- each tariff's windows (controlled-load supply hours price nothing)
+  SELECT s.distributor_id, s.tariff_code, s.effective_from, s.applies_to, w.window_set_id, w.tou_period,
+         w.period_label, w.day_type, w.start_time, w.end_time, se.season, se.season_label, w.season_id,
+         ws.time_basis, ws.public_holidays
+  FROM tariff_window_set s JOIN time_window w USING (window_set_id) JOIN window_set ws USING (window_set_id)
+  JOIN season se ON se.season_id = w.season_id
+  WHERE w.tou_period != 'controlled_load_supply'),
+season_dates AS MATERIALIZED (  -- a season's dates as 'MM-DD to MM-DD' (or a daylight-saving anchor), parts ', '-joined
+  SELECT season_id, group_concat(coalesce(start_anchor, printf('%02d-%02d', start_month, start_day)) || ' to '
+         || coalesce(end_anchor, printf('%02d-%02d', end_month, end_day)), ', ') AS dates
+  FROM (SELECT * FROM season_part ORDER BY season_id, part_no) GROUP BY season_id),
+asg AS MATERIALIZED (  -- each tariff-period's assignment statements
+  SELECT distributor_id, tariff_code, effective_from, max(assignment = 'default') AS is_default,
+         group_concat(x, '; ') AS assignments
+  FROM (SELECT DISTINCT distributor_id, tariff_code, effective_from, assignment,
+               assignment || coalesce(' (' || applies_to || ')', '') AS x
+        FROM tariff_assignment ORDER BY distributor_id, tariff_code, effective_from, x)
+  GROUP BY distributor_id, tariff_code, effective_from)
+,flags AS MATERIALIZED (  -- tariff-periods with windows stated for controlled load or export (joins.group_windows)
+  SELECT distributor_id, tariff_code, effective_from, max(applies_to = 'controlled_load') AS has_cl,
+         max(applies_to = 'export') AS has_export
+  FROM tw GROUP BY distributor_id, tariff_code, effective_from),
+rg AS MATERIALIZED (  -- each priced period's rate with the window sets (applies_to) of its charge group
+  SELECT r.rate_id, r.distributor_id, r.tariff_code, r.effective_from, r.tou_period, r.season,
+    CASE WHEN r.charge_type = 'usage' AND r.register = 'controlled_load'
+           THEN CASE WHEN f.has_cl THEN 'controlled_load' ELSE 'usage' END
+         WHEN r.charge_type = 'export' THEN CASE WHEN f.has_export THEN 'export' ELSE 'usage' END
+         WHEN r.charge_type = 'usage' THEN 'usage' WHEN r.charge_type IN ('demand', 'capacity') THEN 'demand'
+    END AS applies
+  FROM rate r JOIN flags f USING (distributor_id, tariff_code, effective_from)
+  WHERE r.tou_period != 'anytime'),
+matched AS (  -- the windows of that group with the rate's period, in its season (joins.rate_windows)
+  SELECT rg.rate_id, tw.*, (tw.season IS rg.season) AS exact
+  FROM rg JOIN tw ON tw.distributor_id = rg.distributor_id AND tw.tariff_code = rg.tariff_code
+    AND tw.effective_from = rg.effective_from AND tw.tou_period = rg.tou_period
+    AND (rg.season IS NULL OR tw.season IS NULL OR rg.season = tw.season)
+    AND (tw.applies_to = rg.applies OR (tw.applies_to = 'all' AND rg.applies IN ('usage', 'demand')))),
+win AS MATERIALIZED (  -- the windows stated for the rate's own season when there are any; identical windows once
+  SELECT DISTINCT m.rate_id, m.period_label, m.day_type, m.start_time, m.end_time, m.season_label, sdt.dates,
+         m.time_basis, m.public_holidays
+  FROM (SELECT matched.*, max(exact) OVER (PARTITION BY rate_id) AS any_exact FROM matched) m
+  LEFT JOIN season_dates sdt ON sdt.season_id = m.season_id
+  WHERE m.exact OR NOT m.any_exact),
+rule AS MATERIALIZED (  -- the most specific rule measuring the rate's quantity (billcalc.find_rule)
+  SELECT * FROM (
+    SELECT r.rate_id, c.*, row_number() OVER (PARTITION BY r.rate_id
+             ORDER BY (c.tou_period IS NOT NULL) * 2 + (c.season IS NOT NULL) DESC) AS rank
+    FROM rate r JOIN unit u ON u.unit = r.unit
+    JOIN charge_rule c ON c.distributor_id = r.distributor_id AND c.tariff_code = r.tariff_code
+      AND c.effective_from = r.effective_from AND c.charge_type = r.charge_type
+      AND (c.measure = u.quantity OR (c.measure = 'kva_else_kw' AND u.quantity = 'kVA'))
+      AND (c.tou_period IS NULL OR c.tou_period = r.tou_period) AND (c.season IS NULL OR c.season = r.season))
+  WHERE rank = 1),
+cond AS MATERIALIZED (
+  SELECT rate_id, group_concat(condition_kind || ':' || value, '; ') AS conditions
+  FROM (SELECT * FROM rate_condition ORDER BY rate_id, condition_kind, value) GROUP BY rate_id)
+SELECT t.distributor_id, d.name, d.state, t.tariff_code, t.effective_from, t.effective_to, sd.pricing_year,
+  t.tariff_name, t.customer_class, t.customer_class_published, t.pricing_basis, t.status, asg.is_default,
+  asg.assignments,
+  r.rate_id, r.component, r.charge_type, r.tou_period, r.season, r.register, r.block, r.block_from, r.block_to,
+  r.block_unit, r.value, r.unit, CASE WHEN u.multiplier IS NOT NULL THEN r.value * u.multiplier END, u.unit_std,
+  u.calendar_factor, r.value_published, r.unit_published, cond.conditions,
+  win.period_label, win.day_type, win.start_time, win.end_time, win.season_label, win.dates, win.time_basis,
+  win.public_holidays,
+  rule.measure, rule.interval_min, rule.method, rule.n, rule.reset, rule.lookback_months, rule.minimum_value,
+  rule.minimum_unit, rule.threshold_value, rule.threshold_unit
+FROM tariff t JOIN distributor d USING (distributor_id)
+JOIN source_document sd ON sd.document_id = t.document_id
+LEFT JOIN asg ON asg.distributor_id = t.distributor_id AND asg.tariff_code = t.tariff_code
+  AND asg.effective_from = t.effective_from
+LEFT JOIN rate r ON r.distributor_id = t.distributor_id AND r.tariff_code = t.tariff_code
+  AND r.effective_from = t.effective_from
+LEFT JOIN unit u ON u.unit = r.unit
+LEFT JOIN cond ON cond.rate_id = r.rate_id
+LEFT JOIN win ON win.rate_id = r.rate_id
+LEFT JOIN rule ON rule.rate_id = r.rate_id
+ORDER BY t.distributor_id, t.tariff_code, t.effective_from, r.rate_id, win.season_label, win.day_type, win.start_time;
+
+CREATE VIEW tou_flat (distributor_id, distributor_name, state, tariff_code, effective_from, effective_to, pricing_year, tariff_name, customer_class, customer_class_published, pricing_basis, status, is_default, assignments, applies_to, window_set_id, window_set_name, covers_full_day, time_basis, public_holidays, tou_period, period_label, day_type, start_time, end_time, season, season_label, season_part, season_start_month, season_start_day, season_start_anchor, season_end_month, season_end_day, season_end_anchor) AS
+WITH asg AS MATERIALIZED (  -- each tariff-period's assignment statements
+  SELECT distributor_id, tariff_code, effective_from, max(assignment = 'default') AS is_default,
+         group_concat(x, '; ') AS assignments
+  FROM (SELECT DISTINCT distributor_id, tariff_code, effective_from, assignment,
+               assignment || coalesce(' (' || applies_to || ')', '') AS x
+        FROM tariff_assignment ORDER BY distributor_id, tariff_code, effective_from, x)
+  GROUP BY distributor_id, tariff_code, effective_from)
+SELECT t.distributor_id, d.name, d.state, t.tariff_code, t.effective_from, t.effective_to, sd.pricing_year,
+  t.tariff_name, t.customer_class, t.customer_class_published, t.pricing_basis, t.status, asg.is_default,
+  asg.assignments,
+  s.applies_to, ws.window_set_id, ws.name, ws.covers_full_day, ws.time_basis, ws.public_holidays, w.tou_period,
+  w.period_label, w.day_type, w.start_time, w.end_time, se.season, se.season_label, sp.part_no, sp.start_month,
+  sp.start_day, sp.start_anchor, sp.end_month, sp.end_day, sp.end_anchor
+FROM tariff t JOIN distributor d USING (distributor_id)
+JOIN source_document sd ON sd.document_id = t.document_id
+LEFT JOIN asg ON asg.distributor_id = t.distributor_id AND asg.tariff_code = t.tariff_code
+  AND asg.effective_from = t.effective_from
+LEFT JOIN tariff_window_set s ON s.distributor_id = t.distributor_id AND s.tariff_code = t.tariff_code
+  AND s.effective_from = t.effective_from
+LEFT JOIN window_set ws ON ws.window_set_id = s.window_set_id
+LEFT JOIN time_window w ON w.window_set_id = s.window_set_id
+LEFT JOIN season se ON se.season_id = w.season_id
+LEFT JOIN season_part sp ON sp.season_id = w.season_id
+ORDER BY t.distributor_id, t.tariff_code, t.effective_from, s.applies_to, ws.window_set_id, se.season_label,
+  w.tou_period, w.day_type, w.start_time, sp.part_no;
+
+CREATE VIEW unit_spelling (unit, unit_published, rates) AS
+SELECT unit, unit_published, count(*) FROM rate GROUP BY unit, unit_published ORDER BY unit, unit_published;

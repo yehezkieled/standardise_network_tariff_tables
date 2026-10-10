@@ -132,6 +132,8 @@ meter_type_value,basic,a basic (accumulation) meter
 meter_type_value,interval,an interval meter
 meter_type_value,smart,"a smart (interval capable, remotely read) meter"
 meter_type_value,unmetered,no meter
+object_type,table,a stored table (data/tariffdb/tables/<name>.csv)
+object_type,view,"a query over the tables, flattened for reading (in the SQLite database and the .xlsx)"
 operator,eq,equal to
 operator,ge,at least
 operator,ge_unstated,a lower bound; the source does not say whether the boundary value is included

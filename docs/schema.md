@@ -23,8 +23,8 @@
 
 | Table | One row is | Key | Rows |
 |---|---|---|---|
-| [`value_list`](#value_list) | one allowed value of one fixed list | list_name, value | 315 |
-| [`data_dictionary`](#data_dictionary) | one column of one table | table_name, column_name | 178 |
+| [`value_list`](#value_list) | one allowed value of one fixed list | list_name, value | 317 |
+| [`data_dictionary`](#data_dictionary) | one column of one table or view | object_name, column_name | 266 |
 | [`unit`](#unit) | one stored unit | unit | 12 |
 | [`distributor`](#distributor) | one distributor (DNSP) | distributor_id | 14 |
 | [`public_holiday`](#public_holiday) | one public holiday of one state | state, holiday_date | 1,045 |
@@ -173,7 +173,7 @@ Every value a controlled column may hold, with its meaning. data_dictionary.valu
 |---|---|
 | One row is | one allowed value of one fixed list |
 | Primary key | `list_name`, `value` |
-| Rows | 315 |
+| Rows | 317 |
 | Source | generated from scripts/tariffdb/spec.py (VALUE_LISTS) |
 | File | `data/tariffdb/tables/value_list.csv` |
 | References | none |
@@ -187,26 +187,27 @@ Every value a controlled column may hold, with its meaning. data_dictionary.valu
 
 ### data_dictionary
 
-Every column of every table: its type, whether it is required, the fixed list or unit it takes, and its meaning.
+Every column of every table and view: its type, whether it is required, the fixed list or unit it takes, and its meaning.
 
 |  |  |
 |---|---|
-| One row is | one column of one table |
-| Primary key | `table_name`, `column_name` |
-| Rows | 178 |
-| Source | generated from scripts/tariffdb/spec.py (TABLES) |
+| One row is | one column of one table or view |
+| Primary key | `object_name`, `column_name` |
+| Rows | 266 |
+| Source | generated from scripts/tariffdb/spec.py (TABLES, VIEWS) |
 | File | `data/tariffdb/tables/data_dictionary.csv` |
 | References | none |
 | Referenced by | none |
 
 | Column | Type | Null | Key | Allowed values / unit | Meaning | Example |
 |---|---|---|---|---|---|---|
-| `table_name` | text | no | PK |  | table | `charge_rule` |
+| `object_name` | text | no | PK |  | table or view | `charge_rule` |
 | `column_name` | text | no | PK |  | column | `allowance_per_day` |
-| `ordinal` | integer | no |  |  | position of the column in the table (1 = first) | `18` |
+| `object_type` | text | no |  | table, view (list `object_type`) | table or view | `table` |
+| `ordinal` | integer | no |  |  | position of the column in the table or view (1 = first) | `18` |
 | `data_type` | text | no |  |  | text, integer, numeric, date (YYYY-MM-DD), time (HH:MM) or boolean (0/1) | `numeric` |
 | `required` | boolean | no |  | 0, 1 | 1 when the column may not be NULL | `0` |
-| `is_primary_key` | boolean | no |  | 0, 1 | 1 when the column is part of the table's primary key | `0` |
+| `is_primary_key` | boolean | no |  | 0, 1 | 1 when the column is part of the table's primary key (0 in a view) | `0` |
 | `references_table` | text | yes |  |  | table the column refers to (foreign key) | `distributor` |
 | `value_list` | text | yes |  |  | the value_list.list_name the column's values come from | `rule_charge` |
 | `unit` | text | yes |  |  | unit of a numeric column | `see measure` |
@@ -704,6 +705,130 @@ How the quantity a demand, capacity or export rate is applied to is measured: in
 | `quote` | text | no |  |  | verbatim wording at the locator | `maximum half hour demand for the month occurring` |
 | `note` | text | yes |  |  | caveat from the curator | `Definitions, 'THREE RATE DEMAND' (p11, a three-column page…` |
 
+## Views
+
+Read-only queries over the tables, for a spreadsheet or a quick look: every tariff appears in `tariff_flat` and `tou_flat` (empty columns where it has no rate or window). The release writes each to a sheet of `tariffdb.xlsx`.
+
+| View | One row is | Rows |
+|---|---|---|
+| [`tariff_flat`](#tariff_flat-view) | one rate of one tariff-period and one window it applies in (one row for a rate that applies at all times, and one with empty rate columns for a tariff with no rate) | 34,263 |
+| [`tou_flat`](#tou_flat-view) | one time window of one window set a tariff-period uses, in one part of its season (one row with empty window columns for a tariff with no window set) | 24,029 |
+| [`unit_spelling`](#unit_spelling-view) | one printed spelling of one stored unit | 80 |
+
+### tariff_flat (view)
+
+Every tariff with its rates, each rate's price per day where its unit allows (value_std), the windows it applies in (as joins.py matches them: the rate's charge group, period and season), its conditions and its measurement rule (the most specific charge_rule).
+
+One row is one rate of one tariff-period and one window it applies in (one row for a rate that applies at all times, and one with empty rate columns for a tariff with no rate).
+
+| Column | Type | Allowed values / unit | Meaning | Example |
+|---|---|---|---|---|
+| `distributor_id` | text |  | distributor | `essential` |
+| `distributor_name` | text |  | distributor's name | `Essential Energy` |
+| `state` | text | list `state` | jurisdiction | `NSW` |
+| `tariff_code` | text |  | network tariff code | `BLND4SB` |
+| `effective_from` | date |  | first day the tariff-period applies | `2025-07-01` |
+| `effective_to` | date |  | last day it applies | `2026-06-30` |
+| `pricing_year` | text |  | pricing year of the tariff's source document | `2025-26` |
+| `tariff_name` | text |  | tariff name as published | `LV Small Scale Storage` |
+| `customer_class` | text | list `customer_class` | customer class | `business` |
+| `customer_class_published` | text |  | customer class as published | `Business Tariffs` |
+| `pricing_basis` | text | list `pricing_basis` | how the prices apply | `published` |
+| `status` | text | list `status` | provisional (AER) or final (the distributor's own list) | `final` |
+| `is_default` | boolean |  | 1 when a quoted statement makes the tariff a default (assigned unless the customer chooses otherwise), 0 when its statements make it something else only, NULL when none is held | `0` |
+| `assignments` | text |  | every assignment stated for the tariff (who it applies to in brackets), '; '-joined | `opt_out` |
+| `rate_id` | text |  | rate | `essential:BLND4SB:2025-07-01:daily:network-access` |
+| `component` | text |  | price-list label of the charge | `Network Access` |
+| `charge_type` | text | list `charge_type` | kind of charge | `daily` |
+| `tou_period` | text | list `rate_period` | time-of-use period; NULL or anytime = at all times | `off_peak` |
+| `season` | text | list `season` | season the rate applies in | `high` |
+| `register` | text | list `register` | meter register | `general` |
+| `block` | integer |  | consumption block number | `1` |
+| `block_from` | numeric | unit: see block_unit | block lower bound | `0` |
+| `block_to` | numeric | unit: see block_unit | block upper bound | `1020` |
+| `block_unit` | text | list `block_unit` | unit of the block bounds | `kWh/quarter` |
+| `value` | numeric | unit: see unit | price as stored | `222.29` |
+| `unit` | text | → unit.unit | unit of value | `c/day` |
+| `value_std` | numeric | unit: see unit_std | value in unit_std (value x unit.multiplier); NULL for a per-month or per-year unit (see calendar_factor) or a billing period no document states | `222.29` |
+| `unit_std` | text |  | standard unit (per day, per kWh) | `c/day` |
+| `calendar_factor` | text | list `calendar_factor` | how a per-month or per-year price becomes per day | `days_in_month` |
+| `value_published` | text |  | price as printed | `2.2229` |
+| `unit_published` | text |  | unit as printed | `$/Day` |
+| `conditions` | text |  | who pays the rate: condition_kind:value, '; '-joined (values of one kind = either) | `meter_class:network_meter_before_july_2015; meter_class:rep…` |
+| `window_period_label` | text |  | the window's period as printed | `Off-peak` |
+| `window_day_type` | text | list `day_type` | days the window applies on | `all_days` |
+| `window_start` | time |  | window start (HH:MM) | `00:00` |
+| `window_end` | time |  | window end (HH:MM, end-exclusive) | `07:00` |
+| `window_season_label` | text |  | the window's season as printed | `High season (8 months)` |
+| `window_season_dates` | text |  | the season's dates: MM-DD to MM-DD, or dst_start / dst_end; NULL = all year, or a season the document does not date | `01-01 to 12-31` |
+| `time_basis` | text | list `time_basis` | clock of the window's times; NULL = not stated | `local_time` |
+| `public_holidays` | text | list `holiday_rule` | how the window treats public holidays; NULL = not stated | `unchanged` |
+| `rule_measure` | text | list `rule_measure` | what the measurement rule measures | `kVA` |
+| `rule_interval_min` | integer | unit: minutes | interval length the demand is averaged over | `30` |
+| `rule_method` | text | list `rule_method` | how the charged quantity is taken | `max` |
+| `rule_n` | integer |  | the n of an n-highest method | `5` |
+| `rule_reset` | text | list `rule_reset` | span the measured value restarts after | `month` |
+| `rule_lookback_months` | integer | unit: months | months a rolling reset looks back over | `12` |
+| `rule_minimum_value` | numeric | unit: see rule_minimum_unit | smallest quantity charged | `500` |
+| `rule_minimum_unit` | text | list `rule_measure` | unit of rule_minimum_value | `kVA` |
+| `rule_threshold_value` | numeric | unit: see rule_threshold_unit | only the quantity above it is charged | `1.5` |
+| `rule_threshold_unit` | text | list `rule_measure` | unit of rule_threshold_value | `kW` |
+
+### tou_flat (view)
+
+Every tariff with the TOU windows of its window sets: which charges each set prices, its clock and holiday rules, and each window's period, days, times and season dates.
+
+One row is one time window of one window set a tariff-period uses, in one part of its season (one row with empty window columns for a tariff with no window set).
+
+| Column | Type | Allowed values / unit | Meaning | Example |
+|---|---|---|---|---|
+| `distributor_id` | text |  | distributor | `essential` |
+| `distributor_name` | text |  | distributor's name | `Essential Energy` |
+| `state` | text | list `state` | jurisdiction | `NSW` |
+| `tariff_code` | text |  | network tariff code | `BLND4SB` |
+| `effective_from` | date |  | first day the tariff-period applies | `2025-07-01` |
+| `effective_to` | date |  | last day it applies | `2026-06-30` |
+| `pricing_year` | text |  | pricing year of the tariff's source document | `2025-26` |
+| `tariff_name` | text |  | tariff name as published | `LV Small Scale Storage` |
+| `customer_class` | text | list `customer_class` | customer class | `business` |
+| `customer_class_published` | text |  | customer class as published | `Business Tariffs` |
+| `pricing_basis` | text | list `pricing_basis` | how the prices apply | `published` |
+| `status` | text | list `status` | provisional (AER) or final (the distributor's own list) | `final` |
+| `is_default` | boolean |  | 1 when a quoted statement makes the tariff a default (assigned unless the customer chooses otherwise), 0 when its statements make it something else only, NULL when none is held | `0` |
+| `assignments` | text |  | every assignment stated for the tariff (who it applies to in brackets), '; '-joined | `opt_out` |
+| `applies_to` | text | list `tou_applies` | charges of the tariff the window set prices | `demand` |
+| `window_set_id` | text |  | window set | `essential-2025-26-pl-sto-e` |
+| `window_set_name` | text |  | the schedule's name | `Storage - Interval meter Consumption (E Channel) (STO)` |
+| `covers_full_day` | boolean |  | 1 when the set's windows cover every hour of every day | `1` |
+| `time_basis` | text | list `time_basis` | clock the times refer to; NULL = not stated | `local_time` |
+| `public_holidays` | text | list `holiday_rule` | how public holidays are priced; NULL = not stated | `unchanged` |
+| `tou_period` | text | list `tou_period` | the window's period | `off_peak` |
+| `period_label` | text |  | period as printed | `Off-peak` |
+| `day_type` | text | list `day_type` | days the window applies on | `all_days` |
+| `start_time` | time |  | window start (HH:MM) | `00:00` |
+| `end_time` | time |  | window end (HH:MM, end-exclusive) | `07:00` |
+| `season` | text | list `season` | season of the window; NULL = all year | `high` |
+| `season_label` | text |  | season as printed | `High season (8 months)` |
+| `season_part` | integer |  | part of the season (a season over the new year can have two) | `1` |
+| `season_start_month` | integer |  | first month of the part | `1` |
+| `season_start_day` | integer |  | first day | `1` |
+| `season_start_anchor` | text | list `season_anchor` | or a daylight-saving start | `dst_end` |
+| `season_end_month` | integer |  | last month of the part | `12` |
+| `season_end_day` | integer |  | last day | `31` |
+| `season_end_anchor` | text | list `season_anchor` | or a daylight-saving end | `dst_start` |
+
+### unit_spelling (view)
+
+How the price lists print each stored unit, with how many rates print it that way.
+
+One row is one printed spelling of one stored unit.
+
+| Column | Type | Allowed values / unit | Meaning | Example |
+|---|---|---|---|---|
+| `unit` | text | → unit.unit | stored unit | `c/day` |
+| `unit_published` | text |  | the unit as printed | `$ pa` |
+| `rates` | integer |  | rates printing the unit this way | `256` |
+
 ## Conventions
 
 | Type | SQLite | Values |
@@ -766,7 +891,7 @@ erDiagram
         text value PK
     }
     data_dictionary {
-        text table_name PK
+        text object_name PK
         text column_name PK
     }
     unit {

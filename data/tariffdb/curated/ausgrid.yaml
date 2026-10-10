@@ -5,7 +5,11 @@ tou_schedules:
   fin_year: [2016-17, 2017-18]
   name: ToU time periods, EA025 Residential ToU and EA225 Small Business ToU (ES7 Table 3.2)
   time_basis: local_time
+  time_basis_locator: "pdf:p12"
+  time_basis_quote: "*All times take into account Daylight Saving Time during the period gazette by the NSW Government"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p12"
+  public_holidays_quote: "Shoulder EA225 Small Business ToU 7am – 10pm on weekends and public holidays"
   covers_full_day: true
   locator: pdf:p12
   quote: 'Table 3.2: Ausgrid NUoS ToU time periods ToU Tariff codes Clock time* and day-type** Period Peak All ToU tariffs
@@ -38,7 +42,11 @@ tou_schedules:
   fin_year: [2016-17, 2017-18]
   name: ToU time periods, all other ToU tariffs (ES7 Table 3.2)
   time_basis: local_time
+  time_basis_locator: "pdf:p12"
+  time_basis_quote: "*All times take into account Daylight Saving Time during the period gazette by the NSW Government"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p12"
+  public_holidays_quote: "Shoulder EA225 Small Business ToU 7am – 10pm on weekends and public holidays"
   covers_full_day: true
   locator: pdf:p12
   quote: 'Table 3.2: Ausgrid NUoS ToU time periods ToU Tariff codes Clock time* and day-type** Period Peak All ToU tariffs
@@ -77,7 +85,11 @@ tou_schedules:
   fin_year: [2016-17, 2017-18]
   name: Capacity charge period (ES7 3.7.2)
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p36"
+  time_basis_quote: "The time periods defined in Ausgrid’s Price list and ES7 apply to local time in New South Wales."
+  public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p12"
+  public_holidays_quote: "Shoulder EA225 Small Business ToU 7am – 10pm on weekends and public holidays"
   covers_full_day: false
   locator: pdf:p13
   quote: A capacity charge is a price applied (in cents per kW or kVA per day) to the maximum half hourly kW or kVA demand
@@ -98,7 +110,12 @@ tou_schedules:
   fin_year: [2018-19]
   name: Seasonal TOU time periods, residential customers (ES7 Table 3.2)
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p13"
+  time_basis_quote: "Time periods take into account daylight saving time."
+  public_holidays: as_non_business_day
+  public_holidays_doc: sources/archive/ausgrid/2018-19/Ausgrid_-_Approved_Pricing_Proposal_-_amended_01112018_to_four_decimal_places.pdf.pdf
+  public_holidays_locator: "pdf:p15"
+  public_holidays_quote: "from 7am to 10pm on all weekends and public holidays"
   covers_full_day: true
   locator: pdf:p14
   quote: 'Table 3.2: Ausgrid’s Seasonal TOU Time Periods: Residential Customers Season TOU Time Period - Residential Shoulder
@@ -135,6 +152,8 @@ tou_schedules:
   fin_year: [2018-19]
   name: Seasonal TOU time periods, business customers (ES7 Table 3.3)
   time_basis: local_time
+  time_basis_locator: "pdf:p13"
+  time_basis_quote: "Time periods take into account daylight saving time."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p15
@@ -173,6 +192,8 @@ tou_schedules:
   fin_year: [2018-19]
   name: Capacity charge period (ES7 3.7.2)
   time_basis: local_time
+  time_basis_locator: "pdf:p38"
+  time_basis_quote: "The time periods defined in Ausgrid’s Price list and ES7 apply to local time in New South Wales."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p16
@@ -193,8 +214,13 @@ tou_schedules:
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
   fin_year: 2024-25
   name: EA958 Super off-peak trial charging windows
-  time_basis: not_stated
+  time_basis: local_time
+  time_basis_doc: sources/dnsp/ausgrid/Ausgrid_ES7_Network_Price_Guide_2024-25_July2024_wayback.pdf
+  time_basis_locator: "pdf:p43"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: unchanged
+  public_holidays_locator: "pdf:p3"
+  public_holidays_quote: "The off-peak (branded ‘super off-peak’) applies from midnight to 6am every day. The peak applies to all other times."
   covers_full_day: true
   locator: pdf:p3
   quote: '*The charging windows for EA958 differ from the standard network charging windows. The off-peak (branded ‘super
@@ -220,7 +246,11 @@ tou_schedules:
   fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Residential TOU energy windows (Table 3.3)
   time_basis: local_time
+  time_basis_locator: "pdf:p17"
+  time_basis_quote: "Note: All times take into account daylight saving during the period gazetted by the NSW Government"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p17"
+  public_holidays_quote: "on all weekends and public holidays from 7 am to 10 pm"
   covers_full_day: true
   locator: pdf:p17
   quote: 'Table 3.3. Energy consumption charge: TOU charging windows for residential customers Time period Time period definition
@@ -310,7 +340,11 @@ tou_schedules:
   fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Small business TOU energy windows (Table 3.6)
   time_basis: local_time
+  time_basis_locator: "pdf:p19"
+  time_basis_quote: "Note: All times take into account daylight saving during the period gazetted by the NSW Government"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p19"
+  public_holidays_quote: "24 hours on all weekends and public holidays all year"
   covers_full_day: true
   locator: pdf:p19
   quote: 'Table 3.6. Energy consumption charge: TOU charging windows for small business customers Time period Time period
@@ -380,7 +414,11 @@ tou_schedules:
   fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Medium to large LV, HV and subtransmission TOU energy windows (Table 3.8)
   time_basis: local_time
+  time_basis_locator: "pdf:p20"
+  time_basis_quote: "Note: All times take into account daylight saving during the period gazetted by the NSW Government"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p20"
+  public_holidays_quote: "24 hours on all weekends and public holidays all year"
   covers_full_day: true
   locator: pdf:p20
   quote: 'Table 3.8. Energy consumption charge: TOU charging windows for medium to large Low Voltage, High Voltage and Subtransmission
@@ -461,6 +499,8 @@ tou_schedules:
   fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Residential demand charging windows (Table 3.2)
   time_basis: local_time
+  time_basis_locator: "pdf:p17"
+  time_basis_quote: "Note: All times take into account daylight saving during the period gazetted by the NSW Government"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p17
@@ -509,6 +549,8 @@ tou_schedules:
   fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Small business demand charging windows (Table 3.5)
   time_basis: local_time
+  time_basis_locator: "pdf:p19"
+  time_basis_quote: "Note: All times take into account daylight saving during the period gazetted by the NSW Government"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p19
@@ -549,6 +591,8 @@ tou_schedules:
   fin_year: [2019-20, 2020-21, 2021-22, 2022-23, 2023-24]
   name: Capacity charging window, medium to large business (Table 3.7)
   time_basis: local_time
+  time_basis_locator: "pdf:p20"
+  time_basis_quote: "Note: All times take into account daylight saving during the period gazetted by the NSW Government"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p20
@@ -585,7 +629,11 @@ tou_schedules:
   fin_year: 2024-25
   name: Residential TOU energy windows (Table 3.2)
   time_basis: local_time
+  time_basis_locator: "pdf:p43"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: unchanged
+  public_holidays_locator: "pdf:p17"
+  public_holidays_quote: "From 3 pm to 9 pm on all days during 1 November to 31 March (inclusive)"
   covers_full_day: true
   locator: pdf:p17
   quote: 'Table 3.2. Energy consumption charge: TOU charging windows for residential customers Time period Time period definition
@@ -635,7 +683,11 @@ tou_schedules:
   fin_year: 2024-25
   name: Small business, medium to large LV, HV and sub-transmission TOU energy windows (Table 3.3)
   time_basis: local_time
+  time_basis_locator: "pdf:p43"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p17"
+  public_holidays_quote: "24 hours on all weekends and public holidays all year"
   covers_full_day: true
   locator: pdf:p17
   quote: 'Table 3.3. Energy consumption charge: TOU charging windows for small business, medium to large Low Voltage, High
@@ -697,7 +749,11 @@ tou_schedules:
   fin_year: 2024-25
   name: Residential demand charging window (Table 3.4)
   time_basis: local_time
+  time_basis_locator: "pdf:p43"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: unchanged
+  public_holidays_locator: "pdf:p18"
+  public_holidays_quote: "From 3 pm to 9 pm on all days during 1 June to 31 August (inclusive)"
   covers_full_day: false
   locator: pdf:p18
   quote: 'Table 3.4. Demand charge: charging windows for residential customers Demand Time period definition window High season
@@ -734,6 +790,8 @@ tou_schedules:
   fin_year: 2024-25
   name: Small business demand charging window (Table 3.5)
   time_basis: local_time
+  time_basis_locator: "pdf:p43"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p19
@@ -770,6 +828,8 @@ tou_schedules:
   fin_year: 2024-25
   name: Capacity window, medium to large LV, HV, sub-transmission and transmission (Table 3.6)
   time_basis: local_time
+  time_basis_locator: "pdf:p43"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p20
@@ -797,7 +857,11 @@ tou_schedules:
   fin_year: 2024-25
   name: EA029 small customer export tariff charge and reward windows
   time_basis: local_time
+  time_basis_locator: "pdf:p43"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: unchanged
+  public_holidays_locator: "pdf:p17"
+  public_holidays_quote: "The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day."
   covers_full_day: false
   locator: pdf:p17
   quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
@@ -827,7 +891,11 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential TOU energy windows (Table 3.2)
   time_basis: local_time
+  time_basis_locator: "pdf:p40"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: unchanged
+  public_holidays_locator: "pdf:p16"
+  public_holidays_quote: "From 3 pm to 9 pm on all days during 1 November to 31 March (inclusive)"
   covers_full_day: true
   locator: pdf:p16
   quote: 'Table 3.2. Energy consumption charge: TOU charging windows for residential customers Time period Time period definition
@@ -877,7 +945,11 @@ tou_schedules:
   fin_year: 2025-26
   name: Small business, medium to large LV, HV and sub-transmission TOU energy windows (Table 3.3)
   time_basis: local_time
+  time_basis_locator: "pdf:p40"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p17"
+  public_holidays_quote: "24 hours on all weekends and public holidays all year"
   covers_full_day: true
   locator: pdf:p17
   quote: 'Table 3.3. Energy consumption charge: TOU charging windows for small business, medium to large Low Voltage, High
@@ -939,7 +1011,11 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential demand charging window (Table 3.4)
   time_basis: local_time
+  time_basis_locator: "pdf:p40"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: unchanged
+  public_holidays_locator: "pdf:p18"
+  public_holidays_quote: "From 3 pm to 9 pm on all days during 1 June to 31 August (inclusive)"
   covers_full_day: false
   locator: pdf:p18
   quote: 'Table 3.4. Demand charge: charging windows for residential customers Demand Time period definition window High season
@@ -976,6 +1052,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Small business demand charging window (Table 3.5)
   time_basis: local_time
+  time_basis_locator: "pdf:p40"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p18
@@ -1012,6 +1090,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Capacity window, medium to large LV, HV, sub-transmission and transmission (Table 3.6)
   time_basis: local_time
+  time_basis_locator: "pdf:p40"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p19
@@ -1039,7 +1119,11 @@ tou_schedules:
   fin_year: 2025-26
   name: EA029 small customer export tariff charge and reward windows
   time_basis: local_time
+  time_basis_locator: "pdf:p40"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: unchanged
+  public_holidays_locator: "pdf:p17"
+  public_holidays_quote: "The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day."
   covers_full_day: false
   locator: pdf:p17
   quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
@@ -1069,7 +1153,11 @@ tou_schedules:
   fin_year: 2026-27
   name: Residential TOU energy windows (Table 3.2)
   time_basis: local_time
+  time_basis_locator: "pdf:p45"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: unchanged
+  public_holidays_locator: "pdf:p18"
+  public_holidays_quote: "From 3pm to 9pm on all days during 1 November to 31 March (inclusive)"
   covers_full_day: true
   locator: pdf:p18
   quote: 'Table 3.2. Energy consumption charge: TOU charging windows for residential customers Time period Time period definition
@@ -1119,7 +1207,11 @@ tou_schedules:
   fin_year: 2026-27
   name: Small business, medium to large LV, HV and sub-transmission TOU energy windows (Table 3.3)
   time_basis: local_time
+  time_basis_locator: "pdf:p45"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p18"
+  public_holidays_quote: "24 hours on all weekends and public holidays all year"
   covers_full_day: true
   locator: pdf:p18
   quote: 'Table 3.3. Energy consumption charge: TOU charging windows for small business, medium to large Low Voltage, High
@@ -1181,7 +1273,11 @@ tou_schedules:
   fin_year: 2026-27
   name: Residential demand charging window (Table 3.4)
   time_basis: local_time
+  time_basis_locator: "pdf:p45"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: unchanged
+  public_holidays_locator: "pdf:p19"
+  public_holidays_quote: "From 3pm to 9pm on all days during 1 June to 31 August (inclusive)"
   covers_full_day: false
   locator: pdf:p19
   quote: 'Table 3.4. Demand charge: charging windows for residential customers Demand Time period definition window High season
@@ -1218,6 +1314,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Small business demand charging window (Table 3.5)
   time_basis: local_time
+  time_basis_locator: "pdf:p45"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p20
@@ -1254,6 +1352,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Capacity window, medium to large LV, HV, sub-transmission and transmission (Table 3.6)
   time_basis: local_time
+  time_basis_locator: "pdf:p45"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p20
@@ -1281,7 +1381,11 @@ tou_schedules:
   fin_year: 2026-27
   name: EA029 small customer export tariff charge and reward windows
   time_basis: local_time
+  time_basis_locator: "pdf:p45"
+  time_basis_quote: "The time periods defined in Ausgrid’s Network Price List and ES7 apply to local time in New South Wales."
   public_holidays: unchanged
+  public_holidays_locator: "pdf:p19"
+  public_holidays_quote: "The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day."
   covers_full_day: false
   locator: pdf:p19
   quote: The charge applies between 10am and 3pm every day and the reward/rebate applies between 4pm and 9pm every day.
@@ -2841,6 +2945,7 @@ eligibility:
   fin_year: 2023-24
   rule_type: assignment
   value_text: default
+  applies_to: meter_change
   locator: pdf:p58
   quote: Figure A1.10. Reassignment of customers following a meter replacement by customer choice from EA010/EA011 Flat to EA116
     Demand in 2023-24
@@ -2853,6 +2958,7 @@ eligibility:
   fin_year: 2023-24
   rule_type: assignment
   value_text: default
+  applies_to: meter_change
   locator: pdf:p70
   quote: Figure A1.21. Reassignment of customers following a meter replacement by customer choice from EA050/EA051 Flat to EA256
     Demand in 2023-24
@@ -2869,70 +2975,6 @@ eligibility:
   quote: Tariff assignment policy and tariffs include a demand (introductory) tariff for 12 months for existing residential
     and small business customers on a flat tariff when they replace their meter due to meter failure.
   note: '''After 12 months on a demand (introductory) tariff, customers are automatically re-assigned to a demand tariff.'''
-- codes: [EA116]
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  target_code: EA025
-  locator: pdf:p26
-  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
-  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
-- codes: [EA116]
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  target_code: EA115
-  locator: pdf:p26
-  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
-  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
-- codes: [EA256]
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  target_code: EA225
-  locator: pdf:p26
-  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
-  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
-- codes: [EA256]
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  target_code: EA255
-  locator: pdf:p26
-  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
-  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
-- codes: [EA111]
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  target_code: EA025
-  locator: pdf:p26
-  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
-  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
-- codes: [EA111]
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  target_code: EA115
-  locator: pdf:p26
-  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
-  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
-- codes: [EA251]
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  target_code: EA225
-  locator: pdf:p26
-  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
-  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
-- codes: [EA251]
-  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  target_code: EA255
-  locator: pdf:p26
-  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
-  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
 - codes: [EA010, EA011, EA050, EA051]
   doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
   fin_year: 2023-24
@@ -4151,22 +4193,22 @@ eligibility:
 - codes: [EA956, EA957, EA958, EA964, EA965]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2024-25_wayback20250806.pdf
   fin_year: 2024-25
-  rule_type: other
-  value_text: only available to partner retailers
+  rule_type: "agreement"
+  value_text: "partner_retailer"
   locator: pdf:p3
   quote: Our trial tariffs are only available to partner retailers.
 - codes: [EA955, EA956, EA964, EA965]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2025-26.pdf
   fin_year: 2025-26
-  rule_type: other
-  value_text: only available to partner retailers
+  rule_type: "agreement"
+  value_text: "partner_retailer"
   locator: pdf:p3
   quote: Our trial tariffs are only available to partner retailers.
 - codes: [EA905, EA955, EA956, EA964, EA965, EA974, EA975, EA976]
   doc: sources/dnsp/ausgrid/Ausgrid_Network_Price_List_2026-27.pdf
   fin_year: 2026-27
-  rule_type: other
-  value_text: only available to partner retailers
+  rule_type: "agreement"
+  value_text: "partner_retailer"
   locator: pdf:p3
   quote: Our trial tariffs are only available to partner retailers.
 - codes: [EA401, EA402, EA403]
@@ -4202,6 +4244,7 @@ eligibility:
   fin_year: 2023-24
   rule_type: assignment
   value_text: opt_in
+  applies_to: meter_change
   locator: pdf:p26
   quote: TOU customers replacing meter for any reason remain on TOU tariffs and can opt-in to demand tariffs
   note: '''Demand tariffs'' read as the residential and small business demand tariffs EA116/EA256 (Table 4.1 names); the sentence
@@ -4619,7 +4662,8 @@ charge_rules:
   measure: kW
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p13
   quote: A capacity charge is a price applied (in cents per kW or kVA per day) to the maximum half hourly kW or kVA demand
     reading2 that occurred in the peak period (that is, between 2pm and 8pm on a working weekday) at a customer’s connection
@@ -4632,7 +4676,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p13
   quote: A capacity charge is a price applied (in cents per kW or kVA per day) to the maximum half hourly kW or kVA demand
     reading2 that occurred in the peak period (that is, between 2pm and 8pm on a working weekday) at a customer’s connection
@@ -4646,7 +4691,8 @@ charge_rules:
   measure: kW
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p16
   quote: A capacity charge is a price applied (in cents per kW or kVA per day) to the maximum half hourly kW or kVA demand
     reading2 that occurred in the period between 2pm and 8pm on a working weekday at a customer’s connection point over the
@@ -4659,7 +4705,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p16
   quote: A capacity charge is a price applied (in cents per kW or kVA per day) to the maximum half hourly kW or kVA demand
     reading2 that occurred in the period between 2pm and 8pm on a working weekday at a customer’s connection point over the
@@ -4745,7 +4792,8 @@ charge_rules:
   measure: kW
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p22
   quote: Capacity charge – Peak c/kW/day Network use of system charge for the maximum kW demand1 over any half hour interval
     between 2 pm and 8 pm on a working weekday in the previous 12 months
@@ -4758,7 +4806,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p22
   quote: Capacity charge – Peak c/kVA/day Network use of system charge for the maximum kVA demand1 over any half hour interval
     between 2 pm and 8 pm on a working weekday in the previous 12 months
@@ -4771,7 +4820,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p23
   quote: Capacity charge – Peak kVA c/kVA/day Network use of system charge applied to the maximum kVA demand1 recorded over
     any half hour interval between 2 pm and 8 pm on a working weekday in the previous 12 months
@@ -4784,7 +4834,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p23
   quote: Capacity charge – Peak kVA c/kVA/day Network use of system charge applied to the maximum kVA demand1 recorded over
     any half hour interval between 2 pm and 8 pm on a working weekday in the previous 12 months
@@ -4797,7 +4848,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p24
   quote: Capacity charge – Peak kVA c/kVA/day Network use of system charge applied to the maximum kVA demand1 recorded over
     any half hour interval between 2 pm and 8 pm on a working weekday in the previous 12 months
@@ -4836,7 +4888,8 @@ charge_rules:
   measure: kW
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p23
   quote: Peak capacity cents / kW / Charge applied to the customer’s highest kW of MWh day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -4850,7 +4903,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p23
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -4864,7 +4918,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p24
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -4878,7 +4933,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p25
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest day kVA of demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -4892,7 +4948,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p26
   quote: Peak cents / kVA / Charge applied to the customer’s highest kVA of capacity day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -4906,7 +4963,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p27
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -4946,7 +5004,8 @@ charge_rules:
   measure: kW
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p23
   quote: Peak capacity cents / kW / Charge applied to the customer’s highest kW of MWh day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -4960,7 +5019,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p23
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -4974,7 +5034,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p24
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -4988,7 +5049,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p25
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest day kVA of demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -5002,7 +5064,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p26
   quote: Peak cents / kVA / Charge applied to the customer’s highest kVA of capacity day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -5016,7 +5079,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p27
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -5056,7 +5120,8 @@ charge_rules:
   measure: kW
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p23
   quote: Peak capacity cents / kW / Charge applied to the customer’s highest kW of MWh day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -5070,7 +5135,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p23
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -5084,7 +5150,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p24
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -5098,7 +5165,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p25
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest day kVA of demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -5112,7 +5180,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p26
   quote: Peak cents / kVA / Charge applied to the customer’s highest kVA of capacity day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -5126,7 +5195,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p27
   quote: Peak capacity cents / kVA / Charge applied to the customer’s highest kVA of day demand during any half-hour period
     between 3-9pm on working weekdays in the previous 12 months
@@ -5180,3 +5250,68 @@ charge_rules:
     multiplied by the number of days in the relevant billing period.
   note: Section 3.6. The threshold is part of the charge component, which applies between 10am and 3pm; it is pooled over
     the billing period (the daily amount times its days), so an unused daily allowance rolls over within it.
+tariff_links:
+- codes: [EA116]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  linked_code: EA025
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA116]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  linked_code: EA115
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA256]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  linked_code: EA225
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA256]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  linked_code: EA255
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA111]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  linked_code: EA025
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA111]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  linked_code: EA115
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA251]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  linked_code: EA225
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).
+- codes: [EA251]
+  doc: sources/aer/2023-24_price_lists/Ausgrid_2023-24_annual_SCS_pricing_proposal_31Mar2023.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  linked_code: EA255
+  locator: pdf:p26
+  quote: TOU-demand and TOU tariffs are opt-out options for all customers assigned to a demand tariff.
+  note: TOU tariff and TOU-demand tariff of the same customer type (residential EA025/EA115, small business EA225/EA255).

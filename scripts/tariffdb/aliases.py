@@ -22,7 +22,8 @@ sys.path.insert(0, HERE)
 import build_support as bs  # noqa: E402
 
 PATH = os.path.join(bs.ROOT, "data", "tariffdb", "code_alias.csv")
-COLUMNS = ["distributor_id", "aer_code", "distributor_code", "valid_from", "valid_to", "reason"]
+COLUMNS = ["distributor_id", "aer_code", "distributor_code", "link_type", "valid_from", "valid_to", "reason"]
+LINK_TYPES = ("alias", "zone_variant_of")  # tariff_link.link_type of the distributor's code to the AER's
 PLACEHOLDER = re.compile(r"\{(\w+)\}")
 
 
@@ -66,6 +67,8 @@ def problems(rows):
             bad.append(f"{where}: {{n}} belongs on the distributor side")
         if ("{code}" in r["aer_code"]) != ("{code}" in r["distributor_code"]):
             bad.append(f"{where}: {{code}} must be on both sides or neither")
+        if r["link_type"] not in LINK_TYPES:
+            bad.append(f"{where}: link_type must be one of {', '.join(LINK_TYPES)}")
         for side in ("valid_from", "valid_to"):
             if r[side] and not _date(r[side]):
                 bad.append(f"{where}: {side} {r[side]!r} is not YYYY-MM-DD")
@@ -89,13 +92,18 @@ def load(path=PATH):
 def targets(rules, distributor_id, aer_code, day, codes):
     """The codes among `codes` (a distributor's final list in force on `day`) that price the tariff the AER prints as
     `aer_code`, by the rules for that distributor and day."""
+    return sorted({code for code, _ in matches(rules, distributor_id, aer_code, day, codes)})
+
+
+def matches(rules, distributor_id, aer_code, day, codes):
+    """[(code, rule)]: each code among `codes` a rule gives the AER's `aer_code` to, with the rule."""
     found = set()
-    for r in rules:
+    for i, r in enumerate(rules):
         if r["distributor_id"] != distributor_id or not (r["valid_from"] or day) <= day <= (r["valid_to"] or day):
             continue
         m = _pattern(r["aer_code"]).fullmatch(norm(aer_code))
         if not m:
             continue
         want = _pattern(r["distributor_code"], m.groupdict().get("code"))
-        found |= {c for c in codes if want.fullmatch(norm(c))}
-    return sorted(found)
+        found |= {(c, i) for c in codes if want.fullmatch(norm(c))}
+    return [(c, rules[i]) for c, i in sorted(found)]

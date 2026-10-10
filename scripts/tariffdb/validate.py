@@ -13,17 +13,16 @@ the exit status is 1 when any check fails.
 
 The checks, in order (docs/update-and-validate.md says what a failure means and what to do):
   load          the CSVs load into SQLite with every key, foreign key and CHECK constraint of schema.sqlite.sql
-  periods       no two periods of one tariff code overlap; every rate, window and criterion lies inside its tariff's
-                period; a source document's year contains the period it prices
+  periods       no two periods of one tariff code overlap; a source document's year contains the period it prices
   status        a tariff is final exactly when its document is the distributor's own published list (not one the AER
-                hosts) or a state regulator's published schedule, and each rate carries its tariff's status and
-                document
-  units         every standard unit is one the docs list and fits its charge type (usage per kWh, demand per kW...)
+                hosts) or a state regulator's published schedule
+  units         every rate's unit (a row of the unit table, spec.UNITS) prices a quantity its charge type is charged
+                per (usage per kWh, demand per kW or kVA ...)
   magnitude     no c/kWh rate outside critical peak exceeds 200 c/kWh unless its note contains 'confirmed
                 high rate:'
   blocks        a stepped price numbers its blocks 1..n without gaps, with bounds that rise from block to block
-  tou           windows of one tariff, charge group and published period name never overlap on the same day type
-                and month
+  tou           a window's season is in its own window set; windows a tariff uses for one charge group and published
+                period name never overlap on the same day type and month
   joins         in a tariff-period with TOU windows, every rate priced in a period or season finds its windows, every
                 window but a demand window is priced by a rate, and no demand or export rate lacks a period its
                 windows name (scripts/tariffdb/joins.py)
@@ -31,10 +30,15 @@ The checks, in order (docs/update-and-validate.md says what a failure means and 
                 rate is priced in
   aliases       no provisional tariff is one a final tariff of the same distributor and period prices under its own
                 spelling or code (data/tariffdb/code_alias.csv), so no tariff is stored twice
+  views         each view (tariff_flat, tou_flat, unit_spelling) has the columns spec.py gives it; tariff_flat and
+                tou_flat return every tariff-period, and tariff_flat every rate
   files         every held document is at its path with its recorded SHA-256 (--sources)
   values        every rate's published value is at its locator: the cell as Excel displays it, or the PDF page
                 (--sources)
-  quotes        every eligibility quote is at its locator, and every curated YAML file validates (--sources)
+  quotes        every eligibility, assignment, tariff link and rate condition quote, and every window set's time
+                basis and public-holiday statement, is at its locator, and every
+                curated YAML file validates (which re-reads the TOU window quotes)
+                (--sources)
 """
 import argparse
 import hashlib
@@ -50,13 +54,9 @@ import aliases  # noqa: E402
 import build_support as bs  # noqa: E402
 import joins  # noqa: E402
 import load as loader  # noqa: E402
+import spec  # noqa: E402
 
 ROOT = bs.ROOT
-UNIT_RE = re.compile(r"^c/(?:day|kWh|kVAh|(?:kW|kVA|k\?|lamp)/(?:day|month|year|season|\?)\??)$")
-# the standard units each charge type may carry (a demand or capacity charge per kW or kVA; '?' = period not stated)
-UNITS_BY_CHARGE = {"daily": r"c/(day|lamp/day)$", "metering": r"c/(day|kWh)$", "usage": r"c/(kWh|kVAh)$",
-                   "demand": r"c/k(W|VA|\?)/", "capacity": r"c/k(W|VA|\?)/",
-                   "export": r"c/(kWh|kVAh)$|c/k(W|VA)/", "other": r"c/"}
 # above this a c/kWh price outside critical peak is a misread unless its note says 'confirmed high rate:' (the largest
 # ordinary energy price in the dataset is under 150 c/kWh)
 MAX_KWH_PRICE = 200
@@ -82,12 +82,6 @@ def check_periods(db):
                           AND b.effective_from <= a.effective_to"""):
         bad.append(f"tariff {r['distributor_id']} {r['tariff_code']}: period from {r['effective_from']} overlaps the "
                    f"one from {r['other']}")
-    for table in ("rate", "tou_window", "eligibility"):
-        for r in rows(db, f"""SELECT x.distributor_id, x.tariff_code, x.effective_from, x.effective_to, t.effective_to
-                               AS tariff_to FROM {table} x JOIN tariff t USING (distributor_id, tariff_code,
-                               effective_from) WHERE x.effective_to > t.effective_to"""):
-            bad.append(f"{table} {r['distributor_id']} {r['tariff_code']} {r['effective_from']}: ends "
-                       f"{r['effective_to']}, after its tariff ({r['tariff_to']})")
     for r in rows(db, """SELECT t.distributor_id, t.tariff_code, t.effective_from, t.effective_to, d.document_id,
                          d.pricing_year FROM tariff t JOIN source_document d USING (document_id)"""):
         start, end = bs.YEAR_DATES[r["pricing_year"]]
@@ -108,20 +102,20 @@ def check_status(db):
             bad.append(f"tariff {r['distributor_id']} {r['tariff_code']} {r['effective_from']}: status {r['status']} "
                        f"but {r['document_id']} is {'' if final else 'not '}the distributor's own published list "
                        f"or a regulator's published schedule")
-    for r in rows(db, """SELECT r.rate_id, r.status, r.document_id, t.status AS t_status, t.document_id AS t_doc
-                         FROM rate r JOIN tariff t USING (distributor_id, tariff_code, effective_from)
-                         WHERE r.status != t.status OR r.document_id != t.document_id"""):
-        bad.append(f"rate {r['rate_id']}: {r['status']} from {r['document_id']}, its tariff {r['t_status']} from "
-                   f"{r['t_doc']}")
     return bad
 
 
 def check_units(db):
+    """Every rate's unit prices a quantity its charge type is charged per (spec.QUANTITIES_BY_CHARGE); the unit
+    table itself is the one spec.py generates (the foreign key keeps every rate inside it)."""
+    import spec
     bad = []
-    for r in rows(db, "SELECT rate_id, unit, charge_type FROM rate"):
-        if not UNIT_RE.match(r["unit"]):
-            bad.append(f"rate {r['rate_id']}: unit {r['unit']!r} is not a standard unit")
-        elif not re.match(UNITS_BY_CHARGE[r["charge_type"]], r["unit"]) and r["rate_id"] not in KNOWN_MISPRINTS:
+    key = lambda r: r["unit"]  # noqa: E731
+    if sorted(rows(db, "SELECT unit, quantity, billing_period, unit_std, multiplier, calendar_factor, definition "
+                       "FROM unit"), key=key) != sorted(spec.unit_rows(), key=key):
+        bad.append("unit table differs from spec.UNITS: rebuild")
+    for r in rows(db, "SELECT r.rate_id, r.unit, r.charge_type, u.quantity FROM rate r JOIN unit u USING (unit)"):
+        if r["quantity"] not in spec.QUANTITIES_BY_CHARGE[r["charge_type"]] and r["rate_id"] not in KNOWN_MISPRINTS:
             bad.append(f"rate {r['rate_id']}: a {r['charge_type']} charge in {r['unit']}")
     return bad
 
@@ -153,19 +147,30 @@ def minutes(t):
     return int(h) * 60 + int(m)
 
 
+def tariff_windows(db):
+    """{(distributor_id, tariff_code, effective_from): [window]}: the windows each tariff period uses (joins.py)."""
+    return joins.tariff_windows(*(rows(db, f"SELECT * FROM {t}") for t in (
+        "window_set", "season", "season_part", "time_window", "tariff_window_set")))
+
+
 def check_tou(db):
-    bad = []
+    """A window's season belongs to the window's own set; windows a tariff uses for one charge group and published
+    period name never overlap on a day type and month."""
+    bad = [f"window {r['window_id']}: its season {r['season_id']} belongs to another window set" for r in rows(
+        db, "SELECT w.window_id, w.season_id FROM time_window w JOIN season s USING (season_id) "
+            "WHERE s.window_set_id != w.window_set_id")]
     spans = defaultdict(list)
-    for w in rows(db, "SELECT * FROM tou_window"):
-        for m in (w["months"] or "season").split(","):
-            spans[(w["distributor_id"], w["tariff_code"], w["effective_from"], w["applies_to"], w["period_label"],
-                   w["day_type"], m, w["season_label"] if w["months"] is None else None)].append(
-                (minutes(w["start_time"]), minutes(w["end_time"]), w["window_id"]))
+    for key, ws in tariff_windows(db).items():
+        for w in ws:
+            for m in (w["months"] or w["dst"] or "season").split(","):
+                spans[(*key, w["applies_to"], w["period_label"], w["day_type"], m,
+                       w["season_label"] if w["months"] is None else None)].append(
+                    (minutes(w["start_time"]), minutes(w["end_time"]), w["window_id"]))
     for key, ss in spans.items():
         ss.sort()
         for (a0, a1, aid), (b0, b1, bid) in zip(ss, ss[1:]):
             if b0 < a1:
-                bad.append(f"windows {aid} and {bid} overlap (month {key[6]})")
+                bad.append(f"{' '.join(key[:3])}: windows {aid} and {bid} overlap (month {key[6]})")
     return sorted(set(bad))
 
 
@@ -176,9 +181,7 @@ def check_joins(db):
     how they join). A tariff-period without windows for a charge group, a season whose months no held document states
     (its window says months not_stated) and an event period with no fixed hours are gaps the bill calculator reports
     (billcalc.py sweep), not failures."""
-    windows, rates = defaultdict(list), defaultdict(list)
-    for w in rows(db, "SELECT * FROM tou_window"):
-        windows[(w["distributor_id"], w["tariff_code"], w["effective_from"])].append(w)
+    windows, rates = tariff_windows(db), defaultdict(list)
     for r in rows(db, "SELECT * FROM rate"):
         rates[(r["distributor_id"], r["tariff_code"], r["effective_from"])].append(r)
     bad = []
@@ -258,7 +261,8 @@ def check_values(db, committed_only):
     import locators
     bad, n = [], 0
     for r in rows(db, """SELECT r.rate_id, r.locator, r.value_published, d.local_path FROM rate r
-                         JOIN source_document d USING (document_id) ORDER BY d.local_path, r.locator"""):
+                         JOIN tariff t USING (distributor_id, tariff_code, effective_from)
+                         JOIN source_document d ON d.document_id = t.document_id ORDER BY d.local_path, r.locator"""):
         path = os.path.join(ROOT, r["local_path"])
         if not os.path.exists(path):
             if not committed_only:
@@ -282,26 +286,61 @@ def check_quotes(db, committed_only):
     import locators
     bad, n = [], 0
     for r in rows(db, """SELECT e.criterion_id, e.locator, e.quote, d.local_path FROM eligibility e
-                         JOIN source_document d USING (document_id)"""):
+                         JOIN source_document d USING (document_id)
+                         UNION ALL SELECT a.distributor_id || ':' || a.tariff_code || ':' || a.effective_from
+                         || ':assignment:' || a.assignment_no, a.locator, a.quote, d.local_path
+                         FROM tariff_assignment a JOIN source_document d USING (document_id)
+                         UNION ALL SELECT l.distributor_id || ':' || l.tariff_code || ':' || l.effective_from
+                         || ':link:' || l.link_no, l.locator, l.quote, d.local_path
+                         FROM tariff_link l JOIN source_document d USING (document_id) WHERE l.quote IS NOT NULL
+                         UNION ALL SELECT c.rate_id || ':' || c.condition_kind || ':' || c.value, c.locator, c.quote,
+                         d.local_path FROM rate_condition c JOIN source_document d USING (document_id)
+                         UNION ALL SELECT w.window_set_id || ':time_basis', w.time_basis_locator, w.time_basis_quote,
+                         d.local_path FROM window_set w JOIN source_document d
+                         ON d.document_id = w.time_basis_document_id
+                         UNION ALL SELECT w.window_set_id || ':public_holidays', w.public_holidays_locator,
+                         w.public_holidays_quote, d.local_path FROM window_set w JOIN source_document d
+                         ON d.document_id = w.public_holidays_document_id"""):
         path = os.path.join(ROOT, r["local_path"])
         if not os.path.exists(path):
             if not committed_only:
-                bad.append(f"eligibility {r['criterion_id']}: {r['local_path']} is missing")
+                bad.append(f"{r['criterion_id']}: {r['local_path']} is missing")
             continue
         n += 1
         ok, why = locators.verify_quote(path, r["locator"], r["quote"])
         if not ok:
-            bad.append(f"eligibility {r['criterion_id']}: {why}")
+            bad.append(f"{r['criterion_id']}: {why}")
     if not committed_only:  # every source is committed now; the skip only guards checkouts that lack them
         for name, data in curated.load_all().items():
             bad += [f"curated/{name}.yaml: {e}" for e in curated.validate(data)]
     return bad, n
 
 
+def check_views(db):
+    """Each view has the columns spec.py gives it, tariff_flat and tou_flat return every tariff-period, and tariff_flat
+    every rate."""
+    bad = []
+    for v in spec.VIEWS:
+        got = [c[0] for c in db.execute(f"SELECT * FROM {v['name']} LIMIT 0").description]
+        if got != [c["name"] for c in v["columns"]]:
+            bad.append(f"view {v['name']}: columns {got} differ from spec.py")
+    for view in ("tariff_flat", "tou_flat"):
+        missing = db.execute(f"""SELECT count(*) FROM tariff t WHERE NOT EXISTS (SELECT 1 FROM {view} v
+            WHERE v.distributor_id = t.distributor_id AND v.tariff_code = t.tariff_code
+            AND v.effective_from = t.effective_from)""").fetchone()[0]
+        if missing:
+            bad.append(f"view {view}: {missing} tariff-periods missing")
+    missing = db.execute("""SELECT count(*) FROM rate r WHERE NOT EXISTS (SELECT 1 FROM tariff_flat v
+        WHERE v.rate_id = r.rate_id)""").fetchone()[0]
+    if missing:
+        bad.append(f"view tariff_flat: {missing} rates missing")
+    return bad
+
+
 # the checks main() runs after load, in order: (name, check); SOURCE_CHECKS only with --sources
 CHECKS = (("periods", check_periods), ("status", check_status), ("units", check_units),
           ("magnitude", check_magnitude), ("blocks", check_blocks), ("tou", check_tou), ("joins", check_joins),
-          ("rules", check_rules), ("aliases", check_aliases))
+          ("rules", check_rules), ("aliases", check_aliases), ("views", check_views))
 SOURCE_CHECKS = (("files", check_files), ("values", check_values), ("quotes", check_quotes))
 
 
@@ -314,8 +353,9 @@ def coverage(db):
                          sum(EXISTS (SELECT 1 FROM rate r WHERE r.distributor_id = t.distributor_id
                                AND r.tariff_code = t.tariff_code AND r.effective_from = t.effective_from
                                AND r.tou_period IS NOT NULL AND r.tou_period != 'anytime')
-                             AND NOT EXISTS (SELECT 1 FROM tou_window w WHERE w.distributor_id = t.distributor_id
-                               AND w.tariff_code = t.tariff_code AND w.effective_from = t.effective_from)) AS no_tou,
+                             AND NOT EXISTS (SELECT 1 FROM tariff_window_set w
+                               WHERE w.distributor_id = t.distributor_id AND w.tariff_code = t.tariff_code
+                               AND w.effective_from = t.effective_from)) AS no_tou,
                          sum(NOT EXISTS (SELECT 1 FROM eligibility e WHERE e.distributor_id = t.distributor_id
                                AND e.tariff_code = t.tariff_code AND e.effective_from = t.effective_from)) AS no_elig,
                          sum(EXISTS (SELECT 1 FROM rate r WHERE r.distributor_id = t.distributor_id

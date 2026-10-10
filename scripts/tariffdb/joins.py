@@ -1,6 +1,6 @@
 """How a rate joins the TOU windows that say when it applies; shared by validate.py and scripts/billcalc.py.
 
-A rate prices one charge group; a window names the group it applies to (tou_window.applies_to):
+A rate prices one charge group; a window names the group it applies to (tariff_window_set.applies_to):
 
   rate                                         group            windows used
   usage, register general                      usage            applies_to usage or all
@@ -108,3 +108,56 @@ def season_months(season, windows):
         summer = season_months("summer", windows)
         return set(range(1, 13)) - summer if summer else None
     return months or None
+
+
+# ----------------------------------------------------------------------------------------------- windows of a tariff
+def season_dates(parts):
+    """(months, dst) of a season from its season_part rows: months = comma-separated month numbers when every part
+    spans whole months, dst = 'in' / 'out' for the daylight-saving period or the rest of the year; (None, None) when
+    the document names the season without its dates."""
+    if not parts:
+        return None, None
+    if any(p["start_anchor"] for p in parts):
+        return None, "in" if parts[0]["start_anchor"] == "dst_start" else "out"
+    months = []
+    for p in sorted(parts, key=lambda p: int(p["part_no"])):
+        m, end = int(p["start_month"]), int(p["end_month"])
+        months.append(m)
+        while m != end:
+            m = m % 12 + 1
+            months.append(m)
+    return ",".join(str(m) for m in months), None
+
+
+def tariff_windows(window_sets, seasons, season_parts, time_windows, tariff_window_sets):
+    """{(distributor_id, tariff_code, effective_from): [window]} from the window tables (iterables of dicts): each
+    window a tariff's charges use, with its set's clock and holiday rule and its season's months, applies_to from the
+    link. A window two linked sets both state (a summary and a schedule) is kept once."""
+    sets = {s["window_set_id"]: s for s in window_sets}
+    parts = {}
+    for p in season_parts:
+        parts.setdefault(p["season_id"], []).append(p)
+    season = {s["season_id"]: (s, *season_dates(parts.get(s["season_id"]))) for s in seasons}
+    by_set = {}
+    for w in sorted(time_windows, key=lambda w: w["window_id"]):
+        by_set.setdefault(w["window_set_id"], []).append(w)
+    out, seen = {}, set()
+    for link in sorted(tariff_window_sets, key=lambda r: (r["distributor_id"], r["tariff_code"], r["effective_from"],
+                                                         r["window_set_id"], r["applies_to"])):
+        key = (link["distributor_id"], link["tariff_code"], link["effective_from"])
+        ws = sets[link["window_set_id"]]
+        for w in by_set.get(link["window_set_id"], []):
+            s, months, dst = season[w["season_id"]]
+            fact = (key, link["applies_to"], w["tou_period"], w["day_type"], w["start_time"], w["end_time"], months,
+                    dst, s["season"])
+            if fact in seen:
+                continue
+            seen.add(fact)
+            out.setdefault(key, []).append({
+                "window_id": f"{w['window_id']}@{link['applies_to']}", "window_set_id": ws["window_set_id"],
+                "applies_to": link["applies_to"], "tou_period": w["tou_period"], "period_label": w["period_label"],
+                "day_type": w["day_type"], "start_time": w["start_time"], "end_time": w["end_time"], "months": months,
+                "dst": dst, "season": s["season"], "season_label": s["season_label"],
+                "time_basis": ws["time_basis"], "public_holidays": ws["public_holidays"],
+                "document_id": ws["document_id"], "locator": w["locator"] or ws["locator"]})
+    return out

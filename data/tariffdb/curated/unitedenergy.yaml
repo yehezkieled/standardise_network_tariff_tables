@@ -5,7 +5,11 @@ tou_schedules:
   fin_year: 2023-24
   name: Residential ToU (URTOU) energy peak / non-peak
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "All times are local times."
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p23"
+  public_holidays_quote: "all days non-peak Time of use URTOU Default ✓ 3pm-9pm times"
   covers_full_day: true
   locator: pdf:p23
   quote: all days non-peak Time of use URTOU Default ✓ 3pm-9pm times
@@ -36,6 +40,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Residential demand (RESKW1R) summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "All times are local times."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p23
@@ -69,6 +75,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Small business ToU (LVTOU) energy peak / non-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p24"
+  time_basis_quote: "All times are local times except for UnMet."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p24
@@ -105,6 +113,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Small/medium business demand (LVMKW1R) summer / non-summer window
   time_basis: local_time
+  time_basis_locator: "pdf:p24"
+  time_basis_quote: "All times are local times except for UnMet."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p24
@@ -173,6 +183,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Large kVA tariffs peak / off-peak usage
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Peak usage is kWh usage between 7am and 7pm local time on workdays."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p27
@@ -242,6 +254,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Large kVA tariffs rolling demand measurement window
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p27
@@ -290,6 +304,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Large kVA tariffs summer incentive demand window 1-4pm
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "All times are local times."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p27
@@ -327,6 +343,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Large kVA tariffs summer incentive demand window 4-7pm
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "All times are local times."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p27
@@ -370,7 +388,11 @@ tou_schedules:
   fin_year: 2023-24
   name: 'Trial: residential daytime saver (URDS) and community battery (LVNDBB) periods'
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p12"
+  time_basis_quote: "All trial tariffs above are in local time."
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p12"
+  public_holidays_quote: "Residential daytime saver and community battery peak period is 4pm-9pm, saver period is 10am-3pm, off-peak is all other times, from Monday to Sunday."
   covers_full_day: true
   locator: pdf:p12
   quote: Residential daytime saver and community battery peak period is 4pm-9pm, saver period is 10am-3pm, off-peak is all
@@ -428,7 +450,11 @@ tou_schedules:
   fin_year: 2023-24
   name: 'Trial: generator storage (GT) demand window option 4-9pm'
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p12"
+  time_basis_quote: "Generator storage tariff kW demand charge is based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p12"
+  public_holidays_quote: "Generator storage tariff kW demand charge is based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
   covers_full_day: false
   locator: pdf:p12
   quote: Generator storage tariff kW demand charge is based on the highest 30-minute demand measured over the last 12 months
@@ -453,7 +479,11 @@ tou_schedules:
   fin_year: 2023-24
   name: 'Trial: generator storage (GT) demand window option 11am-4pm'
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p12"
+  time_basis_quote: "Generator storage tariff kW demand charge is based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p12"
+  public_holidays_quote: "Generator storage tariff kW demand charge is based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
   covers_full_day: false
   locator: pdf:p12
   quote: Generator storage tariff kW demand charge is based on the highest 30-minute demand measured over the last 12 months
@@ -478,7 +508,12 @@ tou_schedules:
   fin_year: 2023-24
   name: 'Trial: residential daytime saver (URDS) and community battery (LVNDBB) periods'
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "xlsx:UE_2023-24_TRIAL_NUOS!B15"
+  time_basis_quote: "Residential daytime saver and community battery peak period is 4pm-9pm, saver period is 10am-3pm, and off-peak is all other times, local time"
+  public_holidays: unchanged
+  public_holidays_doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
+  public_holidays_locator: "pdf:p12"
+  public_holidays_quote: "Residential daytime saver and community battery peak period is 4pm-9pm, saver period is 10am-3pm, off-peak is all other times, from Monday to Sunday."
   covers_full_day: true
   locator: xlsx:UE_2023-24_TRIAL_NUOS!B15
   quote: Residential daytime saver and community battery peak period is 4pm-9pm, saver period is 10am-3pm, and off-peak is
@@ -535,7 +570,11 @@ tou_schedules:
   fin_year: 2023-24
   name: 'Trial: generator storage (GT) demand window option 4-9pm'
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "xlsx:UE_2023-24_TRIAL_NUOS!B17"
+  time_basis_quote: "Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
+  public_holidays: unchanged
+  public_holidays_locator: "xlsx:UE_2023-24_TRIAL_NUOS!B17"
+  public_holidays_quote: "Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
   covers_full_day: false
   locator: xlsx:UE_2023-24_TRIAL_NUOS!B17
   quote: Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months
@@ -559,7 +598,11 @@ tou_schedules:
   fin_year: 2023-24
   name: 'Trial: generator storage (GT) demand window option 11am-4pm'
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "xlsx:UE_2023-24_TRIAL_NUOS!B17"
+  time_basis_quote: "Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
+  public_holidays: unchanged
+  public_holidays_locator: "xlsx:UE_2023-24_TRIAL_NUOS!B17"
+  public_holidays_quote: "Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
   covers_full_day: false
   locator: xlsx:UE_2023-24_TRIAL_NUOS!B17
   quote: Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months
@@ -583,6 +626,8 @@ tou_schedules:
   fin_year: 2024-25
   name: 'Trial: residential daytime saver (URDS) and community battery (LVNDBB) periods'
   time_basis: local_time
+  time_basis_locator: "xlsx:UE_2024-25_TRIAL_NUOS!B15"
+  time_basis_quote: "Residential daytime saver and community battery peak period is 4pm-9pm, saver period is 10am-3pm, and off-peak is all other times, local time"
   public_holidays: not_stated
   covers_full_day: true
   locator: xlsx:UE_2024-25_TRIAL_NUOS!B15
@@ -640,7 +685,11 @@ tou_schedules:
   fin_year: 2024-25
   name: 'Trial: generator storage (GT) demand window option 4-9pm'
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "xlsx:UE_2024-25_TRIAL_NUOS!B17"
+  time_basis_quote: "Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
+  public_holidays: unchanged
+  public_holidays_locator: "xlsx:UE_2024-25_TRIAL_NUOS!B17"
+  public_holidays_quote: "Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
   covers_full_day: false
   locator: xlsx:UE_2024-25_TRIAL_NUOS!B17
   quote: Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months
@@ -664,7 +713,11 @@ tou_schedules:
   fin_year: 2024-25
   name: 'Trial: generator storage (GT) demand window option 11am-4pm'
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "xlsx:UE_2024-25_TRIAL_NUOS!B17"
+  time_basis_quote: "Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
+  public_holidays: unchanged
+  public_holidays_locator: "xlsx:UE_2024-25_TRIAL_NUOS!B17"
+  public_holidays_quote: "Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months for only 4-9pm or only 11am-4pm, every day of year, local time"
   covers_full_day: false
   locator: xlsx:UE_2024-25_TRIAL_NUOS!B17
   quote: Generator storage tariff kW demand charge based on the highest 30-minute demand measured over the last 12 months
@@ -688,7 +741,11 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential ToU (URTOU) energy peak / non-peak
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p6"
+  time_basis_quote: "All times are local time"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p5"
+  public_holidays_quote: "ToU URTOU Default ✓ All days 3pm-9pm Non-peak times"
   covers_full_day: true
   locator: pdf:p5
   quote: ToU URTOU Default ✓ All days 3pm-9pm Non-peak times
@@ -718,6 +775,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential demand (RESKW1R) summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p6"
+  time_basis_quote: "All times are local time"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p5
@@ -754,6 +813,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Dedicated circuit (LVDED) slab heating typical switching times
   time_basis: local_time
+  time_basis_locator: "pdf:p6"
+  time_basis_quote: "All times are local time"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p6
@@ -780,6 +841,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Small business ToU (LVTOU) energy peak / non-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p7"
+  time_basis_quote: "All times are local time, except for UNMET"
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf-ocr:p7
@@ -817,6 +880,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Small/medium business demand (LVMKW1R) summer / non-summer window
   time_basis: local_time
+  time_basis_locator: "pdf:p7"
+  time_basis_quote: "All times are local time, except for UNMET"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf-ocr:p7
@@ -890,6 +955,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Large kVA tariffs peak / off-peak usage
   time_basis: local_time
+  time_basis_locator: "pdf:p10"
+  time_basis_quote: "Peak usage is kWh usage between 7am and 7pm local time on workdays."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p10
@@ -959,6 +1026,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Large kVA tariffs rolling demand measurement window
   time_basis: local_time
+  time_basis_locator: "pdf:p10"
+  time_basis_quote: "Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p10
@@ -1007,6 +1076,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Large kVA tariffs summer incentive demand window 1-4pm
   time_basis: local_time
+  time_basis_locator: "pdf:p8"
+  time_basis_quote: "All times are local time"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p10
@@ -1044,6 +1115,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Large kVA tariffs summer incentive demand window 4-7pm
   time_basis: local_time
+  time_basis_locator: "pdf:p8"
+  time_basis_quote: "All times are local time"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p10
@@ -1087,7 +1160,11 @@ tou_schedules:
   fin_year: 2026-27
   name: Residential ToU (URSTOU) energy peak / off-peak / saver
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p5"
+  time_basis_quote: "All times are local time"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p5"
+  public_holidays_quote: "all days 4pm- all days 9pm- all days 11am- Residential ToU URSTOU Default ✓ 9pm 11am 4pm"
   covers_full_day: true
   locator: pdf:p5
   quote: all days 4pm- all days 9pm- all days 11am- Residential ToU URSTOU Default ✓ 9pm 11am 4pm
@@ -1123,7 +1200,11 @@ tou_schedules:
   fin_year: 2026-27
   name: Residential CER (URCER) import peak / shoulder / off-peak / saver
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p5"
+  time_basis_quote: "All times are local time"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p5"
+  public_holidays_quote: "all days 4pm- all days 11am- < 1kV N/A all days 4pm- all days 4pm- 9pm during Mar- all days 9pm- all days 11am- 4pm during Sep- Residential CER URCER Opt-in 9pm during Dec- 9pm during Dec- ✓ May and Sep- 11am 4pm May with 1 kWh Feb and Jun-Aug Feb and Jun-Aug Nov per day BEL"
   covers_full_day: true
   locator: pdf:p5
   quote: all days 4pm- all days 11am- < 1kV N/A all days 4pm- all days 4pm- 9pm during Mar- all days 9pm- all days 11am- 4pm
@@ -1171,7 +1252,11 @@ tou_schedules:
   fin_year: 2026-27
   name: Residential CER (URCER) export credit / export charge windows
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p5"
+  time_basis_quote: "All times are local time"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p5"
+  public_holidays_quote: "all days 4pm- all days 11am- < 1kV N/A all days 4pm- all days 4pm- 9pm during Mar- all days 9pm- all days 11am- 4pm during Sep- Residential CER URCER Opt-in 9pm during Dec- 9pm during Dec- ✓ May and Sep- 11am 4pm May with 1 kWh Feb and Jun-Aug Feb and Jun-Aug Nov per day BEL"
   covers_full_day: false
   locator: pdf:p5
   quote: all days 4pm- all days 11am- < 1kV N/A all days 4pm- all days 4pm- 9pm during Mar- all days 9pm- all days 11am- 4pm
@@ -1203,6 +1288,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Dedicated circuit (LVDED) slab heating typical switching times
   time_basis: local_time
+  time_basis_locator: "pdf:p5"
+  time_basis_quote: "All times are local time"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p6
@@ -1228,6 +1315,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Small business ToU (LVTOU) energy peak / non-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p7"
+  time_basis_quote: "All times are local time, except for UNMET which is in AEST"
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p7
@@ -1264,6 +1353,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Small/medium business demand (LVMKW1R, UMBD) summer / non-summer window
   time_basis: local_time
+  time_basis_locator: "pdf:p7"
+  time_basis_quote: "All times are local time, except for UNMET which is in AEST"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p7
@@ -1302,6 +1393,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Medium business opt-out (UMBO) energy peak / non-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p7"
+  time_basis_quote: "All times are local time, except for UNMET which is in AEST"
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p7
@@ -1338,6 +1431,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Type 7 or 9 metering (UNMET) energy peak / non-peak
   time_basis: standard_time
+  time_basis_locator: "pdf:p7"
+  time_basis_quote: "All times are local time, except for UNMET which is in AEST"
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p7
@@ -1374,7 +1469,11 @@ tou_schedules:
   fin_year: 2026-27
   name: Flexible small (UFS) import peak / off-peak
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p7"
+  time_basis_quote: "All times are local time, except for UNMET which is in AEST"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p7"
+  public_holidays_quote: "all days 11am- all days 4pm- all days 4pm- ≤240kVA import outside of peak 4pm during Sep- Flexible small UFS Default 9pm during Dec- 9pm during Dec- capacity ✓ import times May with 1 kWh Feb and Jun-Aug Feb and Jun-Aug per day BEL"
   covers_full_day: true
   locator: pdf:p7
   quote: all days 11am- all days 4pm- all days 4pm- ≤240kVA import outside of peak 4pm during Sep- Flexible small UFS Default
@@ -1419,7 +1518,11 @@ tou_schedules:
   fin_year: 2026-27
   name: Flexible small (UFS) export credit / export charge windows
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p7"
+  time_basis_quote: "All times are local time, except for UNMET which is in AEST"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p7"
+  public_holidays_quote: "all days 11am- all days 4pm- all days 4pm- ≤240kVA import outside of peak 4pm during Sep- Flexible small UFS Default 9pm during Dec- 9pm during Dec- capacity ✓ import times May with 1 kWh Feb and Jun-Aug Feb and Jun-Aug per day BEL"
   covers_full_day: false
   locator: pdf:p7
   quote: all days 11am- all days 4pm- all days 4pm- ≤240kVA import outside of peak 4pm during Sep- Flexible small UFS Default
@@ -1449,7 +1552,11 @@ tou_schedules:
   fin_year: 2026-27
   name: Flexible large (UFL) energy peak / non-peak
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p9"
+  time_basis_quote: "All times are local time"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p8"
+  public_holidays_quote: "> 240 kVA & all days 4pm- Flexible large UFL Default N/A < 30MVA import - all times 9pm during Dec- non-peak times - not applicable capacity Feb and Jun-Aug"
   covers_full_day: true
   locator: pdf:p8
   quote: '> 240 kVA & all days 4pm- Flexible large UFL Default N/A < 30MVA import - all times 9pm during Dec- non-peak times
@@ -1494,6 +1601,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Large kVA tariffs peak / off-peak usage
   time_basis: local_time
+  time_basis_locator: "pdf:p12"
+  time_basis_quote: "Peak usage is kWh usage between 7am and 7pm local time on workdays."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p12
@@ -1557,6 +1666,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Large kVA tariffs rolling demand measurement window
   time_basis: local_time
+  time_basis_locator: "pdf:p11"
+  time_basis_quote: "Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the most recent 12 months."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p11
@@ -1598,6 +1709,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Large kVA tariffs incentive demand window 1-4pm-summer
   time_basis: local_time
+  time_basis_locator: "pdf:p11"
+  time_basis_quote: "1-4pm local time workdays in summer (Dec-Mar), or"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p11
@@ -1631,6 +1744,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Large kVA tariffs incentive demand window 4-7pm-summer
   time_basis: local_time
+  time_basis_locator: "pdf:p11"
+  time_basis_quote: "4-7pm local time workdays in summer (Dec-Mar), or"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p11
@@ -1664,6 +1779,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Large kVA tariffs incentive demand window 4-7pm-winter
   time_basis: local_time
+  time_basis_locator: "pdf:p11"
+  time_basis_quote: "4-7pm local time workdays in winter (May-Aug)."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p11
@@ -1697,7 +1814,9 @@ tou_schedules:
   fin_year: 2026-27
   name: 'Trial: kerbside EV charging (EVUTOU) import and seasonal export credit periods'
   time_basis: not_stated
-  public_holidays: not_stated
+  public_holidays: unchanged
+  public_holidays_locator: "pdf-ocr:p14"
+  public_holidays_quote: "All days import c/kWh Off-peak Saver Peak charge"
   covers_full_day: false
   locator: pdf-ocr:p14
   quote: All days import c/kWh Off-peak Saver Peak charge
@@ -1738,7 +1857,11 @@ tou_schedules:
   fin_year: '2017'
   name: Low voltage small 1 rate (LVS1R) summer / non-summer energy
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Table 3-11: Tariff - LVS1R, All times Peak 1/2 hr interval 1 2 3 4 13 14 15 16 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 47 48 EST"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p28"
+  public_holidays_quote: "Table 3-11: Tariff - LVS1R, All times Peak"
   covers_full_day: true
   locator: pdf:p28
   quote: 'Table 3-11: Tariff - LVS1R, All times Peak 1/2 hr interval 1 2 3 4 13 14 15 16 27 28 29 30 31 32 33 34 35 36 37
@@ -1858,7 +1981,11 @@ tou_schedules:
   fin_year: '2017'
   name: Time of day (TOD) peak / shoulder / off-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p56"
+  time_basis_quote: "consumption during the peak periods (3pm-11pm local time workdays).  Non-Summer Peak energy charge is lower than Summer Peak energy charge to encourage heating usage.  Includes a seasonal shoulder energy charge. Customers can make savings by reducing their energy consumption during the shoulder periods (7am-3pm local time workdays).  Non-Summer shoulder energy charge is lower than Summer Shoulder energy charge to encourage heating usage.  Off-peak energy is all day weekends and public holidays and 11pm to 7am local time workdays."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p25"
+  public_holidays_quote: "Table 3-6: Tariff – TOD Business Days Off Peak Shoulder Peak Off Peak Weekends & Public Holidays Off Peak"
   covers_full_day: true
   locator: pdf:p56
   quote: consumption during the peak periods (3pm-11pm local time workdays).  Non-Summer Peak energy charge is lower than
@@ -1978,7 +2105,11 @@ tou_schedules:
   fin_year: '2017'
   name: Time of day (TOD9) peak / shoulder / off-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p57"
+  time_basis_quote: "consumption during the peak periods (3pm-9pm local time workdays).  Non-Summer Peak energy charge is lower than Summer Peak energy charge to encourage heating usage.  Includes a seasonal shoulder energy charge. Customers can make savings by reducing their energy consumption during the shoulder periods (7am-3pm local time workdays).  Non-Summer shoulder energy charge is lower than Summer Shoulder energy charge to encourage heating usage.  Off-peak energy is all day weekends and public holidays and 9pm to 7am local time workdays."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p26"
+  public_holidays_quote: "Table 3-7: Tariff – TOD9 Business Days Off Peak Shoulder Peak Off Peak Weekends & Public Holidays Off Peak"
   covers_full_day: true
   locator: pdf:p57
   quote: consumption during the peak periods (3pm-9pm local time workdays).  Non-Summer Peak energy charge is lower than
@@ -2098,7 +2229,11 @@ tou_schedules:
   fin_year: '2017'
   name: Time of use (TOU) peak / off-peak energy and summer demand incentive
   time_basis: local_time
+  time_basis_locator: "pdf:p58"
+  time_basis_quote: "consumption during the peak periods (7am-11pm local time workdays).  Off-peak energy is all day weekends and public holidays and 11pm to 7am local time workdays. Usage during off-peak times is cheaper than peak times.  Includes a Summer Demand Incentive Charge measured at maximum kW per billing period between 2pm and 7pm local time workdays in summer."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p58"
+  public_holidays_quote: "consumption during the peak periods (7am-11pm local time workdays).  Off-peak energy is all day weekends and public holidays and 11pm to 7am local time workdays. Usage during off-peak times is cheaper than peak times.  Includes a Summer Demand Incentive Charge measured at maximum kW per billing period between 2pm and 7pm local time workdays in summer."
   covers_full_day: true
   locator: pdf:p58
   quote: consumption during the peak periods (7am-11pm local time workdays).  Off-peak energy is all day weekends and public
@@ -2195,7 +2330,11 @@ tou_schedules:
   fin_year: '2017'
   name: Time of use (TOU) summer demand incentive window
   time_basis: local_time
+  time_basis_locator: "pdf:p58"
+  time_basis_quote: "consumption during the peak periods (7am-11pm local time workdays).  Off-peak energy is all day weekends and public holidays and 11pm to 7am local time workdays. Usage during off-peak times is cheaper than peak times.  Includes a Summer Demand Incentive Charge measured at maximum kW per billing period between 2pm and 7pm local time workdays in summer."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p25"
+  public_holidays_quote: "Table 3-5: Tariff – TOU Business Days Off Peak Peak Off Peak Business Days Summer Only N/A Summer Demand N/A Weekends & Public Holidays Off Peak"
   covers_full_day: false
   locator: pdf:p58
   quote: consumption during the peak periods (7am-11pm local time workdays).  Off-peak energy is all day weekends and public
@@ -2223,7 +2362,11 @@ tou_schedules:
   fin_year: '2017'
   name: Dedicated circuit (LVDed) off-peak window
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p56"
+  time_basis_quote: "The Off-Peak period is 11pm to 7am local time."
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Table 3-10: Tariff - LVDED (Dedicated Load) Any Day Off Peak"
   covers_full_day: false
   locator: pdf:p56
   quote: The Off-Peak period is 11pm to 7am local time.
@@ -2249,7 +2392,11 @@ tou_schedules:
   fin_year: '2017'
   name: RESKW1R summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Local Time*"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "NOTE: Monthly maximum demand is based on WORK DAYS (i.e. excluding weekends and public holidays)."
   covers_full_day: false
   locator: pdf:p27
   quote: 'Table 3-9: Tariff – RESKW1R (Seasonal Demand anytime energy Residential) Demand Peak Energy Anytime rate 1/2 hr
@@ -2290,7 +2437,11 @@ tou_schedules:
   fin_year: '2017'
   name: LVMKWTOU/LVMKW1R summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Local Time*"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p28"
+  public_holidays_quote: "NOTE: Monthly maximum demand is based on WORK DAYS (i.e. excluding weekends and public holidays)."
   covers_full_day: false
   locator: pdf:p28
   quote: 'Table 3-12: Tariff – LVMKWTOU, LVMKW1R (Seasonal Demand anytime energy Business) Demand Peak Energy Anytime rate
@@ -2332,7 +2483,11 @@ tou_schedules:
   fin_year: '2017'
   name: Large kVA tariffs peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf:p59"
+  time_basis_quote: "consumption during the peak periods (7am to 7pm local time workdays).  Includes a Summer Demand Incentive Charge (measured as kVA at maximum kW per billing period). This empowers customers to make savings by altering the time of use of their consumption away from 3pm to 6pm local time workdays in summer.  Off-peak energy is all day weekends and public holidays and 7pm to 7am local time workdays."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "Table 3-4: Tariff - HVkVATOU, LVkVATOU, SUBTkVATOU Business Days N/A Rolling Demand N/A Business Days Off Peak Peak Off Peak Business Days Summer Only N/A Summer Demand N/A Weekends & Public Holidays Off Peak"
   covers_full_day: true
   locator: pdf:p59
   quote: consumption during the peak periods (7am to 7pm local time workdays).  Includes a Summer Demand Incentive Charge
@@ -2437,7 +2592,11 @@ tou_schedules:
   fin_year: '2017'
   name: Large kVA tariffs rolling demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p59"
+  time_basis_quote: "The peak rolling demand is 7am to 7pm local time workdays and is measured as kVA at maximum kW."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "Table 3-4: Tariff - HVkVATOU, LVkVATOU, SUBTkVATOU Business Days N/A Rolling Demand N/A Business Days Off Peak Peak Off Peak Business Days Summer Only N/A Summer Demand N/A Weekends & Public Holidays Off Peak"
   covers_full_day: false
   locator: pdf:p59
   quote: The peak rolling demand is 7am to 7pm local time workdays and is measured as kVA at maximum kW.
@@ -2463,7 +2622,11 @@ tou_schedules:
   fin_year: '2017'
   name: Large kVA tariffs summer demand incentive window
   time_basis: local_time
+  time_basis_locator: "pdf:p59"
+  time_basis_quote: "Includes a Summer Demand Incentive Charge (measured as kVA at maximum kW per billing period). This empowers customers to make savings by altering the time of use of their consumption away from 3pm to 6pm local time workdays in summer."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "Table 3-4: Tariff - HVkVATOU, LVkVATOU, SUBTkVATOU Business Days N/A Rolling Demand N/A Business Days Off Peak Peak Off Peak Business Days Summer Only N/A Summer Demand N/A Weekends & Public Holidays Off Peak"
   covers_full_day: false
   locator: pdf:p59
   quote: Includes a Summer Demand Incentive Charge (measured as kVA at maximum kW per billing period). This empowers customers
@@ -2495,7 +2658,11 @@ tou_schedules:
   fin_year: '2018'
   name: Low voltage small 1 rate (LVS1R) summer / non-summer energy
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Table 3-11: Tariff - LVS1R, All times Peak 1/2 hr interval 1 2 3 4 13 14 15 16 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 47 48 EST"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p28"
+  public_holidays_quote: "Table 3-11: Tariff - LVS1R, All times Peak"
   covers_full_day: true
   locator: pdf:p28
   quote: 'Table 3-11: Tariff - LVS1R, All times Peak 1/2 hr interval 1 2 3 4 13 14 15 16 27 28 29 30 31 32 33 34 35 36 37
@@ -2579,7 +2746,11 @@ tou_schedules:
   fin_year: '2018'
   name: Time of day (TOD) peak / shoulder / off-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p57"
+  time_basis_quote: "consumption during the peak periods (3pm-11pm Local Time workdays).  Non-Summer Peak energy charge is lower than Summer Peak energy charge to encourage heating usage.  Includes a seasonal shoulder energy charge. Customers can make savings by reducing their energy consumption during the shoulder periods (7am-3pm Local Time workdays).  Non-Summer shoulder energy charge is lower than Summer Shoulder energy charge to encourage heating usage.  Off-peak energy is all day weekends and public holidays and 11pm to 7am Local Time workdays."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p25"
+  public_holidays_quote: "Table 3-6: Tariff – TOD Business Days Off Peak Shoulder Peak Off Peak Weekends & Public Holidays Off Peak"
   covers_full_day: true
   locator: pdf:p57
   quote: consumption during the peak periods (3pm-11pm Local Time workdays).  Non-Summer Peak energy charge is lower than
@@ -2699,7 +2870,11 @@ tou_schedules:
   fin_year: '2018'
   name: Time of day (TOD9) peak / shoulder / off-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p58"
+  time_basis_quote: "consumption during the peak periods (3pm-9pm Local Time workdays).  Non-Summer Peak energy charge is lower than Summer Peak energy charge to encourage heating usage.  Includes a seasonal shoulder energy charge. Customers can make savings by reducing their energy consumption during the shoulder periods (7am-3pm Local Time workdays).  Non-Summer shoulder energy charge is lower than Summer Shoulder energy charge to encourage heating usage.  Off-peak energy is all day weekends and public holidays and 9pm to 7am Local Time workdays."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p26"
+  public_holidays_quote: "Table 3-7: Tariff – TOD9 Business Days Off Peak Shoulder Peak Off Peak Weekends & Public Holidays Off Peak"
   covers_full_day: true
   locator: pdf:p58
   quote: consumption during the peak periods (3pm-9pm Local Time workdays).  Non-Summer Peak energy charge is lower than
@@ -2819,7 +2994,11 @@ tou_schedules:
   fin_year: '2018'
   name: Time of use (TOU) peak / off-peak energy and summer demand incentive
   time_basis: local_time
+  time_basis_locator: "pdf:p59"
+  time_basis_quote: "consumption during the peak periods (7am-11pm Local Time workdays).  Off-peak energy is all day weekends and public holidays and 11pm to 7am Local Time workdays. Usage during off peak times is cheaper than peak times.  Includes a Summer Demand Incentive Charge measured at maximum kW per billing period between 2pm and 7pm local time workdays in summer."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p59"
+  public_holidays_quote: "consumption during the peak periods (7am-11pm Local Time workdays).  Off-peak energy is all day weekends and public holidays and 11pm to 7am Local Time workdays. Usage during off peak times is cheaper than peak times.  Includes a Summer Demand Incentive Charge measured at maximum kW per billing period between 2pm and 7pm local time workdays in summer."
   covers_full_day: true
   locator: pdf:p59
   quote: consumption during the peak periods (7am-11pm Local Time workdays).  Off-peak energy is all day weekends and public
@@ -2916,7 +3095,11 @@ tou_schedules:
   fin_year: '2018'
   name: Time of use (TOU) summer demand incentive window
   time_basis: local_time
+  time_basis_locator: "pdf:p59"
+  time_basis_quote: "consumption during the peak periods (7am-11pm Local Time workdays).  Off-peak energy is all day weekends and public holidays and 11pm to 7am Local Time workdays. Usage during off peak times is cheaper than peak times.  Includes a Summer Demand Incentive Charge measured at maximum kW per billing period between 2pm and 7pm local time workdays in summer."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p25"
+  public_holidays_quote: "Table 3-5: Tariff – TOU Business Days Off Peak Peak Off Peak Business Days Summer Only N/A Summer Demand N/A Weekends & Public Holidays Off Peak"
   covers_full_day: false
   locator: pdf:p59
   quote: consumption during the peak periods (7am-11pm Local Time workdays).  Off-peak energy is all day weekends and public
@@ -2944,7 +3127,11 @@ tou_schedules:
   fin_year: '2018'
   name: Dedicated circuit (LVDed) off-peak window
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p57"
+  time_basis_quote: "The Off Peak period is 11pm to 7am local time."
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Table 3-10: Tariff - LVDED (Dedicated Load) Any Day Off Peak"
   covers_full_day: false
   locator: pdf:p57
   quote: The Off Peak period is 11pm to 7am local time.
@@ -2970,7 +3157,11 @@ tou_schedules:
   fin_year: '2018'
   name: RESKW1R summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Local Time*"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "NOTE: Monthly maximum demand is based on WORK DAYS (i.e. excluding weekends and public holidays)."
   covers_full_day: false
   locator: pdf:p27
   quote: 'Table 3-9: Tariff – RESKW1R (Seasonal Demand anytime energy Residential) Demand Peak Energy Anytime rate 1/2 hr
@@ -3011,7 +3202,11 @@ tou_schedules:
   fin_year: '2018'
   name: LVMKWTOU/LVMKW1R summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Local Time*"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p28"
+  public_holidays_quote: "NOTE: Monthly maximum demand is based on WORK DAYS (i.e. excluding weekends and public holidays)."
   covers_full_day: false
   locator: pdf:p28
   quote: 'Table 3-12: Tariff – LVMKWTOU, LVMKW1R (Seasonal Demand anytime energy Business) Demand Peak Energy Anytime rate
@@ -3053,7 +3248,11 @@ tou_schedules:
   fin_year: '2018'
   name: Large kVA tariffs peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf:p60"
+  time_basis_quote: "consumption during the peak periods (7am-7pm Local Time workdays).  Includes a Summer Demand Incentive Charge (measured as kVA at maximum kW per billing period). This empowers customers to make savings by altering the time of use of their consumption away from 3pm to 6pm Local Time workdays in summer.  Off-peak energy is all day weekends and public holidays and 7pm to 7am Local Time workdays."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "Table 3-4: Tariff - HVkVATOU, LVkVATOU, SUBTkVATOU Business Days N/A Rolling Demand N/A Business Days Off Peak Peak Off Peak Business Days Summer Only N/A Summer Demand N/A Weekends & Public Holidays Off Peak"
   covers_full_day: true
   locator: pdf:p60
   quote: consumption during the peak periods (7am-7pm Local Time workdays).  Includes a Summer Demand Incentive Charge (measured
@@ -3158,7 +3357,11 @@ tou_schedules:
   fin_year: '2018'
   name: Large kVA tariffs rolling demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p60"
+  time_basis_quote: "The peak rolling demand is 7am - 7pm Local Time workdays and is measured as kVA at maximum kW."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "Table 3-4: Tariff - HVkVATOU, LVkVATOU, SUBTkVATOU Business Days N/A Rolling Demand N/A Business Days Off Peak Peak Off Peak Business Days Summer Only N/A Summer Demand N/A Weekends & Public Holidays Off Peak"
   covers_full_day: false
   locator: pdf:p60
   quote: The peak rolling demand is 7am - 7pm Local Time workdays and is measured as kVA at maximum kW.
@@ -3184,7 +3387,11 @@ tou_schedules:
   fin_year: '2018'
   name: Large kVA tariffs summer demand incentive window
   time_basis: local_time
+  time_basis_locator: "pdf:p60"
+  time_basis_quote: "Includes a Summer Demand Incentive Charge (measured as kVA at maximum kW per billing period). This empowers customers to make savings by altering the time of use of their consumption away from 3pm to 6pm Local Time workdays in summer."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "Table 3-4: Tariff - HVkVATOU, LVkVATOU, SUBTkVATOU Business Days N/A Rolling Demand N/A Business Days Off Peak Peak Off Peak Business Days Summer Only N/A Summer Demand N/A Weekends & Public Holidays Off Peak"
   covers_full_day: false
   locator: pdf:p60
   quote: Includes a Summer Demand Incentive Charge (measured as kVA at maximum kW per billing period). This empowers customers
@@ -3216,7 +3423,11 @@ tou_schedules:
   fin_year: '2019'
   name: Single rate (LVS1R) summer / non-summer energy
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "LVS1R, WET2Step All days Peak energy AEST 12 AM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "LVS1R, WET2Step All days Peak energy AEST 12 AM 12 AM"
   covers_full_day: true
   locator: pdf:p27
   quote: LVS1R, WET2Step All days Peak energy AEST 12 AM 12 AM
@@ -3260,7 +3471,11 @@ tou_schedules:
   fin_year: '2019'
   name: Single rate (LVM1R, LVL1R) summer / non-summer energy
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "LVM1R, LVL1R All days Peak energy AEST 12 AM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "LVM1R, LVL1R All days Peak energy AEST 12 AM 12 AM"
   covers_full_day: true
   locator: pdf:p29
   quote: LVM1R, LVL1R All days Peak energy AEST 12 AM 12 AM
@@ -3305,7 +3520,11 @@ tou_schedules:
   fin_year: '2019'
   name: Time of use (LVS2R) peak / off-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "LVS2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy Local time 12 AM 7 AM 11 PM 12 AM"
   public_holidays: as_weekday
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: true
   locator: pdf:p27
   quote: LVS2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy Local time 12 AM 7 AM 11 PM 12 AM
@@ -3427,7 +3646,11 @@ tou_schedules:
   fin_year: '2019'
   name: Time of use (LVM2R5D, LVL2R) peak / off-peak
   time_basis: standard_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "LVM2R5D, LVL2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM"
   public_holidays: as_weekday
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: true
   locator: pdf:p29
   quote: LVM2R5D, LVL2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM
@@ -3550,7 +3773,11 @@ tou_schedules:
   fin_year: '2019'
   name: Time of use (LVM2R7D) peak / off-peak
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "LVM2R7D All daysOff peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "LVM2R7D All daysOff peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM"
   covers_full_day: true
   locator: pdf:p29
   quote: LVM2R7D All daysOff peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM
@@ -3646,7 +3873,11 @@ tou_schedules:
   fin_year: '2019'
   name: Unmetered (UNMET) peak / off-peak
   time_basis: standard_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "UNM Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM"
   public_holidays: as_weekday
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: true
   locator: pdf:p30
   quote: UNM Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM
@@ -3768,7 +3999,11 @@ tou_schedules:
   fin_year: '2019'
   name: Time of day (TOD) peak / shoulder / off-peak
   time_basis: standard_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "TOD Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12 AM 7 AM 3 PM 11 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "TOD Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12 AM 7 AM 3 PM 11 PM 12 AM"
   covers_full_day: true
   locator: pdf:p27
   quote: TOD Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12 AM
@@ -3917,7 +4152,11 @@ tou_schedules:
   fin_year: '2019'
   name: Time of day (TOD9) peak / shoulder / off-peak
   time_basis: standard_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "TOD9 Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12 AM 7 AM 3 PM 9 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "TOD9 Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12 AM 7 AM 3 PM 9 PM 12 AM"
   covers_full_day: true
   locator: pdf:p27
   quote: TOD9 Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12
@@ -4066,7 +4305,11 @@ tou_schedules:
   fin_year: '2019'
   name: Dedicated circuit (LVDED) off-peak window
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "DED All daysOff peak energy OP AEST 12 AM 7 AM 11 PM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p28"
+  public_holidays_quote: "DED All daysOff peak energy OP AEST 12 AM 7 AM 11 PM 12 AM"
   covers_full_day: false
   locator: pdf:p28
   quote: DED All daysOff peak energy OP AEST 12 AM 7 AM 11 PM 12 AM
@@ -4094,7 +4337,11 @@ tou_schedules:
   fin_year: '2019'
   name: TOU peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   covers_full_day: true
   locator: pdf:p29
   quote: TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy
@@ -4217,7 +4464,11 @@ tou_schedules:
   fin_year: '2019'
   name: TOU summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   covers_full_day: false
   locator: pdf:p29
   quote: TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy
@@ -4249,7 +4500,11 @@ tou_schedules:
   fin_year: '2019'
   name: LVkWTOU peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: true
   locator: pdf:p29
   quote: LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff
@@ -4372,7 +4627,11 @@ tou_schedules:
   fin_year: '2019'
   name: LVkWTOU summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: false
   locator: pdf:p29
   quote: LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff
@@ -4404,7 +4663,11 @@ tou_schedules:
   fin_year: '2019'
   name: RESKW1R summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: false
   locator: pdf:p28
   quote: RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM
@@ -4448,7 +4711,11 @@ tou_schedules:
   fin_year: '2019'
   name: LVMKWTOU/LVMKW1R anytime energy (summer / non-summer)
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p30"
+  public_holidays_quote: "LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM"
   covers_full_day: true
   locator: pdf:p30
   quote: LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM
@@ -4493,7 +4760,11 @@ tou_schedules:
   fin_year: '2019'
   name: LVMKWTOU/LVMKW1R summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: false
   locator: pdf:p30
   quote: LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM
@@ -4538,7 +4809,11 @@ tou_schedules:
   fin_year: '2019'
   name: Large kVA tariffs peak / off-peak energy
   time_basis: standard_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p30"
+  public_holidays_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: true
   locator: pdf:p30
   quote: LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy
@@ -4663,7 +4938,11 @@ tou_schedules:
   fin_year: '2019'
   name: Large kVA tariffs rolling demand window
   time_basis: standard_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p30"
+  public_holidays_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: false
   locator: pdf:p30
   quote: LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy
@@ -4688,8 +4967,12 @@ tou_schedules:
   doc: sources/archive/unitedenergy/2019/AER_approved_-_United_Energy_-_Pricing_proposal_2019_-_last_updated_22_November_2018.pdf
   fin_year: '2019'
   name: Large kVA tariffs summer demand incentive window
-  time_basis: not_stated
+  time_basis: standard_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p30"
+  public_holidays_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy AEST 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: false
   locator: pdf:p30
   quote: LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy
@@ -4724,7 +5007,11 @@ tou_schedules:
   fin_year: '2020'
   name: Single rate (LVS1R) summer / non-summer energy
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "LVS1R, WET2Step All days Peak energy AEST 12 AM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "LVS1R, WET2Step All days Peak energy AEST 12 AM 12 AM"
   covers_full_day: true
   locator: pdf:p27
   quote: LVS1R, WET2Step All days Peak energy AEST 12 AM 12 AM
@@ -4764,7 +5051,11 @@ tou_schedules:
   fin_year: '2020'
   name: Single rate (LVM1R, LVL1R) summer / non-summer energy
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "LVM1R, LVL1R All days Peak energy AEST 12 AM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "LVM1R, LVL1R All days Peak energy AEST 12 AM 12 AM"
   covers_full_day: true
   locator: pdf:p29
   quote: LVM1R, LVL1R All days Peak energy AEST 12 AM 12 AM
@@ -4805,7 +5096,11 @@ tou_schedules:
   fin_year: '2020'
   name: Time of use (LVS2R) peak / off-peak
   time_basis: standard_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "LVS2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM"
   public_holidays: as_weekday
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: true
   locator: pdf:p27
   quote: LVS2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM
@@ -4911,7 +5206,11 @@ tou_schedules:
   fin_year: '2020'
   name: Time of use (LVM2R5D, LVL2R) peak / off-peak
   time_basis: standard_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "LVM2R5D, LVL2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM"
   public_holidays: as_weekday
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: true
   locator: pdf:p29
   quote: LVM2R5D, LVL2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM
@@ -5018,7 +5317,11 @@ tou_schedules:
   fin_year: '2020'
   name: Time of use (LVM2R7D) peak / off-peak
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "LVM2R7D All daysOff peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "LVM2R7D All daysOff peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM"
   covers_full_day: true
   locator: pdf:p29
   quote: LVM2R7D All daysOff peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM
@@ -5102,7 +5405,11 @@ tou_schedules:
   fin_year: '2020'
   name: Unmetered (UNMET) peak / off-peak
   time_basis: standard_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "UNM Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM"
   public_holidays: as_weekday
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: true
   locator: pdf:p30
   quote: UNM Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM
@@ -5208,7 +5515,11 @@ tou_schedules:
   fin_year: '2020'
   name: Time of day (TOD) peak / shoulder / off-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "TOD Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 11 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "TOD Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 11 PM 12 AM"
   covers_full_day: true
   locator: pdf:p27
   quote: TOD Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time
@@ -5337,7 +5648,11 @@ tou_schedules:
   fin_year: '2020'
   name: Time of day (TOD9) peak / shoulder / off-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "TOD9 Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 9 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "TOD9 Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 9 PM 12 AM"
   covers_full_day: true
   locator: pdf:p27
   quote: TOD9 Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time
@@ -5466,7 +5781,11 @@ tou_schedules:
   fin_year: '2020'
   name: Dedicated circuit (LVDED) off-peak window
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "DED All daysOff peak energy OP Local time 12 AM 7 AM 11 PM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p28"
+  public_holidays_quote: "DED All daysOff peak energy OP Local time 12 AM 7 AM 11 PM 12 AM"
   covers_full_day: false
   locator: pdf:p28
   quote: DED All daysOff peak energy OP Local time 12 AM 7 AM 11 PM 12 AM
@@ -5494,7 +5813,11 @@ tou_schedules:
   fin_year: '2020'
   name: TOU peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   covers_full_day: true
   locator: pdf:p29
   quote: TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy
@@ -5601,7 +5924,11 @@ tou_schedules:
   fin_year: '2020'
   name: TOU summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   covers_full_day: false
   locator: pdf:p29
   quote: TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy
@@ -5631,7 +5958,11 @@ tou_schedules:
   fin_year: '2020'
   name: LVkWTOU peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: true
   locator: pdf:p29
   quote: LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff
@@ -5738,7 +6069,11 @@ tou_schedules:
   fin_year: '2020'
   name: LVkWTOU summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p29"
+  public_holidays_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: false
   locator: pdf:p29
   quote: LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff
@@ -5768,7 +6103,11 @@ tou_schedules:
   fin_year: '2020'
   name: RESKW1R anytime energy (summer / non-summer)
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p28"
+  public_holidays_quote: "RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM"
   covers_full_day: true
   locator: pdf:p28
   quote: RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM
@@ -5808,7 +6147,11 @@ tou_schedules:
   fin_year: '2020'
   name: RESKW1R summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: false
   locator: pdf:p28
   quote: RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM
@@ -5848,7 +6191,11 @@ tou_schedules:
   fin_year: '2020'
   name: LVMKWTOU/LVMKW1R anytime energy (summer / non-summer)
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p30"
+  public_holidays_quote: "LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM"
   covers_full_day: true
   locator: pdf:p30
   quote: LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM
@@ -5889,7 +6236,11 @@ tou_schedules:
   fin_year: '2020'
   name: LVMKWTOU/LVMKW1R summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: false
   locator: pdf:p30
   quote: LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM
@@ -5930,7 +6281,11 @@ tou_schedules:
   fin_year: '2020'
   name: Large kVA tariffs peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p30"
+  public_holidays_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: true
   locator: pdf:p30
   quote: LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy
@@ -6039,7 +6394,11 @@ tou_schedules:
   fin_year: '2020'
   name: Large kVA tariffs rolling demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p30"
+  public_holidays_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: false
   locator: pdf:p30
   quote: LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy
@@ -6065,7 +6424,11 @@ tou_schedules:
   fin_year: '2020'
   name: Large kVA tariffs summer demand incentive window
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p30"
+  public_holidays_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: false
   locator: pdf:p30
   quote: LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy
@@ -6097,7 +6460,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Single rate (LVS1R) summer / non-summer energy
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p24"
+  time_basis_quote: "LVS1R, WET2Step All days Peak energy AEST 12 AM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "LVS1R, WET2Step All days Peak energy AEST 12 AM 12 AM"
   covers_full_day: true
   locator: pdf:p24
   quote: LVS1R, WET2Step All days Peak energy AEST 12 AM 12 AM
@@ -6137,7 +6504,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Single rate (LVM1R, LVL1R) summer / non-summer energy
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "LVM1R, LVL1R All days Peak energy AEST 12 AM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p26"
+  public_holidays_quote: "LVM1R, LVL1R All days Peak energy AEST 12 AM 12 AM"
   covers_full_day: true
   locator: pdf:p26
   quote: LVM1R, LVL1R All days Peak energy AEST 12 AM 12 AM
@@ -6178,7 +6549,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Time of use (LVS2R) peak / off-peak
   time_basis: standard_time
+  time_basis_locator: "pdf:p24"
+  time_basis_quote: "LVS2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM"
   public_holidays: as_weekday
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: true
   locator: pdf:p24
   quote: LVS2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM
@@ -6284,7 +6659,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Time of use (LVM2R5D, LVL2R) peak / off-peak
   time_basis: standard_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "LVM2R5D, LVL2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM"
   public_holidays: as_weekday
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: true
   locator: pdf:p26
   quote: LVM2R5D, LVL2R Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM
@@ -6391,7 +6770,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Time of use (LVM2R7D) peak / off-peak
   time_basis: standard_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "LVM2R7D All daysOff peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p26"
+  public_holidays_quote: "LVM2R7D All daysOff peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM"
   covers_full_day: true
   locator: pdf:p26
   quote: LVM2R7D All daysOff peak energy Peak energy OP AEST 12 AM 7 AM 11 PM 12 AM
@@ -6475,7 +6858,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Unmetered (UNMET) peak / off-peak
   time_basis: standard_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "UNM Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM"
   public_holidays: as_weekday
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: true
   locator: pdf:p27
   quote: UNM Week daysOff peak energy Peak energy OP WeekendsOff peak energy AEST 12 AM 7 AM 11 PM 12 AM
@@ -6581,7 +6968,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Time of day (TOD) peak / shoulder / off-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p24"
+  time_basis_quote: "TOD Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 11 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "TOD Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 11 PM 12 AM"
   covers_full_day: true
   locator: pdf:p24
   quote: TOD Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time
@@ -6710,7 +7101,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Time of day (TOD9) peak / shoulder / off-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p24"
+  time_basis_quote: "TOD9 Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 9 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "TOD9 Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 9 PM 12 AM"
   covers_full_day: true
   locator: pdf:p24
   quote: TOD9 Work daysOff peak energy Shoulder energy Peak energy OP Weekends and public holidaysOff peak energy Local time
@@ -6839,7 +7234,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Dedicated circuit (LVDED) off-peak window
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "DED All daysOff peak energy OP Local time 12 AM 7 AM 11 PM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p25"
+  public_holidays_quote: "DED All daysOff peak energy OP Local time 12 AM 7 AM 11 PM 12 AM"
   covers_full_day: false
   locator: pdf:p25
   quote: DED All daysOff peak energy OP Local time 12 AM 7 AM 11 PM 12 AM
@@ -6867,7 +7266,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: TOU peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p26"
+  public_holidays_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   covers_full_day: true
   locator: pdf:p26
   quote: TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy
@@ -6974,7 +7377,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: TOU summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p26"
+  public_holidays_quote: "TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 2 PM 7 PM 11 PM 12 AM"
   covers_full_day: false
   locator: pdf:p26
   quote: TOU Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy
@@ -7004,7 +7411,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: LVkWTOU peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p26"
+  public_holidays_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: true
   locator: pdf:p26
   quote: LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff
@@ -7111,7 +7522,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: LVkWTOU summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p26"
+  public_holidays_quote: "LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: false
   locator: pdf:p26
   quote: LVkWTOU, LVkWTOU-HOT Summer work days Peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff
@@ -7141,7 +7556,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: RESKW1R anytime energy (summer / non-summer)
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p25"
+  public_holidays_quote: "RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM"
   covers_full_day: true
   locator: pdf:p25
   quote: RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM
@@ -7181,7 +7600,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: RESKW1R summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: false
   locator: pdf:p25
   quote: RESKW1R Work days Peak demand All times Anytime energy Local time 12 AM 3 PM 9 PM 12 AM
@@ -7221,7 +7644,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: LVMKWTOU/LVMKW1R anytime energy (summer / non-summer)
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM"
   covers_full_day: true
   locator: pdf:p27
   quote: LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM
@@ -7262,7 +7689,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: LVMKWTOU/LVMKW1R summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p24"
+  public_holidays_quote: "Week days: Monday, Tuesday, Wednesday, Thursday, Friday Weekends: Saturday, Sunday Work days: Week days excluding public holidays"
   covers_full_day: false
   locator: pdf:p27
   quote: LVMkWTOU, LVMkW1R Work days Peak demand All times Anytime energy Local time 12 AM 10 AM 6 PM 12 AM
@@ -7303,7 +7734,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Large kVA tariffs peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: true
   locator: pdf:p27
   quote: LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy
@@ -7412,7 +7847,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Large kVA tariffs rolling demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: false
   locator: pdf:p27
   quote: LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy
@@ -7438,7 +7877,11 @@ tou_schedules:
   fin_year: 2021-H1
   name: Large kVA tariffs summer demand incentive window
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p27"
+  public_holidays_quote: "LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy Peak energy OP Weekends and public holidaysOff peak energy Local time 12 AM 7 AM 3 PM 6 PM 7 PM 12 AM"
   covers_full_day: false
   locator: pdf:p27
   quote: LVkVATOU, HVkVATOU, SubTrans Summer work days Peak demand Work days Rolling peak demand Work daysOff peak energy
@@ -7470,7 +7913,11 @@ tou_schedules:
   fin_year: 2021-22
   name: Residential ToU (URTOU) peak / off-peak
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p5"
+  time_basis_quote: "with a peak period occurring between 3pm to 9pm local time all days and off peak applying at all other times (default ToU):"
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p5"
+  public_holidays_quote: "with a peak period occurring between 3pm to 9pm local time all days and off peak applying at all other times (default ToU):"
   covers_full_day: true
   locator: pdf:p5
   quote: 'with a peak period occurring between 3pm to 9pm local time all days and off peak applying at all other times (default
@@ -7504,6 +7951,8 @@ tou_schedules:
   fin_year: 2021-22
   name: Small business ToU (LVTOU) peak / off-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p6"
+  time_basis_quote: "peak period occurring between 9am to 9pm workdays local time and off peak applying at all other times"
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p6
@@ -7579,6 +8028,8 @@ tou_schedules:
   fin_year: 2021-22
   name: Large kVA tariffs peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf-ocr:p27"
+  time_basis_quote: "Peak usage is kwh usage between 7am and 7pm local time on workdays. Off-peak usage is kwh usage at all other times."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf-ocr:p27
@@ -7618,6 +8069,8 @@ tou_schedules:
   fin_year: 2021-22
   name: Large kVA tariffs rolling demand window
   time_basis: local_time
+  time_basis_locator: "pdf-ocr:p27"
+  time_basis_quote: "Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf-ocr:p27
@@ -7642,6 +8095,8 @@ tou_schedules:
   fin_year: 2021-22
   name: Large kVA tariffs summer incentive demand window 1pm-4pm
   time_basis: local_time
+  time_basis_locator: "pdf-ocr:p25"
+  time_basis_quote: "All times are local times."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf-ocr:p27
@@ -7669,6 +8124,8 @@ tou_schedules:
   fin_year: 2021-22
   name: Large kVA tariffs summer incentive demand window 4pm-7pm
   time_basis: local_time
+  time_basis_locator: "pdf-ocr:p25"
+  time_basis_quote: "All times are local times."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf-ocr:p27
@@ -7697,7 +8154,11 @@ tou_schedules:
   fin_year: 2022-23
   name: Residential ToU (URTOU) peak / non-peak
   time_basis: local_time
-  public_holidays: not_stated
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "All times are local times."
+  public_holidays: unchanged
+  public_holidays_locator: "pdf:p23"
+  public_holidays_quote: "all days non-peak Time of use URTOU Default ✓ 3pm-9pm times"
   covers_full_day: true
   locator: pdf:p23
   quote: all days non-peak Time of use URTOU Default ✓ 3pm-9pm times
@@ -7727,6 +8188,8 @@ tou_schedules:
   fin_year: 2022-23
   name: Small business ToU (LVTOU) peak / non-peak
   time_basis: local_time
+  time_basis_locator: "pdf:p24"
+  time_basis_quote: "All times are local times except for UnMet."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p24
@@ -7799,6 +8262,8 @@ tou_schedules:
   fin_year: 2022-23
   name: Large kVA tariffs peak / off-peak energy
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Peak usage is kWh usage between 7am and 7pm local time on workdays. Off-peak usage is kWh usage at all other times."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p27
@@ -7838,6 +8303,8 @@ tou_schedules:
   fin_year: 2022-23
   name: Large kVA tariffs rolling demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the prior 12 months."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p27
@@ -7862,6 +8329,8 @@ tou_schedules:
   fin_year: 2022-23
   name: Large kVA tariffs summer incentive demand window 1pm-4pm
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "All times are local times."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p27
@@ -7891,6 +8360,8 @@ tou_schedules:
   fin_year: 2022-23
   name: Large kVA tariffs summer incentive demand window 4pm-7pm
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "All times are local times."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p27
@@ -7923,6 +8394,8 @@ tou_schedules:
   - 2022-23
   name: Residential demand (RESKW1R) summer / non-summer demand window
   time_basis: local_time
+  time_basis_locator: "pdf:p10"
+  time_basis_quote: "8 All times local time"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p10
@@ -8385,10 +8858,10 @@ eligibility:
   - LVNDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
-  rule_type: demand_max
-  operator: le
+  rule_type: "storage_capacity"
+  operator: "le"
   value_num: 240
-  value_unit: kVA
+  value_unit: "kVA"
   locator: pdf:p12
   quote: 'Community battery time of use: • applies to any battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is not owned by the distributor'
   note: battery capacity no more than 240 kVA. Bullet under the 'Community battery time of use:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Community battery time of use' as LVNDBB.
@@ -8441,10 +8914,10 @@ eligibility:
   - LVDBB
   doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2023-24_wayback.pdf
   fin_year: 2023-24
-  rule_type: demand_max
-  operator: le
+  rule_type: "storage_capacity"
+  operator: "le"
   value_num: 240
-  value_unit: kVA
+  value_unit: "kVA"
   locator: pdf:p12
   quote: 'Distributor owned community battery: • applies to any new battery-only site with a capacity of no more than 240 kVA connected to the low voltage network where the battery is owned by United Energy'
   note: battery capacity no more than 240 kVA. Bullet under the 'Distributor owned community battery:' heading (p12). Table 6 (OCR of the rotated table on p12) lists 'Distributor-owned community battery' as LVDBB.
@@ -9332,17 +9805,6 @@ eligibility:
   locator: pdf:p7
   quote: LVTOU and LVMKW1R require an active market interval read meter
 - codes:
-  - LVMKW1R
-  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: LVTOU
-  locator: pdf:p7
-  quote: LVMKW1R customers consuming less than 160 MWh pa can opt out of the demand tariff to LVTOU
-- codes:
   - LVkVATOU1
   - LVkVATOU2
   - HVkVATOU1
@@ -9493,21 +9955,6 @@ eligibility:
   note: 'pdf-ocr locator: Tables 5 and 6 are rotated on the page and the text layer extracts them one glyph column at a time,
     so the quote is checked against OCR of the rendered page. Demand threshold cell reads ''≥ 120 kVA demand or ≥ 200amps
     per phase'''
-- codes:
-  - LVkVATOU1
-  - LVkVATOU2
-  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: LVTOU
-  locator: pdf:p11
-  quote: 'Option 2 – “opt out” of Network Demand Tariff (Tariff code LVTOU) To opt a customer out of a network demand tariff, the following criteria must be satisfied: • A customer’s aggregate consumption must be less than 160MWh per annum'
-  note: 'Section 2.5.8 ''Criteria to move away from kVA demand tariff'': ''A customer’s aggregate consumption must be less
-    than 160MWh per annum''; the customer applies to a retailer, which must supply an invoice showing a demand component.
-    The section does not name which kVA tariffs; applied to the low voltage ones because LVTOU is a < 1kV tariff.'
 - codes:
   - LVkVATOU1
   - LVkVATOU2
@@ -9893,17 +10340,6 @@ eligibility:
   quote: ≤240kVA import outside of peak
   note: Threshold cell '≤240kVA import capacity'
 - codes:
-  - UMBD
-  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: UMBO
-  locator: pdf:p8
-  quote: UMBD customers consuming less than 160 MWh pa can opt out of the demand tariff to UMBO
-- codes:
   - LVKVATOU1
   - LVKVATOU2
   - LVKVATOU3
@@ -10065,17 +10501,6 @@ eligibility:
   locator: pdf:p9
   quote: Flexible TUOS pass- ≥30MVA import
   note: Threshold cell '≥30MVA import capacity'; 30 MVA = 30,000 kVA
-- codes:
-  - UFS
-  - UFL
-  - UFTUOS
-  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: other
-  value_text: customer may opt out to the relevant business tariff
-  locator: pdf:p10
-  quote: Customer choice to opt-out to the relevant business tariff
-  note: Figure 3 tariff decision tree, Flexible branch
 - codes:
   - LVKVATOU1
   - LVKVATOU2
@@ -11181,7 +11606,8 @@ charge_rules:
   measure: kW
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p8
   quote: UFS capacity charge applied to maximum 30-minute kW demand over the most recent rolling 12-months measured at all
     times
@@ -11197,7 +11623,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p11
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute
     period x 2 Maximum 30-minute kW is measured between 7am and 7pm local time on workdays over the most recent 12 months.
@@ -11216,7 +11643,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 500
   locator: pdf:p11
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -11233,7 +11661,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf:p11
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -11314,7 +11743,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 120
   locator: pdf:p10
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -11331,7 +11761,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 500
   locator: pdf:p10
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -11348,7 +11779,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf:p10
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -11409,7 +11841,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 120
   locator: pdf:p27
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -11427,7 +11860,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 500
   locator: pdf:p27
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -11444,7 +11878,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf:p27
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -11480,7 +11915,8 @@ charge_rules:
   measure: kW
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p12
   quote: Generator storage tariff kW demand charge is based on the highest 30-minute demand measured over the last 12 months
     for only 4-9pm or only 11am-4pm, every day of year, local time
@@ -11493,7 +11929,8 @@ charge_rules:
   measure: kW
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p17
   quote: Charge applied to maximum 30-minute kW c/kW/ Capacity charge demand over the most day recent rolling 12-month measured
     at all times
@@ -11535,7 +11972,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 120
   locator: pdf:p14
   quote: 'Maximum kVA is calculated in the 30-minute interval with the maximum kW. kVA 30-minute demand is calculated as: 𝑘𝑉𝐴=
@@ -11553,7 +11991,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 500
   locator: pdf:p14
   quote: 'Maximum kVA is calculated in the 30-minute interval with the maximum kW. kVA 30-minute demand is calculated as: 𝑘𝑉𝐴=
@@ -11571,7 +12010,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf:p14
   quote: 'Maximum kVA is calculated in the 30-minute interval with the maximum kW. kVA 30-minute demand is calculated as: 𝑘𝑉𝐴=
@@ -11779,7 +12219,8 @@ charge_rules:
   charge_type: demand
   measure: kVA
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 150.0
   locator: pdf:p36
   quote: Rolling demand charge Cents per kVA x 12 month rolling maximum kVA / 100
@@ -11792,7 +12233,8 @@ charge_rules:
   charge_type: demand
   measure: kVA
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 1150.0
   locator: pdf:p36
   quote: Rolling demand charge Cents per kVA x 12 month rolling maximum kVA / 100
@@ -11805,7 +12247,8 @@ charge_rules:
   charge_type: demand
   measure: kVA
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 11100.0
   locator: pdf:p36
   quote: Rolling demand charge Cents per kVA x 12 month rolling maximum kVA / 100
@@ -11875,7 +12318,8 @@ charge_rules:
   charge_type: demand
   measure: kVA
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 150.0
   locator: pdf:p36
   quote: Rolling demand charge Cents per kVA x 12 month rolling maximum kVA / 100
@@ -11888,7 +12332,8 @@ charge_rules:
   charge_type: demand
   measure: kVA
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 1150.0
   locator: pdf:p36
   quote: Rolling demand charge Cents per kVA x 12 month rolling maximum kVA / 100
@@ -11901,7 +12346,8 @@ charge_rules:
   charge_type: demand
   measure: kVA
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 11100.0
   locator: pdf:p36
   quote: Rolling demand charge Cents per kVA x 12 month rolling maximum kVA / 100
@@ -11971,7 +12417,8 @@ charge_rules:
   charge_type: demand
   measure: kVA
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 150.0
   locator: pdf:p33
   quote: Rolling demand charge Cents per kVA x 12 month rolling maximum kVA / 100
@@ -11984,7 +12431,8 @@ charge_rules:
   charge_type: demand
   measure: kVA
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 1150.0
   locator: pdf:p33
   quote: Rolling demand charge Cents per kVA x 12 month rolling maximum kVA / 100
@@ -11997,7 +12445,8 @@ charge_rules:
   charge_type: demand
   measure: kVA
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 11100.0
   locator: pdf:p33
   quote: Rolling demand charge Cents per kVA x 12 month rolling maximum kVA / 100
@@ -12029,7 +12478,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 120
   locator: pdf-ocr:p27
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -12047,7 +12497,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 500
   locator: pdf-ocr:p27
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -12064,7 +12515,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf-ocr:p27
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -12111,7 +12563,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 120
   locator: pdf:p27
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -12128,7 +12581,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 500
   locator: pdf:p27
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -12144,7 +12598,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: kva_at_max_kw
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf:p27
   quote: kW = maximum kWh in a 30-minute period over the prior 12 months x 2 kVAr = kVArh in the corresponding 30-minute period
@@ -12178,3 +12633,52 @@ charge_rules:
   quote: Chargeable demand is measured as the maximum half-hour kW demand between 10am and 6pm, local time, work days, resetting
     every month.
   note: Section 3.2; holds for the summer and non-summer rates.
+tariff_links:
+- codes:
+  - LVMKW1R
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: LVTOU
+  locator: pdf:p7
+  quote: LVMKW1R customers consuming less than 160 MWh pa can opt out of the demand tariff to LVTOU
+- codes:
+  - LVkVATOU1
+  - LVkVATOU2
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: LVTOU
+  locator: pdf:p11
+  quote: 'Option 2 – “opt out” of Network Demand Tariff (Tariff code LVTOU) To opt a customer out of a network demand tariff, the following criteria must be satisfied: • A customer’s aggregate consumption must be less than 160MWh per annum'
+  note: 'Section 2.5.8 ''Criteria to move away from kVA demand tariff'': ''A customer’s aggregate consumption must be less
+    than 160MWh per annum''; the customer applies to a retailer, which must supply an invoice showing a demand component.
+    The section does not name which kVA tariffs; applied to the low voltage ones because LVTOU is a < 1kV tariff.'
+- codes:
+  - UMBD
+  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: UMBO
+  locator: pdf:p8
+  quote: UMBD customers consuming less than 160 MWh pa can opt out of the demand tariff to UMBO
+- codes:
+  - UFS
+  - UFL
+  - UFTUOS
+  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  link_type: opt_out_to
+  linked_customer_class: business
+  locator: pdf:p10
+  quote: Customer choice to opt-out to the relevant business tariff
+  note: Figure 3 tariff decision tree, Flexible branch; the relevant business tariff; no code named

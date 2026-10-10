@@ -7,6 +7,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Residential Time of Use / Prosumer energy windows (RTOU, RPRO)
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "Residential tariffs are based on Local Time (CDT/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p26
@@ -66,6 +68,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Residential Prosumer summer demand window (RPRO)
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "Residential tariffs are based on Local Time (CDT/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p26
@@ -91,6 +95,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Residential Electrify energy windows (RELE, RELE2W)
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "Residential tariffs are based on Local Time (CDT/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p26
@@ -150,6 +156,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Electrify Two Way export charge and credit windows (RELE2W)
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "Residential tariffs are based on Local Time (CDT/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p26
@@ -184,6 +192,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Off-Peak Controlled Load (OPCL) legacy-meter supply times
   time_basis: standard_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Controlled Load partner tariffs are based on CST."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p27
@@ -260,6 +270,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Controlled Load (CL) interval-meter partner tariff windows
   time_basis: standard_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Controlled Load partner tariffs are based on CST."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p27
@@ -344,6 +356,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Small Business Two-Rate peak window (B2R)
   time_basis: standard_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Typically 7:00am – 9:00pm CST."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p28
@@ -382,6 +396,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Large LV Business Two-Rate peak window (B2RT)
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p29
@@ -419,7 +435,11 @@ tou_schedules:
   fin_year: 2023-24
   name: Small Business Time of Use energy windows (SBTOU, SBTOUD)
   time_basis: local_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Small Business tariffs are based on Local Time (CST/CDST)."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p108"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays."
   covers_full_day: true
   locator: pdf:p28
   quote: '7:00am – 5:00pm WD November – March and either: 7:00am – 9:00pm WD April – October.'
@@ -543,7 +563,11 @@ tou_schedules:
   fin_year: 2023-24
   name: Small Business Time of Use Electrify energy windows (SBTOUE)
   time_basis: local_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Small Business tariffs are based on Local Time (CST/CDST)."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p108"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays."
   covers_full_day: true
   locator: pdf:p28
   quote: 7:00am – 10:00am and 4:00pm – 5:00pm WD.
@@ -631,7 +655,11 @@ tou_schedules:
   fin_year: 2023-24
   name: Actual monthly demand transition tariff windows (SBD, BD, HBD)
   time_basis: local_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Small Business tariffs are based on Local Time (CST/CDST)."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p108"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays."
   covers_full_day: false
   locator: pdf:p28
   quote: 4:00pm – 9:00pm WD November – March
@@ -679,7 +707,11 @@ tou_schedules:
   fin_year: 2023-24
   name: Large LV and HV Business energy windows (annual/monthly demand tariffs)
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p108"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays."
   covers_full_day: true
   locator: pdf:p29
   quote: Usage – Peak $/kWh 7:00am – 9:00pm WD.
@@ -943,7 +975,11 @@ tou_schedules:
   fin_year: 2023-24
   name: Large Business peak demand window – CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p108"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays."
   covers_full_day: false
   locator: pdf:p29
   quote: • CBD 11:00am – 5:00pm CDST WD
@@ -1062,6 +1098,8 @@ tou_schedules:
   fin_year: 2023-24
   name: Large Business peak demand window – non-CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p29
@@ -1333,6 +1371,8 @@ tou_schedules:
   fin_year: 2024-25
   name: Residential Time of Use / Prosumer energy windows (RTOU, RPRO)
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "Residential tariffs are based on Local Time (CDT/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p25
@@ -1395,6 +1435,8 @@ tou_schedules:
   fin_year: 2024-25
   name: Residential Prosumer summer demand window (RPRO)
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "Residential tariffs are based on Local Time (CDT/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p25
@@ -1420,6 +1462,8 @@ tou_schedules:
   fin_year: 2024-25
   name: Residential Electrify energy windows (RELE, RELE2W)
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "Residential tariffs are based on Local Time (CDT/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p25
@@ -1479,6 +1523,8 @@ tou_schedules:
   fin_year: 2024-25
   name: Electrify Two Way export charge and credit windows (RELE2W)
   time_basis: local_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "Residential tariffs are based on Local Time (CDT/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p26
@@ -1513,6 +1559,8 @@ tou_schedules:
   fin_year: 2024-25
   name: Off-Peak Controlled Load (OPCL) legacy-meter supply times
   time_basis: standard_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Controlled Load partner tariffs are based on CST."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p27
@@ -1589,6 +1637,8 @@ tou_schedules:
   fin_year: 2024-25
   name: Controlled Load (CL) interval-meter partner tariff windows
   time_basis: standard_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Controlled Load partner tariffs are based on CST."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p27
@@ -1673,6 +1723,8 @@ tou_schedules:
   fin_year: 2024-25
   name: Small Business Two-Rate peak window (B2R)
   time_basis: standard_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Typically 7:00am – 9:00pm CST."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p28
@@ -1711,6 +1763,8 @@ tou_schedules:
   fin_year: 2024-25
   name: Large LV Business Two-Rate peak window (B2RT)
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p29
@@ -1748,7 +1802,11 @@ tou_schedules:
   fin_year: 2024-25
   name: Small Business Time of Use energy windows (SBTOU, SBTOUD)
   time_basis: local_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Small Business tariffs are based on Local Time (CST/CDST)."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p104"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays."
   covers_full_day: true
   locator: pdf:p28
   quote: '7:00am – 5:00pm WD November – March and either: 7:00am – 9:00pm WD April – October.'
@@ -1872,7 +1930,11 @@ tou_schedules:
   fin_year: 2024-25
   name: Small Business Time of Use Electrify energy windows (SBTOUE)
   time_basis: local_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Small Business tariffs are based on Local Time (CST/CDST)."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p104"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays."
   covers_full_day: true
   locator: pdf:p28
   quote: 7:00am – 10:00am and 4:00pm – 5:00pm WD.
@@ -1960,7 +2022,11 @@ tou_schedules:
   fin_year: 2024-25
   name: Actual monthly demand transition tariff windows (SBD, BD, HBD)
   time_basis: local_time
+  time_basis_locator: "pdf:p28"
+  time_basis_quote: "Small Business tariffs are based on Local Time (CST/CDST)."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p104"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays."
   covers_full_day: false
   locator: pdf:p28
   quote: 4:00pm – 9:00pm WD November – March
@@ -2008,7 +2074,11 @@ tou_schedules:
   fin_year: 2024-25
   name: Large LV and HV Business energy windows (annual/monthly demand tariffs)
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p104"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays."
   covers_full_day: true
   locator: pdf:p29
   quote: Usage – Peak $/kWh 7:00am – 9:00pm WD.
@@ -2294,7 +2364,11 @@ tou_schedules:
   fin_year: 2024-25
   name: Large Business peak demand window – CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p104"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays."
   covers_full_day: false
   locator: pdf:p29
   quote: • CBD 11:00am – 5:00pm CDST WD
@@ -2413,6 +2487,8 @@ tou_schedules:
   fin_year: 2024-25
   name: Large Business peak demand window – non-CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p30"
+  time_basis_quote: "Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p29
@@ -2706,6 +2782,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential Time of Use energy windows (RTOU, RTOUNE)
   time_basis: local_time
+  time_basis_locator: "pdf:p14"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p13
@@ -2757,6 +2835,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential Time of Use export charge window (RTOU)
   time_basis: local_time
+  time_basis_locator: "pdf:p14"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p13
@@ -2782,6 +2862,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential Electrify energy windows (RESELE, RESELENE)
   time_basis: local_time
+  time_basis_locator: "pdf:p14"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p14
@@ -2839,6 +2921,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential Electrify export charge and credit windows (RESELE)
   time_basis: local_time
+  time_basis_locator: "pdf:p14"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p14
@@ -2874,6 +2958,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Off Peak Controlled Load (OPCL) time clock supply times
   time_basis: standard_time
+  time_basis_locator: "pdf:p15"
+  time_basis_quote: "Tariff structures are based on ACST."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p15
@@ -2956,6 +3042,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Time of Use Controlled Load (CL) partner tariff windows
   time_basis: standard_time
+  time_basis_locator: "pdf:p15"
+  time_basis_quote: "Tariff structures are based on ACST."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p15
@@ -3060,6 +3148,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Small Business Time of Use and Medium Business TOU Demand energy windows
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p21
@@ -3192,6 +3282,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Small/Medium Business export charge window (SBTOU, MBTOUD)
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p21
@@ -3223,6 +3315,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Small Business Electrify energy windows (SBELE, SBELENE)
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p23
@@ -3309,6 +3403,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Small Business Electrify export charge and credit windows (SBELE)
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p23
@@ -3343,6 +3439,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Large LV and HV Business energy windows
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p25
@@ -3448,6 +3546,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Large Business peak demand window – CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p25
@@ -3559,6 +3659,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Large Business peak demand window – non-CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p25
@@ -3669,6 +3771,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential Time of Use energy windows (RTOU, RTOUNE)
   time_basis: local_time
+  time_basis_locator: "pdf:p14"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p13
@@ -3720,6 +3824,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential Time of Use export charge window (RTOU)
   time_basis: local_time
+  time_basis_locator: "pdf:p14"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p13
@@ -3745,6 +3851,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential Electrify energy windows (RESELE, RESELENE)
   time_basis: local_time
+  time_basis_locator: "pdf:p14"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p14
@@ -3802,6 +3910,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Residential Electrify export charge and credit windows (RESELE)
   time_basis: local_time
+  time_basis_locator: "pdf:p14"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p14
@@ -3837,6 +3947,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Off Peak Controlled Load (OPCL) time clock supply times
   time_basis: standard_time
+  time_basis_locator: "pdf:p15"
+  time_basis_quote: "Tariff structures are based on ACST."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p15
@@ -3919,6 +4031,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Time of Use Controlled Load (CL) partner tariff windows
   time_basis: standard_time
+  time_basis_locator: "pdf:p15"
+  time_basis_quote: "Tariff structures are based on ACST."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p15
@@ -4023,6 +4137,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Small Business Time of Use and Medium Business TOU Demand energy windows
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p21
@@ -4155,6 +4271,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Small/Medium Business export charge window (SBTOU, MBTOUD)
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p21
@@ -4186,6 +4304,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Small Business Electrify energy windows (SBELE, SBELENE)
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p23
@@ -4272,6 +4392,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Small Business Electrify export charge and credit windows (SBELE)
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p23
@@ -4306,6 +4428,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Large LV and HV Business energy windows
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p25
@@ -4411,6 +4535,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Large Business peak demand window – CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p25
@@ -4522,6 +4648,8 @@ tou_schedules:
   fin_year: 2025-26
   name: Large Business peak demand window – non-CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p25
@@ -4632,6 +4760,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Residential Time of Use energy windows (RTOU, RTOUNE)
   time_basis: local_time
+  time_basis_locator: "pdf:p11"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p11
@@ -4683,6 +4813,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Residential Time of Use export charge window (RTOU)
   time_basis: local_time
+  time_basis_locator: "pdf:p11"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p11
@@ -4708,6 +4840,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Residential Electrify energy windows (RESELE, RESELENE)
   time_basis: local_time
+  time_basis_locator: "pdf:p12"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p12
@@ -4765,6 +4899,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Residential Electrify export charge and credit windows (RESELE)
   time_basis: local_time
+  time_basis_locator: "pdf:p12"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p12
@@ -4800,6 +4936,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Off Peak Controlled Load (OPCL) time clock supply times
   time_basis: standard_time
+  time_basis_locator: "pdf:p13"
+  time_basis_quote: "Tariff structures are based on ACST."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p13
@@ -4882,6 +5020,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Time of Use Controlled Load (CL) partner tariff windows
   time_basis: standard_time
+  time_basis_locator: "pdf:p13"
+  time_basis_quote: "Tariff structures are based on ACST."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p13
@@ -4942,7 +5082,9 @@ tou_schedules:
   doc: sources/dnsp/sapn/SAPN_Annual_Pricing_Proposal_Overview_2026-27_id338670.pdf
   fin_year: 2026-27
   name: Business Two-Rate peak window (B2R, B2RNE)
-  time_basis: not_stated
+  time_basis: standard_time
+  time_basis_locator: "pdf:p18"
+  time_basis_quote: "Accumulation meter tariff structures are based on ACST."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p18
@@ -4988,6 +5130,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Small Business Time of Use and Medium Business TOU Demand energy windows
   time_basis: local_time
+  time_basis_locator: "pdf:p19"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p19
@@ -5121,6 +5265,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Small/Medium Business export charge window (SBTOU, MBTOUD)
   time_basis: local_time
+  time_basis_locator: "pdf:p19"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p19
@@ -5152,6 +5298,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Small Business Electrify energy windows (SBELE, SBELENE)
   time_basis: local_time
+  time_basis_locator: "pdf:p21"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p21
@@ -5239,6 +5387,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Small Business Electrify export charge and credit windows (SBELE)
   time_basis: local_time
+  time_basis_locator: "pdf:p21"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p21
@@ -5273,6 +5423,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Large LV and HV Business energy windows
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p23
@@ -5454,6 +5606,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Large Business peak demand window – CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p23
@@ -5566,6 +5720,8 @@ tou_schedules:
   fin_year: 2026-27
   name: Large Business peak demand window – non-CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p23"
+  time_basis_quote: "Interval meter tariff structures are based on local time: ACST/ ACDT."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p23
@@ -5747,6 +5903,8 @@ tou_schedules:
   fin_year: 2016-17
   name: Business monthly actual kVA demand windows (BD, SBD, HBD, BDT, SBDT)
   time_basis: local_time
+  time_basis_locator: "pdf:p10"
+  time_basis_quote: "Year-round Shoulder Demand on work days between 1200 and 1600 CST or (when operating) CDST);"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p10
@@ -5812,6 +5970,8 @@ tou_schedules:
   fin_year: 2016-17
   name: Residential monthly actual kW demand windows (MRD)
   time_basis: local_time
+  time_basis_locator: "pdf:p10"
+  time_basis_quote: "Winter Shoulder Demand on all days between 1600 and 2100 CST or (when operating) CDST);"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p10
@@ -5855,6 +6015,8 @@ tou_schedules:
   fin_year: 2016-17
   name: Business two-rate peak and off-peak energy windows
   time_basis: standard_time
+  time_basis_locator: "pdf:p10"
+  time_basis_quote: "Peak energy is energy consumed on business days between the hours of 0700 and 2100 Central Standard Time."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p10
@@ -5935,6 +6097,8 @@ tou_schedules:
   fin_year: 2017-18
   name: Business monthly actual kVA demand windows (BD, SBD, HBD, BDT, SBDT)
   time_basis: local_time
+  time_basis_locator: "pdf:p19"
+  time_basis_quote: "16:00 to 21:00hrs local time, workdays, Nov-March (Peak)."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p19
@@ -5999,6 +6163,8 @@ tou_schedules:
   fin_year: 2017-18
   name: Residential monthly actual kW demand windows (MRD)
   time_basis: local_time
+  time_basis_locator: "pdf:p17"
+  time_basis_quote: "Between 16:00-21:00hrs local time"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p17
@@ -6044,7 +6210,11 @@ tou_schedules:
   fin_year: 2017-18
   name: Business two-rate peak and off-peak energy windows
   time_basis: standard_time
+  time_basis_locator: "pdf:p21"
+  time_basis_quote: "Higher rate for peak 07:00-21:00hrs CST workdays; and"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p18"
+  public_holidays_quote: "Where metering does not record public holidays or weekends, peak rates will apply at times on non-work days."
   covers_full_day: true
   locator: pdf:p21
   quote: 'Based on usage:  Higher rate for peak 07:00-21:00hrs CST workdays; and'
@@ -6122,6 +6292,8 @@ tou_schedules:
   fin_year: 2018-19
   name: Business monthly actual kVA demand windows (BD, SBD, HBD, BDT, SBDT)
   time_basis: local_time
+  time_basis_locator: "pdf:p18"
+  time_basis_quote: "16:00 to 21:00hrs local time, workdays, Nov-March (Peak)."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p18
@@ -6186,6 +6358,8 @@ tou_schedules:
   fin_year: 2018-19
   name: Residential monthly actual kW demand windows (MRD)
   time_basis: local_time
+  time_basis_locator: "pdf:p17"
+  time_basis_quote: "Between 16:00-21:00hrs local time"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p17
@@ -6225,7 +6399,11 @@ tou_schedules:
   fin_year: 2018-19
   name: Business two-rate peak and off-peak energy windows
   time_basis: standard_time
+  time_basis_locator: "pdf:p18"
+  time_basis_quote: "Higher rate for peak 07:00 to 21:00 hrs CST workdays; and"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p18"
+  public_holidays_quote: "Where metering does not record public holidays or weekends, peak rates will apply at times on non-work days."
   covers_full_day: true
   locator: pdf:p18
   quote: Higher rate for peak 07:00 to 21:00 hrs CST workdays; and
@@ -6303,6 +6481,8 @@ tou_schedules:
   fin_year: 2019-20
   name: Business monthly actual kVA demand windows (BD, SBD, HBD, BDT, SBDT)
   time_basis: local_time
+  time_basis_locator: "pdf:p17"
+  time_basis_quote: "16:00 to 21:00hrs local time, workdays, Nov-March (Peak)."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p17
@@ -6367,6 +6547,8 @@ tou_schedules:
   fin_year: 2019-20
   name: Residential monthly actual kW demand windows (MRD)
   time_basis: local_time
+  time_basis_locator: "pdf:p15"
+  time_basis_quote: "Between 16:00-21:00hrs local time"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p15
@@ -6409,7 +6591,11 @@ tou_schedules:
   fin_year: 2019-20
   name: Business two-rate peak and off-peak energy windows
   time_basis: standard_time
+  time_basis_locator: "pdf:p19"
+  time_basis_quote: "Higher rate for peak 07:00-21:00hrs CST workdays; and"
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p16"
+  public_holidays_quote: "Where metering does not record public holidays or weekends, peak rates will apply at times on non-work days."
   covers_full_day: true
   locator: pdf:p19
   quote:  Higher rate for peak 07:00-21:00hrs CST workdays; and
@@ -6487,6 +6673,8 @@ tou_schedules:
   fin_year: 2020-21
   name: Residential Time of Use / Prosumer energy windows (RTOU, RPRO)
   time_basis: local_time
+  time_basis_locator: "pdf:p19"
+  time_basis_quote: "1:00am to 6:00am (local time)"
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p19
@@ -6549,6 +6737,8 @@ tou_schedules:
   fin_year: 2020-21
   name: Residential Prosumer summer demand window (RPRO)
   time_basis: local_time
+  time_basis_locator: "pdf:p19"
+  time_basis_quote: "Between 17:00-21:00hrs local time"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p19
@@ -6579,6 +6769,8 @@ tou_schedules:
   fin_year: 2020-21
   name: Small business actual kVA demand transition windows (SBD)
   time_basis: local_time
+  time_basis_locator: "pdf:p20"
+  time_basis_quote: "16:00 to 21:00hrs local time, workdays,"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p20
@@ -6617,6 +6809,8 @@ tou_schedules:
   fin_year: 2021-22
   name: Residential Time of Use / Prosumer energy windows (RTOU, RPRO)
   time_basis: local_time
+  time_basis_locator: "pdf:p17"
+  time_basis_quote: "1:00am to 6:00am (local time)"
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p17
@@ -6679,6 +6873,8 @@ tou_schedules:
   fin_year: 2021-22
   name: Residential Prosumer summer demand window (RPRO)
   time_basis: local_time
+  time_basis_locator: "pdf:p17"
+  time_basis_quote: "Between 17:00-21:00hrs local time"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p17
@@ -6709,6 +6905,8 @@ tou_schedules:
   fin_year: 2021-22
   name: Small business actual kVA demand transition windows (SBD)
   time_basis: local_time
+  time_basis_locator: "pdf:p19"
+  time_basis_quote: "16:00 to 21:00hrs local time, workdays,"
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p19
@@ -6751,6 +6949,8 @@ tou_schedules:
   fin_year: 2022-23
   name: Residential Time of Use / Prosumer energy windows (RTOU, RPRO)
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "Residential tariffs are based on Local Time (CDT/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p25
@@ -6813,6 +7013,8 @@ tou_schedules:
   fin_year: 2022-23
   name: Residential Prosumer summer demand window (RPRO)
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "Residential tariffs are based on Local Time (CDT/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p25
@@ -6843,6 +7045,8 @@ tou_schedules:
   fin_year: 2022-23
   name: Residential Electrify trial energy windows (RELE)
   time_basis: local_time
+  time_basis_locator: "pdf:p25"
+  time_basis_quote: "Residential tariffs are based on Local Time (CDT/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p25
@@ -6899,6 +7103,8 @@ tou_schedules:
   fin_year: 2022-23
   name: Controlled Load (CL) interval-meter partner tariff windows
   time_basis: standard_time
+  time_basis_locator: "pdf:p26"
+  time_basis_quote: "Controlled Load partner tariffs are based on CST."
   public_holidays: not_stated
   covers_full_day: true
   locator: pdf:p26
@@ -6970,7 +7176,11 @@ tou_schedules:
   fin_year: 2022-23
   name: Small Business Time of Use energy windows (SBTOU, SBTOUD)
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Small Business tariffs are based on Local Time (CST/CDST)."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p101"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays"
   covers_full_day: true
   locator: pdf:p27
   quote: Usage – Shoulder $/kWh 7:00am – 5:00pm WD November – March and
@@ -7098,7 +7308,11 @@ tou_schedules:
   fin_year: 2022-23
   name: Actual monthly demand transition tariff windows (SBD, BD, HBD)
   time_basis: local_time
+  time_basis_locator: "pdf:p27"
+  time_basis_quote: "Small Business tariffs are based on Local Time (CST/CDST)."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p101"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays"
   covers_full_day: false
   locator: pdf:p27
   quote: • 4:00pm – 9:00pm WD November – March
@@ -7153,7 +7367,11 @@ tou_schedules:
   fin_year: 2022-23
   name: Large LV and HV Business energy windows (annual and monthly demand tariffs)
   time_basis: local_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p101"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays"
   covers_full_day: true
   locator: pdf:p28
   quote: Usage – Peak $/kWh 7:00am – 9:00pm WD.
@@ -7372,7 +7590,11 @@ tou_schedules:
   fin_year: 2022-23
   name: Large Business peak demand window – CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated."
   public_holidays: as_non_business_day
+  public_holidays_locator: "pdf:p101"
+  public_holidays_quote: "WD Monday Tuesday Wednesday Thursday Friday excluding Public Holidays"
   covers_full_day: false
   locator: pdf:p28
   quote: • CBD 11:00am – 5:00pm CDST WD
@@ -7431,6 +7653,8 @@ tou_schedules:
   fin_year: 2022-23
   name: Large Business peak demand window – non-CBD
   time_basis: local_time
+  time_basis_locator: "pdf:p29"
+  time_basis_quote: "Large Business tariffs are based on Local Time (CST/CDST) unless otherwise stated."
   public_holidays: not_stated
   covers_full_day: false
   locator: pdf:p28
@@ -7804,10 +8028,10 @@ eligibility:
   - STNGF
   doc: sources/aer/2023-24_price_lists/SAPN_2023-24_Annual_Pricing_Proposal_Revised_8May2023.pdf
   fin_year: 2023-24
-  rule_type: demand_min
-  operator: ge
+  rule_type: "supply_capacity"
+  operator: "ge"
   value_num: 5
-  value_unit: MVA
+  value_unit: "MVA"
   locator: pdf:p14
   quote: Large Business – Major Businesses requiring at least 5MVA of ZSN | ZSNXXX | ZSNF| Business capacity connected to
     the sub transmission ZSNGF | ZSSXXX | STN | network or a zone substation. STNXXX | STNF | STNGF |
@@ -8645,10 +8869,10 @@ eligibility:
   - STNGF
   doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
   fin_year: 2024-25
-  rule_type: demand_min
-  operator: ge
+  rule_type: "supply_capacity"
+  operator: "ge"
   value_num: 5
-  value_unit: MVA
+  value_unit: "MVA"
   locator: pdf:p14
   quote: Large Business – Major Businesses requiring at least 5MVA of ZSN | ZSNXXX | ZSNF| Business capacity connected to
     the sub transmission ZSNGF | ZSSXXX | STN | network or a zone substation STNXXX | STNF | STNGF |
@@ -9531,10 +9755,10 @@ eligibility:
   - STRGF
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: demand_min
-  operator: ge
+  rule_type: "supply_capacity"
+  operator: "ge"
   value_num: 5000
-  value_unit: kVA
+  value_unit: "kVA"
   locator: pdf:p6
   quote: Major Business • Business customers requiring a minimum of 5,000 kVA capacity • Connected to 11kV bus at Zone Substation
     or Sub Transmission system (33/66 kV)
@@ -9673,10 +9897,10 @@ eligibility:
   - RSR
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Single Rate (RSR) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -9684,10 +9908,10 @@ eligibility:
   - RSRNE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Single Rate (RSRNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -9695,10 +9919,10 @@ eligibility:
   - RTOU
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Time of Use (RTOU) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -9706,10 +9930,10 @@ eligibility:
   - RTOUNE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Time of Use (RTOUNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -9717,10 +9941,10 @@ eligibility:
   - RESELE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Electrify (RESELE) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -9728,10 +9952,10 @@ eligibility:
   - RESELENE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Electrify (RESELENE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -9739,10 +9963,10 @@ eligibility:
   - BSR
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Business Single Rate (BSR) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -9750,10 +9974,10 @@ eligibility:
   - BSRNE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Business Single Rate (BSRNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -9761,10 +9985,10 @@ eligibility:
   - B2R
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Business Two Rate (B2R) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -9772,10 +9996,10 @@ eligibility:
   - B2RNE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Business Two Rate (B2RNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -9783,10 +10007,10 @@ eligibility:
   - SBTOU
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Small Business Time of Use (SBTOU) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -9794,10 +10018,10 @@ eligibility:
   - SBTOUNE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Small Business Time of Use (SBTOUNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -9805,10 +10029,10 @@ eligibility:
   - MBTOUD
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Medium Business Time of Use Demand (MBTOUD) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -9816,10 +10040,10 @@ eligibility:
   - MBTOUDNE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Medium Business Time of Use Demand (MBTOUDNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -9827,10 +10051,10 @@ eligibility:
   - SBELE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Small Business Electrify (SBELE) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -9838,10 +10062,10 @@ eligibility:
   - SBELENE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Small Business Electrify (SBELENE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -10200,18 +10424,6 @@ eligibility:
     or Shoulder windows. 0-160 MWh p.a. Demand – Annual $/kVA/day Highest 30 minute demand interval during the regardless
     of kVA
   note: Customer choice (opt-in) range '0-160 MWh p.a. regardless of kVA'.
-- codes:
-  - MBTOUD
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  target_code: SBTOU
-  locator: pdf:p4
-  quote: 'Medium Business Time of Use Demand: This tariff is for customers with usage between 40- 160MWh per annum. It features
-    a higher daily supply charge but a lower-priced usage charge to reflect higher consumption volumes. Customers can choose
-    to opt-in to Small Business Time of Use tariff.'
-  note: Section 2 (pdf:p16) names the tariffs 'Medium Business Time of Use Demand (MBTOUD)' and 'Small Business Time of Use
-    (SBTOU)'.
 - codes:
   - SBELE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
@@ -10823,10 +11035,10 @@ eligibility:
   - STRGF
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: demand_min
-  operator: ge
+  rule_type: "supply_capacity"
+  operator: "ge"
   value_num: 5000
-  value_unit: kVA
+  value_unit: "kVA"
   locator: pdf:p6
   quote: Major Business • Business customers requiring a minimum of 5,000 kVA capacity • Connected to 11kV bus at Zone Substation
     or Sub Transmission system (33/66 kV)
@@ -10965,10 +11177,10 @@ eligibility:
   - RSR
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Single Rate (RSR) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -10976,10 +11188,10 @@ eligibility:
   - RSRNE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Single Rate (RSRNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -10987,10 +11199,10 @@ eligibility:
   - RTOU
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Time of Use (RTOU) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -10998,10 +11210,10 @@ eligibility:
   - RTOUNE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Time of Use (RTOUNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -11009,10 +11221,10 @@ eligibility:
   - RESELE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Electrify (RESELE) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -11020,10 +11232,10 @@ eligibility:
   - RESELENE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p10
   quote: Residential Electrify (RESELENE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -11031,10 +11243,10 @@ eligibility:
   - BSR
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Business Single Rate (BSR) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -11042,10 +11254,10 @@ eligibility:
   - BSRNE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Business Single Rate (BSRNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -11053,10 +11265,10 @@ eligibility:
   - B2R
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Business Two Rate (B2R) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -11064,10 +11276,10 @@ eligibility:
   - B2RNE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Business Two Rate (B2RNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -11075,10 +11287,10 @@ eligibility:
   - SBTOU
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Small Business Time of Use (SBTOU) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -11086,10 +11298,10 @@ eligibility:
   - SBTOUNE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Small Business Time of Use (SBTOUNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -11097,10 +11309,10 @@ eligibility:
   - MBTOUD
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Medium Business Time of Use Demand (MBTOUD) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -11108,10 +11320,10 @@ eligibility:
   - MBTOUDNE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Medium Business Time of Use Demand (MBTOUDNE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -11119,10 +11331,10 @@ eligibility:
   - SBELE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: le
+  rule_type: "export_capacity"
+  operator: "le"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Small Business Electrify (SBELE) for customers with 0-30kW export capacity
   note: Export capacity 0-30kW; an export tariff applies from 1 July 2025.
@@ -11130,10 +11342,10 @@ eligibility:
   - SBELENE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
   fin_year: 2025-26
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p16
   quote: Small Business Electrify (SBELENE) for customers with >30kW export capacity
   note: Export capacity above 30kW; such customers are not subject to an export tariff.
@@ -11492,18 +11704,6 @@ eligibility:
     or Shoulder windows. 0-160 MWh p.a. Demand – Annual $/kVA/day Highest 30 minute demand interval during the regardless
     of kVA
   note: Customer choice (opt-in) range '0-160 MWh p.a. regardless of kVA'.
-- codes:
-  - MBTOUD
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  target_code: SBTOU
-  locator: pdf:p4
-  quote: 'Medium Business Time of Use Demand: This tariff is for customers with usage between 40- 160MWh per annum. It features
-    a higher daily supply charge but a lower-priced usage charge to reflect higher consumption volumes. Customers can choose
-    to opt-in to Small Business Time of Use tariff.'
-  note: Section 2 (pdf:p16) names the tariffs 'Medium Business Time of Use Demand (MBTOUD)' and 'Small Business Time of Use
-    (SBTOU)'.
 - codes:
   - SBELE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
@@ -13513,10 +13713,10 @@ eligibility:
   - MBTOUDNE
   doc: sources/dnsp/sapn/SAPN_Tariff_Price_List_2026-27_id338674.pdf
   fin_year: 2026-27
-  rule_type: other
-  operator: gt
+  rule_type: "export_capacity"
+  operator: "gt"
   value_num: 30
-  value_unit: kW
+  value_unit: "kW"
   locator: pdf:p5
   quote: 'Code: SA Code: CBD >30 kW Export Description'
   note: 'The quote is the code-column heading of Table 1 (pdf:p5). The rows with a code in its third column (''>30 kW Export'')
@@ -15294,7 +15494,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p20
   quote: "Demand – Annual $ /kVA/day Highest 30 minute demand interval during the regardless of kVA last 12 months."
   note: "The 'Demand – Annual' row of the Medium Business Time of Use Demand | MBTOUD and MBTOUDNE blocks of Table 4;
@@ -15307,7 +15508,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p23
   quote: "Demand – $/kVA/day Highest 30 minute demand interval during the last Anytime Annual 12 months."
   note: "The 'Demand – Anytime Annual' row of the LBAD and LBMD blocks of Table 5 ('Highest 30 minute demand interval
@@ -15323,7 +15525,8 @@ charge_rules:
   tou_period: peak
   measure: kVA
   method: max_daily_window_mean
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p23
   quote: "Demand – $/kVA/day Highest daily average demand during the last 12 Peak Annual months November – March: • CBD
     11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round."
@@ -15356,7 +15559,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: agreed
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p23
   quote: "Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
     during the last 12 months."
@@ -15373,7 +15577,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p25
   quote: "Demand – $/kVA/day Highest 30 minute demand interval during the Anytime Annual last 12 months."
   note: "The 'Demand – Anytime Annual' row of the HVAD/HVAD500 and HVMD blocks of Table 6. The Peak Annual (HVAD,
@@ -15388,7 +15593,8 @@ charge_rules:
   tou_period: peak
   measure: kVA
   method: max_daily_window_mean
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p25
   quote: "Business Annual Demand – $/kVA/day Highest daily average demand during the last 12 Demand Peak Annual months
     November – March: <500kVA | • CBD 11:00am – 5:00pm WD HVAD500 • Non CBD 5:00pm – 9:00pm All days Peak demand values
@@ -15419,7 +15625,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: agreed
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p25
   quote: "Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
     during the last 12 months."
@@ -15434,7 +15641,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf:p27
   quote: "Demand – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
@@ -15454,7 +15662,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: agreed
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p27
   quote: "Demand Firm – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
     during the last 12 months. Minimum 5,000 kVA (Firm + Flex)."
@@ -15470,7 +15679,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p29
   quote: "Demand – $/kVA/day Highest 30 minute demand interval during the Anytime Agreed last 12 months."
   note: "The 'Demand – Anytime Agreed' row of the LBG/HVBG block of Table 8. The Peak Agreed demand rate ('Highest daily
@@ -15482,7 +15692,8 @@ charge_rules:
   tou_period: peak
   measure: kVA
   method: max_daily_window_mean
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p29
   quote: "Demand – $/kVA/day Highest daily average demand during the last 12 HVBG Generation-only Peak Agreed months
     November – March: batteries • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed
@@ -15498,7 +15709,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: agreed
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p29
   quote: "Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
     during the last 12 months."
@@ -15513,7 +15725,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf:p30
   quote: "Agreed demand determined by the highest 30 STRG Generation-only Anytime Agreed minute demand interval during
@@ -15529,7 +15742,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: agreed
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p30
   quote: "Demand Firm – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
     during the last 12 months. Minimum 5,000 kVA (Firm + Flex)."
@@ -15542,7 +15756,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p22
   quote: "Demand – Annual $ /kVA/day Highest 30 minute demand interval during the regardless of kVA last 12 months."
   note: "The 'Demand – Annual' row of the Medium Business Time of Use Demand | MBTOUD and MBTOUDNE blocks of Table 4;
@@ -15555,7 +15770,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p25
   quote: "Demand – $/kVA/day Highest 30 minute demand interval during the last Anytime Annual 12 months."
   note: "The 'Demand – Anytime Annual' row of the LBAD and LBMD blocks of Table 5 ('Highest 30 minute demand interval
@@ -15568,7 +15784,8 @@ charge_rules:
   tou_period: peak
   measure: kVA
   method: max_daily_window_mean
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p25
   quote: "Demand – $/kVA/day Highest daily average demand during the last 12 Peak Annual months November – March: • CBD
     11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed all year round."
@@ -15596,7 +15813,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: agreed
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p25
   quote: "Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
     during the last 12 months."
@@ -15613,7 +15831,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p27
   quote: "Demand – $/kVA/day Highest 30 minute demand interval during the Anytime Annual last 12 months."
   note: "The 'Demand – Anytime Annual' row of the HVAD/HVAD500 and HVMD blocks of Table 6. The Peak Annual (HVAD,
@@ -15626,7 +15845,8 @@ charge_rules:
   tou_period: peak
   measure: kVA
   method: max_daily_window_mean
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p27
   quote: "Business Annual Demand – $/kVA/day Highest daily average demand during the last 12 Demand Peak Annual months
     November – March: <500kVA | • CBD 11:00am – 5:00pm WD HVAD500 • Non CBD 5:00pm – 9:00pm All days Peak demand values
@@ -15655,7 +15875,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: agreed
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p27
   quote: "Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
     during the last 12 months."
@@ -15670,7 +15891,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf:p29
   quote: "Demand – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval during the
@@ -15688,7 +15910,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: agreed
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p29
   quote: "Demand Firm – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
     during the last 12 months. Minimum 5,000 kVA (Firm + Flex)."
@@ -15704,7 +15927,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p31
   quote: "Demand – $/kVA/day Highest 30 minute demand interval during the Anytime Agreed last 12 months."
   note: "The 'Demand – Anytime Agreed' row of the LBG/HVBG block of Table 8. The Peak Agreed demand rate ('Highest daily
@@ -15716,7 +15940,8 @@ charge_rules:
   tou_period: peak
   measure: kVA
   method: max_daily_window_mean
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p31
   quote: "Demand – $/kVA/day Highest daily average demand during the last 12 HVBG Generation-only Peak Agreed months
     November – March: batteries • CBD 11:00am – 5:00pm WD • Non CBD 5:00pm – 9:00pm All days Peak demand values billed
@@ -15732,7 +15957,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: agreed
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p31
   quote: "Demand Firm – $/kVA/day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
     during the last 12 months."
@@ -15747,7 +15973,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf:p32
   quote: "Agreed demand determined by the highest 30 STRG Generation-only Anytime Agreed minute demand interval during
@@ -15763,7 +15990,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: agreed
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p32
   quote: "Demand Firm – $/kVA day Agreed demand determined by the highest 30 Anytime Agreed minute demand interval
     during the last 12 months. Minimum 5,000 kVA (Firm + Flex)."
@@ -15776,7 +16004,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p28
   quote: "Demand – Annual $ /kVA/pa Highest average demand interval (30 minutes) (Type 4); or during the last 12
     months."
@@ -15860,7 +16089,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p29
   quote: "Demand – $/kVA/day Highest average demand interval (30 minutes) Annual Demand Anytime Annual during the last
     12 months."
@@ -15878,7 +16108,8 @@ charge_rules:
   tou_period: peak
   measure: kVA
   method: max_daily_window_mean
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p29
   quote: "HV Business Demand – $/kVA/day Highest daily average demand interval during the Annual Demand | Peak Annual
     last 12 months November – March: HVAD • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days"
@@ -15897,7 +16128,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p29
   quote: "Demand – $/kVA/day Highest average demand interval (30 minutes) Anytime Actual during the last 12 months."
   note: "The 'Demand – Anytime Actual' row of the LBMD | HVMD block of Table 6. The Peak Actual rate ('Highest daily
@@ -15927,7 +16159,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p30
   quote: "Demand – $/kVA/day Highest average demand interval (30 minutes) Anytime Actual during the last 12 months
     unless otherwise Agreed."
@@ -15943,7 +16176,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf:p31
   quote: "Non-Locational | Demand – $/kVA day Highest average demand interval (30 minutes) STN Anytime Actual during the
@@ -15963,7 +16197,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p28
   quote: "Demand – Annual $ /kVA/pa Highest average demand interval (30 minutes) (Type 4); or during the last 12
     months."
@@ -16047,7 +16282,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p29
   quote: "Demand – $/kVA/day Highest average demand interval (30 minutes) Annual Demand Anytime Annual during the last
     12 months."
@@ -16065,7 +16301,8 @@ charge_rules:
   tou_period: peak
   measure: kVA
   method: max_daily_window_mean
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p29
   quote: "HV Business Demand – $/kVA/day Highest daily average demand interval during the Annual Demand | Peak Annual
     last 12 months November – March: HVAD • CBD 11:00am – 5:00pm CDST WD • Non CBD 5:00pm – 9:00pm CDST All days"
@@ -16084,7 +16321,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p29
   quote: "Demand – $/kVA/day Highest average demand interval (30 minutes) Anytime Actual during the last 12 months."
   note: "The 'Demand – Anytime Actual' row of the LBMD | HVMD block of Table 6. The Peak Actual rate ('Highest daily
@@ -16114,7 +16352,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p30
   quote: "Demand – $/kVA/day Highest average demand interval (30 minutes) Anytime Actual during the last 12 months
     unless otherwise Agreed."
@@ -16130,7 +16369,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   minimum_value: 5000
   locator: pdf:p31
   quote: "Non-Locational | Demand – $/kVA day Highest average demand interval (30 minutes) STN Anytime Actual during the
@@ -16365,7 +16605,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p27
   quote: Demand – Annual $/kVA/pa Highest average demand interval (30 minutes)
   note: 'Small Business Time of Use + Demand | SBTOUD block of Table 5: ''Demand – Annual $/kVA/pa Highest average demand
@@ -16432,7 +16673,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p28
   quote: HV Business Demand – $/kVA/day Highest average demand interval (30 minutes) Annual Demand Anytime Annual during the
     last 12 months.
@@ -16468,7 +16710,8 @@ charge_rules:
   tou_period: peak
   measure: kVA
   method: max_daily_window_mean
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p28
   quote: 'HV Business Demand – $/kVA/day Highest daily average demand interval during the Annual Demand | Peak Annual last
     12 months November – March:'
@@ -16490,7 +16733,8 @@ charge_rules:
   measure: kVA
   interval_min: 30
   method: max
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p28
   quote: Demand – $/kVA/day Highest average demand interval (30 minutes) Anytime Actual during the last 12 months.
   note: 'The ''Demand – Anytime Actual'' row of the LBMD | HVMD block of Table 6. Site-specific codes are rows of Table 31
@@ -16555,7 +16799,8 @@ charge_rules:
   interval_min: 30
   method: max
   minimum_value: 5000
-  reset: rolling_12_months
+  reset: rolling_months
+  lookback_months: 12
   locator: pdf:p30
   quote: Sub-Transmission requirements which vary across the State. Non-Locational | Demand – $/kVA day Highest average demand
     interval (30 minutes) STN Anytime Actual during the last 12 months unless otherwise Agreed. Minimum of 5,000 kVA.
@@ -16564,3 +16809,288 @@ charge_rules:
     window determined by transmission pricing requirements which vary across the State'') is left without a rule and without
     windows. The numbered codes are site-specific rows of Table 31 continued (p60) described as ''Zone Substation kVA Locational''
     / ''Sub Transmission kVA Locational'' [UNSURE: the document does not say in words that they keep this measurement].'
+rate_units:
+- codes:
+  - STN483
+  - ZSN035
+  - ZSN272
+  - ZSN273
+  - ZSS951
+  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
+  fin_year: 2024-25
+  component: Ann Dmnd
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: Demand – $/kVA day Highest average demand interval (30 minutes)
+  note: 'Table 7 Major Business (ZSN/STN) Demand - Anytime Actual is $/kVA day; SAPN 2024-25 Tariff Price List (sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
+    pdf:p6, NUoS site-specific, heading ''Actual/Agreed Annual'' $/kVA/day) prints ZSS035/ZSS272/ZSS273 $0.0812, ZSN951 $0.0812,
+    STR483 $0.0449 = AER ZSN035/ZSN272/ZSN273, ZSS951, STN483 (AER swaps the ZSS/ZSN, STR/STN letters); ZSS766 (AER 0.0812)
+    has no SAPN-printed code [UNSURE: unit taken from its Major Business class]; AER $ x100 -> c/kVA/day (e.g. 0.0812 -> 8.12)'
+- codes:
+  - STN483
+  - ZSN035
+  - ZSN272
+  - ZSN273
+  - ZSS951
+  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
+  fin_year: 2024-25
+  component: Ann Dmnd Pk
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: ZSN customers Demand – $/kVA day Agreed demand during a time window
+  note: 'Table 7 Major Business (ZSN/STN) Demand - Peak Agreed is $/kVA day; SAPN 2024-25 Tariff Price List (sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
+    pdf:p6, NUoS site-specific, heading ''Actual/Agreed Annual'' $/kVA/day) prints ZSS035/ZSS272/ZSS273 $0.2040, ZSN951 $0.2626,
+    STR483 $0.1584 = AER ZSN035/ZSN272/ZSN273, ZSS951, STN483 (AER swaps the ZSS/ZSN, STR/STN letters); ZSS766 (AER 0.2040)
+    has no SAPN-printed code [UNSURE: unit taken from its Major Business class]; AER $ x100 -> c/kVA/day (e.g. 0.2040 -> 20.40)'
+- codes:
+  - MBTOUD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p22
+  quote: Demand – Annual $ /kVA/day Highest 30 minute demand interval during the
+  note: Table 4 (Small Business tariff structures, cont.) MBTOUD row charging-parameter table gives this demand component
+    in $/kVA/day; AER values MBTOUD 0.0842 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns
+    headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBAD
+  - LBADF
+  - LBMD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p25
+  quote: Demand – $/kVA/day Highest 30 minute demand interval during the last
+  note: Table 5 Large LV Business (LBAD/LBADF/LBMD; Anytime Annual / Firm Anytime Agreed) charging-parameter table gives this
+    demand component in $/kVA/day; AER values LBAD 0.0630, LBADF 0.0891, LBMD 0.0630 matches SAPN Table 9 NUoS Tariff Schedule
+    2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - HVAD
+  - HVAD500
+  - HVADF
+  - HVMD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p27
+  quote: Demand – $/kVA/day Highest 30 minute demand interval during the
+  note: Table 6 HV Business (HVAD/HVAD500/HVADF/HVMD) charging-parameter table gives this demand component in $/kVA/day; AER
+    values HVAD 0.0849, HVAD500 0.0630, HVADF 0.1110, HVMD 0.0849 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - ZSS
+  - ZSSF
+  - STR
+  - STRF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p29
+  quote: Demand – $/kVA day Agreed demand determined by the highest 30
+  note: Table 7 Major Business (ZSS/ZSSF/STR/STRF; Anytime Agreed / Firm Anytime Agreed) charging-parameter table gives this
+    demand component in $/kVA/day; AER values ZSS 0.0658, ZSSF 0.0919, STR 0.0274, STRF 0.0535 matches SAPN Table 9 NUoS Tariff
+    Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBG
+  - LBGF
+  - HVBG
+  - HVBGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: Demand – $/kVA/day Highest 30 minute demand interval during the
+  note: Table 8 Large Business Generation (LBG/HVBG, LBGF/HVBGF) charging-parameter table gives this demand component in $/kVA/day;
+    AER values LBG 0.0630, LBGF 0.0891, HVBG 0.0849, HVBGF 0.1110 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - ZSSG
+  - ZSSGF
+  - STRG
+  - STRGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p32
+  quote: Demand – $/kVA day Agreed demand determined by the highest 30
+  note: Table 8 (cont.) Major Business Generation (ZSSG/STRG, ZSSGF/STRGF) charging-parameter table gives this demand component
+    in $/kVA/day; AER values ZSSG 0.0658, ZSSGF 0.0919, STRG 0.0274, STRGF 0.0535 matches SAPN Table 9 NUoS Tariff Schedule
+    2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBADF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Flexible
+  unit: c/kVA/day
+  locator: pdf:p25
+  quote: Demand Flex – $/kVA/day Agreed demand determined by the highest 30
+  note: Table 5 Large LV Business Agreed Demand Flexible charging-parameter table gives this demand component in $/kVA/day;
+    AER values LBADF 0.0445 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day);
+    AER $ x100 -> c/kVA/day
+- codes:
+  - HVADF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Flexible
+  unit: c/kVA/day
+  locator: pdf:p27
+  quote: Demand Flex – $/kVA/day Agreed demand determined by the highest 30
+  note: Table 6 HV Business Agreed Demand Flexible charging-parameter table gives this demand component in $/kVA/day; AER
+    values HVADF 0.0555 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day);
+    AER $ x100 -> c/kVA/day
+- codes:
+  - ZSSF
+  - STRF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Flexible
+  unit: c/kVA/day
+  locator: pdf:p29
+  quote: Demand Flex – $/kVA day Agreed demand determined by the highest 30
+  note: Table 7 Major Business Flexible charging-parameter table gives this demand component in $/kVA/day; AER values ZSSF
+    0.0459, STRF 0.0267 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day);
+    AER $ x100 -> c/kVA/day
+- codes:
+  - LBGF
+  - HVBGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Flexible
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: Demand Flex – $/kVA/day Agreed demand determined by highest 30
+  note: Table 8 Large Business Generation Flexible charging-parameter table gives this demand component in $/kVA/day; AER
+    values LBGF 0.0445, HVBGF 0.0555 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed
+    $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - ZSSGF
+  - STRGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Flexible
+  unit: c/kVA/day
+  locator: pdf:p32
+  quote: Demand Flex – $/kVA day Agreed demand determined by the highest 30
+  note: Table 8 (cont.) Major Business Generation Flexible charging-parameter table gives this demand component in $/kVA/day;
+    AER values ZSSGF 0.0459, STRGF 0.0267 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed
+    $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBAD
+  - LBADF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p25
+  quote: Demand – $/kVA/day Highest daily average demand during the last 12
+  note: Table 5 Large LV Business (Peak Annual / Firm Peak Agreed also $/kVA/day) charging-parameter table gives this demand
+    component in $/kVA/day; AER values LBAD 0.3049, LBADF 0.3049 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - HVAD
+  - HVAD500
+  - HVADF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p27
+  quote: Business Annual Demand – $/kVA/day Highest daily average demand during the last 12
+  note: Table 6 HV Business (Peak Annual / Firm Peak Agreed also $/kVA/day) charging-parameter table gives this demand component
+    in $/kVA/day; AER values HVAD 0.2446, HVAD500 0.3049, HVADF 0.2446 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - ZSS
+  - ZSSF
+  - STR
+  - STRF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p29
+  quote: Demand – $/kVA day Agreed demand determined by the highest 30
+  note: Table 7 Major Business (Peak Agreed / Firm Peak Agreed, $/kVA day) charging-parameter table gives this demand component
+    in $/kVA/day; AER values ZSS 0.1761, ZSSF 0.1761, STR 0.1487, STRF 0.1487 matches SAPN Table 9 NUoS Tariff Schedule 2025-26
+    (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBG
+  - LBGF
+  - HVBG
+  - HVBGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: Generation| includes Demand – $/kVA/day Highest daily average demand during the last 12
+  note: Table 8 Large Business Generation (Peak Agreed) charging-parameter table gives this demand component in $/kVA/day;
+    AER values LBG 0.3049, LBGF 0.3049, HVBG 0.2446, HVBGF 0.2446 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - ZSSG
+  - ZSSGF
+  - STRG
+  - STRGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p32
+  quote: Generation | includes Demand – $/kVA day Agreed demand determined by the highest 30
+  note: Table 8 (cont.) Major Business Generation (Peak Agreed) charging-parameter table gives this demand component in $/kVA/day;
+    AER values ZSSG 0.1761, ZSSGF 0.1761, STRG 0.1487, STRGF 0.1487 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBMD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Monthly kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p25
+  quote: Demand – $ /kVA/day Highest daily average demand during the month
+  note: Table 5 LBMD Demand - Peak Monthly charging-parameter table gives this demand component in $/kVA/day; AER values LBMD
+    1.1055 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 ->
+    c/kVA/day
+- codes:
+  - HVMD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Monthly kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p27
+  quote: Demand – $ /kVA/day Highest daily average demand during the month
+  note: Table 6 HVMD Demand - Peak Monthly charging-parameter table gives this demand component in $/kVA/day; AER values HVMD
+    0.8869 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 ->
+    c/kVA/day
+tariff_links:
+- codes:
+  - MBTOUD
+  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  linked_code: SBTOU
+  locator: pdf:p4
+  quote: 'Medium Business Time of Use Demand: This tariff is for customers with usage between 40- 160MWh per annum. It features
+    a higher daily supply charge but a lower-priced usage charge to reflect higher consumption volumes. Customers can choose
+    to opt-in to Small Business Time of Use tariff.'
+  note: Section 2 (pdf:p16) names the tariffs 'Medium Business Time of Use Demand (MBTOUD)' and 'Small Business Time of Use
+    (SBTOU)'.
+- codes:
+  - MBTOUD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  linked_code: SBTOU
+  locator: pdf:p4
+  quote: 'Medium Business Time of Use Demand: This tariff is for customers with usage between 40- 160MWh per annum. It features
+    a higher daily supply charge but a lower-priced usage charge to reflect higher consumption volumes. Customers can choose
+    to opt-in to Small Business Time of Use tariff.'
+  note: Section 2 (pdf:p16) names the tariffs 'Medium Business Time of Use Demand (MBTOUD)' and 'Small Business Time of Use
+    (SBTOU)'.

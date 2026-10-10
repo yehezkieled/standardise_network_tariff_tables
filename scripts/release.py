@@ -7,11 +7,12 @@
 Assets (same names in every release, so .../releases/latest/download/<name> always points at the newest):
   tariffdb.sqlite    every table, loaded by scripts/tariffdb/load.py with all keys, foreign keys and CHECK constraints
   tariffdb-csv.zip   the tables (data/tariffdb/tables/*.csv) with schema.json, schema.sqlite.sql and docs/schema.md
-  SHA256SUMS         checksums of the two files above (sha256sum -c SHA256SUMS)
+  tariffdb.xlsx      one sheet per view (tariff_flat, tou_flat, unit_spelling) and a columns sheet describing them
+  SHA256SUMS         checksums of the three files above (sha256sum -c SHA256SUMS)
 plus release-notes.md (coverage, known gaps, how it was built, checksums), used as the release body.
 
 Everything comes from the commit (git archive), never from the working tree, so local edits cannot leak into a release
-and a rebuild of the same commit gives the same CSV zip byte for byte. The tag is tariffdb-<commit date>; a second
+and a rebuild of the same commit gives the same CSV zip and .xlsx byte for byte. The tag is tariffdb-<commit date>; a second
 release from a later commit on the same day needs its own --tag (e.g. tariffdb-<date>.2), as the tag already exists.
 Needs only git and Python 3.12+ (standard library); the built files stay out of git (out/ is ignored).
 """
@@ -20,6 +21,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import sqlite3
 import subprocess
 import sys
@@ -62,6 +64,118 @@ def write_zip(tree, path, stamp):
             z.writestr(info, src.read_bytes(), compresslevel=9)
 
 
+# ------------------------------------------------------------------------------------------------------------ xlsx
+# A minimal Office Open XML workbook written with the standard library: inline strings, a bold frozen header with a
+# filter, fixed zip timestamps (so the same commit gives the same bytes).
+XLSX_STATIC = {
+    "[Content_Types].xml": """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+<Default Extension="xml" ContentType="application/xml"/>
+<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>
+<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>
+{sheets}</Types>""",
+    "_rels/.rels": """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>
+</Relationships>""",
+    "xl/styles.xml": """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+<fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts>
+<fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills>
+<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>
+<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>
+<cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs>
+<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles>
+</styleSheet>""",
+}
+XML_BAD = re.compile("[\x00-\x08\x0b\x0c\x0e-\x1f]")
+
+
+def xml_text(value):
+    return XML_BAD.sub("", str(value)).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def column_letter(n):
+    letters = ""
+    while n:
+        n, r = divmod(n - 1, 26)
+        letters = chr(65 + r) + letters
+    return letters
+
+
+def sheet_xml(header, rows):
+    def cell(ref, value, style=""):
+        if value is None:
+            return ""
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            return f'<c r="{ref}"{style}><v>{value!r}</v></c>'
+        return f'<c r="{ref}"{style} t="inlineStr"><is><t xml:space="preserve">{xml_text(value)}</t></is></c>'
+    last = column_letter(len(header))
+    # each column as wide as its header or longest value among the first rows, within 8 to 60 characters
+    widths = [min(60, max(8, len(str(h)) + 2, *(len(str(r[j])) + 1 for r in rows[:2000] if r[j] is not None)))
+              for j, h in enumerate(header)]
+    out = ['<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
+           '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+           f'<dimension ref="A1:{last}{len(rows) + 1}"/>'
+           '<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" '
+           'state="frozen"/></sheetView></sheetViews><cols>'
+           + "".join(f'<col min="{j}" max="{j}" width="{w}" customWidth="1"/>' for j, w in enumerate(widths, 1))
+           + '</cols><sheetData>']
+    for i, row in enumerate([header, *rows], 1):
+        style = ' s="1"' if i == 1 else ""
+        out.append(f'<row r="{i}">' + "".join(cell(f"{column_letter(j)}{i}", v, style)
+                                              for j, v in enumerate(row, 1)) + "</row>")
+    out.append(f'</sheetData><autoFilter ref="A1:{last}{len(rows) + 1}"/></worksheet>')
+    return "".join(out)
+
+
+def write_xlsx(db_path, path, stamp):
+    """tariffdb.xlsx: each view of the database on its own sheet, then a columns sheet describing every view column."""
+    con = sqlite3.connect(db_path)
+    try:
+        views = [r[0] for r in con.execute("SELECT name FROM sqlite_master WHERE type = 'view' ORDER BY rowid")]
+        sheets = []
+        for view in views:
+            cur = con.execute(f"SELECT * FROM {view}")
+            sheets.append((view, [d[0] for d in cur.description], cur.fetchall()))
+        cur = con.execute("""SELECT object_name AS view, column_name AS "column", data_type, value_list, unit,
+                             definition FROM data_dictionary WHERE object_type = 'view' ORDER BY
+                             (SELECT rowid FROM sqlite_master m WHERE m.name = object_name), ordinal""")
+        sheets.append(("columns", [d[0] for d in cur.description], cur.fetchall()))
+    finally:
+        con.close()
+    parts = dict(XLSX_STATIC)
+    parts["[Content_Types].xml"] = parts["[Content_Types].xml"].replace("{sheets}", "".join(
+        f'<Override PartName="/xl/worksheets/sheet{i}.xml" '
+        'ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>\n'
+        for i in range(1, len(sheets) + 1)))
+    parts["xl/workbook.xml"] = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
+        '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" '
+        'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>'
+        + "".join(f'<sheet name="{name}" sheetId="{i}" r:id="rId{i}"/>' for i, (name, _, _) in enumerate(sheets, 1))
+        + "</sheets><definedNames>" + "".join(
+            f'<definedName name="_xlnm._FilterDatabase" localSheetId="{i}" hidden="1">'
+            f"'{name}'!$A$1:${column_letter(len(header))}${len(rows) + 1}</definedName>"
+            for i, (name, header, rows) in enumerate(sheets)) + "</definedNames></workbook>")
+    parts["xl/_rels/workbook.xml.rels"] = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+        + "".join(f'<Relationship Id="rId{i}" Type="http://schemas.openxmlformats.org/officeDocument/2006/'
+                  f'relationships/worksheet" Target="worksheets/sheet{i}.xml"/>' for i in range(1, len(sheets) + 1))
+        + f'<Relationship Id="rId{len(sheets) + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/'
+          'relationships/styles" Target="styles.xml"/></Relationships>')
+    for i, (_, header, rows) in enumerate(sheets, 1):
+        parts[f"xl/worksheets/sheet{i}.xml"] = sheet_xml(header, rows)
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+        for name, text in parts.items():
+            info = zipfile.ZipInfo(name, date_time=stamp)
+            info.external_attr = 0o644 << 16
+            info.compress_type = zipfile.ZIP_DEFLATED
+            z.writestr(info, text.encode("utf-8"), compresslevel=9)
+
+
 def coverage(db_path):
     con = sqlite3.connect(db_path)
     try:
@@ -69,9 +183,9 @@ def coverage(db_path):
             return con.execute(query).fetchone()[0]
 
         stats = {t: one(f"SELECT count(*) FROM {t}") for t in
-                 ("distributor", "tariff", "rate", "tou_window", "eligibility", "source_document")}
+                 ("distributor", "tariff", "rate", "time_window", "eligibility", "source_document")}
         stats["last_day"] = one("SELECT max(effective_to) FROM tariff")
-        stats["windows_from"] = one("SELECT min(effective_from) FROM tou_window")
+        stats["windows_from"] = one("SELECT min(effective_from) FROM tariff_window_set")
         stats["eligibility_from"] = one("SELECT min(effective_from) FROM eligibility")
         rows = con.execute("""
             SELECT d.name, d.state,
@@ -80,12 +194,15 @@ def coverage(db_path):
                    (SELECT s.pricing_year FROM tariff t JOIN source_document s USING (document_id)
                      WHERE t.distributor_id = d.distributor_id ORDER BY t.effective_from DESC LIMIT 1),
                    (SELECT count(*) FROM tariff t WHERE t.distributor_id = d.distributor_id),
-                   (SELECT count(*) FROM rate r WHERE r.distributor_id = d.distributor_id AND r.status = 'final'),
-                   (SELECT count(*) FROM rate r WHERE r.distributor_id = d.distributor_id
-                       AND r.status = 'provisional'),
+                   (SELECT count(*) FROM rate r JOIN tariff t USING (distributor_id, tariff_code, effective_from)
+                     WHERE r.distributor_id = d.distributor_id AND t.status = 'final'),
+                   (SELECT count(*) FROM rate r JOIN tariff t USING (distributor_id, tariff_code, effective_from)
+                     WHERE r.distributor_id = d.distributor_id AND t.status = 'provisional'),
                    (SELECT group_concat(pricing_year, ', ') FROM (
-                       SELECT s.pricing_year FROM rate r JOIN source_document s USING (document_id)
-                        WHERE r.distributor_id = d.distributor_id AND r.status = 'provisional'
+                       SELECT s.pricing_year FROM rate r
+                         JOIN tariff t USING (distributor_id, tariff_code, effective_from)
+                         JOIN source_document s ON s.document_id = t.document_id
+                        WHERE r.distributor_id = d.distributor_id AND t.status = 'provisional'
                         GROUP BY s.pricing_year ORDER BY min(r.effective_from)))
             FROM distributor d ORDER BY d.state, d.name""").fetchall()
         return stats, rows
@@ -121,11 +238,14 @@ def notes(sha, stats, rows, first_stored, gaps, sums):
             f"every pricing year in effect on or after {first_stored}, through {stats['last_day']}."), "",
            "| Tariffs | Rates | TOU windows | Eligibility criteria | Source documents |",
            "|---:|---:|---:|---:|---:|",
-           (f"| {stats['tariff']:,} | {stats['rate']:,} | {stats['tou_window']:,} | {stats['eligibility']:,} "
+           (f"| {stats['tariff']:,} | {stats['rate']:,} | {stats['time_window']:,} | {stats['eligibility']:,} "
             f"| {stats['source_document']:,} |"), "",
            "## Files", "", "| File | Contents | SHA-256 |", "|---|---|---|",
            f"| `tariffdb.sqlite` | SQLite database, every table with its keys and constraints | `{sums['tariffdb.sqlite']}` |",
-           f"| `tariffdb-csv.zip` | the same tables as CSV, with the schema | `{sums['tariffdb-csv.zip']}` |", "",
+           f"| `tariffdb-csv.zip` | the same tables as CSV, with the schema | `{sums['tariffdb-csv.zip']}` |",
+           (f"| `tariffdb.xlsx` | the flat views (`tariff_flat`: every tariff with its rates, windows and demand rules; "
+            f"`tou_flat`: every tariff's TOU windows; `unit_spelling`), one sheet each, and a `columns` sheet "
+            f"| `{sums['tariffdb.xlsx']}` |"), "",
            f"Columns, units and a worked tariff: [docs/schema.md]({base}/docs/schema.md).", "",
            "## Coverage", "",
            ("Rates are `final` (the distributor's own list or a state regulator's schedule) or `provisional` (the AER "
@@ -150,7 +270,7 @@ def notes(sha, stats, rows, first_stored, gaps, sums):
     return "\n".join(out)
 
 
-ASSETS = ["tariffdb.sqlite", "tariffdb-csv.zip", "SHA256SUMS"]
+ASSETS = ["tariffdb.sqlite", "tariffdb-csv.zip", "tariffdb.xlsx", "SHA256SUMS"]
 
 
 def build(ref, out_root, tag=None):
@@ -171,9 +291,10 @@ def build(ref, out_root, tag=None):
         db = out / "tariffdb.sqlite"
         subprocess.run([sys.executable, tools / "load.py", "--out", db], check=True, stdout=subprocess.DEVNULL)
         write_zip(tree, out / "tariffdb-csv.zip", tuple(int(x) for x in date))
+        write_xlsx(db, out / "tariffdb.xlsx", tuple(int(x) for x in date))
         first_stored, gaps = stored_gaps(tree)
 
-    sums = {name: sha256(out / name) for name in ASSETS[:2]}
+    sums = {name: sha256(out / name) for name in ASSETS[:3]}
     (out / "SHA256SUMS").write_text("".join(f"{digest}  {name}\n" for name, digest in sums.items()))
     stats, rows = coverage(out / "tariffdb.sqlite")
     (out / "release-notes.md").write_text(notes(sha, stats, rows, first_stored, gaps, sums))

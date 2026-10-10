@@ -1,6 +1,6 @@
-distributor_id,aer_code,distributor_code,valid_from,valid_to,reason
-citipower,{code},{code}{n},,,"the AER prints a large-customer tariff as one code, CitiPower's list numbers its variants (AER CHV and CHVT; CitiPower CHV1, CHVT1 and CHVT2)"
-ergon,{code},{code}T{n},,,"the AER prints one code with a row per transmission zone T1-T3 (EBDEM, 'East ... T1'); Ergon's list gives each zone its own code (EBDEMT1, EBDEMT2, EBDEMT3)"
-powercor,{code},{code}{n},,,"the AER prints a large-customer tariff as one code, Powercor's list numbers its variants (AER HV, HVT and LLV; Powercor HV1-HV3, HVT1-HVT2 and LLV1-LLV3)"
-sapn,{code}-SA,{code},,,"the AER's 2024-25 report appends -SA to SA Power Networks codes (AER HVAD-SA and LBAD-SA; SA Power Networks HVAD and LBAD)"
-unitedenergy,{code},{code}{n},,,"the AER prints a large-customer tariff as one code, United Energy's list numbers its variants (AER LVkVATOU and HVkVATOU; United Energy LVKVATOU 1-3 and HVKVATOU 1-3)"
+distributor_id,aer_code,distributor_code,link_type,valid_from,valid_to,reason
+citipower,{code},{code}{n},alias,,,"the AER prints a large-customer tariff as one code, CitiPower's list numbers its variants (AER CHV and CHVT; CitiPower CHV1, CHVT1 and CHVT2)"
+ergon,{code},{code}T{n},zone_variant_of,,,"the AER prints one code with a row per transmission zone T1-T3 (EBDEM, 'East ... T1'); Ergon's list gives each zone its own code (EBDEMT1, EBDEMT2, EBDEMT3)"
+powercor,{code},{code}{n},alias,,,"the AER prints a large-customer tariff as one code, Powercor's list numbers its variants (AER HV, HVT and LLV; Powercor HV1-HV3, HVT1-HVT2 and LLV1-LLV3)"
+sapn,{code}-SA,{code},alias,,,the AER's 2024-25 report appends -SA to SA Power Networks codes (AER HVAD-SA and LBAD-SA; SA Power Networks HVAD and LBAD)
+unitedenergy,{code},{code}{n},alias,,,"the AER prints a large-customer tariff as one code, United Energy's list numbers its variants (AER LVkVATOU and HVkVATOU; United Energy LVKVATOU 1-3 and HVKVATOU 1-3)"

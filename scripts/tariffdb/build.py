@@ -69,7 +69,7 @@ BANDS = {"": (None, None), "anytime": ("anytime", None), "peak": ("peak", None),
          "dynamic_maximum": ("dynamic_maximum", None)}
 BLOCK_UNITS = {"day": "kWh/day", "billing_period_per_day": "kWh/billing_day", "quarter": "kWh/quarter",
                "unstated": "kWh"}
-APPLIES = {"energy": "usage"}  # curated applies_to -> tou_window.applies_to (the rest are the same word)
+APPLIES = {"energy": "usage"}  # curated applies_to -> tariff_window_set.applies_to (the rest are the same word)
 # rate.register: a usage price is for the controlled-load register when its component names controlled load (SAPN 'CL
 # Peak usage', AusNet 'Dedicated circuit', Endeavour 'Controlled Load Flat'; not 'Uncontrolled'), or when the whole tariff
 # is a controlled-load tariff (Ausgrid 'Controlled Load 1', Energex 'Economy', Ergon 'Volume Night Controlled'): its name
@@ -79,6 +79,76 @@ CL_COMPONENT = re.compile(r"\bCL\b|(?<!un)controlled|\bcontrol load\b|dedicated|
 CL_TARIFF = re.compile(r"(?<!un)controlled|dedicated|economy|hot water|off.?peak heating|\bOPCL\b", re.I)
 COMBINED = re.compile(r"[&+,]|\bwith\b|\band\b|general supply|single rate|two rate|residential flat", re.I)
 REGISTER_OF = {"usage": "general", "demand": "general", "capacity": "general", "export": "export"}
+# tariff.customer_class from the published heading: the first pattern its last ' - ' part matches, else the first the
+# whole heading matches; a heading naming only a voltage, a structure ('Anytime Demand') or an unexplained acronym
+# (CAC, SAC, ICC) names no class
+CUSTOMER_CLASS = [
+    ("unmetered", re.compile(r"unmetered", re.I)), ("public_lighting", re.compile(r"street light|public light", re.I)),
+    ("storage", re.compile(r"\bstorage\b", re.I)), ("generation", re.compile(r"generation|^export tariffs", re.I)),
+    ("controlled_load", re.compile(r"(?<!un)controlled", re.I)),
+    ("residential", re.compile(r"residential|domestic", re.I)), ("major_business", re.compile(r"\bmajor\b", re.I)),
+    ("large_business", re.compile(r"\blarge\b", re.I)), ("business", re.compile(r"small (and|&) medium", re.I)),
+    ("medium_business", re.compile(r"\bmedium\b", re.I)), ("small_business", re.compile(r"\bsmall\b", re.I)),
+    ("business", re.compile(r"business|commercial", re.I))]
+SITE_SPECIFIC = re.compile(r"site specific", re.I)
+TRIAL = re.compile(r"\btrials?\b", re.I)
+# a stored unit with '?' (the parser could not read the billing period) becomes period_not_stated unless a curated
+# rate_units fact quotes the unit
+UNCLEAR_UNIT = re.compile(r"^c/(kW|kVA)/(\?|day\?|month\?|year\?)$")
+
+
+def customer_class(heading):
+    """The controlled class a published tariff-class heading names, or None."""
+    if not heading:
+        return None
+    for text in (heading.split(" - ")[-1], heading):
+        for cls, pattern in CUSTOMER_CLASS:
+            if pattern.search(text):
+                return cls
+    return None
+
+
+def public_holidays():
+    """public_holiday rows: each state's holidays from the year before the first stored day (a financial year stored
+    from 1 January starts the July before) to the end of the last pricing year."""
+    import holidays  # only the full build needs it
+    if holidays.__version__ != bs.HOLIDAYS_VERSION:
+        raise SystemExit(f"public_holiday is generated with holidays=={bs.HOLIDAYS_VERSION}, not {holidays.__version__}")
+    years = range(int(bs.FIRST_STORED_DAY[:4]) - 1, spec.LAST_FIN_YEAR + 2)
+    out = []
+    for state in spec.STATES:
+        for day, name in sorted(holidays.AU(subdiv=state, years=list(years)).items()):
+            out.append({"state": state, "holiday_date": day.isoformat(), "name": name})
+    return out
+
+
+def season_parts(months):
+    """([season_part columns], key) for a curated window's months: whole-month spans in order (a span may wrap the
+    year end), the daylight-saving period ('dst') or the rest of the year ('not_dst'), or none when not stated."""
+    blank = {"start_month": None, "start_day": None, "start_anchor": None, "end_month": None, "end_day": None,
+             "end_anchor": None}
+    if months in ("dst", "not_dst"):
+        first, last = ("dst_start", "dst_end") if months == "dst" else ("dst_end", "dst_start")
+        return [dict(blank, start_anchor=first, end_anchor=last)], months.replace("_", "-")
+    ms = curated.months_of(months)
+    if ms is None:
+        return [], "months-not-stated"
+    have = set(ms)
+    if have == set(range(1, 13)):
+        runs = [(1, 12)]
+    else:
+        runs = []
+        for m in sorted(have):
+            if (m - 2) % 12 + 1 not in have:  # the month before is not in the season: a span starts here
+                end = m
+                while end % 12 + 1 in have:
+                    end = end % 12 + 1
+                runs.append((m, end))
+    parts = [dict(blank, start_month=a, start_day=1, end_month=b, end_day=LAST_DAY[b]) for a, b in runs]
+    return parts, "all" if runs == [(1, 12)] else ".".join(f"{a}-{b}" if a != b else str(a) for a, b in runs)
+
+
+LAST_DAY = {1: 31, 2: 29, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
 
 
 def slug(s):
@@ -178,6 +248,7 @@ class Builder:
         self.aliases = code_aliases if code_aliases is not None else aliases.load()
         self.tables = {t: {} for t in spec.TABLE_ORDER}
         self.problems = []
+        self.pending_links = []  # alias links found while choosing documents, added once their tariffs exist
         self.by_norm = None
         self.periods = defaultdict(list)  # (distributor_id, fin_year, code) -> [(start, end, document_id, status)]
 
@@ -207,13 +278,21 @@ class Builder:
 
     # ------------------------------------------------------------------ reference tables
     def reference(self):
+        for r in spec.value_list_rows():
+            self.add("value_list", r)
+        for r in spec.data_dictionary_rows():
+            self.add("data_dictionary", r)
+        for r in spec.unit_rows():
+            self.add("unit", r)
         for d in bs.DISTRIBUTORS:
             self.add("distributor", {k: d[k] for k in ("distributor_id", "name", "state", "iana_timezone")}
                      | {"observes_dst": int(d["observes_dst"])})
+        for r in public_holidays():
+            self.add("public_holiday", r)
         for d in self.docs:
             self.add("source_document", {
                 "document_id": d["document_id"], "distributor_id": d["distributor_id"], "pricing_year": d["fin_year"],
-                "publisher": d["author"], "document_type": d["document_type"],
+                "publisher": d["author"].lower(), "document_type": d["document_type"],
                 "hosted_by_aer": int(d["recon_side"] == "AER_HOSTED"), "version_label": d["version_label"],
                 "version_seq": d["version_seq"], "price_status": d["price_status"],
                 "published_on": d["publication_date"] or None, "source_url": d["source_url"] or None,
@@ -312,8 +391,10 @@ class Builder:
                 if code in printed:
                     segments[fy_start] = (provisional, "provisional", docs[provisional][printed[code]])
                     for start, doc_id in final:
-                        if aliases.targets(self.aliases, did, printed[code], start, docs[doc_id]):
+                        for target, rule in aliases.matches(self.aliases, did, printed[code], start, docs[doc_id]):
                             segments[start] = None
+                            self.pending_links.append((did, target, start, rule["link_type"], printed[code],
+                                                       provisional, rule["reason"]))
                 for start, doc_id in final:
                     if code in docs[doc_id]:
                         segments[start] = (doc_id, "final", docs[doc_id][code])
@@ -324,15 +405,23 @@ class Builder:
                     end = day_before(starts[i + 1]) if i + 1 < len(starts) else fy_end
                     doc_id, status, rows = segments[start]
                     self.tariff_period(did, fy, code, start, end, doc_id, status, rows)
+                    if code in printed and printed[code] != code and status == "provisional":
+                        self.pending_links.append((did, code, start, "alias", printed[code], provisional,
+                                                   "the AER prints the code with other spacing or case"))
 
     def tariff_period(self, did, fy, code, start, end, doc_id, status, rows):
         self.periods[(did, fy, code)].append((start, end, doc_id, status))
         name = Counter(r["tariff_name"] for r in rows if r["tariff_name"]).most_common(1)
         cls = Counter(r["customer_class"] for r in rows if r["customer_class"]).most_common(1)
+        heading = cls[0][0] if cls else None
+        doc_type = next(x["document_type"] for x in self.docs if x["document_id"] == doc_id)
+        priced = any(r["component"] != NO_PRICES for r in rows)
+        basis = None if not priced else "site_specific" if heading and SITE_SPECIFIC.search(heading) else "trial" \
+            if (heading and TRIAL.search(heading)) or doc_type == "tariff_trial_notification" else "published"
         self.add("tariff", {
             "distributor_id": did, "tariff_code": code, "effective_from": start, "effective_to": end,
-            "tariff_name": name[0][0] if name else None, "customer_class": cls[0][0] if cls else None,
-            "status": status, "document_id": doc_id})
+            "tariff_name": name[0][0] if name else None, "customer_class": customer_class(heading),
+            "customer_class_published": heading, "pricing_basis": basis, "status": status, "document_id": doc_id})
         cl_tariff = bool(name and CL_TARIFF.search(name[0][0]) and not COMBINED.search(name[0][0]))
         for r in sorted(rows, key=lambda r: (r["locator"], r["component"], r["time_band"], r["season"])):
             if r["component"] == NO_PRICES:
@@ -373,6 +462,12 @@ class Builder:
                 rid = f"{base}#{n}"
             r["rate_id"] = rid
             self.tables["rate"][(rid,)] = r
+            if r["condition"]:
+                cond, doc, locator, quote = r["condition"]
+                kind, _, values = cond.partition(":")
+                for v in values.split("|"):
+                    self.add("rate_condition", {"rate_id": rid, "condition_kind": kind, "value": v,
+                                                "document_id": doc, "locator": locator, "quote": quote})
 
     def metering_rates(self):
         """The distributor's separately priced metering charge, for the tariffs whose rates come from that document."""
@@ -419,10 +514,12 @@ class Builder:
             did = data["distributor"]
             self.tou_windows(did, data, f"curated/{name}.yaml")
             self.eligibility(did, data, f"curated/{name}.yaml")
+            self.tariff_links(did, data, f"curated/{name}.yaml")
             self.blocks(did, data, f"curated/{name}.yaml")
             self.metering_schedules(did, data, f"curated/{name}.yaml")
             self.conditions(did, data, f"curated/{name}.yaml")
             self.rate_periods(did, data, f"curated/{name}.yaml")
+            self.rate_units(did, data, f"curated/{name}.yaml")
             self.charge_rules(did, data, f"curated/{name}.yaml")
 
     def fy_periods(self, did, fy):
@@ -435,38 +532,81 @@ class Builder:
                 for start, end, _, _ in self.periods[(did, fy, c)]]
 
     def tou_windows(self, did, data, where):
+        """window_set, season, season_part and time_window rows per curated schedule (a schedule stated for several
+        years is one set), and a tariff_window_set row per tariff period of each code it names."""
         for s in data.get("tou_schedules") or []:
             doc = self.doc(s["doc"], where)["document_id"]
+            wsid = s["id"]
+            if (wsid,) not in self.tables["window_set"]:
+                self.window_set(did, s, doc)
             for t in s.get("tariffs") or []:
                 applies = APPLIES.get(t["applies_to"], t["applies_to"])
                 for named in t["codes"]:
-                    periods = self.code_periods(did, named, s["fin_year"], f"{where} {s['id']}")
-                    for (code, start, end), w in ((p, w) for p in periods for w in s["windows"]):
-                        ms = curated.months_of(w.get("months"))
-                        months = None if ms is None else ",".join(str(m) for m in ms)
-                        wid = ":".join([did, code, start, applies, w["period"], w["days"],
-                                        f"{w['start']}-{w['end']}", months.replace(",", ".") if months else
-                                        f"season-{w['season']}" if w.get("season") else "months-not-stated"])
-                        if (wid,) in self.tables["tou_window"]:
-                            continue  # the same window stated by two schedules (e.g. a summary and a schedule)
-                        self.add("tou_window", {
-                            "window_id": wid, "distributor_id": did, "tariff_code": code, "effective_from": start,
-                            "effective_to": end, "applies_to": applies, "tou_period": w["period"],
-                            "period_label": str(w["label"]), "day_type": w["days"], "start_time": str(w["start"]),
-                            "end_time": str(w["end"]), "months": months, "season": w.get("season"),
-                            "season_label": None if w.get("season_label") is None else str(w["season_label"]),
-                            "time_basis": s["time_basis"], "public_holidays": s["public_holidays"],
-                            "document_id": doc, "locator": w.get("locator") or s["locator"]})
+                    for code, start, _ in self.code_periods(did, named, s["fin_year"], f"{where} {wsid}"):
+                        key = (did, code, start, wsid, applies)
+                        if key not in self.tables["tariff_window_set"]:
+                            self.add("tariff_window_set", {
+                                "distributor_id": did, "tariff_code": code, "effective_from": start,
+                                "window_set_id": wsid, "applies_to": applies, "locator": t.get("locator"),
+                                "quote": None if t.get("quote") is None else str(t["quote"])})
+
+    def window_set(self, did, s, doc):
+        wsid = s["id"]
+        row = {"window_set_id": wsid, "distributor_id": did, "name": str(s["name"]),
+               "covers_full_day": int(bool(s.get("covers_full_day"))), "document_id": doc, "locator": s["locator"],
+               "quote": str(s["quote"]), "note": s.get("note")}
+        for key in ("time_basis", "public_holidays"):
+            stated = s[key] != curated.NOT_STATED
+            row.update({key: s[key] if stated else None,
+                        f"{key}_document_id": (self.doc(s[f"{key}_doc"], wsid)["document_id"] if s.get(f"{key}_doc")
+                                               else doc) if stated else None,
+                        f"{key}_locator": s.get(f"{key}_locator") if stated else None,
+                        f"{key}_quote": str(s[f"{key}_quote"]) if stated else None})
+        self.add("window_set", row)
+        labels = {}
+        for w in s["windows"]:
+            parts, what = season_parts(w.get("months"))
+            label = None if w.get("season_label") is None else str(w["season_label"])
+            sid = f"{wsid}:{w.get('season') or 'any'}:{what}"
+            while labels.get(sid, label) != label:  # one season, two labels: e.g. 'Summer' and 'Summer months'
+                sid += "+"
+            if sid not in labels:
+                labels[sid] = label
+                self.add("season", {"season_id": sid, "window_set_id": wsid, "season": w.get("season"),
+                                    "season_label": label})
+                for n, part in enumerate(parts, 1):
+                    self.add("season_part", {"season_id": sid, "part_no": n, **part})
+            wid = f"{sid}:{w['period']}:{w['days']}:{w['start']}-{w['end']}"
+            if (wid,) in self.tables["time_window"]:
+                continue  # the schedule states the same window twice
+            self.add("time_window", {
+                "window_id": wid, "window_set_id": wsid, "season_id": sid, "tou_period": w["period"],
+                "period_label": str(w["label"]), "day_type": w["days"], "start_time": str(w["start"]),
+                "end_time": str(w["end"]), "locator": w.get("locator") or (s["locator"] if w.get("quote") else None),
+                "quote": None if w.get("quote") is None else str(w["quote"])})
+
+    def windows_by_tariff(self):
+        t = self.tables
+        return joins.tariff_windows(t["window_set"].values(), t["season"].values(), t["season_part"].values(),
+                                    t["time_window"].values(), t["tariff_window_set"].values())
 
     def eligibility(self, did, data, where):
         seen = defaultdict(set)
         counter = Counter()
         for r in data.get("eligibility") or []:
             doc = self.doc(r["doc"], where)["document_id"]
-            fact = (r["rule_type"], r.get("operator"), r.get("value_num"), r.get("value_unit"), r.get("value_text"),
-                    r.get("target_code"))
+            group = r.get("group", 1)
+            fact = (group, r["rule_type"], r.get("operator"), r.get("value_num"), r.get("value_unit"),
+                    r.get("value_text"))
             for named in r["codes"]:
                 for code, start, end in self.code_periods(did, named, r["fin_year"], f"{where} eligibility"):
+                    if r["rule_type"] == "assignment":
+                        self.assignment(did, code, start, doc, r)
+                        continue
+                    if (r["rule_type"], r.get("value_text")) == ("availability", "trial"):
+                        tariff = self.tables["tariff"][(did, code, start)]
+                        if tariff["pricing_basis"] == "published":
+                            tariff["pricing_basis"] = "trial"  # the document says it is a trial tariff
                     if fact in seen[(code, start)]:
                         continue  # the same criterion stated twice (another page or document of the same year)
                     seen[(code, start)].add(fact)
@@ -474,11 +614,41 @@ class Builder:
                     self.add("eligibility", {
                         "criterion_id": f"{did}:{code}:{start}:{r['rule_type']}:"
                                         f"{counter[(code, start, r['rule_type'])]}",
-                        "distributor_id": did, "tariff_code": code, "effective_from": start, "effective_to": end,
-                        "criterion": r["rule_type"], "operator": r.get("operator"), "value_num": r.get("value_num"),
-                        "value_unit": r.get("value_unit"), "value_text": r.get("value_text"),
-                        "target_tariff_code": r.get("target_code"), "document_id": doc, "locator": r["locator"],
+                        "distributor_id": did, "tariff_code": code, "effective_from": start,
+                        "criterion_group": group, "criterion": r["rule_type"], "operator": r.get("operator"),
+                        "value_num": r.get("value_num"), "value_unit": r.get("value_unit"),
+                        "value_text": r.get("value_text"), "document_id": doc, "locator": r["locator"],
                         "quote": str(r["quote"])})
+
+    def tariff_links(self, did, data, where):
+        for r in data.get("tariff_links") or []:
+            doc = self.doc(r["doc"], where)["document_id"]
+            for named in r["codes"]:
+                for code, start, _ in self.code_periods(did, named, r["fin_year"], f"{where} tariff_links"):
+                    self.link(did, code, start, r["link_type"], r.get("linked_code"), r.get("linked_customer_class"),
+                              doc, r["locator"], str(r["quote"]), r.get("note"))
+
+    def link(self, did, code, start, link_type, linked_code, linked_class, doc, locator, quote, note):
+        """A tariff_link row; the same relation stated again (another page, another document) is kept once."""
+        same = [x for k, x in self.tables["tariff_link"].items() if k[:3] == (did, code, start)]
+        if any((x["link_type"], x["linked_code"], x["linked_customer_class"]) == (link_type, linked_code,
+                                                                                  linked_class) for x in same):
+            return
+        self.add("tariff_link", {
+            "distributor_id": did, "tariff_code": code, "effective_from": start, "link_no": len(same) + 1,
+            "link_type": link_type, "linked_code": linked_code, "linked_customer_class": linked_class,
+            "document_id": doc, "locator": locator, "quote": quote, "note": note})
+
+    def assignment(self, did, code, start, doc, r):
+        """A tariff_assignment row per quoted statement (the same statement on another page is kept once)."""
+        same = [a for k, a in self.tables["tariff_assignment"].items() if k[:3] == (did, code, start)]
+        if any((a["assignment"], a["applies_to"]) == (r["value_text"], r.get("applies_to")) and a["quote"] ==
+               str(r["quote"]) for a in same):
+            return
+        self.add("tariff_assignment", {
+            "distributor_id": did, "tariff_code": code, "effective_from": start, "assignment_no": len(same) + 1,
+            "assignment": r["value_text"], "applies_to": r.get("applies_to"), "document_id": doc,
+            "locator": r["locator"], "quote": str(r["quote"])})
 
     def blocks(self, did, data, where):
         """Block bounds from the curated block ladders, onto the usage (or export) rates with that block number."""
@@ -500,7 +670,7 @@ class Builder:
                                    block_unit=BLOCK_UNITS[r["reset_period"]])
 
     def conditions(self, did, data, where):
-        """rate.condition from the curated conditions: every rate of the codes and year with that component."""
+        """rate_condition rows from the curated conditions: every rate of the codes and year with that component."""
         by_component = defaultdict(list)
         for row in self.tables["rate"].values():
             if row["distributor_id"] == did:
@@ -513,7 +683,8 @@ class Builder:
                         self.problems.append(f"{where} conditions: {code} {r['fin_year']} has no rate "
                                              f"{r['component']!r}")
                     for row in rows or []:
-                        row["condition"] = r["condition"]
+                        row["condition"] = (r["condition"], self.doc(r["doc"], where)["document_id"], r["locator"],
+                                            str(r["quote"]))
 
     def metering_schedules(self, did, data, where):
         """Metering rates from a network-wide metering schedule (a metering side-output row with no tariff code), for
@@ -544,7 +715,9 @@ class Builder:
                             "charge_type": "metering", "tou_period": None, "register": None, "season": None,
                             "block": None, "region": None, "value": value, "unit": unit,
                             "value_published": r["value"], "unit_published": r["unit"], "component": label,
-                            "locator": r["locator"], "condition": m.get("condition"),
+                            "locator": r["locator"],
+                            "condition": m.get("condition") and (m["condition"], self.doc(m["doc"], where)[
+                                "document_id"], m["locator"], str(m["quote"])),
                             "note": "; ".join(x for x in (r["note"], f"applies per {where} ({m['locator']})") if x)})
 
     def rate_periods(self, did, data, where):
@@ -571,6 +744,39 @@ class Builder:
                             row["note"] = "; ".join(x for x in (row["note"], f"{' and '.join(said)} from {where} "
                                                                              f"({r['locator']})") if x)
 
+    def rate_units(self, did, data, where):
+        """rate.unit from the curated rate_units: every rate of the codes and year with that component whose stored unit
+        the parser could not complete (a '?' for the billing period, or 'k?' for kW or kVA)."""
+        by_component = defaultdict(list)
+        for row in self.tables["rate"].values():
+            if row["distributor_id"] == did and "?" in row["unit"]:
+                by_component[(row["tariff_code"], row["effective_from"], row["component"])].append(row)
+        for r in data.get("rate_units") or []:
+            for named in r["codes"]:
+                for code, start, _ in self.code_periods(did, named, r["fin_year"], f"{where} rate_units"):
+                    rows = by_component.get((code, start, r["component"]))
+                    if not rows:
+                        self.problems.append(f"{where} rate_units: {code} {r['fin_year']} has no rate "
+                                             f"{r['component']!r} with an unclear unit")
+                    for row in rows or []:
+                        row["note"] = "; ".join(x for x in (row["note"], f"unit {r['unit']} (the parser read "
+                                                            f"{row['unit']}) from {where} ({r['locator']})") if x)
+                        row["unit"] = r["unit"]
+
+    def units(self):
+        """Every rate's unit is one of the unit table: a billing period the parser could not read and no curated fact
+        states becomes period_not_stated; any other unit stops the build."""
+        for r in self.tables["rate"].values():
+            m = UNCLEAR_UNIT.match(r["unit"])
+            if m:
+                r["note"] = "; ".join(x for x in (r["note"], f"billing period not stated (the parser read "
+                                                  f"{r['unit']})") if x)
+                r["unit"] = f"c/{m.group(1)}/period_not_stated"
+            if r["unit"] not in spec.UNITS:
+                raise SystemExit(f"rate {r['distributor_id']} {r['tariff_code']} {r['effective_from']} "
+                                 f"{r['component']!r}: unit {r['unit']!r} is not in spec.UNITS (state it with a "
+                                 f"curated rate_units fact, or add the unit)")
+
     def charge_rules(self, did, data, where):
         """Rules for named codes first; then `codes: all` (a rule the document states for every tariff) fills each
         tariff-period of that year with a rate of the charge type priced in the rule's measure that a named rule did
@@ -595,7 +801,11 @@ class Builder:
                        "effective_to": end, "charge_type": r["charge_type"], "tou_period": r.get("tou_period"),
                        "season": r.get("season"), "measure": r["measure"], "interval_min": r.get("interval_min"),
                        "method": r["method"], "n": r.get("n"), "reset": r["reset"],
-                       "minimum_value": r.get("minimum_value"), "threshold_value": r.get("threshold_value"),
+                       "lookback_months": r.get("lookback_months"), "minimum_value": r.get("minimum_value"),
+                       "minimum_unit": None if r.get("minimum_value") is None else r.get("minimum_unit", r["measure"]),
+                       "threshold_value": r.get("threshold_value"),
+                       "threshold_unit": None if r.get("threshold_value") is None
+                       else r.get("threshold_unit", r["measure"]),
                        "allowance_per_day": r.get("allowance_per_day"),
                        "allowance_rollover": None if r.get("allowance_rollover") is None
                        else int(r["allowance_rollover"]),
@@ -615,9 +825,7 @@ class Builder:
         tariff's demand window: it takes the period of the tariff's windows for its charge group and season (the
         windows stated for that season when there are any) when they name exactly one (Ausgrid 'Demand charge - high
         season' and its 'High season demand window')."""
-        windows = defaultdict(list)
-        for w in self.tables["tou_window"].values():
-            windows[(w["distributor_id"], w["tariff_code"], w["effective_from"])].append(w)
+        windows = self.windows_by_tariff()
         for r in self.tables["rate"].values():
             ws = windows.get((r["distributor_id"], r["tariff_code"], r["effective_from"]))
             if r["tou_period"] is not None or r["charge_type"] not in ("demand", "capacity") or not ws:
@@ -629,12 +837,21 @@ class Builder:
                 r["tou_period"] = named.pop()
                 r["note"] = "; ".join(x for x in (r["note"], "tou_period from the tariff's demand window") if x)
 
+    def alias_links(self):
+        """tariff_link rows for the AER spellings stored under the distributor's code: the spelling the provisional
+        period was printed with, and each code a code_alias.csv rule gives the AER's code to."""
+        for did, code, start, link_type, aer_code, doc, reason in self.pending_links:
+            if (did, code, start) in self.tables["tariff"]:
+                self.link(did, code, start, link_type, aer_code, None, doc, None, None, reason)
+
     def build(self):
         self.reference()
         self.tariffs_and_rates()
+        self.alias_links()
         self.metering_rates()
         self.curated_facts()
         self.periods_from_windows()
+        self.units()
         self.rate_ids()
         return self
 

@@ -17,6 +17,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import load  # noqa: E402
+import spec  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 DB_DIR = os.path.join(ROOT, "data", "tariffdb")
@@ -55,7 +56,8 @@ def md_table(header, rows):
 class Data:
     def __init__(self):
         with open(os.path.join(DB_DIR, "schema.json"), encoding="utf-8") as f:
-            self.tables = json.load(f)["tables"]
+            schema = json.load(f)
+        self.tables, self.views = schema["tables"], schema["views"]
         self.rows = {}
         for t in self.tables:
             with open(os.path.join(DB_DIR, t["file"]), newline="", encoding="utf-8") as f:
@@ -72,6 +74,9 @@ class Data:
             for fk in t["foreign_keys"]:
                 out.append((t["name"], fk["columns"], fk["references"], False))
         return out
+
+    def count(self, view):
+        return f"{self.db.execute(f'SELECT count(*) FROM {view}').fetchone()[0]:,}"
 
     def query(self, sql):
         cur = self.db.execute(sql)
@@ -143,7 +148,7 @@ def flow():
             "    B --> P",
             "    D[\"Distributor's own<br/>price list\"] --> F((final))",
             "    P -.->|replaced per tariff code| F",
-            "    D --> W[\"TOU windows<br/>eligibility\"]",
+            "    D --> W[\"window sets<br/>eligibility\"]",
             "```"]
 
 
@@ -157,12 +162,13 @@ def history():
     return [
         "## History", "",
         *md_table(["What", "How"], [
-            ("A price over time", "one `tariff` + `rate` rows per period (`effective_from` .. `effective_to`, "
-                                  "inclusive)"),
+            ("A price over time", "one `tariff` row per period (`effective_from` .. `effective_to`, inclusive); "
+                                  "its rates, windows and criteria carry the tariff's key, not their own dates"),
             ("A new year", "new rows; earlier years stay"),
             ("A mid-year change", "the old period ends the day before; a new period starts that day"),
-            ("AER → distributor", "the distributor's list replaces the AER rows of each code it prices (`status` "
-                                  "provisional → final)"),
+            ("AER → distributor", "the distributor's list replaces the AER rows of each code it prices "
+                                  "(`tariff.status` provisional → final); the AER's spelling stays as a `tariff_link` "
+                                  "alias"),
             ("Replaced provisional rates", "in git history of `rate.csv`"),
             ("Every document version", "a `source_document` row, kept for good"),
         ]), "",
@@ -172,7 +178,7 @@ def history():
 def walk(data):
     did, code, fy, date = WALK["distributor_id"], WALK["tariff_code"], WALK["fin_year"], WALK["date"]
     key = f"distributor_id = '{did}' AND tariff_code = '{code}'"
-    on = f"'{date}' BETWEEN effective_from AND effective_to"
+    on = f"effective_from = (SELECT effective_from FROM tariff WHERE {key}\n  AND '{date}' BETWEEN effective_from AND effective_to)"
     steps = [
         ("Distributor", f"SELECT name, state, iana_timezone, observes_dst FROM distributor WHERE distributor_id = "
                         f"'{did}';"),
@@ -181,12 +187,16 @@ def walk(data):
         (f"Documents for {fy}", f"SELECT document_id, publisher, version_label, price_status, published_on\n"
                                 f"FROM source_document WHERE pricing_year = '{fy}'\n"
                                 f"  AND (distributor_id = '{did}' OR distributor_id IS NULL) ORDER BY published_on;"),
-        (f"Rates on {date}", f"SELECT charge_type, tou_period, value, unit, component, status, locator\n"
-                             f"FROM rate WHERE {key} AND {on} ORDER BY charge_type, tou_period;"),
-        (f"TOU windows on {date}", f"SELECT applies_to, tou_period, day_type, start_time, end_time, months\n"
-                                   f"FROM tou_window WHERE {key} AND {on} ORDER BY applies_to, start_time;"),
-        (f"Eligibility on {date}", f"SELECT criterion, operator, value_num, value_unit, value_text, quote\n"
-                                   f"FROM eligibility WHERE {key} AND {on} ORDER BY criterion_id;"),
+        (f"Rates on {date}", f"SELECT charge_type, tou_period, value, unit, component, locator\n"
+                             f"FROM rate WHERE {key} AND {on}\nORDER BY charge_type, tou_period;"),
+        (f"TOU windows on {date}", f"SELECT l.applies_to, w.tou_period, w.day_type, w.start_time, w.end_time, "
+                                   f"s.season_label, p.start_month, p.end_month\n"
+                                   f"FROM tariff_window_set l JOIN time_window w USING (window_set_id)\n"
+                                   f"JOIN season s USING (season_id) LEFT JOIN season_part p USING (season_id)\n"
+                                   f"WHERE l.{key.replace(' AND ', ' AND l.')} AND l.{on}\n"
+                                   f"ORDER BY l.applies_to, w.start_time;"),
+        (f"Eligibility on {date}", f"SELECT criterion_group, criterion, operator, value_num, value_unit, value_text, "
+                                   f"quote\nFROM eligibility WHERE {key} AND {on} ORDER BY criterion_id;"),
     ]
     out = ["## Walk-through", "",
            f"`{code}`, {data.db.execute('SELECT name FROM distributor WHERE distributor_id = ?', (did,)).fetchone()[0]}"
@@ -221,7 +231,9 @@ def reference(data):
         for c in t["columns"]:
             keys = ", ".join(k for k, on in (("PK", c["primary_key"]), (f"FK → {fk_of.get(c['name'])}",
                                                                            c["name"] in fk_of)) if on)
-            allowed = ", ".join(c["enum"]) if c["enum"] else (
+            values = list(spec.VALUE_LISTS[c["enum"]]) if c["enum"] else []
+            allowed = (", ".join(values) if len(values) <= 12 else f"{len(values)} values") + \
+                f" (list `{c['enum']}`)" if c["enum"] else (
                 "0, 1" if c["type"] == "boolean" else "YYYY-MM-DD" if c["type"] == "date" else
                 "HH:MM" if c["type"] == "time" else "")
             if c["unit"]:
@@ -234,13 +246,46 @@ def reference(data):
     return out
 
 
+def views(data):
+    """The flat views: what a row is, how many there are, and each column with a value from the walk-through tariff."""
+    out = ["## Views", "",
+           "Read-only queries over the tables, for a spreadsheet or a quick look: every tariff appears in `tariff_flat` "
+           "and `tou_flat` (empty columns where it has no rate or window). The release writes each to a sheet of "
+           "`tariffdb.xlsx`.", "",
+           *md_table(["View", "One row is", "Rows"], [
+               (f"[`{v['name']}`](#{v['name']}-view)", v["grain"],
+                data.count(v["name"]))
+               for v in data.views]), ""]
+    start = f"{WALK['fin_year'][:4]}-07-01"
+    for v in data.views:
+        names, rows = data.query(f"SELECT * FROM {v['name']}")
+        walk_rows = [r for r in rows if "tariff_code" not in names
+                     or (r[names.index("distributor_id")], r[names.index("tariff_code")],
+                         r[names.index("effective_from")]) == (WALK["distributor_id"], WALK["tariff_code"], start)]
+        cols = []
+        for i, c in enumerate(v["columns"]):
+            ex = next((r[i] for r in walk_rows + rows if r[i] is not None), None)
+            allowed = f"list `{c['enum']}`" if c["enum"] else (f"→ {c['references']}" if c["references"] else "")
+            if c["unit"]:
+                allowed = (allowed + "; " if allowed else "") + f"unit: {c['unit']}"
+            cols.append((f"`{c['name']}`", c["type"], allowed, c["description"],
+                         "*always NULL*" if ex is None else f"`{short(str(ex))}`"))
+        out += [f"### {v['name']} (view)", "", v["description"], "", f"One row is {v['grain']}.", "",
+                *md_table(["Column", "Type", "Allowed values / unit", "Meaning", "Example"], cols), ""]
+    return out
+
+
 def conventions():
     return ["## Conventions", "",
             *md_table(["Type", "SQLite", "Values"], TYPES), "",
             *md_table(["", ""], [
                 ("Empty CSV field", "NULL"),
-                ("Prices", "total network price, GST exclusive, in cents: c/day, c/kWh, c/kVAh, c/kW/month ... (`?` = "
-                           "the source states no billing period); `value_published` / `unit_published` as printed"),
+                ("Prices", "total network price, GST exclusive, in cents, in a unit of the `unit` table: c/day, c/kWh, "
+                           "c/kVAh, c/kW/month ... (`period_not_stated` = no held document states the billing "
+                           "period); `value_published` / `unit_published` as printed"),
+                ("Fixed lists", "every allowed value is a CHECK constraint and a `value_list` row with its meaning; "
+                                "`data_dictionary` describes every column"),
+                ("NULL", "no held document states it; never guessed"),
                 ("Negative price", "a reward paid to the customer (export rebates)"),
                 ("`tariff_code`", "as the distributor prints it; AER spellings map onto it (case and spaces, plus the "
                                   "rules in `data/tariffdb/code_alias.csv`)"),
@@ -261,6 +306,7 @@ def markdown(data):
            *history(),
            *walk(data),
            *reference(data),
+           *views(data),
            *conventions(),
            "## Diagram as Mermaid", "", *mermaid_erd(data), ""]
     return "\n".join(out).rstrip() + "\n"
@@ -268,7 +314,8 @@ def markdown(data):
 
 # --------------------------------------------------------------------------------------------------------- svg
 # Light, self-contained palette: the SVG is shown as an image, so it carries its own background in either theme.
-COLOURS = {"distributor": "#2563eb", "source_document": "#d97706", "tariff": "#059669"}
+COLOURS = {"distributor": "#2563eb", "source_document": "#d97706", "tariff": "#059669", "unit": "#7c3aed",
+           "rate": "#dc2626", "window_set": "#0891b2", "season": "#db2777"}
 
 
 def erd_svg(data):

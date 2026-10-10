@@ -1,6 +1,6 @@
 """Hand-curated facts that no price table carries: TOU windows, eligibility criteria and consumption-block bounds. One
-YAML file per distributor under data/tariffdb/curated/; scripts/tariffdb/build.py loads them into the tou_window and
-eligibility tables and the block_* columns of rate.
+YAML file per distributor under data/tariffdb/curated/; scripts/tariffdb/build.py loads them into the window-set tables
+(window_set, season, season_part, time_window, tariff_window_set), eligibility and the block_* columns of rate.
 
 Every fact quotes its source verbatim at a locator; `validate()` re-reads each quote from the source file (on word
 boundaries), checks enums, times and months, and checks that schedules marked covers_full_day tile 24 hours per day
@@ -59,7 +59,7 @@ conditions:
   - {codes: [...], doc, fin_year, component: <rate.component exactly as stored>, condition: opt_in:<name> |
      meter_type:<spec.CRITERION_VALUES['meter_type']>, locator, quote, [note]}
     (a price charged only when the site meets the condition, e.g. a rebate for customers who join a trial; the
-    quote states the condition. Every rate of those codes and year with that component gets rate.condition)
+    quote states the condition. Every rate of those codes and year with that component gets rate_condition rows)
 metering:
   - {codes: [...] | all, doc, fin_year, schedule: <component of a metering schedule row (no tariff code) in
      out/dnsp_metering>, [condition], locator, quote, [note]}
@@ -251,7 +251,7 @@ def coverage_errors(windows):
 
 
 def condition_errors(where, condition):
-    """rate.condition is <kind>:<value>[|<value>...]: met when the site's value is any of them."""
+    """A curated condition is <kind>:<value>[|<value>...]: met when the site's value is any of them."""
     kind, _, values = str(condition or "").partition(":")
     if kind not in spec.CONDITION_KINDS or not re.fullmatch(r"[a-z0-9_]+(\|[a-z0-9_]+)*", values):
         return [f"{where}: condition {condition!r} is not <{'|'.join(spec.CONDITION_KINDS)}>:<name>[|<name>...]"]

@@ -3,7 +3,7 @@
   .venv/bin/python -m unittest tests/test_billcalc.py
 
 The fixtures are the worked bills the distributors publish. Each profile is synthetic: built from the window wording the
-same document prints (quoted below), not from tou_window, so a match also checks the stored windows and the time
+same document prints (quoted below), not from time_window, so a match also checks the stored windows and the time
 handling. No client data.
 """
 import csv

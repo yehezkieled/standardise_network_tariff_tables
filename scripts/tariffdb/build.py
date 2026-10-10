@@ -670,7 +670,7 @@ class Builder:
                                    block_unit=BLOCK_UNITS[r["reset_period"]])
 
     def conditions(self, did, data, where):
-        """rate.condition from the curated conditions: every rate of the codes and year with that component."""
+        """rate_condition rows from the curated conditions: every rate of the codes and year with that component."""
         by_component = defaultdict(list)
         for row in self.tables["rate"].values():
             if row["distributor_id"] == did:

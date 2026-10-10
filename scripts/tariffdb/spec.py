@@ -93,7 +93,7 @@ SEASONS = {"summer": "summer", "non_summer": "the months summer leaves", "high":
 DAY_TYPES = {"weekday": "Monday to Friday", "weekend": "Saturday and Sunday", "all_days": "every day",
              "business_day": "Monday to Friday except public holidays",
              "non_business_day": "Saturday, Sunday and public holidays"}
-# tou_window.tou_period: the rate vocabulary, so a window joins the rates it prices on (charge group, tou_period, season);
+# time_window.tou_period: the rate vocabulary, so a window joins the rates it prices on (charge group, tou_period, season);
 # controlled_load_supply is the one window that prices nothing: the hours a controlled-load circuit is switched on
 TOU_PERIODS = RATE_PERIODS | {"controlled_load_supply": "the hours a controlled-load circuit is switched on (prices "
                                                         "nothing)"}

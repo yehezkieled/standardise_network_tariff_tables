@@ -325,9 +325,12 @@ def validate(data, check_quotes=True):
                 errors.append(f"{ww}: {e}")
             if check_quotes and w.get("quote"):
                 _quote(errors, ww, w, s.get("doc"))
+        priced = [w for w in s.get("windows") or [] if w.get("period") != "controlled_load_supply"]
         if s.get("covers_full_day") and not errors:
             for e in coverage_errors(s.get("windows") or []):
                 errors.append(f"{where}: covers_full_day but {e}")
+        elif priced and not errors and not coverage_errors(priced):
+            errors.append(f"{where}: the windows tile every day: covers_full_day is true")
         for j, t in enumerate(s.get("tariffs") or []):
             tw = f"{where} tariffs[{j}]"
             _req(errors, tw, t, ["codes", "applies_to"])

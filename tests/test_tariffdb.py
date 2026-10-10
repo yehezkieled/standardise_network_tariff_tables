@@ -25,6 +25,7 @@ import build  # noqa: E402
 import aliases  # noqa: E402
 import build_support as bs  # noqa: E402
 import curated  # noqa: E402
+import joins  # noqa: E402
 import load  # noqa: E402
 import schema_doc  # noqa: E402
 import spec  # noqa: E402
@@ -63,8 +64,8 @@ class TestGeneratedFiles(unittest.TestCase):
                 self.assertEqual(next(csv.reader(f)), [c["name"] for c in t["columns"]], t["name"])
 
     def test_every_column_is_described(self):
-        for t in spec.TABLES:
-            self.assertTrue(t["grain"] and t["source"] and t["description"], t["name"])
+        for t in spec.TABLES + spec.VIEWS:
+            self.assertTrue(t["grain"] and t.get("source", "view") and t["description"], t["name"])
             for c in t["columns"]:
                 self.assertTrue(c["description"], f"{t['name']}.{c['name']}")
 
@@ -253,6 +254,106 @@ class TestValidate(unittest.TestCase):
         for to in ("usage", "demand"):
             bad = validate.check_joins(copy(to, "'critical_minimum'", "'summer'"))
             self.assertFalse(any(f"{new}:w" in b for b in bad), bad)
+
+
+class TestViewsAndCoverage(unittest.TestCase):
+    """The flat views, units and TOU windows as a reader of the release meets them."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.db = load.load()
+        cls.db.row_factory = sqlite3.Row
+
+    def query(self, sql):
+        return [dict(r) for r in self.db.execute(sql)]
+
+    def test_each_view_returns_every_tariff(self):
+        tariffs = {tuple(r) for r in self.db.execute("SELECT distributor_id, tariff_code, effective_from FROM tariff")}
+        for view in ("tariff_flat", "tou_flat"):
+            got = {tuple(r) for r in self.db.execute(
+                f"SELECT DISTINCT distributor_id, tariff_code, effective_from FROM {view}")}
+            self.assertEqual(got, tariffs, view)
+        self.assertEqual({r["rate_id"] for r in self.query("SELECT rate_id FROM tariff_flat WHERE rate_id IS NOT NULL")},
+                         {r["rate_id"] for r in rows("rate")})
+        self.assertEqual(sum(r["rates"] for r in self.query("SELECT rates FROM unit_spelling")), len(rows("rate")))
+
+    def test_every_rate_has_a_known_unit_and_a_standard_value(self):
+        units = {u["unit"]: u for u in rows("unit")}
+        self.assertEqual({r["unit"] for r in rows("rate")} - set(units), set())
+        unstated = [r for r in self.query("SELECT DISTINCT rate_id, unit FROM tariff_flat WHERE rate_id IS NOT NULL "
+                                          "AND value_std IS NULL AND calendar_factor IS NULL")]
+        # the only exception: a billing period no held document states (README, known gaps)
+        self.assertEqual({units[r["unit"]]["billing_period"] for r in unstated}, {"not_stated"})
+        self.assertEqual(len(unstated), sum(units[r["unit"]]["billing_period"] == "not_stated" for r in rows("rate")))
+
+    def test_every_tou_rate_matches_a_window_or_is_a_listed_exception(self):
+        """A rate priced in a period finds a window in tariff_flat, unless the period is an event (hours notified) or a
+        capacity band, or the tariff-period has no window for its charge group (a gap billcalc's sweep reports)."""
+        windows = validate.tariff_windows(self.db)
+        unmatched = self.query("SELECT DISTINCT rate_id FROM tariff_flat WHERE tou_period IS NOT NULL "
+                               "AND tou_period != 'anytime' AND window_start IS NULL")
+        rate = {r["rate_id"]: r for r in rows("rate")}
+        for r in (rate[u["rate_id"]] for u in unmatched):
+            r = {k: (v or None) for k, v in r.items()}
+            ws = windows.get((r["distributor_id"], r["tariff_code"], r["effective_from"]), [])
+            with self.subTest(rate=r["rate_id"]):
+                self.assertTrue(r["tou_period"] in joins.EVENT_PERIODS + joins.BANDS
+                                or not joins.group_windows(joins.group_of(r), ws))
+
+    def test_window_sets_cover_each_day_or_list_their_gaps(self):
+        """A window set marked covers_full_day tiles 00:00-24:00 on every day of every month it applies in; one not
+        marked leaves a gap, or has a season dated by daylight saving or not dated at all, or only says when a
+        controlled-load circuit is on."""
+        days = {"weekday": range(5), "business_day": range(5), "weekend": range(5, 7), "non_business_day": range(5, 7),
+                "all_days": range(7)}
+        parts = {}
+        for p in rows("season_part"):
+            parts.setdefault(p["season_id"], []).append(p)
+
+        def months(season_id):
+            out = set()
+            for p in parts.get(season_id, []):
+                if p["start_anchor"] or p["start_day"] != "1":
+                    return None
+                m = int(p["start_month"])
+                while True:
+                    out.add(m)
+                    if m == int(p["end_month"]):
+                        break
+                    m = m % 12 + 1
+            return out or None
+
+        spans = {}
+        for w in rows("time_window"):
+            if w["tou_period"] != joins.SUPPLY:
+                spans.setdefault(w["window_set_id"], []).append(w)
+        for ws in rows("window_set"):
+            tiles, undated = {}, False
+            for w in spans.get(ws["window_set_id"], []):
+                ms = months(w["season_id"])
+                if ms is None:
+                    undated = True
+                    break
+                for d in days[w["day_type"]]:
+                    for m in ms:
+                        tiles.setdefault((d, m), []).append((curated.minutes(w["start_time"]),
+                                                             curated.minutes(w["end_time"])))
+            gaps = []
+            for d in range(7):
+                for m in range(1, 13):
+                    t = 0
+                    for start, end in sorted(tiles.get((d, m), [])):
+                        if start > t:
+                            gaps.append((d, m, t))
+                        t = max(t, end)
+                    if t < 1440:
+                        gaps.append((d, m, t))
+            with self.subTest(window_set=ws["window_set_id"]):
+                if ws["covers_full_day"] == "1":
+                    self.assertFalse(undated)
+                    self.assertEqual(gaps, [])
+                else:
+                    self.assertTrue(undated or gaps or ws["window_set_id"] not in spans)
 
 
 def parsed_row(side, doc, code, value, fin_year="2025-26", component="Daily charge", charge_type="fixed",

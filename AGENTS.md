@@ -6,9 +6,11 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 - Tariff database (`data/tariffdb/`): generated CSVs, never hand-edited; the only hand-written inputs are
   `data/tariffdb/curated/*.yaml` (TOU windows, eligibility, block bounds), each fact with a verbatim `quote` at its
   `locator`, and `data/tariffdb/code_alias.csv` (AER code spellings → the distributor's codes). Recipes, every check and the pre-commit list: `docs/update-and-validate.md`.
-- Schema changes go in `scripts/tariffdb/spec.py`; then rebuild (`scripts/tariffdb/build.py`) and regenerate
-  `docs/schema.md` + `docs/schema-erd.svg` (`scripts/tariffdb/schema_doc.py`). `tests/test_tariffdb.py` fails on stale
-  files.
+- Schema changes go in `scripts/tariffdb/spec.py` (tables and the flat views `tariff_flat`, `tou_flat`,
+  `unit_spelling`); then rebuild (`scripts/tariffdb/build.py`) and regenerate `docs/schema.md` +
+  `docs/schema-erd.svg` (`scripts/tariffdb/schema_doc.py`). `tests/test_tariffdb.py` fails on stale files. Store
+  strict, show simple: a value no held document states is NULL (curated `not_stated`), never guessed; a stated clock
+  or holiday rule carries its own quote. The build needs `holidays==build_support.HOLIDAYS_VERSION`.
 - Rates are total network prices per tariff code (no DUoS/TUoS breakdown): AER = provisional, the distributor's own
   published list = final, replacing per code. Registries (`FINAL_DOCUMENT`, `EFFECTIVE_FROM`,
   `AER_CONSOLIDATED_FILES`) live in `scripts/tariffdb/build_support.py`. The pre-simplification 27-table schema is in
@@ -43,7 +45,7 @@ The recurring job (an issue labelled `source-release`, opened monthly by `.githu
 5. Every "Before you commit" box, then `check_releases.py --no-files --accept`.
 6. One PR per release with the evidence table; never merge it yourself. Unsure about a value: mark it `[UNSURE]` in
    the PR and leave it out of the data.
-7. After it merges: `scripts/release.py --publish` cuts the downloadable dataset release (SQLite + CSV zip, never
+7. After it merges: `scripts/release.py --publish` cuts the downloadable dataset release (SQLite, CSV zip, xlsx; never
    committed) from `origin/main`.
 
 ## Maintaining this file

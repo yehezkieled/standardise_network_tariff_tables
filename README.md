@@ -10,14 +10,14 @@ find:
 
 | Pricing years | Tariff-periods | Exact | Assumed | Blocked |
 |---|---|---|---|---|
-| 2023-24 to 2026-27 | 2,391 | 1,207 | 701 | 483 (mostly locational, storage and trial tariffs whose windows no held document states) |
-| 2016-17 / Victoria 2017 to 2022-23 | 3,990 | 2,149 | 1,218 | 623 (306 TOU rates without a stated window, 222 block bounds, 138 seasons without months) |
+| 2023-24 to 2026-27 | 2,391 | 1,230 | 702 | 459 (230 TOU rates without a stated window, mostly locational, storage and trial tariffs; 148 demand rules; 106 tariffs with no rates) |
+| 2016-17 / Victoria 2017 to 2022-23 | 3,990 | 2,213 | 1,214 | 563 (308 TOU rates without a stated window, 222 block bounds, 123 seasons without months) |
 
 The older years' TOU windows, demand rules and block bounds come from each year's own price list, pricing proposal or
 tariff guide, or the tariff structure statement for its period; Ergon's 2016-17 to 2019-20 stay unstored (above). Most
-of their `assumed` bills rest on a fact the documents leave unstated: the clock basis of the windows (1,032
+of their `assumed` bills rest on a fact the documents leave unstated: the clock basis of the windows (992
 tariff-periods over all years), a c/kW/year demand price spread over the days (548), a demand window stated in
-daylight time all year (190), whether a quarterly block resets by calendar or billing quarter (179), or a window that
+daylight time all year (206), whether a quarterly block resets by calendar or billing quarter (179), or a window that
 leaves part of the day unpriced (21). CitiPower's and Powercor's 2021-H1 kW demand tariffs (CR, CRB, CG, CGB, CMG, CMGB;
 DD, NDD, NDM) bill as `assumed`: no held 2021-H1 document states how their demand is measured, and the 2017-2020
 tariff structure statement does not cover 2021-H1 (`tests/billcalc_sweep_exceptions.csv`).
@@ -31,6 +31,7 @@ known gaps and checksums in its notes.
 |---|---|
 | [`tariffdb.sqlite`](https://github.com/yehezkieled/standardise_network_tariff_tables/releases/latest/download/tariffdb.sqlite) | SQLite database: every table with its keys and constraints |
 | [`tariffdb-csv.zip`](https://github.com/yehezkieled/standardise_network_tariff_tables/releases/latest/download/tariffdb-csv.zip) | the same tables as CSV, with the schema (`schema.json`, `schema.sqlite.sql`, `schema.md`) |
+| [`tariffdb.xlsx`](https://github.com/yehezkieled/standardise_network_tariff_tables/releases/latest/download/tariffdb.xlsx) | the flat views, one sheet each: `tariff_flat` (every tariff with its rates, price per day, windows, conditions and demand rule), `tou_flat` (every tariff's TOU windows and season dates), `unit_spelling`, and a `columns` sheet describing them |
 | [`SHA256SUMS`](https://github.com/yehezkieled/standardise_network_tariff_tables/releases/latest/download/SHA256SUMS) | `sha256sum -c SHA256SUMS` |
 
 Built from `main` by `.venv/bin/python scripts/release.py --publish` (standard library only, Python 3.12+;
@@ -46,6 +47,44 @@ Built from `main` by `.venv/bin/python scripts/release.py --publish` (standard l
 | Update and validate | [docs/update-and-validate.md](docs/update-and-validate.md) |
 | Bill, categorise, compare | `scripts/billcalc.py` on interval data ([docs/update-and-validate.md](docs/update-and-validate.md), "Bill calculator") |
 | Scope | network tariffs, metering and export (feed-in) network charges; not retail plans, not the DUoS/TUoS breakdown |
+
+## Coverage and known gaps
+
+Stored strict, shown simple: the tables are normalised (keys, foreign keys, a CHECK for every fixed list, a unit table,
+NULL wherever no held document states a value, and a verbatim quote for every curated fact); the views `tariff_flat`,
+`tou_flat` and `unit_spelling` flatten them for reading. Every tariff appears in both tariff views
+(`tests/test_tariffdb.py`, `TestViewsAndCoverage`).
+
+| Fact | Coverage |
+|---|---|
+| Rates | every rate has a unit from the `unit` table; all but 21 have a price per day or kWh (`value_std`) or a calendar factor |
+| TOU windows | 755 of 1,399 window sets tile every day (the rest state only some hours, or date a season by daylight saving or not at all); every rate priced in a period finds its window, except event periods (hours notified), capacity bands, and tariff-periods with no window for that charge group (`tou_rates_without_windows` in the sweep) |
+| Clock and public holidays | 1,045 window sets state their clock and 633 their public-holiday rule, each with its quote; the rest are NULL (billcalc reads local time and public holidays as non-business days, and flags it) |
+| Public-holiday calendar | `public_holiday`, each state's holidays from python-holidays (`build_support.HOLIDAYS_VERSION`), 2016 to 2027 |
+| Eligibility | 2023-24 on; criteria in controlled values and units, including supply, export and storage capacity, connection and agreement |
+| Assignment | one quoted `tariff_assignment` row per statement; `is_default` in `tariff_flat` |
+
+Known gaps:
+
+- **21 rates have no stated billing period** (`c/kW/period_not_stated`, no `value_std`): AusNet NASN2P, NASN2S
+  (2017) and NAST16T (2024-25); CitiPower CG, CMG, CR (2025-26); Energex 92000, 92100, 94000 and Ergon ECFLEXT1,
+  ECPRCET1, ELFLEXT1 critical-peak rates (2024-25); SA Power Networks ZSS766 (2024-25).
+- **17 tariff-periods are both default and opt-in**: their documents make each the default for some customers and
+  opt-in for others (Ausgrid EA116, EA256 2023-24; CitiPower CHV1, CHV2, CLLV1, CLLV2 2024-25; Endeavour N73, N93
+  2023-24; Essential BLNBSS1, BLNE22AU, BLNRSS2 2024-25 to 2026-27). Both statements are stored, and `is_default` is
+  1.
+- **Clock rules left NULL on purpose**: the Energex 2026-27 and Ergon 2025-26 and 2026-27 trial tariffs, whose only
+  statement is a guide's general definition; and the AusNet 2017 and 2018 dedicated-circuit and two-rate five-day
+  schedules, where "Times are AEST" is printed under only some of the tables that use them.
+- **Essential Energy basic meters** (2016-17, 2017-18) follow "Summer Time" (last Sunday in October to last Sunday in
+  March), not NSW daylight saving; the windows are stored as `local_time`, which shifts their dates slightly. The Far
+  West region's meters use Eastern Standard or Summer Time depending on when they were programmed: not modelled.
+- **Public holidays** are state-wide as python-holidays lists them: regional and part-day holidays are not told apart.
+- **Endeavour N50, N54**: "a Residential or General Supply tariff also applies" is stored as two `secondary_of` links,
+  to the residential and business classes. Reading General Supply as the business class is the curator's [UNSURE].
+- Six bare "snowfields" headings (AusNet NEE55, NSP55 2024-25 to 2026-27) stay as `other` criteria: they state no
+  connection rule.
+- No held fact needs `kva_else_kw`: Ergon prints its kW variant of a kVA demand charge as a rate of its own.
 
 ## Workflow: AER v1 first, distributor replaces
 

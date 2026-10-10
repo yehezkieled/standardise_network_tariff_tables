@@ -543,7 +543,7 @@ def bill_demand(b, period, rates, iv, clock, windows, rules, site, g):
     data_min = interval_minutes(iv)
     for r in rates:
         q, per = unit_parts(r["unit"])
-        if "?" in r["unit"]:
+        if per == "period_not_stated":
             b.flag("unit_unclear", f"{period}: {r['component']} in {r['unit']}")
             continue
         if joins.ambiguous(r, windows):

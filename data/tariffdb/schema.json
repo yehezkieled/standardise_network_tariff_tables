@@ -2,6 +2,253 @@
   "generated_from": "scripts/tariffdb/spec.py",
   "tables": [
     {
+      "name": "value_list",
+      "grain": "one allowed value of one fixed list",
+      "source": "generated from scripts/tariffdb/spec.py (VALUE_LISTS)",
+      "description": "Every value a controlled column may hold, with its meaning. data_dictionary.value_list names the list a column takes its values from.",
+      "file": "tables/value_list.csv",
+      "primary_key": [
+        "list_name",
+        "value"
+      ],
+      "foreign_keys": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "list_name",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "name of the list, e.g. charge_type"
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the value as stored"
+        },
+        {
+          "name": "definition",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "what the value means"
+        }
+      ]
+    },
+    {
+      "name": "data_dictionary",
+      "grain": "one column of one table",
+      "source": "generated from scripts/tariffdb/spec.py (TABLES)",
+      "description": "Every column of every table: its type, whether it is required, the fixed list or unit it takes, and its meaning.",
+      "file": "tables/data_dictionary.csv",
+      "primary_key": [
+        "table_name",
+        "column_name"
+      ],
+      "foreign_keys": [],
+      "checks": [],
+      "columns": [
+        {
+          "name": "table_name",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "table"
+        },
+        {
+          "name": "column_name",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "column"
+        },
+        {
+          "name": "ordinal",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "position of the column in the table (1 = first)"
+        },
+        {
+          "name": "data_type",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "text, integer, numeric, date (YYYY-MM-DD), time (HH:MM) or boolean (0/1)"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1 when the column may not be NULL"
+        },
+        {
+          "name": "is_primary_key",
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "1 when the column is part of the table's primary key"
+        },
+        {
+          "name": "references_table",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "table the column refers to (foreign key)"
+        },
+        {
+          "name": "value_list",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the value_list.list_name the column's values come from"
+        },
+        {
+          "name": "unit",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "unit of a numeric column"
+        },
+        {
+          "name": "definition",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "what the column holds"
+        }
+      ]
+    },
+    {
+      "name": "unit",
+      "grain": "one stored unit",
+      "source": "generated from scripts/tariffdb/spec.py (UNITS)",
+      "description": "Every unit a rate may be stored in, what it prices per, and how to reach its standard unit: value_std = value x multiplier, or divide by the days of the billed month or year (calendar_factor) for a price per month or year. A unit whose billing period no held document states has neither.",
+      "file": "tables/unit.csv",
+      "primary_key": [
+        "unit"
+      ],
+      "foreign_keys": [],
+      "checks": [
+        "(multiplier IS NULL) OR (calendar_factor IS NULL)",
+        "(unit_std IS NULL) = (billing_period IS 'not_stated')"
+      ],
+      "columns": [
+        {
+          "name": "unit",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the unit as stored, e.g. c/kW/month"
+        },
+        {
+          "name": "quantity",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": "unit_quantity",
+          "unit": null,
+          "description": "what one unit of the price is charged per"
+        },
+        {
+          "name": "billing_period",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "billing_period",
+          "unit": null,
+          "description": "the period the price is charged per; NULL for an energy price"
+        },
+        {
+          "name": "unit_std",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the standard unit value_std is in: cents per day, per kWh or per kVAh"
+        },
+        {
+          "name": "multiplier",
+          "type": "numeric",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "value_std = value x multiplier; NULL when the calendar decides it"
+        },
+        {
+          "name": "calendar_factor",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "calendar_factor",
+          "unit": null,
+          "description": "how a price per month or year becomes a price per day"
+        },
+        {
+          "name": "definition",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "what the unit means"
+        }
+      ]
+    },
+    {
       "name": "distributor",
       "grain": "one distributor (DNSP)",
       "source": "reference data in scripts/tariffdb/build_support.py (DISTRIBUTORS)",
@@ -39,15 +286,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "NSW",
-            "VIC",
-            "QLD",
-            "SA",
-            "TAS",
-            "ACT",
-            "NT"
-          ],
+          "enum": "state",
           "unit": null,
           "description": "jurisdiction"
         },
@@ -113,63 +352,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "1996-97",
-            "1997-98",
-            "1998-99",
-            "1999-00",
-            "2000-01",
-            "2001-02",
-            "2002-03",
-            "2003-04",
-            "2004-05",
-            "2005-06",
-            "2006-07",
-            "2007-08",
-            "2008-09",
-            "2009-10",
-            "2010-11",
-            "2011-12",
-            "2012-13",
-            "2013-14",
-            "2014-15",
-            "2015-16",
-            "2016-17",
-            "2017-18",
-            "2018-19",
-            "2019-20",
-            "2020-21",
-            "2021-22",
-            "2022-23",
-            "2023-24",
-            "2024-25",
-            "2025-26",
-            "2026-27",
-            "2000",
-            "2001",
-            "2002",
-            "2003",
-            "2004",
-            "2005",
-            "2006",
-            "2007",
-            "2008",
-            "2009",
-            "2010",
-            "2011",
-            "2012",
-            "2013",
-            "2014",
-            "2015",
-            "2016",
-            "2017",
-            "2018",
-            "2019",
-            "2020",
-            "2000-H2",
-            "2008-H1",
-            "2021-H1"
-          ],
+          "enum": "pricing_year",
           "unit": null,
           "description": "pricing year: a financial year (2025-26), or the calendar year (2005) or half year (2021-H1) a regulator priced by (Victoria 2000-H2 to 2021-H1, Tasmania to 2008-H1)"
         },
@@ -179,11 +362,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "AER",
-            "distributor",
-            "regulator"
-          ],
+          "enum": "publisher",
           "unit": null,
           "description": "who published the prices"
         },
@@ -193,24 +372,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "aer_consolidated_stakeholder_report",
-            "aer_stakeholder_report",
-            "aer_landing_page",
-            "pricing_proposal",
-            "pricing_proposal_overview",
-            "price_list",
-            "tariff_summary",
-            "tariff_schedule",
-            "schedule_of_charges",
-            "statement_of_tariff_classes",
-            "price_guide",
-            "pricing_schedule",
-            "annual_tariff_report",
-            "pricing_model",
-            "tariff_structure_statement",
-            "tariff_trial_notification"
-          ],
+          "enum": "document_type",
           "unit": null,
           "description": "kind of publication"
         },
@@ -250,13 +412,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "proposed",
-            "approved",
-            "mixed",
-            "published",
-            "unverified"
-          ],
+          "enum": "price_status",
           "unit": null,
           "description": "regulatory status of the prices, as a held source states it"
         },
@@ -315,7 +471,8 @@
       ],
       "foreign_keys": [],
       "checks": [
-        "effective_from <= effective_to"
+        "effective_from <= effective_to",
+        "customer_class IS NULL OR customer_class_published IS NOT NULL"
       ],
       "columns": [
         {
@@ -374,9 +531,29 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
+          "enum": "customer_class",
+          "unit": null,
+          "description": "the customer class the published heading names; NULL when it names none"
+        },
+        {
+          "name": "customer_class_published",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
           "enum": null,
           "unit": null,
           "description": "tariff class or customer class heading as published"
+        },
+        {
+          "name": "pricing_basis",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "pricing_basis",
+          "unit": null,
+          "description": "how the prices apply: trial or site_specific when the published heading says so, else published; NULL for a tariff with no rates"
         },
         {
           "name": "status",
@@ -384,10 +561,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "provisional",
-            "final"
-          ],
+          "enum": "status",
           "unit": null,
           "description": "provisional = rates from the AER's report or a proposal; final = rates from the distributor's own published price list, or the schedule a state regulator published"
         },
@@ -404,10 +578,128 @@
       ]
     },
     {
+      "name": "tariff_assignment",
+      "grain": "one quoted statement of how customers come to be on one tariff, for one period",
+      "source": "data/tariffdb/curated/*.yaml (eligibility facts with rule_type assignment), quoted from the distributor's documents",
+      "description": "Whether a tariff is the default, opt-in, opt-out, mandatory or assigned by the distributor, and for whom the statement says so. A tariff may be the default for one group and opt-in for another; every published statement is kept.",
+      "file": "tables/tariff_assignment.csv",
+      "primary_key": [
+        "distributor_id",
+        "tariff_code",
+        "effective_from",
+        "assignment_no"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "distributor_id",
+            "tariff_code",
+            "effective_from"
+          ],
+          "references": "tariff"
+        }
+      ],
+      "checks": [
+        "assignment_no > 0"
+      ],
+      "columns": [
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "distributor"
+        },
+        {
+          "name": "tariff_code",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "tariff code"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "tariff period"
+        },
+        {
+          "name": "assignment_no",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "statement number within the tariff period (1 = first)"
+        },
+        {
+          "name": "assignment",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": "assignment",
+          "unit": null,
+          "description": "how customers come to be on the tariff"
+        },
+        {
+          "name": "applies_to",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "assignment_group",
+          "unit": null,
+          "description": "the customers the statement names; NULL = it names no group"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "source document version"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "verbatim wording at the locator"
+        }
+      ]
+    },
+    {
       "name": "rate",
       "grain": "one price of one tariff for one period: charge type x TOU period x season x block",
-      "source": "built by scripts/tariffdb/build.py from the parsed price lists (total network price, GST exclusive) and, for block bounds, data/tariffdb/curated/*.yaml",
-      "description": "The network price charged for one component of a tariff: the total network price (no DUoS/TUoS/jurisdictional breakdown), GST exclusive, in standard units next to the value as published.",
+      "source": "built by scripts/tariffdb/build.py from the parsed price lists (total network price, GST exclusive) and, for block bounds and stated units, data/tariffdb/curated/*.yaml",
+      "description": "The network price charged for one component of a tariff: the total network price (no DUoS/TUoS/jurisdictional breakdown), GST exclusive, in a unit of the unit table next to the value as published.",
       "file": "tables/rate.csv",
       "primary_key": [
         "rate_id"
@@ -487,15 +779,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "daily",
-            "usage",
-            "demand",
-            "capacity",
-            "export",
-            "metering",
-            "other"
-          ],
+          "enum": "charge_type",
           "unit": null,
           "description": "daily = fixed charge per day; usage = per kWh or kVAh; demand / capacity = per kW or kVA; export = per exported kWh or kW (negative = a reward paid); metering = metering charge; other"
         },
@@ -505,20 +789,7 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "anytime",
-            "peak",
-            "shoulder",
-            "off_peak",
-            "super_off_peak",
-            "critical_peak",
-            "solar_soak",
-            "capacity_minimum",
-            "capacity_remaining",
-            "critical_minimum",
-            "dynamic_maximum",
-            "dynamic_minimum"
-          ],
+          "enum": "rate_period",
           "unit": null,
           "description": "time-of-use period the price applies in (anytime = all times); NULL for daily and metering charges"
         },
@@ -528,15 +799,7 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "summer",
-            "non_summer",
-            "high",
-            "low",
-            "winter",
-            "spring",
-            "autumn"
-          ],
+          "enum": "season",
           "unit": null,
           "description": "season the price applies in; NULL = all year"
         },
@@ -557,7 +820,7 @@
           "primary_key": false,
           "references": null,
           "enum": null,
-          "unit": null,
+          "unit": "see block_unit",
           "description": "lower bound of the block, from the curated block ladder"
         },
         {
@@ -567,7 +830,7 @@
           "primary_key": false,
           "references": null,
           "enum": null,
-          "unit": null,
+          "unit": "see block_unit",
           "description": "upper bound of the block; NULL = unbounded or not stated"
         },
         {
@@ -576,12 +839,7 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "kWh/day",
-            "kWh/billing_day",
-            "kWh/quarter",
-            "kWh"
-          ],
+          "enum": "block_unit",
           "unit": null,
           "description": "unit and reset period of the bounds"
         },
@@ -601,11 +859,7 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "general",
-            "controlled_load",
-            "export"
-          ],
+          "enum": "register",
           "unit": null,
           "description": "meter register the quantity is measured on: general = general-supply import, controlled_load = a separately metered controlled-load circuit, export = energy sent out; NULL for daily, metering and other charges"
         },
@@ -627,17 +881,17 @@
           "references": null,
           "enum": null,
           "unit": "see unit",
-          "description": "price in standard units"
+          "description": "price in the rate's unit"
         },
         {
           "name": "unit",
           "type": "text",
           "nullable": false,
           "primary_key": false,
-          "references": null,
+          "references": "unit.unit",
           "enum": null,
           "unit": null,
-          "description": "standard unit: c/day, c/kWh, c/kVAh, c/kW/day, c/kW/month, c/kVA/month ... (? = billing period not stated)"
+          "description": "unit of value (the unit table says what it prices per and how to reach its standard unit)"
         },
         {
           "name": "value_published",
@@ -675,10 +929,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "provisional",
-            "final"
-          ],
+          "enum": "status",
           "unit": null,
           "description": "provisional or final (the tariff's status)"
         },
@@ -796,13 +1047,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "usage",
-            "demand",
-            "export",
-            "controlled_load",
-            "all"
-          ],
+          "enum": "tou_applies",
           "unit": null,
           "description": "which charges of the tariff the window prices"
         },
@@ -812,21 +1057,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "anytime",
-            "peak",
-            "shoulder",
-            "off_peak",
-            "super_off_peak",
-            "critical_peak",
-            "solar_soak",
-            "capacity_minimum",
-            "capacity_remaining",
-            "critical_minimum",
-            "dynamic_maximum",
-            "dynamic_minimum",
-            "controlled_load_supply"
-          ],
+          "enum": "tou_period",
           "unit": null,
           "description": "the rate.tou_period the window prices (peak, off_peak, solar_soak ...); controlled_load_supply = the hours a controlled-load circuit is switched on (prices nothing)"
         },
@@ -846,13 +1077,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "weekday",
-            "weekend",
-            "all_days",
-            "business_day",
-            "non_business_day"
-          ],
+          "enum": "day_type",
           "unit": null,
           "description": "days the window applies on"
         },
@@ -892,15 +1117,7 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "summer",
-            "non_summer",
-            "high",
-            "low",
-            "winter",
-            "spring",
-            "autumn"
-          ],
+          "enum": "season",
           "unit": null,
           "description": "the rate.season the window belongs to; NULL = every season"
         },
@@ -920,12 +1137,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "local_time",
-            "standard_time",
-            "daylight_time",
-            "not_stated"
-          ],
+          "enum": "time_basis",
           "unit": null,
           "description": "clock the times refer to, as stated"
         },
@@ -935,12 +1147,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "as_weekday",
-            "as_non_business_day",
-            "not_stated",
-            "unchanged"
-          ],
+          "enum": "holiday_rule",
           "unit": null,
           "description": "how public holidays are treated"
         },
@@ -970,7 +1177,7 @@
       "name": "eligibility",
       "grain": "one stated criterion of one tariff for one period",
       "source": "data/tariffdb/curated/*.yaml (eligibility), quoted from the distributor's documents",
-      "description": "Who can or must be on the tariff: customer type, voltage, consumption or demand thresholds, meter type, assignment (default, opt-in, opt-out), availability, required technology.",
+      "description": "Who can be on the tariff: customer type, voltage, consumption or demand thresholds, meter type, availability, required technology. How customers are assigned is tariff_assignment.",
       "file": "tables/eligibility.csv",
       "primary_key": [
         "criterion_id"
@@ -988,7 +1195,13 @@
       "checks": [
         "effective_from <= effective_to",
         "value_num IS NOT NULL OR value_text IS NOT NULL OR target_tariff_code IS NOT NULL",
-        "(value_num IS NULL) = (operator IS NULL)"
+        "(value_num IS NULL) = (operator IS NULL)",
+        "(value_num IS NULL) = (value_unit IS NULL)",
+        "criterion != 'customer_type' OR value_text IS NULL OR value_text IN ('residential', 'small_business', 'medium_business', 'large_business', 'business', 'unmetered', 'public_lighting', 'embedded_generation', 'controlled_load', 'storage', 'ev_charging', 'any')",
+        "criterion != 'voltage_level' OR value_text IS NULL OR value_text IN ('LV', 'HV', 'subtransmission', 'transmission', 'zone_substation')",
+        "criterion != 'meter_type' OR value_text IS NULL OR value_text IN ('interval', 'smart', 'basic', 'accumulation', 'unmetered', 'any')",
+        "criterion != 'availability' OR value_text IS NULL OR value_text IN ('open', 'closed_to_new', 'withdrawn', 'obsolete', 'trial', 'grandfathered', 'transitional')",
+        "criterion != 'requires_technology' OR value_text IS NULL OR value_text IN ('solar', 'battery', 'ev', 'controlled_load_device', 'dedicated_circuit', 'export_capable', 'storage', 'flexible_load', 'heat_pump')"
       ],
       "columns": [
         {
@@ -1047,21 +1260,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "customer_type",
-            "voltage_level",
-            "consumption_min",
-            "consumption_max",
-            "demand_min",
-            "demand_max",
-            "meter_type",
-            "assignment",
-            "availability",
-            "requires_technology",
-            "opt_out_to",
-            "minimum_demand_charge",
-            "other"
-          ],
+          "enum": "criterion",
           "unit": null,
           "description": "what is constrained"
         },
@@ -1071,15 +1270,7 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "eq",
-            "lt",
-            "le",
-            "gt",
-            "ge",
-            "ge_unstated",
-            "le_unstated"
-          ],
+          "enum": "operator",
           "unit": null,
           "description": "comparison for a numeric threshold"
         },
@@ -1090,7 +1281,7 @@
           "primary_key": false,
           "references": null,
           "enum": null,
-          "unit": null,
+          "unit": "see value_unit",
           "description": "threshold"
         },
         {
@@ -1099,9 +1290,9 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": null,
+          "enum": "threshold_unit",
           "unit": null,
-          "description": "unit of the threshold (MWh/yr, kVA, kW, kV ...)"
+          "description": "unit of the threshold"
         },
         {
           "name": "value_text",
@@ -1111,7 +1302,7 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "categorical value (residential, LV, interval, default, opt_in ...)"
+          "description": "categorical value (residential, LV, interval, closed_to_new ...); the <criterion>_value list for a categorical criterion, as stated for other"
         },
         {
           "name": "target_tariff_code",
@@ -1236,11 +1427,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "demand",
-            "capacity",
-            "export"
-          ],
+          "enum": "rule_charge",
           "unit": null,
           "description": "the rates the rule measures for"
         },
@@ -1250,20 +1437,7 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "anytime",
-            "peak",
-            "shoulder",
-            "off_peak",
-            "super_off_peak",
-            "critical_peak",
-            "solar_soak",
-            "capacity_minimum",
-            "capacity_remaining",
-            "critical_minimum",
-            "dynamic_maximum",
-            "dynamic_minimum"
-          ],
+          "enum": "rate_period",
           "unit": null,
           "description": "the rate.tou_period it measures for; NULL = every rate of the charge type"
         },
@@ -1273,15 +1447,7 @@
           "nullable": true,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "summer",
-            "non_summer",
-            "high",
-            "low",
-            "winter",
-            "spring",
-            "autumn"
-          ],
+          "enum": "season",
           "unit": null,
           "description": "the rate.season it measures for; NULL = every season"
         },
@@ -1291,11 +1457,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "kW",
-            "kVA",
-            "kWh"
-          ],
+          "enum": "rule_measure",
           "unit": null,
           "description": "quantity measured"
         },
@@ -1306,7 +1468,7 @@
           "primary_key": false,
           "references": null,
           "enum": null,
-          "unit": null,
+          "unit": "minutes",
           "description": "length of the metering interval the demand is averaged over, minutes"
         },
         {
@@ -1315,22 +1477,9 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "max",
-            "avg_top_n_days",
-            "avg_top_n_intervals",
-            "agreed",
-            "max_of_agreed_and_measured",
-            "sum",
-            "assigned",
-            "avg_nominated_days",
-            "max_daily_window_mean",
-            "excess_over_window_max",
-            "kva_at_max_kw",
-            "avg_daily_max"
-          ],
+          "enum": "rule_method",
           "unit": null,
-          "description": "max = the highest interval; avg_top_n_days = the mean of the n highest daily maxima; avg_top_n_intervals = the mean of the n highest intervals; agreed = a value agreed with the distributor; max_of_agreed_and_measured = the greater of the two; sum = the total over the span (energy); assigned = a value the distributor sets (a rating); avg_nominated_days = the mean of the daily maxima on the n days the distributor nominates; max_daily_window_mean = the highest daily mean over the window; excess_over_window_max = the highest in the window less the highest in the peak window (floored at 0); kva_at_max_kw = the kVA of the interval with the highest kW; avg_daily_max = the mean of every day's maximum"
+          "description": "how the quantity is taken from the intervals (value_list rule_method)"
         },
         {
           "name": "n",
@@ -1348,16 +1497,7 @@
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": [
-            "day",
-            "month",
-            "billing_period",
-            "season",
-            "year",
-            "year_from_april",
-            "rolling_12_months",
-            "rolling_13_months"
-          ],
+          "enum": "rule_reset",
           "unit": null,
           "description": "span the measured value is taken over before it starts again"
         },
@@ -1368,7 +1508,7 @@
           "primary_key": false,
           "references": null,
           "enum": null,
-          "unit": null,
+          "unit": "see measure",
           "description": "smallest quantity charged, when stated"
         },
         {
@@ -1378,7 +1518,7 @@
           "primary_key": false,
           "references": null,
           "enum": null,
-          "unit": null,
+          "unit": "see measure",
           "description": "the charge applies only to the quantity above this, when stated (e.g. export above 1.5 kW)"
         },
         {
@@ -1388,7 +1528,7 @@
           "primary_key": false,
           "references": null,
           "enum": null,
-          "unit": null,
+          "unit": "see measure",
           "description": "free quantity per day before the charge applies, when stated"
         },
         {

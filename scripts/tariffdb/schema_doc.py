@@ -17,6 +17,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import load  # noqa: E402
+import spec  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 DB_DIR = os.path.join(ROOT, "data", "tariffdb")
@@ -221,7 +222,9 @@ def reference(data):
         for c in t["columns"]:
             keys = ", ".join(k for k, on in (("PK", c["primary_key"]), (f"FK → {fk_of.get(c['name'])}",
                                                                            c["name"] in fk_of)) if on)
-            allowed = ", ".join(c["enum"]) if c["enum"] else (
+            values = list(spec.VALUE_LISTS[c["enum"]]) if c["enum"] else []
+            allowed = (", ".join(values) if len(values) <= 12 else f"{len(values)} values") + \
+                f" (list `{c['enum']}`)" if c["enum"] else (
                 "0, 1" if c["type"] == "boolean" else "YYYY-MM-DD" if c["type"] == "date" else
                 "HH:MM" if c["type"] == "time" else "")
             if c["unit"]:
@@ -239,8 +242,12 @@ def conventions():
             *md_table(["Type", "SQLite", "Values"], TYPES), "",
             *md_table(["", ""], [
                 ("Empty CSV field", "NULL"),
-                ("Prices", "total network price, GST exclusive, in cents: c/day, c/kWh, c/kVAh, c/kW/month ... (`?` = "
-                           "the source states no billing period); `value_published` / `unit_published` as printed"),
+                ("Prices", "total network price, GST exclusive, in cents, in a unit of the `unit` table: c/day, c/kWh, "
+                           "c/kVAh, c/kW/month ... (`period_not_stated` = no held document states the billing "
+                           "period); `value_published` / `unit_published` as printed"),
+                ("Fixed lists", "every allowed value is a CHECK constraint and a `value_list` row with its meaning; "
+                                "`data_dictionary` describes every column"),
+                ("NULL", "no held document states it; never guessed"),
                 ("Negative price", "a reward paid to the customer (export rebates)"),
                 ("`tariff_code`", "as the distributor prints it; AER spellings map onto it (case and spaces, plus the "
                                   "rules in `data/tariffdb/code_alias.csv`)"),
@@ -268,7 +275,7 @@ def markdown(data):
 
 # --------------------------------------------------------------------------------------------------------- svg
 # Light, self-contained palette: the SVG is shown as an image, so it carries its own background in either theme.
-COLOURS = {"distributor": "#2563eb", "source_document": "#d97706", "tariff": "#059669"}
+COLOURS = {"distributor": "#2563eb", "source_document": "#d97706", "tariff": "#059669", "unit": "#7c3aed"}
 
 
 def erd_svg(data):

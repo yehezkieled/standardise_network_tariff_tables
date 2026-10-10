@@ -33,10 +33,12 @@ tou_schedules:
     tariffs:
       - {codes: [<code>, ...], applies_to: <spec.TOU_APPLIES>, [locator, quote]}
 eligibility:
-  - {codes: [...], doc, fin_year, rule_type: <spec.CRITERIA>, [operator: <spec.OPERATORS>], [value_num: 40],
-     [value_unit: MWh/yr], [value_text: <spec.CRITERION_VALUES[rule_type] when listed>], [target_code: <code>],
-     locator, quote, [column_locator, column_quote], [note]}
-    (column_* quotes the column header when the quote is a bare table row, e.g. a 'Yes' under 'Closed to New Entrants')
+  - {codes: [...], doc, fin_year, rule_type: <spec.CRITERIA> | assignment, [operator: <spec.OPERATORS>],
+     [value_num: 40], [value_unit: <spec.THRESHOLD_UNITS>], [value_text: <spec.CRITERION_VALUES[rule_type] when listed;
+     spec.ASSIGNMENTS for assignment>], [target_code: <code>], [applies_to: <spec.ASSIGNMENT_GROUPS> (assignment
+     only: the customers the quote names)], locator, quote, [column_locator, column_quote], [note]}
+    (column_* quotes the column header when the quote is a bare table row, e.g. a 'Yes' under 'Closed to New Entrants';
+    rule_type assignment loads into tariff_assignment, the rest into eligibility)
 steps:
   - {codes: [...], doc, fin_year, step_group: <quantity as named>, component_label, step_index: 1, lower_bound: 0,
      [upper_bound: 60], lower_inclusive: true, upper_inclusive: true, quantity_unit: kWh,
@@ -61,6 +63,11 @@ rate_periods:
     names another, where the document defines it: e.g. a 'Summer incentive' column that prices a winter incentive
     for tariffs ending in 3. Every rate of those codes and year with that component gets them; a period or season
     the price list stated otherwise is replaced and the rate's note says so)
+rate_units:
+  - {codes: [...], doc, fin_year, component: <rate.component exactly as stored>, unit: <a spec.UNITS unit>, locator,
+     quote, [note]}
+    (the unit of a price whose printed unit leaves the billing period, or kW or kVA, unstated, where a document of
+    that year states it: every rate of those codes and year with that component and an unclear stored unit gets it)
 charge_rules:
   - {codes: [...] | all, doc, fin_year, charge_type: <spec.RULE_CHARGES>, [tou_period: <spec.RATE_PERIODS>],
      [season: <spec.SEASONS>], measure: <spec.RULE_MEASURES>, [interval_min: 30], method: <spec.RULE_METHODS>, [n: 4],
@@ -96,7 +103,7 @@ DAY_TYPE_DAYS = {"weekday": DAYS[:5], "business_day": DAYS[:5], "weekend": DAYS[
 
 
 SECTIONS = ("distributor", "tou_schedules", "eligibility", "steps", "conditions", "metering", "rate_periods",
-            "charge_rules")
+            "rate_units", "charge_rules")
 # day: each day stands alone; billing_period_per_day: per-day bounds multiplied by the days in the billing period (an
 # unused allowance rolls over within the period); quarter: bounds accumulate per calendar quarter; unstated
 RESET_PERIODS = ("day", "billing_period_per_day", "quarter", "unstated")
@@ -300,9 +307,16 @@ def validate(data, check_quotes=True):
         where = f"eligibility[{i}] {r.get('codes')} {r.get('rule_type')}"
         _req(errors, where, r, ["codes", "doc", "fin_year", "rule_type", "locator", "quote"])
         check_doc(where, r)
-        _enum(errors, where, r.get("rule_type"), spec.CRITERIA, "rule_type")
+        _enum(errors, where, r.get("rule_type"), list(spec.CRITERIA) + ["assignment"], "rule_type")
         _enum(errors, where, r.get("operator"), spec.OPERATORS, "operator")
-        allowed = spec.CRITERION_VALUES.get(r.get("rule_type"))
+        _enum(errors, where, r.get("value_unit"), spec.THRESHOLD_UNITS, "value_unit")
+        if (r.get("value_num") is None) != (r.get("value_unit") is None):
+            errors.append(f"{where}: value_num and value_unit go together")
+        if r.get("applies_to") is not None:
+            if r.get("rule_type") != "assignment":
+                errors.append(f"{where}: applies_to belongs to an assignment")
+            _enum(errors, where, r["applies_to"], spec.ASSIGNMENT_GROUPS, "applies_to")
+        allowed = spec.ASSIGNMENTS if r.get("rule_type") == "assignment" else spec.CRITERION_VALUES.get(r.get("rule_type"))
         if allowed and r.get("value_text") is not None and r["value_text"] not in allowed:
             errors.append(f"{where}: value_text={r['value_text']!r} not in {allowed}")
         if r.get("value_num") is None and not r.get("value_text") and not r.get("target_code"):
@@ -366,6 +380,13 @@ def validate(data, check_quotes=True):
             errors.append(f"{where}: states neither tou_period nor season")
         _enum(errors, where, r.get("tou_period"), spec.RATE_PERIODS, "tou_period")
         _enum(errors, where, r.get("season"), spec.SEASONS, "season")
+        if check_quotes:
+            _quote(errors, where, r, r.get("doc"))
+    for i, r in enumerate(data.get("rate_units") or []):
+        where = f"rate_units[{i}] {r.get('codes')} {r.get('component')}"
+        _req(errors, where, r, ["codes", "doc", "fin_year", "component", "unit", "locator", "quote"])
+        check_doc(where, r)
+        _enum(errors, where, r.get("unit"), [u for u, v in spec.UNITS.items() if v[1] != "not_stated"], "unit")
         if check_quotes:
             _quote(errors, where, r, r.get("doc"))
     for i, r in enumerate(data.get("charge_rules") or []):

@@ -18,7 +18,8 @@ The checks, in order (docs/update-and-validate.md says what a failure means and 
   status        a tariff is final exactly when its document is the distributor's own published list (not one the AER
                 hosts) or a state regulator's published schedule, and each rate carries its tariff's status and
                 document
-  units         every standard unit is one the docs list and fits its charge type (usage per kWh, demand per kW...)
+  units         every rate's unit (a row of the unit table, spec.UNITS) prices a quantity its charge type is charged
+                per (usage per kWh, demand per kW or kVA ...)
   magnitude     no c/kWh rate outside critical peak exceeds 200 c/kWh unless its note contains 'confirmed
                 high rate:'
   blocks        a stepped price numbers its blocks 1..n without gaps, with bounds that rise from block to block
@@ -34,7 +35,8 @@ The checks, in order (docs/update-and-validate.md says what a failure means and 
   files         every held document is at its path with its recorded SHA-256 (--sources)
   values        every rate's published value is at its locator: the cell as Excel displays it, or the PDF page
                 (--sources)
-  quotes        every eligibility quote is at its locator, and every curated YAML file validates (--sources)
+  quotes        every eligibility and assignment quote is at its locator, and every curated YAML file validates
+                (--sources)
 """
 import argparse
 import hashlib
@@ -52,11 +54,6 @@ import joins  # noqa: E402
 import load as loader  # noqa: E402
 
 ROOT = bs.ROOT
-UNIT_RE = re.compile(r"^c/(?:day|kWh|kVAh|(?:kW|kVA|k\?|lamp)/(?:day|month|year|season|\?)\??)$")
-# the standard units each charge type may carry (a demand or capacity charge per kW or kVA; '?' = period not stated)
-UNITS_BY_CHARGE = {"daily": r"c/(day|lamp/day)$", "metering": r"c/(day|kWh)$", "usage": r"c/(kWh|kVAh)$",
-                   "demand": r"c/k(W|VA|\?)/", "capacity": r"c/k(W|VA|\?)/",
-                   "export": r"c/(kWh|kVAh)$|c/k(W|VA)/", "other": r"c/"}
 # above this a c/kWh price outside critical peak is a misread unless its note says 'confirmed high rate:' (the largest
 # ordinary energy price in the dataset is under 150 c/kWh)
 MAX_KWH_PRICE = 200
@@ -117,11 +114,16 @@ def check_status(db):
 
 
 def check_units(db):
+    """Every rate's unit prices a quantity its charge type is charged per (spec.QUANTITIES_BY_CHARGE); the unit
+    table itself is the one spec.py generates (the foreign key keeps every rate inside it)."""
+    import spec
     bad = []
-    for r in rows(db, "SELECT rate_id, unit, charge_type FROM rate"):
-        if not UNIT_RE.match(r["unit"]):
-            bad.append(f"rate {r['rate_id']}: unit {r['unit']!r} is not a standard unit")
-        elif not re.match(UNITS_BY_CHARGE[r["charge_type"]], r["unit"]) and r["rate_id"] not in KNOWN_MISPRINTS:
+    key = lambda r: r["unit"]  # noqa: E731
+    if sorted(rows(db, "SELECT unit, quantity, billing_period, unit_std, multiplier, calendar_factor, definition "
+                       "FROM unit"), key=key) != sorted(spec.unit_rows(), key=key):
+        bad.append("unit table differs from spec.UNITS: rebuild")
+    for r in rows(db, "SELECT r.rate_id, r.unit, r.charge_type, u.quantity FROM rate r JOIN unit u USING (unit)"):
+        if r["quantity"] not in spec.QUANTITIES_BY_CHARGE[r["charge_type"]] and r["rate_id"] not in KNOWN_MISPRINTS:
             bad.append(f"rate {r['rate_id']}: a {r['charge_type']} charge in {r['unit']}")
     return bad
 
@@ -282,7 +284,10 @@ def check_quotes(db, committed_only):
     import locators
     bad, n = [], 0
     for r in rows(db, """SELECT e.criterion_id, e.locator, e.quote, d.local_path FROM eligibility e
-                         JOIN source_document d USING (document_id)"""):
+                         JOIN source_document d USING (document_id)
+                         UNION ALL SELECT a.distributor_id || ':' || a.tariff_code || ':' || a.effective_from
+                         || ':assignment:' || a.assignment_no, a.locator, a.quote, d.local_path
+                         FROM tariff_assignment a JOIN source_document d USING (document_id)"""):
         path = os.path.join(ROOT, r["local_path"])
         if not os.path.exists(path):
             if not committed_only:

@@ -21285,3 +21285,136 @@ charge_rules:
     CPD tariffs' minimum meter integrates kWh and kVAr over 30 minutes, p15). For a supply point new to a CPD tariff,
     60% of the capacity until a value is established (not stored). The tariffs are those Table 5 (p12) names 'critical
     peak demand'."
+rate_units:
+- codes:
+  - NASN19
+  doc: sources/archive/ausnet/2017/Annual_Tariff_Report_2017.pdf
+  fin_year: '2017'
+  component: MONTHLY KW DEMAND
+  unit: c/kW/month
+  locator: pdf:p33
+  quote: NASN19 Fixed ($) 102.40 107.00 110.36 115.13 121.25 Energy - All Time ($/kWh) 0.1501 0.1713 0.1760 0.1828 0.1941
+    Demand peak season 1.7484 - 1.8033 1.8812 1.9812 ($/kW/mth)
+  note: 2017 ATR indicative-tariff table prices NASN19 demand in $/kW/mth with '-' (no charge) in the 2017 column, consistent
+    with the schedule's 0.00; same table in the AER-approved ATR copy (sources/archive/ausnet/2017/AER_approved_-_AusNet_Services_-_Pricing_proposal_2017_-_Annual_tariff_report_2017_-_updated_6_January_2017.pdf,
+    pdf:p33, verified).
+- codes:
+  - NASN21
+  doc: sources/archive/ausnet/2017/Annual_Tariff_Report_2017.pdf
+  fin_year: '2017'
+  component: MONTHLY KW DEMAND
+  unit: c/kW/month
+  locator: pdf:p34
+  quote: Demand peak season 1.7484 - 1.8033 1.8812 1.9812 ($/kW/mth) Demand off-peak season 0.4371 - 0.4508 0.4703 0.4953
+    ($/kW/mth)
+  note: 'Rows under NASN21 on p34: $/kW/mth, 2017 column ''-'' = schedule''s 0.00. NASN2P/NASN2S are NASN21''s solar variants
+    (''two variants for solar customers NASN2P'', pdf:p20, verified) and print the same 0.00 in the schedule; their unit is
+    inferred via that variant statement, not printed per code.'
+- codes:
+  - NASN11
+  - NASN11P
+  doc: sources/archive/ausnet/2018/AER_approved_-_AusNet_Services_-_Schedule_of_Tariffs_-_23_October_2017.pdf
+  fin_year: '2018'
+  component: MONTHLY OFFPEAK KW DEMAND
+  unit: c/kW/month
+  locator: pdf:p1
+  quote: $/kW/Mnth
+  note: 'Rate document''s own column unit heading (both MONTHLY PEAK and MONTHLY OFFPEAK columns). Cross-check: 2018 ATR pdf:p35
+    NASN11 ''Demand off-peak season ($/kW/mth) 2.2323 2.2278'' (2018 col 2.2278 -> 2.23 printed).'
+- codes:
+  - NASN12
+  - NASN12P
+  - NASN19
+  - NASN21
+  - NASN2P
+  - NASN2S
+  doc: sources/archive/ausnet/2018/AER_approved_-_AusNet_Services_-_Schedule_of_Tariffs_-_23_October_2017.pdf
+  fin_year: '2018'
+  component: MONTHLY OFFPEAK KW DEMAND
+  unit: c/kW/month
+  locator: pdf:p2
+  quote: c/KWh $/kW/Mnth
+  note: 'p2 column heading (off-peak column). Cross-check 2018 ATR (sources/archive/ausnet/2018/AER_approved_-_AusNet_Services_-_Annual_Tariff_Report_2018_-_23_October_2017.pdf):
+    NASN12 p35 2.2278 -> 2.23; NASN19 p35 / NASN21 p36 ''Demand off-peak season ($/kW/mth) 0.4456 0.4485'' -> 0.45 (verified).
+    NASN12P/NASN2P/NASN2S are solar variants with identical printed values.'
+- codes:
+  - NASN11
+  - NASN11P
+  doc: sources/archive/ausnet/2018/AER_approved_-_AusNet_Services_-_Schedule_of_Tariffs_-_23_October_2017.pdf
+  fin_year: '2018'
+  component: MONTHLY PEAK KW DEMAND
+  unit: c/kW/month
+  locator: pdf:p1
+  quote: $/kW/Mnth
+  note: 'Rate document''s own column unit heading. Cross-check: 2018 ATR pdf:p35 ''Demand peak season ($/kW/mth) 8.9090 8.9111''
+    (2018 col 8.9111 -> 8.91 printed).'
+- codes:
+  - NASN12
+  - NASN12P
+  - NASN19
+  - NASN21
+  - NASN2P
+  - NASN2S
+  doc: sources/archive/ausnet/2018/AER_approved_-_AusNet_Services_-_Annual_Tariff_Report_2018_-_23_October_2017.pdf
+  fin_year: '2018'
+  component: MONTHLY PEAK KW DEMAND
+  unit: c/kW/month
+  locator: pdf:p35
+  quote: NASN19 Fixed ($) 109.07 109.00 114.45 120.00 Energy - All Time ($/kWh) 0.1648 0.1556 0.1641 0.1721 Demand peak season
+    ($/kW/mth) 1.7822 1.7838 3.6717 5.5337 Demand off-peak season ($/kW/mth) 0.4456 0.4485
+  note: NASN19 2018 peak 1.7838 -> 1.78 printed; NASN21 same at p36 (verified); NASN12 p35 8.9111 -> 8.91. The rate document's
+    p2 heading also prints '$/kW/Mnth' (pdf:p2 'c/KWh $/kW/Mnth', verified). Solar variants (P/S) print identical values.
+- codes:
+  - NASN11
+  - NASN11P
+  - NASN11S
+  doc: sources/aer/dnsp_copies/AusNet_2024-25_Schedule_of_tariffs_28Mar2024.xlsx
+  fin_year: 2024-25
+  component: Monthly off-peak
+  unit: c/kW/month
+  locator: xlsx:Network 2024-25!V6
+  quote: $/kW/mth
+  note: AusNet's own 2024-25 schedule, column V5 'Monthly off peak kW demand' unit $/kW/mth; NASN11/11S/11P V20-V22 = 2.65
+    vs AER 2.6491 (same magnitude).
+- codes:
+  - NASN12
+  - NASN12P
+  - NASN12S
+  - NASN19
+  - NASN21
+  - NASN2P
+  - NASN2S
+  doc: sources/aer/dnsp_copies/AusNet_2024-25_Schedule_of_tariffs_28Mar2024.xlsx
+  fin_year: 2024-25
+  component: Monthly off-peak
+  unit: c/kW/month
+  locator: xlsx:Network 2024-25!V42
+  quote: $/kW/mth
+  note: Business table header (V41 'Monthly off peak kW demand'); NASN12/12S/12P V53-55 = 2.84 vs AER 2.8412; NASN19/21/2S/2P
+    V56-59 = 2.27 vs AER 2.2730.
+- codes:
+  - NASN11
+  - NASN11P
+  - NASN11S
+  doc: sources/aer/dnsp_copies/AusNet_2024-25_Schedule_of_tariffs_28Mar2024.xlsx
+  fin_year: 2024-25
+  component: Monthly peak
+  unit: c/kW/month
+  locator: xlsx:Network 2024-25!U6
+  quote: $/kW/mth
+  note: Column U5 'Monthly peak kW demand' (verified); NASN11/11S/11P U20-U22 = 10.62 vs AER 10.6184.
+- codes:
+  - NASN12
+  - NASN12P
+  - NASN12S
+  - NASN19
+  - NASN21
+  - NASN2P
+  - NASN2S
+  doc: sources/aer/dnsp_copies/AusNet_2024-25_Schedule_of_tariffs_28Mar2024.xlsx
+  fin_year: 2024-25
+  component: Monthly peak
+  unit: c/kW/month
+  locator: xlsx:Network 2024-25!U42
+  quote: $/kW/mth
+  note: Business table; NASN12/12S/12P U53-55 = 11.39 vs AER 11.3885; NASN19/21/2S/2P U56-59 = 9.11 vs AER 9.1108.

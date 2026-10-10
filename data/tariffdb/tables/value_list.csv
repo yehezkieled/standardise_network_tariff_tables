@@ -1,0 +1,282 @@
+list_name,value,definition
+assignment,assigned_by_distributor,the distributor assigns it
+assignment,default,customers are assigned to it unless they choose otherwise
+assignment,mandatory,customers must be on it
+assignment,opt_in,customers may choose it
+assignment,opt_out,customers assigned to it may leave it
+assignment,retailer_request,assigned at the retailer's request
+assignment_group,existing_customer,existing customers
+assignment_group,meter_change,customers whose meter is replaced or upgraded
+assignment_group,new_connection,new connections (and new or upgraded meters the statement names)
+availability_value,closed_to_new,closed to new customers
+availability_value,grandfathered,kept for existing customers only
+availability_value,obsolete,obsolete
+availability_value,open,open to new customers
+availability_value,transitional,a transitional tariff
+availability_value,trial,a trial tariff
+availability_value,withdrawn,withdrawn
+billing_period,day,per day
+billing_period,month,per month
+billing_period,not_stated,no held document states the billing period
+billing_period,year,per year
+block_unit,kWh,kWh; the source states no reset period
+block_unit,kWh/billing_day,"kWh per day, multiplied by the days in the billing period (an unused allowance rolls over within it)"
+block_unit,kWh/day,kWh per day
+block_unit,kWh/quarter,kWh per calendar quarter
+calendar_factor,days_in_month,divide by the days in the billed month to get the per-day price
+calendar_factor,days_in_year,divide by the days in the billed year to get the per-day price
+charge_type,capacity,"per kW or kVA of agreed, assigned or contracted capacity"
+charge_type,daily,fixed charge per day (or per lamp per day)
+charge_type,demand,per kW or kVA of measured demand
+charge_type,export,per kWh or kW exported (negative = a reward paid)
+charge_type,metering,the distributor's separately priced metering charge
+charge_type,other,a charge that fits none of the other types
+charge_type,usage,per kWh (or kVAh) consumed
+condition_kind,meter_class,only at a site in that class of the distributor's metering schedule
+condition_kind,meter_type,only at a site with that meter type
+condition_kind,opt_in,only for a customer who opts in to the named offer
+criterion,availability,"whether the tariff is open, closed to new customers, withdrawn ..."
+criterion,consumption_max,annual consumption at most (or below) the threshold
+criterion,consumption_min,annual consumption at least (or above) the threshold
+criterion,customer_type,"the kind of customer (residential, small business ...)"
+criterion,demand_max,demand at most (or below) the threshold
+criterion,demand_min,demand at least (or above) the threshold
+criterion,meter_type,the meter the site has
+criterion,minimum_demand_charge,the smallest demand charged
+criterion,opt_out_to,the tariff a customer may opt out to (target_tariff_code)
+criterion,other,a stated condition no other criterion covers (value_text as stated)
+criterion,requires_technology,"equipment the site must have (solar, battery, a dedicated circuit ...)"
+criterion,voltage_level,the supply voltage
+customer_class,business,"business customers, size not named"
+customer_class,controlled_load,"controlled-load supply (a separately metered, switched circuit)"
+customer_class,generation,generators and export tariffs
+customer_class,large_business,large business customers (including heading names such as large industrial & commercial)
+customer_class,major_business,major (very large) business customers
+customer_class,medium_business,medium business customers
+customer_class,public_lighting,street and public lighting
+customer_class,residential,residential (domestic) customers
+customer_class,small_business,small business customers
+customer_class,storage,grid-scale or customer storage
+customer_class,unmetered,unmetered supply
+customer_type_value,any,any customer
+customer_type_value,business,"business, size not named"
+customer_type_value,controlled_load,controlled load
+customer_type_value,embedded_generation,embedded generation
+customer_type_value,ev_charging,EV charging
+customer_type_value,large_business,large business
+customer_type_value,medium_business,medium business
+customer_type_value,public_lighting,public lighting
+customer_type_value,residential,residential
+customer_type_value,small_business,small business
+customer_type_value,storage,storage
+customer_type_value,unmetered,unmetered supply
+day_type,all_days,every day
+day_type,business_day,Monday to Friday except public holidays
+day_type,non_business_day,"Saturday, Sunday and public holidays"
+day_type,weekday,Monday to Friday
+day_type,weekend,Saturday and Sunday
+document_type,aer_consolidated_stakeholder_report,the AER's consolidated report of every distributor's approved prices
+document_type,aer_landing_page,an AER web page that lists a distributor's pricing documents
+document_type,aer_stakeholder_report,the AER's report of one distributor's approved prices
+document_type,annual_tariff_report,a distributor's annual tariff report
+document_type,price_guide,a distributor's network price or tariff guide (how tariffs apply and bill)
+document_type,price_list,a distributor's published network price list
+document_type,pricing_model,a distributor's pricing model workbook
+document_type,pricing_proposal,a distributor's annual pricing proposal to the AER
+document_type,pricing_proposal_overview,a distributor's summary of its pricing proposal
+document_type,pricing_schedule,a pricing schedule
+document_type,schedule_of_charges,a schedule of network charges
+document_type,statement_of_tariff_classes,a statement of tariff classes and tariffs
+document_type,tariff_schedule,a schedule of tariffs (prices by tariff code)
+document_type,tariff_structure_statement,a distributor's tariff structure statement for a regulatory period
+document_type,tariff_summary,a distributor's short summary of its tariffs
+document_type,tariff_trial_notification,a distributor's notification of a tariff trial
+holiday_rule,as_non_business_day,public holidays are priced as weekends (non-business days)
+holiday_rule,as_weekday,public holidays are priced as weekdays
+holiday_rule,not_stated,no held document says how public holidays are priced
+holiday_rule,unchanged,public holidays keep their day of the week
+meter_type_value,accumulation,an accumulation meter
+meter_type_value,any,any meter
+meter_type_value,basic,a basic (accumulation) meter
+meter_type_value,interval,an interval meter
+meter_type_value,smart,"a smart (interval capable, remotely read) meter"
+meter_type_value,unmetered,no meter
+operator,eq,equal to
+operator,ge,at least
+operator,ge_unstated,a lower bound; the source does not say whether the boundary value is included
+operator,gt,above
+operator,le,at most
+operator,le_unstated,an upper bound; the source does not say whether the boundary value is included
+operator,lt,below
+price_status,approved,prices the regulator approved
+price_status,mixed,an AER version carrying approved prices for some distributors and proposed for others
+price_status,proposed,"prices proposed to the regulator, not yet approved"
+price_status,published,prices the distributor published for billing
+price_status,unverified,a distributor document hosted by the AER whose regulatory status no held source states
+pricing_basis,published,the price list publishes the prices that apply to every customer on the tariff
+pricing_basis,site_specific,prices set for each site; the price list prints the site-specific tariff's rates
+pricing_basis,trial,a tariff trial: prices published for the customers who join the trial
+pricing_year,1996-97,"financial year, 1 July to 30 June"
+pricing_year,1997-98,"financial year, 1 July to 30 June"
+pricing_year,1998-99,"financial year, 1 July to 30 June"
+pricing_year,1999-00,"financial year, 1 July to 30 June"
+pricing_year,2000,calendar year a regulator priced by
+pricing_year,2000-01,"financial year, 1 July to 30 June"
+pricing_year,2000-H2,half year a regulator priced by
+pricing_year,2001,calendar year a regulator priced by
+pricing_year,2001-02,"financial year, 1 July to 30 June"
+pricing_year,2002,calendar year a regulator priced by
+pricing_year,2002-03,"financial year, 1 July to 30 June"
+pricing_year,2003,calendar year a regulator priced by
+pricing_year,2003-04,"financial year, 1 July to 30 June"
+pricing_year,2004,calendar year a regulator priced by
+pricing_year,2004-05,"financial year, 1 July to 30 June"
+pricing_year,2005,calendar year a regulator priced by
+pricing_year,2005-06,"financial year, 1 July to 30 June"
+pricing_year,2006,calendar year a regulator priced by
+pricing_year,2006-07,"financial year, 1 July to 30 June"
+pricing_year,2007,calendar year a regulator priced by
+pricing_year,2007-08,"financial year, 1 July to 30 June"
+pricing_year,2008,calendar year a regulator priced by
+pricing_year,2008-09,"financial year, 1 July to 30 June"
+pricing_year,2008-H1,half year a regulator priced by
+pricing_year,2009,calendar year a regulator priced by
+pricing_year,2009-10,"financial year, 1 July to 30 June"
+pricing_year,2010,calendar year a regulator priced by
+pricing_year,2010-11,"financial year, 1 July to 30 June"
+pricing_year,2011,calendar year a regulator priced by
+pricing_year,2011-12,"financial year, 1 July to 30 June"
+pricing_year,2012,calendar year a regulator priced by
+pricing_year,2012-13,"financial year, 1 July to 30 June"
+pricing_year,2013,calendar year a regulator priced by
+pricing_year,2013-14,"financial year, 1 July to 30 June"
+pricing_year,2014,calendar year a regulator priced by
+pricing_year,2014-15,"financial year, 1 July to 30 June"
+pricing_year,2015,calendar year a regulator priced by
+pricing_year,2015-16,"financial year, 1 July to 30 June"
+pricing_year,2016,calendar year a regulator priced by
+pricing_year,2016-17,"financial year, 1 July to 30 June"
+pricing_year,2017,calendar year a regulator priced by
+pricing_year,2017-18,"financial year, 1 July to 30 June"
+pricing_year,2018,calendar year a regulator priced by
+pricing_year,2018-19,"financial year, 1 July to 30 June"
+pricing_year,2019,calendar year a regulator priced by
+pricing_year,2019-20,"financial year, 1 July to 30 June"
+pricing_year,2020,calendar year a regulator priced by
+pricing_year,2020-21,"financial year, 1 July to 30 June"
+pricing_year,2021-22,"financial year, 1 July to 30 June"
+pricing_year,2021-H1,half year a regulator priced by
+pricing_year,2022-23,"financial year, 1 July to 30 June"
+pricing_year,2023-24,"financial year, 1 July to 30 June"
+pricing_year,2024-25,"financial year, 1 July to 30 June"
+pricing_year,2025-26,"financial year, 1 July to 30 June"
+pricing_year,2026-27,"financial year, 1 July to 30 June"
+publisher,aer,the Australian Energy Regulator
+publisher,distributor,the distribution network service provider itself
+publisher,regulator,"a state regulator before the AER (ESC, ESCOSA, QCA, IPART, OTTER ...)"
+rate_period,anytime,all times
+rate_period,capacity_minimum,"the first kW or kVA of a capacity charge, up to the minimum"
+rate_period,capacity_remaining,the kW or kVA of a capacity charge above the minimum
+rate_period,critical_minimum,critical minimum-demand events the distributor notifies
+rate_period,critical_peak,critical peak events the distributor notifies
+rate_period,dynamic_maximum,dynamic maximum events the distributor notifies
+rate_period,dynamic_minimum,dynamic minimum events the distributor notifies
+rate_period,off_peak,off-peak
+rate_period,peak,peak
+rate_period,shoulder,shoulder
+rate_period,solar_soak,the solar soak (midday low-price) period
+rate_period,super_off_peak,super off-peak
+register,controlled_load,a separately metered controlled-load circuit
+register,export,energy sent out to the network
+register,general,general-supply import
+requires_technology_value,battery,a battery
+requires_technology_value,controlled_load_device,a controlled-load device
+requires_technology_value,dedicated_circuit,a dedicated circuit
+requires_technology_value,ev,an electric vehicle
+requires_technology_value,export_capable,an export-capable system
+requires_technology_value,flexible_load,a flexible load
+requires_technology_value,heat_pump,a heat pump
+requires_technology_value,solar,solar PV
+requires_technology_value,storage,storage
+rule_charge,capacity,capacity charges
+rule_charge,demand,demand charges
+rule_charge,export,export charges
+rule_measure,kVA,kilovolt-amperes
+rule_measure,kW,kilowatts
+rule_measure,kWh,kilowatt-hours (an energy quantity)
+rule_method,agreed,"a value agreed with the distributor, not measured"
+rule_method,assigned,"a value the distributor sets (a transformer or connection rating), not measured"
+rule_method,avg_daily_max,the mean of every day's maximum
+rule_method,avg_nominated_days,the mean of the daily maxima on the n days the distributor nominates (critical peak days)
+rule_method,avg_top_n_days,the mean of the n highest daily maxima
+rule_method,avg_top_n_intervals,the mean of the n highest intervals
+rule_method,excess_over_window_max,"the highest interval in the rate's window less the highest in the peak window of the same season, floored at zero"
+rule_method,kva_at_max_kw,the kVA of the interval with the highest kW
+rule_method,max,the highest interval
+rule_method,max_daily_window_mean,the highest of the daily means over the rate's window
+rule_method,max_of_agreed_and_measured,the greater of the agreed value and the highest interval
+rule_method,sum,"the total over the span (an energy quantity, e.g. export kWh above a free daily allowance)"
+rule_reset,billing_period,each billing period
+rule_reset,day,each day
+rule_reset,month,each calendar month
+rule_reset,rolling_12_months,the current billing month and the 11 before it
+rule_reset,rolling_13_months,the current billing month and the 12 before it
+rule_reset,season,each season
+rule_reset,year,each financial year
+rule_reset,year_from_april,1 April to 31 March
+season,autumn,autumn
+season,high,high season
+season,low,low season
+season,non_summer,the months summer leaves
+season,spring,spring
+season,summer,summer
+season,winter,winter
+state,ACT,Australian Capital Territory
+state,NSW,New South Wales
+state,NT,Northern Territory
+state,QLD,Queensland
+state,SA,South Australia
+state,TAS,Tasmania
+state,VIC,Victoria
+status,final,"rates from the distributor's own published price list, or the schedule a state regulator published or approved"
+status,provisional,"rates from the AER's report, a document the AER hosts or the distributor's proposal"
+threshold_unit,GWh/yr,gigawatt-hours a year
+threshold_unit,MVA,megavolt-amperes
+threshold_unit,MW,megawatts
+threshold_unit,MWh/yr,megawatt-hours a year
+threshold_unit,kVA,kilovolt-amperes
+threshold_unit,kW,kilowatts
+threshold_unit,kWh/yr,kilowatt-hours a year
+time_basis,daylight_time,stated in daylight-saving time (e.g. ADST); stored as stated
+time_basis,local_time,"local clock time, following daylight saving where it applies"
+time_basis,not_stated,no held document states the clock
+time_basis,standard_time,local standard time all year
+tou_applies,all,every time-varying charge of the tariff
+tou_applies,controlled_load,the tariff's controlled-load usage
+tou_applies,demand,the tariff's demand and capacity charges
+tou_applies,export,the tariff's export charges
+tou_applies,usage,the tariff's usage charges
+tou_period,anytime,all times
+tou_period,capacity_minimum,"the first kW or kVA of a capacity charge, up to the minimum"
+tou_period,capacity_remaining,the kW or kVA of a capacity charge above the minimum
+tou_period,controlled_load_supply,the hours a controlled-load circuit is switched on (prices nothing)
+tou_period,critical_minimum,critical minimum-demand events the distributor notifies
+tou_period,critical_peak,critical peak events the distributor notifies
+tou_period,dynamic_maximum,dynamic maximum events the distributor notifies
+tou_period,dynamic_minimum,dynamic minimum events the distributor notifies
+tou_period,off_peak,off-peak
+tou_period,peak,peak
+tou_period,shoulder,shoulder
+tou_period,solar_soak,the solar soak (midday low-price) period
+tou_period,super_off_peak,super off-peak
+unit_quantity,customer,per customer (a fixed charge)
+unit_quantity,kVA,per kilovolt-ampere
+unit_quantity,kVAh,per kilovolt-ampere-hour
+unit_quantity,kW,per kilowatt
+unit_quantity,kWh,per kilowatt-hour
+unit_quantity,lamp,per lamp (public lighting)
+voltage_level_value,HV,high voltage (1 kV to 22 kV or 33 kV)
+voltage_level_value,LV,low voltage (below 1 kV)
+voltage_level_value,subtransmission,subtransmission voltage
+voltage_level_value,transmission,transmission voltage
+voltage_level_value,zone_substation,supplied at a zone substation

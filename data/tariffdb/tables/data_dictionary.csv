@@ -1,0 +1,135 @@
+table_name,column_name,ordinal,data_type,required,is_primary_key,references_table,value_list,unit,definition
+charge_rule,allowance_per_day,16,numeric,0,0,,,see measure,"free quantity per day before the charge applies, when stated"
+charge_rule,allowance_rollover,17,boolean,0,0,,,,1 when an unused daily allowance carries over within the billing period
+charge_rule,charge_type,6,text,1,0,,rule_charge,,the rates the rule measures for
+charge_rule,distributor_id,2,text,1,0,distributor,,,distributor
+charge_rule,document_id,18,text,1,0,source_document,,,source document version
+charge_rule,effective_from,4,date,1,0,tariff,,,first day the rule applies
+charge_rule,effective_to,5,date,1,0,,,,last day the rule applies (inclusive)
+charge_rule,interval_min,10,integer,0,0,,,minutes,"length of the metering interval the demand is averaged over, minutes"
+charge_rule,locator,19,text,1,0,,,,"where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
+charge_rule,measure,9,text,1,0,,rule_measure,,quantity measured
+charge_rule,method,11,text,1,0,,rule_method,,how the quantity is taken from the intervals (value_list rule_method)
+charge_rule,minimum_value,14,numeric,0,0,,,see measure,"smallest quantity charged, when stated"
+charge_rule,n,12,integer,0,0,,,,n of the avg_top_n methods and of avg_nominated_days
+charge_rule,note,21,text,0,0,,,,caveat from the curator
+charge_rule,quote,20,text,1,0,,,,verbatim wording at the locator
+charge_rule,reset,13,text,1,0,,rule_reset,,span the measured value is taken over before it starts again
+charge_rule,rule_id,1,text,1,1,,,,<distributor_id>:<tariff_code>:<effective_from>:<charge_type>:<tou_period or all>:<season or all>:<measure> (a tariff priced both per kW and per kVA has a rule for each)
+charge_rule,season,8,text,0,0,,season,,the rate.season it measures for; NULL = every season
+charge_rule,tariff_code,3,text,1,0,tariff,,,tariff code
+charge_rule,threshold_value,15,numeric,0,0,,,see measure,"the charge applies only to the quantity above this, when stated (e.g. export above 1.5 kW)"
+charge_rule,tou_period,7,text,0,0,,rate_period,,the rate.tou_period it measures for; NULL = every rate of the charge type
+data_dictionary,column_name,2,text,1,1,,,,column
+data_dictionary,data_type,4,text,1,0,,,,"text, integer, numeric, date (YYYY-MM-DD), time (HH:MM) or boolean (0/1)"
+data_dictionary,definition,10,text,1,0,,,,what the column holds
+data_dictionary,is_primary_key,6,boolean,1,0,,,,1 when the column is part of the table's primary key
+data_dictionary,ordinal,3,integer,1,0,,,,position of the column in the table (1 = first)
+data_dictionary,references_table,7,text,0,0,,,,table the column refers to (foreign key)
+data_dictionary,required,5,boolean,1,0,,,,1 when the column may not be NULL
+data_dictionary,table_name,1,text,1,1,,,,table
+data_dictionary,unit,9,text,0,0,,,,unit of a numeric column
+data_dictionary,value_list,8,text,0,0,,,,the value_list.list_name the column's values come from
+distributor,distributor_id,1,text,1,1,,,,"slug, e.g. ausgrid"
+distributor,iana_timezone,4,text,1,0,,,,"time zone of the network area, e.g. Australia/Sydney; TOU times are local clock times there"
+distributor,name,2,text,1,0,,,,name
+distributor,observes_dst,5,boolean,1,0,,,,"1 when local clocks move for daylight saving (not QLD, NT)"
+distributor,state,3,text,1,0,,state,,jurisdiction
+eligibility,criterion,6,text,1,0,,criterion,,what is constrained
+eligibility,criterion_id,1,text,1,1,,,,<distributor_id>:<tariff_code>:<effective_from>:<criterion>:<n>
+eligibility,distributor_id,2,text,1,0,distributor,,,distributor
+eligibility,document_id,12,text,1,0,source_document,,,source document version
+eligibility,effective_from,4,date,1,0,tariff,,,first day the criterion applies
+eligibility,effective_to,5,date,1,0,,,,last day the criterion applies (inclusive)
+eligibility,locator,13,text,1,0,,,,"where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
+eligibility,operator,7,text,0,0,,operator,,comparison for a numeric threshold
+eligibility,quote,14,text,1,0,,,,verbatim wording at the locator
+eligibility,target_tariff_code,11,text,0,0,,,,"tariff referred to (opt-out target, required companion)"
+eligibility,tariff_code,3,text,1,0,tariff,,,tariff code
+eligibility,value_num,8,numeric,0,0,,,see value_unit,threshold
+eligibility,value_text,10,text,0,0,,,,"categorical value (residential, LV, interval, closed_to_new ...); the <criterion>_value list for a categorical criterion, as stated for other"
+eligibility,value_unit,9,text,0,0,,threshold_unit,,unit of the threshold
+rate,block,9,integer,0,0,,,,consumption block number (1 = first) of a stepped price; NULL otherwise
+rate,block_from,10,numeric,0,0,,,see block_unit,"lower bound of the block, from the curated block ladder"
+rate,block_to,11,numeric,0,0,,,see block_unit,upper bound of the block; NULL = unbounded or not stated
+rate,block_unit,12,text,0,0,,block_unit,,unit and reset period of the bounds
+rate,charge_type,6,text,1,0,,charge_type,,daily = fixed charge per day; usage = per kWh or kVAh; demand / capacity = per kW or kVA; export = per exported kWh or kW (negative = a reward paid); metering = metering charge; other
+rate,component,20,text,1,0,,,,component label as printed
+rate,condition,15,text,0,0,,,,"NULL = always charged; opt_in:<name> = only for a customer who opts in to <name>; meter_type:<type> = only at a site with that meter; meter_class:<class> = only at a site in that class of the distributor's metering schedule; a|b = either (curated, quoted in data/tariffdb/curated/*.yaml)"
+rate,distributor_id,2,text,1,0,distributor,,,distributor
+rate,document_id,22,text,1,0,source_document,,,source document version
+rate,effective_from,4,date,1,0,tariff,,,first day the price applies
+rate,effective_to,5,date,1,0,,,,last day the price applies (inclusive)
+rate,locator,23,text,1,0,,,,"where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
+rate,note,24,text,0,0,,,,caveat from the source or the parser
+rate,rate_id,1,text,1,1,,,,<distributor_id>:<tariff_code>:<effective_from>:<charge_type>:<component>[:<tou_period>][:<season>][:<block>][:<region>]
+rate,region,13,text,0,0,,,,"pricing zone, when the document prices one code by zone"
+rate,register,14,text,0,0,,register,,"meter register the quantity is measured on: general = general-supply import, controlled_load = a separately metered controlled-load circuit, export = energy sent out; NULL for daily, metering and other charges"
+rate,season,8,text,0,0,,season,,season the price applies in; NULL = all year
+rate,status,21,text,1,0,,status,,provisional or final (the tariff's status)
+rate,tariff_code,3,text,1,0,tariff,,,tariff code
+rate,tou_period,7,text,0,0,,rate_period,,time-of-use period the price applies in (anytime = all times); NULL for daily and metering charges
+rate,unit,17,text,1,0,unit,,,unit of value (the unit table says what it prices per and how to reach its standard unit)
+rate,unit_published,19,text,0,0,,,,unit exactly as printed
+rate,value,16,numeric,1,0,,,see unit,price in the rate's unit
+rate,value_published,18,text,1,0,,,,number exactly as printed
+source_document,distributor_id,2,text,0,0,distributor,,,distributor whose prices it carries; NULL for an AER report covering every distributor
+source_document,document_id,1,text,1,1,,,,slug derived from the file name
+source_document,document_type,5,text,1,0,,document_type,,kind of publication
+source_document,hosted_by_aer,6,boolean,1,0,,,,1 for a distributor document taken from aer.gov.au rather than the distributor's own site
+source_document,local_path,12,text,0,0,,,,repo-relative path of the file; NULL when it could not be retrieved
+source_document,price_status,9,text,1,0,,price_status,,"regulatory status of the prices, as a held source states it"
+source_document,pricing_year,3,text,1,0,,pricing_year,,"pricing year: a financial year (2025-26), or the calendar year (2005) or half year (2021-H1) a regulator priced by (Victoria 2000-H2 to 2021-H1, Tasmania to 2008-H1)"
+source_document,published_on,10,date,0,0,,,,"publication date, when known"
+source_document,publisher,4,text,1,0,,publisher,,who published the prices
+source_document,sha256,13,text,0,0,,,,SHA-256 of the file used
+source_document,source_url,11,text,0,0,,,,exact URL the file was retrieved from (the landing page when not held)
+source_document,version_label,7,text,1,0,,,,"version as published, e.g. v1, v5, 'updated 17 Jul 2024'"
+source_document,version_seq,8,integer,1,0,,,,order within its publication series (1 = first)
+tariff,customer_class,6,text,0,0,,customer_class,,the customer class the published heading names; NULL when it names none
+tariff,customer_class_published,7,text,0,0,,,,tariff class or customer class heading as published
+tariff,distributor_id,1,text,1,1,distributor,,,distributor
+tariff,document_id,10,text,1,0,source_document,,,document the tariff and its rates are read from
+tariff,effective_from,3,date,1,1,,,,first day the tariff applies
+tariff,effective_to,4,date,1,0,,,,last day the tariff applies (inclusive)
+tariff,pricing_basis,8,text,0,0,,pricing_basis,,"how the prices apply: trial or site_specific when the published heading says so, else published; NULL for a tariff with no rates"
+tariff,status,9,text,1,0,,status,,"provisional = rates from the AER's report or a proposal; final = rates from the distributor's own published price list, or the schedule a state regulator published"
+tariff,tariff_code,2,text,1,1,,,,tariff code as the source document prints it
+tariff,tariff_name,5,text,0,0,,,,name as published
+tariff_assignment,applies_to,6,text,0,0,,assignment_group,,the customers the statement names; NULL = it names no group
+tariff_assignment,assignment,5,text,1,0,,assignment,,how customers come to be on the tariff
+tariff_assignment,assignment_no,4,integer,1,1,,,,statement number within the tariff period (1 = first)
+tariff_assignment,distributor_id,1,text,1,1,distributor,,,distributor
+tariff_assignment,document_id,7,text,1,0,source_document,,,source document version
+tariff_assignment,effective_from,3,date,1,1,tariff,,,tariff period
+tariff_assignment,locator,8,text,1,0,,,,"where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
+tariff_assignment,quote,9,text,1,0,,,,verbatim wording at the locator
+tariff_assignment,tariff_code,2,text,1,1,tariff,,,tariff code
+tou_window,applies_to,6,text,1,0,,tou_applies,,which charges of the tariff the window prices
+tou_window,day_type,9,text,1,0,,day_type,,days the window applies on
+tou_window,distributor_id,2,text,1,0,distributor,,,distributor
+tou_window,document_id,17,text,1,0,source_document,,,source document version
+tou_window,effective_from,4,date,1,0,tariff,,,first day the window applies
+tou_window,effective_to,5,date,1,0,,,,last day the window applies (inclusive)
+tou_window,end_time,11,time,1,0,,,,exclusive; 24:00 = midnight at the end of the day
+tou_window,locator,18,text,1,0,,,,"where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
+tou_window,months,12,text,0,0,,,,comma-separated months 1-12; NULL when the source names a season without its months
+tou_window,period_label,8,text,1,0,,,,period name as published
+tou_window,public_holidays,16,text,1,0,,holiday_rule,,how public holidays are treated
+tou_window,season,13,text,0,0,,season,,the rate.season the window belongs to; NULL = every season
+tou_window,season_label,14,text,0,0,,,,season name as published
+tou_window,start_time,10,time,1,0,,,,inclusive
+tou_window,tariff_code,3,text,1,0,tariff,,,tariff code
+tou_window,time_basis,15,text,1,0,,time_basis,,"clock the times refer to, as stated"
+tou_window,tou_period,7,text,1,0,,tou_period,,"the rate.tou_period the window prices (peak, off_peak, solar_soak ...); controlled_load_supply = the hours a controlled-load circuit is switched on (prices nothing)"
+tou_window,window_id,1,text,1,1,,,,<distributor_id>:<tariff_code>:<effective_from>:<applies_to>:<tou_period>:<day_type>:<start>-<end>:<months> (season-<season> or months-not-stated when the document names the season without its months)
+unit,billing_period,3,text,0,0,,billing_period,,the period the price is charged per; NULL for an energy price
+unit,calendar_factor,6,text,0,0,,calendar_factor,,how a price per month or year becomes a price per day
+unit,definition,7,text,1,0,,,,what the unit means
+unit,multiplier,5,numeric,0,0,,,,value_std = value x multiplier; NULL when the calendar decides it
+unit,quantity,2,text,1,0,,unit_quantity,,what one unit of the price is charged per
+unit,unit,1,text,1,1,,,,"the unit as stored, e.g. c/kW/month"
+unit,unit_std,4,text,0,0,,,,"the standard unit value_std is in: cents per day, per kWh or per kVAh"
+value_list,definition,3,text,1,0,,,,what the value means
+value_list,list_name,1,text,1,1,,,,"name of the list, e.g. charge_type"
+value_list,value,2,text,1,1,,,,the value as stored

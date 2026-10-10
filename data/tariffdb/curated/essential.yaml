@@ -4976,6 +4976,7 @@ eligibility:
   fin_year: 2024-25
   rule_type: assignment
   value_text: default
+  applies_to: new_connection
   locator: xlsx:Tariff Details!C6
   quote: Default tariff for all new connections, meter upgrades and new energy resource installations for residential premises
     that have an interval capable (smart) meter.
@@ -4995,6 +4996,7 @@ eligibility:
   fin_year: 2024-25
   rule_type: assignment
   value_text: opt_in
+  applies_to: existing_customer
   locator: xlsx:Tariff Details!C7
   quote: Optional tariff for existing residential premises wholly used as a private dwelling and they have an Interval capable
     (smart) meter.
@@ -5081,6 +5083,7 @@ eligibility:
   fin_year: 2024-25
   rule_type: assignment
   value_text: default
+  applies_to: new_connection
   locator: xlsx:Tariff Details!C13
   quote: Default tariff for all new connections, meter upgrades and new energy resource installations for small business customers
     that have an interval capable (smart) meter and do not exceed 160MWh per year.
@@ -5111,6 +5114,7 @@ eligibility:
   fin_year: 2024-25
   rule_type: assignment
   value_text: opt_in
+  applies_to: existing_customer
   locator: xlsx:Tariff Details!C14
   quote: Optional tariff for existing business premises whose consumption does not exceed 160 MWh per year and they have an
     Interval capable (smart) meter.
@@ -5844,6 +5848,7 @@ eligibility:
   fin_year: 2024-25
   rule_type: assignment
   value_text: default
+  applies_to: new_connection
   locator: pdf:p3
   quote: Default tariff for all new connections, meter upgrades and new energy resource installations for residential premises
     that have an interval capable (smart) meter.
@@ -5863,6 +5868,7 @@ eligibility:
   fin_year: 2024-25
   rule_type: assignment
   value_text: opt_in
+  applies_to: existing_customer
   locator: pdf:p3
   quote: Optional tariff for existing residential premises wholly used as a private dwelling with an Interval capable (smart)
     meter.
@@ -5946,6 +5952,7 @@ eligibility:
   fin_year: 2024-25
   rule_type: assignment
   value_text: default
+  applies_to: new_connection
   locator: pdf:p3
   quote: Default tariff for all new connections, meter upgrades and new energy resource installations for small business customers
     that have an interval capable (smart) meter and do not exceed 160MWh per year.
@@ -5976,6 +5983,7 @@ eligibility:
   fin_year: 2024-25
   rule_type: assignment
   value_text: opt_in
+  applies_to: existing_customer
   locator: pdf:p3
   quote: Optional tariff for existing business premises whose consumption does not exceed 160 MWh per year with an Interval
     capable (smart) meter.
@@ -6457,6 +6465,7 @@ eligibility:
   fin_year: 2025-26
   rule_type: assignment
   value_text: default
+  applies_to: new_connection
   locator: pdf:p3
   quote: Default tariff for all new connections, meter upgrades and new energy resource installations for residential premises
     that have an interval capable (smart) meter.
@@ -6476,6 +6485,7 @@ eligibility:
   fin_year: 2025-26
   rule_type: assignment
   value_text: opt_in
+  applies_to: existing_customer
   locator: pdf:p3
   quote: Optional tariff for existing residential premises wholly used as a private dwelling with an Interval capable (smart)
     meter.
@@ -6559,6 +6569,7 @@ eligibility:
   fin_year: 2025-26
   rule_type: assignment
   value_text: default
+  applies_to: new_connection
   locator: pdf:p3
   quote: Default tariff for all new connections, meter upgrades and new energy resource installations for small business customers
     that have an interval capable (smart) meter and do not exceed 160MWh per year.
@@ -6589,6 +6600,7 @@ eligibility:
   fin_year: 2025-26
   rule_type: assignment
   value_text: opt_in
+  applies_to: existing_customer
   locator: pdf:p3
   quote: Optional tariff for existing business premises whose consumption does not exceed 160 MWh per year with an Interval
     capable (smart) meter.
@@ -7070,6 +7082,7 @@ eligibility:
   fin_year: 2026-27
   rule_type: assignment
   value_text: default
+  applies_to: new_connection
   locator: pdf:p3
   quote: Default tariff for all new connections, meter upgrades and new energy resource installations for residential premises
     that have an interval capable (smart) meter.
@@ -7089,6 +7102,7 @@ eligibility:
   fin_year: 2026-27
   rule_type: assignment
   value_text: opt_in
+  applies_to: existing_customer
   locator: pdf:p3
   quote: Optional tariff for existing residential premises wholly used as a private dwelling with an Interval capable (smart)
     meter.
@@ -7172,6 +7186,7 @@ eligibility:
   fin_year: 2026-27
   rule_type: assignment
   value_text: default
+  applies_to: new_connection
   locator: pdf:p3
   quote: Default tariff for all new connections, meter upgrades and new energy resource installations for small business customers
     that have an interval capable (smart) meter and do not exceed 160MWh per year.
@@ -7202,6 +7217,7 @@ eligibility:
   fin_year: 2026-27
   rule_type: assignment
   value_text: opt_in
+  applies_to: existing_customer
   locator: pdf:p3
   quote: Optional tariff for existing business premises whose consumption does not exceed 160 MWh per year with an Interval
     capable (smart) meter.
@@ -11164,3 +11180,62 @@ charge_rules:
     (lines interleave with the eligibility column): ''Demand charge calculated on the average daily ToU demand for peak, shoulder
     and off-peak periods for the month''; this rule is the off-peak one. BHNS1AO is the price list''s ''HV TOU avg daily Demand''
     (2023-24 xlsx, Price List_Excl GST!B49). The TSS states neither the metering interval nor the days averaged over.'
+rate_units:
+- codes:
+  - BLNDTRS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  component: Demand off peak
+  unit: c/kVA/month
+  locator: pdf:p11
+  quote: ($/kVA/month) applied to the calendar monthly kVA
+  note: 'Explanatory note for THREE RATE DEMAND (''THREE RATE DEMAND are the Demand charges'', same page, verified). BLNDTRS
+    is not printed in 2025-26; 2024-25 list p4 says it ''has now completed the 5 year transition to align rates with BLND3AO''
+    (verified), and AER values equal BLND3AO''s printed $/kVA/M row (p1: 11.7932 10.6700 2.7959, verified): off-peak 2.7959
+    = AER 2.7959. Applies via the class definition, not a per-code print.'
+- codes:
+  - BLNDTRS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  component: Demand peak
+  unit: c/kVA/month
+  locator: pdf:p11
+  quote: ($/kVA/month) applied to the calendar monthly kVA
+  note: As above; peak 11.7932 = BLND3AO printed $/kVA/M peak (p1).
+- codes:
+  - BLNDTRS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2025-26.pdf
+  fin_year: 2025-26
+  component: Demand shoulder
+  unit: c/kVA/month
+  locator: pdf:p11
+  quote: ($/kVA/month) applied to the calendar monthly kVA
+  note: As above; shoulder 10.6700 = BLND3AO printed $/kVA/M shoulder (p1).
+- codes:
+  - BLNDTRS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  component: Demand off peak
+  unit: c/kVA/month
+  locator: pdf:p10
+  quote: ($/kVA/month) applied to the calendar monthly kVA
+  note: 'THREE RATE DEMAND note (same page ''THREE RATE DEMAND are the Demand charges'', verified). BLNDTRS not printed; AER
+    values equal BLND3AO p1 row ''12.0390 10.8924 2.8541'' $/kVA/M (verified): off-peak 2.8541 = AER 2.8541.'
+- codes:
+  - BLNDTRS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  component: Demand peak
+  unit: c/kVA/month
+  locator: pdf:p10
+  quote: ($/kVA/month) applied to the calendar monthly kVA
+  note: As above; peak 12.0390 = BLND3AO printed $/kVA/M peak.
+- codes:
+  - BLNDTRS
+  doc: sources/dnsp/essential/Essential_Price_List_and_Explanatory_Notes_2026-27.pdf
+  fin_year: 2026-27
+  component: Demand shoulder
+  unit: c/kVA/month
+  locator: pdf:p10
+  quote: ($/kVA/month) applied to the calendar monthly kVA
+  note: As above; shoulder 10.8924 = BLND3AO printed $/kVA/M shoulder.

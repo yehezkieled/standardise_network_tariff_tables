@@ -164,6 +164,7 @@ the AER file states none.
 |---|---|---|
 | `tou_schedules` | `tou_window` | when each rate's period applies: `period` = the rate's `tou_period`; a seasonal window has `season` (the rate's) and `season_label` (as printed) |
 | `rate_periods` | `rate.tou_period`, `rate.season` | the period or season of a rate whose price list column names it differently (the rate's note records the change) |
+| `rate_units` | `rate.unit` | the billing period (and kW or kVA) of a demand rate whose price list prints none (`c/kW/?`); with no such fact the build stores `c/kW/period_not_stated` and billcalc blocks it |
 | `conditions` | `rate.condition` | a rate only some sites pay: `opt_in:<name>`, `meter_type:<type>`, `meter_class:<class>` (`a\|b` = either) |
 | `metering` | `rate` (`charge_type` metering) | a network-wide metering schedule row, applied to the codes (or `all`) the document says, with its condition |
 | `charge_rules` | `charge_rule` | how a demand, capacity or export quantity is measured: kW/kVA/kWh, interval, highest or mean of the n highest, reset, minimum, threshold, allowance (`codes: all` for a glossary definition) |
@@ -232,7 +233,7 @@ status and the reason.
 | `load` | CSVs load into SQLite with every key, foreign key and CHECK | a hand edit or a build bug: rebuild; never edit the CSVs |
 | `periods` | one tariff's periods never overlap; rates, windows and criteria sit inside their tariff's period; the document's year holds the period | a wrong `EFFECTIVE_FROM`, or a document registered under the wrong year |
 | `status` | `final` exactly when the document is the distributor's own published list; each rate has its tariff's status and document | a document registered with the wrong side or price status in `sources/inventory.csv` |
-| `units` | each unit is a standard unit that fits its charge type | a parser read the wrong column or unit heading; fix the parser (a real misprint goes in `validate.KNOWN_MISPRINTS` with its evidence) |
+| `units` | the `unit` table is `spec.UNITS`, and each rate's unit measures a quantity its charge type is priced in (the build already stops on a unit outside `spec.UNITS`) | a parser read the wrong column or unit heading; fix the parser, or add a `rate_units` fact for a unit with no stated billing period (a real misprint goes in `validate.KNOWN_MISPRINTS` with its evidence) |
 | `magnitude` | no c/kWh rate outside `critical_peak` exceeds 200 c/kWh unless its note contains `confirmed high rate:` | a parser read a $/kWh cell as c/kWh, or a demand charge as usage; fix the parser (a real high price gets a parser note `confirmed high rate: ...` quoting its evidence) |
 | `blocks` | blocks number 1..n and their lower bounds rise | a block ladder in the curated `steps` that does not match the price list |
 | `tou` | windows of one tariff and period name never overlap on a day type and month | a mistyped window in the curated YAML |
@@ -241,7 +242,7 @@ status and the reason.
 | `aliases` | no provisional tariff is a final tariff of the same distributor and period under another spelling or an alias | the AER spells a code differently: add a rule to `data/tariffdb/code_alias.csv` |
 | `files` | each held document matches its recorded SHA-256 (`--sources`) | the publisher replaced the file: record it as a new version |
 | `values` | each rate's published value is at its cell or PDF page (`--sources`) | the parser or locator is wrong for that row |
-| `quotes` | each eligibility quote is at its locator; each curated YAML validates (`--sources`) | a curated fact does not match its source |
+| `quotes` | each eligibility and tariff_assignment quote is at its locator; each curated YAML validates (`--sources`) | a curated fact does not match its source |
 
 ## Before you commit
 

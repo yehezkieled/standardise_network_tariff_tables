@@ -150,11 +150,13 @@ class TestValidate(unittest.TestCase):
         held = {d["document_id"] for d in rows("source_document")
                 if d["local_path"] and (ROOT / d["local_path"]).exists()}
         expect = {"values": sum(r["document_id"] in held for r in rows("rate")),
-                  "quotes": sum(e["document_id"] in held for e in rows("eligibility"))}
+                  "quotes": sum(e["document_id"] in held for t in ("eligibility", "tariff_assignment")
+                                for e in rows(t))}
         self.assertEqual({k: checked[k] for k in expect}, expect, out)
         self.assertGreater(expect["values"], 0)
         if not COMMITTED_ONLY:
-            self.assertEqual(expect, {"values": len(rows("rate")), "quotes": len(rows("eligibility"))})
+            self.assertEqual(expect, {"values": len(rows("rate")), "quotes": sum(
+                len(rows(t)) for t in ("eligibility", "tariff_assignment"))})
 
     def test_coverage_lists_every_distributor_year(self):
         db = load.load()
@@ -175,8 +177,8 @@ class TestValidate(unittest.TestCase):
         key = f"distributor_id = '{t['distributor_id']}' AND tariff_code = '{t['tariff_code']}'"
         cases = [
             (validate.check_periods, f"INSERT INTO tariff SELECT distributor_id, tariff_code, date(effective_from, "
-                                     f"'+1 day'), effective_to, tariff_name, customer_class, status, document_id "
-                                     f"FROM tariff WHERE {key} AND effective_from = '{t['effective_from']}'"),
+                                     f"'+1 day'), effective_to, tariff_name, customer_class, customer_class_published, "
+                                     f"pricing_basis, status, document_id FROM tariff WHERE {key} AND effective_from = '{t['effective_from']}'"),
             (validate.check_status, f"UPDATE tariff SET status = CASE status WHEN 'final' THEN 'provisional' "
                                     f"ELSE 'final' END WHERE {key}"),
             (validate.check_units, "UPDATE rate SET unit = 'c/kWh' WHERE charge_type = 'daily' AND rowid IN "
@@ -186,8 +188,8 @@ class TestValidate(unittest.TestCase):
             (validate.check_blocks, "UPDATE rate SET block = 3 WHERE block = 2 AND rowid IN "
                                     "(SELECT rowid FROM rate WHERE block = 2 LIMIT 1)"),
             (validate.check_aliases, "INSERT INTO tariff SELECT distributor_id, lower(tariff_code), effective_from, "
-                                     "effective_to, tariff_name, customer_class, 'provisional', document_id FROM "
-                                     "tariff WHERE status = 'final' AND tariff_code <> lower(tariff_code) LIMIT 1"),
+                                     "effective_to, tariff_name, customer_class, customer_class_published, "
+                                     "pricing_basis, 'provisional', document_id FROM tariff WHERE status = 'final' AND tariff_code <> lower(tariff_code) LIMIT 1"),
             (validate.check_tou, "INSERT INTO tou_window SELECT window_id || '-copy', distributor_id, tariff_code, "
                                  "effective_from, effective_to, applies_to, tou_period, period_label, day_type, "
                                  "start_time, end_time, months, season, season_label, time_basis, public_holidays, "
@@ -235,7 +237,7 @@ def parsed_row(side, doc, code, value, fin_year="2025-26", component="Daily char
 
 def doc(document_id, side, status="published", fin_year="2025-26"):
     return {"document_id": document_id, "local_path": f"sources/{document_id}.pdf", "recon_side": side,
-            "price_status": status, "fin_year": fin_year}
+            "price_status": status, "fin_year": fin_year, "document_type": "price_list"}
 
 
 class TestBuildRules(unittest.TestCase):

@@ -4512,6 +4512,7 @@ eligibility:
   fin_year: 2023-24
   rule_type: assignment
   value_text: opt_in
+  applies_to: existing_customer
   locator: pdf:p22
   quote: existing customers with interval meters will remain on their existing tariff (i.e., a flat tariff or IBT as appropriate),
     with the option to opt-in to the transitional demand tariff, demand tariff or STOU tariff.
@@ -5312,3 +5313,920 @@ charge_rules:
     interval of that month consumed in a time period defined as ‘High season Peak’ or ‘Low season Peak’.
   note: Section 5.3 Demand Charges, stated for every tariff priced per kW or kVA. p23 (5.3.2 Demand Metering) adds 'Endeavour Energy
     bills on a 30-minute demand interval.' Demand charges are priced per day (c/kW/day, c/kVA/day) times the days in the calendar month.
+rate_units:
+- codes:
+  - N72
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p7
+  quote: 'Residential Demand Tariff – N72 The Residential Demand tariff consists of the following pricing components: · Network
+    Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and Low-season demand charges ($/kW/month)'
+  note: N72 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    4.0870 -> 408.7 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N73
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p7
+  quote: 'Residential Transitional Demand Tariff – N73 The Residential Transitional Demand tariff consists of the following
+    pricing components: · Network Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and
+    Low-season demand charges ($/kW/month)'
+  note: N73 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    1.0065 -> 100.65 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N92
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p10
+  quote: 'General Supply Demand Tariff – N92 The General Supply Demand (GS Demand) tariff consists of the following pricing
+    components: · Network Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and Low-season
+    demand charges ($/kW/month)'
+  note: N92 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    5.6120 -> 561.2 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N93
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p10
+  quote: 'General Supply Transitional Demand Tariff – N93 The General Supply Transitional Demand (GS Transitional Demand)
+    tariff consists of the following pricing components: · Network Access Charge ($/day); · A flat energy consumption charge
+    (c/kWh); and · High-season and Low-season demand charges ($/kW/month)'
+  note: N93 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    1.0065 -> 100.65 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N19
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p11
+  quote: 'Tariff N19 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N19 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    10.0345 -> 1003.45 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N29
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p12
+  quote: 'Tariff N29 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N29 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    8.6925 -> 869.25 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N39
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p12
+  quote: 'Tariff N39 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N39 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    7.5945 -> 759.45 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - NS19
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p15
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS19 is the obsolete solar (net) variant of N19 ($/kVA/month per N19 description); table row 'Solar (Net) NS19' prints
+    value 10.0345 identical to N19 10.0345; also pricing proposal (sources/archive/endeavour/2019-20/Endeavour_Energy_-_AER_approved_2019-20_Pricing_Proposal_Final_20_May_2019_-_June_2019.pdf
+    pdf:p82, verified) Table A3.5 groups "LV TOU Demand N19 ,NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS19 with kVA)
+- codes:
+  - NS29
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p15
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS29 is the obsolete solar (net) variant of N29 ($/kVA/month per N29 description); table row 'Solar (Net) NS29' prints
+    value 8.6925 identical to N29 8.6925; also pricing proposal (sources/archive/endeavour/2019-20/Endeavour_Energy_-_AER_approved_2019-20_Pricing_Proposal_Final_20_May_2019_-_June_2019.pdf
+    pdf:p82, verified) Table A3.5 groups "LV TOU Demand N19 ,NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS29 with kVA)
+- codes:
+  - NS39
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p15
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS39 is the obsolete solar (net) variant of N39 ($/kVA/month per N39 description); table row 'Solar (Net) NS39' prints
+    value 7.5945 identical to N39 7.5945; also pricing proposal (sources/archive/endeavour/2019-20/Endeavour_Energy_-_AER_approved_2019-20_Pricing_Proposal_Final_20_May_2019_-_June_2019.pdf
+    pdf:p82, verified) Table A3.5 groups "LV TOU Demand N19 ,NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS39 with kVA)
+- codes:
+  - N72
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p7
+  quote: 'Residential Demand Tariff – N72 The Residential Demand tariff consists of the following pricing components: · Network
+    Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and Low-season demand charges ($/kW/month)'
+  note: N72 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    1.2505 -> 125.05 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N73
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p7
+  quote: 'Residential Transitional Demand Tariff – N73 The Residential Transitional Demand tariff consists of the following
+    pricing components: · Network Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and
+    Low-season demand charges ($/kW/month)'
+  note: N73 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    0.3050 -> 30.5 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N92
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p10
+  quote: 'General Supply Demand Tariff – N92 The General Supply Demand (GS Demand) tariff consists of the following pricing
+    components: · Network Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and Low-season
+    demand charges ($/kW/month)'
+  note: N92 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    1.7080 -> 170.8 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N93
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p10
+  quote: 'General Supply Transitional Demand Tariff – N93 The General Supply Transitional Demand (GS Transitional Demand)
+    tariff consists of the following pricing components: · Network Access Charge ($/day); · A flat energy consumption charge
+    (c/kWh); and · High-season and Low-season demand charges ($/kW/month)'
+  note: N93 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    0.3050 -> 30.5 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N19
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p11
+  quote: 'Tariff N19 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N19 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    8.5705 -> 857.05 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N29
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p12
+  quote: 'Tariff N29 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N29 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    8.5705 -> 857.05 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N39
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p12
+  quote: 'Tariff N39 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N39 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    7.5030 -> 750.3 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - NS19
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p15
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS19 is the obsolete solar (net) variant of N19 ($/kVA/month per N19 description); table row 'Solar (Net) NS19' prints
+    value 8.5705 identical to N19 8.5705; also pricing proposal (sources/archive/endeavour/2019-20/Endeavour_Energy_-_AER_approved_2019-20_Pricing_Proposal_Final_20_May_2019_-_June_2019.pdf
+    pdf:p82, verified) Table A3.5 groups "LV TOU Demand N19 ,NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS19 with kVA)
+- codes:
+  - NS29
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p15
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS29 is the obsolete solar (net) variant of N29 ($/kVA/month per N29 description); table row 'Solar (Net) NS29' prints
+    value 8.5705 identical to N29 8.5705; also pricing proposal (sources/archive/endeavour/2019-20/Endeavour_Energy_-_AER_approved_2019-20_Pricing_Proposal_Final_20_May_2019_-_June_2019.pdf
+    pdf:p82, verified) Table A3.5 groups "LV TOU Demand N19 ,NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS29 with kVA)
+- codes:
+  - NS39
+  doc: sources/archive/endeavour/2019-20/NUOS_Price_List_201920_v1.pdf
+  fin_year: 2019-20
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p15
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS39 is the obsolete solar (net) variant of N39 ($/kVA/month per N39 description); table row 'Solar (Net) NS39' prints
+    value 7.5030 identical to N39 7.5030; also pricing proposal (sources/archive/endeavour/2019-20/Endeavour_Energy_-_AER_approved_2019-20_Pricing_Proposal_Final_20_May_2019_-_June_2019.pdf
+    pdf:p82, verified) Table A3.5 groups "LV TOU Demand N19 ,NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS39 with kVA)
+- codes:
+  - N72
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p6
+  quote: 'Residential Demand Tariff – N72 The Residential Demand tariff consists of the following pricing components: · Network
+    Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and Low-season demand charges ($/kW/month)'
+  note: N72 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    4.1610 -> 416.1 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N73
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p6
+  quote: 'Residential Transitional Demand Tariff – N73 The Residential Transitional Demand tariff consists of the following
+    pricing components: · Network Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and
+    Low-season demand charges ($/kW/month)'
+  note: N73 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    1.4600 -> 146 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N92
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p9
+  quote: 'General Supply Demand Tariff – N92 The General Supply Demand (GS Demand) tariff consists of the following pricing
+    components: · Network Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and Low-season
+    demand charges ($/kW/month)'
+  note: N92 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    5.7305 -> 573.05 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N93
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p9
+  quote: 'General Supply Transitional Demand Tariff – N93 The General Supply Transitional Demand (GS Transitional Demand)
+    tariff consists of the following pricing components: · Network Access Charge ($/day); · A flat energy consumption charge
+    (c/kWh); and · High-season and Low-season demand charges ($/kW/month)'
+  note: N93 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    1.6790 -> 167.9 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N19
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p10
+  quote: 'Tariff N19 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N19 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    9.7455 -> 974.55 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N29
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p11
+  quote: 'Tariff N29 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N29 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    9.3440 -> 934.4 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N39
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p11
+  quote: 'Tariff N39 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N39 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    8.0300 -> 803 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - NS19
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p14
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS19 is the obsolete solar (net) variant of N19 ($/kVA/month per N19 description); table row 'Solar (Net) NS19' prints
+    value 9.7455 identical to N19 9.7455; also pricing proposal (sources/archive/endeavour/2020-21/Endeavour_Energy_-_FY21_Pricing_Proposal_-_Revised_0.pdf
+    pdf:p79, verified) Table A3.5 groups "LV TOU Demand N19 , NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS19 with kVA)
+- codes:
+  - NS29
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p14
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS29 is the obsolete solar (net) variant of N29 ($/kVA/month per N29 description); table row 'Solar (Net) NS29' prints
+    value 9.3440 identical to N29 9.3440; also pricing proposal (sources/archive/endeavour/2020-21/Endeavour_Energy_-_FY21_Pricing_Proposal_-_Revised_0.pdf
+    pdf:p79, verified) Table A3.5 groups "LV TOU Demand N19 , NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS29 with kVA)
+- codes:
+  - NS39
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p14
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS39 is the obsolete solar (net) variant of N39 ($/kVA/month per N39 description); table row 'Solar (Net) NS39' prints
+    value 8.0300 identical to N39 8.0300; also pricing proposal (sources/archive/endeavour/2020-21/Endeavour_Energy_-_FY21_Pricing_Proposal_-_Revised_0.pdf
+    pdf:p79, verified) Table A3.5 groups "LV TOU Demand N19 , NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS39 with kVA)
+- codes:
+  - N72
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p6
+  quote: 'Residential Demand Tariff – N72 The Residential Demand tariff consists of the following pricing components: · Network
+    Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and Low-season demand charges ($/kW/month)'
+  note: N72 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    1.2775 -> 127.75 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N73
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p6
+  quote: 'Residential Transitional Demand Tariff – N73 The Residential Transitional Demand tariff consists of the following
+    pricing components: · Network Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and
+    Low-season demand charges ($/kW/month)'
+  note: N73 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    0.4380 -> 43.8 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N92
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p9
+  quote: 'General Supply Demand Tariff – N92 The General Supply Demand (GS Demand) tariff consists of the following pricing
+    components: · Network Access Charge ($/day); · A flat energy consumption charge (c/kWh); and · High-season and Low-season
+    demand charges ($/kW/month)'
+  note: N92 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    1.7520 -> 175.2 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N93
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p9
+  quote: 'General Supply Transitional Demand Tariff – N93 The General Supply Transitional Demand (GS Transitional Demand)
+    tariff consists of the following pricing components: · Network Access Charge ($/day); · A flat energy consumption charge
+    (c/kWh); and · High-season and Low-season demand charges ($/kW/month)'
+  note: N93 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    0.5110 -> 51.1 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N19
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p10
+  quote: 'Tariff N19 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N19 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    8.2125 -> 821.25 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N29
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p11
+  quote: 'Tariff N29 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N29 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    9.2345 -> 923.45 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N39
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p11
+  quote: 'Tariff N39 consists of the following pricing components: · Network Access Charge ($/day); · High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and · High-season and Low-season demand charges ($/kVA/month).'
+  note: N39 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    7.9205 -> 792.05 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - NS19
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p14
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS19 is the obsolete solar (net) variant of N19 ($/kVA/month per N19 description); table row 'Solar (Net) NS19' prints
+    value 8.2125 identical to N19 8.2125; also pricing proposal (sources/archive/endeavour/2020-21/Endeavour_Energy_-_FY21_Pricing_Proposal_-_Revised_0.pdf
+    pdf:p79, verified) Table A3.5 groups "LV TOU Demand N19 , NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS19 with kVA)
+- codes:
+  - NS29
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p14
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS29 is the obsolete solar (net) variant of N29 ($/kVA/month per N29 description); table row 'Solar (Net) NS29' prints
+    value 9.2345 identical to N29 9.2345; also pricing proposal (sources/archive/endeavour/2020-21/Endeavour_Energy_-_FY21_Pricing_Proposal_-_Revised_0.pdf
+    pdf:p79, verified) Table A3.5 groups "LV TOU Demand N19 , NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS29 with kVA)
+- codes:
+  - NS39
+  doc: sources/archive/endeavour/2020-21/NETWORK-PRICE-LIST_NETWORK-TARIFFS-2020-2021_July2020.pdf
+  fin_year: 2020-21
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p14
+  quote: Obsolete (post 1 July Time of Day Definitions) Pricing Options were formulated on the basis of the equivalent Standard
+    Pricing Options
+  note: NS39 is the obsolete solar (net) variant of N39 ($/kVA/month per N39 description); table row 'Solar (Net) NS39' prints
+    value 7.9205 identical to N39 7.9205; also pricing proposal (sources/archive/endeavour/2020-21/Endeavour_Energy_-_FY21_Pricing_Proposal_-_Revised_0.pdf
+    pdf:p79, verified) Table A3.5 groups "LV TOU Demand N19 , NS19" (likewise N29/NS29, N39/NS39); kVA rests on this equivalence
+    (no sentence names NS39 with kVA)
+- codes:
+  - N72
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p7
+  quote: 'Residential Demand Tariff – N72 The Residential Demand tariff consists of the following pricing components: • Network
+    Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and Low-season demand charges ($/kW/month)'
+  note: N72 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    4.4165 -> 441.65 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N73
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p7
+  quote: 'Residential Transitional Demand Tariff – N73 The Residential Transitional Demand tariff consists of the following
+    pricing components: • Network Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and
+    Low-season demand charges ($/kW/month)'
+  note: N73 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    1.9345 -> 193.45 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N92
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p10
+  quote: 'General Supply Demand Tariff – N92 The General Supply Demand (GS Demand) tariff consists of the following pricing
+    components: • Network Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and Low-season
+    demand charges ($/kW/month)'
+  note: N92 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    5.9860 -> 598.6 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N93
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/month
+  locator: pdf:p10
+  quote: 'General Supply Transitional Demand Tariff – N93 The General Supply Transitional Demand (GS Transitional Demand)
+    tariff consists of the following pricing components: • Network Access Charge ($/day); • A flat energy consumption charge
+    (c/kWh); and • High-season and Low-season demand charges ($/kW/month)'
+  note: N93 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    2.3360 -> 233.6 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N19
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p11
+  quote: 'Tariff N19 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges ($/kVA/month).'
+  note: N19 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    9.4535 -> 945.35 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N29
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p12
+  quote: 'Tariff N29 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges ($/kVA/month).'
+  note: N29 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    9.5265 -> 952.65 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N39
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p12
+  quote: 'Tariff N39 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges ($/kVA/month).'
+  note: N39 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    8.1760 -> 817.6 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - NS19
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p31
+  quote: NS19 LV Demand TOU Solar (Net) N19 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS19 -> primary N19 (charged $/kVA/month
+    per N19 description at pdf:p11); published 9.4535 identical to N19 9.4535'
+- codes:
+  - NS29
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p31
+  quote: NS29 HV Demand TOU Solar (Net) N29 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS29 -> primary N29 (charged $/kVA/month
+    per N29 description at pdf:p12); published 9.5265 identical to N29 9.5265'
+- codes:
+  - NS39
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/month
+  locator: pdf:p31
+  quote: NS39 ST Demand TOU Solar (Net) N39 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS39 -> primary N39 (charged $/kVA/month
+    per N39 description at pdf:p12); published 8.1760 identical to N39 8.1760'
+- codes:
+  - N72
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p7
+  quote: 'Residential Demand Tariff – N72 The Residential Demand tariff consists of the following pricing components: • Network
+    Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and Low-season demand charges ($/kW/month)'
+  note: N72 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    1.4965 -> 149.65 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N73
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p7
+  quote: 'Residential Transitional Demand Tariff – N73 The Residential Transitional Demand tariff consists of the following
+    pricing components: • Network Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and
+    Low-season demand charges ($/kW/month)'
+  note: N73 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    0.6570 -> 65.7 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N92
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p10
+  quote: 'General Supply Demand Tariff – N92 The General Supply Demand (GS Demand) tariff consists of the following pricing
+    components: • Network Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and Low-season
+    demand charges ($/kW/month)'
+  note: N92 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    1.9710 -> 197.1 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N93
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/month
+  locator: pdf:p10
+  quote: 'General Supply Transitional Demand Tariff – N93 The General Supply Transitional Demand (GS Transitional Demand)
+    tariff consists of the following pricing components: • Network Access Charge ($/day); • A flat energy consumption charge
+    (c/kWh); and • High-season and Low-season demand charges ($/kW/month)'
+  note: N93 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    0.7665 -> 76.65 c/kW/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N19
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p11
+  quote: 'Tariff N19 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges ($/kVA/month).'
+  note: N19 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    7.9205 -> 792.05 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N29
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p12
+  quote: 'Tariff N29 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges ($/kVA/month).'
+  note: N29 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    9.4170 -> 941.7 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - N39
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p12
+  quote: 'Tariff N39 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges ($/kVA/month).'
+  note: N39 tariff description states its demand charge unit; table heading prints period ('$(kVA or kW)/mth'); published
+    8.0665 -> 806.65 c/kVA/month (x100 from $); same document as the price, so magnitude is identical
+- codes:
+  - NS19
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p31
+  quote: NS19 LV Demand TOU Solar (Net) N19 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS19 -> primary N19 (charged $/kVA/month
+    per N19 description at pdf:p11); published 7.9205 identical to N19 7.9205'
+- codes:
+  - NS29
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p31
+  quote: NS29 HV Demand TOU Solar (Net) N29 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS29 -> primary N29 (charged $/kVA/month
+    per N29 description at pdf:p12); published 9.4170 identical to N29 9.4170'
+- codes:
+  - NS39
+  doc: sources/archive/endeavour/2021-22/Network-Price-List-2021-22_v1.2.pdf
+  fin_year: 2021-22
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/month
+  locator: pdf:p31
+  quote: NS39 ST Demand TOU Solar (Net) N39 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS39 -> primary N39 (charged $/kVA/month
+    per N39 description at pdf:p12); published 8.0665 identical to N39 8.0665'
+- codes:
+  - N72
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/day
+  locator: pdf:p7
+  quote: 'Residential Demand Tariff – N72 The Residential Demand tariff consists of the following pricing components: • Network
+    Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and Low-season demand charges (¢/kW/day)'
+  note: N72 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    15.8400 -> 15.84 c/kW/day; same document as the price, so magnitude is identical
+- codes:
+  - N73
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/day
+  locator: pdf:p7
+  quote: 'Residential Transitional Demand Tariff – N73 The Residential Transitional Demand tariff consists of the following
+    pricing components: • Network Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and
+    Low-season demand charges (¢/kW/day)'
+  note: N73 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    8.1600 -> 8.16 c/kW/day; same document as the price, so magnitude is identical
+- codes:
+  - N92
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/day
+  locator: pdf:p10
+  quote: 'General Supply Demand Tariff – N92 The General Supply Demand (GS Demand) tariff consists of the following pricing
+    components: • Network Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and Low-season
+    demand charges (¢/kW/day)'
+  note: N92 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    21.0000 -> 21 c/kW/day; same document as the price, so magnitude is identical
+- codes:
+  - N93
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kW/day
+  locator: pdf:p10
+  quote: 'General Supply Transitional Demand Tariff – N93 The General Supply Transitional Demand (GS Transitional Demand)
+    tariff consists of the following pricing components: • Network Access Charge ($/day); • A flat energy consumption charge
+    (c/kWh); and • High-season and Low-season demand charges (¢/kW/day)'
+  note: N93 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    10.2000 -> 10.2 c/kW/day; same document as the price, so magnitude is identical
+- codes:
+  - N19
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/day
+  locator: pdf:p11
+  quote: 'Tariff N19 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges (¢/kVA/day).'
+  note: N19 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    34.3685 -> 34.3685 c/kVA/day; same document as the price, so magnitude is identical
+- codes:
+  - N29
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/day
+  locator: pdf:p12
+  quote: 'Tariff N29 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges (¢/kVA/day).'
+  note: N29 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    34.0345 -> 34.0345 c/kVA/day; same document as the price, so magnitude is identical
+- codes:
+  - N39
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/day
+  locator: pdf:p12
+  quote: 'Tariff N39 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges (¢/kVA/day).'
+  note: N39 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    30.0900 -> 30.09 c/kVA/day; same document as the price, so magnitude is identical
+- codes:
+  - NS19
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: NS19 LV Demand TOU Solar (Net) N19 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS19 -> primary N19 (charged c/kVA/day
+    per N19 description at pdf:p11); published 34.3685 identical to N19 34.3685'
+- codes:
+  - NS29
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: NS29 HV Demand TOU Solar (Net) N29 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS29 -> primary N29 (charged c/kVA/day
+    per N29 description at pdf:p12); published 34.0345 identical to N29 34.0345'
+- codes:
+  - NS39
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - High-season (Nov-Mar)
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: NS39 ST Demand TOU Solar (Net) N39 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS39 -> primary N39 (charged c/kVA/day
+    per N39 description at pdf:p12); published 30.0900 identical to N39 30.0900'
+- codes:
+  - N72
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/day
+  locator: pdf:p7
+  quote: 'Residential Demand Tariff – N72 The Residential Demand tariff consists of the following pricing components: • Network
+    Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and Low-season demand charges (¢/kW/day)'
+  note: N72 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    5.8800 -> 5.88 c/kW/day; same document as the price, so magnitude is identical
+- codes:
+  - N73
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/day
+  locator: pdf:p7
+  quote: 'Residential Transitional Demand Tariff – N73 The Residential Transitional Demand tariff consists of the following
+    pricing components: • Network Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and
+    Low-season demand charges (¢/kW/day)'
+  note: N73 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    3.0000 -> 3 c/kW/day; same document as the price, so magnitude is identical
+- codes:
+  - N92
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/day
+  locator: pdf:p10
+  quote: 'General Supply Demand Tariff – N92 The General Supply Demand (GS Demand) tariff consists of the following pricing
+    components: • Network Access Charge ($/day); • A flat energy consumption charge (c/kWh); and • High-season and Low-season
+    demand charges (¢/kW/day)'
+  note: N92 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    7.3200 -> 7.32 c/kW/day; same document as the price, so magnitude is identical
+- codes:
+  - N93
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kW/day
+  locator: pdf:p10
+  quote: 'General Supply Transitional Demand Tariff – N93 The General Supply Transitional Demand (GS Transitional Demand)
+    tariff consists of the following pricing components: • Network Access Charge ($/day); • A flat energy consumption charge
+    (c/kWh); and • High-season and Low-season demand charges (¢/kW/day)'
+  note: N93 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    3.6000 -> 3.6 c/kW/day; same document as the price, so magnitude is identical
+- codes:
+  - N19
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/day
+  locator: pdf:p11
+  quote: 'Tariff N19 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges (¢/kVA/day).'
+  note: N19 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    29.0885 -> 29.0885 c/kVA/day; same document as the price, so magnitude is identical
+- codes:
+  - N29
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/day
+  locator: pdf:p12
+  quote: 'Tariff N29 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges (¢/kVA/day).'
+  note: N29 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    33.5545 -> 33.5545 c/kVA/day; same document as the price, so magnitude is identical
+- codes:
+  - N39
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/day
+  locator: pdf:p12
+  quote: 'Tariff N39 consists of the following pricing components: • Network Access Charge ($/day); • High-season Peak, Low-season
+    Peak and Off Peak energy consumption charges (c/kWh); and • High-season and Low-season demand charges (¢/kVA/day).'
+  note: N39 tariff description states its demand charge unit; table heading prints period ('c/(kVA or kW)/day'); published
+    29.7300 -> 29.73 c/kVA/day; same document as the price, so magnitude is identical
+- codes:
+  - NS19
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: NS19 LV Demand TOU Solar (Net) N19 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS19 -> primary N19 (charged c/kVA/day
+    per N19 description at pdf:p11); published 29.0885 identical to N19 29.0885'
+- codes:
+  - NS29
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: NS29 HV Demand TOU Solar (Net) N29 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS29 -> primary N29 (charged c/kVA/day
+    per N29 description at pdf:p12); published 33.5545 identical to N29 33.5545'
+- codes:
+  - NS39
+  doc: sources/archive/endeavour/2022-23/NUOS-Price-List-202223-v1.0.pdf
+  fin_year: 2022-23
+  component: Demand Charge - Low-season (Apr-Oct)
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: NS39 ST Demand TOU Solar (Net) N39 NESN
+  note: 'Table 11 maps obsolete/combination codes to their equivalent individual codes: NS39 -> primary N39 (charged c/kVA/day
+    per N39 description at pdf:p12); published 29.7300 identical to N39 29.7300'

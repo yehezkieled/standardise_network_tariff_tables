@@ -16564,3 +16564,263 @@ charge_rules:
     window determined by transmission pricing requirements which vary across the State'') is left without a rule and without
     windows. The numbered codes are site-specific rows of Table 31 continued (p60) described as ''Zone Substation kVA Locational''
     / ''Sub Transmission kVA Locational'' [UNSURE: the document does not say in words that they keep this measurement].'
+rate_units:
+- codes:
+  - STN483
+  - ZSN035
+  - ZSN272
+  - ZSN273
+  - ZSS951
+  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
+  fin_year: 2024-25
+  component: Ann Dmnd
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: Demand – $/kVA day Highest average demand interval (30 minutes)
+  note: 'Table 7 Major Business (ZSN/STN) Demand - Anytime Actual is $/kVA day; SAPN 2024-25 Tariff Price List (sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
+    pdf:p6, NUoS site-specific, heading ''Actual/Agreed Annual'' $/kVA/day) prints ZSS035/ZSS272/ZSS273 $0.0812, ZSN951 $0.0812,
+    STR483 $0.0449 = AER ZSN035/ZSN272/ZSN273, ZSS951, STN483 (AER swaps the ZSS/ZSN, STR/STN letters); ZSS766 (AER 0.0812)
+    has no SAPN-printed code [UNSURE: unit taken from its Major Business class]; AER $ x100 -> c/kVA/day (e.g. 0.0812 -> 8.12)'
+- codes:
+  - STN483
+  - ZSN035
+  - ZSN272
+  - ZSN273
+  - ZSS951
+  doc: sources/aer/dnsp_copies/SAPN_2024-25_Annual_Pricing_Proposal_19Apr2024.pdf
+  fin_year: 2024-25
+  component: Ann Dmnd Pk
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: ZSN customers Demand – $/kVA day Agreed demand during a time window
+  note: 'Table 7 Major Business (ZSN/STN) Demand - Peak Agreed is $/kVA day; SAPN 2024-25 Tariff Price List (sources/dnsp/sapn/SAPN_Tariff_Price_List_2024-25_id328119.pdf
+    pdf:p6, NUoS site-specific, heading ''Actual/Agreed Annual'' $/kVA/day) prints ZSS035/ZSS272/ZSS273 $0.2040, ZSN951 $0.2626,
+    STR483 $0.1584 = AER ZSN035/ZSN272/ZSN273, ZSS951, STN483 (AER swaps the ZSS/ZSN, STR/STN letters); ZSS766 (AER 0.2040)
+    has no SAPN-printed code [UNSURE: unit taken from its Major Business class]; AER $ x100 -> c/kVA/day (e.g. 0.2040 -> 20.40)'
+- codes:
+  - MBTOUD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p22
+  quote: Demand – Annual $ /kVA/day Highest 30 minute demand interval during the
+  note: Table 4 (Small Business tariff structures, cont.) MBTOUD row charging-parameter table gives this demand component
+    in $/kVA/day; AER values MBTOUD 0.0842 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns
+    headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBAD
+  - LBADF
+  - LBMD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p25
+  quote: Demand – $/kVA/day Highest 30 minute demand interval during the last
+  note: Table 5 Large LV Business (LBAD/LBADF/LBMD; Anytime Annual / Firm Anytime Agreed) charging-parameter table gives this
+    demand component in $/kVA/day; AER values LBAD 0.0630, LBADF 0.0891, LBMD 0.0630 matches SAPN Table 9 NUoS Tariff Schedule
+    2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - HVAD
+  - HVAD500
+  - HVADF
+  - HVMD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p27
+  quote: Demand – $/kVA/day Highest 30 minute demand interval during the
+  note: Table 6 HV Business (HVAD/HVAD500/HVADF/HVMD) charging-parameter table gives this demand component in $/kVA/day; AER
+    values HVAD 0.0849, HVAD500 0.0630, HVADF 0.1110, HVMD 0.0849 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - ZSS
+  - ZSSF
+  - STR
+  - STRF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p29
+  quote: Demand – $/kVA day Agreed demand determined by the highest 30
+  note: Table 7 Major Business (ZSS/ZSSF/STR/STRF; Anytime Agreed / Firm Anytime Agreed) charging-parameter table gives this
+    demand component in $/kVA/day; AER values ZSS 0.0658, ZSSF 0.0919, STR 0.0274, STRF 0.0535 matches SAPN Table 9 NUoS Tariff
+    Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBG
+  - LBGF
+  - HVBG
+  - HVBGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: Demand – $/kVA/day Highest 30 minute demand interval during the
+  note: Table 8 Large Business Generation (LBG/HVBG, LBGF/HVBGF) charging-parameter table gives this demand component in $/kVA/day;
+    AER values LBG 0.0630, LBGF 0.0891, HVBG 0.0849, HVBGF 0.1110 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - ZSSG
+  - ZSSGF
+  - STRG
+  - STRGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Anytime
+  unit: c/kVA/day
+  locator: pdf:p32
+  quote: Demand – $/kVA day Agreed demand determined by the highest 30
+  note: Table 8 (cont.) Major Business Generation (ZSSG/STRG, ZSSGF/STRGF) charging-parameter table gives this demand component
+    in $/kVA/day; AER values ZSSG 0.0658, ZSSGF 0.0919, STRG 0.0274, STRGF 0.0535 matches SAPN Table 9 NUoS Tariff Schedule
+    2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBADF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Flexible
+  unit: c/kVA/day
+  locator: pdf:p25
+  quote: Demand Flex – $/kVA/day Agreed demand determined by the highest 30
+  note: Table 5 Large LV Business Agreed Demand Flexible charging-parameter table gives this demand component in $/kVA/day;
+    AER values LBADF 0.0445 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day);
+    AER $ x100 -> c/kVA/day
+- codes:
+  - HVADF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Flexible
+  unit: c/kVA/day
+  locator: pdf:p27
+  quote: Demand Flex – $/kVA/day Agreed demand determined by the highest 30
+  note: Table 6 HV Business Agreed Demand Flexible charging-parameter table gives this demand component in $/kVA/day; AER
+    values HVADF 0.0555 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day);
+    AER $ x100 -> c/kVA/day
+- codes:
+  - ZSSF
+  - STRF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Flexible
+  unit: c/kVA/day
+  locator: pdf:p29
+  quote: Demand Flex – $/kVA day Agreed demand determined by the highest 30
+  note: Table 7 Major Business Flexible charging-parameter table gives this demand component in $/kVA/day; AER values ZSSF
+    0.0459, STRF 0.0267 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day);
+    AER $ x100 -> c/kVA/day
+- codes:
+  - LBGF
+  - HVBGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Flexible
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: Demand Flex – $/kVA/day Agreed demand determined by highest 30
+  note: Table 8 Large Business Generation Flexible charging-parameter table gives this demand component in $/kVA/day; AER
+    values LBGF 0.0445, HVBGF 0.0555 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed
+    $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - ZSSGF
+  - STRGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Flexible
+  unit: c/kVA/day
+  locator: pdf:p32
+  quote: Demand Flex – $/kVA day Agreed demand determined by the highest 30
+  note: Table 8 (cont.) Major Business Generation Flexible charging-parameter table gives this demand component in $/kVA/day;
+    AER values ZSSGF 0.0459, STRGF 0.0267 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed
+    $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBAD
+  - LBADF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p25
+  quote: Demand – $/kVA/day Highest daily average demand during the last 12
+  note: Table 5 Large LV Business (Peak Annual / Firm Peak Agreed also $/kVA/day) charging-parameter table gives this demand
+    component in $/kVA/day; AER values LBAD 0.3049, LBADF 0.3049 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - HVAD
+  - HVAD500
+  - HVADF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p27
+  quote: Business Annual Demand – $/kVA/day Highest daily average demand during the last 12
+  note: Table 6 HV Business (Peak Annual / Firm Peak Agreed also $/kVA/day) charging-parameter table gives this demand component
+    in $/kVA/day; AER values HVAD 0.2446, HVAD500 0.3049, HVADF 0.2446 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - ZSS
+  - ZSSF
+  - STR
+  - STRF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p29
+  quote: Demand – $/kVA day Agreed demand determined by the highest 30
+  note: Table 7 Major Business (Peak Agreed / Firm Peak Agreed, $/kVA day) charging-parameter table gives this demand component
+    in $/kVA/day; AER values ZSS 0.1761, ZSSF 0.1761, STR 0.1487, STRF 0.1487 matches SAPN Table 9 NUoS Tariff Schedule 2025-26
+    (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBG
+  - LBGF
+  - HVBG
+  - HVBGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p31
+  quote: Generation| includes Demand – $/kVA/day Highest daily average demand during the last 12
+  note: Table 8 Large Business Generation (Peak Agreed) charging-parameter table gives this demand component in $/kVA/day;
+    AER values LBG 0.3049, LBGF 0.3049, HVBG 0.2446, HVBGF 0.2446 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - ZSSG
+  - ZSSGF
+  - STRG
+  - STRGF
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Annual kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p32
+  quote: Generation | includes Demand – $/kVA day Agreed demand determined by the highest 30
+  note: Table 8 (cont.) Major Business Generation (Peak Agreed) charging-parameter table gives this demand component in $/kVA/day;
+    AER values ZSSG 0.1761, ZSSGF 0.1761, STRG 0.1487, STRGF 0.1487 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37,
+    kVA DEMAND columns headed $/kVA/day); AER $ x100 -> c/kVA/day
+- codes:
+  - LBMD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Monthly kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p25
+  quote: Demand – $ /kVA/day Highest daily average demand during the month
+  note: Table 5 LBMD Demand - Peak Monthly charging-parameter table gives this demand component in $/kVA/day; AER values LBMD
+    1.1055 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 ->
+    c/kVA/day
+- codes:
+  - HVMD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  component: Monthly kVA Demand Peak
+  unit: c/kVA/day
+  locator: pdf:p27
+  quote: Demand – $ /kVA/day Highest daily average demand during the month
+  note: Table 6 HVMD Demand - Peak Monthly charging-parameter table gives this demand component in $/kVA/day; AER values HVMD
+    0.8869 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 ->
+    c/kVA/day

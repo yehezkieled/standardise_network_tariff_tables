@@ -79,6 +79,33 @@ CL_COMPONENT = re.compile(r"\bCL\b|(?<!un)controlled|\bcontrol load\b|dedicated|
 CL_TARIFF = re.compile(r"(?<!un)controlled|dedicated|economy|hot water|off.?peak heating|\bOPCL\b", re.I)
 COMBINED = re.compile(r"[&+,]|\bwith\b|\band\b|general supply|single rate|two rate|residential flat", re.I)
 REGISTER_OF = {"usage": "general", "demand": "general", "capacity": "general", "export": "export"}
+# tariff.customer_class from the published heading: the first pattern its last ' - ' part matches, else the first the
+# whole heading matches; a heading naming only a voltage, a structure ('Anytime Demand') or an unexplained acronym
+# (CAC, SAC, ICC) names no class
+CUSTOMER_CLASS = [
+    ("unmetered", re.compile(r"unmetered", re.I)), ("public_lighting", re.compile(r"street light|public light", re.I)),
+    ("storage", re.compile(r"\bstorage\b", re.I)), ("generation", re.compile(r"generation|^export tariffs", re.I)),
+    ("controlled_load", re.compile(r"(?<!un)controlled", re.I)),
+    ("residential", re.compile(r"residential|domestic", re.I)), ("major_business", re.compile(r"\bmajor\b", re.I)),
+    ("large_business", re.compile(r"\blarge\b", re.I)), ("business", re.compile(r"small (and|&) medium", re.I)),
+    ("medium_business", re.compile(r"\bmedium\b", re.I)), ("small_business", re.compile(r"\bsmall\b", re.I)),
+    ("business", re.compile(r"business|commercial", re.I))]
+SITE_SPECIFIC = re.compile(r"site specific", re.I)
+TRIAL = re.compile(r"\btrials?\b", re.I)
+# a stored unit with '?' (the parser could not read the billing period) becomes period_not_stated unless a curated
+# rate_units fact quotes the unit
+UNCLEAR_UNIT = re.compile(r"^c/(kW|kVA)/(\?|day\?|month\?|year\?)$")
+
+
+def customer_class(heading):
+    """The controlled class a published tariff-class heading names, or None."""
+    if not heading:
+        return None
+    for text in (heading.split(" - ")[-1], heading):
+        for cls, pattern in CUSTOMER_CLASS:
+            if pattern.search(text):
+                return cls
+    return None
 
 
 def slug(s):
@@ -207,13 +234,19 @@ class Builder:
 
     # ------------------------------------------------------------------ reference tables
     def reference(self):
+        for r in spec.value_list_rows():
+            self.add("value_list", r)
+        for r in spec.data_dictionary_rows():
+            self.add("data_dictionary", r)
+        for r in spec.unit_rows():
+            self.add("unit", r)
         for d in bs.DISTRIBUTORS:
             self.add("distributor", {k: d[k] for k in ("distributor_id", "name", "state", "iana_timezone")}
                      | {"observes_dst": int(d["observes_dst"])})
         for d in self.docs:
             self.add("source_document", {
                 "document_id": d["document_id"], "distributor_id": d["distributor_id"], "pricing_year": d["fin_year"],
-                "publisher": d["author"], "document_type": d["document_type"],
+                "publisher": d["author"].lower(), "document_type": d["document_type"],
                 "hosted_by_aer": int(d["recon_side"] == "AER_HOSTED"), "version_label": d["version_label"],
                 "version_seq": d["version_seq"], "price_status": d["price_status"],
                 "published_on": d["publication_date"] or None, "source_url": d["source_url"] or None,
@@ -329,10 +362,15 @@ class Builder:
         self.periods[(did, fy, code)].append((start, end, doc_id, status))
         name = Counter(r["tariff_name"] for r in rows if r["tariff_name"]).most_common(1)
         cls = Counter(r["customer_class"] for r in rows if r["customer_class"]).most_common(1)
+        heading = cls[0][0] if cls else None
+        doc_type = next(x["document_type"] for x in self.docs if x["document_id"] == doc_id)
+        priced = any(r["component"] != NO_PRICES for r in rows)
+        basis = None if not priced else "site_specific" if heading and SITE_SPECIFIC.search(heading) else "trial" \
+            if (heading and TRIAL.search(heading)) or doc_type == "tariff_trial_notification" else "published"
         self.add("tariff", {
             "distributor_id": did, "tariff_code": code, "effective_from": start, "effective_to": end,
-            "tariff_name": name[0][0] if name else None, "customer_class": cls[0][0] if cls else None,
-            "status": status, "document_id": doc_id})
+            "tariff_name": name[0][0] if name else None, "customer_class": customer_class(heading),
+            "customer_class_published": heading, "pricing_basis": basis, "status": status, "document_id": doc_id})
         cl_tariff = bool(name and CL_TARIFF.search(name[0][0]) and not COMBINED.search(name[0][0]))
         for r in sorted(rows, key=lambda r: (r["locator"], r["component"], r["time_band"], r["season"])):
             if r["component"] == NO_PRICES:
@@ -423,6 +461,7 @@ class Builder:
             self.metering_schedules(did, data, f"curated/{name}.yaml")
             self.conditions(did, data, f"curated/{name}.yaml")
             self.rate_periods(did, data, f"curated/{name}.yaml")
+            self.rate_units(did, data, f"curated/{name}.yaml")
             self.charge_rules(did, data, f"curated/{name}.yaml")
 
     def fy_periods(self, did, fy):
@@ -467,6 +506,13 @@ class Builder:
                     r.get("target_code"))
             for named in r["codes"]:
                 for code, start, end in self.code_periods(did, named, r["fin_year"], f"{where} eligibility"):
+                    if r["rule_type"] == "assignment":
+                        self.assignment(did, code, start, doc, r)
+                        continue
+                    if (r["rule_type"], r.get("value_text")) == ("availability", "trial"):
+                        tariff = self.tables["tariff"][(did, code, start)]
+                        if tariff["pricing_basis"] == "published":
+                            tariff["pricing_basis"] = "trial"  # the document says it is a trial tariff
                     if fact in seen[(code, start)]:
                         continue  # the same criterion stated twice (another page or document of the same year)
                     seen[(code, start)].add(fact)
@@ -479,6 +525,17 @@ class Builder:
                         "value_unit": r.get("value_unit"), "value_text": r.get("value_text"),
                         "target_tariff_code": r.get("target_code"), "document_id": doc, "locator": r["locator"],
                         "quote": str(r["quote"])})
+
+    def assignment(self, did, code, start, doc, r):
+        """A tariff_assignment row per quoted statement (the same statement on another page is kept once)."""
+        same = [a for k, a in self.tables["tariff_assignment"].items() if k[:3] == (did, code, start)]
+        if any((a["assignment"], a["applies_to"]) == (r["value_text"], r.get("applies_to")) and a["quote"] ==
+               str(r["quote"]) for a in same):
+            return
+        self.add("tariff_assignment", {
+            "distributor_id": did, "tariff_code": code, "effective_from": start, "assignment_no": len(same) + 1,
+            "assignment": r["value_text"], "applies_to": r.get("applies_to"), "document_id": doc,
+            "locator": r["locator"], "quote": str(r["quote"])})
 
     def blocks(self, did, data, where):
         """Block bounds from the curated block ladders, onto the usage (or export) rates with that block number."""
@@ -571,6 +628,39 @@ class Builder:
                             row["note"] = "; ".join(x for x in (row["note"], f"{' and '.join(said)} from {where} "
                                                                              f"({r['locator']})") if x)
 
+    def rate_units(self, did, data, where):
+        """rate.unit from the curated rate_units: every rate of the codes and year with that component whose stored unit
+        the parser could not complete (a '?' for the billing period, or 'k?' for kW or kVA)."""
+        by_component = defaultdict(list)
+        for row in self.tables["rate"].values():
+            if row["distributor_id"] == did and "?" in row["unit"]:
+                by_component[(row["tariff_code"], row["effective_from"], row["component"])].append(row)
+        for r in data.get("rate_units") or []:
+            for named in r["codes"]:
+                for code, start, _ in self.code_periods(did, named, r["fin_year"], f"{where} rate_units"):
+                    rows = by_component.get((code, start, r["component"]))
+                    if not rows:
+                        self.problems.append(f"{where} rate_units: {code} {r['fin_year']} has no rate "
+                                             f"{r['component']!r} with an unclear unit")
+                    for row in rows or []:
+                        row["note"] = "; ".join(x for x in (row["note"], f"unit {r['unit']} (the parser read "
+                                                            f"{row['unit']}) from {where} ({r['locator']})") if x)
+                        row["unit"] = r["unit"]
+
+    def units(self):
+        """Every rate's unit is one of the unit table: a billing period the parser could not read and no curated fact
+        states becomes period_not_stated; any other unit stops the build."""
+        for r in self.tables["rate"].values():
+            m = UNCLEAR_UNIT.match(r["unit"])
+            if m:
+                r["note"] = "; ".join(x for x in (r["note"], f"billing period not stated (the parser read "
+                                                  f"{r['unit']})") if x)
+                r["unit"] = f"c/{m.group(1)}/period_not_stated"
+            if r["unit"] not in spec.UNITS:
+                raise SystemExit(f"rate {r['distributor_id']} {r['tariff_code']} {r['effective_from']} "
+                                 f"{r['component']!r}: unit {r['unit']!r} is not in spec.UNITS (state it with a "
+                                 f"curated rate_units fact, or add the unit)")
+
     def charge_rules(self, did, data, where):
         """Rules for named codes first; then `codes: all` (a rule the document states for every tariff) fills each
         tariff-period of that year with a rate of the charge type priced in the rule's measure that a named rule did
@@ -635,6 +725,7 @@ class Builder:
         self.metering_rates()
         self.curated_facts()
         self.periods_from_windows()
+        self.units()
         self.rate_ids()
         return self
 

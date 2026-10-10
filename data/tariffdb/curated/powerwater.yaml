@@ -3507,3 +3507,26 @@ charge_rules:
   locator: pdf:p11
   quote: The demand charge is applied to the peak demand within a month, within the peak period.
   note: The proposal prices the demand charge in $/kVA/month; the interval length is not stated.
+rate_units:
+- codes:
+  - Tariff 5
+  - Tariff 6
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  component: Off-season demand charge
+  unit: c/kVA/month
+  locator: pdf:p28
+  quote: ($/kVA/month)
+  note: 'Table 4.3 Demand column heading; rows ''Tariff 5: LV Majors Tariff ... 16.701373 3.929735'' and ''Tariff 6: HV Smart
+    Meters ... 8.841903 2.615405'' (verified) match AER 3.9297 / 2.6154. Charged on highest peak-period demand each month
+    (p15).'
+- codes:
+  - Tariff 5
+  - Tariff 6
+  doc: sources/aer/dnsp_copies/PWC_2026-27_Network_Pricing_Proposal_31Mar2026.pdf
+  fin_year: 2026-27
+  component: On-season demand charge
+  unit: c/kVA/month
+  locator: pdf:p28
+  quote: ($/kVA/month)
+  note: Same Table 4.3; on-season 16.701373 / 8.841903 match AER 16.7014 / 8.8419.

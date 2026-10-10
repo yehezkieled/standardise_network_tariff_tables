@@ -7037,17 +7037,6 @@ eligibility:
   locator: pdf:p26
   quote: < 160MWh workdays Non-peak Medium business opt-out CMGO21 Opt-out ✓ pa
 - codes:
-  - CMG
-  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: CMGO21
-  locator: pdf:p26
-  quote: CMG customers consuming less than 160 MWh pa can opt out of the demand tariff to CMGO21
-- codes:
   - CGTOU
   - CG
   - CMG
@@ -7707,17 +7696,6 @@ eligibility:
   locator: pdf:p11
   quote: CGTOU, CG, CMG and CMGO21 require an active market interval read meter
 - codes:
-  - CMG
-  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
-  fin_year: 2024-25
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: CMGO21
-  locator: pdf:p11
-  quote: CMG customers consuming less than 160 MWh pa can opt out of the demand tariff to CMGO21
-- codes:
   - CLLVT1
   - CLLV1
   - CHVT1
@@ -8122,17 +8100,6 @@ eligibility:
   locator: pdf:p7
   quote: CGTOU, CG, CMG and CMGO21 require an active market interval read meter
 - codes:
-  - CMG
-  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: CMGO21
-  locator: pdf:p7
-  quote: CMG customers consuming less than 160MWh pa can opt out of the demand tariff to CMGO21
-- codes:
   - CGTOU
   - C1G
   - CG
@@ -8290,20 +8257,6 @@ eligibility:
   locator: pdf-ocr:p8
   quote: Default workdays 7am- workdays 7am- Sub-transmission CST2 ≥ 22KV N/A. 5,000 Non-peaktimes 4-7pm 7pm
   note: Table 6 (p8, an image) Status column, read by OCR
-- codes:
-  - CMG
-  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: CMGO21
-  locator: pdf:p11
-  quote: 'Option 2 - "opt-out" of network demand tariff (New tariff code CMGO21) To opt a customer out of a network demand
-    tariff, the following criteria must be satisfied: • A customer’s aggregate consumption must be less than 160MWh per
-    annum'
-  note: 'Also: customer applies to a retailer; retailer supplies an invoice showing a demand component is charged'
 - codes:
   - CLLV1
   - CLLV2
@@ -8495,17 +8448,6 @@ eligibility:
   value_text: interval
   locator: pdf:p7
   quote: CGTOU, CG, CMG, CMGO21 and CFS require an active market interval read meter
-- codes:
-  - CMG
-  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: CMGO21
-  locator: pdf:p7
-  quote: CMG customers consuming less than 160MWh pa can opt out of the demand tariff to CMGO21
 - codes:
   - CG
   - CMG
@@ -10854,3 +10796,62 @@ charge_rules:
   quote: Demand charge ($ per kVA pa x 12 month rolling maximum kVA) / 12
   note: Appendix A.6.1 'Calculation of the kVA demand tariff for a monthly bill', which applies to large low voltage,
     high voltage and sub-transmission customers. The interval is not stated here.
+tariff_links:
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2023-24_wayback.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: CMGO21
+  locator: pdf:p26
+  quote: CMG customers consuming less than 160 MWh pa can opt out of the demand tariff to CMGO21
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: CMGO21
+  locator: pdf:p11
+  quote: CMG customers consuming less than 160 MWh pa can opt out of the demand tariff to CMGO21
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: CMGO21
+  locator: pdf:p7
+  quote: CMG customers consuming less than 160MWh pa can opt out of the demand tariff to CMGO21
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: CMGO21
+  locator: pdf:p11
+  quote: 'Option 2 - "opt-out" of network demand tariff (New tariff code CMGO21) To opt a customer out of a network demand
+    tariff, the following criteria must be satisfied: • A customer’s aggregate consumption must be less than 160MWh per
+    annum'
+  note: 'Also: customer applies to a retailer; retailer supplies an invoice showing a demand component is charged'
+- codes:
+  - CMG
+  doc: sources/dnsp/citipower/CitiPower_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: CMGO21
+  locator: pdf:p7
+  quote: CMG customers consuming less than 160MWh pa can opt out of the demand tariff to CMGO21

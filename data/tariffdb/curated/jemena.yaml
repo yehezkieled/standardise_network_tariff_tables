@@ -9,14 +9,14 @@ tou_schedules:
   covers_full_day: false
   locator: "pdf:p1"
   quote: "Summer period: is the daylight savings period; Non-summer period: All other times Peak Summer/Non-summer: 3 PM to 9 PM local time weekdays Shoulder Summer/Non-summer: 7 AM to 3 PM and 9 PM to 10 PM local time weekdays and 7 AM to 10 PM local time weekends Off peak Summer/Non-summer: 10 PM to 7 AM local time all days"
-  note: "The same hours are stated for summer and non-summer; they are recorded once for each season. Summer is 'the daylight savings period', not whole months, so the months are not_stated."
+  note: "The same hours are stated for summer and non-summer; they are recorded once for each season. Summer is 'the daylight savings period', not whole months: months dst, and non-summer not_dst."
   windows:
   - period: peak
     label: "Peak Summer/Non-summer"
     days: weekday
     start: "15:00"
     end: "21:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -24,7 +24,7 @@ tou_schedules:
     days: weekday
     start: "07:00"
     end: "15:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -32,7 +32,7 @@ tou_schedules:
     days: weekday
     start: "21:00"
     end: "22:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -40,7 +40,7 @@ tou_schedules:
     days: weekend
     start: "07:00"
     end: "22:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -48,7 +48,7 @@ tou_schedules:
     days: weekday
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -56,7 +56,7 @@ tou_schedules:
     days: weekday
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -64,7 +64,7 @@ tou_schedules:
     days: weekend
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -72,7 +72,7 @@ tou_schedules:
     days: weekend
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: peak
@@ -80,7 +80,7 @@ tou_schedules:
     days: weekday
     start: "15:00"
     end: "21:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -88,7 +88,7 @@ tou_schedules:
     days: weekday
     start: "07:00"
     end: "15:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -96,7 +96,7 @@ tou_schedules:
     days: weekday
     start: "21:00"
     end: "22:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -104,7 +104,7 @@ tou_schedules:
     days: weekend
     start: "07:00"
     end: "22:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -112,7 +112,7 @@ tou_schedules:
     days: weekday
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -120,7 +120,7 @@ tou_schedules:
     days: weekday
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -128,7 +128,7 @@ tou_schedules:
     days: weekend
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -136,7 +136,7 @@ tou_schedules:
     days: weekend
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   tariffs:
@@ -383,14 +383,14 @@ tou_schedules:
   covers_full_day: false
   locator: "pdf:p26"
   quote: "Summer period: is the daylight savings period; Non-summer period: All other times Peak Summer/Non-summer: 3 PM to 9 PM local time weekdays Shoulder Summer/Non-summer: 7 AM to 3 PM and 9 PM to 10 PM local time weekdays and 7 AM to 10 PM local time weekends Off peak Summer/Non-summer: 10 PM to 7 AM local time all days"
-  note: "The same hours are stated for summer and non-summer; they are recorded once for each season. Summer is 'the daylight savings period', not whole months, so the months are not_stated."
+  note: "The same hours are stated for summer and non-summer; they are recorded once for each season. Summer is 'the daylight savings period', not whole months: months dst, and non-summer not_dst."
   windows:
   - period: peak
     label: "Peak Summer/Non-summer"
     days: weekday
     start: "15:00"
     end: "21:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -398,7 +398,7 @@ tou_schedules:
     days: weekday
     start: "07:00"
     end: "15:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -406,7 +406,7 @@ tou_schedules:
     days: weekday
     start: "21:00"
     end: "22:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -414,7 +414,7 @@ tou_schedules:
     days: weekend
     start: "07:00"
     end: "22:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -422,7 +422,7 @@ tou_schedules:
     days: weekday
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -430,7 +430,7 @@ tou_schedules:
     days: weekday
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -438,7 +438,7 @@ tou_schedules:
     days: weekend
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -446,7 +446,7 @@ tou_schedules:
     days: weekend
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: peak
@@ -454,7 +454,7 @@ tou_schedules:
     days: weekday
     start: "15:00"
     end: "21:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -462,7 +462,7 @@ tou_schedules:
     days: weekday
     start: "07:00"
     end: "15:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -470,7 +470,7 @@ tou_schedules:
     days: weekday
     start: "21:00"
     end: "22:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -478,7 +478,7 @@ tou_schedules:
     days: weekend
     start: "07:00"
     end: "22:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -486,7 +486,7 @@ tou_schedules:
     days: weekday
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -494,7 +494,7 @@ tou_schedules:
     days: weekday
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -502,7 +502,7 @@ tou_schedules:
     days: weekend
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -510,7 +510,7 @@ tou_schedules:
     days: weekend
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   tariffs:
@@ -761,14 +761,14 @@ tou_schedules:
   covers_full_day: false
   locator: "pdf:p1"
   quote: "Summer period: is the daylight savings period; Non-summer period: All other times Peak Summer/Non-summer: 3 PM to 9 PM local time weekdays Shoulder Summer/Non-summer: 7 AM to 3 PM and 9 PM to 10 PM local time weekdays and 7 AM to 10 PM local time weekends Off peak Summer/Non-summer: 10 PM to 7 AM local time all days"
-  note: "The same hours are stated for summer and non-summer; they are recorded once for each season. Summer is 'the daylight savings period', not whole months, so the months are not_stated."
+  note: "The same hours are stated for summer and non-summer; they are recorded once for each season. Summer is 'the daylight savings period', not whole months: months dst, and non-summer not_dst."
   windows:
   - period: peak
     label: "Peak Summer/Non-summer"
     days: weekday
     start: "15:00"
     end: "21:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -776,7 +776,7 @@ tou_schedules:
     days: weekday
     start: "07:00"
     end: "15:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -784,7 +784,7 @@ tou_schedules:
     days: weekday
     start: "21:00"
     end: "22:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -792,7 +792,7 @@ tou_schedules:
     days: weekend
     start: "07:00"
     end: "22:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -800,7 +800,7 @@ tou_schedules:
     days: weekday
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -808,7 +808,7 @@ tou_schedules:
     days: weekday
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -816,7 +816,7 @@ tou_schedules:
     days: weekend
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -824,7 +824,7 @@ tou_schedules:
     days: weekend
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: peak
@@ -832,7 +832,7 @@ tou_schedules:
     days: weekday
     start: "15:00"
     end: "21:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -840,7 +840,7 @@ tou_schedules:
     days: weekday
     start: "07:00"
     end: "15:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -848,7 +848,7 @@ tou_schedules:
     days: weekday
     start: "21:00"
     end: "22:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -856,7 +856,7 @@ tou_schedules:
     days: weekend
     start: "07:00"
     end: "22:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -864,7 +864,7 @@ tou_schedules:
     days: weekday
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -872,7 +872,7 @@ tou_schedules:
     days: weekday
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -880,7 +880,7 @@ tou_schedules:
     days: weekend
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -888,7 +888,7 @@ tou_schedules:
     days: weekend
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   tariffs:
@@ -1139,14 +1139,14 @@ tou_schedules:
   covers_full_day: false
   locator: "pdf:p1"
   quote: "Summer period: is the daylight savings period; Non-summer period: All other times Peak Summer/Non-summer: 3 PM to 9 PM local time weekdays Shoulder Summer/Non-summer: 7 AM to 3 PM and 9 PM to 10 PM local time weekdays and 7 AM to 10 PM local time weekends Off peak Summer/Non-summer: 10 PM to 7 AM local time all days"
-  note: "The same hours are stated for summer and non-summer; they are recorded once for each season. Summer is 'the daylight savings period', not whole months, so the months are not_stated."
+  note: "The same hours are stated for summer and non-summer; they are recorded once for each season. Summer is 'the daylight savings period', not whole months: months dst, and non-summer not_dst."
   windows:
   - period: peak
     label: "Peak Summer/Non-summer"
     days: weekday
     start: "15:00"
     end: "21:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -1154,7 +1154,7 @@ tou_schedules:
     days: weekday
     start: "07:00"
     end: "15:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -1162,7 +1162,7 @@ tou_schedules:
     days: weekday
     start: "21:00"
     end: "22:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -1170,7 +1170,7 @@ tou_schedules:
     days: weekend
     start: "07:00"
     end: "22:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -1178,7 +1178,7 @@ tou_schedules:
     days: weekday
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -1186,7 +1186,7 @@ tou_schedules:
     days: weekday
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -1194,7 +1194,7 @@ tou_schedules:
     days: weekend
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -1202,7 +1202,7 @@ tou_schedules:
     days: weekend
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: peak
@@ -1210,7 +1210,7 @@ tou_schedules:
     days: weekday
     start: "15:00"
     end: "21:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -1218,7 +1218,7 @@ tou_schedules:
     days: weekday
     start: "07:00"
     end: "15:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -1226,7 +1226,7 @@ tou_schedules:
     days: weekday
     start: "21:00"
     end: "22:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -1234,7 +1234,7 @@ tou_schedules:
     days: weekend
     start: "07:00"
     end: "22:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -1242,7 +1242,7 @@ tou_schedules:
     days: weekday
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -1250,7 +1250,7 @@ tou_schedules:
     days: weekday
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -1258,7 +1258,7 @@ tou_schedules:
     days: weekend
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -1266,7 +1266,7 @@ tou_schedules:
     days: weekend
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   tariffs:
@@ -1517,14 +1517,14 @@ tou_schedules:
   covers_full_day: false
   locator: "pdf:p1"
   quote: "Summer period: is the daylight savings period; Non-summer period: All other times Peak Summer/Non-summer: 3 PM to 9 PM local time weekdays Shoulder Summer/Non-summer: 7 AM to 3 PM and 9 PM to 10 PM local time weekdays and 7 AM to 10 PM local time weekends Off peak Summer/Non-summer: 10 PM to 7 AM local time all days"
-  note: "The same hours are stated for summer and non-summer; they are recorded once for each season. Summer is 'the daylight savings period', not whole months, so the months are not_stated."
+  note: "The same hours are stated for summer and non-summer; they are recorded once for each season. Summer is 'the daylight savings period', not whole months: months dst, and non-summer not_dst."
   windows:
   - period: peak
     label: "Peak Summer/Non-summer"
     days: weekday
     start: "15:00"
     end: "21:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -1532,7 +1532,7 @@ tou_schedules:
     days: weekday
     start: "07:00"
     end: "15:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -1540,7 +1540,7 @@ tou_schedules:
     days: weekday
     start: "21:00"
     end: "22:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: shoulder
@@ -1548,7 +1548,7 @@ tou_schedules:
     days: weekend
     start: "07:00"
     end: "22:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -1556,7 +1556,7 @@ tou_schedules:
     days: weekday
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -1564,7 +1564,7 @@ tou_schedules:
     days: weekday
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -1572,7 +1572,7 @@ tou_schedules:
     days: weekend
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: off_peak
@@ -1580,7 +1580,7 @@ tou_schedules:
     days: weekend
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: dst
     season_label: "Summer period: is the daylight savings period"
     season: summer
   - period: peak
@@ -1588,7 +1588,7 @@ tou_schedules:
     days: weekday
     start: "15:00"
     end: "21:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -1596,7 +1596,7 @@ tou_schedules:
     days: weekday
     start: "07:00"
     end: "15:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -1604,7 +1604,7 @@ tou_schedules:
     days: weekday
     start: "21:00"
     end: "22:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: shoulder
@@ -1612,7 +1612,7 @@ tou_schedules:
     days: weekend
     start: "07:00"
     end: "22:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -1620,7 +1620,7 @@ tou_schedules:
     days: weekday
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -1628,7 +1628,7 @@ tou_schedules:
     days: weekday
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -1636,7 +1636,7 @@ tou_schedules:
     days: weekend
     start: "22:00"
     end: "24:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   - period: off_peak
@@ -1644,7 +1644,7 @@ tou_schedules:
     days: weekend
     start: "00:00"
     end: "07:00"
-    months: not_stated
+    months: not_dst
     season_label: "Non-summer period: All other times"
     season: non_summer
   tariffs:

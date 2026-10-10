@@ -631,7 +631,7 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "tariff period"
+          "description": "first day of the tariff period"
         },
         {
           "name": "assignment_no",
@@ -696,6 +696,149 @@
       ]
     },
     {
+      "name": "tariff_link",
+      "grain": "one stated relation of one tariff period to another tariff code or customer class",
+      "source": "built by scripts/tariffdb/build.py: alias and zone_variant_of from the AER spellings the build stores under the distributor's code (data/tariffdb/code_alias.csv); the rest from data/tariffdb/curated/*.yaml, quoted",
+      "description": "How a tariff relates to others: the AER's spelling of it, the tariff a customer may opt out to, the tariff it replaces, a primary tariff it must sit beside, a tariff it may not be combined with ... linked_code is a code as printed and need not be a stored tariff.",
+      "file": "tables/tariff_link.csv",
+      "primary_key": [
+        "distributor_id",
+        "tariff_code",
+        "effective_from",
+        "link_no"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "distributor_id",
+            "tariff_code",
+            "effective_from"
+          ],
+          "references": "tariff"
+        }
+      ],
+      "checks": [
+        "link_no > 0",
+        "linked_code IS NOT NULL OR link_type IN ('cannot_combine', 'secondary_of', 'primary_of')",
+        "linked_customer_class IS NULL OR linked_code IS NULL",
+        "(locator IS NULL) = (quote IS NULL)",
+        "quote IS NOT NULL OR link_type IN ('alias', 'zone_variant_of')",
+        "document_id IS NOT NULL OR quote IS NULL"
+      ],
+      "columns": [
+        {
+          "name": "distributor_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "distributor.distributor_id",
+          "enum": null,
+          "unit": null,
+          "description": "distributor"
+        },
+        {
+          "name": "tariff_code",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "tariff code"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first day of the tariff period"
+        },
+        {
+          "name": "link_no",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "link number within the tariff period (1 = first)"
+        },
+        {
+          "name": "link_type",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": "link_type",
+          "unit": null,
+          "description": "the relation"
+        },
+        {
+          "name": "linked_code",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the other tariff code as printed; NULL when the link names a class or every other tariff"
+        },
+        {
+          "name": "linked_customer_class",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "customer_class",
+          "unit": null,
+          "description": "the customer class whose tariffs the link names"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "source document version"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "verbatim wording at the locator"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "the code_alias.csv rule, or an exception the statement names"
+        }
+      ]
+    },
+    {
       "name": "rate",
       "grain": "one price of one tariff for one period: charge type x TOU period x season x block",
       "source": "built by scripts/tariffdb/build.py from the parsed price lists (total network price, GST exclusive) and, for block bounds and stated units, data/tariffdb/curated/*.yaml",
@@ -715,12 +858,10 @@
         }
       ],
       "checks": [
-        "effective_from <= effective_to",
         "block IS NULL OR block > 0",
         "block_from IS NULL OR block_to IS NULL OR block_from < block_to",
         "(register IS NULL) = (charge_type IN ('daily', 'metering', 'other'))",
-        "charge_type != 'export' OR register = 'export'",
-        "condition IS NULL OR condition GLOB 'opt_in:[a-z0-9]*' OR condition GLOB 'meter_type:[a-z0-9]*' OR condition GLOB 'meter_class:[a-z0-9]*'"
+        "charge_type != 'export' OR register = 'export'"
       ],
       "columns": [
         {
@@ -761,17 +902,7 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "first day the price applies"
-        },
-        {
-          "name": "effective_to",
-          "type": "date",
-          "nullable": false,
-          "primary_key": false,
-          "references": null,
-          "enum": null,
-          "unit": null,
-          "description": "last day the price applies (inclusive)"
+          "description": "first day of the tariff period"
         },
         {
           "name": "charge_type",
@@ -864,16 +995,6 @@
           "description": "meter register the quantity is measured on: general = general-supply import, controlled_load = a separately metered controlled-load circuit, export = energy sent out; NULL for daily, metering and other charges"
         },
         {
-          "name": "condition",
-          "type": "text",
-          "nullable": true,
-          "primary_key": false,
-          "references": null,
-          "enum": null,
-          "unit": null,
-          "description": "NULL = always charged; opt_in:<name> = only for a customer who opts in to <name>; meter_type:<type> = only at a site with that meter; meter_class:<class> = only at a site in that class of the distributor's metering schedule; a|b = either (curated, quoted in data/tariffdb/curated/*.yaml)"
-        },
-        {
           "name": "value",
           "type": "numeric",
           "nullable": false,
@@ -924,14 +1045,73 @@
           "description": "component label as printed"
         },
         {
-          "name": "status",
+          "name": "locator",
           "type": "text",
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": "status",
+          "enum": null,
           "unit": null,
-          "description": "provisional or final (the tariff's status)"
+          "description": "where in the tariff's document: where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "caveat from the source or the parser"
+        }
+      ]
+    },
+    {
+      "name": "rate_condition",
+      "grain": "one value of one condition a rate is charged under",
+      "source": "data/tariffdb/curated/*.yaml (conditions, metering), quoted from the distributor's documents",
+      "description": "A rate with condition rows is charged only at a site that meets, for each condition kind it names, one of that kind's values (values of one kind are alternatives). A rate with none is always charged.",
+      "file": "tables/rate_condition.csv",
+      "primary_key": [
+        "rate_id",
+        "condition_kind",
+        "value"
+      ],
+      "foreign_keys": [],
+      "checks": [
+        "value GLOB '[a-z0-9]*' AND value NOT GLOB '*[^a-z0-9_]*'",
+        "condition_kind != 'meter_type' OR value IN ('interval', 'smart', 'basic', 'accumulation', 'unmetered', 'any')"
+      ],
+      "columns": [
+        {
+          "name": "rate_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "rate.rate_id",
+          "enum": null,
+          "unit": null,
+          "description": "the rate"
+        },
+        {
+          "name": "condition_kind",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": "condition_kind",
+          "unit": null,
+          "description": "what the site must have or do"
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "opt_in: the offer's name; meter_type: a meter_type_value; meter_class: the class in the distributor's metering schedule (lower case, underscores)"
         },
         {
           "name": "document_id",
@@ -954,52 +1134,38 @@
           "description": "where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
         },
         {
-          "name": "note",
+          "name": "quote",
           "type": "text",
-          "nullable": true,
+          "nullable": false,
           "primary_key": false,
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "caveat from the source or the parser"
+          "description": "verbatim wording at the locator"
         }
       ]
     },
     {
-      "name": "tou_window",
-      "grain": "one time window that one tariff's charges use, for one period",
+      "name": "window_set",
+      "grain": "one stated time-of-use schedule: the windows one passage of one document sets out",
       "source": "data/tariffdb/curated/*.yaml (tou_schedules), as stated in the distributor's documents",
-      "description": "When each time-of-use period applies: day type, start and end time, months. Times are local clock times as the document states them.",
-      "file": "tables/tou_window.csv",
+      "description": "A named set of time windows, with the clock its times refer to and how public holidays are priced, as the document states them. Tariffs use it through tariff_window_set; its windows are in time_window and its seasons in season.",
+      "file": "tables/window_set.csv",
       "primary_key": [
-        "window_id"
+        "window_set_id"
       ],
-      "foreign_keys": [
-        {
-          "columns": [
-            "distributor_id",
-            "tariff_code",
-            "effective_from"
-          ],
-          "references": "tariff"
-        }
-      ],
-      "checks": [
-        "effective_from <= effective_to",
-        "start_time < end_time",
-        "months IS NOT NULL OR season_label IS NOT NULL",
-        "season IS NULL OR season_label IS NOT NULL"
-      ],
+      "foreign_keys": [],
+      "checks": [],
       "columns": [
         {
-          "name": "window_id",
+          "name": "window_set_id",
           "type": "text",
           "nullable": false,
           "primary_key": true,
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "<distributor_id>:<tariff_code>:<effective_from>:<applies_to>:<tou_period>:<day_type>:<start>-<end>:<months> (season-<season> or months-not-stated when the document names the season without its months)"
+          "description": "slug, unique across distributors (the curated schedule id)"
         },
         {
           "name": "distributor_id",
@@ -1012,44 +1178,292 @@
           "description": "distributor"
         },
         {
-          "name": "tariff_code",
+          "name": "name",
           "type": "text",
           "nullable": false,
           "primary_key": false,
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "tariff code"
+          "description": "what the windows are for, as the curator names them"
         },
         {
-          "name": "effective_from",
-          "type": "date",
+          "name": "covers_full_day",
+          "type": "boolean",
           "nullable": false,
           "primary_key": false,
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "first day the window applies"
+          "description": "1 when the windows partition each day type they name over 24 hours"
         },
         {
-          "name": "effective_to",
-          "type": "date",
-          "nullable": false,
-          "primary_key": false,
-          "references": null,
-          "enum": null,
-          "unit": null,
-          "description": "last day the window applies (inclusive)"
-        },
-        {
-          "name": "applies_to",
+          "name": "time_basis",
           "type": "text",
           "nullable": false,
           "primary_key": false,
           "references": null,
-          "enum": "tou_applies",
+          "enum": "time_basis",
           "unit": null,
-          "description": "which charges of the tariff the window prices"
+          "description": "clock the times refer to, as stated"
+        },
+        {
+          "name": "public_holidays",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": "holiday_rule",
+          "unit": null,
+          "description": "how public holidays are priced, as stated"
+        },
+        {
+          "name": "document_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "source_document.document_id",
+          "enum": null,
+          "unit": null,
+          "description": "source document version"
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "verbatim wording at the locator"
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "caveat from the curator"
+        }
+      ]
+    },
+    {
+      "name": "season",
+      "grain": "one season of one window set: a named rate season, or the months windows apply in",
+      "source": "data/tariffdb/curated/*.yaml (the months and season of each window)",
+      "description": "The part of the year a window set's windows apply in. season is the rate.season it prices (NULL = the windows belong to no rate season); its dates are season_part rows. A season with no parts is one the document names without its dates.",
+      "file": "tables/season.csv",
+      "primary_key": [
+        "season_id"
+      ],
+      "foreign_keys": [],
+      "checks": [
+        "season IS NULL OR season_label IS NOT NULL"
+      ],
+      "columns": [
+        {
+          "name": "season_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<window_set_id>:<season or any>:<months, dst, not-dst or months-not-stated>"
+        },
+        {
+          "name": "window_set_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "window_set.window_set_id",
+          "enum": null,
+          "unit": null,
+          "description": "window set"
+        },
+        {
+          "name": "season",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "season",
+          "unit": null,
+          "description": "the rate.season the windows price; NULL = no rate season"
+        },
+        {
+          "name": "season_label",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "season name as published"
+        }
+      ]
+    },
+    {
+      "name": "season_part",
+      "grain": "one span of dates of one season, repeating every year",
+      "source": "data/tariffdb/curated/*.yaml (the months of each window)",
+      "description": "A span of a season, from a start day to an end day (inclusive), each a calendar day or the day daylight saving starts or ends. A span may wrap the year end (1 November to 31 March).",
+      "file": "tables/season_part.csv",
+      "primary_key": [
+        "season_id",
+        "part_no"
+      ],
+      "foreign_keys": [],
+      "checks": [
+        "part_no > 0",
+        "(start_month IS NULL) = (start_day IS NULL)",
+        "(end_month IS NULL) = (end_day IS NULL)",
+        "(start_month IS NULL) = (start_anchor IS NOT NULL)",
+        "(end_month IS NULL) = (end_anchor IS NOT NULL)",
+        "start_month IS NULL OR start_month BETWEEN 1 AND 12",
+        "end_month IS NULL OR end_month BETWEEN 1 AND 12",
+        "start_day IS NULL OR start_day BETWEEN 1 AND 31",
+        "end_day IS NULL OR end_day BETWEEN 1 AND 31"
+      ],
+      "columns": [
+        {
+          "name": "season_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "season.season_id",
+          "enum": null,
+          "unit": null,
+          "description": "season"
+        },
+        {
+          "name": "part_no",
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "span number within the season (1 = first)"
+        },
+        {
+          "name": "start_month",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "month of the first day; NULL with start_anchor"
+        },
+        {
+          "name": "start_day",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "day of month of the first day"
+        },
+        {
+          "name": "start_anchor",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "season_anchor",
+          "unit": null,
+          "description": "the first day is a daylight-saving changeover"
+        },
+        {
+          "name": "end_month",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "month of the last day; NULL with end_anchor"
+        },
+        {
+          "name": "end_day",
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "day of month of the last day (29 for February: the last day in any year)"
+        },
+        {
+          "name": "end_anchor",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": "season_anchor",
+          "unit": null,
+          "description": "the span ends the day before this daylight-saving changeover"
+        }
+      ]
+    },
+    {
+      "name": "time_window",
+      "grain": "one time window of one window set",
+      "source": "data/tariffdb/curated/*.yaml (tou_schedules windows)",
+      "description": "When one time-of-use period applies: day type, start and end time, in a season of the set. Times are local clock times as the document states them (window_set.time_basis).",
+      "file": "tables/time_window.csv",
+      "primary_key": [
+        "window_id"
+      ],
+      "foreign_keys": [],
+      "checks": [
+        "start_time < end_time",
+        "quote IS NULL OR locator IS NOT NULL"
+      ],
+      "columns": [
+        {
+          "name": "window_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "<season_id>:<tou_period>:<day_type>:<start>-<end>"
+        },
+        {
+          "name": "window_set_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "window_set.window_set_id",
+          "enum": null,
+          "unit": null,
+          "description": "window set"
+        },
+        {
+          "name": "season_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": false,
+          "references": "season.season_id",
+          "enum": null,
+          "unit": null,
+          "description": "the season the window applies in"
         },
         {
           "name": "tou_period",
@@ -1102,74 +1516,123 @@
           "description": "exclusive; 24:00 = midnight at the end of the day"
         },
         {
-          "name": "months",
+          "name": "locator",
           "type": "text",
           "nullable": true,
           "primary_key": false,
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "comma-separated months 1-12; NULL when the source names a season without its months"
+          "description": "where the window is stated, when not at the set's locator"
         },
         {
-          "name": "season",
-          "type": "text",
-          "nullable": true,
-          "primary_key": false,
-          "references": null,
-          "enum": "season",
-          "unit": null,
-          "description": "the rate.season the window belongs to; NULL = every season"
-        },
-        {
-          "name": "season_label",
+          "name": "quote",
           "type": "text",
           "nullable": true,
           "primary_key": false,
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "season name as published"
-        },
+          "description": "verbatim wording at that locator, when the curator quoted it"
+        }
+      ]
+    },
+    {
+      "name": "tariff_window_set",
+      "grain": "one window set used by one charge group of one tariff period",
+      "source": "data/tariffdb/curated/*.yaml (tou_schedules tariffs)",
+      "description": "Which window sets say when a tariff's usage, demand, export or controlled-load rates apply.",
+      "file": "tables/tariff_window_set.csv",
+      "primary_key": [
+        "distributor_id",
+        "tariff_code",
+        "effective_from",
+        "window_set_id",
+        "applies_to"
+      ],
+      "foreign_keys": [
         {
-          "name": "time_basis",
+          "columns": [
+            "distributor_id",
+            "tariff_code",
+            "effective_from"
+          ],
+          "references": "tariff"
+        }
+      ],
+      "checks": [
+        "quote IS NULL OR locator IS NOT NULL"
+      ],
+      "columns": [
+        {
+          "name": "distributor_id",
           "type": "text",
           "nullable": false,
-          "primary_key": false,
-          "references": null,
-          "enum": "time_basis",
-          "unit": null,
-          "description": "clock the times refer to, as stated"
-        },
-        {
-          "name": "public_holidays",
-          "type": "text",
-          "nullable": false,
-          "primary_key": false,
-          "references": null,
-          "enum": "holiday_rule",
-          "unit": null,
-          "description": "how public holidays are treated"
-        },
-        {
-          "name": "document_id",
-          "type": "text",
-          "nullable": false,
-          "primary_key": false,
-          "references": "source_document.document_id",
+          "primary_key": true,
+          "references": "distributor.distributor_id",
           "enum": null,
           "unit": null,
-          "description": "source document version"
+          "description": "distributor"
+        },
+        {
+          "name": "tariff_code",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "tariff code"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "first day of the tariff period"
+        },
+        {
+          "name": "window_set_id",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": "window_set.window_set_id",
+          "enum": null,
+          "unit": null,
+          "description": "window set"
+        },
+        {
+          "name": "applies_to",
+          "type": "text",
+          "nullable": false,
+          "primary_key": true,
+          "references": null,
+          "enum": "tou_applies",
+          "unit": null,
+          "description": "which charges of the tariff the set's windows price"
         },
         {
           "name": "locator",
           "type": "text",
-          "nullable": false,
+          "nullable": true,
           "primary_key": false,
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in scripts/tariffdb/locators.py)"
+          "description": "where the document names the tariff for the set, when not at the set's locator"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "nullable": true,
+          "primary_key": false,
+          "references": null,
+          "enum": null,
+          "unit": null,
+          "description": "verbatim wording at that locator"
         }
       ]
     },
@@ -1193,8 +1656,8 @@
         }
       ],
       "checks": [
-        "effective_from <= effective_to",
-        "value_num IS NOT NULL OR value_text IS NOT NULL OR target_tariff_code IS NOT NULL",
+        "criterion_group > 0",
+        "value_num IS NOT NULL OR value_text IS NOT NULL",
         "(value_num IS NULL) = (operator IS NULL)",
         "(value_num IS NULL) = (value_unit IS NULL)",
         "criterion != 'customer_type' OR value_text IS NULL OR value_text IN ('residential', 'small_business', 'medium_business', 'large_business', 'business', 'unmetered', 'public_lighting', 'embedded_generation', 'controlled_load', 'storage', 'ev_charging', 'any')",
@@ -1242,17 +1705,17 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "first day the criterion applies"
+          "description": "first day of the tariff period"
         },
         {
-          "name": "effective_to",
-          "type": "date",
+          "name": "criterion_group",
+          "type": "integer",
           "nullable": false,
           "primary_key": false,
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "last day the criterion applies (inclusive)"
+          "description": "alternative routes onto the tariff: a site qualifies when every criterion of one group holds (criteria of one kind within a group are alternatives); 1 when the document states no alternatives"
         },
         {
           "name": "criterion",
@@ -1303,16 +1766,6 @@
           "enum": null,
           "unit": null,
           "description": "categorical value (residential, LV, interval, closed_to_new ...); the <criterion>_value list for a categorical criterion, as stated for other"
-        },
-        {
-          "name": "target_tariff_code",
-          "type": "text",
-          "nullable": true,
-          "primary_key": false,
-          "references": null,
-          "enum": null,
-          "unit": null,
-          "description": "tariff referred to (opt-out target, required companion)"
         },
         {
           "name": "document_id",
@@ -1366,7 +1819,6 @@
         }
       ],
       "checks": [
-        "effective_from <= effective_to",
         "(n IS NULL) = (method NOT IN ('avg_top_n_days', 'avg_top_n_intervals', 'avg_nominated_days'))",
         "allowance_rollover IS NULL OR allowance_per_day IS NOT NULL"
       ],
@@ -1409,17 +1861,7 @@
           "references": null,
           "enum": null,
           "unit": null,
-          "description": "first day the rule applies"
-        },
-        {
-          "name": "effective_to",
-          "type": "date",
-          "nullable": false,
-          "primary_key": false,
-          "references": null,
-          "enum": null,
-          "unit": null,
-          "description": "last day the rule applies (inclusive)"
+          "description": "first day of the tariff period"
         },
         {
           "name": "charge_type",

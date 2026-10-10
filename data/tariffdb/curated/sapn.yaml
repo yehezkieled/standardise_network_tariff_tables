@@ -10201,18 +10201,6 @@ eligibility:
     of kVA
   note: Customer choice (opt-in) range '0-160 MWh p.a. regardless of kVA'.
 - codes:
-  - MBTOUD
-  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  target_code: SBTOU
-  locator: pdf:p4
-  quote: 'Medium Business Time of Use Demand: This tariff is for customers with usage between 40- 160MWh per annum. It features
-    a higher daily supply charge but a lower-priced usage charge to reflect higher consumption volumes. Customers can choose
-    to opt-in to Small Business Time of Use tariff.'
-  note: Section 2 (pdf:p16) names the tariffs 'Medium Business Time of Use Demand (MBTOUD)' and 'Small Business Time of Use
-    (SBTOU)'.
-- codes:
   - SBELE
   doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
   fin_year: 2025-26
@@ -11492,18 +11480,6 @@ eligibility:
     or Shoulder windows. 0-160 MWh p.a. Demand – Annual $/kVA/day Highest 30 minute demand interval during the regardless
     of kVA
   note: Customer choice (opt-in) range '0-160 MWh p.a. regardless of kVA'.
-- codes:
-  - MBTOUD
-  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  target_code: SBTOU
-  locator: pdf:p4
-  quote: 'Medium Business Time of Use Demand: This tariff is for customers with usage between 40- 160MWh per annum. It features
-    a higher daily supply charge but a lower-priced usage charge to reflect higher consumption volumes. Customers can choose
-    to opt-in to Small Business Time of Use tariff.'
-  note: Section 2 (pdf:p16) names the tariffs 'Medium Business Time of Use Demand (MBTOUD)' and 'Small Business Time of Use
-    (SBTOU)'.
 - codes:
   - SBELE
   doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
@@ -16824,3 +16800,28 @@ rate_units:
   note: Table 6 HVMD Demand - Peak Monthly charging-parameter table gives this demand component in $/kVA/day; AER values HVMD
     0.8869 matches SAPN Table 9 NUoS Tariff Schedule 2025-26 (pdf:p37, kVA DEMAND columns headed $/kVA/day); AER $ x100 ->
     c/kVA/day
+tariff_links:
+- codes:
+  - MBTOUD
+  doc: sources/aer/dnsp_copies/SAPN_2025-26_Pricing_Proposal_Overview_14May2025.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  linked_code: SBTOU
+  locator: pdf:p4
+  quote: 'Medium Business Time of Use Demand: This tariff is for customers with usage between 40- 160MWh per annum. It features
+    a higher daily supply charge but a lower-priced usage charge to reflect higher consumption volumes. Customers can choose
+    to opt-in to Small Business Time of Use tariff.'
+  note: Section 2 (pdf:p16) names the tariffs 'Medium Business Time of Use Demand (MBTOUD)' and 'Small Business Time of Use
+    (SBTOU)'.
+- codes:
+  - MBTOUD
+  doc: sources/dnsp/sapn/SAPN_Initial_Pricing_Proposal_Overview_2025-26_id333252.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  linked_code: SBTOU
+  locator: pdf:p4
+  quote: 'Medium Business Time of Use Demand: This tariff is for customers with usage between 40- 160MWh per annum. It features
+    a higher daily supply charge but a lower-priced usage charge to reflect higher consumption volumes. Customers can choose
+    to opt-in to Small Business Time of Use tariff.'
+  note: Section 2 (pdf:p16) names the tariffs 'Medium Business Time of Use Demand (MBTOUD)' and 'Small Business Time of Use
+    (SBTOU)'.

@@ -144,7 +144,7 @@ def flow():
             "    B --> P",
             "    D[\"Distributor's own<br/>price list\"] --> F((final))",
             "    P -.->|replaced per tariff code| F",
-            "    D --> W[\"TOU windows<br/>eligibility\"]",
+            "    D --> W[\"window sets<br/>eligibility\"]",
             "```"]
 
 
@@ -158,12 +158,13 @@ def history():
     return [
         "## History", "",
         *md_table(["What", "How"], [
-            ("A price over time", "one `tariff` + `rate` rows per period (`effective_from` .. `effective_to`, "
-                                  "inclusive)"),
+            ("A price over time", "one `tariff` row per period (`effective_from` .. `effective_to`, inclusive); "
+                                  "its rates, windows and criteria carry the tariff's key, not their own dates"),
             ("A new year", "new rows; earlier years stay"),
             ("A mid-year change", "the old period ends the day before; a new period starts that day"),
-            ("AER → distributor", "the distributor's list replaces the AER rows of each code it prices (`status` "
-                                  "provisional → final)"),
+            ("AER → distributor", "the distributor's list replaces the AER rows of each code it prices "
+                                  "(`tariff.status` provisional → final); the AER's spelling stays as a `tariff_link` "
+                                  "alias"),
             ("Replaced provisional rates", "in git history of `rate.csv`"),
             ("Every document version", "a `source_document` row, kept for good"),
         ]), "",
@@ -173,7 +174,7 @@ def history():
 def walk(data):
     did, code, fy, date = WALK["distributor_id"], WALK["tariff_code"], WALK["fin_year"], WALK["date"]
     key = f"distributor_id = '{did}' AND tariff_code = '{code}'"
-    on = f"'{date}' BETWEEN effective_from AND effective_to"
+    on = f"effective_from = (SELECT effective_from FROM tariff WHERE {key}\n  AND '{date}' BETWEEN effective_from AND effective_to)"
     steps = [
         ("Distributor", f"SELECT name, state, iana_timezone, observes_dst FROM distributor WHERE distributor_id = "
                         f"'{did}';"),
@@ -182,12 +183,16 @@ def walk(data):
         (f"Documents for {fy}", f"SELECT document_id, publisher, version_label, price_status, published_on\n"
                                 f"FROM source_document WHERE pricing_year = '{fy}'\n"
                                 f"  AND (distributor_id = '{did}' OR distributor_id IS NULL) ORDER BY published_on;"),
-        (f"Rates on {date}", f"SELECT charge_type, tou_period, value, unit, component, status, locator\n"
-                             f"FROM rate WHERE {key} AND {on} ORDER BY charge_type, tou_period;"),
-        (f"TOU windows on {date}", f"SELECT applies_to, tou_period, day_type, start_time, end_time, months\n"
-                                   f"FROM tou_window WHERE {key} AND {on} ORDER BY applies_to, start_time;"),
-        (f"Eligibility on {date}", f"SELECT criterion, operator, value_num, value_unit, value_text, quote\n"
-                                   f"FROM eligibility WHERE {key} AND {on} ORDER BY criterion_id;"),
+        (f"Rates on {date}", f"SELECT charge_type, tou_period, value, unit, component, locator\n"
+                             f"FROM rate WHERE {key} AND {on}\nORDER BY charge_type, tou_period;"),
+        (f"TOU windows on {date}", f"SELECT l.applies_to, w.tou_period, w.day_type, w.start_time, w.end_time, "
+                                   f"s.season_label, p.start_month, p.end_month\n"
+                                   f"FROM tariff_window_set l JOIN time_window w USING (window_set_id)\n"
+                                   f"JOIN season s USING (season_id) LEFT JOIN season_part p USING (season_id)\n"
+                                   f"WHERE l.{key.replace(' AND ', ' AND l.')} AND l.{on}\n"
+                                   f"ORDER BY l.applies_to, w.start_time;"),
+        (f"Eligibility on {date}", f"SELECT criterion_group, criterion, operator, value_num, value_unit, value_text, "
+                                   f"quote\nFROM eligibility WHERE {key} AND {on} ORDER BY criterion_id;"),
     ]
     out = ["## Walk-through", "",
            f"`{code}`, {data.db.execute('SELECT name FROM distributor WHERE distributor_id = ?', (did,)).fetchone()[0]}"
@@ -275,7 +280,8 @@ def markdown(data):
 
 # --------------------------------------------------------------------------------------------------------- svg
 # Light, self-contained palette: the SVG is shown as an image, so it carries its own background in either theme.
-COLOURS = {"distributor": "#2563eb", "source_document": "#d97706", "tariff": "#059669", "unit": "#7c3aed"}
+COLOURS = {"distributor": "#2563eb", "source_document": "#d97706", "tariff": "#059669", "unit": "#7c3aed",
+           "rate": "#dc2626", "window_set": "#0891b2", "season": "#db2777"}
 
 
 def erd_svg(data):

@@ -25,20 +25,28 @@ tou_schedules:
     [note: ...]
     windows:
       - {period: <spec.TOU_PERIODS>, label: <as published>, days: <spec.DAY_TYPES>, start: "HH:MM", end: "HH:MM",
-         [months: "all" | "11,12,1,2,3" | not_stated], [season: <spec.SEASONS>, season_label: <as published>],
+         [months: "all" | "11,12,1,2,3" | dst | not_dst | not_stated], [season: <spec.SEASONS>,
+         season_label: <as published>],
          [locator: ..., quote: ...]}
     (period is the rate.tou_period the window prices, so windows and rates join; season is the rate.season it belongs
     to, with the season named as published in season_label; omit months only when the source names no season;
-    not_stated = the source names a season but not its months)
+    not_stated = the source names a season but not its months; dst / not_dst = the source defines the season as the
+    daylight-saving period / the rest of the year)
     tariffs:
       - {codes: [<code>, ...], applies_to: <spec.TOU_APPLIES>, [locator, quote]}
 eligibility:
-  - {codes: [...], doc, fin_year, rule_type: <spec.CRITERIA> | assignment, [operator: <spec.OPERATORS>],
+  - {codes: [...], doc, fin_year, rule_type: <spec.CRITERIA> | assignment, [group: 1], [operator: <spec.OPERATORS>],
      [value_num: 40], [value_unit: <spec.THRESHOLD_UNITS>], [value_text: <spec.CRITERION_VALUES[rule_type] when listed;
-     spec.ASSIGNMENTS for assignment>], [target_code: <code>], [applies_to: <spec.ASSIGNMENT_GROUPS> (assignment
+     spec.ASSIGNMENTS for assignment>], [applies_to: <spec.ASSIGNMENT_GROUPS> (assignment
      only: the customers the quote names)], locator, quote, [column_locator, column_quote], [note]}
     (column_* quotes the column header when the quote is a bare table row, e.g. a 'Yes' under 'Closed to New Entrants';
-    rule_type assignment loads into tariff_assignment, the rest into eligibility)
+    rule_type assignment loads into tariff_assignment, the rest into eligibility; group numbers alternative routes onto
+    the tariff the document states ('option 1 ... option 2'): a site qualifies when every criterion of one group holds)
+tariff_links:
+  - {codes: [...], doc, fin_year, link_type: <spec.LINK_TYPES but alias and zone_variant_of>, [linked_code: <code>],
+     [linked_customer_class: <spec.CUSTOMER_CLASSES>], locator, quote, [note]}
+    (a relation the document states between the tariff and another code, or the tariffs of a customer class:
+    opt_out_to, replaces, secondary_of ...; cannot_combine with neither linked_* = with any other tariff)
 steps:
   - {codes: [...], doc, fin_year, step_group: <quantity as named>, component_label, step_index: 1, lower_bound: 0,
      [upper_bound: 60], lower_inclusive: true, upper_inclusive: true, quantity_unit: kWh,
@@ -102,8 +110,10 @@ DAY_TYPE_DAYS = {"weekday": DAYS[:5], "business_day": DAYS[:5], "weekend": DAYS[
                  "all_days": DAYS}
 
 
-SECTIONS = ("distributor", "tou_schedules", "eligibility", "steps", "conditions", "metering", "rate_periods",
-            "rate_units", "charge_rules")
+SECTIONS = ("distributor", "tou_schedules", "eligibility", "tariff_links", "steps", "conditions", "metering",
+            "rate_periods", "rate_units", "charge_rules")
+# curated months of a season set by the daylight-saving changeover: the daylight-saving period, or the rest of the year
+DST_MONTHS = ("dst", "not_dst")
 # day: each day stands alone; billing_period_per_day: per-day bounds multiplied by the days in the billing period (an
 # unused allowance rolls over within the period); quarter: bounds accumulate per calendar quarter; unstated
 RESET_PERIODS = ("day", "billing_period_per_day", "quarter", "unstated")
@@ -158,7 +168,7 @@ def minutes(t):
 
 def months_of(spec_months):
     """Month numbers a window applies in; None when the source names a season without listing its months."""
-    if spec_months == "not_stated":
+    if spec_months == "not_stated" or spec_months in DST_MONTHS:
         return None
     if spec_months in (None, "", "all"):
         return list(range(1, 13))
@@ -284,7 +294,8 @@ def validate(data, check_quotes=True):
                 errors.append(f"{ww}: start must be before end (split windows that cross midnight)")
             try:
                 if months_of(w.get("months")) is None and not w.get("season_label"):
-                    errors.append(f"{ww}: months not_stated needs the season name as published (season_label)")
+                    errors.append(f"{ww}: months not_stated, dst or not_dst needs the season name as published "
+                                  f"(season_label)")
                 if w.get("season_label") and "months" not in w:
                     errors.append(f"{ww}: a window with a season needs months (the months listed, or not_stated)")
                 if w.get("season") and not w.get("season_label"):
@@ -308,6 +319,9 @@ def validate(data, check_quotes=True):
         _req(errors, where, r, ["codes", "doc", "fin_year", "rule_type", "locator", "quote"])
         check_doc(where, r)
         _enum(errors, where, r.get("rule_type"), list(spec.CRITERIA) + ["assignment"], "rule_type")
+        group = r.get("group", 1)
+        if not isinstance(group, int) or isinstance(group, bool) or group < 1:
+            errors.append(f"{where}: group={group!r} is not a whole number from 1")
         _enum(errors, where, r.get("operator"), spec.OPERATORS, "operator")
         _enum(errors, where, r.get("value_unit"), spec.THRESHOLD_UNITS, "value_unit")
         if (r.get("value_num") is None) != (r.get("value_unit") is None):
@@ -319,8 +333,8 @@ def validate(data, check_quotes=True):
         allowed = spec.ASSIGNMENTS if r.get("rule_type") == "assignment" else spec.CRITERION_VALUES.get(r.get("rule_type"))
         if allowed and r.get("value_text") is not None and r["value_text"] not in allowed:
             errors.append(f"{where}: value_text={r['value_text']!r} not in {allowed}")
-        if r.get("value_num") is None and not r.get("value_text") and not r.get("target_code"):
-            errors.append(f"{where}: needs value_num, value_text or target_code")
+        if r.get("value_num") is None and not r.get("value_text"):
+            errors.append(f"{where}: needs value_num or value_text")
         if r.get("value_num") is not None and not r.get("operator"):
             errors.append(f"{where}: value_num needs an operator")
         if r.get("rule_type") in BOUNDARY_RULES and r.get("value_num") is not None:
@@ -342,6 +356,19 @@ def validate(data, check_quotes=True):
             if r.get("column_locator"):
                 _quote(errors, where + " column", {"locator": r["column_locator"], "quote": r["column_quote"]},
                        r.get("doc"))
+    for i, r in enumerate(data.get("tariff_links") or []):
+        where = f"tariff_links[{i}] {r.get('codes')} {r.get('link_type')}"
+        _req(errors, where, r, ["codes", "doc", "fin_year", "link_type", "locator", "quote"])
+        check_doc(where, r)
+        _enum(errors, where, r.get("link_type"), [t for t in spec.LINK_TYPES if t not in ("alias", "zone_variant_of")],
+              "link_type")
+        _enum(errors, where, r.get("linked_customer_class"), spec.CUSTOMER_CLASSES, "linked_customer_class")
+        if r.get("linked_code") and r.get("linked_customer_class"):
+            errors.append(f"{where}: linked_code or linked_customer_class, not both")
+        if not r.get("linked_code") and r.get("link_type") not in ("cannot_combine", "secondary_of", "primary_of"):
+            errors.append(f"{where}: {r.get('link_type')} needs linked_code")
+        if check_quotes:
+            _quote(errors, where, r, r.get("doc"))
     for i, r in enumerate(data.get("steps") or []):
         where = f"steps[{i}] {r.get('codes')} {r.get('step_group')} #{r.get('step_index')}"
         _req(errors, where, r, ["codes", "doc", "fin_year", "step_group", "component_label", "step_index",

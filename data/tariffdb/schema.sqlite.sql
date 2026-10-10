@@ -98,12 +98,35 @@ CREATE TABLE tariff_assignment (
   CHECK (assignment_no > 0)
 );
 
+CREATE TABLE tariff_link (
+  distributor_id TEXT NOT NULL,
+  tariff_code TEXT NOT NULL,
+  effective_from TEXT NOT NULL CHECK (effective_from IS NULL OR effective_from GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
+  link_no INTEGER NOT NULL CHECK (typeof(link_no) IN ('integer', 'null')),
+  link_type TEXT NOT NULL CHECK (link_type IN ('alias', 'zone_variant_of', 'opt_out_to', 'replaces', 'secondary_of', 'primary_of', 'compulsory_pair', 'cannot_combine', 'available_only_from')),
+  linked_code TEXT,
+  linked_customer_class TEXT CHECK (linked_customer_class IN ('residential', 'small_business', 'medium_business', 'large_business', 'major_business', 'business', 'controlled_load', 'unmetered', 'public_lighting', 'generation', 'storage')),
+  document_id TEXT,
+  locator TEXT,
+  quote TEXT,
+  note TEXT,
+  PRIMARY KEY (distributor_id, tariff_code, effective_from, link_no),
+  FOREIGN KEY (distributor_id) REFERENCES distributor (distributor_id),
+  FOREIGN KEY (document_id) REFERENCES source_document (document_id),
+  FOREIGN KEY (distributor_id, tariff_code, effective_from) REFERENCES tariff (distributor_id, tariff_code, effective_from),
+  CHECK (link_no > 0),
+  CHECK (linked_code IS NOT NULL OR link_type IN ('cannot_combine', 'secondary_of', 'primary_of')),
+  CHECK (linked_customer_class IS NULL OR linked_code IS NULL),
+  CHECK ((locator IS NULL) = (quote IS NULL)),
+  CHECK (quote IS NOT NULL OR link_type IN ('alias', 'zone_variant_of')),
+  CHECK (document_id IS NOT NULL OR quote IS NULL)
+);
+
 CREATE TABLE rate (
   rate_id TEXT NOT NULL,
   distributor_id TEXT NOT NULL,
   tariff_code TEXT NOT NULL,
   effective_from TEXT NOT NULL CHECK (effective_from IS NULL OR effective_from GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
-  effective_to TEXT NOT NULL CHECK (effective_to IS NULL OR effective_to GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
   charge_type TEXT NOT NULL CHECK (charge_type IN ('daily', 'usage', 'demand', 'capacity', 'export', 'metering', 'other')),
   tou_period TEXT CHECK (tou_period IN ('anytime', 'peak', 'shoulder', 'off_peak', 'super_off_peak', 'critical_peak', 'solar_soak', 'capacity_minimum', 'capacity_remaining', 'critical_minimum', 'dynamic_maximum', 'dynamic_minimum')),
   season TEXT CHECK (season IN ('summer', 'non_summer', 'high', 'low', 'winter', 'spring', 'autumn')),
@@ -113,56 +136,116 @@ CREATE TABLE rate (
   block_unit TEXT CHECK (block_unit IN ('kWh/day', 'kWh/billing_day', 'kWh/quarter', 'kWh')),
   region TEXT,
   register TEXT CHECK (register IN ('general', 'controlled_load', 'export')),
-  condition TEXT,
   value NUMERIC NOT NULL CHECK (typeof(value) IN ('integer', 'real', 'null')),
   unit TEXT NOT NULL,
   value_published TEXT NOT NULL,
   unit_published TEXT,
   component TEXT NOT NULL,
-  status TEXT NOT NULL CHECK (status IN ('provisional', 'final')),
-  document_id TEXT NOT NULL,
   locator TEXT NOT NULL,
   note TEXT,
   PRIMARY KEY (rate_id),
   FOREIGN KEY (distributor_id) REFERENCES distributor (distributor_id),
   FOREIGN KEY (unit) REFERENCES unit (unit),
-  FOREIGN KEY (document_id) REFERENCES source_document (document_id),
   FOREIGN KEY (distributor_id, tariff_code, effective_from) REFERENCES tariff (distributor_id, tariff_code, effective_from),
-  CHECK (effective_from <= effective_to),
   CHECK (block IS NULL OR block > 0),
   CHECK (block_from IS NULL OR block_to IS NULL OR block_from < block_to),
   CHECK ((register IS NULL) = (charge_type IN ('daily', 'metering', 'other'))),
-  CHECK (charge_type != 'export' OR register = 'export'),
-  CHECK (condition IS NULL OR condition GLOB 'opt_in:[a-z0-9]*' OR condition GLOB 'meter_type:[a-z0-9]*' OR condition GLOB 'meter_class:[a-z0-9]*')
+  CHECK (charge_type != 'export' OR register = 'export')
 );
 
-CREATE TABLE tou_window (
-  window_id TEXT NOT NULL,
+CREATE TABLE rate_condition (
+  rate_id TEXT NOT NULL,
+  condition_kind TEXT NOT NULL CHECK (condition_kind IN ('opt_in', 'meter_type', 'meter_class')),
+  value TEXT NOT NULL,
+  document_id TEXT NOT NULL,
+  locator TEXT NOT NULL,
+  quote TEXT NOT NULL,
+  PRIMARY KEY (rate_id, condition_kind, value),
+  FOREIGN KEY (rate_id) REFERENCES rate (rate_id),
+  FOREIGN KEY (document_id) REFERENCES source_document (document_id),
+  CHECK (value GLOB '[a-z0-9]*' AND value NOT GLOB '*[^a-z0-9_]*'),
+  CHECK (condition_kind != 'meter_type' OR value IN ('interval', 'smart', 'basic', 'accumulation', 'unmetered', 'any'))
+);
+
+CREATE TABLE window_set (
+  window_set_id TEXT NOT NULL,
   distributor_id TEXT NOT NULL,
-  tariff_code TEXT NOT NULL,
-  effective_from TEXT NOT NULL CHECK (effective_from IS NULL OR effective_from GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
-  effective_to TEXT NOT NULL CHECK (effective_to IS NULL OR effective_to GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
-  applies_to TEXT NOT NULL CHECK (applies_to IN ('usage', 'demand', 'export', 'controlled_load', 'all')),
+  name TEXT NOT NULL,
+  covers_full_day INTEGER NOT NULL CHECK (covers_full_day IN (0, 1)),
+  time_basis TEXT NOT NULL CHECK (time_basis IN ('local_time', 'standard_time', 'daylight_time', 'not_stated')),
+  public_holidays TEXT NOT NULL CHECK (public_holidays IN ('as_weekday', 'as_non_business_day', 'unchanged', 'not_stated')),
+  document_id TEXT NOT NULL,
+  locator TEXT NOT NULL,
+  quote TEXT NOT NULL,
+  note TEXT,
+  PRIMARY KEY (window_set_id),
+  FOREIGN KEY (distributor_id) REFERENCES distributor (distributor_id),
+  FOREIGN KEY (document_id) REFERENCES source_document (document_id)
+);
+
+CREATE TABLE season (
+  season_id TEXT NOT NULL,
+  window_set_id TEXT NOT NULL,
+  season TEXT CHECK (season IN ('summer', 'non_summer', 'high', 'low', 'winter', 'spring', 'autumn')),
+  season_label TEXT,
+  PRIMARY KEY (season_id),
+  FOREIGN KEY (window_set_id) REFERENCES window_set (window_set_id),
+  CHECK (season IS NULL OR season_label IS NOT NULL)
+);
+
+CREATE TABLE season_part (
+  season_id TEXT NOT NULL,
+  part_no INTEGER NOT NULL CHECK (typeof(part_no) IN ('integer', 'null')),
+  start_month INTEGER CHECK (typeof(start_month) IN ('integer', 'null')),
+  start_day INTEGER CHECK (typeof(start_day) IN ('integer', 'null')),
+  start_anchor TEXT CHECK (start_anchor IN ('dst_start', 'dst_end')),
+  end_month INTEGER CHECK (typeof(end_month) IN ('integer', 'null')),
+  end_day INTEGER CHECK (typeof(end_day) IN ('integer', 'null')),
+  end_anchor TEXT CHECK (end_anchor IN ('dst_start', 'dst_end')),
+  PRIMARY KEY (season_id, part_no),
+  FOREIGN KEY (season_id) REFERENCES season (season_id),
+  CHECK (part_no > 0),
+  CHECK ((start_month IS NULL) = (start_day IS NULL)),
+  CHECK ((end_month IS NULL) = (end_day IS NULL)),
+  CHECK ((start_month IS NULL) = (start_anchor IS NOT NULL)),
+  CHECK ((end_month IS NULL) = (end_anchor IS NOT NULL)),
+  CHECK (start_month IS NULL OR start_month BETWEEN 1 AND 12),
+  CHECK (end_month IS NULL OR end_month BETWEEN 1 AND 12),
+  CHECK (start_day IS NULL OR start_day BETWEEN 1 AND 31),
+  CHECK (end_day IS NULL OR end_day BETWEEN 1 AND 31)
+);
+
+CREATE TABLE time_window (
+  window_id TEXT NOT NULL,
+  window_set_id TEXT NOT NULL,
+  season_id TEXT NOT NULL,
   tou_period TEXT NOT NULL CHECK (tou_period IN ('anytime', 'peak', 'shoulder', 'off_peak', 'super_off_peak', 'critical_peak', 'solar_soak', 'capacity_minimum', 'capacity_remaining', 'critical_minimum', 'dynamic_maximum', 'dynamic_minimum', 'controlled_load_supply')),
   period_label TEXT NOT NULL,
   day_type TEXT NOT NULL CHECK (day_type IN ('weekday', 'weekend', 'all_days', 'business_day', 'non_business_day')),
   start_time TEXT NOT NULL CHECK (start_time GLOB '[0-2][0-9]:[0-5][0-9]' AND start_time <= '24:00'),
   end_time TEXT NOT NULL CHECK (end_time GLOB '[0-2][0-9]:[0-5][0-9]' AND end_time <= '24:00'),
-  months TEXT,
-  season TEXT CHECK (season IN ('summer', 'non_summer', 'high', 'low', 'winter', 'spring', 'autumn')),
-  season_label TEXT,
-  time_basis TEXT NOT NULL CHECK (time_basis IN ('local_time', 'standard_time', 'daylight_time', 'not_stated')),
-  public_holidays TEXT NOT NULL CHECK (public_holidays IN ('as_weekday', 'as_non_business_day', 'unchanged', 'not_stated')),
-  document_id TEXT NOT NULL,
-  locator TEXT NOT NULL,
+  locator TEXT,
+  quote TEXT,
   PRIMARY KEY (window_id),
-  FOREIGN KEY (distributor_id) REFERENCES distributor (distributor_id),
-  FOREIGN KEY (document_id) REFERENCES source_document (document_id),
-  FOREIGN KEY (distributor_id, tariff_code, effective_from) REFERENCES tariff (distributor_id, tariff_code, effective_from),
-  CHECK (effective_from <= effective_to),
+  FOREIGN KEY (window_set_id) REFERENCES window_set (window_set_id),
+  FOREIGN KEY (season_id) REFERENCES season (season_id),
   CHECK (start_time < end_time),
-  CHECK (months IS NOT NULL OR season_label IS NOT NULL),
-  CHECK (season IS NULL OR season_label IS NOT NULL)
+  CHECK (quote IS NULL OR locator IS NOT NULL)
+);
+
+CREATE TABLE tariff_window_set (
+  distributor_id TEXT NOT NULL,
+  tariff_code TEXT NOT NULL,
+  effective_from TEXT NOT NULL CHECK (effective_from IS NULL OR effective_from GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
+  window_set_id TEXT NOT NULL,
+  applies_to TEXT NOT NULL CHECK (applies_to IN ('usage', 'demand', 'export', 'controlled_load', 'all')),
+  locator TEXT,
+  quote TEXT,
+  PRIMARY KEY (distributor_id, tariff_code, effective_from, window_set_id, applies_to),
+  FOREIGN KEY (distributor_id) REFERENCES distributor (distributor_id),
+  FOREIGN KEY (window_set_id) REFERENCES window_set (window_set_id),
+  FOREIGN KEY (distributor_id, tariff_code, effective_from) REFERENCES tariff (distributor_id, tariff_code, effective_from),
+  CHECK (quote IS NULL OR locator IS NOT NULL)
 );
 
 CREATE TABLE eligibility (
@@ -170,13 +253,12 @@ CREATE TABLE eligibility (
   distributor_id TEXT NOT NULL,
   tariff_code TEXT NOT NULL,
   effective_from TEXT NOT NULL CHECK (effective_from IS NULL OR effective_from GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
-  effective_to TEXT NOT NULL CHECK (effective_to IS NULL OR effective_to GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
-  criterion TEXT NOT NULL CHECK (criterion IN ('customer_type', 'voltage_level', 'consumption_min', 'consumption_max', 'demand_min', 'demand_max', 'meter_type', 'availability', 'requires_technology', 'opt_out_to', 'minimum_demand_charge', 'other')),
+  criterion_group INTEGER NOT NULL CHECK (typeof(criterion_group) IN ('integer', 'null')),
+  criterion TEXT NOT NULL CHECK (criterion IN ('customer_type', 'voltage_level', 'consumption_min', 'consumption_max', 'demand_min', 'demand_max', 'meter_type', 'availability', 'requires_technology', 'minimum_demand_charge', 'other')),
   operator TEXT CHECK (operator IN ('eq', 'lt', 'le', 'gt', 'ge', 'ge_unstated', 'le_unstated')),
   value_num NUMERIC CHECK (typeof(value_num) IN ('integer', 'real', 'null')),
   value_unit TEXT CHECK (value_unit IN ('kWh/yr', 'MWh/yr', 'GWh/yr', 'kW', 'MW', 'kVA', 'MVA')),
   value_text TEXT,
-  target_tariff_code TEXT,
   document_id TEXT NOT NULL,
   locator TEXT NOT NULL,
   quote TEXT NOT NULL,
@@ -184,8 +266,8 @@ CREATE TABLE eligibility (
   FOREIGN KEY (distributor_id) REFERENCES distributor (distributor_id),
   FOREIGN KEY (document_id) REFERENCES source_document (document_id),
   FOREIGN KEY (distributor_id, tariff_code, effective_from) REFERENCES tariff (distributor_id, tariff_code, effective_from),
-  CHECK (effective_from <= effective_to),
-  CHECK (value_num IS NOT NULL OR value_text IS NOT NULL OR target_tariff_code IS NOT NULL),
+  CHECK (criterion_group > 0),
+  CHECK (value_num IS NOT NULL OR value_text IS NOT NULL),
   CHECK ((value_num IS NULL) = (operator IS NULL)),
   CHECK ((value_num IS NULL) = (value_unit IS NULL)),
   CHECK (criterion != 'customer_type' OR value_text IS NULL OR value_text IN ('residential', 'small_business', 'medium_business', 'large_business', 'business', 'unmetered', 'public_lighting', 'embedded_generation', 'controlled_load', 'storage', 'ev_charging', 'any')),
@@ -200,7 +282,6 @@ CREATE TABLE charge_rule (
   distributor_id TEXT NOT NULL,
   tariff_code TEXT NOT NULL,
   effective_from TEXT NOT NULL CHECK (effective_from IS NULL OR effective_from GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
-  effective_to TEXT NOT NULL CHECK (effective_to IS NULL OR effective_to GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
   charge_type TEXT NOT NULL CHECK (charge_type IN ('demand', 'capacity', 'export')),
   tou_period TEXT CHECK (tou_period IN ('anytime', 'peak', 'shoulder', 'off_peak', 'super_off_peak', 'critical_peak', 'solar_soak', 'capacity_minimum', 'capacity_remaining', 'critical_minimum', 'dynamic_maximum', 'dynamic_minimum')),
   season TEXT CHECK (season IN ('summer', 'non_summer', 'high', 'low', 'winter', 'spring', 'autumn')),
@@ -221,7 +302,6 @@ CREATE TABLE charge_rule (
   FOREIGN KEY (distributor_id) REFERENCES distributor (distributor_id),
   FOREIGN KEY (document_id) REFERENCES source_document (document_id),
   FOREIGN KEY (distributor_id, tariff_code, effective_from) REFERENCES tariff (distributor_id, tariff_code, effective_from),
-  CHECK (effective_from <= effective_to),
   CHECK ((n IS NULL) = (method NOT IN ('avg_top_n_days', 'avg_top_n_intervals', 'avg_nominated_days'))),
   CHECK (allowance_rollover IS NULL OR allowance_per_day IS NOT NULL)
 );

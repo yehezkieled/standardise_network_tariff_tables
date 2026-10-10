@@ -169,12 +169,12 @@ class TestRules(unittest.TestCase):
         q1["2025-08-01 03:00"] = 3.0
         iv = pd.DataFrame({"E1": e1, "Q1": q1})
         window = {"applies_to": "demand", "day_type": "all_days", "months": ",".join(map(str, range(1, 13))),
-                  "season": None, "time_basis": "local_time", "public_holidays": "unchanged"}
+                  "season": None, "time_basis": "local_time", "public_holidays": "unchanged", "dst": None}
         windows = [dict(window, tou_period="peak", start_time="16:00", end_time="21:00", window_id="p"),
                    dict(window, tou_period="off_peak", start_time="00:00", end_time="16:00", window_id="o1"),
                    dict(window, tou_period="off_peak", start_time="21:00", end_time="24:00", window_id="o2")]
         rate = {"charge_type": "demand", "register": None, "tou_period": tou_period, "season": None, "block": None,
-                "unit": f"c/{measure}/month", "value": "100", "component": "Demand", "condition": None}
+                "unit": f"c/{measure}/month", "value": "100", "component": "Demand", "conditions": {}}
         rule = {"charge_type": "demand", "tou_period": None, "season": None, "measure": measure, "interval_min": "30",
                 "method": method, "n": None, "reset": "month", "minimum_value": None, "threshold_value": None}
         b = bc.Bill("x", "X", date(2025, 8, 1), date(2025, 8, 2))
@@ -201,7 +201,7 @@ class TestRules(unittest.TestCase):
         e1["2025-07-10 12:00"] = 5.0
         iv = pd.DataFrame({"E1": e1})
         rate = {"charge_type": "demand", "register": None, "tou_period": None, "season": None, "block": None,
-                "unit": "c/kW/day", "value": "100", "component": "Demand", "condition": None}
+                "unit": "c/kW/day", "value": "100", "component": "Demand", "conditions": {}}
         rule = {"charge_type": "demand", "tou_period": None, "season": None, "measure": "kW", "interval_min": "30",
                 "method": "max", "n": None, "reset": "billing_period", "minimum_value": None, "threshold_value": None}
         clock = bc.Clock(idx, "Australia/Sydney", "NSW")
@@ -224,7 +224,7 @@ class TestRules(unittest.TestCase):
         b1[(idx.month == 7) & (idx.hour == 12) & (idx.minute == 0)] = 10.0
         iv = pd.DataFrame({"E1": 0.0, "B1": b1}, index=idx)
         rate = {"charge_type": "export", "register": "export", "tou_period": None, "season": None, "block": None,
-                "unit": "c/kWh", "value": "1", "component": "Export", "condition": None}
+                "unit": "c/kWh", "value": "1", "component": "Export", "conditions": {}}
         rule = {"charge_type": "export", "tou_period": None, "season": None, "measure": "kWh",
                 "allowance_per_day": "5", "allowance_rollover": "1"}
         b = bc.Bill("x", "X", date(2025, 7, 1), date(2025, 8, 31))

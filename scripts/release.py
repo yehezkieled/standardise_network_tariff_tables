@@ -69,9 +69,9 @@ def coverage(db_path):
             return con.execute(query).fetchone()[0]
 
         stats = {t: one(f"SELECT count(*) FROM {t}") for t in
-                 ("distributor", "tariff", "rate", "tou_window", "eligibility", "source_document")}
+                 ("distributor", "tariff", "rate", "time_window", "eligibility", "source_document")}
         stats["last_day"] = one("SELECT max(effective_to) FROM tariff")
-        stats["windows_from"] = one("SELECT min(effective_from) FROM tou_window")
+        stats["windows_from"] = one("SELECT min(effective_from) FROM tariff_window_set")
         stats["eligibility_from"] = one("SELECT min(effective_from) FROM eligibility")
         rows = con.execute("""
             SELECT d.name, d.state,
@@ -80,12 +80,15 @@ def coverage(db_path):
                    (SELECT s.pricing_year FROM tariff t JOIN source_document s USING (document_id)
                      WHERE t.distributor_id = d.distributor_id ORDER BY t.effective_from DESC LIMIT 1),
                    (SELECT count(*) FROM tariff t WHERE t.distributor_id = d.distributor_id),
-                   (SELECT count(*) FROM rate r WHERE r.distributor_id = d.distributor_id AND r.status = 'final'),
-                   (SELECT count(*) FROM rate r WHERE r.distributor_id = d.distributor_id
-                       AND r.status = 'provisional'),
+                   (SELECT count(*) FROM rate r JOIN tariff t USING (distributor_id, tariff_code, effective_from)
+                     WHERE r.distributor_id = d.distributor_id AND t.status = 'final'),
+                   (SELECT count(*) FROM rate r JOIN tariff t USING (distributor_id, tariff_code, effective_from)
+                     WHERE r.distributor_id = d.distributor_id AND t.status = 'provisional'),
                    (SELECT group_concat(pricing_year, ', ') FROM (
-                       SELECT s.pricing_year FROM rate r JOIN source_document s USING (document_id)
-                        WHERE r.distributor_id = d.distributor_id AND r.status = 'provisional'
+                       SELECT s.pricing_year FROM rate r
+                         JOIN tariff t USING (distributor_id, tariff_code, effective_from)
+                         JOIN source_document s ON s.document_id = t.document_id
+                        WHERE r.distributor_id = d.distributor_id AND t.status = 'provisional'
                         GROUP BY s.pricing_year ORDER BY min(r.effective_from)))
             FROM distributor d ORDER BY d.state, d.name""").fetchall()
         return stats, rows
@@ -121,7 +124,7 @@ def notes(sha, stats, rows, first_stored, gaps, sums):
             f"every pricing year in effect on or after {first_stored}, through {stats['last_day']}."), "",
            "| Tariffs | Rates | TOU windows | Eligibility criteria | Source documents |",
            "|---:|---:|---:|---:|---:|",
-           (f"| {stats['tariff']:,} | {stats['rate']:,} | {stats['tou_window']:,} | {stats['eligibility']:,} "
+           (f"| {stats['tariff']:,} | {stats['rate']:,} | {stats['time_window']:,} | {stats['eligibility']:,} "
             f"| {stats['source_document']:,} |"), "",
            "## Files", "", "| File | Contents | SHA-256 |", "|---|---|---|",
            f"| `tariffdb.sqlite` | SQLite database, every table with its keys and constraints | `{sums['tariffdb.sqlite']}` |",

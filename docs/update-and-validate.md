@@ -21,7 +21,7 @@ flowchart LR
 | A code only the AER prices | stays on the AER rates | provisional |
 
 > ⚠ The AER report has rates only. **TOU windows and eligibility usually wait for the distributor's documents**:
-> until then a provisional tariff can have rates but no `tou_window` / `eligibility` rows.
+> until then a provisional tariff can have rates but no window sets or `eligibility` rows.
 > `validate.py --coverage` lists those gaps.
 >
 > The pricing years before 2023-24 (stored from 1 January 2017: 2016-17 / Victoria 2017 through 2022-23) carry TOU
@@ -162,10 +162,11 @@ the AER file states none.
 
 | YAML section | Table | States |
 |---|---|---|
-| `tou_schedules` | `tou_window` | when each rate's period applies: `period` = the rate's `tou_period`; a seasonal window has `season` (the rate's) and `season_label` (as printed) |
+| `tou_schedules` | `window_set`, `season`, `season_part`, `time_window`, `tariff_window_set` | when each rate's period applies: one schedule is one window set, used by the tariffs it names; `period` = the rate's `tou_period`; a seasonal window has `season` (the rate's), `season_label` (as printed) and its months (`dst` / `not_dst` for a season the document defines by daylight saving) |
 | `rate_periods` | `rate.tou_period`, `rate.season` | the period or season of a rate whose price list column names it differently (the rate's note records the change) |
 | `rate_units` | `rate.unit` | the billing period (and kW or kVA) of a demand rate whose price list prints none (`c/kW/?`); with no such fact the build stores `c/kW/period_not_stated` and billcalc blocks it |
-| `conditions` | `rate.condition` | a rate only some sites pay: `opt_in:<name>`, `meter_type:<type>`, `meter_class:<class>` (`a\|b` = either) |
+| `conditions` | `rate_condition` | a rate only some sites pay: `opt_in:<name>`, `meter_type:<type>`, `meter_class:<class>` (`a\|b` = either; one row per value) |
+| `tariff_links` | `tariff_link` | a relation the document states to another code or class: `opt_out_to`, `replaces`, `secondary_of`, `cannot_combine` ... (the AER's spellings become `alias` / `zone_variant_of` links by themselves) |
 | `metering` | `rate` (`charge_type` metering) | a network-wide metering schedule row, applied to the codes (or `all`) the document says, with its condition |
 | `charge_rules` | `charge_rule` | how a demand, capacity or export quantity is measured: kW/kVA/kWh, interval, highest or mean of the n highest, reset, minimum, threshold, allowance (`codes: all` for a glossary definition) |
 
@@ -231,18 +232,18 @@ status and the reason.
 | Check | Verifies | A failure means |
 |---|---|---|
 | `load` | CSVs load into SQLite with every key, foreign key and CHECK | a hand edit or a build bug: rebuild; never edit the CSVs |
-| `periods` | one tariff's periods never overlap; rates, windows and criteria sit inside their tariff's period; the document's year holds the period | a wrong `EFFECTIVE_FROM`, or a document registered under the wrong year |
-| `status` | `final` exactly when the document is the distributor's own published list; each rate has its tariff's status and document | a document registered with the wrong side or price status in `sources/inventory.csv` |
+| `periods` | one tariff's periods never overlap; the document's year holds the period | a wrong `EFFECTIVE_FROM`, or a document registered under the wrong year |
+| `status` | `final` exactly when the document is the distributor's own published list | a document registered with the wrong side or price status in `sources/inventory.csv` |
 | `units` | the `unit` table is `spec.UNITS`, and each rate's unit measures a quantity its charge type is priced in (the build already stops on a unit outside `spec.UNITS`) | a parser read the wrong column or unit heading; fix the parser, or add a `rate_units` fact for a unit with no stated billing period (a real misprint goes in `validate.KNOWN_MISPRINTS` with its evidence) |
 | `magnitude` | no c/kWh rate outside `critical_peak` exceeds 200 c/kWh unless its note contains `confirmed high rate:` | a parser read a $/kWh cell as c/kWh, or a demand charge as usage; fix the parser (a real high price gets a parser note `confirmed high rate: ...` quoting its evidence) |
 | `blocks` | blocks number 1..n and their lower bounds rise | a block ladder in the curated `steps` that does not match the price list |
-| `tou` | windows of one tariff and period name never overlap on a day type and month | a mistyped window in the curated YAML |
+| `tou` | a window's season is in its own window set; windows one tariff uses for a charge group and period name never overlap on a day type and month | a mistyped window in the curated YAML |
 | `joins` | in a tariff-period with windows, each rate priced in a period or season finds its windows, each window but a demand window of a period its charge group prices is priced by a rate of that group in its season, and no demand or export rate without a period sits beside windows naming several | a window missing from the curated YAML, a rate whose period the price list names differently, or a window in a season no rate of its period covers: add the window or a `rate_periods` fact, or find the missing rate |
 | `rules` | each `charge_rule` measures a rate of its tariff-period, in the quantity the rate is priced in | a curated rule names the wrong charge type, period, season or measure |
 | `aliases` | no provisional tariff is a final tariff of the same distributor and period under another spelling or an alias | the AER spells a code differently: add a rule to `data/tariffdb/code_alias.csv` |
 | `files` | each held document matches its recorded SHA-256 (`--sources`) | the publisher replaced the file: record it as a new version |
 | `values` | each rate's published value is at its cell or PDF page (`--sources`) | the parser or locator is wrong for that row |
-| `quotes` | each eligibility and tariff_assignment quote is at its locator; each curated YAML validates (`--sources`) | a curated fact does not match its source |
+| `quotes` | each eligibility, tariff_assignment, tariff_link and rate_condition quote is at its locator; each curated YAML validates (`--sources`) | a curated fact does not match its source |
 
 ## Before you commit
 

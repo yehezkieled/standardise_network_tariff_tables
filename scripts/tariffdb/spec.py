@@ -100,7 +100,7 @@ TOU_PERIODS = RATE_PERIODS | {"controlled_load_supply": "the hours a controlled-
 # rate.register: the meter register the priced quantity is measured on (NULL for daily, metering and other charges)
 REGISTERS = {"general": "general-supply import", "controlled_load": "a separately metered controlled-load circuit",
              "export": "energy sent out to the network"}
-# rate.condition: NULL = always charged; '<kind>:<value>[|<value>...]' = charged only when the site meets it
+# rate_condition: a rate with condition rows is charged only when the site meets one value of each kind it names
 CONDITION_KINDS = {"opt_in": "only for a customer who opts in to the named offer",
                    "meter_type": "only at a site with that meter type",
                    "meter_class": "only at a site in that class of the distributor's metering schedule"}
@@ -126,10 +126,22 @@ CRITERIA = {
     "meter_type": "the meter the site has",
     "availability": "whether the tariff is open, closed to new customers, withdrawn ...",
     "requires_technology": "equipment the site must have (solar, battery, a dedicated circuit ...)",
-    "opt_out_to": "the tariff a customer may opt out to (target_tariff_code)",
     "minimum_demand_charge": "the smallest demand charged",
     "other": "a stated condition no other criterion covers (value_text as stated)",
 }
+# tariff_link: how a tariff relates to another code (linked_code) or to the tariffs of a customer class
+LINK_TYPES = {"alias": "the AER prints this tariff as linked_code (a spelling or code_alias.csv rule)",
+              "zone_variant_of": "this tariff is one pricing zone of linked_code as the AER prints it",
+              "opt_out_to": "a customer may opt out of this tariff to the linked one",
+              "replaces": "this tariff replaces the linked one",
+              "secondary_of": "this tariff is held only beside a primary tariff: linked_code, or one of the class",
+              "primary_of": "the linked tariff is held only beside this one",
+              "compulsory_pair": "this tariff is taken only together with the linked one",
+              "cannot_combine": "this tariff may not be combined with the linked one (both NULL: with any other)",
+              "available_only_from": "only a customer now on the linked tariff may take this one"}
+# season_part: a season boundary set by the daylight-saving changeover rather than a calendar date
+SEASON_ANCHORS = {"dst_start": "the day daylight saving starts in the distributor's state",
+                  "dst_end": "the day daylight saving ends in the distributor's state"}
 # ge_unstated / le_unstated: a lower / upper bound whose source does not say whether the boundary value is included
 OPERATORS = {"eq": "equal to", "lt": "below", "le": "at most", "gt": "above", "ge": "at least",
              "ge_unstated": "a lower bound; the source does not say whether the boundary value is included",
@@ -240,7 +252,8 @@ VALUE_LISTS = {
     "threshold_unit": THRESHOLD_UNITS, "assignment": ASSIGNMENTS, "assignment_group": ASSIGNMENT_GROUPS,
     "block_unit": BLOCK_UNITS, "rule_charge": RULE_CHARGES, "rule_measure": RULE_MEASURES,
     "rule_method": RULE_METHODS, "rule_reset": RULE_RESETS, "unit_quantity": UNIT_QUANTITIES,
-    "billing_period": BILLING_PERIODS, "calendar_factor": CALENDAR_FACTORS,
+    "billing_period": BILLING_PERIODS, "calendar_factor": CALENDAR_FACTORS, "link_type": LINK_TYPES,
+    "season_anchor": SEASON_ANCHORS,
     **{f"{k}_value": v for k, v in CRITERION_VALUES.items()},
 }
 
@@ -252,15 +265,24 @@ def col(name, type_, desc, *, null=False, pk=False, fk=None, enum=None, unit=Non
             "unit": unit, "description": desc}
 
 
-def period(what):
-    return [col("effective_from", "date", f"first day {what} applies"),
-            col("effective_to", "date", f"last day {what} applies (inclusive)")]
+def tariff_key(pk=False):
+    """The key of the tariff period a child row belongs to; the period's dates, status and document are the tariff's."""
+    return [col("distributor_id", "text", "distributor", pk=pk, fk="distributor.distributor_id"),
+            col("tariff_code", "text", "tariff code", pk=pk),
+            col("effective_from", "date", "first day of the tariff period", pk=pk)]
 
 
-def provenance():
-    return [col("document_id", "text", "source document version", fk="source_document.document_id"),
-            col("locator", "text", "where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> "
-                "(grammar in scripts/tariffdb/locators.py)")]
+LOCATOR = ("where in the document: xlsx:<sheet>!<cell>, pdf:p<page> or pdf-ocr:p<page> (grammar in "
+           "scripts/tariffdb/locators.py)")
+
+
+def provenance(null=False):
+    return [col("document_id", "text", "source document version", null=null, fk="source_document.document_id"),
+            col("locator", "text", LOCATOR, null=null)]
+
+
+def quoted(null=False):
+    return [*provenance(null), col("quote", "text", "verbatim wording at the locator", null=null)]
 
 
 TARIFF_FK = ("tariff", ["distributor_id", "tariff_code", "effective_from"])
@@ -404,18 +426,43 @@ TABLES = [
                        "and for whom the statement says so. A tariff may be the default for one group and opt-in for "
                        "another; every published statement is kept.",
         "columns": [
-            col("distributor_id", "text", "distributor", pk=True, fk="distributor.distributor_id"),
-            col("tariff_code", "text", "tariff code", pk=True),
-            col("effective_from", "date", "tariff period", pk=True),
+            *tariff_key(pk=True),
             col("assignment_no", "integer", "statement number within the tariff period (1 = first)", pk=True),
             col("assignment", "text", "how customers come to be on the tariff", enum="assignment"),
             col("applies_to", "text", "the customers the statement names; NULL = it names no group", null=True,
                 enum="assignment_group"),
-            *provenance(),
-            col("quote", "text", "verbatim wording at the locator"),
+            *quoted(),
         ],
         "foreign_keys": [TARIFF_FK],
         "checks": ["assignment_no > 0"],
+    },
+    {
+        "name": "tariff_link",
+        "grain": "one stated relation of one tariff period to another tariff code or customer class",
+        "source": "built by scripts/tariffdb/build.py: alias and zone_variant_of from the AER spellings the build "
+                  "stores under the distributor's code (data/tariffdb/code_alias.csv); the rest from "
+                  "data/tariffdb/curated/*.yaml, quoted",
+        "description": "How a tariff relates to others: the AER's spelling of it, the tariff a customer may opt out "
+                       "to, the tariff it replaces, a primary tariff it must sit beside, a tariff it may not be "
+                       "combined with ... linked_code is a code as printed and need not be a stored tariff.",
+        "columns": [
+            *tariff_key(pk=True),
+            col("link_no", "integer", "link number within the tariff period (1 = first)", pk=True),
+            col("link_type", "text", "the relation", enum="link_type"),
+            col("linked_code", "text", "the other tariff code as printed; NULL when the link names a class or every "
+                "other tariff", null=True),
+            col("linked_customer_class", "text", "the customer class whose tariffs the link names", null=True,
+                enum="customer_class"),
+            *quoted(null=True),
+            col("note", "text", "the code_alias.csv rule, or an exception the statement names", null=True),
+        ],
+        "foreign_keys": [TARIFF_FK],
+        "checks": ["link_no > 0",
+                   "linked_code IS NOT NULL OR link_type IN ('cannot_combine', 'secondary_of', 'primary_of')",
+                   "linked_customer_class IS NULL OR linked_code IS NULL",
+                   "(locator IS NULL) = (quote IS NULL)",
+                   "quote IS NOT NULL OR link_type IN ('alias', 'zone_variant_of')",
+                   "document_id IS NOT NULL OR quote IS NULL"],
     },
     {
         "name": "rate",
@@ -428,9 +475,7 @@ TABLES = [
         "columns": [
             col("rate_id", "text", "<distributor_id>:<tariff_code>:<effective_from>:<charge_type>:<component>"
                 "[:<tou_period>][:<season>][:<block>][:<region>]", pk=True),
-            col("distributor_id", "text", "distributor", fk="distributor.distributor_id"),
-            col("tariff_code", "text", "tariff code"),
-            *period("the price"),
+            *tariff_key(),
             col("charge_type", "text", "daily = fixed charge per day; usage = per kWh or kVAh; demand / capacity = per "
                 "kW or kVA; export = per exported kWh or kW (negative = a reward paid); metering = metering charge; "
                 "other", enum="charge_type"),
@@ -448,41 +493,110 @@ TABLES = [
             col("register", "text", "meter register the quantity is measured on: general = general-supply import, "
                 "controlled_load = a separately metered controlled-load circuit, export = energy sent out; NULL for "
                 "daily, metering and other charges", null=True, enum="register"),
-            col("condition", "text", "NULL = always charged; opt_in:<name> = only for a customer who opts in to "
-                "<name>; meter_type:<type> = only at a site with that meter; meter_class:<class> = only at a site in "
-                "that class of the distributor's metering schedule; a|b = either (curated, quoted in "
-                "data/tariffdb/curated/*.yaml)", null=True),
             col("value", "numeric", "price in the rate's unit", unit="see unit"),
             col("unit", "text", "unit of value (the unit table says what it prices per and how to reach its "
                 "standard unit)", fk="unit.unit"),
             col("value_published", "text", "number exactly as printed"),
             col("unit_published", "text", "unit exactly as printed", null=True),
             col("component", "text", "component label as printed"),
-            col("status", "text", "provisional or final (the tariff's status)", enum="status"),
-            *provenance(),
+            col("locator", "text", "where in the tariff's document: " + LOCATOR),
             col("note", "text", "caveat from the source or the parser", null=True),
         ],
         "foreign_keys": [TARIFF_FK],
-        "checks": ["effective_from <= effective_to", "block IS NULL OR block > 0",
+        "checks": ["block IS NULL OR block > 0",
                    "block_from IS NULL OR block_to IS NULL OR block_from < block_to",
                    "(register IS NULL) = (charge_type IN ('daily', 'metering', 'other'))",
-                   "charge_type != 'export' OR register = 'export'",
-                   "condition IS NULL OR " + " OR ".join(f"condition GLOB '{k}:[a-z0-9]*'" for k in CONDITION_KINDS)],
+                   "charge_type != 'export' OR register = 'export'"],
     },
     {
-        "name": "tou_window",
-        "grain": "one time window that one tariff's charges use, for one period",
-        "source": "data/tariffdb/curated/*.yaml (tou_schedules), as stated in the distributor's documents",
-        "description": "When each time-of-use period applies: day type, start and end time, months. Times are local "
-                       "clock times as the document states them.",
+        "name": "rate_condition",
+        "grain": "one value of one condition a rate is charged under",
+        "source": "data/tariffdb/curated/*.yaml (conditions, metering), quoted from the distributor's documents",
+        "description": "A rate with condition rows is charged only at a site that meets, for each condition kind it "
+                       "names, one of that kind's values (values of one kind are alternatives). A rate with none is "
+                       "always charged.",
         "columns": [
-            col("window_id", "text", "<distributor_id>:<tariff_code>:<effective_from>:<applies_to>:<tou_period>:"
-                "<day_type>:<start>-<end>:<months> (season-<season> or months-not-stated when the document names "
-                "the season without its months)", pk=True),
+            col("rate_id", "text", "the rate", pk=True, fk="rate.rate_id"),
+            col("condition_kind", "text", "what the site must have or do", pk=True, enum="condition_kind"),
+            col("value", "text", "opt_in: the offer's name; meter_type: a meter_type_value; meter_class: the class in "
+                "the distributor's metering schedule (lower case, underscores)", pk=True),
+            *quoted(),
+        ],
+        "checks": ["value GLOB '[a-z0-9]*' AND value NOT GLOB '*[^a-z0-9_]*'",
+                   "condition_kind != 'meter_type' OR value IN (" +
+                   ", ".join(repr(v) for v in CRITERION_VALUES["meter_type"]) + ")"],
+    },
+    {
+        "name": "window_set",
+        "grain": "one stated time-of-use schedule: the windows one passage of one document sets out",
+        "source": "data/tariffdb/curated/*.yaml (tou_schedules), as stated in the distributor's documents",
+        "description": "A named set of time windows, with the clock its times refer to and how public holidays are "
+                       "priced, as the document states them. Tariffs use it through tariff_window_set; its windows "
+                       "are in time_window and its seasons in season.",
+        "columns": [
+            col("window_set_id", "text", "slug, unique across distributors (the curated schedule id)", pk=True),
             col("distributor_id", "text", "distributor", fk="distributor.distributor_id"),
-            col("tariff_code", "text", "tariff code"),
-            *period("the window"),
-            col("applies_to", "text", "which charges of the tariff the window prices", enum="tou_applies"),
+            col("name", "text", "what the windows are for, as the curator names them"),
+            col("covers_full_day", "boolean", "1 when the windows partition each day type they name over 24 hours"),
+            col("time_basis", "text", "clock the times refer to, as stated", enum="time_basis"),
+            col("public_holidays", "text", "how public holidays are priced, as stated", enum="holiday_rule"),
+            *quoted(),
+            col("note", "text", "caveat from the curator", null=True),
+        ],
+    },
+    {
+        "name": "season",
+        "grain": "one season of one window set: a named rate season, or the months windows apply in",
+        "source": "data/tariffdb/curated/*.yaml (the months and season of each window)",
+        "description": "The part of the year a window set's windows apply in. season is the rate.season it prices "
+                       "(NULL = the windows belong to no rate season); its dates are season_part rows. A season with no "
+                       "parts is one the document names without its dates.",
+        "columns": [
+            col("season_id", "text", "<window_set_id>:<season or any>:<months, dst, not-dst or months-not-stated>",
+                pk=True),
+            col("window_set_id", "text", "window set", fk="window_set.window_set_id"),
+            col("season", "text", "the rate.season the windows price; NULL = no rate season", null=True,
+                enum="season"),
+            col("season_label", "text", "season name as published", null=True),
+        ],
+        "checks": ["season IS NULL OR season_label IS NOT NULL"],
+    },
+    {
+        "name": "season_part",
+        "grain": "one span of dates of one season, repeating every year",
+        "source": "data/tariffdb/curated/*.yaml (the months of each window)",
+        "description": "A span of a season, from a start day to an end day (inclusive), each a calendar day or the day "
+                       "daylight saving starts or ends. A span may wrap the year end (1 November to 31 March).",
+        "columns": [
+            col("season_id", "text", "season", pk=True, fk="season.season_id"),
+            col("part_no", "integer", "span number within the season (1 = first)", pk=True),
+            col("start_month", "integer", "month of the first day; NULL with start_anchor", null=True),
+            col("start_day", "integer", "day of month of the first day", null=True),
+            col("start_anchor", "text", "the first day is a daylight-saving changeover", null=True,
+                enum="season_anchor"),
+            col("end_month", "integer", "month of the last day; NULL with end_anchor", null=True),
+            col("end_day", "integer", "day of month of the last day (29 for February: the last day in any year)",
+                null=True),
+            col("end_anchor", "text", "the span ends the day before this daylight-saving changeover", null=True,
+                enum="season_anchor"),
+        ],
+        "checks": ["part_no > 0", "(start_month IS NULL) = (start_day IS NULL)",
+                   "(end_month IS NULL) = (end_day IS NULL)",
+                   "(start_month IS NULL) = (start_anchor IS NOT NULL)", "(end_month IS NULL) = (end_anchor IS NOT NULL)",
+                   "start_month IS NULL OR start_month BETWEEN 1 AND 12",
+                   "end_month IS NULL OR end_month BETWEEN 1 AND 12",
+                   "start_day IS NULL OR start_day BETWEEN 1 AND 31", "end_day IS NULL OR end_day BETWEEN 1 AND 31"],
+    },
+    {
+        "name": "time_window",
+        "grain": "one time window of one window set",
+        "source": "data/tariffdb/curated/*.yaml (tou_schedules windows)",
+        "description": "When one time-of-use period applies: day type, start and end time, in a season of the set. "
+                       "Times are local clock times as the document states them (window_set.time_basis).",
+        "columns": [
+            col("window_id", "text", "<season_id>:<tou_period>:<day_type>:<start>-<end>", pk=True),
+            col("window_set_id", "text", "window set", fk="window_set.window_set_id"),
+            col("season_id", "text", "the season the window applies in", fk="season.season_id"),
             col("tou_period", "text", "the rate.tou_period the window prices (peak, off_peak, solar_soak ...); "
                 "controlled_load_supply = the hours a controlled-load circuit is switched on (prices nothing)",
                 enum="tou_period"),
@@ -490,18 +604,27 @@ TABLES = [
             col("day_type", "text", "days the window applies on", enum="day_type"),
             col("start_time", "time", "inclusive"),
             col("end_time", "time", "exclusive; 24:00 = midnight at the end of the day"),
-            col("months", "text", "comma-separated months 1-12; NULL when the source names a season without its "
-                "months", null=True),
-            col("season", "text", "the rate.season the window belongs to; NULL = every season", null=True,
-                enum="season"),
-            col("season_label", "text", "season name as published", null=True),
-            col("time_basis", "text", "clock the times refer to, as stated", enum="time_basis"),
-            col("public_holidays", "text", "how public holidays are treated", enum="holiday_rule"),
-            *provenance(),
+            col("locator", "text", "where the window is stated, when not at the set's locator", null=True),
+            col("quote", "text", "verbatim wording at that locator, when the curator quoted it", null=True),
+        ],
+        "checks": ["start_time < end_time", "quote IS NULL OR locator IS NOT NULL"],
+    },
+    {
+        "name": "tariff_window_set",
+        "grain": "one window set used by one charge group of one tariff period",
+        "source": "data/tariffdb/curated/*.yaml (tou_schedules tariffs)",
+        "description": "Which window sets say when a tariff's usage, demand, export or controlled-load rates apply.",
+        "columns": [
+            *tariff_key(pk=True),
+            col("window_set_id", "text", "window set", pk=True, fk="window_set.window_set_id"),
+            col("applies_to", "text", "which charges of the tariff the set's windows price", pk=True,
+                enum="tou_applies"),
+            col("locator", "text", "where the document names the tariff for the set, when not at the set's locator",
+                null=True),
+            col("quote", "text", "verbatim wording at that locator", null=True),
         ],
         "foreign_keys": [TARIFF_FK],
-        "checks": ["effective_from <= effective_to", "start_time < end_time",
-                   "months IS NOT NULL OR season_label IS NOT NULL", "season IS NULL OR season_label IS NOT NULL"],
+        "checks": ["quote IS NULL OR locator IS NOT NULL"],
     },
     {
         "name": "eligibility",
@@ -511,22 +634,20 @@ TABLES = [
                        "type, availability, required technology. How customers are assigned is tariff_assignment.",
         "columns": [
             col("criterion_id", "text", "<distributor_id>:<tariff_code>:<effective_from>:<criterion>:<n>", pk=True),
-            col("distributor_id", "text", "distributor", fk="distributor.distributor_id"),
-            col("tariff_code", "text", "tariff code"),
-            *period("the criterion"),
+            *tariff_key(),
+            col("criterion_group", "integer", "alternative routes onto the tariff: a site qualifies when every "
+                "criterion of one group holds (criteria of one kind within a group are alternatives); 1 when the "
+                "document states no alternatives"),
             col("criterion", "text", "what is constrained", enum="criterion"),
             col("operator", "text", "comparison for a numeric threshold", null=True, enum="operator"),
             col("value_num", "numeric", "threshold", null=True, unit="see value_unit"),
             col("value_unit", "text", "unit of the threshold", null=True, enum="threshold_unit"),
             col("value_text", "text", "categorical value (residential, LV, interval, closed_to_new ...); the "
                 "<criterion>_value list for a categorical criterion, as stated for other", null=True),
-            col("target_tariff_code", "text", "tariff referred to (opt-out target, required companion)", null=True),
-            *provenance(),
-            col("quote", "text", "verbatim wording at the locator"),
+            *quoted(),
         ],
         "foreign_keys": [TARIFF_FK],
-        "checks": ["effective_from <= effective_to",
-                   "value_num IS NOT NULL OR value_text IS NOT NULL OR target_tariff_code IS NOT NULL",
+        "checks": ["criterion_group > 0", "value_num IS NOT NULL OR value_text IS NOT NULL",
                    "(value_num IS NULL) = (operator IS NULL)", "(value_num IS NULL) = (value_unit IS NULL)",
                    *(f"criterion != '{c}' OR value_text IS NULL OR value_text IN "
                      f"({', '.join(repr(v) for v in vs)})" for c, vs in CRITERION_VALUES.items())],
@@ -543,9 +664,7 @@ TABLES.append({
     "columns": [
         col("rule_id", "text", "<distributor_id>:<tariff_code>:<effective_from>:<charge_type>:<tou_period or "
             "all>:<season or all>:<measure> (a tariff priced both per kW and per kVA has a rule for each)", pk=True),
-        col("distributor_id", "text", "distributor", fk="distributor.distributor_id"),
-        col("tariff_code", "text", "tariff code"),
-        *period("the rule"),
+        *tariff_key(),
         col("charge_type", "text", "the rates the rule measures for", enum="rule_charge"),
         col("tou_period", "text", "the rate.tou_period it measures for; NULL = every rate of the charge type",
             null=True, enum="rate_period"),
@@ -564,13 +683,11 @@ TABLES.append({
             unit="see measure"),
         col("allowance_rollover", "boolean", "1 when an unused daily allowance carries over within the billing period",
             null=True),
-        *provenance(),
-        col("quote", "text", "verbatim wording at the locator"),
+        *quoted(),
         col("note", "text", "caveat from the curator", null=True),
     ],
     "foreign_keys": [TARIFF_FK],
-    "checks": ["effective_from <= effective_to",
-               f"(n IS NULL) = (method NOT IN ({', '.join(repr(m) for m in RULE_N_METHODS)}))",
+    "checks": [f"(n IS NULL) = (method NOT IN ({', '.join(repr(m) for m in RULE_N_METHODS)}))",
                "allowance_rollover IS NULL OR allowance_per_day IS NOT NULL"],
 })
 

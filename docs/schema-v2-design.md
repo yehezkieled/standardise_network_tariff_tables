@@ -24,15 +24,15 @@ on one branch, each building and green.
 | source_document | document_id | document versions: URL, sha256, publisher, status |
 | tariff | distributor_id, tariff_code, effective_from | name, customer_class (+ _published), pricing_basis, status, document |
 | tariff_assignment | tariff key, assignment_no | default / opt_in / opt_out / mandatory ... per quoted statement, with who it applies to |
-| tariff_link | tariff key, link_type, linked_code | alias, replaces, opt_out_to, primary_of, secondary_of, compulsory_pair, cannot_combine, zone_variant_of |
+| tariff_link | tariff key, link_no | link_type (alias, zone_variant_of, opt_out_to, replaces, secondary_of, primary_of, compulsory_pair, cannot_combine, available_only_from) to linked_code or linked_customer_class, quoted (aliases come from code_alias.csv) |
 | eligibility | criterion_id | criterion_group (same group = all hold, any group qualifies), thresholds in controlled units |
 | rate | rate_id | one price: charge type, period, season, block, value, unit (FK unit), value_published, unit_published |
 | rate_condition | rate_id, condition_kind, value | opt_in / meter_type / meter_class (values of one kind = either) |
-| window_set | window_set_id | one stated TOU schedule: name, time_basis and public_holidays each with its own quote |
+| window_set | window_set_id | one stated TOU schedule (one statement, however many years it covers): name, time_basis and public_holidays each with its own quote |
 | season | season_id | a window set's season: controlled season + season_label as published |
-| season_part | season_id, part_no | start/end month and day, or a DST anchor |
-| time_window | window_set_id, window_no | period, day type, start, end, season |
-| tariff_window_set | tariff key, window_set_id, applies_to | which charges of a tariff a window set prices |
+| season_part | season_id, part_no | start/end month and day, or a DST anchor (dst_start / dst_end) |
+| time_window | window_id | period, day type, start, end, season |
+| tariff_window_set | tariff key, window_set_id, applies_to | which charges of a tariff a window set prices (two sets stating the same window: the readers keep it once, `joins.tariff_windows`) |
 | charge_rule | rule_id | demand/capacity/export measurement: measure (kW, kVA, kva_else_kw), method, reset, lookback_months, minimum with unit, threshold |
 
 Views: `tariff_flat` (tariff x rate x matching window, value_std, is_default, demand rule), `tou_flat` (tariff x window
@@ -45,6 +45,8 @@ x season part), `unit_spelling` (published unit spellings per stored unit).
 - '?' units: replaced only by a quoted per-rate unit fact (curated `rate_units`); where no held document states the
   billing period the unit is `c/kW/period_not_stated` (listed known gap, no value_std, no calendar factor).
 - value_std = value x unit.multiplier; units per month or year carry calendar_factor (days_in_month, days_in_year).
+- Rate status, document and effective_to were copies of the tariff's in every row: dropped from rate (and
+  effective_to from every child table).
 - Holidays: `distributor.holiday_region` names the state calendar; `window_set.public_holidays` says how windows
   treat them, quoted, NULL where silent.
 - Release adds `tariffdb.xlsx` (one sheet per flat view + a columns sheet) beside the SQLite, CSV zip and SHA256SUMS.

@@ -43,7 +43,6 @@ criterion,demand_max,demand at most (or below) the threshold
 criterion,demand_min,demand at least (or above) the threshold
 criterion,meter_type,the meter the site has
 criterion,minimum_demand_charge,the smallest demand charged
-criterion,opt_out_to,the tariff a customer may opt out to (target_tariff_code)
 criterion,other,a stated condition no other criterion covers (value_text as stated)
 criterion,requires_technology,"equipment the site must have (solar, battery, a dedicated circuit ...)"
 criterion,voltage_level,the supply voltage
@@ -95,6 +94,15 @@ holiday_rule,as_non_business_day,public holidays are priced as weekends (non-bus
 holiday_rule,as_weekday,public holidays are priced as weekdays
 holiday_rule,not_stated,no held document says how public holidays are priced
 holiday_rule,unchanged,public holidays keep their day of the week
+link_type,alias,the AER prints this tariff as linked_code (a spelling or code_alias.csv rule)
+link_type,available_only_from,only a customer now on the linked tariff may take this one
+link_type,cannot_combine,this tariff may not be combined with the linked one (both NULL: with any other)
+link_type,compulsory_pair,this tariff is taken only together with the linked one
+link_type,opt_out_to,a customer may opt out of this tariff to the linked one
+link_type,primary_of,the linked tariff is held only beside this one
+link_type,replaces,this tariff replaces the linked one
+link_type,secondary_of,"this tariff is held only beside a primary tariff: linked_code, or one of the class"
+link_type,zone_variant_of,this tariff is one pricing zone of linked_code as the AER prints it
 meter_type_value,accumulation,an accumulation meter
 meter_type_value,any,any meter
 meter_type_value,basic,a basic (accumulation) meter
@@ -231,6 +239,8 @@ season,non_summer,the months summer leaves
 season,spring,spring
 season,summer,summer
 season,winter,winter
+season_anchor,dst_end,the day daylight saving ends in the distributor's state
+season_anchor,dst_start,the day daylight saving starts in the distributor's state
 state,ACT,Australian Capital Territory
 state,NSW,New South Wales
 state,NT,Northern Territory

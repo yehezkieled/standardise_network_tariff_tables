@@ -6445,17 +6445,6 @@ eligibility:
   locator: pdf:p11
   quote: NDTOU, NDD, NDM and NDMO21 require an active market interval read meter
 - codes:
-  - NDM
-  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
-  fin_year: 2024-25
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: NDMO21
-  locator: pdf:p11
-  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
-- codes:
   - LLVT1
   - LLVT2
   - LLV1
@@ -7014,17 +7003,6 @@ eligibility:
   locator: pdf:p7
   quote: NDTOU, NDD, NDM and NDMO21 require an active market interval read meter
 - codes:
-  - NDM
-  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: NDMO21
-  locator: pdf:p7
-  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
-- codes:
   - LLVT1
   - LLVT2
   - LLV1
@@ -7209,18 +7187,6 @@ eligibility:
   locator: pdf-ocr:p8
   quote: Sub-transmission ST2 Default
   note: Status column of Table 6 (an image; rendered-page OCR) reads 'Default' for ST2.
-- codes:
-  - NDM
-  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: NDMO21
-  locator: pdf:p11
-  quote: 'Option 2 - "opt out" of network demand tariff (new tariff code NDMO21) To opt a customer out of a network demand tariff, the following criteria must be satisfied: • A customer’s aggregate consumption must be less than 160MWh per annum'
-  note: 'Also: customer applies to a retailer; retailer supplies an invoice showing a demand component is charged'
 - codes:
   - LLVT1
   - LLVT2
@@ -7955,18 +7921,6 @@ eligibility:
   value_text: with a dedicated circuit, demand is measured on the general power & light circuits only
   locator: pdf:p7
   quote: For small and medium demand tariffs with dedicated circuit, the demand calculation will only apply to consumption on the General Power & Light circuits
-- codes:
-  - NDM
-  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: NDMO21
-  locator: pdf:p8
-  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
-  note: the 2026-27 Tariff Summary lists the medium business opt-out tariff as NDMO (status 'Opt-out')
 - codes:
   - LLV1
   - LLV2
@@ -10352,3 +10306,50 @@ charge_rules:
   quote: Demand charge ($ per kVA pa x 12 month rolling maximum kVA) / 12
   note: Appendix A.6.1 'Calculation of the kVA demand tariff for a monthly bill', which applies to large low voltage,
     high voltage and sub-transmission customers. The interval is not stated here.
+tariff_links:
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2024-25_28Mar2024_wayback.pdf
+  fin_year: 2024-25
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: NDMO21
+  locator: pdf:p11
+  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: NDMO21
+  locator: pdf:p7
+  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2025-26_31Mar2025_wayback.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: NDMO21
+  locator: pdf:p11
+  quote: 'Option 2 - "opt out" of network demand tariff (new tariff code NDMO21) To opt a customer out of a network demand tariff, the following criteria must be satisfied: • A customer’s aggregate consumption must be less than 160MWh per annum'
+  note: 'Also: customer applies to a retailer; retailer supplies an invoice showing a demand component is charged'
+- codes:
+  - NDM
+  doc: sources/dnsp/powercor/Powercor_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: NDMO21
+  locator: pdf:p8
+  quote: NDM customers consuming less than 160 MWh pa can opt out of the demand tariff to NDMO21
+  note: the 2026-27 Tariff Summary lists the medium business opt-out tariff as NDMO (status 'Opt-out')

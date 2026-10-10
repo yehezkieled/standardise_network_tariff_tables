@@ -9332,17 +9332,6 @@ eligibility:
   locator: pdf:p7
   quote: LVTOU and LVMKW1R require an active market interval read meter
 - codes:
-  - LVMKW1R
-  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: LVTOU
-  locator: pdf:p7
-  quote: LVMKW1R customers consuming less than 160 MWh pa can opt out of the demand tariff to LVTOU
-- codes:
   - LVkVATOU1
   - LVkVATOU2
   - HVkVATOU1
@@ -9493,21 +9482,6 @@ eligibility:
   note: 'pdf-ocr locator: Tables 5 and 6 are rotated on the page and the text layer extracts them one glyph column at a time,
     so the quote is checked against OCR of the rendered page. Demand threshold cell reads ''≥ 120 kVA demand or ≥ 200amps
     per phase'''
-- codes:
-  - LVkVATOU1
-  - LVkVATOU2
-  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
-  fin_year: 2025-26
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: LVTOU
-  locator: pdf:p11
-  quote: 'Option 2 – “opt out” of Network Demand Tariff (Tariff code LVTOU) To opt a customer out of a network demand tariff, the following criteria must be satisfied: • A customer’s aggregate consumption must be less than 160MWh per annum'
-  note: 'Section 2.5.8 ''Criteria to move away from kVA demand tariff'': ''A customer’s aggregate consumption must be less
-    than 160MWh per annum''; the customer applies to a retailer, which must supply an invoice showing a demand component.
-    The section does not name which kVA tariffs; applied to the low voltage ones because LVTOU is a < 1kV tariff.'
 - codes:
   - LVkVATOU1
   - LVkVATOU2
@@ -9892,17 +9866,6 @@ eligibility:
   locator: pdf:p7
   quote: ≤240kVA import outside of peak
   note: Threshold cell '≤240kVA import capacity'
-- codes:
-  - UMBD
-  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
-  fin_year: 2026-27
-  rule_type: opt_out_to
-  operator: lt
-  value_num: 160
-  value_unit: MWh/yr
-  target_code: UMBO
-  locator: pdf:p8
-  quote: UMBD customers consuming less than 160 MWh pa can opt out of the demand tariff to UMBO
 - codes:
   - LVKVATOU1
   - LVKVATOU2
@@ -12178,3 +12141,41 @@ charge_rules:
   quote: Chargeable demand is measured as the maximum half-hour kW demand between 10am and 6pm, local time, work days, resetting
     every month.
   note: Section 3.2; holds for the summer and non-summer rates.
+tariff_links:
+- codes:
+  - LVMKW1R
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: LVTOU
+  locator: pdf:p7
+  quote: LVMKW1R customers consuming less than 160 MWh pa can opt out of the demand tariff to LVTOU
+- codes:
+  - LVkVATOU1
+  - LVkVATOU2
+  doc: sources/aer/dnsp_copies/UnitedEnergy_2025-26_Final_Pricing_31Mar2025.pdf
+  fin_year: 2025-26
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: LVTOU
+  locator: pdf:p11
+  quote: 'Option 2 – “opt out” of Network Demand Tariff (Tariff code LVTOU) To opt a customer out of a network demand tariff, the following criteria must be satisfied: • A customer’s aggregate consumption must be less than 160MWh per annum'
+  note: 'Section 2.5.8 ''Criteria to move away from kVA demand tariff'': ''A customer’s aggregate consumption must be less
+    than 160MWh per annum''; the customer applies to a retailer, which must supply an invoice showing a demand component.
+    The section does not name which kVA tariffs; applied to the low voltage ones because LVTOU is a < 1kV tariff.'
+- codes:
+  - UMBD
+  doc: sources/dnsp/unitedenergy/UE_Pricing_Proposal_2026-27_07May2026.pdf
+  fin_year: 2026-27
+  link_type: opt_out_to
+  operator: lt
+  value_num: 160
+  value_unit: MWh/yr
+  linked_code: UMBO
+  locator: pdf:p8
+  quote: UMBD customers consuming less than 160 MWh pa can opt out of the demand tariff to UMBO

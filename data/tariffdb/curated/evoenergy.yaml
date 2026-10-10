@@ -10501,15 +10501,6 @@ eligibility:
   locator: pdf:p9
   quote: This tariff became Evoenergy’s default tariff for residential customers with a Type 4 meter from 1 December 2017.
 - codes:
-  - '025'
-  doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  target_code: '015'
-  locator: pdf:p11
-  quote: New residential customers are currently assigned by default to the Residential kW Demand tariff, with the ability
-    to opt-out to the Residential Time-of-Use (TOU) tariff.
-- codes:
   - '027'
   doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
   fin_year: 2023-24
@@ -10548,26 +10539,6 @@ eligibility:
   value_text: smart
   locator: pdf:p12
   quote: have a smart meter.
-  note: 'XMC variants are included: Table 2.6 lists each as ''<tariff> XMC*'' (''XMC tariffs exclude metering capital charges'').'
-- codes:
-  - '027'
-  - 028
-  doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  target_code: '025'
-  locator: pdf:p12
-  quote: residential customers can opt out to either the residential demand tariff (tariff codes 025, 026)
-  note: 'XMC variants are included: Table 2.6 lists each as ''<tariff> XMC*'' (''XMC tariffs exclude metering capital charges'').'
-- codes:
-  - '027'
-  - 028
-  doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
-  fin_year: 2023-24
-  rule_type: opt_out_to
-  target_code: '015'
-  locator: pdf:p12
-  quote: or the residential time of use tariff (tariff codes 015, 016)
   note: 'XMC variants are included: Table 2.6 lists each as ''<tariff> XMC*'' (''XMC tariffs exclude metering capital charges'').'
 - codes:
   - '060'
@@ -16926,3 +16897,33 @@ charge_rules:
   quote: Capacity charges—these are a charge per unit of maximum demand (in c/kVA/day). The maximum demand is the highest
     demand recorded over a 30-minute clocked interval during the previous 13 months inclusive of the current billing month.
   note: Section 2 definition of the capacity charging parameter, for every tariff's capacity charge.
+tariff_links:
+- codes:
+  - '025'
+  doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  linked_code: '015'
+  locator: pdf:p11
+  quote: New residential customers are currently assigned by default to the Residential kW Demand tariff, with the ability
+    to opt-out to the Residential Time-of-Use (TOU) tariff.
+- codes:
+  - '027'
+  - 028
+  doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  linked_code: '025'
+  locator: pdf:p12
+  quote: residential customers can opt out to either the residential demand tariff (tariff codes 025, 026)
+  note: 'XMC variants are included: Table 2.6 lists each as ''<tariff> XMC*'' (''XMC tariffs exclude metering capital charges'').'
+- codes:
+  - '027'
+  - 028
+  doc: sources/dnsp/evoenergy/Evoenergy_Statement_of_Tariff_Classes_and_Tariffs_2023-24.pdf
+  fin_year: 2023-24
+  link_type: opt_out_to
+  linked_code: '015'
+  locator: pdf:p12
+  quote: or the residential time of use tariff (tariff codes 015, 016)
+  note: 'XMC variants are included: Table 2.6 lists each as ''<tariff> XMC*'' (''XMC tariffs exclude metering capital charges'').'

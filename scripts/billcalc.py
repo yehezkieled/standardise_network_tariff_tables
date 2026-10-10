@@ -21,7 +21,7 @@ Site facts the database cannot hold (meter type, opt-ins, agreed kVA, pricing zo
 
 Rules the calculator applies, all stated in the database except where an issue says otherwise:
   - prices are GST exclusive; GST is 10% from 1 July 2000 (A New Tax System (Goods and Services Tax) Act 1999);
-  - a rate with a condition is charged only when the Site meets it (rate.condition);
+  - a rate with conditions is charged only when the Site meets them (rate_condition);
   - a rate joins its windows as scripts/tariffdb/joins.py says; window times are local clock times in the distributor's
     time zone (distributor.iana_timezone) unless the window says standard_time; an interval belongs to the window its
     start falls in;
@@ -98,9 +98,9 @@ ISSUES = {
 @dataclass(frozen=True)
 class Site:
     """Facts about the site the database cannot hold."""
-    meter_type: str = None          # interval, smart, basic, accumulation ... (rate.condition meter_type:<t>)
-    meter_class: str = None         # the class in the distributor's metering schedule (rate.condition meter_class:<c>)
-    opt_in: frozenset = frozenset()  # opt-in names the customer joined (rate.condition opt_in:<name>)
+    meter_type: str = None          # interval, smart, basic, accumulation ... (rate_condition meter_type)
+    meter_class: str = None         # the class in the distributor's metering schedule (rate_condition meter_class)
+    opt_in: frozenset = frozenset()  # opt-in names the customer joined (rate_condition opt_in)
     agreed_kva: float = None        # agreed, contracted or assigned demand, for capacity and agreed-demand charges
     event_days: frozenset = None    # the days the distributor nominated (critical peak), for avg_nominated_days
     event_times: dict = None        # {event period: ((start, end), ...)} NEM times of the events the distributor
@@ -159,14 +159,24 @@ class Db:
         rate = read("rate")
         rate["value"] = rate["value"].astype(float)
         self.rates = self._group(rate)
-        self.windows = self._group(read("tou_window"))
+        conditions = {}
+        for c in self._records(read("rate_condition")):
+            conditions.setdefault(c["rate_id"], {}).setdefault(c["condition_kind"], []).append(c["value"])
+        for rates in self.rates.values():
+            for r in rates:
+                r["conditions"] = conditions.get(r["rate_id"], {})
+        self.windows = joins.tariff_windows(*(self._records(read(t)) for t in (
+            "window_set", "season", "season_part", "time_window", "tariff_window_set")))
         self.rules = self._group(read("charge_rule"))
 
     @staticmethod
-    def _group(df):
-        records = [{k: (None if v == "" else v) for k, v in r.items()} for r in df.to_dict("records")]
+    def _records(df):
+        return [{k: (None if v == "" else v) for k, v in r.items()} for r in df.to_dict("records")]
+
+    @classmethod
+    def _group(cls, df):
         out = {}
-        for r in records:
+        for r in cls._records(df):
             out.setdefault((r["distributor_id"], r["tariff_code"], r["effective_from"]), []).append(r)
         return out
 
@@ -206,6 +216,7 @@ class Clock:
                 "weekday": np.asarray(ts.weekday < 5), "holiday": np.isin(np.array(ts.date), list(ph)),
             }
         self.month = np.asarray(local.month)
+        self.in_dst = np.asarray(local != standard)  # local clocks are on daylight-saving time
         self.n = len(index)
         self.events = {}
         for tou_period, spans in (event_times or {}).items():
@@ -232,7 +243,8 @@ def window_mask(clock, w, holiday_rule=None):
             "business_day": wd & ~ph if as_non_business else wd,
             "non_business_day": ~wd | ph if as_non_business else ~wd}[w["day_type"]]
     months = [int(m) for m in w["months"].split(",")] if w["months"] else None
-    in_months = np.isin(c["month"], months) if months else np.zeros(clock.n, bool)
+    in_months = np.isin(c["month"], months) if months else \
+        (clock.in_dst if w["dst"] == "in" else ~clock.in_dst) if w["dst"] else np.zeros(clock.n, bool)
     t = c["minute"]
     return days & in_months & (t >= minutes(w["start_time"])) & (t < minutes(w["end_time"]))
 
@@ -241,7 +253,7 @@ def windows_mask(clock, ws, bill, period):
     """Intervals in any of the windows ws, flagging what the windows leave unstated."""
     mask = np.zeros(clock.n, bool)
     for w in ws:
-        if not w["months"]:
+        if not w["months"] and not w["dst"]:
             bill.flag("window_months_not_stated", f"{period}: {w['window_id']}")
             continue
         if w["time_basis"] == "not_stated":
@@ -261,6 +273,9 @@ def windows_mask(clock, ws, bill, period):
 def season_mask(clock, season, ws, bill, period, what):
     if season is None:
         return np.ones(clock.n, bool)
+    dst = {w["dst"] for w in ws if w["season"] == season and w["dst"]}
+    if len(dst) == 1:
+        return clock.in_dst if dst == {"in"} else ~clock.in_dst
     months = joins.season_months(season, ws)
     if months is None:
         bill.flag("season_months_unknown", f"{period}: {what} season {season}")
@@ -280,20 +295,20 @@ def unit_parts(unit):
 
 
 def applies(rate, site, bill, period):
-    """Is a rate with a condition charged at this site? A site fact the caller did not give counts as not met and is
-    flagged as an input."""
-    cond = rate["condition"]
-    if cond is None:
-        return True
-    kind, _, values = cond.partition(":")
-    values = values.split("|")
-    if kind == "opt_in":
-        return any(v in site.opt_in for v in values)
-    have = {"meter_type": site.meter_type, "meter_class": site.meter_class}.get(kind)
-    if have is None:
-        bill.flag(f"{kind}_needed", f"{period}: {rate['component']} applies to {kind} {' or '.join(values)}")
-        return False
-    return have in values
+    """Is a rate with conditions (rate_condition) charged at this site: one value of each kind met? A site fact the
+    caller did not give counts as not met and is flagged as an input."""
+    met = True
+    for kind, values in sorted((rate.get("conditions") or {}).items()):
+        if kind == "opt_in":
+            met &= any(v in site.opt_in for v in values)
+            continue
+        have = {"meter_type": site.meter_type, "meter_class": site.meter_class}.get(kind)
+        if have is None:
+            bill.flag(f"{kind}_needed", f"{period}: {rate['component']} applies to {kind} {' or '.join(values)}")
+            met = False
+        else:
+            met &= have in values
+    return met
 
 
 def bill(did, code, start, end, intervals, site=Site(), db=None):
@@ -738,7 +753,7 @@ def categorise(did, code, start, end, intervals, db=None):
         windows, rates = db.windows.get(key, []), db.rates.get(key, [])
         cols["effective_from"][sel] = t["effective_from"]
         for w in sorted(windows, key=lambda w: w["window_id"]):
-            if not w["months"]:
+            if not w["months"] and not w["dst"]:
                 continue
             m = sel[window_mask(clock, w)]
             for gname in (groups if w["applies_to"] == "all" else [w["applies_to"]]):

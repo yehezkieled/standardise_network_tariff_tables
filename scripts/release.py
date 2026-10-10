@@ -112,11 +112,16 @@ def sheet_xml(header, rows):
             return f'<c r="{ref}"{style}><v>{value!r}</v></c>'
         return f'<c r="{ref}"{style} t="inlineStr"><is><t xml:space="preserve">{xml_text(value)}</t></is></c>'
     last = column_letter(len(header))
+    # each column as wide as its header or longest value among the first rows, within 8 to 60 characters
+    widths = [min(60, max(8, len(str(h)) + 2, *(len(str(r[j])) + 1 for r in rows[:2000] if r[j] is not None)))
+              for j, h in enumerate(header)]
     out = ['<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
            '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
            f'<dimension ref="A1:{last}{len(rows) + 1}"/>'
            '<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" '
-           'state="frozen"/></sheetView></sheetViews><sheetData>']
+           'state="frozen"/></sheetView></sheetViews><cols>'
+           + "".join(f'<col min="{j}" max="{j}" width="{w}" customWidth="1"/>' for j, w in enumerate(widths, 1))
+           + '</cols><sheetData>']
     for i, row in enumerate([header, *rows], 1):
         style = ' s="1"' if i == 1 else ""
         out.append(f'<row r="{i}">' + "".join(cell(f"{column_letter(j)}{i}", v, style)

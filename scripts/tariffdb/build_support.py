@@ -59,6 +59,9 @@ YEAR_DATES = {k: year_dates(k) for k in spec.PRICING_YEARS}
 # the database stores the pricing years in effect on or after this day (the captain's cutoff); the archive and
 # scripts/history keep the older years, so lowering it and rebuilding stores them too (README, "Older years")
 FIRST_STORED_DAY = "2017-01-01"
+# python-holidays version the public_holiday table is generated with (the build refuses another: the calendar changes
+# between versions)
+HOLIDAYS_VERSION = "0.106"
 
 
 def stored(year, first_day=FIRST_STORED_DAY):

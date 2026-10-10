@@ -162,13 +162,13 @@ the AER file states none.
 
 | YAML section | Table | States |
 |---|---|---|
-| `tou_schedules` | `window_set`, `season`, `season_part`, `time_window`, `tariff_window_set` | when each rate's period applies: one schedule is one window set, used by the tariffs it names; `period` = the rate's `tou_period`; a seasonal window has `season` (the rate's), `season_label` (as printed) and its months (`dst` / `not_dst` for a season the document defines by daylight saving) |
+| `tou_schedules` | `window_set`, `season`, `season_part`, `time_window`, `tariff_window_set` | when each rate's period applies: one schedule is one window set, used by the tariffs it names; `period` = the rate's `tou_period`; a seasonal window has `season` (the rate's), `season_label` (as printed) and its months (`dst` / `not_dst` for a season the document defines by daylight saving); `time_basis` and `public_holidays` each quote the statement that sets them (`time_basis_locator` / `_quote`, and `_doc` when another document of the year states it), or are `not_stated` with no quote (stored NULL; billcalc flags the assumption) |
 | `rate_periods` | `rate.tou_period`, `rate.season` | the period or season of a rate whose price list column names it differently (the rate's note records the change) |
 | `rate_units` | `rate.unit` | the billing period (and kW or kVA) of a demand rate whose price list prints none (`c/kW/?`); with no such fact the build stores `c/kW/period_not_stated` and billcalc blocks it |
 | `conditions` | `rate_condition` | a rate only some sites pay: `opt_in:<name>`, `meter_type:<type>`, `meter_class:<class>` (`a\|b` = either; one row per value) |
-| `tariff_links` | `tariff_link` | a relation the document states to another code or class: `opt_out_to`, `replaces`, `secondary_of`, `cannot_combine` ... (the AER's spellings become `alias` / `zone_variant_of` links by themselves) |
+| `tariff_links` | `tariff_link` | a relation the document states to another code or class: `opt_out_to`, `replaces`, `secondary_of`, `cannot_combine`, `available_only_from` ... (one row per linked code; the AER's spellings become `alias` / `zone_variant_of` links by themselves) |
 | `metering` | `rate` (`charge_type` metering) | a network-wide metering schedule row, applied to the codes (or `all`) the document says, with its condition |
-| `charge_rules` | `charge_rule` | how a demand, capacity or export quantity is measured: kW/kVA/kWh, interval, highest or mean of the n highest, reset, minimum, threshold, allowance (`codes: all` for a glossary definition) |
+| `charge_rules` | `charge_rule` | how a demand, capacity or export quantity is measured: kW/kVA/kWh (or `kva_else_kw`), interval, highest or mean of the n highest, reset (`rolling_months` with `lookback_months`), minimum and threshold (each with its unit, the measure's by default), allowance (`codes: all` for a glossary definition) |
 
 A fact's `fin_year` may list several pricing years (`[2019-20, 2020-21]`) when one document states it for each of
 them, e.g. a tariff structure statement for its regulatory period; a year's own price list states only that year.
@@ -243,7 +243,7 @@ status and the reason.
 | `aliases` | no provisional tariff is a final tariff of the same distributor and period under another spelling or an alias | the AER spells a code differently: add a rule to `data/tariffdb/code_alias.csv` |
 | `files` | each held document matches its recorded SHA-256 (`--sources`) | the publisher replaced the file: record it as a new version |
 | `values` | each rate's published value is at its cell or PDF page (`--sources`) | the parser or locator is wrong for that row |
-| `quotes` | each eligibility, tariff_assignment, tariff_link and rate_condition quote is at its locator; each curated YAML validates (`--sources`) | a curated fact does not match its source |
+| `quotes` | each eligibility, tariff_assignment, tariff_link and rate_condition quote, and each window set's time-basis and public-holiday statement, is at its locator; each curated YAML validates (`--sources`) | a curated fact does not match its source |
 
 ## Before you commit
 

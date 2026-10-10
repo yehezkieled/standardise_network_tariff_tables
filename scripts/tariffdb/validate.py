@@ -290,7 +290,13 @@ def check_quotes(db, committed_only):
                          || ':link:' || l.link_no, l.locator, l.quote, d.local_path
                          FROM tariff_link l JOIN source_document d USING (document_id) WHERE l.quote IS NOT NULL
                          UNION ALL SELECT c.rate_id || ':' || c.condition_kind || ':' || c.value, c.locator, c.quote,
-                         d.local_path FROM rate_condition c JOIN source_document d USING (document_id)"""):
+                         d.local_path FROM rate_condition c JOIN source_document d USING (document_id)
+                         UNION ALL SELECT w.window_set_id || ':time_basis', w.time_basis_locator, w.time_basis_quote,
+                         d.local_path FROM window_set w JOIN source_document d
+                         ON d.document_id = w.time_basis_document_id
+                         UNION ALL SELECT w.window_set_id || ':public_holidays', w.public_holidays_locator,
+                         w.public_holidays_quote, d.local_path FROM window_set w JOIN source_document d
+                         ON d.document_id = w.public_holidays_document_id"""):
         path = os.path.join(ROOT, r["local_path"])
         if not os.path.exists(path):
             if not committed_only:

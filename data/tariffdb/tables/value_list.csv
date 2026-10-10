@@ -1,4 +1,9 @@
 list_name,value,definition
+agreement_value,connection_agreement,a connection agreement that sets it
+agreement_value,distributor_agreement,an agreement with the distributor
+agreement_value,partner_retailer,only through a retailer partnered with the distributor
+agreement_value,retailer_request,at the retailer's request
+agreement_value,trial_participant,the customer has joined the distributor's trial
 assignment,assigned_by_distributor,the distributor assigns it
 assignment,default,customers are assigned to it unless they choose otherwise
 assignment,mandatory,customers must be on it
@@ -35,16 +40,35 @@ charge_type,usage,per kWh (or kVAh) consumed
 condition_kind,meter_class,only at a site in that class of the distributor's metering schedule
 condition_kind,meter_type,only at a site with that meter type
 condition_kind,opt_in,only for a customer who opts in to the named offer
+connection_value,alpine_region,a supply in the alpine (snowfields) region
+connection_value,dedicated_circuit,a separately wired dedicated circuit
+connection_value,embedded_network_child,a customer inside an embedded network
+connection_value,embedded_network_parent,the parent connection point of an embedded network
+connection_value,far_from_terminal_station,beyond the stated distance from a terminal station
+connection_value,generator_connection,a connection point that exists primarily to connect a generator
+connection_value,greenfield,a new (greenfield) connection
+connection_value,multiple_nmis_aggregated,"several NMIs on one site, their consumption aggregated"
+connection_value,near_terminal_station,within the stated distance of a terminal station
+connection_value,not_embedded_network,a connection that is not part of an embedded network
+connection_value,rural,a rural supply
+connection_value,single_phase,a single-phase connection
+connection_value,specific_network_location,a named part of the network (named in the quote)
+connection_value,three_phase,a three-phase connection
+criterion,agreement,an agreement the customer or retailer must have (agreement_value)
 criterion,availability,"whether the tariff is open, closed to new customers, withdrawn ..."
+criterion,connection,how or where the site is connected (connection_value)
 criterion,consumption_max,annual consumption at most (or below) the threshold
 criterion,consumption_min,annual consumption at least (or above) the threshold
 criterion,customer_type,"the kind of customer (residential, small business ...)"
 criterion,demand_max,demand at most (or below) the threshold
 criterion,demand_min,demand at least (or above) the threshold
+criterion,export_capacity,the site's export capacity (export limit) against the threshold
 criterion,meter_type,the meter the site has
 criterion,minimum_demand_charge,the smallest demand charged
 criterion,other,a stated condition no other criterion covers (value_text as stated)
 criterion,requires_technology,"equipment the site must have (solar, battery, a dedicated circuit ...)"
+criterion,storage_capacity,the site's battery or storage size against the threshold
+criterion,supply_capacity,"the connection's supply capacity at least (or above, at most, below) the threshold"
 criterion,voltage_level,the supply voltage
 customer_class,business,"business customers, size not named"
 customer_class,controlled_load,"controlled-load supply (a separately metered, switched circuit)"
@@ -92,7 +116,6 @@ document_type,tariff_summary,a distributor's short summary of its tariffs
 document_type,tariff_trial_notification,a distributor's notification of a tariff trial
 holiday_rule,as_non_business_day,public holidays are priced as weekends (non-business days)
 holiday_rule,as_weekday,public holidays are priced as weekdays
-holiday_rule,not_stated,no held document says how public holidays are priced
 holiday_rule,unchanged,public holidays keep their day of the week
 link_type,alias,the AER prints this tariff as linked_code (a spelling or code_alias.csv rule)
 link_type,available_only_from,only a customer now on the linked tariff may take this one
@@ -212,6 +235,7 @@ rule_charge,export,export charges
 rule_measure,kVA,kilovolt-amperes
 rule_measure,kW,kilowatts
 rule_measure,kWh,kilowatt-hours (an energy quantity)
+rule_measure,kva_else_kw,"kilovolt-amperes where the meter records them, else kilowatts"
 rule_method,agreed,"a value agreed with the distributor, not measured"
 rule_method,assigned,"a value the distributor sets (a transformer or connection rating), not measured"
 rule_method,avg_daily_max,the mean of every day's maximum
@@ -227,8 +251,7 @@ rule_method,sum,"the total over the span (an energy quantity, e.g. export kWh ab
 rule_reset,billing_period,each billing period
 rule_reset,day,each day
 rule_reset,month,each calendar month
-rule_reset,rolling_12_months,the current billing month and the 11 before it
-rule_reset,rolling_13_months,the current billing month and the 12 before it
+rule_reset,rolling_months,the current billing month and the months before it: lookback_months in all
 rule_reset,season,each season
 rule_reset,year,each financial year
 rule_reset,year_from_april,1 April to 31 March
@@ -250,16 +273,17 @@ state,TAS,Tasmania
 state,VIC,Victoria
 status,final,"rates from the distributor's own published price list, or the schedule a state regulator published or approved"
 status,provisional,"rates from the AER's report, a document the AER hosts or the distributor's proposal"
+threshold_unit,A_per_phase,amperes per phase
 threshold_unit,GWh/yr,gigawatt-hours a year
 threshold_unit,MVA,megavolt-amperes
 threshold_unit,MW,megawatts
 threshold_unit,MWh/yr,megawatt-hours a year
 threshold_unit,kVA,kilovolt-amperes
 threshold_unit,kW,kilowatts
+threshold_unit,kWh,kilowatt-hours (a storage size)
 threshold_unit,kWh/yr,kilowatt-hours a year
 time_basis,daylight_time,stated in daylight-saving time (e.g. ADST); stored as stated
 time_basis,local_time,"local clock time, following daylight saving where it applies"
-time_basis,not_stated,no held document states the clock
 time_basis,standard_time,local standard time all year
 tou_applies,all,every time-varying charge of the tariff
 tou_applies,controlled_load,the tariff's controlled-load usage

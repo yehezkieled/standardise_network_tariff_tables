@@ -18,7 +18,10 @@ tou_schedules:
     fin_year: 2025-26
     name: <what the windows are for>
     time_basis: local_time | standard_time | daylight_time | not_stated   (daylight_time: stated as e.g. 'ADST')
+    [time_basis_doc: <path, when another document of the year states it>, time_basis_locator, time_basis_quote]
     public_holidays: as_weekday | as_non_business_day | unchanged | not_stated
+    [public_holidays_doc, public_holidays_locator, public_holidays_quote]
+    (a stated time_basis or public_holidays quotes the statement; not_stated takes no quote and is stored as NULL)
     covers_full_day: true | false        # true only when the windows partition each listed day type over 24h
     locator: pdf:p7 | xlsx:<sheet>!<cell>
     quote: <verbatim wording at the locator that states the windows>
@@ -79,7 +82,8 @@ rate_units:
 charge_rules:
   - {codes: [...] | all, doc, fin_year, charge_type: <spec.RULE_CHARGES>, [tou_period: <spec.RATE_PERIODS>],
      [season: <spec.SEASONS>], measure: <spec.RULE_MEASURES>, [interval_min: 30], method: <spec.RULE_METHODS>, [n: 4],
-     reset: <spec.RULE_RESETS>, [minimum_value], [threshold_value], [allowance_per_day], [allowance_rollover],
+     reset: <spec.RULE_RESETS>, [lookback_months: 12 (rolling_months only)], [minimum_value, [minimum_unit]],
+     [threshold_value, [threshold_unit]], [allowance_per_day], [allowance_rollover],
      locator, quote, [note]}
     (how the demand, capacity or export quantity is measured; omit tou_period / season for a rule that holds for every
     rate of the charge type. `codes: all` = a rule the document states for every tariff (a glossary definition): it
@@ -110,6 +114,7 @@ DAY_TYPE_DAYS = {"weekday": DAYS[:5], "business_day": DAYS[:5], "weekend": DAYS[
                  "all_days": DAYS}
 
 
+NOT_STATED = "not_stated"  # a curated time_basis or public_holidays no held document states (stored as NULL)
 SECTIONS = ("distributor", "tou_schedules", "eligibility", "tariff_links", "steps", "conditions", "metering",
             "rate_periods", "rate_units", "charge_rules")
 # curated months of a season set by the daylight-saving changeover: the daylight-saving period, or the rest of the year
@@ -118,6 +123,7 @@ DST_MONTHS = ("dst", "not_dst")
 # unused allowance rolls over within the period); quarter: bounds accumulate per calendar quarter; unstated
 RESET_PERIODS = ("day", "billing_period_per_day", "quarter", "unstated")
 BOUNDARY_RULES = {"consumption_min", "consumption_max", "demand_min", "demand_max"}
+CAPACITY_RULES = {"supply_capacity", "export_capacity", "storage_capacity"}  # a bound either way: the operator says which
 
 
 def boundary_operators(quote, value, unit):
@@ -148,6 +154,9 @@ def boundary_operators(quote, value, unit):
         for m in re.finditer(r"(?:" + phrase + r")" + gap + quantity + r"\s+or\s+" + quantity, quote):
             if matches(m[3], m[4]):
                 operators.add(op)
+    for m in re.finditer(rf"\b0\s*(?:-|–|to)\s*{quantity}", quote):  # a range from zero: '0-30kW'
+        if matches(m[1], m[2]):
+            operators.add("le")
     for m in re.finditer(quantity + r"(?:\s*/?\s*(?:per year|per annum|pa|p\.a\.))?\s+or (more|less)", quote):
         if matches(m[1], m[2]):
             operators.add("ge" if m[3] == "more" else "le")
@@ -277,8 +286,19 @@ def validate(data, check_quotes=True):
             errors.append(f"{where}: duplicate id")
         sched_ids.add(s.get("id"))
         check_doc(where, s)
-        _enum(errors, where, s.get("time_basis"), spec.TIME_BASES, "time_basis")
-        _enum(errors, where, s.get("public_holidays"), spec.HOLIDAY_RULES, "public_holidays")
+        for key, allowed in (("time_basis", spec.TIME_BASES), ("public_holidays", spec.HOLIDAY_RULES)):
+            _enum(errors, where, s.get(key), list(allowed) + [NOT_STATED], key)
+            stated = s.get(key) not in (None, NOT_STATED)
+            have = [k for k in (f"{key}_doc", f"{key}_locator", f"{key}_quote") if s.get(k) is not None]
+            if stated and not {f"{key}_locator", f"{key}_quote"} <= set(have):
+                errors.append(f"{where}: {key} {s.get(key)} needs {key}_locator and {key}_quote (the statement)")
+            if not stated and have:
+                errors.append(f"{where}: {key} not_stated takes no {', '.join(have)}")
+            if stated and s.get(f"{key}_doc") is not None:
+                check_doc(f"{where} {key}_doc", {"doc": s[f"{key}_doc"], "fin_year": s.get("fin_year")})
+            if stated and check_quotes:
+                _quote(errors, f"{where} {key}", {"locator": s.get(f"{key}_locator"), "quote": s.get(f"{key}_quote")},
+                       s.get(f"{key}_doc") or s.get("doc"))
         if check_quotes:
             _quote(errors, where, s, s.get("doc"))
         for j, w in enumerate(s.get("windows") or []):
@@ -347,6 +367,13 @@ def validate(data, check_quotes=True):
                 errors.append(f"{where}: numeric boundary operator has the wrong direction")
             elif op not in boundary_operators(r.get("quote", ""), r["value_num"], r.get("value_unit")):
                 errors.append(f"{where}: operator {op!r} is not supported by the quoted boundary")
+        elif r.get("rule_type") in CAPACITY_RULES and r.get("value_num") is not None:
+            op = r.get("operator")
+            if op not in ("ge_unstated", "le_unstated") and \
+                    op not in boundary_operators(r.get("quote", ""), r["value_num"], r.get("value_unit")):
+                errors.append(f"{where}: operator {op!r} is not supported by the quoted boundary")
+        elif r.get("rule_type") in CAPACITY_RULES:
+            errors.append(f"{where}: {r['rule_type']} needs value_num, value_unit and operator")
         elif r.get("operator") in ("ge_unstated", "le_unstated"):
             errors.append(f"{where}: unstated boundary operator needs a numeric boundary rule")
         if bool(r.get("column_locator")) != bool(r.get("column_quote")):
@@ -365,8 +392,9 @@ def validate(data, check_quotes=True):
         _enum(errors, where, r.get("linked_customer_class"), spec.CUSTOMER_CLASSES, "linked_customer_class")
         if r.get("linked_code") and r.get("linked_customer_class"):
             errors.append(f"{where}: linked_code or linked_customer_class, not both")
-        if not r.get("linked_code") and r.get("link_type") not in ("cannot_combine", "secondary_of", "primary_of"):
-            errors.append(f"{where}: {r.get('link_type')} needs linked_code")
+        if not (r.get("linked_code") or r.get("linked_customer_class")) \
+                and r.get("link_type") not in ("cannot_combine", "secondary_of", "primary_of"):
+            errors.append(f"{where}: {r.get('link_type')} needs linked_code or linked_customer_class")
         if check_quotes:
             _quote(errors, where, r, r.get("doc"))
     for i, r in enumerate(data.get("steps") or []):
@@ -438,9 +466,20 @@ def validate(data, check_quotes=True):
             errors.append(f"{where}: codes must be a list or all")
         if r.get("allowance_rollover") is not None and r.get("allowance_per_day") is None:
             errors.append(f"{where}: allowance_rollover needs allowance_per_day")
+        lookback = r.get("lookback_months")
+        if (lookback is None) != (r.get("reset") != "rolling_months"):
+            errors.append(f"{where}: lookback_months goes with reset rolling_months, and only with it")
+        if lookback is not None and (not isinstance(lookback, int) or isinstance(lookback, bool) or lookback < 1):
+            errors.append(f"{where}: lookback_months must be a whole number >= 1")
+        for key in ("minimum", "threshold"):
+            _enum(errors, where, r.get(f"{key}_unit"), [m for m in spec.RULE_MEASURES if m != "kva_else_kw"],
+                  f"{key}_unit")
+            if r.get(f"{key}_unit") is not None and r.get(f"{key}_value") is None:
+                errors.append(f"{where}: {key}_unit needs {key}_value")
         unknown = set(r) - {"codes", "doc", "fin_year", "charge_type", "tou_period", "season", "measure",
-                            "interval_min", "method", "n", "reset", "minimum_value", "threshold_value",
-                            "allowance_per_day", "allowance_rollover", "locator", "quote", "note"}
+                            "interval_min", "method", "n", "reset", "lookback_months", "minimum_value",
+                            "minimum_unit", "threshold_value", "threshold_unit", "allowance_per_day",
+                            "allowance_rollover", "locator", "quote", "note"}
         if unknown:
             errors.append(f"{where}: unknown keys {sorted(unknown)}")
         if check_quotes:

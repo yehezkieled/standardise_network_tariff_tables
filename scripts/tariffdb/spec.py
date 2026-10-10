@@ -107,12 +107,10 @@ CONDITION_KINDS = {"opt_in": "only for a customer who opts in to the named offer
 # daylight_time: the source states the times in daylight-saving time (e.g. 'ADST'); times are stored as stated
 TIME_BASES = {"local_time": "local clock time, following daylight saving where it applies",
               "standard_time": "local standard time all year",
-              "daylight_time": "stated in daylight-saving time (e.g. ADST); stored as stated",
-              "not_stated": "no held document states the clock"}
+              "daylight_time": "stated in daylight-saving time (e.g. ADST); stored as stated"}
 HOLIDAY_RULES = {"as_weekday": "public holidays are priced as weekdays",
                  "as_non_business_day": "public holidays are priced as weekends (non-business days)",
-                 "unchanged": "public holidays keep their day of the week",
-                 "not_stated": "no held document says how public holidays are priced"}
+                 "unchanged": "public holidays keep their day of the week"}
 TOU_APPLIES = {"usage": "the tariff's usage charges", "demand": "the tariff's demand and capacity charges",
                "export": "the tariff's export charges", "controlled_load": "the tariff's controlled-load usage",
                "all": "every time-varying charge of the tariff"}
@@ -127,6 +125,11 @@ CRITERIA = {
     "availability": "whether the tariff is open, closed to new customers, withdrawn ...",
     "requires_technology": "equipment the site must have (solar, battery, a dedicated circuit ...)",
     "minimum_demand_charge": "the smallest demand charged",
+    "supply_capacity": "the connection's supply capacity at least (or above, at most, below) the threshold",
+    "export_capacity": "the site's export capacity (export limit) against the threshold",
+    "storage_capacity": "the site's battery or storage size against the threshold",
+    "connection": "how or where the site is connected (connection_value)",
+    "agreement": "an agreement the customer or retailer must have (agreement_value)",
     "other": "a stated condition no other criterion covers (value_text as stated)",
 }
 # tariff_link: how a tariff relates to another code (linked_code) or to the tariffs of a customer class
@@ -148,7 +151,8 @@ OPERATORS = {"eq": "equal to", "lt": "below", "le": "at most", "gt": "above", "g
              "le_unstated": "an upper bound; the source does not say whether the boundary value is included"}
 THRESHOLD_UNITS = {"kWh/yr": "kilowatt-hours a year", "MWh/yr": "megawatt-hours a year",
                    "GWh/yr": "gigawatt-hours a year", "kW": "kilowatts", "MW": "megawatts",
-                   "kVA": "kilovolt-amperes", "MVA": "megavolt-amperes"}
+                   "kVA": "kilovolt-amperes", "MVA": "megavolt-amperes", "kWh": "kilowatt-hours (a storage size)",
+                   "A_per_phase": "amperes per phase"}
 # value_text vocabulary of the categorical criteria (the others take free text)
 CRITERION_VALUES = {
     "customer_type": {"residential": "residential", "small_business": "small business",
@@ -170,6 +174,24 @@ CRITERION_VALUES = {
                             "controlled_load_device": "a controlled-load device",
                             "dedicated_circuit": "a dedicated circuit", "export_capable": "an export-capable system",
                             "storage": "storage", "flexible_load": "a flexible load", "heat_pump": "a heat pump"},
+    "connection": {"embedded_network_child": "a customer inside an embedded network",
+                   "embedded_network_parent": "the parent connection point of an embedded network",
+                   "not_embedded_network": "a connection that is not part of an embedded network",
+                   "single_phase": "a single-phase connection", "three_phase": "a three-phase connection",
+                   "multiple_nmis_aggregated": "several NMIs on one site, their consumption aggregated",
+                   "greenfield": "a new (greenfield) connection",
+                   "dedicated_circuit": "a separately wired dedicated circuit",
+                   "generator_connection": "a connection point that exists primarily to connect a generator",
+                   "alpine_region": "a supply in the alpine (snowfields) region",
+                   "rural": "a rural supply",
+                   "near_terminal_station": "within the stated distance of a terminal station",
+                   "far_from_terminal_station": "beyond the stated distance from a terminal station",
+                   "specific_network_location": "a named part of the network (named in the quote)"},
+    "agreement": {"partner_retailer": "only through a retailer partnered with the distributor",
+                  "distributor_agreement": "an agreement with the distributor",
+                  "connection_agreement": "a connection agreement that sets it",
+                  "trial_participant": "the customer has joined the distributor's trial",
+                  "retailer_request": "at the retailer's request"},
 }
 # tariff_assignment: how customers come to be on a tariff, one row per quoted statement
 ASSIGNMENTS = {"default": "customers are assigned to it unless they choose otherwise",
@@ -186,7 +208,8 @@ BLOCK_UNITS = {"kWh/day": "kWh per day", "kWh/billing_day": "kWh per day, multip
                "kWh/quarter": "kWh per calendar quarter", "kWh": "kWh; the source states no reset period"}
 # charge_rule: how a demand, capacity or export quantity is measured before its rate applies
 RULE_CHARGES = {"demand": "demand charges", "capacity": "capacity charges", "export": "export charges"}
-RULE_MEASURES = {"kW": "kilowatts", "kVA": "kilovolt-amperes", "kWh": "kilowatt-hours (an energy quantity)"}
+RULE_MEASURES = {"kW": "kilowatts", "kVA": "kilovolt-amperes", "kWh": "kilowatt-hours (an energy quantity)",
+                 "kva_else_kw": "kilovolt-amperes where the meter records them, else kilowatts"}
 RULE_METHODS = {
     "max": "the highest interval",
     "avg_top_n_days": "the mean of the n highest daily maxima",
@@ -206,8 +229,7 @@ RULE_N_METHODS = ["avg_top_n_days", "avg_top_n_intervals", "avg_nominated_days"]
 # the span the measured value is taken over before it starts again
 RULE_RESETS = {"day": "each day", "month": "each calendar month", "billing_period": "each billing period",
                "season": "each season", "year": "each financial year", "year_from_april": "1 April to 31 March",
-               "rolling_12_months": "the current billing month and the 11 before it",
-               "rolling_13_months": "the current billing month and the 12 before it"}
+               "rolling_months": "the current billing month and the months before it: lookback_months in all"}
 
 # ---------------------------------------------------------------------------------------------------------- units
 UNIT_QUANTITIES = {"customer": "per customer (a fixed charge)", "lamp": "per lamp (public lighting)",
@@ -358,6 +380,19 @@ TABLES = [
         ],
     },
     {
+        "name": "public_holiday",
+        "grain": "one public holiday of one state",
+        "source": "generated by scripts/tariffdb/build.py from the python-holidays package (version "
+                  "build_support.HOLIDAYS_VERSION), for the years the database stores",
+        "description": "The public-holiday calendar a distributor's windows treat as public holidays: the holidays of "
+                       "its state (distributor.state). How each window set prices them is window_set.public_holidays.",
+        "columns": [
+            col("state", "text", "jurisdiction", pk=True, enum="state"),
+            col("holiday_date", "date", "the day", pk=True),
+            col("name", "text", "the holiday's name (several joined with '; ' when they fall on one day)"),
+        ],
+    },
+    {
         "name": "source_document",
         "grain": "one version of one source document, held or not",
         "source": "sources/inventory.csv (2023-24 on) and sources/archive/inventory.csv (earlier years) read by "
@@ -458,7 +493,8 @@ TABLES = [
         ],
         "foreign_keys": [TARIFF_FK],
         "checks": ["link_no > 0",
-                   "linked_code IS NOT NULL OR link_type IN ('cannot_combine', 'secondary_of', 'primary_of')",
+                   "linked_code IS NOT NULL OR linked_customer_class IS NOT NULL "
+                   "OR link_type IN ('cannot_combine', 'secondary_of', 'primary_of')",
                    "linked_customer_class IS NULL OR linked_code IS NULL",
                    "(locator IS NULL) = (quote IS NULL)",
                    "quote IS NOT NULL OR link_type IN ('alias', 'zone_variant_of')",
@@ -538,11 +574,23 @@ TABLES = [
             col("distributor_id", "text", "distributor", fk="distributor.distributor_id"),
             col("name", "text", "what the windows are for, as the curator names them"),
             col("covers_full_day", "boolean", "1 when the windows partition each day type they name over 24 hours"),
-            col("time_basis", "text", "clock the times refer to, as stated", enum="time_basis"),
-            col("public_holidays", "text", "how public holidays are priced, as stated", enum="holiday_rule"),
             *quoted(),
+            col("time_basis", "text", "clock the times refer to, as stated; NULL = no held document states it",
+                null=True, enum="time_basis"),
+            col("time_basis_document_id", "text", "document stating the time basis", null=True,
+                fk="source_document.document_id"),
+            col("time_basis_locator", "text", "where it states it", null=True),
+            col("time_basis_quote", "text", "verbatim wording at that locator", null=True),
+            col("public_holidays", "text", "how public holidays are priced, as stated; NULL = no held document "
+                "says", null=True, enum="holiday_rule"),
+            col("public_holidays_document_id", "text", "document stating the holiday rule", null=True,
+                fk="source_document.document_id"),
+            col("public_holidays_locator", "text", "where it states it", null=True),
+            col("public_holidays_quote", "text", "verbatim wording at that locator", null=True),
             col("note", "text", "caveat from the curator", null=True),
         ],
+        "checks": [f"({k} IS NULL) = ({k}_{x} IS NULL)" for k in ("time_basis", "public_holidays")
+                   for x in ("document_id", "locator", "quote")],
     },
     {
         "name": "season",
@@ -676,9 +724,13 @@ TABLES.append({
             enum="rule_method"),
         col("n", "integer", "n of the avg_top_n methods and of avg_nominated_days", null=True),
         col("reset", "text", "span the measured value is taken over before it starts again", enum="rule_reset"),
-        col("minimum_value", "numeric", "smallest quantity charged, when stated", null=True, unit="see measure"),
+        col("lookback_months", "integer", "months a rolling_months reset looks back over, the billing month "
+            "included", null=True, unit="months"),
+        col("minimum_value", "numeric", "smallest quantity charged, when stated", null=True, unit="see minimum_unit"),
+        col("minimum_unit", "text", "unit of minimum_value", null=True, enum="rule_measure"),
         col("threshold_value", "numeric", "the charge applies only to the quantity above this, when stated "
-            "(e.g. export above 1.5 kW)", null=True, unit="see measure"),
+            "(e.g. export above 1.5 kW)", null=True, unit="see threshold_unit"),
+        col("threshold_unit", "text", "unit of threshold_value", null=True, enum="rule_measure"),
         col("allowance_per_day", "numeric", "free quantity per day before the charge applies, when stated", null=True,
             unit="see measure"),
         col("allowance_rollover", "boolean", "1 when an unused daily allowance carries over within the billing period",
@@ -688,7 +740,10 @@ TABLES.append({
     ],
     "foreign_keys": [TARIFF_FK],
     "checks": [f"(n IS NULL) = (method NOT IN ({', '.join(repr(m) for m in RULE_N_METHODS)}))",
-               "allowance_rollover IS NULL OR allowance_per_day IS NOT NULL"],
+               "allowance_rollover IS NULL OR allowance_per_day IS NOT NULL",
+               "(lookback_months IS NULL) = (reset != 'rolling_months')", "lookback_months IS NULL OR lookback_months > 0",
+               "(minimum_value IS NULL) = (minimum_unit IS NULL)", "(threshold_value IS NULL) = (threshold_unit IS NULL)",
+               "minimum_unit IS NOT 'kva_else_kw' AND threshold_unit IS NOT 'kva_else_kw'"],
 })
 
 TABLE_ORDER = [t["name"] for t in TABLES]

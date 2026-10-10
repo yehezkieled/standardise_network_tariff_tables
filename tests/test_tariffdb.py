@@ -160,13 +160,16 @@ class TestValidate(unittest.TestCase):
                                 for r in rows("rate")),
                   "quotes": sum(e["document_id"] in held and e["quote"] != ""
                                 for t in ("eligibility", "tariff_assignment", "tariff_link", "rate_condition")
-                                for e in rows(t))}
+                                for e in rows(t))
+                  + sum(w[f"{k}_document_id"] in held for w in rows("window_set")
+                        for k in ("time_basis", "public_holidays"))}
         self.assertEqual({k: checked[k] for k in expect}, expect, out)
         self.assertGreater(expect["values"], 0)
         if not COMMITTED_ONLY:
             self.assertEqual(expect, {"values": len(rows("rate")), "quotes": sum(
                 e["quote"] != "" for t in ("eligibility", "tariff_assignment", "tariff_link", "rate_condition")
-                for e in rows(t))})
+                for e in rows(t)) + sum(w[f"{k}_document_id"] != "" for w in rows("window_set")
+                                        for k in ("time_basis", "public_holidays"))})
 
     def test_coverage_lists_every_distributor_year(self):
         db = load.load()
@@ -234,9 +237,9 @@ class TestValidate(unittest.TestCase):
         def copy(to, period, season):
             """The window in a new set of its own, linked to the same tariff for `to` charges."""
             return self.broken(
-                f"INSERT INTO window_set SELECT '{new}', distributor_id, name, covers_full_day, time_basis, "
-                f"public_holidays, document_id, locator, quote, note FROM window_set "
-                f"WHERE window_set_id = '{tw['window_set_id']}'",
+                f"INSERT INTO window_set SELECT '{new}', "
+                + ", ".join(c["name"] for c in spec.BY_NAME["window_set"]["columns"][1:])
+                + f" FROM window_set WHERE window_set_id = '{tw['window_set_id']}'",
                 f"INSERT INTO season VALUES ('{new}:s', '{new}', {season}, 'copy')",
                 f"INSERT INTO season_part SELECT '{new}:s', part_no, start_month, start_day, start_anchor, end_month, "
                 f"end_day, end_anchor FROM season_part WHERE season_id = '{tw['season_id']}'",
@@ -431,7 +434,9 @@ class TestCuratedRateFacts(unittest.TestCase):
         files = {"essential": {
             "distributor": "essential",
             "tou_schedules": [dict(fact, id="essential-peak", name="peak", time_basis="local_time",
-                                   public_holidays="as_weekday", covers_full_day=False,
+                                   time_basis_locator="pdf:p1", time_basis_quote="local time",
+                                   public_holidays="as_weekday", public_holidays_locator="pdf:p1",
+                                   public_holidays_quote="public holidays as weekdays", covers_full_day=False,
                                    windows=[{"period": "peak", "label": "Peak", "days": "weekday", "start": "16:00",
                                              "end": "20:00"}],
                                    tariffs=[{"codes": ["A1"], "applies_to": "demand"}])],

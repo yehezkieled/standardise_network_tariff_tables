@@ -44,6 +44,13 @@ CREATE TABLE distributor (
   PRIMARY KEY (distributor_id)
 );
 
+CREATE TABLE public_holiday (
+  state TEXT NOT NULL CHECK (state IN ('NSW', 'VIC', 'QLD', 'SA', 'TAS', 'ACT', 'NT')),
+  holiday_date TEXT NOT NULL CHECK (holiday_date IS NULL OR holiday_date GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
+  name TEXT NOT NULL,
+  PRIMARY KEY (state, holiday_date)
+);
+
 CREATE TABLE source_document (
   document_id TEXT NOT NULL,
   distributor_id TEXT,
@@ -115,7 +122,7 @@ CREATE TABLE tariff_link (
   FOREIGN KEY (document_id) REFERENCES source_document (document_id),
   FOREIGN KEY (distributor_id, tariff_code, effective_from) REFERENCES tariff (distributor_id, tariff_code, effective_from),
   CHECK (link_no > 0),
-  CHECK (linked_code IS NOT NULL OR link_type IN ('cannot_combine', 'secondary_of', 'primary_of')),
+  CHECK (linked_code IS NOT NULL OR linked_customer_class IS NOT NULL OR link_type IN ('cannot_combine', 'secondary_of', 'primary_of')),
   CHECK (linked_customer_class IS NULL OR linked_code IS NULL),
   CHECK ((locator IS NULL) = (quote IS NULL)),
   CHECK (quote IS NOT NULL OR link_type IN ('alias', 'zone_variant_of')),
@@ -172,15 +179,29 @@ CREATE TABLE window_set (
   distributor_id TEXT NOT NULL,
   name TEXT NOT NULL,
   covers_full_day INTEGER NOT NULL CHECK (covers_full_day IN (0, 1)),
-  time_basis TEXT NOT NULL CHECK (time_basis IN ('local_time', 'standard_time', 'daylight_time', 'not_stated')),
-  public_holidays TEXT NOT NULL CHECK (public_holidays IN ('as_weekday', 'as_non_business_day', 'unchanged', 'not_stated')),
   document_id TEXT NOT NULL,
   locator TEXT NOT NULL,
   quote TEXT NOT NULL,
+  time_basis TEXT CHECK (time_basis IN ('local_time', 'standard_time', 'daylight_time')),
+  time_basis_document_id TEXT,
+  time_basis_locator TEXT,
+  time_basis_quote TEXT,
+  public_holidays TEXT CHECK (public_holidays IN ('as_weekday', 'as_non_business_day', 'unchanged')),
+  public_holidays_document_id TEXT,
+  public_holidays_locator TEXT,
+  public_holidays_quote TEXT,
   note TEXT,
   PRIMARY KEY (window_set_id),
   FOREIGN KEY (distributor_id) REFERENCES distributor (distributor_id),
-  FOREIGN KEY (document_id) REFERENCES source_document (document_id)
+  FOREIGN KEY (document_id) REFERENCES source_document (document_id),
+  FOREIGN KEY (time_basis_document_id) REFERENCES source_document (document_id),
+  FOREIGN KEY (public_holidays_document_id) REFERENCES source_document (document_id),
+  CHECK ((time_basis IS NULL) = (time_basis_document_id IS NULL)),
+  CHECK ((time_basis IS NULL) = (time_basis_locator IS NULL)),
+  CHECK ((time_basis IS NULL) = (time_basis_quote IS NULL)),
+  CHECK ((public_holidays IS NULL) = (public_holidays_document_id IS NULL)),
+  CHECK ((public_holidays IS NULL) = (public_holidays_locator IS NULL)),
+  CHECK ((public_holidays IS NULL) = (public_holidays_quote IS NULL))
 );
 
 CREATE TABLE season (
@@ -254,10 +275,10 @@ CREATE TABLE eligibility (
   tariff_code TEXT NOT NULL,
   effective_from TEXT NOT NULL CHECK (effective_from IS NULL OR effective_from GLOB '[12][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]'),
   criterion_group INTEGER NOT NULL CHECK (typeof(criterion_group) IN ('integer', 'null')),
-  criterion TEXT NOT NULL CHECK (criterion IN ('customer_type', 'voltage_level', 'consumption_min', 'consumption_max', 'demand_min', 'demand_max', 'meter_type', 'availability', 'requires_technology', 'minimum_demand_charge', 'other')),
+  criterion TEXT NOT NULL CHECK (criterion IN ('customer_type', 'voltage_level', 'consumption_min', 'consumption_max', 'demand_min', 'demand_max', 'meter_type', 'availability', 'requires_technology', 'minimum_demand_charge', 'supply_capacity', 'export_capacity', 'storage_capacity', 'connection', 'agreement', 'other')),
   operator TEXT CHECK (operator IN ('eq', 'lt', 'le', 'gt', 'ge', 'ge_unstated', 'le_unstated')),
   value_num NUMERIC CHECK (typeof(value_num) IN ('integer', 'real', 'null')),
-  value_unit TEXT CHECK (value_unit IN ('kWh/yr', 'MWh/yr', 'GWh/yr', 'kW', 'MW', 'kVA', 'MVA')),
+  value_unit TEXT CHECK (value_unit IN ('kWh/yr', 'MWh/yr', 'GWh/yr', 'kW', 'MW', 'kVA', 'MVA', 'kWh', 'A_per_phase')),
   value_text TEXT,
   document_id TEXT NOT NULL,
   locator TEXT NOT NULL,
@@ -274,7 +295,9 @@ CREATE TABLE eligibility (
   CHECK (criterion != 'voltage_level' OR value_text IS NULL OR value_text IN ('LV', 'HV', 'subtransmission', 'transmission', 'zone_substation')),
   CHECK (criterion != 'meter_type' OR value_text IS NULL OR value_text IN ('interval', 'smart', 'basic', 'accumulation', 'unmetered', 'any')),
   CHECK (criterion != 'availability' OR value_text IS NULL OR value_text IN ('open', 'closed_to_new', 'withdrawn', 'obsolete', 'trial', 'grandfathered', 'transitional')),
-  CHECK (criterion != 'requires_technology' OR value_text IS NULL OR value_text IN ('solar', 'battery', 'ev', 'controlled_load_device', 'dedicated_circuit', 'export_capable', 'storage', 'flexible_load', 'heat_pump'))
+  CHECK (criterion != 'requires_technology' OR value_text IS NULL OR value_text IN ('solar', 'battery', 'ev', 'controlled_load_device', 'dedicated_circuit', 'export_capable', 'storage', 'flexible_load', 'heat_pump')),
+  CHECK (criterion != 'connection' OR value_text IS NULL OR value_text IN ('embedded_network_child', 'embedded_network_parent', 'not_embedded_network', 'single_phase', 'three_phase', 'multiple_nmis_aggregated', 'greenfield', 'dedicated_circuit', 'generator_connection', 'alpine_region', 'rural', 'near_terminal_station', 'far_from_terminal_station', 'specific_network_location')),
+  CHECK (criterion != 'agreement' OR value_text IS NULL OR value_text IN ('partner_retailer', 'distributor_agreement', 'connection_agreement', 'trial_participant', 'retailer_request'))
 );
 
 CREATE TABLE charge_rule (
@@ -285,13 +308,16 @@ CREATE TABLE charge_rule (
   charge_type TEXT NOT NULL CHECK (charge_type IN ('demand', 'capacity', 'export')),
   tou_period TEXT CHECK (tou_period IN ('anytime', 'peak', 'shoulder', 'off_peak', 'super_off_peak', 'critical_peak', 'solar_soak', 'capacity_minimum', 'capacity_remaining', 'critical_minimum', 'dynamic_maximum', 'dynamic_minimum')),
   season TEXT CHECK (season IN ('summer', 'non_summer', 'high', 'low', 'winter', 'spring', 'autumn')),
-  measure TEXT NOT NULL CHECK (measure IN ('kW', 'kVA', 'kWh')),
+  measure TEXT NOT NULL CHECK (measure IN ('kW', 'kVA', 'kWh', 'kva_else_kw')),
   interval_min INTEGER CHECK (typeof(interval_min) IN ('integer', 'null')),
   method TEXT NOT NULL CHECK (method IN ('max', 'avg_top_n_days', 'avg_top_n_intervals', 'agreed', 'max_of_agreed_and_measured', 'sum', 'assigned', 'avg_nominated_days', 'max_daily_window_mean', 'excess_over_window_max', 'kva_at_max_kw', 'avg_daily_max')),
   n INTEGER CHECK (typeof(n) IN ('integer', 'null')),
-  reset TEXT NOT NULL CHECK (reset IN ('day', 'month', 'billing_period', 'season', 'year', 'year_from_april', 'rolling_12_months', 'rolling_13_months')),
+  reset TEXT NOT NULL CHECK (reset IN ('day', 'month', 'billing_period', 'season', 'year', 'year_from_april', 'rolling_months')),
+  lookback_months INTEGER CHECK (typeof(lookback_months) IN ('integer', 'null')),
   minimum_value NUMERIC CHECK (typeof(minimum_value) IN ('integer', 'real', 'null')),
+  minimum_unit TEXT CHECK (minimum_unit IN ('kW', 'kVA', 'kWh', 'kva_else_kw')),
   threshold_value NUMERIC CHECK (typeof(threshold_value) IN ('integer', 'real', 'null')),
+  threshold_unit TEXT CHECK (threshold_unit IN ('kW', 'kVA', 'kWh', 'kva_else_kw')),
   allowance_per_day NUMERIC CHECK (typeof(allowance_per_day) IN ('integer', 'real', 'null')),
   allowance_rollover INTEGER CHECK (allowance_rollover IN (0, 1)),
   document_id TEXT NOT NULL,
@@ -303,5 +329,10 @@ CREATE TABLE charge_rule (
   FOREIGN KEY (document_id) REFERENCES source_document (document_id),
   FOREIGN KEY (distributor_id, tariff_code, effective_from) REFERENCES tariff (distributor_id, tariff_code, effective_from),
   CHECK ((n IS NULL) = (method NOT IN ('avg_top_n_days', 'avg_top_n_intervals', 'avg_nominated_days'))),
-  CHECK (allowance_rollover IS NULL OR allowance_per_day IS NOT NULL)
+  CHECK (allowance_rollover IS NULL OR allowance_per_day IS NOT NULL),
+  CHECK ((lookback_months IS NULL) = (reset != 'rolling_months')),
+  CHECK (lookback_months IS NULL OR lookback_months > 0),
+  CHECK ((minimum_value IS NULL) = (minimum_unit IS NULL)),
+  CHECK ((threshold_value IS NULL) = (threshold_unit IS NULL)),
+  CHECK (minimum_unit IS NOT 'kva_else_kw' AND threshold_unit IS NOT 'kva_else_kw')
 );

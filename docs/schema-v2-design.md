@@ -20,7 +20,8 @@ on one branch, each building and green.
 | value_list | list_name, value | every allowed value and its definition |
 | data_dictionary | object_name, column_name | every table and view column: type, required, list, unit, meaning |
 | unit | unit | stored units: quantity, billing period, unit_std, calendar_factor |
-| distributor | distributor_id | name, state, time zone, DST, holiday_region |
+| distributor | distributor_id | name, state, time zone, DST |
+| public_holiday | state, holiday_date | each state's public holidays (python-holidays, generated), 2016 to the last pricing year |
 | source_document | document_id | document versions: URL, sha256, publisher, status |
 | tariff | distributor_id, tariff_code, effective_from | name, customer_class (+ _published), pricing_basis, status, document |
 | tariff_assignment | tariff key, assignment_no | default / opt_in / opt_out / mandatory ... per quoted statement, with who it applies to |
@@ -47,6 +48,8 @@ x season part), `unit_spelling` (published unit spellings per stored unit).
 - value_std = value x unit.multiplier; units per month or year carry calendar_factor (days_in_month, days_in_year).
 - Rate status, document and effective_to were copies of the tariff's in every row: dropped from rate (and
   effective_to from every child table).
-- Holidays: `distributor.holiday_region` names the state calendar; `window_set.public_holidays` says how windows
-  treat them, quoted, NULL where silent.
+- Holidays: `public_holiday` holds each state's calendar, joined through `distributor.state` (no separate region
+  column); `window_set.public_holidays` says how windows treat them, quoted, NULL where silent.
+- Clock and holiday rules found only in a guide's general definitions (Energex 2026-27, Ergon 2025-26 and 2026-27 trial
+  tariffs) are not applied to the trial schedules: they stay NULL.
 - Release adds `tariffdb.xlsx` (one sheet per flat view + a columns sheet) beside the SQLite, CSV zip and SHA256SUMS.

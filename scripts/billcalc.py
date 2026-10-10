@@ -25,7 +25,7 @@ Rules the calculator applies, all stated in the database except where an issue s
   - a rate joins its windows as scripts/tariffdb/joins.py says; window times are local clock times in the distributor's
     time zone (distributor.iana_timezone) unless the window says standard_time; an interval belongs to the window its
     start falls in;
-  - public holidays come from the `holidays` package for the distributor's state (the database has no calendar);
+  - public holidays are the public_holiday table's for the distributor's state;
   - demand and export quantities are measured as charge_rule states; without a rule, the highest 30-minute demand of
     each calendar month (issue demand_rule_absent).
 """
@@ -39,7 +39,6 @@ from datetime import date, datetime, timedelta, timezone
 from functools import lru_cache
 from zoneinfo import ZoneInfo
 
-import holidays
 import numpy as np
 import pandas as pd
 
@@ -194,8 +193,14 @@ def default_db():
 
 # ------------------------------------------------------------------------------------------------------- time handling
 @lru_cache(maxsize=256)
-def holiday_dates(state, years):
-    return frozenset(holidays.AU(subdiv=state, years=list(years)).keys())
+def holiday_dates(state, years, tables=TABLES):
+    """The state's public holidays in those calendar years, from the public_holiday table."""
+    df = pd.read_csv(os.path.join(tables, "public_holiday.csv"), dtype=str)
+    held = {int(d[:4]) for d in df.holiday_date}
+    if not set(years) <= held:
+        raise ValueError(f"public_holiday holds {min(held)}-{max(held)}, not {sorted(set(years) - held)}")
+    days = df.holiday_date[df.state == state]
+    return frozenset(date.fromisoformat(d) for d in days if int(d[:4]) in years)
 
 
 class Clock:
@@ -236,7 +241,7 @@ def window_mask(clock, w, holiday_rule=None):
     c = clock.clocks["standard" if w["time_basis"] == "standard_time" else "local"]
     rule = holiday_rule or w["public_holidays"]
     wd, ph = c["weekday"], c["holiday"]
-    as_non_business = rule in ("as_non_business_day", "not_stated")
+    as_non_business = rule in ("as_non_business_day", None)  # not stated: read as non-business days (flagged)
     days = {"all_days": np.ones(clock.n, bool),
             "weekday": wd & ~(ph & (rule == "as_non_business_day")),
             "weekend": ~wd | (ph & (rule == "as_non_business_day")),
@@ -256,12 +261,12 @@ def windows_mask(clock, ws, bill, period):
         if not w["months"] and not w["dst"]:
             bill.flag("window_months_not_stated", f"{period}: {w['window_id']}")
             continue
-        if w["time_basis"] == "not_stated":
+        if w["time_basis"] is None:
             bill.flag("time_basis_not_stated", f"{period}: {w['window_id']}")
         elif w["time_basis"] == "daylight_time":
             bill.flag("time_basis_daylight", f"{period}: {w['window_id']} read as local clock time")
         m = window_mask(clock, w)
-        if w["public_holidays"] == "not_stated" and w["day_type"] != "all_days":
+        if w["public_holidays"] is None and w["day_type"] != "all_days":
             alt = window_mask(clock, w, "as_weekday")
             if (alt != m).any():
                 bill.flag("public_holiday_rule_not_stated",
@@ -528,7 +533,7 @@ def find_rule(rules, rate):
     best = None
     q = unit_parts(rate["unit"])[0]
     for r in rules:
-        if r["charge_type"] != rate["charge_type"] or r["measure"] != q:
+        if r["charge_type"] != rate["charge_type"] or r["measure"] not in (q, "kva_else_kw" if q == "kVA" else q):
             continue
         if r["tou_period"] not in (None, rate["tou_period"]) or r["season"] not in (None, rate["season"]):
             continue
@@ -540,6 +545,8 @@ def find_rule(rules, rate):
 
 def demand_series(iv, measure, interval_min, b, period, component):
     kw = iv["E1"] * 60 / interval_min if "E1" in iv else pd.Series(0.0, index=iv.index)
+    if measure == "kva_else_kw":  # kVA where the meter records reactive energy, else kW
+        measure = "kVA" if "Q1" in iv else "kW"
     if measure == "kVA":
         if "Q1" not in iv:
             b.flag("reactive_energy_needed", f"{period}: {component} is measured in kVA")
@@ -675,7 +682,7 @@ def billing_periods(index, b, period, component):
 def reset_spans(index, reset, b, period, rate):
     """(label, boolean index, days in the span, days in a full span) per span the measured value restarts on."""
     day = pd.Index(index.date)
-    if reset not in ("day", "season", "year", "year_from_april", "rolling_12_months", "rolling_13_months"):
+    if reset not in ("day", "season", "year", "year_from_april", "rolling_months"):
         spans = billing_periods(index, b, period, rate["component"]) if reset == "billing_period" \
             else calendar_months(index)
         for label, idx, full in spans:
@@ -686,7 +693,7 @@ def reset_spans(index, reset, b, period, rate):
             idx = np.asarray(day == d)
             yield str(d), idx, 1, 1
         return
-    # season, year, rolling 12 months: the highest value since the span started; with only this bill's data the
+    # season, year, rolling months: the highest value since the span started; with only this bill's data the
     # span is cut to the data held
     b.flag("rolling_history_short", f"{period}: {rate['component']} resets by {reset}; only this bill's data is held")
     for p in sorted(set(index.to_period("M"))):

@@ -108,6 +108,20 @@ def customer_class(heading):
     return None
 
 
+def public_holidays():
+    """public_holiday rows: each state's holidays from the year before the first stored day (a financial year stored
+    from 1 January starts the July before) to the end of the last pricing year."""
+    import holidays  # only the full build needs it
+    if holidays.__version__ != bs.HOLIDAYS_VERSION:
+        raise SystemExit(f"public_holiday is generated with holidays=={bs.HOLIDAYS_VERSION}, not {holidays.__version__}")
+    years = range(int(bs.FIRST_STORED_DAY[:4]) - 1, spec.LAST_FIN_YEAR + 2)
+    out = []
+    for state in spec.STATES:
+        for day, name in sorted(holidays.AU(subdiv=state, years=list(years)).items()):
+            out.append({"state": state, "holiday_date": day.isoformat(), "name": name})
+    return out
+
+
 def season_parts(months):
     """([season_part columns], key) for a curated window's months: whole-month spans in order (a span may wrap the
     year end), the daylight-saving period ('dst') or the rest of the year ('not_dst'), or none when not stated."""
@@ -273,6 +287,8 @@ class Builder:
         for d in bs.DISTRIBUTORS:
             self.add("distributor", {k: d[k] for k in ("distributor_id", "name", "state", "iana_timezone")}
                      | {"observes_dst": int(d["observes_dst"])})
+        for r in public_holidays():
+            self.add("public_holiday", r)
         for d in self.docs:
             self.add("source_document", {
                 "document_id": d["document_id"], "distributor_id": d["distributor_id"], "pricing_year": d["fin_year"],
@@ -536,11 +552,17 @@ class Builder:
 
     def window_set(self, did, s, doc):
         wsid = s["id"]
-        self.add("window_set", {
-            "window_set_id": wsid, "distributor_id": did, "name": str(s["name"]),
-            "covers_full_day": int(bool(s.get("covers_full_day"))), "time_basis": s["time_basis"],
-            "public_holidays": s["public_holidays"], "document_id": doc, "locator": s["locator"],
-            "quote": str(s["quote"]), "note": s.get("note")})
+        row = {"window_set_id": wsid, "distributor_id": did, "name": str(s["name"]),
+               "covers_full_day": int(bool(s.get("covers_full_day"))), "document_id": doc, "locator": s["locator"],
+               "quote": str(s["quote"]), "note": s.get("note")}
+        for key in ("time_basis", "public_holidays"):
+            stated = s[key] != curated.NOT_STATED
+            row.update({key: s[key] if stated else None,
+                        f"{key}_document_id": (self.doc(s[f"{key}_doc"], wsid)["document_id"] if s.get(f"{key}_doc")
+                                               else doc) if stated else None,
+                        f"{key}_locator": s.get(f"{key}_locator") if stated else None,
+                        f"{key}_quote": str(s[f"{key}_quote"]) if stated else None})
+        self.add("window_set", row)
         labels = {}
         for w in s["windows"]:
             parts, what = season_parts(w.get("months"))
@@ -779,7 +801,11 @@ class Builder:
                        "effective_to": end, "charge_type": r["charge_type"], "tou_period": r.get("tou_period"),
                        "season": r.get("season"), "measure": r["measure"], "interval_min": r.get("interval_min"),
                        "method": r["method"], "n": r.get("n"), "reset": r["reset"],
-                       "minimum_value": r.get("minimum_value"), "threshold_value": r.get("threshold_value"),
+                       "lookback_months": r.get("lookback_months"), "minimum_value": r.get("minimum_value"),
+                       "minimum_unit": None if r.get("minimum_value") is None else r.get("minimum_unit", r["measure"]),
+                       "threshold_value": r.get("threshold_value"),
+                       "threshold_unit": None if r.get("threshold_value") is None
+                       else r.get("threshold_unit", r["measure"]),
                        "allowance_per_day": r.get("allowance_per_day"),
                        "allowance_rollover": None if r.get("allowance_rollover") is None
                        else int(r["allowance_rollover"]),

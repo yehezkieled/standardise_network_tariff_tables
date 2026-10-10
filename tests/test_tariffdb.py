@@ -53,6 +53,15 @@ class TestGeneratedFiles(unittest.TestCase):
         self.assertEqual(json.loads((DB_DIR / "schema.json").read_text()), spec.json_spec(),
                          "run scripts/tariffdb/build.py")
 
+    def test_reference_tables_are_current(self):
+        for name, spec_rows in (("data_dictionary", spec.data_dictionary_rows()),
+                                ("value_list", spec.value_list_rows()), ("unit", spec.unit_rows())):
+            held = [{k: v or None for k, v in r.items()} for r in rows(name)]
+            want = [{k: None if v is None else str(v) for k, v in r.items()} for r in spec_rows]
+            key = lambda r: [str(v) for v in r.values()]  # noqa: E731
+            self.assertEqual(sorted(held, key=key), sorted(want, key=key),
+                             f"{name}.csv is stale: run scripts/tariffdb/build.py")
+
     def test_schema_doc_is_current(self):
         for path, text in schema_doc.outputs().items():
             self.assertEqual(Path(path).read_text(encoding="utf-8"), text,

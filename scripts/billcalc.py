@@ -153,6 +153,7 @@ class Db:
 
     def __init__(self, tables=TABLES):
         read = lambda t: pd.read_csv(os.path.join(tables, f"{t}.csv"), dtype=str, keep_default_na=False)  # noqa: E731
+        self.tables = tables
         self.tariff = read("tariff")
         self.distributor = read("distributor").set_index("distributor_id")
         rate = read("rate")
@@ -193,7 +194,7 @@ def default_db():
 
 # ------------------------------------------------------------------------------------------------------- time handling
 @lru_cache(maxsize=256)
-def holiday_dates(state, years, tables=TABLES):
+def holiday_dates(state, years, tables):
     """The state's public holidays in those calendar years, from the public_holiday table."""
     df = pd.read_csv(os.path.join(tables, "public_holiday.csv"), dtype=str)
     held = {int(d[:4]) for d in df.holiday_date}
@@ -206,7 +207,7 @@ def holiday_dates(state, years, tables=TABLES):
 class Clock:
     """Each interval's NEM date, local clock time, local standard time, weekday and public-holiday flags."""
 
-    def __init__(self, index, tz_name, state, event_times=None):
+    def __init__(self, index, tz_name, state, event_times=None, tables=TABLES):
         tz = ZoneInfo(tz_name)
         utc = index.tz_localize(NEM).tz_convert("UTC")
         local = utc.tz_convert(tz).tz_localize(None)
@@ -215,7 +216,7 @@ class Clock:
         self.nem_date = np.array(index.date)
         self.clocks = {}
         for name, ts in (("local", local), ("standard", standard)):
-            ph = holiday_dates(state, tuple(sorted(set(ts.year))))
+            ph = holiday_dates(state, tuple(sorted(set(ts.year))), tables)
             self.clocks[name] = {
                 "minute": np.asarray(ts.hour * 60 + ts.minute), "month": np.asarray(ts.month),
                 "weekday": np.asarray(ts.weekday < 5), "holiday": np.isin(np.array(ts.date), list(ph)),
@@ -333,7 +334,7 @@ def bill(did, code, start, end, intervals, site=Site(), db=None):
         covered |= {p0 + timedelta(days=i) for i in range((p1 - p0).days + 1)}
         day = np.array(intervals.index.date)
         iv = intervals[(day >= p0) & (day <= p1)]
-        clock = Clock(iv.index, dist["iana_timezone"], dist["state"], site.event_times)
+        clock = Clock(iv.index, dist["iana_timezone"], dist["state"], site.event_times, db.tables)
         key = (did, code, t["effective_from"])
         bill_period(b, t, p0, p1, iv, clock, db.rates.get(key, []), db.windows.get(key, []), db.rules.get(key, []),
                     site)
@@ -755,7 +756,7 @@ def categorise(did, code, start, end, intervals, db=None):
         p0 = max(date.fromisoformat(t["effective_from"]), start)
         p1 = min(date.fromisoformat(t["effective_to"]), end)
         sel = np.flatnonzero((day >= p0) & (day <= p1))
-        clock = Clock(intervals.index[sel], dist["iana_timezone"], dist["state"])
+        clock = Clock(intervals.index[sel], dist["iana_timezone"], dist["state"], tables=db.tables)
         key = (did, code, t["effective_from"])
         windows, rates = db.windows.get(key, []), db.rates.get(key, [])
         cols["effective_from"][sel] = t["effective_from"]
